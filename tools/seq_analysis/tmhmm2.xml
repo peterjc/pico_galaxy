@@ -1,0 +1,75 @@
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.1">
+    <description>Find transmembrane domains in protein sequences</description>
+    <command interpreter="python">
+      tmhmm2.py $fasta_file $tabular_file
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <!--
+        <param name="version" type="select" display="radio" label="Model version">
+            <option value="">Version 1 (old)</option>
+            <option value="" selected="True">Version 2 (default)</option>
+        </param>
+        -->
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="TMHMM results" />
+    </outputs>
+    <requirements>
+    </requirements>
+    <tests>
+    </tests>
+    <help>
+    
+**What it does**
+
+This calls the TMHMM v2.0 tool for prediction of transmembrane (TM)  helices in proteins using a hidden Markov model (HMM).
+
+The input is a FASTA file of protein sequences, and the output is tabular with six columns (one row per protein):
+
+ 1. Sequence identifier
+ 2. Sequence length
+ 3. Expected number of amino acids in TM helices (ExpAA). If this number is larger than 18 it is very likely to be a transmembrane protein (OR have a signal peptide).
+ 4. Expected number of amino acids in TM helices in the first 60 amino acids of the protein (Exp60). If this number more than a few, be aware that a predicted transmembrane helix in the N-term could be a signal peptide.
+ 5. Number of transmembrane helices predicted by N-best.
+ 6. Topology predicted by N-best (encoded as a strip using o for output and i for inside)
+
+Predicted TM segments in the n-terminal region sometime turn out to be signal peptides.
+
+One of the most common mistakes by the program is to reverse the direction of proteins with one TM segment.
+
+Do not use the program to predict whether a non-membrane protein is cytoplasmic or not. 
+
+**Notes**
+
+The raw output from TMHMM v2.0 looks like this (six columns tab separated):
+
+=================================== ======= =========== ============= ========= =============================
+gi|2781234|pdb|1JLY|B               len=304 ExpAA=0.01  First60=0.00  PredHel=0 Topology=o
+gi|4959044|gb|AAD34209.1|AF069992_1 len=600 ExpAA=0.00  First60=0.00  PredHel=0 Topology=o
+gi|671626|emb|CAA85685.1|           len=473 ExpAA=0.19  First60=0.00  PredHel=0 Topology=o
+gi|3298468|dbj|BAA31520.1|          len=107 ExpAA=59.37 First60=31.17 PredHel=3 Topology=o23-45i52-74o89-106i
+=================================== ======= =========== ============= ========= =============================
+
+In order to make it easier to use in Galaxy, the wrapper script simplifies this to remove the redundant tags, and instead adds a comment line at the top with the column names:
+
+=================================== === ===== ======= ======= ====================
+#ID                                 len	ExpAA First60 PredHel Topology 
+gi|2781234|pdb|1JLY|B               304  0.01    0.00       0 o
+gi|4959044|gb|AAD34209.1|AF069992_1 600  0.00    0.00       0 o
+gi|671626|emb|CAA85685.1|           473  0.19    0.00       0 o
+gi|3298468|dbj|BAA31520.1|          107 59.37   31.17       3 o23-45i52-74o89-106i
+=================================== === ===== ======= ======= ====================
+
+**References**
+
+Krogh, Larsson, von Heijne, and Sonnhammer.
+Predicting Transmembrane Protein Topology with a Hidden Markov Model: Application to Complete Genomes.
+J. Mol. Biol. 305:567-580, 2001.
+
+Sonnhammer, von Heijne, and Krogh.
+A hidden Markov model for predicting transmembrane helices in protein sequences.
+In J. Glasgow et al., eds.: Proc. Sixth Int. Conf. on Intelligent Systems for Molecular Biology, pages 175-182. AAAI Press, 1998.
+
+    </help>
+</tool>
