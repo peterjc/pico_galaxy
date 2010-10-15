@@ -17,6 +17,11 @@
     <requirements>
     </requirements>
     <tests>
+        <test>
+            <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
+            <param name="organism" value="euk"/>
+            <output name="tabular_file" file="four_human_proteins.signalp3.tsv" ftype="tabular"/>
+        </test>
     </tests>
     <help>
     

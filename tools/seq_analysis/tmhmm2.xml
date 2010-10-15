@@ -18,6 +18,10 @@
     <requirements>
     </requirements>
     <tests>
+        <test>
+            <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
+            <output name="tabular_file" file="four_human_proteins.tmhmm2.tsv" ftype="tabular"/>
+        </test>
     </tests>
     <help>
     

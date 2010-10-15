@@ -1,0 +1,5 @@
+#ID	NN_Cmax_score	NN_Cmax_pos	NN_Cmax_pred	NN_Ymax_score	NN_Ymax_pos	NN_Ymax_pred	NN_Smax_score	NN_Smax_pos	NN_Smax_pred	NN_Smean_score	NN_Smean_pred	NN_D_score	NN_D_pred	HMM_type	HMM_Cmax_score	HMM_Cmax_pos	HMM_Cmax_pred	HMM_Sprob_score	HMM_Sprob_pred
+sp|Q9BS26|ERP44_HUMAN	0.565	30	Y	0.686	30	Y	0.986	12	Y	0.818	Y	0.752	Y	S	0.945	30	Y	0.966	Y
+sp|Q9NSY1|BMP2K_HUMAN	0.153	869	N	0.050	270	N	0.229	12	N	0.008	N	0.029	N	Q	0.000	0	N	0.000	N
+sp|P06213|INSR_HUMAN	0.396	28	Y	0.561	28	Y	0.993	19	Y	0.902	Y	0.731	Y	Q	0.205	28	N	0.341	N
+sp|P08100|OPSD_HUMAN	0.211	52	N	0.344	52	Y	0.945	50	Y	0.245	N	0.295	N	Q	0.000	52	N	0.000	N
