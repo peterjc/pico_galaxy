@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 """Wrapper for SignalP v3.0 for use in Galaxy.
 
-This script takes exactly three command line arguments - the organism type,
-an input protein FASTA filename and an output tabular filename. It then calls
-the standalone SignalP v3.0 program (not the webservice) requesting the short
-output (one line per protein) using both NN and HMM for predictions.
+This script takes exactly four command line arguments - the organism type,
+number of threads to use (integer), an input protein FASTA filename and an
+output tabular filename. It then calls the standalone SignalP v3.0 program
+(not the webservice) requesting the short output (one line per protein)
+using both NN and HMM for predictions.
 
 First major feature is cleaning up the output. The raw output from SignalP
 v3.0 looks like this (21 columns space separated):
@@ -30,14 +31,16 @@ The second major feature is overcoming SignalP's built in limit of 4000
 sequences by breaking up the input FASTA file into chunks. This also allows
 us to pre-trim the sequences since SignalP only needs their starts.
 
-The third major potential feature is taking advantage of multiple cores
-(since SignalP v3.0 itself is single threaded) by using the individual FASTA
-input files to run multiple copies of TMHMM in parallel. I would normally use
-Python's multiprocessing library in this situation but it requires at least
-Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
+The third major feature is taking advantage of multiple cores (since SignalP
+v3.0 itself is single threaded) by using the individual FASTA input files to
+run multiple copies of TMHMM in parallel. I would normally use Python's
+multiprocessing library in this situation but it requires at least Python 2.6
+and at the time of writing Galaxy still supports Python 2.4.
 """
 import sys
 import os
+import subprocess
+from time import sleep
 
 FASTA_CHUNK = 500
 TRUNCATE = 60
@@ -46,13 +49,19 @@ def stop_err(msg, error_level=1):
     sys.stderr.write("%s\n" % msg)
     sys.exit(error_level)
 
-if len(sys.argv) != 4:
-   stop_err("Require three arguments, organism, input protein FASTA file & output tabular file")
+if len(sys.argv) != 5:
+   stop_err("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
 organism = sys.argv[1]
 if organism not in ["euk", "gram+", "gram-"]:
-   stop_err("Organism argument %s is not one of euk, gram+ or gram-")
-fasta_file = sys.argv[2]
-tabular_file = sys.argv[3]
+   stop_err("Organism argument %s is not one of euk, gram+ or gram-" % organism)
+try:
+   num_threads = int(sys.argv[2])
+except:
+   num_threads = 0
+if num_threads < 1:
+   stop_err("Threads argument %s is not a positive integer" % sys.argv[2])
+fasta_file = sys.argv[3]
+tabular_file = sys.argv[4]
 
 def fasta_iterator(filename):
     """Simple FASTA parser yielding tuples of (title, sequence) strings."""
@@ -118,24 +127,49 @@ def clean_tabular(raw_handle, out_handle):
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
 
+def run_jobs(jobs, threads):
+    """Takes list of cmd strings, returns dict with error levels."""
+    running = []
+    results = {}
+    while jobs or running:
+        #print "%i jobs pending, %i running, %i completed" \
+        #      % (len(jobs), len(running), len(results))
+        #See if any have finished
+        for (cmd, process) in running:
+            return_code = process.wait()
+            if return_code is not None:
+                results[cmd] = return_code
+        running = [(cmd, process) for (cmd, process) in running \
+                   if cmd not in results]
+        #See if we can start any new threads
+        while jobs and len(running) < threads:
+            cmd = jobs.pop(0)
+            process = subprocess.Popen(cmd, shell=True)
+            running.append((cmd, process))
+        #Loop...
+        sleep(1)
+    #print "%i jobs completed" % len(results)
+    return results
+
 fasta_files = split_fasta(fasta_file, FASTA_CHUNK, TRUNCATE)
 temp_files = [f+".out" for f in fasta_files]
+jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
+        for fasta, temp in zip(fasta_files, temp_files)]
 
 def clean_up(file_list):
     for f in file_list:
         if os.path.isfile(f):
             os.remove(f)
 
-#TODO - Make this bit run on multiple cores...
-error_level = 0
-for fasta, temp in zip(fasta_files, temp_files):
-    cmd = "signalp -short -t %s %s > %s" % (organism, fasta, temp)
-    #print cmd
-    error_level = os.system(cmd)
+if len(jobs) > 1 and num_threads > 1:
+    #A small "info" message for Galaxy to show the user.
+    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+for cmd, error_level in run_jobs(jobs, num_threads).iteritems():
     if error_level:
         clean_up(fasta_files)
         clean_up(temp_files)
-        stop_err("Failed with error level %i, %r" % (error_level, cmd), error_level)
+        stop_err("One or more tasks failed, e.g. %i from %r" % (error_level, cmd),
+                 error_level)
 
 out_handle = open(tabular_file, "w")
 fields = ["ID"]

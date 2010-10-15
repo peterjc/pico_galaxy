@@ -1,7 +1,8 @@
 <tool id="signalp3" name="SignalP 3.0" version="0.0.1">
     <description>Find signal peptides in protein sequences</description>
     <command interpreter="python">
-      signalp3.py $organism $fasta_file $tabular_file
+      signalp3.py $organism 8 $fasta_file $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
