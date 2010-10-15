@@ -40,14 +40,14 @@ def fasta_iterator(filename):
         yield title, seq
     raise StopIteration
 
-def split_fasta(filename, n=500, truncate=None):
+def split_fasta(input_filename, output_filename_base, n=500, truncate=None):
     """Split FASTA file into sub-files each of at most n sequences.
 
     Returns a list of the filenames used (based on the input filename).
     Each sequence can also be truncated (since we only need the start for
     SignalP).
     """
-    iterator = fasta_iterator(filename)
+    iterator = fasta_iterator(input_filename)
     files = []
     while True:
         records = []
@@ -58,10 +58,7 @@ def split_fasta(filename, n=500, truncate=None):
                 break
         if not records:
             break
-        #TODO - Use the tempfile library?
-        #That avoids potential problem where we may not have write permission
-        #in the folder (can that happen in Galaxy though?)
-        new_filename = "%s.%i.tmp" % (filename, len(files))
+        new_filename = "%s.%i.tmp" % (output_filename_base, len(files))
         handle = open(new_filename, "w")
         if truncate:
             for title, seq in records:

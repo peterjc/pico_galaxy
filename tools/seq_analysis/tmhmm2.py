@@ -71,7 +71,7 @@ def clean_tabular(raw_handle, out_handle):
 	out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n" \
                    % (identifier, length, expAA, first60, predhel, topology))
 
-fasta_files = split_fasta(fasta_file, FASTA_CHUNK)
+fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK)
 temp_files = [f+".out" for f in fasta_files]
 jobs = ["tmhmm %s > %s" % (fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]

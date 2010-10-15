@@ -71,7 +71,7 @@ def clean_tabular(raw_handle, out_handle):
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
 
-fasta_files = split_fasta(fasta_file, FASTA_CHUNK, TRUNCATE)
+fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK, TRUNCATE)
 temp_files = [f+".out" for f in fasta_files]
 jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
