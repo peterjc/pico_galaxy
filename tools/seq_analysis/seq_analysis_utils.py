@@ -40,12 +40,13 @@ def fasta_iterator(filename):
         yield title, seq
     raise StopIteration
 
-def split_fasta(input_filename, output_filename_base, n=500, truncate=None):
+def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep_descr=False):
     """Split FASTA file into sub-files each of at most n sequences.
 
     Returns a list of the filenames used (based on the input filename).
     Each sequence can also be truncated (since we only need the start for
-    SignalP).
+    SignalP), and have its description discarded (since we don't usually
+    care about it and some tools don't like very long title lines).
     """
     iterator = fasta_iterator(input_filename)
     files = []
@@ -60,14 +61,24 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None):
             break
         new_filename = "%s.%i.tmp" % (output_filename_base, len(files))
         handle = open(new_filename, "w")
-        if truncate:
-            for title, seq in records:
-                handle.write(">%s\n%s\n" % (title, seq[:truncate]))
+        if keep_descr:
+            if truncate:
+                for title, seq in records:
+                    handle.write(">%s\n%s\n" % (title, seq[:truncate]))
+            else:
+                for title, seq in records:
+                    handle.write(">%s\n" % title)
+                    for i in range(0, len(seq), 60):
+                        handle.write(seq[i:i+60] + "\n")
         else:
-            for title, seq in records:
-                handle.write(">%s\n" % title)
-                for i in range(0, len(seq), 60):
-                    handle.write(seq[i:i+60] + "\n")
+            if truncate:
+                for title, seq in records:
+                    handle.write(">%s\n%s\n" % (title.split()[0], seq[:truncate]))
+            else:
+                for title, seq in records:
+                    handle.write(">%s\n" % title.split()[0])
+                    for i in range(0, len(seq), 60):
+                        handle.write(seq[i:i+60] + "\n")
         handle.close()
         files.append(new_filename)
         #print "%i records in %s" % (len(records), new_filename)
@@ -75,9 +86,10 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None):
 
 def run_jobs(jobs, threads):
     """Takes list of cmd strings, returns dict with error levels."""
+    pending = jobs[:]
     running = []
     results = {}
-    while jobs or running:
+    while pending or running:
         #print "%i jobs pending, %i running, %i completed" \
         #      % (len(jobs), len(running), len(results))
         #See if any have finished
@@ -88,11 +100,12 @@ def run_jobs(jobs, threads):
         running = [(cmd, process) for (cmd, process) in running \
                    if cmd not in results]
         #See if we can start any new threads
-        while jobs and len(running) < threads:
-            cmd = jobs.pop(0)
+        while pending and len(running) < threads:
+            cmd = pending.pop(0)
             process = subprocess.Popen(cmd, shell=True)
             running.append((cmd, process))
         #Loop...
         sleep(1)
     #print "%i jobs completed" % len(results)
+    assert set(jobs) == set(results)
     return results

@@ -64,7 +64,7 @@ def clean_tabular(raw_handle, out_handle):
         if not line or line.startswith("#"):
             continue
         parts = line.rstrip("\r\n").split()
-        assert len(parts)==21
+        assert len(parts)==21, repr(line)
         assert parts[14].startswith(parts[0])
         #Remove redundant truncated name column (col 0)
         #and put full name at start (col 14)
@@ -73,8 +73,10 @@ def clean_tabular(raw_handle, out_handle):
 
 fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK, TRUNCATE)
 temp_files = [f+".out" for f in fasta_files]
+assert len(fasta_files) == len(temp_files)
 jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
-        for fasta, temp in zip(fasta_files, temp_files)]
+        for (fasta, temp) in zip(fasta_files, temp_files)]
+assert len(fasta_files) == len(temp_files) == len(jobs)
 
 def clean_up(file_list):
     for f in file_list:
@@ -84,12 +86,17 @@ def clean_up(file_list):
 if len(jobs) > 1 and num_threads > 1:
     #A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
-for cmd, error_level in run_jobs(jobs, num_threads).iteritems():
-    if error_level:
+results = run_jobs(jobs, num_threads)
+assert len(fasta_files) == len(temp_files) == len(jobs)
+for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
+    error_level = results[cmd]
+    output = open(temp).readline()
+    if error_level or output.lower().startswith("error running"):
         clean_up(fasta_files)
         clean_up(temp_files)
-        stop_err("One or more tasks failed, e.g. %i from %r" % (error_level, cmd),
+        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
+del results
 
 out_handle = open(tabular_file, "w")
 fields = ["ID"]

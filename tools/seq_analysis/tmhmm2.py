@@ -84,12 +84,16 @@ def clean_up(file_list):
 if len(jobs) > 1 and num_threads > 1:
     #A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
-for cmd, error_level in run_jobs(jobs, num_threads).iteritems():
+results = run_jobs(jobs, num_threads)
+for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
+    error_level = results[cmd]
     if error_level:
         clean_up(fasta_files)
         clean_up(temp_files)
-        stop_err("One or more tasks failed, e.g. %i from %r" % (error_level, cmd),
+        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
+del results
+del jobs
 
 out_handle = open(tabular_file, "w")
 out_handle.write("#ID\tlen\tExpAA\tFirst60\tPredHel\tTopology\n")
