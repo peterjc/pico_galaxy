@@ -1,0 +1,99 @@
+<tool id="signalp3" name="SignalP 3.0" version="0.0.1">
+    <description>Find signal peptides in protein sequences</description>
+    <command interpreter="python">
+      signalp3.py $organism $fasta_file $tabular_file
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="organism" type="select" display="radio" label="Organism">
+            <option value="euk">Eukaryote</option>
+            <option value="gram+">Gram positive</option>
+            <option value="gram-">Gram negative</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="SignalP $organism results" />
+    </outputs>
+    <requirements>
+    </requirements>
+    <tests>
+    </tests>
+    <help>
+    
+**What it does**
+
+This calls the SignalP v3.0 tool for prediction of signal peptides, which uses both a neural network (NN) and Hidden Markmov Model (HMM) to produce two sets of scores.
+
+The input is a FASTA file of protein sequences, and the output is tabular with twenty columns (one row per protein):
+
+ * Sequence identifier
+ * Neural Network (NN) predictions (13 columns)
+ * Hidden Markov Model (HMM) predictions (6 columns)
+
+**Neural Network Scores**
+
+For each organism class (Eukaryote, Gram-negative and Gram-positive), two different neural networks are used, one for predicting the actual signal peptide and one for predicting the position of the signal peptidase I (SPase I) cleavage site. 
+
+The NN output comprises three different scores (C-max, S-max and Y-max) and two scores derived from them (S-mean and D-score).
+
+The C-score is the 'cleavage site' score. For each position in the submitted sequence, a C-score is reported, which should only be significantly high at the cleavage site. Confusion is often seen with the position numbering of the cleavage site. When a cleavage site position is referred to by a single number, the number indicates the first residue in the mature protein, meaning that a reported cleavage site between amino acid 26-27 corresponds to that the mature protein starts at (and include) position 27.
+
+The S-score for the signal peptide prediction is calculateded for every single amino acid position in the submitted sequence (not shown in the output via Galaxy), with high scores indicating that the corresponding amino acid is part of a signal peptide, and low scores indicating that the amino acid is part of a mature protein.
+
+Y-max is a derivative of the C-score combined with the S-score resulting in a better cleavage site prediction than the raw C-score alone. This is due to the fact that multiple high-peaking C-scores can be found in one sequence, where only one is the true cleavage site. The cleavage site is assigned from the Y-score where the slope of the S-score is steep and a significant C-score is found.
+
+The S-mean is the average of the S-score, ranging from the N-terminal amino acid to the amino acid assigned with the highest Y-max score, thus the S-mean score is calculated for the length of the predicted signal peptide. The S-mean score was in SignalP version 2.0 used as the criteria for discrimination of secretory and non-secretory proteins.
+
+The D-score is introduced in SignalP version 3.0 and is a simple average of the S-mean and Y-max score. The score shows superior discrimination performance of secretory and non-secretory proteins to that of the S-mean score which was used in SignalP version 1 and 2.
+
+For non-secretory proteins all the scores represented in the SignalP3-NN output should ideally be very low.
+
+**Hidden Markov Model Scores**
+
+The hidden Markov model calculates the probability of whether the submitted sequence contains a signal peptide or not. The eukaryotic HMM model also reports the probability of a signal anchor, previously named uncleaved signal peptides. Furthermore, the cleavage site is assigned by a probability score together with scores for the n-region, h-region, and c-region of the signal peptide, if such one is found.
+
+The 'type' column uses 'S' for a signal peptide (i.e. secretory protein) and 'Q' for non-secretory protein.
+
+**Notes**
+
+The raw output 'short' output from TMHMM v2.0 looks something like this (21 columns space separated - shown here formatted nicely). Notice that the identifiers are given twice, the first time truncated (as part of the NN predictions) and the second time in full (in the HMM predictions).
+
+====================  ===== === =  ===== === =  ===== === =  ===== =  ===== =   ===================================  =  ===== === =  ===== =
+# SignalP-NN euk predictions                                   	                # SignalP-HMM euk predictions
+-----------------------------------------------------------------------------   ------------------------------------------------------------
+# name                Cmax  pos ?  Ymax  pos ?  Smax  pos ?  Smean ?  D     ? 	# name                               !  Cmax  pos ?  Sprob ?
+gi|2781234|pdb|1JLY|  0.061  17 N  0.043  17 N  0.199   1 N  0.067 N  0.055 N	gi|2781234|pdb|1JLY|B                Q  0.000  17 N  0.000 N  
+gi|4959044|gb|AAD342  0.099 191 N  0.012  38 N  0.023  12 N  0.014 N  0.013 N	gi|4959044|gb|AAD34209.1|AF069992_1  Q  0.000   0 N  0.000 N  
+gi|671626|emb|CAA856  0.139 381 N  0.020   8 N  0.121   4 N  0.067 N  0.044 N	gi|671626|emb|CAA85685.1|            Q  0.000   0 N  0.000 N  
+gi|3298468|dbj|BAA31  0.208  24 N  0.184  38 N  0.980  32 Y  0.613 Y  0.398 N	gi|3298468|dbj|BAA31520.1|           Q  0.066  24 N  0.139 N
+====================  ===== === =  ===== === =  ===== === =  ===== =  ===== =   ===================================  =  ===== === =  ===== =
+
+In order to make this easier to use in Galaxy, the wrapper script simplifies this to remove the redundant column and use tabs for separation. It also includes a header line with unique column names.
+
+=================================== ============= =========== ============ ============= =========== ============ ============= =========== ============ ============== ============= ========== ========= ======== ============== ============ ============= =============== ==============
+#ID                                 NN_Cmax_score NN_Cmax_pos NN_Cmax_pred NN_Ymax_score NN_Ymax_pos NN_Ymax_pred NN_Smax_score NN_Smax_pos NN_Smax_pred NN_Smean_score NN_Smean_pred NN_D_score NN_D_pred HMM_type HMM_Cmax_score HMM_Cmax_pos HMM_Cmax_pred HMM_Sprob_score HMM_Sprob_pred
+gi|2781234|pdb|1JLY|B  0.061  17  N 0.043         17          N            0.199         1           N            0.067         1           N            0.067          N             0.055      N         Q        0.000          17           N             0.000           N
+gi|4959044|gb|AAD34209.1|AF069992_1 0.099         191         N            0.012         38          N            0.023         12          N            0.014          N             0.013      N         Q        0.000          0            N             0.000           N
+gi|671626|emb|CAA85685.1|           0.139         381         N            0.020         8           N            0.121         4           N            0.067          N             0.044      N         Q        0.000          0            N             0.000           N
+gi|3298468|dbj|BAA31520.1|          0.208         24          N            0.184         38          N            0.980         32          Y            0.613          Y             0.398      N         Q        0.066          24           N             0.139           N
+=================================== ============= =========== ============ ============= =========== ============ ============= =========== ============ ============== ============= ========== ========= ======== ============== ============ ============= =============== ==============
+
+**References**
+
+Bendtsen, Nielsen, von Heijne, and Brunak.
+Improved prediction of signal peptides: SignalP 3.0.
+J. Mol. Biol., 340:783-795, 2004.
+
+Nielsen, Engelbrecht, Brunak and von Heijne.
+Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
+Protein Engineering, 10:1-6, 1997.
+
+Nielsen and Krogh.
+Prediction of signal peptides and signal anchors by a hidden Markov model.
+Proceedings of the Sixth International Conference on Intelligent Systems for Molecular Biology (ISMB 6),
+AAAI Press, Menlo Park, California, pp. 122-130, 1998.
+
+http://www.cbs.dtu.dk/services/SignalP-3.0/output.php
+
+    </help>
+</tool>
