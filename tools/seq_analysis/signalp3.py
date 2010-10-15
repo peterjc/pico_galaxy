@@ -43,6 +43,7 @@ from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
 FASTA_CHUNK = 500
 TRUNCATE = None
+MAX_LEN = 6000 #Found by trial and error
 
 if len(sys.argv) != 5:
    stop_err("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
@@ -71,7 +72,7 @@ def clean_tabular(raw_handle, out_handle):
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
 
-fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK, TRUNCATE)
+fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK, truncate=TRUNCATE, max_len=MAX_LEN)
 temp_files = [f+".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
 jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)

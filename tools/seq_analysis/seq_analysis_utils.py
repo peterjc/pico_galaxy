@@ -17,13 +17,16 @@ def stop_err(msg, error_level=1):
     sys.stderr.write("%s\n" % msg)
     sys.exit(error_level)
 
-def fasta_iterator(filename):
+def fasta_iterator(filename, max_len=None):
     """Simple FASTA parser yielding tuples of (title, sequence) strings."""
     handle = open(filename)
     title, seq = "", ""
     for line in handle:
         if line.startswith(">"):
             if title:
+                if max_len and len(seq) > max_len:
+                    raise ValueError("Sequence %s is length %i, max length %i" \
+                                     % (title.split()[0], len(seq), max_len))
                 yield title, seq
             title = line[1:].rstrip()
             seq = ""
@@ -37,18 +40,24 @@ def fasta_iterator(filename):
             raise ValueError("Bad FASTA line %r" % line)
     handle.close()
     if title:
+        if max_len and len(seq) > max_len:
+            raise ValueError("Sequence %s is length %i, max length %i" \
+                             % (title.split()[0], len(seq), max_len))
         yield title, seq
     raise StopIteration
 
-def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep_descr=False):
+def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep_descr=False, max_len=None):
     """Split FASTA file into sub-files each of at most n sequences.
 
     Returns a list of the filenames used (based on the input filename).
     Each sequence can also be truncated (since we only need the start for
     SignalP), and have its description discarded (since we don't usually
     care about it and some tools don't like very long title lines).
+
+    If a max_len is given and any sequence exceeds it no temp files are
+    created and an exception is raised.
     """
-    iterator = fasta_iterator(input_filename)
+    iterator = fasta_iterator(input_filename, max_len)
     files = []
     while True:
         records = []
