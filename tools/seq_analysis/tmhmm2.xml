@@ -1,7 +1,8 @@
 <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.1">
     <description>Find transmembrane domains in protein sequences</description>
     <command interpreter="python">
-      tmhmm2.py $fasta_file $tabular_file
+      tmhmm2.py 8 $fasta_file $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 

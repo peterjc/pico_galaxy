@@ -32,18 +32,23 @@ least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 """
 import sys
 import os
+from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
-def stop_err(msg, error_level=1):
-    sys.stderr.write("%s\n" % msg)
-    sys.exit(error_level)
+FASTA_CHUNK = 500
 
-if len(sys.argv) != 3:
-   stop_err("Require two arguments, input protein FASTA file & output tabular file")
-fasta_file = sys.argv[1]
-tabular_file = sys.argv[2]
-temp_file = tabular_file + ".tmp"
+if len(sys.argv) != 4:
+   stop_err("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
+try:
+   num_threads = int(sys.argv[1])
+except:
+   num_threads = 0
+if num_threads < 1:
+   stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
+fasta_file = sys.argv[2]
+tabular_file = sys.argv[3]
 
 def clean_tabular(raw_handle, out_handle):
+    """Clean up tabular TMHMM output."""
     for line in raw_handle:
         if not line:
             continue
@@ -66,17 +71,33 @@ def clean_tabular(raw_handle, out_handle):
 	out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n" \
                    % (identifier, length, expAA, first60, predhel, topology))
 
-cmd = "tmhmm %s > %s" % (fasta_file, temp_file)
-error_level = os.system(cmd)
-if error_level:
-    if os.path.isfile(temp_file):
-       os.remove(temp_file)
-    stop_err("Failed with error level %i" % error_level, error_level)
+fasta_files = split_fasta(fasta_file, FASTA_CHUNK)
+temp_files = [f+".out" for f in fasta_files]
+jobs = ["tmhmm %s > %s" % (fasta, temp)
+        for fasta, temp in zip(fasta_files, temp_files)]
 
-data_handle = open(temp_file)
+def clean_up(file_list):
+    for f in file_list:
+        if os.path.isfile(f):
+            os.remove(f)
+
+if len(jobs) > 1 and num_threads > 1:
+    #A small "info" message for Galaxy to show the user.
+    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+for cmd, error_level in run_jobs(jobs, num_threads).iteritems():
+    if error_level:
+        clean_up(fasta_files)
+        clean_up(temp_files)
+        stop_err("One or more tasks failed, e.g. %i from %r" % (error_level, cmd),
+                 error_level)
+
 out_handle = open(tabular_file, "w")
 out_handle.write("#ID\tlen\tExpAA\tFirst60\tPredHel\tTopology\n")
-clean_tabular(data_handle, out_handle)
+for temp in temp_files:
+    data_handle = open(temp)
+    clean_tabular(data_handle, out_handle)
+    data_handle.close()
 out_handle.close()
-data_handle.close()
-os.remove(temp_file)
+
+clean_up(fasta_files)
+clean_up(temp_files)
