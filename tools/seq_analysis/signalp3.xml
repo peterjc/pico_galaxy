@@ -1,7 +1,7 @@
 <tool id="signalp3" name="SignalP 3.0" version="0.0.1">
     <description>Find signal peptides in protein sequences</description>
     <command interpreter="python">
-      signalp3.py $organism 8 $fasta_file $tabular_file
+      signalp3.py $organism $truncate 8 $fasta_file $tabular_file
       ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>
@@ -10,6 +10,9 @@
             <option value="euk">Eukaryote</option>
             <option value="gram+">Gram positive</option>
             <option value="gram-">Gram negative</option>
+        </param>
+        <param name="truncate" type="integer" label="Truncate sequences to this many amino acids" value="60" help="Use zero for no truncation, maximum value 6000">
+            <validator type="in_range" min="0" max="6000" message="Truncation value should be at most 6000. Use zero for no truncation."/>
         </param>
     </inputs>
     <outputs>
@@ -21,6 +24,7 @@
         <test>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
             <param name="organism" value="euk"/>
+            <param name="truncate" value="0"/> 
             <output name="tabular_file" file="four_human_proteins.signalp3.tsv" ftype="tabular"/>
         </test>
     </tests>
@@ -35,6 +39,8 @@ The input is a FASTA file of protein sequences, and the output is tabular with t
  * Sequence identifier
  * Neural Network (NN) predictions (13 columns)
  * Hidden Markov Model (HMM) predictions (6 columns)
+
+Internally the input FASTA file is divided into parts (to allow multiple processors to be used), and the proteins truncated as specified (see below). The raw output from SignalP is then reformatted into a tabular layout suitable for Galaxy (see below).
 
 **Neural Network Scores**
 
@@ -83,6 +89,10 @@ gi|4959044|gb|AAD34209.1|AF069992_1 0.099         191         N            0.012
 gi|671626|emb|CAA85685.1|           0.139         381         N            0.020         8           N            0.121         4           N            0.067          N             0.044      N         Q        0.000          0            N             0.000           N
 gi|3298468|dbj|BAA31520.1|          0.208         24          N            0.184         38          N            0.980         32          Y            0.613          Y             0.398      N         Q        0.066          24           N             0.139           N
 =================================== ============= =========== ============ ============= =========== ============ ============= =========== ============ ============== ============= ========== ========= ======== ============== ============ ============= =============== ==============
+
+**Truncation**
+
+Signal peptides are found at the start of a protein, so there is limited value in providing the full length sequence, and providing the full sequence slows down the analysis. Furthermore, SignalP has an upper bound on the sequence length it will accept (6000bp). Thus for practical reasons it is useful to truncate the proteins before passing them to SignalP. However, the precise point they are truncated does have a small influence on some score values, and thus to the results.
 
 **References**
 

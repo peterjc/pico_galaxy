@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 """Wrapper for SignalP v3.0 for use in Galaxy.
 
-This script takes exactly four command line arguments - the organism type,
-number of threads to use (integer), an input protein FASTA filename and an
-output tabular filename. It then calls the standalone SignalP v3.0 program
-(not the webservice) requesting the short output (one line per protein)
-using both NN and HMM for predictions.
+This script takes exactly fives command line arguments:
+ * the organism type (euk, gram+ or gram-)
+ * length to truncate sequences to (integer)
+ * number of threads to use (integer)
+ * an input protein FASTA filename
+ * output tabular filename.
+
+It then calls the standalone SignalP v3.0 program (not the webservice)
+requesting the short output (one line per protein) using both NN and HMM
+for predictions.
 
 First major feature is cleaning up the output. The raw output from SignalP
 v3.0 looks like this (21 columns space separated):
@@ -42,22 +47,32 @@ import os
 from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
 FASTA_CHUNK = 500
-TRUNCATE = None
 MAX_LEN = 6000 #Found by trial and error
 
-if len(sys.argv) != 5:
-   stop_err("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
+if len(sys.argv) != 6:
+   stop_err("Require five arguments, organism, truncate, threads, input protein FASTA file & output tabular file")
+
 organism = sys.argv[1]
 if organism not in ["euk", "gram+", "gram-"]:
    stop_err("Organism argument %s is not one of euk, gram+ or gram-" % organism)
+
 try:
-   num_threads = int(sys.argv[2])
+   truncate = int(sys.argv[2])
+except:
+   truncate = 0
+if truncate < 0:
+   stop_err("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
+
+try:
+   num_threads = int(sys.argv[3])
 except:
    num_threads = 0
 if num_threads < 1:
-   stop_err("Threads argument %s is not a positive integer" % sys.argv[2])
-fasta_file = sys.argv[3]
-tabular_file = sys.argv[4]
+   stop_err("Threads argument %s is not a positive integer" % sys.argv[3])
+
+fasta_file = sys.argv[4]
+
+tabular_file = sys.argv[5]
 
 def clean_tabular(raw_handle, out_handle):
     """Clean up SignalP output to make it tabular."""
@@ -72,7 +87,7 @@ def clean_tabular(raw_handle, out_handle):
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
 
-fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK, truncate=TRUNCATE, max_len=MAX_LEN)
+fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
 temp_files = [f+".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
 jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
