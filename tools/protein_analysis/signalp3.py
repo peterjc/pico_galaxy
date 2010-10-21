@@ -106,7 +106,10 @@ results = run_jobs(jobs, num_threads)
 assert len(fasta_files) == len(temp_files) == len(jobs)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     error_level = results[cmd]
-    output = open(temp).readline()
+    try:
+        output = open(temp).readline()
+    except IOError:
+        output = ""
     if error_level or output.lower().startswith("error running"):
         clean_up(fasta_files)
         clean_up(temp_files)

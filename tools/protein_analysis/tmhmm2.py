@@ -88,6 +88,10 @@ results = run_jobs(jobs, num_threads)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     error_level = results[cmd]
     if error_level:
+        try:
+            output = open(temp).readline()
+        except IOError:
+            output = ""
         clean_up(fasta_files)
         clean_up(temp_files)
         stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
