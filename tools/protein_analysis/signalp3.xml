@@ -19,6 +19,7 @@
         <data name="tabular_file" format="tabular" label="SignalP $organism results" />
     </outputs>
     <requirements>
+        <requirement type="binary">signalp</requirement>
     </requirements>
     <tests>
         <test>

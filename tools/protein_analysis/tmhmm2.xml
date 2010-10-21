@@ -17,6 +17,7 @@
         <data name="tabular_file" format="tabular" label="TMHMM results" />
     </outputs>
     <requirements>
+        <requirement type="binary">tmhmm</requirement>
     </requirements>
     <tests>
         <test>
