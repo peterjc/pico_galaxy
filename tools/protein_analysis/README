@@ -44,6 +44,11 @@ four_human_proteins.tmhmm2.tsv
 
 7. Run the Galaxy functional tests for these new wrappers with:
 
+./run_functional_tests.sh -id tmhmm2
+./run_functional_tests.sh -id signalp3
+
+Alternatively, this should work:
+
 ./run_functional_tests.sh -sid protein_analysis
 
 8. Restart Galaxy and check the new tools are shown and work.
