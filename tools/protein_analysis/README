@@ -47,8 +47,9 @@ four_human_proteins.tmhmm2.tsv
 ./run_functional_tests.sh -id tmhmm2
 ./run_functional_tests.sh -id signalp3
 
-Alternatively, this should work:
+Alternatively, this should work (assuming you left the name and id as shown in the XML
+file tool_conf.xml.sample):
 
-./run_functional_tests.sh -sid protein_analysis
+./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
 
 8. Restart Galaxy and check the new tools are shown and work.
