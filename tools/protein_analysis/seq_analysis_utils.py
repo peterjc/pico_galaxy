@@ -12,6 +12,8 @@ import os
 import subprocess
 from time import sleep
 
+__version__ = "0.0.1"
+
 def stop_err(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
     sys.stderr.write("%s\n" % msg)
