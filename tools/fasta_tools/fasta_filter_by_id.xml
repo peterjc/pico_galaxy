@@ -1,0 +1,25 @@
+<tool id="fasta_filter_by_id" name="Filter sequences by ID" version="0.0.1">
+	<description>from a tabular file</description>
+	<command interpreter="python">fasta_filter_by_id.py $input_tabular $columns $input_fasta $output_pos $output_neg</command>
+	<inputs>
+		<param name="input_fasta" type="data" format="fasta" label="Fasta file to filter on the identifiers"/>
+                <param name="input_tabular" type="data" format="tabular" label="Tabular file containing FASTA identifiers"/>
+		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns" />
+	</inputs>
+	<outputs>
+		<data name="output_pos" format="fasta" label="With matched ID" />
+                <data name="output_neg" format="fasta" label="Without matched ID" />
+	</outputs>
+	<tests>
+	</tests>
+	<help>
+
+**What it does**
+
+Divides a FASTA file in two, those sequences with or without an ID present in the tabular file column(s) specified.
+
+Note that the order of sequences in the original FASTA file is preserved.
+Also, if any sequences share an identifier, they are all kept -- duplicates are not removed.
+
+	</help>
+</tool>
