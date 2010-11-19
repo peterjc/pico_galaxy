@@ -11,9 +11,19 @@ in column one, and the ID of the match from the database is in column two.
 import sys
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 
+def stop_err( msg ):
+    sys.stderr.write( msg )
+    sys.exit()
+
 #Parse Command Line
-tabular_file, cols_arg, in_file, out_positive_file, out_negative_file = sys.argv[1:]
-columns = [int(arg)-1 for arg in cols_arg.split(",")]
+try:
+    tabular_file, cols_arg, in_file, out_positive_file, out_negative_file = sys.argv[1:]
+except ValueError:
+    stop_err("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+try:
+    columns = [int(arg)-1 for arg in cols_arg.split(",")]
+except ValueError:
+    stop_err("Expected list of columns (comma separated integers), got %s" % cols_arg)
 
 #Read tabular file and record all specified identifiers
 ids = set()
