@@ -15,8 +15,8 @@
             <param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
             <param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
             <param name="columns" value="1" />
-            <output name="output_pos" file="four_human_proteins.filter_a.tabular" ftype="fasta" />
-            <output name="output_neg" file="four_human_proteins.filter_b.tabular" ftype="fasta" />
+            <output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
+            <output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
         </test>
 	</tests>
 	<help>
