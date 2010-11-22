@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.1">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.2">
     <description>Find signal peptides in protein sequences</description>
     <command interpreter="python">
       signalp3.py $organism $truncate 8 $fasta_file $tabular_file
@@ -26,14 +26,14 @@
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
             <param name="organism" value="euk"/>
             <param name="truncate" value="0"/> 
-            <output name="tabular_file" file="four_human_proteins.signalp3.tsv" ftype="tabular"/>
+            <output name="tabular_file" file="four_human_proteins.signalp3.tabular" ftype="tabular"/>
         </test>
     </tests>
     <help>
     
 **What it does**
 
-This calls the SignalP v3.0 tool for prediction of signal peptides, which uses both a neural network (NN) and Hidden Markmov Model (HMM) to produce two sets of scores.
+This calls the SignalP v3.0 tool for prediction of signal peptides, which uses both a Neural Network (NN) and Hidden Markov Model (HMM) to produce two sets of scores.
 
 The input is a FASTA file of protein sequences, and the output is tabular with twenty columns (one row per protein):
 
@@ -57,7 +57,7 @@ Y-max is a derivative of the C-score combined with the S-score resulting in a be
 
 The S-mean is the average of the S-score, ranging from the N-terminal amino acid to the amino acid assigned with the highest Y-max score, thus the S-mean score is calculated for the length of the predicted signal peptide. The S-mean score was in SignalP version 2.0 used as the criteria for discrimination of secretory and non-secretory proteins.
 
-The D-score is introduced in SignalP version 3.0 and is a simple average of the S-mean and Y-max score. The score shows superior discrimination performance of secretory and non-secretory proteins to that of the S-mean score which was used in SignalP version 1 and 2.
+The D-score was introduced in SignalP version 3.0 and is a simple average of the S-mean and Y-max score. The score shows superior discrimination performance of secretory and non-secretory proteins to that of the S-mean score which was used in SignalP version 1 and 2.
 
 For non-secretory proteins all the scores represented in the SignalP3-NN output should ideally be very low.
 
