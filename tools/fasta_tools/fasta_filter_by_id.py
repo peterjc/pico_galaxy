@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """Filter a FASTA file with IDs from a tabular file, e.g. from BLAST.
 
-Takes five command line options, tabular BLAST filename, ID column numbers
+Takes five command line options, tabular filename, ID column numbers
 (comma separated list using one based counting), input FASTA filename, and
 two output FASTA filenames (for records with and without any BLAST hits).
 
 Note in the default NCBI BLAST+ tabular output, the query sequence ID is
 in column one, and the ID of the match from the database is in column two.
+Here sensible values for the column numbers would therefore be "1" or "2".
 """
 import sys
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
