@@ -43,8 +43,8 @@ README (optional)
    subfolder test-data:
 
 four_human_proteins.fasta
-four_human_proteins.signalp3.tsv
-four_human_proteins.tmhmm2.tsv
+four_human_proteins.signalp3.tabular
+four_human_proteins.tmhmm2.tabular
 
 7. Run the Galaxy functional tests for these new wrappers with:
 
@@ -58,6 +58,13 @@ the XML file tool_conf.xml.sample):
 
 8. Restart Galaxy and check the new tools are shown and work.
 
+
+History
+=======
+
+v0.0.1 - Initial release
+v0.0.2 - Corrected some typos in the help text
+       - Renamed test output file to use Galaxy convention of *.tabular
 
 Developers
 ==========
