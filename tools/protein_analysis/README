@@ -43,8 +43,11 @@ README (optional)
    subfolder test-data:
 
 four_human_proteins.fasta
-four_human_proteins.signalp3.tabular
-four_human_proteins.tmhmm2.tabular
+four_human_proteins_signalp3.tabular
+four_human_proteins_tmhmm2.tabular
+empty.fasta
+empty_tmhmm2.tabular
+empty_signalp3.tabular
 
 7. Run the Galaxy functional tests for these new wrappers with:
 
@@ -65,6 +68,8 @@ History
 v0.0.1 - Initial release
 v0.0.2 - Corrected some typos in the help text
        - Renamed test output file to use Galaxy convention of *.tabular
+v0.0.3 - Check for tmhmm2 silent failures (no output)
+       - Additional unit tests
 
 Developers
 ==========
@@ -75,7 +80,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf tmhmm_and_signalp.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py test-data/four_human_proteins.*
+tar -czf tmhmm_and_signalp.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
 
 Check this worked:
 
@@ -89,5 +94,8 @@ tools/protein_analysis/signalp3.py
 tools/protein_analysis/tmhmm2.xml
 tools/protein_analysis/tmhmm2.py
 test-data/four_human_proteins.fasta
-test-data/four_human_proteins.signalp3.tsv
-test-data/four_human_proteins.tmhmm2.tsv
+test-data/four_human_proteins.signalp3.tabular
+test-data/four_human_proteins.tmhmm2.tabular
+test-data/empty.fasta
+test-data/empty_tmhmm2.tabular
+test-data/empty_signalp3.tabular

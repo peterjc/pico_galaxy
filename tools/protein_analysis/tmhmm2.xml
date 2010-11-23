@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.2">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.3">
     <description>Find transmembrane domains in protein sequences</description>
     <command interpreter="python">
       tmhmm2.py 8 $fasta_file $tabular_file
@@ -23,6 +23,10 @@
         <test>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
             <output name="tabular_file" file="four_human_proteins.tmhmm2.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <output name="tabular_file" file="empty_tmhmm2.tabular" ftype="tabular"/>
         </test>
     </tests>
     <help>

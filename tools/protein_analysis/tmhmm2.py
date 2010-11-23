@@ -78,6 +78,8 @@ def clean_tabular(raw_handle, out_handle):
         count += 1
     return count
 
+#Note that if the input FASTA file contains no sequences,
+#split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK)
 temp_files = [f+".out" for f in fasta_files]
 jobs = ["tmhmm %s > %s" % (fasta, temp)

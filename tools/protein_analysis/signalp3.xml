@@ -28,6 +28,24 @@
             <param name="truncate" value="0"/> 
             <output name="tabular_file" file="four_human_proteins.signalp3.tabular" ftype="tabular"/>
         </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="organism" value="euk"/>
+            <param name="truncate" value="60"/> 
+            <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="organism" value="gram+"/>
+            <param name="truncate" value="80"/> 
+            <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="organism" value="gram-"/>
+            <param name="truncate" value="0"/> 
+            <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
+        </test>
     </tests>
     <help>
     
