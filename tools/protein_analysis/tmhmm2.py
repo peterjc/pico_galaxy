@@ -29,6 +29,10 @@ The second major potential feature is taking advantage of multiple cores
 into chunks and running multiple copies of TMHMM in parallel. I would normally
 use Python's multiprocessing library in this situation but it requires at
 least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
+
+Also tmhmm2 can fail without returning an error code, for example if run on a
+64 bit machine with only the 32 bit binaries installed. This script will spot
+when there is no output from tmhmm2, and raise an error.
 """
 import sys
 import os
@@ -48,7 +52,8 @@ fasta_file = sys.argv[2]
 tabular_file = sys.argv[3]
 
 def clean_tabular(raw_handle, out_handle):
-    """Clean up tabular TMHMM output."""
+    """Clean up tabular TMHMM output, returns output line count."""
+    count = 0
     for line in raw_handle:
         if not line:
             continue
@@ -68,8 +73,10 @@ def clean_tabular(raw_handle, out_handle):
         predhel = predhel[8:]
         assert topology.startswith("Topology="), line
         topology = topology[9:]
-	out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n" \
+        out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n" \
                    % (identifier, length, expAA, first60, predhel, topology))
+        count += 1
+    return count
 
 fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK)
 temp_files = [f+".out" for f in fasta_files]
@@ -103,8 +110,12 @@ out_handle = open(tabular_file, "w")
 out_handle.write("#ID\tlen\tExpAA\tFirst60\tPredHel\tTopology\n")
 for temp in temp_files:
     data_handle = open(temp)
-    clean_tabular(data_handle, out_handle)
+    count = clean_tabular(data_handle, out_handle)
     data_handle.close()
+    if not count:
+        clean_up(fasta_files)
+        clean_up(temp_files)
+        stop_err("No output from tmhmm2")
 out_handle.close()
 
 clean_up(fasta_files)
