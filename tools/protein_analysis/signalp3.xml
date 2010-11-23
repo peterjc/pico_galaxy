@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.2">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.3">
     <description>Find signal peptides in protein sequences</description>
     <command interpreter="python">
       signalp3.py $organism $truncate 8 $fasta_file $tabular_file
