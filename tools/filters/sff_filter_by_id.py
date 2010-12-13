@@ -5,6 +5,10 @@ Takes five command line options, tabular filename, ID column numbers
 (comma separated list using one based counting), input SFF filename, and
 two output SFF filenames (for records with and without the given IDs).
 
+If either output filename is just a minus sign, that file is not created.
+This is intended to allow output for just the matched (or just the non-matched)
+records.
+
 Any Roche XML manifest in the input file is preserved in both output files.
 
 Note in the default NCBI BLAST+ tabular output, the query sequence ID is
