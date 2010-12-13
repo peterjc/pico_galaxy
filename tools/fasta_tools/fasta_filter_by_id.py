@@ -3,8 +3,9 @@
 
 Takes five command line options, tabular filename, ID column numbers
 (comma separated list using one based counting), input FASTA filename, and
-two output FASTA filenames (for records with and without any BLAST hits).
-If the either output filename is just a minus sign, that file is not created.
+two output FASTA filenames (for records with and without the given IDs).
+
+If either output filename is just a minus sign, that file is not created.
 This is intended to allow output for just the matched (or just the non-matched)
 records.
 
