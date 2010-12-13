@@ -1,4 +1,4 @@
-<tool id="fasta_filter_by_id" name="Filter sequences by ID" version="0.0.2">
+<tool id="fasta_filter_by_id" name="Filter FASTA by ID" version="0.0.3">
 	<description>from a tabular file</description>
 	<command interpreter="python">
 fasta_filter_by_id.py $input_tabular $columns $input_fasta
@@ -72,6 +72,13 @@ single output file of just the matching records, or just the non-matching ones.
 
 Note that the order of sequences in the original FASTA file is preserved.
 Also, if any sequences share an identifier, duplicates are not removed.
+
+**Example Usage**
+
+Given a FASTA file of proteins you might run a signal peptide search (e.g.
+via the SignalP wrapper for Galaxy), then filtered these tabular results to
+select just those with a signal peptide. You could then use this tool to get
+a FASTA file of only the proteins with predicted signal peptides.
 
 	</help>
 </tool>
