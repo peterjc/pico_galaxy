@@ -1,0 +1,75 @@
+Galaxy tool to filter FASTQ sequences by ID
+===========================================
+
+This tool is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
+See the licence text below.
+
+This tool is a short Python script (using the Galaxy library functions) which
+divides a FASTQ file in two, those sequences with or without an ID present in
+the specified column(s) of a tabular file. Example uses include filtering based
+on search results from a tool like NCBI BLAST before assembly.
+
+There are just two files to install:
+
+* fastq_filter_by_id.py (the Python script)
+* fastq_filter_by_id.xml (the Galaxy tool definition)
+
+The suggested location is next to the similarly named fastq_filter.py and
+fastq_filter.xml files which are included with Galaxy, i.e. in the Galaxy
+folder tools/fastq
+
+You will also need to modify the tools_conf.xml file to tell Galaxy to offer
+the tool. The suggested location is next to the fastq_filter.xml entry. Simply
+add the line:
+
+<tool file="fastq/fastq_filter_by_id.xml" />
+
+That's it.
+
+
+History
+=======
+
+v0.0.1 - Initial verion (not publicly released)
+v0.0.2 - Allow both, just pos or just neg output files
+
+
+Developers
+==========
+
+These wrappers are currently being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+tar -czf fastq_filter_by_id.tar.gz tools/fastq/fastq_filter_by_id.*
+
+Check this worked:
+
+$ tar -tzf fastq_filter_by_id.tar.gz
+fastq/fastq_filter_by_id.py
+fastq/fastq_filter_by_id.txt
+fastq/fastq_filter_by_id.xml
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
