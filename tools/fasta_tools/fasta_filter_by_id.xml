@@ -1,31 +1,72 @@
-<tool id="fasta_filter_by_id" name="Filter sequences by ID" version="0.0.1">
+<tool id="fasta_filter_by_id" name="Filter sequences by ID" version="0.0.2">
 	<description>from a tabular file</description>
-	<command interpreter="python">fasta_filter_by_id.py $input_tabular $columns $input_fasta $output_pos $output_neg</command>
+	<command interpreter="python">
+fasta_filter_by_id.py $input_tabular $columns $input_fasta
+#if $output_choice_cond.output_choice=="both"
+ $output_pos $output_neg
+#elif $output_choice_cond.output_choice=="pos"
+ $output_pos -
+#elif $output_choice_cond.output_choice=="neg"
+ - $output_neg
+#end if
+	</command>
 	<inputs>
 		<param name="input_fasta" type="data" format="fasta" label="FASTA file to filter on the identifiers"/>
 		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing FASTA identifiers"/>
 		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
 			<validator type="no_options" message="Pick at least one column"/>
 		</param>
+		<conditional name="output_choice_cond">
+			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
+				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two FASTA files</option>
+				<option value="pos">Just positive matches (ID on list), as a single FASTA file</option>
+				<option value="neg">Just negative matches (ID not on list), as a single FASTA file</option>
+			</param>
+			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+			<when value="both" />
+			<when value="pos" />
+			<when value="neg" />
+		</conditional>
 	</inputs>
 	<outputs>
-		<data name="output_pos" format="fasta" label="With matched ID" />
-		<data name="output_neg" format="fasta" label="Without matched ID" />
+		<data name="output_pos" format="fasta" label="With matched ID">
+			<filter>output_choice_cond["output_choice"] != "neg"</filter>
+		</data>
+		<data name="output_neg" format="fasta" label="Without matched ID">
+			<filter>output_choice_cond["output_choice"] != "pos"</filter>
+		</data>
 	</outputs>
 	<tests>
-        <test>
-            <param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
-            <param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
-            <param name="columns" value="1" />
-            <output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
-            <output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
-        </test>
+	<test>
+		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
+		<param name="columns" value="1" />
+		<param name="output_choice_cond.output_choice" value="both" />
+		<output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
+		<output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
+	</test>
+	<test>
+		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
+		<param name="columns" value="1" />
+		<param name="output_choice_cond.output_choice" value="pos" />
+		<output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
+	</test>
+	<test>
+		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
+		<param name="columns" value="1" />
+		<param name="output_choice_cond.output_choice" value="neg" />
+		<output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
+	</test>
 	</tests>
 	<help>
 
 **What it does**
 
-Divides a FASTA file in two, those sequences with or without an ID present in the tabular file column(s) specified.
+By default it divides a FASTA file in two, those sequences with or without an
+ID present in the tabular file column(s) specified. You can opt to have a
+single output file of just the matching records, or just the non-matching ones.
 
 Note that the order of sequences in the original FASTA file is preserved.
 Also, if any sequences share an identifier, duplicates are not removed.

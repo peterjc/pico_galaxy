@@ -4,6 +4,9 @@
 Takes five command line options, tabular filename, ID column numbers
 (comma separated list using one based counting), input FASTA filename, and
 two output FASTA filenames (for records with and without any BLAST hits).
+If the either output filename is just a minus sign, that file is not created.
+This is intended to allow output for just the matched (or just the non-matched)
+records.
 
 Note in the default NCBI BLAST+ tabular output, the query sequence ID is
 in column one, and the ID of the match from the database is in column two.
@@ -50,14 +53,34 @@ handle.close()
 
 #Write filtered FASTA file based on IDs from BLAST file
 reader = fastaReader(open(in_file, "rU"))
-positive_writer = fastaWriter(open(out_positive_file, "w"))
-negative_writer = fastaWriter(open(out_negative_file, "w"))
-for record in reader:
-    #The [1:] is because the fastaReader leaves the > on the identifer.
-    if record.identifier and record.identifier.split()[0][1:] in ids:
-        positive_writer.write(record)
-    else:
-        negative_writer.write(record)
-positive_writer.close()
-negative_writer.close()
+if out_positive_file != "-" and out_negative_file != "-":
+    print "Generating two FASTA files"
+    positive_writer = fastaWriter(open(out_positive_file, "w"))
+    negative_writer = fastaWriter(open(out_negative_file, "w"))
+    for record in reader:
+        #The [1:] is because the fastaReader leaves the > on the identifer.
+        if record.identifier and record.identifier.split()[0][1:] in ids:
+            positive_writer.write(record)
+        else:
+            negative_writer.write(record)
+    positive_writer.close()
+    negative_writer.close()
+elif out_positive_file != "-":
+    print "Generating matching FASTA file"
+    positive_writer = fastaWriter(open(out_positive_file, "w"))
+    for record in reader:
+        #The [1:] is because the fastaReader leaves the > on the identifer.
+        if record.identifier and record.identifier.split()[0][1:] in ids:
+            positive_writer.write(record)
+    positive_writer.close()
+elif out_negative_file != "-":
+    print "Generating non-matching FASTA file"
+    negative_writer = fastaWriter(open(out_negative_file, "w"))
+    for record in reader:
+        #The [1:] is because the fastaReader leaves the > on the identifer.
+        if not record.identifier or record.identifier.split()[0][1:] not in ids:
+            negative_writer.write(record)
+    negative_writer.close()
+else:
+    stop_err("Neither output file requested")
 reader.close()
