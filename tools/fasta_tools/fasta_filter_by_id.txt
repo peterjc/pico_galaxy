@@ -30,8 +30,8 @@ That's it.
 History
 =======
 
-v0.0.1 - Initial release
-
+v0.0.1 - Initial verion (not publicly released)
+v0.0.2 - Allow both, just pos or just neg output files
 
 Developers
 ==========
