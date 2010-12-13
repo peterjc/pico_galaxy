@@ -41,7 +41,7 @@ fasta_filter_by_id.py $input_tabular $columns $input_fasta
 		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
 		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
 		<param name="columns" value="1" />
-		<param name="output_choice_cond.output_choice" value="both" />
+		<param name="output_choice" value="both" />
 		<output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
 		<output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
 	</test>
@@ -49,14 +49,14 @@ fasta_filter_by_id.py $input_tabular $columns $input_fasta
 		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
 		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
 		<param name="columns" value="1" />
-		<param name="output_choice_cond.output_choice" value="pos" />
+		<param name="output_choice" value="pos" />
 		<output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
 	</test>
 	<test>
 		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
 		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
 		<param name="columns" value="1" />
-		<param name="output_choice_cond.output_choice" value="neg" />
+		<param name="output_choice" value="neg" />
 		<output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
 	</test>
 	</tests>
