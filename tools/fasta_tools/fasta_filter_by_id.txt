@@ -14,7 +14,7 @@ There are just two files to install:
 * fasta_filter_by_id.py (the Python script)
 * fasta_filter_by_id.xml (the Galaxy tool definition)
 
-The suggested location is next to the similarly names fasta_filter_by_length.py
+The suggested location is next to the similarly named fasta_filter_by_length.py
 and fasta_filter_by_length.xml files which are included with Galaxy, i.e.
 in the Galaxy folder tools/fasta_tools
 
