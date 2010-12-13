@@ -52,7 +52,7 @@ else:
     print "Using %i IDs from tabular file" % (len(ids))
 handle.close()
 
-#Write filtered FASTA file based on IDs from BLAST file
+#Write filtered FASTA file based on IDs from tabular file
 reader = fastaReader(open(in_file, "rU"))
 if out_positive_file != "-" and out_negative_file != "-":
     print "Generating two FASTA files"
