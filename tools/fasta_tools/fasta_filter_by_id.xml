@@ -28,7 +28,7 @@
 Divides a FASTA file in two, those sequences with or without an ID present in the tabular file column(s) specified.
 
 Note that the order of sequences in the original FASTA file is preserved.
-Also, if any sequences share an identifier, they are all kept -- duplicates are not removed.
+Also, if any sequences share an identifier, duplicates are not removed.
 
 	</help>
 </tool>
