@@ -53,7 +53,7 @@ Also, if any sequences share an identifier, duplicates are not removed.
 
 You may have performed some kind of contamination search, for example running
 BLASTN against a database of cloning vectors or bacteria, giving you a tabular
-file containing read identifiers. You could use this too to extract only the
+file containing read identifiers. You could use this tool to extract only the
 reads without BLAST matches (i.e. those which do not match your contaminant
 database).
 
