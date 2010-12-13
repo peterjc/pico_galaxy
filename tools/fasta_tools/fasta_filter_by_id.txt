@@ -37,7 +37,8 @@ v0.0.3 - Include FASTA in tool name
 Developers
 ==========
 
-These wrappers are currently being developed on the following hg branch:
+This script and similar versions for FASTQ and SFF files are currently being
+developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use

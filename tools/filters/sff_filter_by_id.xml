@@ -1,0 +1,76 @@
+<tool id="sff_filter_by_id" name="Filter SFF by ID" version="0.0.1">
+	<description>from a tabular file</description>
+	<command interpreter="python">
+sff_filter_by_id.py $input_tabular $columns $input_sff
+#if $output_choice_cond.output_choice=="both"
+ $output_pos $output_neg
+#elif $output_choice_cond.output_choice=="pos"
+ $output_pos -
+#elif $output_choice_cond.output_choice=="neg"
+ - $output_neg
+#end if
+	</command>
+	<inputs>
+		<param name="input_sff" type="data" format="sff" label="SFF file to filter on the identifiers"/>
+		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing SFF identifiers"/>
+		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing SFF identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+			<validator type="no_options" message="Pick at least one column"/>
+		</param>
+		<conditional name="output_choice_cond">
+			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
+				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two SFF files</option>
+				<option value="pos">Just positive matches (ID on list), as a single SFF file</option>
+				<option value="neg">Just negative matches (ID not on list), as a single SFF file</option>
+			</param>
+			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+			<when value="both" />
+			<when value="pos" />
+			<when value="neg" />
+		</conditional>
+	</inputs>
+	<outputs>
+		<data name="output_pos" format="sff" label="With matched ID">
+			<filter>output_choice_cond["output_choice"] != "neg"</filter>
+		</data>
+		<data name="output_neg" format="sff" label="Without matched ID">
+			<filter>output_choice_cond["output_choice"] != "pos"</filter>
+		</data>
+	</outputs>
+	<tests>
+	</tests>
+	<requirements>
+		<requirement type="python-module">Bio</requirement>
+	</requirements>
+	<help>
+
+**What it does**
+
+By default it divides a Standard Flowgram Format (SFF) file in two, those
+sequences with or without an ID present in the tabular file column(s) specified.
+You can opt to have a single output file of just the matching records, or just
+the non-matching ones.
+
+Note that the order of sequences in the original SFF file is preserved, as is
+any Roche XML Manifest. Also, if any sequences share an identifier (which would
+be very unusual in SFF files, duplicates are not removed).
+
+**Example Usage**
+
+You may have performed some kind of contamination search, for example running
+BLASTN against a database of cloning vectors or bacteria, giving you a tabular
+file containing read identifiers. You could use this tool to extract only the
+reads without BLAST matches (i.e. those which do not match your contaminant
+database).
+
+** Citation **
+
+This tool uses Biopython to read and write SFF files. If you use this tool in
+scientific work leading to a publication, please cite the Biopython application
+note:
+
+Cock et al 2009. Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+	</help>
+</tool>
