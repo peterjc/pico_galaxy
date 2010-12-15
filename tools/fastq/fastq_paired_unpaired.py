@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 """Divides a FASTQ into paired and single (orphan reads) as separate files.
 
-This tool is a short Python script which requires Biopython 1.50 or later.
-If you use this tool in scientific work leading to a publication, please cite
-the Biopython application note:
-
-Cock et al 2009. Biopython: freely available Python tools for computational
-molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
-http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
-
 The input file should be a valid FASTQ file which has been sorted so that
 any partner forward+reverse reads are consecutive. The output files all
 preserve this sort order. Pairing are recognised based on standard name
@@ -20,28 +12,27 @@ Color Space should all work equally well).
 This script is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.3 of the script.
+This is version 0.0.4 of the script.
 """
+import os
 import sys
 import re
+from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
 def stop_err(msg, err=1):
    sys.stderr.write(msg.rstrip() + "\n")
    sys.exit(err)
 
-try:
-    from Bio import SeqIO
-except ImportError:
-    stop_err("Biopython not installed")
-
 msg = """Expect either 3 or 4 arguments, all FASTQ filenames.
 
-If you want two output files, use three arguments:
+If you want two output files, use four arguments:
+ - FASTQ variant (e.g. sanger, solexa, illumina or cssanger)
  - Sorted input FASTQ filename,
  - Output paired FASTQ filename (forward then reverse interleaved),
  - Output singles FASTQ filename (orphan reads)
 
-If you want three output files, use four arguments:
+If you want three output files, use five arguments:
+ - FASTQ variant (e.g. sanger, solexa, illumina or cssanger)
  - Sorted input FASTQ filename,
  - Output forward paired FASTQ filename,
  - Output reverse paired FASTQ filename,
@@ -78,13 +69,19 @@ WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
 WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
 """
 
-if len(sys.argv) == 4:
-    input_fastq, pairs_fastq, singles_fastq = sys.argv[1:]
-elif len(sys.argv) == 5:
+if len(sys.argv) == 5:
+    format, input_fastq, pairs_fastq, singles_fastq = sys.argv[1:]
+elif len(sys.argv) == 6:
     pairs_fastq = None
-    input_fastq, pairs_f_fastq, pairs_r_fastq, singles_fastq = sys.argv[1:]
+    format, input_fastq, pairs_f_fastq, pairs_r_fastq, singles_fastq = sys.argv[1:]
 else:
     stop_err(msg)
+
+format = format.replace("fastq", "").lower()
+if not format:
+    format="sanger" #safe default
+elif format not in ["sanger","solexa","illumina","cssanger"]:
+    stop_err("Unrecognised format %s" % format)
 
 def f_match(name):
    if name.endswith("/1") or name.endswith(".f"):
@@ -119,16 +116,18 @@ assert not re_f.search("demo.q")
 count, forward, reverse, neither, pairs, singles = 0, 0, 0, 0, 0, 0
 in_handle = open(input_fastq)
 if pairs_fastq:
-    pairs_f_handle = open(pairs_fastq, "w")
-    pairs_r_handle = pairs_f_handle
+    pairs_f_writer = fastqWriter(open(pairs_fastq, "w"), format)
+    pairs_r_writer = pairs_f_writer
 else:
-    pairs_f_handle = open(pairs_f_fastq, "w")
-    pairs_r_handle = open(pairs_r_fastq, "w")
-singles_handle = open(singles_fastq, "w")
+    pairs_f_writer = fastqWriter(open(pairs_f_fastq, "w"), format)
+    pairs_r_writer = fastqWriter(open(pairs_r_fastq, "w"), format)
+singles_writer = fastqWriter(open(singles_fastq, "w"), format)
 last_template, buffered_reads = None, []
-for title, seq, qual in SeqIO.QualityIO.FastqGeneralIterator(in_handle):
+
+for record in fastqReader(in_handle, format):
     count += 1
-    name = title.split(None,1)[0]
+    name = record.identifier.split(None,1)[0]
+    assert name[0]=="@", record.identifier #Quirk of the Galaxy parser
     suffix = re_f.search(name)
     if suffix:
         #============
@@ -138,13 +137,14 @@ for title, seq, qual in SeqIO.QualityIO.FastqGeneralIterator(in_handle):
         #print name, "forward", template
         forward += 1
         if last_template == template:
-            buffered_reads.append((title, seq, qual))
+            buffered_reads.append(record)
         else:
-            #Any buffered reads are orphans
-            for read in buffered_reads:
-                singles_handle.write("@%s\n%s\n+\n%s\n" % read)
+            #Any old buffered reads are orphans
+            for old in buffered_reads:
+                singles_writer.write(old)
                 singles += 1
-            buffered_reads = [(title, seq, qual)]
+            #Save this read in buffer
+            buffered_reads = [record]
             last_template = template  
     else:
         suffix = re_r.search(name)
@@ -160,48 +160,48 @@ for title, seq, qual in SeqIO.QualityIO.FastqGeneralIterator(in_handle):
                 #If there are multiple buffered forward reads, want to pick
                 #the first one (although we could try and do something more
                 #clever looking at the suffix to match them up...)
-                read = buffered_reads.pop(0)
-                pairs_f_handle.write("@%s\n%s\n+\n%s\n" % read)
-                pairs_r_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                old = buffered_reads.pop(0)
+                pairs_f_writer.write(old)
+                pairs_r_writer.write(record)
                 pairs += 2
             else:
                 #As this is a reverse read, this and any buffered read(s) are
                 #all orphans
-                for read in buffered_reads:
-                    singles_handle.write("@%s\n%s\n+\n%s\n" % read)
+                for old in buffered_reads:
+                    singles_writer.write(old)
                     singles += 1
                 buffered_reads = []
-                singles_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                singles_writer.write(record)
                 singles += 1
                 last_template = None
         else:
             #===========================
             #Neither forward nor reverse
             #===========================
-            singles_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+            singles_writer.write(record)
             singles += 1
             neither += 1
-            for read in buffered_reads:
-                singles_handle.write("@%s\n%s\n+\n%s\n" % read)
+            for old in buffered_reads:
+                singles_writer.write(old)
                 singles += 1
             buffered_reads = []
             last_template = None
 if last_template:
     #Left over singles...
-    for read in buffered_reads:
-        singles_handle.write("@%s\n%s\n+\n%s\n" % read)
+    for old in buffered_reads:
+        singles_writer.write(old)
         singles += 1
 in_handle.close
-singles_handle.close()
+singles_writer.close()
 if pairs_fastq:
-    pairs_f_handle.close()
-    assert pairs_r_handle.closed
+    pairs_f_writer.close()
+    assert pairs_r_writer.file.closed
 else:
-    pairs_f_handle.close()
-    pairs_r_handle.close()
+    pairs_f_writer.close()
+    pairs_r_writer.close()
 
 if neither:
-    print "%i reads (%i forward, %i reverse, %i neighter), %i in pairs, %i as singles" \
+    print "%i reads (%i forward, %i reverse, %i neither), %i in pairs, %i as singles" \
            % (count, forward, reverse, neither, pairs, singles)
 else:
     print "%i reads (%i forward, %i reverse), %i in pairs, %i as singles" \

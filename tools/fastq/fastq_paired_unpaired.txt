@@ -26,15 +26,16 @@ add the line:
 
 <tool file="fastq/fastq_paired_unpaired.xml" />
 
-You will also need to install Biopython 1.50 or later. That's it.
+That's it.
 
 
 History
 =======
 
-v0.0.1 - Initial version
+v0.0.1 - Initial version, using Biopython
 v0.0.2 - Help text; cope with multiple pairs per template
 v0.0.3 - Galaxy XML wrappers added
+v0.0.4 - Use Galaxy library to handle FASTQ files (avoid Biopython dependency)
 
 
 Developers

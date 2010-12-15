@@ -1,7 +1,7 @@
-<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.3">
+<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.4">
 	<description>using the read name suffices</description>
 	<command interpreter="python">
-fastq_paired_unpaired.py $input_fastq
+fastq_paired_unpaired.py $input_fastq.extension $input_fastq
 #if $output_choice_cond.output_choice=="separate"
  $output_forward $output_reverse
 #elif $output_choice_cond.output_choice=="interleaved"
@@ -75,17 +75,6 @@ both become:
 
 WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
 WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
-
-
-**Citation**
-
-This tool uses Biopython to parse FASTQ files. If you use this tool in
-scientific work leading to a publication, please cite the Biopython application
-note:
-
-Cock et al 2009. Biopython: freely available Python tools for computational
-molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
-http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 	</help>
 </tool>
