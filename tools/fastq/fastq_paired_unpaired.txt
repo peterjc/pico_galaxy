@@ -1,0 +1,79 @@
+Galaxy tool to divide FASTQ files into paired and unpaired reads
+================================================================
+
+This tool is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
+See the licence text below.
+
+This tool is a short Python script (using the Biopython library functions) which
+divides a FASTQ file into paired reads, and single or orphan reads. You can have
+separate files for the forward/reverse reads, or have them interleaved in a
+single file.
+
+Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
+Color Space should all work equally well).
+
+There are just two files to install:
+
+* fastq_paired_unpaired.py (the Python script)
+* fastq_paired_unpaired.xml (the Galaxy tool definition)
+
+The suggested location is in the Galaxy folder tools/fastq next to other FASTQ
+tools provided with Galaxy.
+
+You will also need to modify the tools_conf.xml file to tell Galaxy to offer
+the tool. One suggested location is next to the fastq_filter.xml entry. Simply
+add the line:
+
+<tool file="fastq/fastq_paired_unpaired.xml" />
+
+You will also need to install Biopython 1.50 or later. That's it.
+
+
+History
+=======
+
+v0.0.1 - Initial version
+v0.0.2 - Help text; cope with multiple pairs per template
+v0.0.3 - Galaxy XML wrappers added
+
+
+Developers
+==========
+
+This script and other tools for filtering FASTA, FASTQ and SFF files are
+currently being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+tar -czf fastq_paired_unpaired.tar.gz tools/fastq/fastq_paired_unpaired.*
+
+Check this worked:
+
+$ tar -tzf fastq_paired_unpaired.tar.gz
+fastq/fastq_paired_unpaired.py
+fastq/fastq_paired_unpaired.txt
+fastq/fastq_paired_unpaired.xml
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
