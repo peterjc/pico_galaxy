@@ -14,6 +14,19 @@ Any Roche XML manifest in the input file is preserved in both output files.
 Note in the default NCBI BLAST+ tabular output, the query sequence ID is
 in column one, and the ID of the match from the database is in column two.
 Here sensible values for the column numbers would therefore be "1" or "2".
+
+This tool is a short Python script which requires Biopython 1.54 or later.
+If you use this tool in scientific work leading to a publication, please cite
+the Biopython application note:
+
+Cock et al 2009. Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+This script is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
+See accompanying text file for licence details (MIT/BSD style).
+
+This is version 0.0.1 of the script.
 """
 import sys
 
