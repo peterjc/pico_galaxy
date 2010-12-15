@@ -62,7 +62,7 @@ file containing read identifiers. You could use this tool to extract only the
 reads without BLAST matches (i.e. those which do not match your contaminant
 database).
 
-** Citation **
+**Citation**
 
 This tool uses Biopython to read and write SFF files. If you use this tool in
 scientific work leading to a publication, please cite the Biopython application
