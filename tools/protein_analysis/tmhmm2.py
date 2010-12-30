@@ -14,6 +14,9 @@ TMHMM v2.0 looks like this (six columns tab separated):
  gi|671626|emb|CAA85685.1|	len=473 ExpAA=0.19	First60=0.00 PredHel=0	Topology=o
  gi|3298468|dbj|BAA31520.1|	len=107	ExpAA=59.37	First60=31.17	PredHel=3	Topology=o23-45i52-74o89-106i
 
+In some versions of TMHMM there are additional 'comment' lines starting with
+a hash character (#). These are ignored by this script.
+
 In order to make it easier to use in Galaxy, this wrapper script simplifies
 this to remove the redundant tags, and instead adds a comment line at the
 top with the column names:
@@ -55,7 +58,8 @@ def clean_tabular(raw_handle, out_handle):
     """Clean up tabular TMHMM output, returns output line count."""
     count = 0
     for line in raw_handle:
-        if not line:
+        if not line.strip() or line.startswith("#"):
+            #Ignore any blank lines or comment lines
             continue
         parts = line.rstrip("\r\n").split("\t")
         try:
