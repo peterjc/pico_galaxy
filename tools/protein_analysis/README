@@ -71,6 +71,7 @@ v0.0.2 - Corrected some typos in the help text
 v0.0.3 - Check for tmhmm2 silent failures (no output)
        - Additional unit tests
 v0.0.4 - Ignore comment lines in tmhmm2 output.
+v0.0.5 - Explicitly request tmhmm short output (may not be the default)
 
 Developers
 ==========

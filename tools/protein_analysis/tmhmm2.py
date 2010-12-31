@@ -6,16 +6,16 @@ filename and an output tabular filename. It then calls the standalone TMHMM
 v2.0 program (not the webservice) requesting the short output (one line per
 protein).
 
-First major feature is cleaning up the tabular output. The raw output from
-TMHMM v2.0 looks like this (six columns tab separated):
+The first major feature is cleaning up the tabular output. The short form raw
+output from TMHMM v2.0 looks like this (six columns tab separated):
 
  gi|2781234|pdb|1JLY|B	len=304 ExpAA=0.01	First60=0.00	PredHel=0	Topology=o
  gi|4959044|gb|AAD34209.1|AF069992_1	len=600	ExpAA=0.00	First60=0.00	PredHel=0	Topology=o
  gi|671626|emb|CAA85685.1|	len=473 ExpAA=0.19	First60=0.00 PredHel=0	Topology=o
  gi|3298468|dbj|BAA31520.1|	len=107	ExpAA=59.37	First60=31.17	PredHel=3	Topology=o23-45i52-74o89-106i
 
-In some versions of TMHMM there are additional 'comment' lines starting with
-a hash character (#). These are ignored by this script.
+If there are any additional 'comment' lines starting with the hash (#)
+character these are ignored by this script.
 
 In order to make it easier to use in Galaxy, this wrapper script simplifies
 this to remove the redundant tags, and instead adds a comment line at the
@@ -86,7 +86,7 @@ def clean_tabular(raw_handle, out_handle):
 #split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK)
 temp_files = [f+".out" for f in fasta_files]
-jobs = ["tmhmm %s > %s" % (fasta, temp)
+jobs = ["tmhmm -short %s > %s" % (fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
 
 def clean_up(file_list):

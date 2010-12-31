@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.4">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.5">
     <description>Find transmembrane domains in protein sequences</description>
     <command interpreter="python">
       tmhmm2.py 8 $fasta_file $tabular_file
@@ -52,7 +52,7 @@ Do not use the program to predict whether a non-membrane protein is cytoplasmic 
 
 **Notes**
 
-The raw output from TMHMM v2.0 looks like this (six columns tab separated), plus additional comment lines in some versions which are ignored:
+The short format output from TMHMM v2.0 looks like this (six columns tab separated, shown here as a table):
 
 =================================== ======= =========== ============= ========= =============================
 gi|2781234|pdb|1JLY|B               len=304 ExpAA=0.01  First60=0.00  PredHel=0 Topology=o
