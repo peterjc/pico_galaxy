@@ -1,0 +1,35 @@
+<tool id="fastq_primer_clip" name="FASTQ primer clip" version="0.0.1">
+    <description>Trim off 5' or 3' primers</description>
+	<command interpreter="python">
+fastq_primer_clip.py $input_fastq $primer_fasta $primer_type $mm $min_len $keep_negatives $output_fastq
+    </command>
+	<inputs>
+		<param name="input_fastq" type="data" format="fastq" label="FASTQ file to clip"/>
+		<param name="primer_fasta" type="data" format="fasta" label="FASTA file containing primer(s)"/>
+        <param name="primer_type" type="select" label="Type of primers">
+            <option value="Forward">Forward (5') primers</option>
+            <option value="Reverse">Reverse (3') primers (given with respect to the forward strand)</option>
+            <option value="Reverse-complement">Reverse (3') primers (given with respect to the reverse strand)</option>
+        </param>
+        <param name="mm" type="integer" value="0" label="How many mismatches to allow? (integer)"/>
+        <param name="min_len" type="integer" label="Minimum length for clipped reads" value="1"/>
+        <param name="keep_negatives" type="boolean" value="false" label="Keep reads with no matched primer"/>
+	</inputs>
+	<outputs>
+		<data name="output_fastq" format="fastq" label="$primer_type primer clipped"/>
+	</outputs>
+	<tests>
+	</tests>
+	<help>
+
+**What it does**
+
+Looks for the given primer sequences and clips the reads to remove the primers and any preceeding/trailing sequence.
+
+Reads containing forward primer are reduced to just the sequence after (and excluding) the forward primer.
+Reads containing reverse primer are reduced to just the sequence before (and excluding) the reverse primer.
+
+Degenerate primers can be specified using the standard IUPAC ambiguity codes, thus a primer with an N would match A, C, T or G and so on.
+
+	</help>
+</tool>
