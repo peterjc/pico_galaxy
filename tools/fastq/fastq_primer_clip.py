@@ -69,6 +69,56 @@ _dna_comp_table = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x1
 def reverse_complement_dna(seq):
     return seq.translate(_dna_comp_table)[::-1]
 
+ambiguous_dna_values = {
+    "A": "A",
+    "C": "C",
+    "G": "G",
+    "T": "T",
+    "M": "AC",
+    "R": "AG",
+    "W": "AT",
+    "S": "CG",
+    "Y": "CT",
+    "K": "GT",
+    "V": "ACG",
+    "H": "ACT",
+    "D": "AGT",
+    "B": "CGT",
+    "X": "GATC",
+    "N": "GATC",
+    }
+
+def disambiguate(seq):
+    """All unambiguous interpretations of a possibly ambiguous IUPAC DNA"""
+    assert seq == seq.upper()
+    if set("ACGT").issuperset(seq):
+        #Special case, nothing to do
+        yield seq
+    else:
+        end = list(seq)
+        start = []
+        letter = end.pop(0)
+        while letter in "ACGT":
+            start.append(letter)
+            #Note won't ever pop from an empty list
+            letter = end.pop(0)
+        start = "".join(start)
+        end = "".join(end)
+        if set("ACGT").issuperset(end):
+            #This was the only ambiguous letter
+            for unambig in ambiguous_dna_values[letter]:
+                yield start + unambig + end
+        else:
+            #Recurse
+            for unambig in ambiguous_dna_values[letter]:
+                for rest in disambiguate(end):
+                    yield start + unambig + rest
+
+assert list(disambiguate("AYA")) == ["ACA", "ATA"], list(disambiguate("AYA"))
+assert list(disambiguate("YA")) == ["CA", "TA"], list(disambiguate("YA"))
+assert list(disambiguate("AY")) == ["AC", "AT"], list(disambiguate("AY"))
+assert list(disambiguate("ANA")) == ["AGA", "AAA", "ATA", "ACA"], list(disambiguate("ANA"))
+
 #Read primer file and record all specified identifiers
 primers = set()
 in_handle = open(primer_fasta, "rU")
@@ -79,10 +129,10 @@ for record in reader:
         seq = reverse_complement(record.sequence)
     else:
         seq = record.sequence
-    primers.add(seq)
+    for unambig in disambiguate(seq):
+        primers.add(unambig)
     count += 1
     #TODO - generate mismatches
-    #TODO - generate variants for IUPAC ambiguity codes
 in_handle.close()
 print "%i primer sequences giving %i unique matches" % (count, len(primers))
 
