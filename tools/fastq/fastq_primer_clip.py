@@ -14,6 +14,7 @@ See accompanying text file for licence details (MIT/BSD style).
 This is version 0.0.1 of the script.
 """
 import sys
+import re
 from galaxy_utils.sequence.fasta import fastaReader
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
@@ -88,36 +89,16 @@ ambiguous_dna_values = {
     "N": "GATC",
     }
 
-def disambiguate(seq):
-    """All unambiguous interpretations of a possibly ambiguous IUPAC DNA"""
-    assert seq == seq.upper()
-    if set("ACGT").issuperset(seq):
-        #Special case, nothing to do
-        yield seq
+ambiguous_dna_re = {}
+for letter, values in ambiguous_dna_values.iteritems():
+    if len(values) == 1:
+        ambiguous_dna_re[letter] = values
     else:
-        end = list(seq)
-        start = []
-        letter = end.pop(0)
-        while letter in "ACGT":
-            start.append(letter)
-            #Note won't ever pop from an empty list
-            letter = end.pop(0)
-        start = "".join(start)
-        end = "".join(end)
-        if set("ACGT").issuperset(end):
-            #This was the only ambiguous letter
-            for unambig in ambiguous_dna_values[letter]:
-                yield start + unambig + end
-        else:
-            #Recurse
-            for unambig in ambiguous_dna_values[letter]:
-                for rest in disambiguate(end):
-                    yield start + unambig + rest
+        ambiguous_dna_re[letter] = "[%s]" % values
+   
 
-assert list(disambiguate("AYA")) == ["ACA", "ATA"], list(disambiguate("AYA"))
-assert list(disambiguate("YA")) == ["CA", "TA"], list(disambiguate("YA"))
-assert list(disambiguate("AY")) == ["AC", "AT"], list(disambiguate("AY"))
-assert list(disambiguate("ANA")) == ["AGA", "AAA", "ATA", "ACA"], list(disambiguate("ANA"))
+def make_reg_ex(seq):
+    return "".join(ambiguous_dna_re[letter] for letter in seq)
 
 #Read primer file and record all specified identifiers
 primers = set()
@@ -129,13 +110,11 @@ for record in reader:
         seq = reverse_complement(record.sequence)
     else:
         seq = record.sequence
-    for unambig in disambiguate(seq):
-        primers.add(unambig)
+    primers.add(re.compile(make_reg_ex(seq)))
     count += 1
     #TODO - generate mismatches
 in_handle.close()
-print "%i primer sequences giving %i unique matches" % (count, len(primers))
-
+print "%i primer sequences giving %i regular expressions" % (count, len(primers))
 
 in_handle = open(input_fastq, "rU")
 out_handle = open(output_fastq, "w")
@@ -149,10 +128,11 @@ if forward:
         seq = record.sequence
         match = False
         for primer in primers:
-            i = seq.find(primer)
-            if i != -1:
+            result = primer.search(seq)
+            if result:
                 match=True
-                cut = i + len(primer)
+                #Forward primer, take everything after it
+                cut = result.end()
                 record.sequence = seq[cut:]
                 record.quality = record.quality[cut:]
                 if len(record.sequence) >= min_len:
@@ -169,11 +149,13 @@ else:
         seq = record.sequence
         match = False
         for primer in primers:
-            i = seq.find(primer)
-            if i != -1:
+            result = primer.search(seq)
+            if result:
                 match=True
-                record.sequence = seq[:i]
-                record.quality = record.quality[:i]
+                #Reverse primer, take everything before it
+                cut = result.start()
+                record.sequence = seq[:cut]
+                record.quality = record.quality[:cut]
                 if len(record.sequence) >= min_len:
                     clipped += 1
                     writer.write(record)
