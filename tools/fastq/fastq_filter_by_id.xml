@@ -30,9 +30,23 @@ fastq_filter_by_id.py $input_tabular $columns $input_fastq
 	</inputs>
 	<outputs>
 		<data name="output_pos" format="fastq" label="With matched ID">
+            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
+            <change_format>
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
 			<filter>output_choice_cond["output_choice"] != "neg"</filter>
 		</data>
 		<data name="output_neg" format="fastq" label="Without matched ID">
+            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
+            <change_format>
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
 			<filter>output_choice_cond["output_choice"] != "pos"</filter>
 		</data>
 	</outputs>

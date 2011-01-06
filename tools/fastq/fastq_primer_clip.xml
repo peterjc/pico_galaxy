@@ -17,7 +17,7 @@ fastq_primer_clip.py $input_fastq $primer_fasta $primer_type $mm $min_len $keep_
 	</inputs>
 	<outputs>
 		<data name="output_fastq" format="fastq" label="$primer_type primer clipped">
-            <!-- TODO -- Replace this with format="input:input_fastq" if/when that works -->
+            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
             <change_format>
                 <when input_dataset="input_fastq" attribute="extension" value="fastqsanger" format="fastqsanger" />
                 <when input_dataset="input_fastq" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
