@@ -4,7 +4,7 @@
 fastq_primer_clip.py $input_fastq $primer_fasta $primer_type $mm $min_len $keep_negatives $output_fastq
     </command>
 	<inputs>
-		<param name="input_fastq" type="data" format="fastq" label="FASTQ file to clip"/>
+		<param name="input_fastq" type="data" format="fastq,fastqsanger,fastqsolexa,fastqillumina" label="FASTQ file to clip"/>
 		<param name="primer_fasta" type="data" format="fasta" label="FASTA file containing primer(s)"/>
         <param name="primer_type" type="select" label="Type of primers">
             <option value="Forward">Forward (5') primers</option>
@@ -16,8 +16,15 @@ fastq_primer_clip.py $input_fastq $primer_fasta $primer_type $mm $min_len $keep_
         <param name="keep_negatives" type="boolean" value="false" label="Keep reads with no matched primer"/>
 	</inputs>
 	<outputs>
-		<data name="output_fastq" format="fastq" label="$primer_type primer clipped"/>
-	</outputs>
+		<data name="output_fastq" format="fastq" label="$primer_type primer clipped">
+            <!-- TODO -- Replace this with format="input:input_fastq" if/when that works -->
+            <change_format>
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqillumina" format="fastqillumina" />
+            </change_format>
+        </data>
+    </outputs>
 	<tests>
 	</tests>
 	<help>
