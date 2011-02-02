@@ -1,4 +1,4 @@
-<tool id="fastq_primer_clip" name="FASTA primer clip" version="0.0.1">
+<tool id="fasta_primer_clip" name="FASTA primer clip" version="0.0.1">
     <description>Trim off 5' or 3' primers</description>
 	<command interpreter="python">
 fasta_primer_clip.py $input_fasta $primer_fasta $primer_type $mm $min_len $keep_negatives $output_fasta
