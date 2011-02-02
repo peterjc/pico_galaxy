@@ -82,7 +82,7 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
     count = 0
     for record in reader:
         if rc:
-            seq = reverse_complement(record.sequence)
+            seq = reverse_complement_dna(record.sequence)
         else:
             seq = record.sequence
         #primers.add(re.compile(make_reg_ex(seq)))
