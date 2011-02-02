@@ -10,14 +10,10 @@ There are just two files to install:
 * fastq_primer_clip.py (the Python script)
 * fastq_primer_clip.xml (the Galaxy tool definition)
 
-The suggested location is next to the other FASTQ tools which are included
-with Galaxy, i.e. in the Galaxy folder tools/fastq
+The suggested location is a new tools/primers folder. You will also need to
+modify the tools_conf.xml file to tell Galaxy to offer the tool. 
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer
-the tool. The suggested location is after the fastq_filter.xml entry. Simply
-add the line:
-
-<tool file="fastq/fastq_primer_clip.xml" />
+<tool file="primers/fastq_primer_clip.xml" />
 
 That's it.
 
@@ -38,14 +34,14 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf fastq_primer_clip.tar.gz tools/fastq/fastq_primer_clip.*
+tar -czf fastq_primer_clip.tar.gz tools/primers/fastq_primer_clip.*
 
 Check this worked:
 
 $ tar -tzf fastq_primer_clip.tar.gz
-fastq/fastq_primer_clip.xml
-fastq/fastq_primer_clip.py
-fastq/fastq_primer_clip.txt
+primers/fastq_primer_clip.xml
+primers/fastq_primer_clip.py
+primers/fastq_primer_clip.txt
 
 
 Licence (MIT/BSD style)
