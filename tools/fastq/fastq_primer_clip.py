@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 """Looks for the given primer sequences and clips matching reads.
 
-
 Takes seven command line options, input FASTQ read filename, input primer FASTA
 filename, type of primers (forward, reverse or reverse-complement), number of
-mismatches (keep this small, for example 1 or 2), minimum length to keep a
+mismatches (currently only 0, 1 and 2 are supported), minimum length to keep a
 read (after primer trimming), should primer-less reads be kept, and finally the
 output FASTQ filename.
+
+This can also be used for stripping off (and optionally filtering on) barcodes.
 
 This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.1 of the script.
+This is version 0.0.1 of the script. Currently it uses Python's regular
+expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
 import re
@@ -34,7 +36,7 @@ except ValueError:
     stop_err("Expected non-negative integer number of mismatches (e.g. 0 or 1), not %r" % mm)
 if mm < 0:
     stop_err("Expected non-negtive integer number of mismatches (e.g. 0 or 1), not %r" % mm)
-if mm != 0:
+if mm not in [0,1,2]:
     raise NotImplementedError
 
 try:
@@ -75,18 +77,18 @@ ambiguous_dna_values = {
     "C": "C",
     "G": "G",
     "T": "T",
-    "M": "AC",
-    "R": "AG",
-    "W": "AT",
-    "S": "CG",
-    "Y": "CT",
-    "K": "GT",
-    "V": "ACG",
-    "H": "ACT",
-    "D": "AGT",
-    "B": "CGT",
-    "X": "GATC",
-    "N": "GATC",
+    "M": "ACM",
+    "R": "AGR",
+    "W": "ATW",
+    "S": "CGS",
+    "Y": "CTY",
+    "K": "GTK",
+    "V": "ACGMRSV",
+    "H": "ACTMWYH",
+    "D": "AGTRWKD",
+    "B": "CGTSYKB",
+    "X": ".", #faster than [GATCMRWSYKVVHDBXN] or even [GATC]
+    "N": ".",
     }
 
 ambiguous_dna_re = {}
@@ -95,12 +97,37 @@ for letter, values in ambiguous_dna_values.iteritems():
         ambiguous_dna_re[letter] = values
     else:
         ambiguous_dna_re[letter] = "[%s]" % values
-   
+
 
 def make_reg_ex(seq):
     return "".join(ambiguous_dna_re[letter] for letter in seq)
 
-#Read primer file and record all specified identifiers
+def make_reg_ex_mm(seq, mm):
+    if mm > 2:
+        raise NotImplementedError("At most 2 mismatches allowed!")
+    seq = seq.upper()
+    yield make_reg_ex(seq)
+    if mm >= 1:
+        for i,letter in enumerate(seq):
+            #We'll use a set to remove any duplicate patterns
+            #if letter not in "NX":
+            pattern = seq[:i] + "N" + seq[i+1:]
+            assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" \
+                   % (pattern, len(pattern), seq, len(seq))
+            yield make_reg_ex(pattern)
+    if mm >=2:
+        for i,letter in enumerate(seq):
+            #We'll use a set to remove any duplicate patterns
+            #if letter not in "NX":
+            for k,letter in enumerate(seq[i+1:]):
+                #We'll use a set to remove any duplicate patterns
+                #if letter not in "NX":
+                pattern = seq[:i] + "N" + seq[i+1:i+1+k] + "N" + seq[i+k+2:]
+                assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" \
+                       % (pattern, len(pattern), seq, len(seq))
+                yield make_reg_ex(pattern)
+
+#Read primer file and record all specified sequences
 primers = set()
 in_handle = open(primer_fasta, "rU")
 reader = fastaReader(in_handle)
@@ -110,11 +137,13 @@ for record in reader:
         seq = reverse_complement(record.sequence)
     else:
         seq = record.sequence
-    primers.add(re.compile(make_reg_ex(seq)))
+    #primers.add(re.compile(make_reg_ex(seq)))
     count += 1
-    #TODO - generate mismatches
+    for pattern in make_reg_ex_mm(seq, mm):
+        primers.add(pattern)
 in_handle.close()
-print "%i primer sequences giving %i regular expressions" % (count, len(primers))
+primer = re.compile("|".join(sorted(set(primers)))) #make one monster re!
+print "%i primer sequences" % count
 
 in_handle = open(input_fastq, "rU")
 out_handle = open(output_fastq, "w")
@@ -125,44 +154,36 @@ clipped = 0
 negs = 0
 if forward:
     for record in reader:
-        seq = record.sequence
-        match = False
-        for primer in primers:
-            result = primer.search(seq)
-            if result:
-                match=True
-                #Forward primer, take everything after it
-                cut = result.end()
-                record.sequence = seq[cut:]
-                record.quality = record.quality[cut:]
-                if len(record.sequence) >= min_len:
-                    clipped += 1
-                    writer.write(record)
-                else:
-                    short += 1
-                break
-        if not match and keep_negatives:
+        seq = record.sequence.upper()
+        result = primer.search(seq)
+        if result:
+            #Forward primer, take everything after it
+            cut = result.end()
+            record.sequence = seq[cut:]
+            record.quality = record.quality[cut:]
+            if len(record.sequence) >= min_len:
+                clipped += 1
+                writer.write(record)
+            else:
+                short += 1
+        elif keep_negatives:
             negs += 1
             writer.write(record)
 else:
     for record in reader:
-        seq = record.sequence
-        match = False
-        for primer in primers:
-            result = primer.search(seq)
-            if result:
-                match=True
-                #Reverse primer, take everything before it
-                cut = result.start()
-                record.sequence = seq[:cut]
-                record.quality = record.quality[:cut]
-                if len(record.sequence) >= min_len:
-                    clipped += 1
-                    writer.write(record)
-                else:
-                    short += 1
-                break
-        if not match and keep_negatives:
+        seq = record.sequence.upper()
+        result = primer.search(seq)
+        if result:
+            #Reverse primer, take everything before it
+            cut = result.start()
+            record.sequence = seq[cut:]
+            record.quality = record.quality[cut:]
+            if len(record.sequence) >= min_len:
+                clipped += 1
+                writer.write(record)
+            else:
+                short += 1
+        elif keep_negatives:
             negs += 1
             writer.write(record)
 in_handle.close()

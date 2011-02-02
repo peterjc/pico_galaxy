@@ -11,7 +11,9 @@ fastq_primer_clip.py $input_fastq $primer_fasta $primer_type $mm $min_len $keep_
             <option value="Reverse">Reverse (3') primers (given with respect to the forward strand)</option>
             <option value="Reverse-complement">Reverse (3') primers (given with respect to the reverse strand)</option>
         </param>
-        <param name="mm" type="integer" value="0" label="How many mismatches to allow? (integer)"/>
+        <param name="mm" type="integer" value="0" label="How many mismatches to allow? (0, 1 or 2)">
+	    <validator type="in_range" min="0" max="2" />
+	</param>
         <param name="min_len" type="integer" label="Minimum length for clipped reads" value="1"/>
         <param name="keep_negatives" type="boolean" value="false" label="Keep reads with no matched primer"/>
 	</inputs>
@@ -33,10 +35,10 @@ fastq_primer_clip.py $input_fastq $primer_fasta $primer_type $mm $min_len $keep_
 
 Looks for the given primer sequences and clips the reads to remove the primers and any preceeding/trailing sequence.
 
-Reads containing forward primer are reduced to just the sequence after (and excluding) the forward primer.
-Reads containing reverse primer are reduced to just the sequence before (and excluding) the reverse primer.
+Reads containing a forward primer are reduced to just the sequence after (and excluding) the forward primer.
+Reads containing a reverse primer are reduced to just the sequence before (and excluding) the reverse primer.
 
-Degenerate primers can be specified using the standard IUPAC ambiguity codes, thus a primer with an N would match A, C, T or G and so on.
+Degenerate primers can be specified using the standard IUPAC ambiguity codes, thus a primer with an N would match A, C, T or G (or any of the IUPAC ambiguity codes) and so on.
 
 	</help>
 </tool>
