@@ -16,7 +16,7 @@ Here sensible values for the column numbers would therefore be "1" or "2".
 This script is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.2 of the script.
+This is version 0.0.3 of the script.
 """
 import sys
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
@@ -86,7 +86,6 @@ elif out_negative_file != "-":
         #The [1:] is because the fastaReader leaves the @ on the identifer.
         if not record.identifier or record.identifier.split()[0][1:] not in ids:
             negative_writer.write(record)
-    positive_writer.close()
     negative_writer.close()
 else:
     stop_err("Neither output file requested")
