@@ -9,7 +9,8 @@ reads be kept (boolean), and finally the output sequence filename.
 
 Both the primer and read sequences can contain IUPAC ambiguity codes like N.
 
-This supports FASTA, FASTQ and SFF sequence files.
+This supports FASTA, FASTQ and SFF sequence files. Colorspace reads are not
+supported.
 
 This can also be used for stripping off (and optionally filtering on) barcodes.
 
@@ -24,11 +25,23 @@ expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
 import re
-from galaxy_utils.sequence.fasta import fastaReader
+from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
+from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg)
     sys.exit(err)
+
+try:
+    from Bio.Seq import reverse_complement
+    from Bio.SeqIO.SffIO import SffIterator, SffWriter
+except ImportError:
+    stop_err("Requires Biopython 1.54 or later")
+try:
+    from Bio.SeqIO.SffIO import ReadRocheXmlManifest
+except ImportError:
+    #Prior to Biopython 1.56 this was a private function
+    from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
 
 #Parse Command Line
 try:
@@ -73,11 +86,6 @@ elif primer_type.lower() == "reverse-complement":
 else:
     stop_err("Expected foward, reverse or reverse-complement not %r" % primer_type)
 
-
-#This includes all the IUPAC codes:
-_dna_comp_table = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&\'()*+,-./0123456789:;<=>?@TVGHEFCDIJMLKNOPQYSAUBWXRZ[\\]^_`tvghefcdijmlknopqysaubwxrz{|}~\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff'
-def reverse_complement_dna(seq):
-    return seq.translate(_dna_comp_table)[::-1]
 
 ambiguous_dna_values = {
     "A": "A",
@@ -142,7 +150,7 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
     count = 0
     for record in reader:
         if rc:
-            seq = reverse_complement_dna(record.sequence)
+            seq = reverse_complement(record.sequence)
         else:
             seq = record.sequence
         #primers.add(re.compile(make_reg_ex(seq)))
@@ -164,16 +172,6 @@ negs = 0
 
 if seq_format.lower()=="sff":
     #SFF is different because we just change the trim points
-    try:
-        from Bio.SeqIO.SffIO import SffIterator, SffWriter
-    except ImportError:
-        stop_err("Requires Biopython 1.54 or later")
-    try:
-        from Bio.SeqIO.SffIO import ReadRocheXmlManifest
-    except ImportError:
-        #Prior to Biopython 1.56 this was a private function
-        from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
-
     if forward:
         def process(records):
             global short, clipped, negs
@@ -226,7 +224,6 @@ if seq_format.lower()=="sff":
     writer.write_file(process(SffIterator(in_handle)))
     #End of SFF code
 elif seq_format.lower().startswith("fastq"):
-    from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
     reader = fastqReader(in_handle)
@@ -266,7 +263,6 @@ elif seq_format.lower().startswith("fastq"):
                 negs += 1
                 writer.write(record)
 elif seq_format.lower()=="fasta":
-    from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
     reader = fastaReader(in_handle)

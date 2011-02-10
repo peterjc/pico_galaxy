@@ -59,9 +59,8 @@ quality sequence) if you need to.
 
 **Citation**
 
-This tool uses Biopython to read and write SFF files. If you use this tool in
-scientific work leading to a publication, please cite the Biopython application
-note:
+This tool uses Biopython. If you use this tool in scientific work leading to a
+publication, please cite:
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
