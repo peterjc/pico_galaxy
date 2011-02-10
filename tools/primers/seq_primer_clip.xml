@@ -1,0 +1,71 @@
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.1">
+    <description>Trim off 5' or 3' primers</description>
+	<command interpreter="python">
+seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
+    </command>
+	<inputs>
+		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to clip" description="FASTA, FASTQ, or SFF format."/>
+		<param name="primer_fasta" type="data" format="fasta" label="FASTA file containing primer(s)"/>
+        <param name="primer_type" type="select" label="Type of primers">
+            <option value="Forward">Forward (5') primers</option>
+            <option value="Reverse">Reverse (3') primers (given with respect to the forward strand)</option>
+            <option value="Reverse-complement">Reverse (3') primers (given with respect to the reverse strand)</option>
+        </param>
+        <param name="mm" type="integer" value="0" label="How many mismatches to allow? (0, 1 or 2)">
+	    <validator type="in_range" min="0" max="2" />
+	</param>
+        <param name="min_len" type="integer" label="Minimum length for clipped reads" value="1"/>
+        <param name="keep_negatives" type="boolean" value="false" label="Keep reads with no matched primer"/>
+	</inputs>
+	<outputs>
+	    <data name="output_file" format="data" label="$primer_type primer clipped">
+            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
+            <change_format>
+                <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
+                <when input_dataset="input_file" attribute="extension" value="fasta" format="fasta" />
+                <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
+                <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
+        </data>
+    </outputs>
+	<tests>
+	</tests>
+	<requirements>
+		<requirement type="python-module">Bio</requirement>
+	</requirements>
+	<help>
+
+**What it does**
+
+Looks for the given primer sequences (within the existing clipped sequence) and
+further clips the reads to remove the primers and any preceeding/trailing sequence.
+
+Reads containing a forward primer are reduced to just the sequence after (and
+excluding) the forward primer.
+
+Reads containing a reverse primer are reduced to just the sequence before (and
+excluding) the reverse primer.
+
+Degenerate primers can be specified using the standard IUPAC ambiguity codes,
+thus a primer with an N would match A, C, T or G (or any of the IUPAC ambiguity
+codes) and so on.
+
+Note that for SFF files only the clip/trim positions are edited - you will still
+be able to extract the original full read (with any adapter sequence and poor
+quality sequence) if you need to.
+
+**Citation**
+
+This tool uses Biopython to read and write SFF files. If you use this tool in
+scientific work leading to a publication, please cite the Biopython application
+note:
+
+Cock et al 2009. Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+	</help>
+</tool>

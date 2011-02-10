@@ -1,0 +1,66 @@
+Galaxy tool to primer clip (trim) FASTA, FASTQ or SFF reads
+===========================================================
+
+This tool is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
+See the licence text below.
+
+This tool is a short Python script (using the Galaxy library functions and
+Biopython). There are just two files to install:
+
+* seq_primer_clip.py (the Python script)
+* seq_primer_clip.xml (the Galaxy tool definition)
+
+The suggested location is a new tools/primers folder. You will also need to
+modify the tools_conf.xml file to tell Galaxy to offer the tool. 
+
+<tool file="primers/seq_primer_clip.xml" />
+
+You will also need to install Biopython 1.54 or later. That's it.
+
+
+History
+=======
+
+v0.0.1 - Initial version (not publicly released)
+
+
+Developers
+==========
+
+This script and similar tools for FASTA, FASTQ and SFF files are currently
+being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+tar -czf seq_primer_clip.tar.gz tools/primers/seq_primer_clip.*
+
+Check this worked:
+
+$ tar -tzf seq_primer_clip.tar.gz
+primers/seq_primer_clip.xml
+primers/seq_primer_clip.py
+primers/seq_primer_clip.txt
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
