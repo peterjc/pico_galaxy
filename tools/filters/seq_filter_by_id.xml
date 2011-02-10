@@ -13,14 +13,14 @@ seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
 	<inputs>
 		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" description="FASTA, FASTQ, or SFF format." />
 		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing SFF identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
 			<validator type="no_options" message="Pick at least one column"/>
 		</param>
 		<conditional name="output_choice_cond">
 			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
-				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two SFF files</option>
-				<option value="pos">Just positive matches (ID on list), as a single SFF file</option>
-				<option value="neg">Just negative matches (ID not on list), as a single SFF file</option>
+				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two files</option>
+				<option value="pos">Just positive matches (ID on list), as a single file</option>
+				<option value="neg">Just negative matches (ID not on list), as a single file</option>
 			</param>
 			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
 			<when value="both" />
