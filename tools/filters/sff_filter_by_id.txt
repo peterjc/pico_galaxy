@@ -1,3 +1,12 @@
+Obsolete
+========
+
+This tool is now obsolete, having been replaced by a more general version
+covering the FASTA, FASTQ and SFF sequence formats in a single tool. You
+should only install this tool if you need to support existing workflows
+which used it.
+
+
 Galaxy tool to filter SFF sequences by ID
 =========================================
 
@@ -30,6 +39,7 @@ History
 =======
 
 v0.0.1 - Initial version
+v0.0.2 - Deprecated, marked as hidden in the XML.
 
 
 Developers

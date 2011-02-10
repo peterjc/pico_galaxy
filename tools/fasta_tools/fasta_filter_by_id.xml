@@ -1,4 +1,4 @@
-<tool id="fasta_filter_by_id" name="Filter FASTA by ID" version="0.0.3">
+<tool id="fasta_filter_by_id" name="Filter FASTA by ID" version="0.0.4" hidden="true">
 	<description>from a tabular file</description>
 	<command interpreter="python">
 fasta_filter_by_id.py $input_tabular $columns $input_fasta
@@ -63,6 +63,12 @@ fasta_filter_by_id.py $input_tabular $columns $input_fasta
 	-->
 	</tests>
 	<help>
+
+**Deprecated**
+
+This tool is now obsolete, and should not be used in future. It has been
+replaced by a more general version covering FASTA, FASTQ and SFF in one
+single tool.
 
 **What it does**
 

@@ -1,3 +1,11 @@
+Obsolete
+========
+
+This tool is now obsolete, having been replaced	by a more general version
+covering the FASTA, FASTQ and SFF sequence formats in a single tool. You
+should only install this tool if you need to support existing workflows
+which used it.
+
 Galaxy tool to filter FASTQ sequences by ID
 ===========================================
 
@@ -34,6 +42,7 @@ v0.0.1 - Initial verion (not publicly released)
 v0.0.2 - Allow both, just pos or just neg output files
        - Preserve the FASTQ variant in the XML wrapper
 v0.0.3 - Fixed bug when generating non-matching FASTQ file only
+v0.0.4 - Deprecated, marked as hidden in the XML
 
 
 Developers
