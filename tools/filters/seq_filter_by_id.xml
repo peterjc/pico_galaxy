@@ -29,11 +29,10 @@ seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
 		</conditional>
 	</inputs>
 	<outputs>
-		<data name="output_pos" format="data" label="With matched ID">
+		<data name="output_pos" format="fasta" label="With matched ID">
             <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
             <change_format>
                 <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
-                <when input_dataset="input_file" attribute="extension" value="fasta" format="fasta" />
                 <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
                 <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
                 <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
@@ -42,11 +41,10 @@ seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
             </change_format>
 			<filter>output_choice_cond["output_choice"] != "neg"</filter>
 		</data>
-		<data name="output_neg" format="data" label="Without matched ID">
+		<data name="output_neg" format="fasta" label="Without matched ID">
             <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
             <change_format>
                 <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
-                <when input_dataset="input_file" attribute="extension" value="fasta" format="fasta" />
                 <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
                 <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
                 <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
