@@ -25,7 +25,7 @@ information of the full read sequence.
 This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.4 of the script. Currently it uses Python's regular
+This is version 0.0.5 of the script. Currently it uses Python's regular
 expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
@@ -180,7 +180,8 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
 count, primer = load_primers_as_re(primer_fasta, mm, rc)
 print "%i primer sequences" % count
 
-short = 0
+short_neg = 0
+short_clipped = 0
 clipped = 0
 negs = 0
 
@@ -188,7 +189,7 @@ if seq_format.lower()=="sff":
     #SFF is different because we just change the trim points
     if forward:
         def process(records):
-            global short, clipped, negs
+            global short_clipped, short_neg, clipped, negs
             for record in records:
                 left_clip = record.annotations["clip_qual_left"]
                 right_clip = record.annotations["clip_qual_right"]
@@ -197,21 +198,21 @@ if seq_format.lower()=="sff":
                 if result:
                     #Forward primer, take everything after it
                     #so move the left clip along
-                    record.annotations["clip_qual_left"] = left_clip + result.end()
-                    if right_clip - left_clip - result.end() >= min_len:
+                    if len(seq) - result.end() >= min_len:
+                        record.annotations["clip_qual_left"] = left_clip + result.end()
                         clipped += 1
                         yield record
                     else:
-                        short += 1
+                        short_clipped += 1
                 elif keep_negatives:
-                    if len(record) >= short:
+                    if len(seq) >= min_len:
                         negs += 1
                         yield record
                     else:
-                        short += 1
+                        short_neg += 1
     else:
         def process(records):
-            global short, clipped, negs
+            global short_clipped, short_neg, clipped, negs
             for record in records:
                 left_clip = record.annotations["clip_qual_left"]
                 right_clip = record.annotations["clip_qual_right"]
@@ -220,18 +221,19 @@ if seq_format.lower()=="sff":
                 if result:
                     #Reverse primer, take everything before it
                     #so move the right clip back
-                    record.annotations["clip_qual_right"] = left_clip + result.start()
-                    if right_clip - left_clip - result.start() >= min_len:
+                    new_len = result.start()
+                    if new_len >= min_len:
+                        record.annotations["clip_qual_right"] = left_clip + new_len
                         clipped += 1
                         yield record
                     else:
-                        short += 1
+                        short_clipped += 1
                 elif keep_negatives:
-                    if len(record) >= short:
+                    if len(seq) >= min_len:
                         negs += 1
                         yield record
                     else:
-                        short += 1
+                        short_neg += 1
     
     in_handle = open(in_file, "rb")
     try:
@@ -256,15 +258,18 @@ elif seq_format.lower().startswith("fastq"):
                 #Forward primer, take everything after it
                 cut = result.end()
                 record.sequence = seq[cut:]
-                record.quality = record.quality[cut:]
                 if len(record.sequence) >= min_len:
+                    record.quality = record.quality[cut:]
                     clipped += 1
                     writer.write(record)
                 else:
-                    short += 1
+                    short_clipped += 1
             elif keep_negatives:
-                negs += 1
-                writer.write(record)
+                if len(record) >= min_len:
+                    negs += 1
+                    writer.write(record)
+                else:
+                    short_negs += 1
     else:
         for record in reader:
             seq = record.sequence.upper()
@@ -272,16 +277,19 @@ elif seq_format.lower().startswith("fastq"):
             if result:
                 #Reverse primer, take everything before it
                 cut = result.start()
-                record.sequence = seq[cut:]
-                record.quality = record.quality[cut:]
+                record.sequence = seq[:cut]
                 if len(record.sequence) >= min_len:
+                    record.quality = record.quality[:cut]
                     clipped += 1
                     writer.write(record)
                 else:
-                    short += 1
+                    short_clipped += 1
             elif keep_negatives:
-                negs += 1
-                writer.write(record)
+                if len(record) >= min_len:
+                    negs += 1
+                    writer.write(record)
+                else:
+                    short_negs += 1
 elif seq_format.lower()=="fasta":
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
@@ -300,13 +308,13 @@ elif seq_format.lower()=="fasta":
                     clipped += 1
                     writer.write(record)
                 else:
-                    short += 1
+                    short_clipped += 1
             elif keep_negatives:
-                if len(record) >= short:
+                if len(record) >= min_len:
                     negs += 1
                     writer.write(record)
                 else:
-                    short += 1
+                    short_negs += 1
     else:
         for record in reader:
             seq = record.sequence.upper()
@@ -314,24 +322,25 @@ elif seq_format.lower()=="fasta":
             if result:
                 #Reverse primer, take everything before it
                 cut = result.start()
-                record.sequence = seq[cut:]
+                record.sequence = seq[:cut]
                 if len(record.sequence) >= min_len:
                     clipped += 1
                     writer.write(record)
                 else:
-                    short += 1
+                    short_clipped += 1
             elif keep_negatives:
-                if len(record) >= short:
+                if len(record) >= min_len:
                     negs += 1
                     writer.write(record)
                 else:
-                    short += 1
+                    short_negs += 1
 else:
     stop_err("Unsupported file type %r" % seq_format)
 in_handle.close()
 out_handle.close()
 
-print "Kept %i clipped reads" % clipped
+print "Kept %i clipped reads," % clipped
+print "discarded %i short." % short_clipped
 if keep_negatives:
-    print "Kept %i non-matching reads" % negs
-print "Discarded %i short reads" % short
+    print "Kept %i non-matching reads," % negs
+    print "discarded %i short." % short_neg

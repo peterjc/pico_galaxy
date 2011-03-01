@@ -25,6 +25,7 @@ v0.0.1 - Initial version (not publicly released)
 v0.0.2 - Sort primers by length (longest and therefore most specific first)
 v0.0.3 - Consider missing bases at start/end of read as mismatches
 v0.0.4 - Apply minimum length to sequences with no match too
+v0.0.5 - Count clipped & non-matched short reads separately, length bug fixes
 
 
 Developers
