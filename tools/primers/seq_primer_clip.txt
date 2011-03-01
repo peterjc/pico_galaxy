@@ -22,6 +22,7 @@ History
 =======
 
 v0.0.1 - Initial version (not publicly released)
+v0.0.2 - Sort primers by length (longest and therefore most specific first)
 
 
 Developers

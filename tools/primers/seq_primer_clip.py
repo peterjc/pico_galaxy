@@ -20,7 +20,7 @@ information of the full read sequence.
 This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.1 of the script. Currently it uses Python's regular
+This is version 0.0.2 of the script. Currently it uses Python's regular
 expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
@@ -158,7 +158,10 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
         for pattern in make_reg_ex_mm(seq, mm):
             primers.add(pattern)
     in_handle.close()
-    return count, re.compile("|".join(sorted(set(primers)))) #make one monster re!
+    #Use set to avoid duplicates, sort to have longest first
+    #(so more specific primers found before less specific ones)
+    primers = sorted(set(primers), key=lambda p: -len(p))
+    return count, re.compile("|".join(primers)) #make one monster re!
 
 
 
