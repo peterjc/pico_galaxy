@@ -25,7 +25,7 @@ information of the full read sequence.
 This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.3 of the script. Currently it uses Python's regular
+This is version 0.0.4 of the script. Currently it uses Python's regular
 expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
@@ -204,8 +204,11 @@ if seq_format.lower()=="sff":
                     else:
                         short += 1
                 elif keep_negatives:
-                    negs += 1
-                    yield record
+                    if len(record) >= short:
+                        negs += 1
+                        yield record
+                    else:
+                        short += 1
     else:
         def process(records):
             global short, clipped, negs
@@ -224,8 +227,11 @@ if seq_format.lower()=="sff":
                     else:
                         short += 1
                 elif keep_negatives:
-                    negs += 1
-                    yield record
+                    if len(record) >= short:
+                        negs += 1
+                        yield record
+                    else:
+                        short += 1
     
     in_handle = open(in_file, "rb")
     try:
@@ -296,8 +302,11 @@ elif seq_format.lower()=="fasta":
                 else:
                     short += 1
             elif keep_negatives:
-                negs += 1
-                writer.write(record)
+                if len(record) >= short:
+                    negs += 1
+                    writer.write(record)
+                else:
+                    short += 1
     else:
         for record in reader:
             seq = record.sequence.upper()
@@ -312,14 +321,17 @@ elif seq_format.lower()=="fasta":
                 else:
                     short += 1
             elif keep_negatives:
-                negs += 1
-                writer.write(record)
+                if len(record) >= short:
+                    negs += 1
+                    writer.write(record)
+                else:
+                    short += 1
 else:
     stop_err("Unsupported file type %r" % seq_format)
 in_handle.close()
 out_handle.close()
 
 print "Kept %i clipped reads" % clipped
-print "Discarded %i short reads" % short
 if keep_negatives:
     print "Kept %i non-matching reads" % negs
+print "Discarded %i short reads" % short

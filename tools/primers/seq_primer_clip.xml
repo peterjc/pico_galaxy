@@ -1,4 +1,4 @@
-<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.3">
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.4">
     <description>Trim off 5' or 3' primers</description>
 	<command interpreter="python">
 seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
@@ -12,10 +12,10 @@ seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $m
             <option value="Reverse-complement">Reverse (3') primers (given with respect to the reverse strand)</option>
         </param>
         <param name="mm" type="integer" value="0" label="How many mismatches to allow? (0, 1 or 2)">
-	    <validator type="in_range" min="0" max="2" />
-	</param>
-        <param name="min_len" type="integer" label="Minimum length for clipped reads" value="1"/>
+	        <validator type="in_range" min="0" max="2" />
+        </param>
         <param name="keep_negatives" type="boolean" value="false" label="Keep reads with no matched primer"/>
+        <param name="min_len" type="integer" label="Minimum length for (clipped) sequences " value="1"/>
 	</inputs>
 	<outputs>
 	    <data name="output_file" format="data" label="$primer_type primer clipped">
