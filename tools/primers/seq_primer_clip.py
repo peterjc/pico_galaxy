@@ -12,6 +12,11 @@ Both the primer and read sequences can contain IUPAC ambiguity codes like N.
 This supports FASTA, FASTQ and SFF sequence files. Colorspace reads are not
 supported.
 
+The mismatch parameter does not consider gapped alignemnts, however the
+special case of missing bases at the very start or end of the read is handled.
+e.g. a primer sequence CCGACTCGAG will match a read starting CGACTCGAG...
+if one or more mismatches are allowed.
+
 This can also be used for stripping off (and optionally filtering on) barcodes.
 
 Note that only the trim/clip values in the SFF file are changed, not the flow
@@ -20,7 +25,7 @@ information of the full read sequence.
 This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.2 of the script. Currently it uses Python's regular
+This is version 0.0.3 of the script. Currently it uses Python's regular
 expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
@@ -122,6 +127,12 @@ def make_reg_ex_mm(seq, mm):
         raise NotImplementedError("At most 2 mismatches allowed!")
     seq = seq.upper()
     yield make_reg_ex(seq)
+    for i in range(1,mm+1):
+        #Missing first/last i bases at very start/end of sequence
+        for reg in make_reg_ex_mm(seq[i:],  mm-i):
+            yield "^" + reg
+        for reg in make_reg_ex_mm(seq[:-i], mm-i):
+            yield "$" + reg
     if mm >= 1:
         for i,letter in enumerate(seq):
             #We'll use a set to remove any duplicate patterns
