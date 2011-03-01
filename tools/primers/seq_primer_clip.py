@@ -270,7 +270,7 @@ elif seq_format.lower()=="fasta":
     out_handle = open(out_file, "w")
     reader = fastaReader(in_handle)
     writer = fastaWriter(out_handle)
-    #Following code is idential to that for FASTQ but without editing qualities
+    #Following code is identical to that for FASTQ but without editing qualities
     if forward:
         for record in reader:
             seq = record.sequence.upper()
