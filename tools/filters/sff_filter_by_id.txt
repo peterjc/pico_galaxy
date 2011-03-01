@@ -45,8 +45,10 @@ v0.0.2 - Deprecated, marked as hidden in the XML.
 Developers
 ==========
 
-This script and similar versions for FASTA and FASTQ files are currently being
-developed on the following hg branch:
+This script and related tools are being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/tools
+
+This incorporates the previously used hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
