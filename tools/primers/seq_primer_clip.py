@@ -58,7 +58,7 @@ if in_file == primer_fasta:
     stop_err("Same file given as both primer sequences and sequences to clip!")
 if in_file == out_file:
     stop_err("Same file given as both sequences to clip and output!")
-if primer_file == out_file:
+if primer_fasta == out_file:
     stop_err("Same file given as both primer sequences and output!")
 
 try:
