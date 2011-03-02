@@ -1,4 +1,4 @@
-<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.5">
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.6">
     <description>Trim off 5' or 3' primers</description>
 	<command interpreter="python">
 seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
@@ -32,6 +32,33 @@ seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $m
         </data>
     </outputs>
 	<tests>
+        <test>
+            <param name="input_file" value="primers/MID4_GLZRM4E04_rnd30.fasta" ftype="fasta" />
+            <param name="primer_fasta" value="primers/dop_primers.fasta" />
+            <param name="primer_type" value="Forward" />
+            <param name="mm" value="2" />
+            <param name="keep_negatives" value="false" />
+            <param name="min_len" value="35" />
+            <output name="output_file" file="primers/MID4_GLZRM4E04_rnd30_fclip.fasta" ftype="fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="primers/MID4_GLZRM4E04_rnd30.fastqsanger" ftype="fastqsanger" />
+            <param name="primer_fasta" value="primers/dop_primers.fasta" />
+            <param name="primer_type" value="Forward" />
+            <param name="mm" value="2" />
+            <param name="keep_negatives" value="false" />
+            <param name="min_len" value="35" />
+            <output name="output_file" file="primers/MID4_GLZRM4E04_rnd30_fclip.fastqsanger" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="input_file" value="primers/MID4_GLZRM4E04_rnd30.sff" ftype="sff" />
+            <param name="primer_fasta" value="primers/dop_primers.fasta" />
+            <param name="primer_type" value="Forward" />
+            <param name="mm" value="2" />
+            <param name="keep_negatives" value="false" />
+            <param name="min_len" value="35" />
+            <output name="output_file" file="primers/MID4_GLZRM4E04_rnd30_fclip.sff" ftype="sff" />
+        </test>
 	</tests>
 	<requirements>
 		<requirement type="python-module">Bio</requirement>

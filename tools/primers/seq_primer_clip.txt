@@ -11,9 +11,25 @@ Biopython). There are just two files to install:
 * seq_primer_clip.xml (the Galaxy tool definition)
 
 The suggested location is a new tools/primers folder. You will also need to
-modify the tools_conf.xml file to tell Galaxy to offer the tool. 
+modify the tools_conf.xml file to tell Galaxy to offer the tool and also do
+this to tools_conf.xml in order to run the tests:
 
 <tool file="primers/seq_primer_clip.xml" />
+
+There optionally some example files required to run the functional tests,
+put these in the test-data/primers folder.
+
+test-data/primers/dop_primers.fasta
+test-data/primers/MID4_GLZRM4E04_rnd30.fasta
+test-data/primers/MID4_GLZRM4E04_rnd30.fastqsanger
+test-data/primers/MID4_GLZRM4E04_rnd30.sff
+test-data/primers/MID4_GLZRM4E04_rnd30_fclip.fasta
+test-data/primers/MID4_GLZRM4E04_rnd30_fclip.fastqsanger
+test-data/primers/MID4_GLZRM4E04_rnd30_fclip.sff
+
+You should then be able to run the tests with:
+
+sh run_functional_tests.sh -id seq_primer_clip
 
 You will also need to install Biopython 1.54 or later. That's it.
 
@@ -26,6 +42,7 @@ v0.0.2 - Sort primers by length (longest and therefore most specific first)
 v0.0.3 - Consider missing bases at start/end of read as mismatches
 v0.0.4 - Apply minimum length to sequences with no match too
 v0.0.5 - Count clipped & non-matched short reads separately, length bug fixes
+v0.0.6 - Added some functional tests
 
 
 Developers
@@ -38,14 +55,21 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf seq_primer_clip.tar.gz tools/primers/seq_primer_clip.*
+tar -czf seq_primer_clip.tar.gz tools/primers/seq_primer_clip.* test-data/primers/*
 
 Check this worked:
 
 $ tar -tzf seq_primer_clip.tar.gz
-primers/seq_primer_clip.xml
-primers/seq_primer_clip.py
-primers/seq_primer_clip.txt
+tools/primers/seq_primer_clip.py
+tools/primers/seq_primer_clip.txt
+tools/primers/seq_primer_clip.xml
+test-data/primers/MID4_GLZRM4E04_rnd30.fasta
+test-data/primers/MID4_GLZRM4E04_rnd30.fastqsanger
+test-data/primers/MID4_GLZRM4E04_rnd30.sff
+test-data/primers/MID4_GLZRM4E04_rnd30_fclip.fasta
+test-data/primers/MID4_GLZRM4E04_rnd30_fclip.fastqsanger
+test-data/primers/MID4_GLZRM4E04_rnd30_fclip.sff
+test-data/primers/dop_primers.fasta
 
 
 Licence (MIT/BSD style)
