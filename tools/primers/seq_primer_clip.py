@@ -25,7 +25,7 @@ information of the full read sequence.
 This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.5 of the script. Currently it uses Python's regular
+This is version 0.0.7 of the script. Currently it uses Python's regular
 expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
@@ -53,6 +53,13 @@ try:
     in_file, seq_format, primer_fasta, primer_type, mm, min_len, keep_negatives, out_file = sys.argv[1:]
 except ValueError:
     stop_err("Expected 8 arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+
+if in_file == primer_fasta:
+    stop_err("Same file given as both primer sequences and sequences to clip!")
+if in_file == out_file:
+    stop_err("Same file given as both sequences to clip and output!")
+if primer_file == out_file:
+    stop_err("Same file given as both primer sequences and output!")
 
 try:
     mm = int(mm)

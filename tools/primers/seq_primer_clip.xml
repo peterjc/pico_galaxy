@@ -1,4 +1,4 @@
-<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.6">
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.7">
     <description>Trim off 5' or 3' primers</description>
 	<command interpreter="python">
 seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
