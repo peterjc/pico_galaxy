@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""A simple wrapper script to call MIRA and collect its output
+"""A simple wrapper script to call MIRA and collect its output.
 """
 import os
 import sys
@@ -11,7 +11,24 @@ def stop_err(msg, err=1):
     sys.stderr.write(msg+"\n")
     sys.exit(err)
 
+def collect_output(temp, name):
+    n3 = (temp, name, name, name)
+    for old, new in [("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta" % n3, out_fasta),
+                     ("%s/%s_assembly/%s_d_results/%s_out.wig" % n3, out_wig),
+                     ("%s/%s_assembly/%s_d_results/%s_out.caf" % n3, out_caf),
+                     ("%s/%s_assembly/%s_d_results/%s_out.ace" % n3, out_ace)]:
+        if not os.path.isfile(old):
+            stop_err("Missing %s output file" % os.path.splitext(old)[-1])
+        else:
+            shutil.move(old, new)
 
+def clean_up(temp, name):
+    folder = "%s/%s_assembly" % (temp, name)
+    if os.path.isdir(folder):
+        shutil.rmtree(folder)
+
+#TODO - Run MIRA in /tmp or a configurable directory?
+temp = "."
 name, out_fasta, out_ace, out_caf, out_wig, out_log = sys.argv[1:7]
 start_time = time.time()
 try:
@@ -33,19 +50,11 @@ if return_code:
     handle.write("Return error code %i from command:\n" % return_code)
     handle.write(cmd + "\n")
     handle.close()
+    clean_up(temp, name)
     stop_err("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
 handle.close()
 
-temp = "."
-n3 = (temp, name, name, name)
-for old, new in [("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta" % n3, out_fasta),
-                 ("%s/%s_assembly/%s_d_results/%s_out.wig" % n3, out_wig),
-                 ("%s/%s_assembly/%s_d_results/%s_out.caf" % n3, out_caf),
-                 ("%s/%s_assembly/%s_d_results/%s_out.ace" % n3, out_ace)]:
-    if not os.path.isfile(old):
-        stop_err("Missing %s output file" % os.path.splitext(old)[-1])
-    else:
-        shutil.move(old, new)
-shutil.rmtree("%s/%s_assembly" % (temp, name))
+collect_output(temp, name)
+clean_up(temp, name)
 print "Done"
