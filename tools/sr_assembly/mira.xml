@@ -1,6 +1,6 @@
 <tool id="mira_assembler" name="Assemble with MIRA" version="0.0.1">
     <description>Takes Sanger, Roche, and Illumina data</description>
-	<command interpreter="python">mira.py mira $out_fasta $out_ace $out_caf $out_wig $out_log
+	<command interpreter="python">mira.py mira $out_fasta $out_qual $out_ace $out_caf $out_wig $out_log
 ##Give the wrapper script list of output filenames, then the mira command...
 mira --job=$job_method,$job_type,$job_quality
 
@@ -96,6 +96,7 @@ COMMON_SETTINGS
 	</inputs>
 	<outputs>
 	    <data name="out_fasta" format="fasta" label="MIRA contigs (FASTA)" />
+	    <data name="out_qual" format="qual454" label="MIRA contigs (QUAL)" />
 	    <data name="out_caf" format="txt" label="MIRA contigs (CAF)" />
 	    <data name="out_ace" format="txt" label="MIRA contigs (ACE)" />
 	    <data name="out_wig" format="wig" label="MIRA coverage (Wiggle)" />

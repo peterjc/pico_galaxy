@@ -14,6 +14,7 @@ def stop_err(msg, err=1):
 def collect_output(temp, name):
     n3 = (temp, name, name, name)
     for old, new in [("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta" % n3, out_fasta),
+                     ("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta.qual" % n3, out_qual),
                      ("%s/%s_assembly/%s_d_results/%s_out.wig" % n3, out_wig),
                      ("%s/%s_assembly/%s_d_results/%s_out.caf" % n3, out_caf),
                      ("%s/%s_assembly/%s_d_results/%s_out.ace" % n3, out_ace)]:
@@ -29,11 +30,11 @@ def clean_up(temp, name):
 
 #TODO - Run MIRA in /tmp or a configurable directory?
 temp = "."
-name, out_fasta, out_ace, out_caf, out_wig, out_log = sys.argv[1:7]
+name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 start_time = time.time()
 try:
-    cmd = " ".join(sys.argv[7:])
-    child = subprocess.Popen(sys.argv[7:],
+    cmd = " ".join(sys.argv[8:])
+    child = subprocess.Popen(sys.argv[8:],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 except Exception, err:
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
