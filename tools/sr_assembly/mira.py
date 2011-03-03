@@ -12,11 +12,11 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 
-name, out_fasta, out_ace, out_wig, out_log = sys.argv[1:6]
+name, out_fasta, out_ace, out_caf, out_wig, out_log = sys.argv[1:7]
 start_time = time.time()
 try:
-    cmd = " ".join(sys.argv[6:])
-    child = subprocess.Popen(sys.argv[6:],
+    cmd = " ".join(sys.argv[7:])
+    child = subprocess.Popen(sys.argv[7:],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 except Exception, err:
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
@@ -27,8 +27,8 @@ run_time = time.time() - start_time
 return_code = child.returncode
 handle = open(out_log, "w")
 handle.write(stdout)
-handle.write("Mira took %0.2f minutes" % (run_time / 60.0))
-print "Mira took %0.2f minutes" % (run_time / 60.0)
+handle.write("MIRA took %0.2f minutes" % (run_time / 60.0))
+print "MIRA took %0.2f minutes" % (run_time / 60.0)
 if return_code:
     handle.write("Return error code %i from command:\n" % return_code)
     handle.write(cmd + "\n")
@@ -41,6 +41,7 @@ temp = "."
 n3 = (temp, name, name, name)
 for old, new in [("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta" % n3, out_fasta),
                  ("%s/%s_assembly/%s_d_results/%s_out.wig" % n3, out_wig),
+                 ("%s/%s_assembly/%s_d_results/%s_out.caf" % n3, out_caf),
                  ("%s/%s_assembly/%s_d_results/%s_out.ace" % n3, out_ace)]:
     if not os.path.isfile(old):
         stop_err("Missing %s output file" % os.path.splitext(old)[-1])
