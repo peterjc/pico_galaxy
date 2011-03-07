@@ -64,7 +64,7 @@ run_time = time.time() - start_time
 return_code = child.returncode
 handle = open(out_log, "w")
 handle.write(stdout)
-handle.write("MIRA took %0.2f minutes" % (run_time / 60.0))
+handle.write("\n\nMIRA took %0.2f minutes\n" % (run_time / 60.0))
 print "MIRA took %0.2f minutes" % (run_time / 60.0)
 if return_code:
     handle.write("Return error code %i from command:\n" % return_code)
