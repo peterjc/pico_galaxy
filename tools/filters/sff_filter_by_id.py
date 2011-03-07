@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """Filter an SSF file with IDs from a tabular file, e.g. from BLAST.
 
+NOTE - This script is now OBSOLETE, having been replaced by a new verion
+which handles FASTA, FASTQ and SFF all in one.
+
 Takes five command line options, tabular filename, ID column numbers
 (comma separated list using one based counting), input SFF filename, and
 two output SFF filenames (for records with and without the given IDs).
@@ -23,10 +26,10 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
+This script is copyright 2010-2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.1 of the script.
+This is version 0.0.2 of the script.
 """
 import sys
 

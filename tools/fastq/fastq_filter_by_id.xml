@@ -1,4 +1,4 @@
-<tool id="fastq_filter_by_id" name="Filter FASTQ by ID" version="0.0.3" hidden="true">
+<tool id="fastq_filter_by_id" name="Filter FASTQ by ID" version="0.0.4" hidden="true">
 	<description>from a tabular file</description>
 	<command interpreter="python">
 fastq_filter_by_id.py $input_tabular $columns $input_fastq
