@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.5">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.6">
     <description>Find transmembrane domains in protein sequences</description>
     <command interpreter="python">
       tmhmm2.py 8 $fasta_file $tabular_file
