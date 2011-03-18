@@ -102,28 +102,32 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
         raise err
     return files
 
-def run_jobs(jobs, threads):
+def run_jobs(jobs, threads, verbose=False):
     """Takes list of cmd strings, returns dict with error levels."""
     pending = jobs[:]
     running = []
     results = {}
     while pending or running:
-        #print "%i jobs pending, %i running, %i completed" \
-        #      % (len(jobs), len(running), len(results))
         #See if any have finished
         for (cmd, process) in running:
-            return_code = process.wait()
+            return_code = process.poll() #non-blocking
             if return_code is not None:
                 results[cmd] = return_code
         running = [(cmd, process) for (cmd, process) in running \
                    if cmd not in results]
+        if verbose:
+            print "%i jobs pending, %i running, %i completed" \
+                  % (len(pending), len(running), len(results))
         #See if we can start any new threads
         while pending and len(running) < threads:
             cmd = pending.pop(0)
+            if verbose:
+                print cmd
             process = subprocess.Popen(cmd, shell=True)
             running.append((cmd, process))
         #Loop...
-        sleep(1)
-    #print "%i jobs completed" % len(results)
+        sleep(10)
+    if verbose:
+        print "%i jobs completed" % len(results)
     assert set(jobs) == set(results)
     return results

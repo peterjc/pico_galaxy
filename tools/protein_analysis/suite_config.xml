@@ -1,9 +1,9 @@
-    <suite id="tmhmm_and_signalp" name="TMHMM and SignalP" version="0.0.5">
+    <suite id="tmhmm_and_signalp" name="TMHMM and SignalP" version="0.0.6">
         <description>Wrappers for TMHMM and SignalP</description>
-        <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.5">
+        <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.6">
             <description>Find transmembrane domains in protein sequences</description>
         </tool>
-        <tool id="signalp3" name="SignalP 3.0" version="0.0.3">
+        <tool id="signalp3" name="SignalP 3.0" version="0.0.6">
             <description>Find signal peptides in protein sequences</description>
         </tool>
     </suite>
