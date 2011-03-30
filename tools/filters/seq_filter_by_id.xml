@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.1">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.2">
 	<description>from a tabular file</description>
 	<command interpreter="python">
 seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
@@ -11,7 +11,7 @@ seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
 #end if
 	</command>
 	<inputs>
-		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" description="FASTA, FASTQ, or SFF format." />
+		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" help="FASTA, FASTQ, or SFF format." />
 		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
 		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
 			<validator type="no_options" message="Pick at least one column"/>
