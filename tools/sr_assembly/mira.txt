@@ -1,0 +1,77 @@
+Galaxy tool to wrap the MIRA sequence assembly program
+======================================================
+
+This tool is copyright 2011 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See the licence text below.
+
+This tool is a short Python script (to collect the MIRA output and move it
+to where Galaxy expects the files, and convert MIRA's TCS file into a tab
+separate file for use in Galaxy). There are just two files to install:
+
+* mira.py (the Python script)
+* mira.xml (the Galaxy tool definition)
+
+The suggested location is the tools/sr_assembly folder. You will also need to
+modify the tools_conf.xml file to tell Galaxy to offer the tool and also do
+this to tools_conf.xml.sample in order to run any tests:
+
+<tool file="sr_assembly/seq_primer_clip.xml" />
+
+You will also need to install MIRA, we used version 3.2.1. See:
+
+http://chevreux.org/projects_mira.html
+http://sourceforge.net/projects/mira-assembler/
+
+WARNING: This tool was developed to construct viral genome assembly and
+mapping pipelines, for which the run time and memory requirements are
+negligible. For larger tasks, be aware that MIRA can require vast amounts
+of RAM and run-times of over a week are possible. This tool wrapper makes
+no attempt to spot and reject such large jobs.
+
+
+History
+=======
+
+v0.0.1 - Initial version (working prototype)
+
+
+Developers
+==========
+
+This script and related tools are being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/tools
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+tar -czf mira.tar.gz tools/sr_assembly/mira.*
+
+Check this worked:
+
+$ tar -tzf mira.tar.gz
+tools/sr_assembly/mira.py
+tools/sr_assembly/mira.txt
+tools/sr_assembly/mira.xml
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
