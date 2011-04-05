@@ -31,7 +31,6 @@ def tcs_to_tabular(old, new):
 
 def collect_output(temp, name):
     n3 = (temp, name, name, name)
-    tcs_to_tabular("%s/%s_assembly/%s_d_results/%s_out.tcs" % n3, out_tcs)
     for old, new in [("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta" % n3, out_fasta),
                      ("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta.qual" % n3, out_qual),
                      ("%s/%s_assembly/%s_d_results/%s_out.wig" % n3, out_wig),
@@ -41,6 +40,7 @@ def collect_output(temp, name):
             stop_err("Missing %s output file" % os.path.splitext(old)[-1])
         else:
             shutil.move(old, new)
+    tcs_to_tabular("%s/%s_assembly/%s_d_results/%s_out.tcs" % n3, out_tcs)
 
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
