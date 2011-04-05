@@ -1,7 +1,8 @@
 Galaxy tool to primer clip (trim) FASTA, FASTQ or SFF reads
 ===========================================================
 
-This tool is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
+This tool is copyright 2011 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
 This tool is a short Python script (using the Galaxy library functions and
@@ -12,11 +13,11 @@ Biopython). There are just two files to install:
 
 The suggested location is a new tools/primers folder. You will also need to
 modify the tools_conf.xml file to tell Galaxy to offer the tool and also do
-this to tools_conf.xml in order to run the tests:
+this to tools_conf.xml.sample in order to run the tests:
 
 <tool file="primers/seq_primer_clip.xml" />
 
-There optionally some example files required to run the functional tests,
+There are optionally some example files required to run the functional tests,
 put these in the test-data/primers folder.
 
 test-data/primers/dop_primers.fasta
