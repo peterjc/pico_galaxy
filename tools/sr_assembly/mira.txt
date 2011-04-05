@@ -45,11 +45,11 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf mira.tar.gz tools/sr_assembly/mira.*
+tar -czf mira_wrapper.tar.gz tools/sr_assembly/mira.*
 
 Check this worked:
 
-$ tar -tzf mira.tar.gz
+$ tar -tzf mira_wrapper.tar.gz
 tools/sr_assembly/mira.py
 tools/sr_assembly/mira.txt
 tools/sr_assembly/mira.xml
