@@ -67,9 +67,9 @@ For each organism class (Eukaryote, Gram-negative and Gram-positive), two differ
 
 The NN output comprises three different scores (C-max, S-max and Y-max) and two scores derived from them (S-mean and D-score).
 
-The C-score is the 'cleavage site' score. For each position in the submitted sequence, a C-score is reported, which should only be significantly high at the cleavage site. Confusion is often seen with the position numbering of the cleavage site. When a cleavage site position is referred to by a single number, the number indicates the first residue in the mature protein, meaning that a reported cleavage site between amino acid 26-27 corresponds to that the mature protein starts at (and include) position 27.
+The C-score is the 'cleavage site' score. For each position in the submitted sequence, a C-score is reported, which should only be significantly high at the cleavage site. Confusion is often seen with the position numbering of the cleavage site. When a cleavage site position is referred to by a single number, the number indicates the first residue in the mature protein, meaning that a predicted cleavage site between amino acid 26-27 is reported as 27, corresponding to the mature protein starting at (and including) position 27.
 
-The S-score for the signal peptide prediction is calculateded for every single amino acid position in the submitted sequence (not shown in the output via Galaxy), with high scores indicating that the corresponding amino acid is part of a signal peptide, and low scores indicating that the amino acid is part of a mature protein.
+The S-score for the signal peptide prediction is calculated for every single amino acid position in the submitted sequence (not shown in the output via Galaxy), with high scores indicating that the corresponding amino acid is part of a signal peptide, and low scores indicating that the amino acid is part of a mature protein.
 
 Y-max is a derivative of the C-score combined with the S-score resulting in a better cleavage site prediction than the raw C-score alone. This is due to the fact that multiple high-peaking C-scores can be found in one sequence, where only one is the true cleavage site. The cleavage site is assigned from the Y-score where the slope of the S-score is steep and a significant C-score is found.
 
