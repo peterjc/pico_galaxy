@@ -31,11 +31,16 @@ def tcs_to_tabular(old, new):
 
 def collect_output(temp, name):
     n3 = (temp, name, name, name)
-    for old, new in [("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta" % n3, out_fasta),
-                     ("%s/%s_assembly/%s_d_results/%s_out.unpadded.fasta.qual" % n3, out_qual),
-                     ("%s/%s_assembly/%s_d_results/%s_out.wig" % n3, out_wig),
-                     ("%s/%s_assembly/%s_d_results/%s_out.caf" % n3, out_caf),
-                     ("%s/%s_assembly/%s_d_results/%s_out.ace" % n3, out_ace)]:
+    f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
+    if not os.path.isdir(f):
+        stop_err("Missing output folder")
+    if not os.listdir(f):
+        stop_err("Empty output folder")
+    for old, new in [("%s/%s_out.unpadded.fasta" % (f, name), out_fasta),
+                     ("%s/%s_out.unpadded.fasta.qual" % (f, name), out_qual),
+                     ("%s/%s_out.wig" % (f, name), out_wig),
+                     ("%s/%s_out.caf" % (f, name), out_caf),
+                     ("%s/%s_out.ace" % (f, name), out_ace)]:
         if not os.path.isfile(old):
             stop_err("Missing %s output file" % os.path.splitext(old)[-1])
         else:
@@ -48,15 +53,34 @@ def clean_up(temp, name):
         shutil.rmtree(folder)
 
 #TODO - Run MIRA in /tmp or a configurable directory?
+#Currently Galaxy puts us somewhere safe like:
+#/opt/galaxy-dist/database/job_working_directory/846/
 temp = "."
 name, out_fasta, out_qual, out_tcs, out_ace, out_caf, out_wig, out_log = sys.argv[1:9]
+
 start_time = time.time()
+cmd = " ".join(sys.argv[9:])
+
+assert os.path.isdir(temp)
+d = "%s_assembly" % name
+assert not os.path.isdir(d)
 try:
-    cmd = " ".join(sys.argv[9:])
+    #Check path access
+    os.mkdir(d)
+except Exception, err:
+    sys.stderr.write("Error making directory %s\n%s" % (d, err))
+    sys.exit(1)
+
+#print os.path.abspath(".")
+#print cmd
+
+try:
+    #Run MIRA
     child = subprocess.Popen(sys.argv[9:],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 except Exception, err:
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
+    #TODO - call clean up?
     sys.exit(1)
 #Use .communicate as can get deadlocks with .wait(),
 stdout, stderr = child.communicate()
