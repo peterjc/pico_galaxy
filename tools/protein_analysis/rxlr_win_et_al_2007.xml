@@ -1,0 +1,41 @@
+<tool id="rxlr_win_et_al_2007" name="RXLR Motifs (Win et al. 2007)" version="0.0.1">
+    <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
+    <command interpreter="python">rxlr_win_et_al_2007.py $fasta_file $signalp_file $tabular_file</command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" /> 
+        <param name="signalp_file" type="data" format="tabular" label="Tabular file of SignalP 3.0 predictions" />
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="RXLR (Win et al. 2007) results" />
+    </outputs>
+    <help>
+    
+**What it does**
+
+Looks for the protein motif RXLR using the methodolgy described in Win et al. (2007).
+
+Win et al. (2007) used SignalP v2.0, which is no longer available.
+The current release is SignalP v3.0 (Mar 5, 2007), and we provide a
+Galaxy wrapper for this. As part of this change, we have opted to use the
+Neural Network Ymax position for the predicted cleavage site, as this is
+expected to be more accurate. Also note that the HMM score values have
+changed from v2.0 to v3.0. 
+
+You must first call the SignalP v3.0 tool for prediction of signal peptides on
+your FASTA file of proteins, and give this output and the FASTA file as inputs.
+
+SignalP uses both a Neural Network (NN) and Hidden Markov Model (HMM) to produce two sets of scores.
+This tools requires both a positive result from the HMM (using a threshold of 0.9),
+and the NN predicted cleveage site to be between amino acids 10 and 30.
+Additionally the motif RXLR must be found starting between amino acids 30 and 60,
+and after the NN predicted signal peptide clevage site.
+
+
+**References**
+
+Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun.
+Adaptive Evolution Has Targeted the C-Terminal Domain of the RXLR Effectors of Plant Pathogenic Oomycetes
+The Plant Cell 19:2349-2369, 2007.
+
+    </help>
+</tool>
