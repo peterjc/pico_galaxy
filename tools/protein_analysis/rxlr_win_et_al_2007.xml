@@ -27,12 +27,13 @@ parallels with the malarial host-targeting signal.
 
 This tool looks or the protein motif RXLR using the methodolgy described in Win et al.
 (2007). It requires a protein sequence FASTA file as input, and produces a simple
-tabular file as output with one line per protein.
+tabular file as output with one line per protein, and two columns giving the sequence
+ID and whether or not it had an RXLR motif (Y or N).
 
 Declaring a protein to have an RXLR motif requires a SignalP Hidden Markov Model (HMM)
 score of at least 0.9, with the Neural Network predicted cleavage site between amino
 acids 10 and 30, with an RXLR pattern after this and starting between amino acids 30
-and 60. Additionally the position of any EER pattern after the RXLR is also reported.
+and 60.
 
 Note that Win et al. (2007) used SignalP v2.0, which is no longer available. The
 current release is SignalP v3.0 (Mar 5, 2007), so this is used instead (with the

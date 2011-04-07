@@ -56,28 +56,20 @@ def parse_signalp(filename):
 count = 0
 total = 0
 handle = open(tabular_file, "w")
-handle.write("#ID\tHMM_Sprob_score\tSP_len\tRXLR_start\tEER_start\tRXLR?\n")
+handle.write("#ID\tRXLR\n")
 for (title, seq),(sp_id, sp_hmm_score, sp_nn_len) \
 in zip(fasta_iterator(fasta_file), parse_signalp(signalp_file)):
     assert title.split(None,1)[0] == sp_id
     total += 1
     rxlr = "N"
-    rxlr_pos = ""
-    eer_pos = ""
-    rxlr_match = re_rxlr.search(seq[sp_nn_len:].upper())
-    if rxlr_match:
-       rxlr_pos = sp_nn_len + rxlr_match.start() + 1 #one based counting
-       eer_pos = seq.upper().find("EER", rxlr_pos+3) #length four, zero based counting
-       if eer_pos == -1:
-          eer_pos = ""
-       else:
-          eer_pos = str(eer_pos + 1) #one based counting
-       if float(sp_hmm_score) > 0.9 and 10 <= sp_nn_len <= 30 \
-       and 30 <= rxlr_pos <= 60:
-          rxlr = "Y"
-          count += 1
-       rxlr_pos = str(rxlr_pos) #already one based
-    handle.write("%s\n" % "\t".join([sp_id, sp_hmm_score, str(sp_nn_len), rxlr_pos, eer_pos, rxlr]))
+    if float(sp_hmm_score) > 0.9 and 10 <= sp_nn_len <= 30:
+       rxlr_match = re_rxlr.search(seq[sp_nn_len:].upper())
+       if rxlr_match:
+           rxlr_pos = sp_nn_len + rxlr_match.start() + 1 #one based counting
+           if 30 <= rxlr_pos <= 60:
+               rxlr = "Y"
+               count += 1
+    handle.write("%s\t%s\n" % (sp_id,  rxlr))
 handle.close()
 
 #Cleanup
