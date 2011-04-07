@@ -1,9 +1,11 @@
-<tool id="rxlr_win_et_al_2007" name="RXLR Motifs (Win et al. 2007)" version="0.0.1">
+<tool id="rxlr_win_et_al_2007" name="RXLR Motifs (Win et al. 2007)" version="0.0.2">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
-    <command interpreter="python">rxlr_win_et_al_2007.py $fasta_file $signalp_file $tabular_file</command>
+    <command interpreter="python">
+      rxlr_win_et_al_2007.py $fasta_file 8 $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
+    </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" /> 
-        <param name="signalp_file" type="data" format="tabular" label="Tabular file of SignalP 3.0 predictions" />
     </inputs>
     <outputs>
         <data name="tabular_file" format="tabular" label="RXLR (Win et al. 2007) results" />
@@ -11,7 +13,6 @@
     <tests>
         <test>
             <param name="fasta_file" value="rxlr_win_et_al_2007.fasta" ftype="fasta" />
-            <param name="signalp_file" value="rxlr_win_et_al_2007_sp3.tabular" ftype="tabular" />
             <output name="tabular_file" file="rxlr_win_et_al_2007.tabular" ftype="tabular" />
         </test>
     </tests>
@@ -21,28 +22,27 @@
 
 Looks for the protein motif RXLR using the methodolgy described in Win et al. (2007).
 
-Win et al. (2007) used SignalP v2.0, which is no longer available.
-The current release is SignalP v3.0 (Mar 5, 2007), and we provide a
-Galaxy wrapper for this. As part of this change, we have opted to use the
-Neural Network Ymax position for the predicted cleavage site, as this is
-expected to be more accurate. Also note that the HMM score values have
-changed from v2.0 to v3.0. 
+The tool requires a protein sequence FASTA file as input, and produces a simple
+tabular file as output with one line per protein.
 
-You must first call the SignalP v3.0 tool for prediction of signal peptides on
-your FASTA file of proteins, and give this output and the FASTA file as inputs.
+Note that Win et al. (2007) used SignalP v2.0, which is no longer available.
+The current release is SignalP v3.0 (Mar 5, 2007), so this is used instead (with the
+Eukaryote model).
 
-SignalP uses both a Neural Network (NN) and Hidden Markov Model (HMM) to produce two sets of scores.
-This tools requires both a positive result from the HMM (using a threshold of 0.9),
-and the NN predicted cleveage site to be between amino acids 10 and 30.
-Additionally the motif RXLR must be found starting between amino acids 30 and 60,
-and after the NN predicted signal peptide clevage site.
-
+Declaring a protein to have an RXLR motif requires a SignalP Hidden Markov Model (HMM)
+score of at least 0.9, with the Neural Network predicted cleavage site between amino
+acids 10 and 30, with an RXLR pattern after this and starting between amino acids 30
+and 60. Additionally the position of any EER pattern after the RXLR is also reported.
 
 **References**
 
 Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun.
 Adaptive Evolution Has Targeted the C-Terminal Domain of the RXLR Effectors of Plant Pathogenic Oomycetes
 The Plant Cell 19:2349-2369, 2007.
+
+Nielsen, Engelbrecht, Brunak and von Heijne.
+Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
+Protein Engineering, 10:1-6, 1997.
 
     </help>
 </tool>
