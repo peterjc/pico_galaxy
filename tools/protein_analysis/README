@@ -73,6 +73,9 @@ v0.0.3 - Check for tmhmm2 silent failures (no output)
 v0.0.4 - Ignore comment lines in tmhmm2 output.
 v0.0.5 - Explicitly request tmhmm short output (may not be the default)
 v0.0.6 - Improvement to how sub-jobs are run (should be faster)
+v0.0.7 - Change SignalP default truncation from 60 to 70 to match the
+         SignalP webservice.
+
 
 Developers
 ==========

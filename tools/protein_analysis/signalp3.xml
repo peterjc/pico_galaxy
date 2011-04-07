@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.6">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.7">
     <description>Find signal peptides in protein sequences</description>
     <command interpreter="python">
       signalp3.py $organism $truncate 8 $fasta_file $tabular_file
@@ -11,7 +11,7 @@
             <option value="gram+">Gram positive</option>
             <option value="gram-">Gram negative</option>
         </param>
-        <param name="truncate" type="integer" label="Truncate sequences to this many amino acids" value="60" help="Use zero for no truncation, maximum value 6000">
+        <param name="truncate" type="integer" label="Truncate sequences to this many amino acids" value="70" help="Use zero for no truncation, maximum value 6000">
             <validator type="in_range" min="0" max="6000" message="Truncation value should be at most 6000. Use zero for no truncation."/>
         </param>
     </inputs>
