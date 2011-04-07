@@ -53,12 +53,17 @@ def parse_signalp(filename):
         yield parts[0], parts[18], int(parts[5])-1
     handle.close()
 
+count = 0
+total = 0
 handle = open(tabular_file, "w")
 handle.write("#ID\tHMM_Sprob_score\tSP_len\tRXLR_start\tEER_start\tRXLR?\n")
 for (title, seq),(sp_id, sp_hmm_score, sp_nn_len) \
 in zip(fasta_iterator(fasta_file), parse_signalp(signalp_file)):
     assert title.split(None,1)[0] == sp_id
+    total += 1
     rxlr = "N"
+    rxlr_pos = ""
+    eer_pos = ""
     rxlr_match = re_rxlr.search(seq[sp_nn_len:].upper())
     if rxlr_match:
        rxlr_pos = sp_nn_len + rxlr_match.start() + 1 #one based counting
@@ -70,12 +75,11 @@ in zip(fasta_iterator(fasta_file), parse_signalp(signalp_file)):
        if float(sp_hmm_score) > 0.9 and 10 <= sp_nn_len <= 30 \
        and 30 <= rxlr_pos <= 60:
           rxlr = "Y"
+          count += 1
        rxlr_pos = str(rxlr_pos) #already one based
-    else:
-       rxlr_pos = ""
     handle.write("%s\n" % "\t".join([sp_id, sp_hmm_score, str(sp_nn_len), rxlr_pos, eer_pos, rxlr]))
 handle.close()
 
 #Cleanup
 os.remove(signalp_file)
-print "Done"
+print "%i out of %i have RXLR motif" % (count, total)
