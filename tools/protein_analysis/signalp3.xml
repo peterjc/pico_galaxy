@@ -46,6 +46,12 @@
             <param name="truncate" value="0"/> 
             <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
         </test>
+        <test>
+            <param name="fasta_file" value="rxlr_win_et_al_2007.fasta" ftype="fasta"/>
+            <param name="organism" value="euk"/>
+            <param name="truncate" value="70"/> 
+            <output name="tabular_file" file="rxlr_win_et_al_2007_sp3.tabular" ftype="tabular"/>
+        </test>
     </tests>
     <help>
     

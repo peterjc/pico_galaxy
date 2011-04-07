@@ -8,6 +8,13 @@
     <outputs>
         <data name="tabular_file" format="tabular" label="RXLR (Win et al. 2007) results" />
     </outputs>
+    <tests>
+        <test>
+            <param name="fasta_file" value="rxlr_win_et_al_2007.fasta" ftype="fasta" />
+            <param name="signalp_file" value="rxlr_win_et_al_2007_sp3.tabular" ftype="tabular" />
+            <output name="tabular_file" file="rxlr_win_et_al_2007.tabular" ftype="tabular" />
+        </test>
+    </tests>
     <help>
     
 **What it does**
