@@ -20,25 +20,34 @@
     
 **What it does**
 
-Looks for the protein motif RXLR using the methodolgy described in Win et al. (2007).
+Many effector proteins from Oomycete plant pathogens for manipulating the host have
+been found to contain a signal peptide followed by a conserved RXLR motif (Arg, any
+amino acid, Leu, Arg), and then sometimes EER (Glu, Glu, Arg). There are stiking
+parallels with the malarial host-targeting signal.
 
-The tool requires a protein sequence FASTA file as input, and produces a simple
+This tool looks or the protein motif RXLR using the methodolgy described in Win et al.
+(2007). It requires a protein sequence FASTA file as input, and produces a simple
 tabular file as output with one line per protein.
-
-Note that Win et al. (2007) used SignalP v2.0, which is no longer available.
-The current release is SignalP v3.0 (Mar 5, 2007), so this is used instead (with the
-Eukaryote model).
 
 Declaring a protein to have an RXLR motif requires a SignalP Hidden Markov Model (HMM)
 score of at least 0.9, with the Neural Network predicted cleavage site between amino
 acids 10 and 30, with an RXLR pattern after this and starting between amino acids 30
 and 60. Additionally the position of any EER pattern after the RXLR is also reported.
 
+Note that Win et al. (2007) used SignalP v2.0, which is no longer available. The
+current release is SignalP v3.0 (Mar 5, 2007), so this is used instead (with the
+Eukaryote model and sequences truncated at 70 amin acids).
+
+
 **References**
 
 Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun.
-Adaptive Evolution Has Targeted the C-Terminal Domain of the RXLR Effectors of Plant Pathogenic Oomycetes
+Adaptive Evolution Has Targeted the C-Terminal Domain of the RXLR Effectors of Plant Pathogenic Oomycetes.
 The Plant Cell 19:2349-2369, 2007.
+
+Souvik Bhattacharjee, N. Luisa Hiller, Konstantinos Liolios, Joe Win, Thirumala-Devi Kanneganti, Carolyn Young, Sophien Kamoun, Kasturi Haldar.
+The malarial host-targeting signal is conserved in the Irish potato famine pathogen.
+PLoS Pathogens, 2(5):e50, 2006.
 
 Nielsen, Engelbrecht, Brunak and von Heijne.
 Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
