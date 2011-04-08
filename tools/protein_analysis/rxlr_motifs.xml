@@ -1,0 +1,103 @@
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.3">
+    <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
+    <command interpreter="python">
+      rxlr_motifs.py $fasta_file 8 $model $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" /> 
+        <param name="model" type="select" label="Which RXLR model?">
+            <option value="Bhattacharjee2006">Bhattacharjee et al. (2006) RXLR</option>
+            <option value="Win2007">Win et al. (2007) RXLR</option>
+            <option value="Whisson2007re" selected="True">Whisson et al. (2007) RXLR-EER heuristic</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="$model.value_label" />
+    </outputs>
+    <requirements>
+        <requirement type="binary">signalp</requirement>
+    </requirements>
+    <help>
+    
+**What it does**
+
+Many effector proteins from Oomycete plant pathogens for manipulating the host have
+been found to contain a signal peptide followed by a conserved RXLR motif (Arg, any
+amino acid, Leu, Arg), and then sometimes EER (Glu, Glu, Arg). There are stiking
+parallels with the malarial host-targeting signal.
+
+It requires a protein sequence FASTA file as input, and produces a simple tabular
+file as output with one line per protein, and two columns giving the sequence ID
+and whether or not it had the selected RXLR motif (Y or N).
+
+
+**Bhattacharjee et al. (2006) RXLR Model**
+
+Looks for the protein motif RXLR as described in Bhattacharjee et al. (2006).
+
+Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
+a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
+length between 10 and 40 amino acids inclusive, and the RXLR pattern must be
+after but within 100 amino acids of the clevage site.
+
+
+**Win et al. (2007) RXLR Model**
+
+Looks for the protein motif RXLR as described in Win et al. (2007).
+
+Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
+a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
+length between 10 and 40 amino acids inclusive, and the RXLR pattern must be
+after the clevage site and start between amino acids 30 and 60.
+
+
+**Whisson et al. (2007) RXLR-EER Heuristic Model**
+
+Looks for the protein motif RXLR-EER using the heuristic regular expression
+methodolgy described in Whisson et al. (2007), which was an extension of the RXLR
+clasffier described in Bhattacharjee et al. (2006).
+
+All the requirements described above for Bhattacharjee et al. (2006) apply,
+but rather than just looking for RXLR with the regular expression R.LR the more
+complicated regular expression R.LR.{,40}[ED][ED][KR] is used. This means
+RXLR (Arg, any amino acid, Leu, Arg), then a stretch of up to forty amino acids
+before Glu/Asp, Glu/Asp, Lys/Arg. The EER part of the name is perhaps misleading
+as it also allows for DDR, EEK, and so on.
+
+Note that Whisson et al. (2007) also describes a second RXLR-EER classifier using
+a Hidden Markov Model (HMM).
+
+
+**Note**
+
+Both Bhattacharjee et al. (2006) and Win et al. (2007) used SignalP v2.0, which
+is no longer available. The current release is SignalP v3.0 (Mar 5, 2007), so
+this is used instead (with the Eukaryote model and sequences truncated at 70
+amino acids).
+
+
+**References**
+
+Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard and Paul R. J. Birch
+A translocation signal for delivery of oomycete effector proteins into host plant cells.
+Nature 450:115-118, 2007.
+
+Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun.
+Adaptive evolution has targeted the C-terminal domain of the RXLR effectors of plant pathogenic oomycetes.
+The Plant Cell 19:2349-2369, 2007.
+
+Souvik Bhattacharjee, N. Luisa Hiller, Konstantinos Liolios, Joe Win, Thirumala-Devi Kanneganti, Carolyn Young, Sophien Kamoun and Kasturi Haldar.
+The malarial host-targeting signal is conserved in the Irish potato famine pathogen.
+PLoS Pathogens, 2(5):e50, 2006.
+
+Trudy A. Torto, Shuang Li, Allison Styer, Edgar Huitema, Antonino Testa, Neil A.R. Gow, Pieter van West and Sophien Kamoun.
+EST mining and functional expression assays identify extracellular effector proteins from the plant pathogen phytophthora.
+Genome Research, 13:1675-1685, 2003.
+
+Nielsen, Engelbrecht, Brunak and von Heijne.
+Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
+Protein Engineering, 10:1-6, 1997.
+
+    </help>
+</tool>
