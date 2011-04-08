@@ -1,7 +1,7 @@
-<tool id="rxlr_win_et_al_2007" name="RXLR Motifs (Win et al. 2007)" version="0.0.2">
+<tool id="rxlr_win_et_al_2007" name="RXLR Motifs (Win et al. 2007)" version="0.0.3">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
-      rxlr_win_et_al_2007.py $fasta_file 8 $tabular_file
+      rxlr_motifs.py $fasta_file 8 Win2007 $tabular_file
       ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>

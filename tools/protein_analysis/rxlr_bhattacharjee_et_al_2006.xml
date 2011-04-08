@@ -1,7 +1,7 @@
-<tool id="rxlr_bhattacharjee_et_al_2006" name="RXLR Motifs (Bhattacharjee et al. 2006)" version="0.0.1">
+<tool id="rxlr_bhattacharjee_et_al_2006" name="RXLR Motifs (Bhattacharjee et al. 2006)" version="0.0.3">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
-      rxlr_bhattacharjee_et_al_2006.py $fasta_file 8 $tabular_file
+      rxlr_motifs.py $fasta_file 8 Bhattacharjee2006 $tabular_file
       ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>
@@ -32,7 +32,7 @@ score of at least 0.9, with the Neural Network predicted cleavage site giving a 
 peptide length between 10 and 40 amino acids, with an RXLR pattern after this and
 starting within 100 amino acids of the signal peptide clevage site.
 
-Note that Bhattacharjee et al. (2007) used SignalP v2.0, which is no longer available.
+Note that Bhattacharjee et al. (2006) used SignalP v2.0, which is no longer available.
 The current release is SignalP v3.0 (Mar 5, 2007), so this is used instead (with the
 Eukaryote model and sequences truncated at 70 amin acids).
 

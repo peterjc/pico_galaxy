@@ -1,7 +1,7 @@
-<tool id="rxlr_eer_whisson_et_al_2007_re" name="RXLR-EER Motifs (Whisson et al. 2007, heuristic)" version="0.0.2">
+<tool id="rxlr_eer_whisson_et_al_2007_re" name="RXLR-EER Motifs (Whisson et al. 2007, heuristic)" version="0.0.3">
     <description>Find RXLR-EER Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
-      rxlr_whisson_et_al_2007_re.py $fasta_file 8 $tabular_file
+      rxlr_motifs.py $fasta_file 8 Whisson2007re $tabular_file
       ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>
@@ -42,11 +42,11 @@ amino acids before Glu/Asp, Glu/Asp, Lys/Arg. The EER part of the name is perhap
 misleading as it also allows for DDR, EEK, and so on.
 
 Note that Whisson et al. (2007) also describes a second RXLR-EER classifier using
-a Hidden Markov Model (HMM). See also Win et al. (2007) for related classifier.
+a Hidden Markov Model (HMM). See also Win et al. (2007) for a related classifier.
 
 **References**
 
-Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard & Paul R. J. Birch
+Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard and Paul R. J. Birch
 A translocation signal for delivery of oomycete effector proteins into host plant cells.
 Nature 450:115-118, 2007.
 
