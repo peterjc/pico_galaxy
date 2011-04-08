@@ -338,8 +338,8 @@ Ps_scaffold_57_F812	Y
 Ps_scaffold_68_R924	Y
 Ps_scaffold_70_F37	Y
 Ps_scaffold_2_F2119	Y
-Hp_Contig2461.1_F2	N
-Hp_Contig426.4_R36	N
+Hp_Contig2461.1_F2	Y
+Hp_Contig426.4_R36	Y
 Hp_Contig600.2_F1	Y
 Hp_Contig751.3_R25	Y
 Hp_Contig108.3_F45	Y
@@ -515,7 +515,7 @@ Pr_scaffold_103_F104	Y
 Pr_scaffold_103_F268	Y
 Pr_scaffold_1049_R3	Y
 Pr_scaffold_11_F1966	Y
-Pr_scaffold_11_F2029	N
+Pr_scaffold_11_F2029	Y
 Pr_scaffold_11_F2239	Y
 Pr_scaffold_11_F436	Y
 Pr_scaffold_11_R1193	Y
@@ -677,7 +677,7 @@ Pr_scaffold_57_F325	Y
 Pr_scaffold_57_F71	Y
 Pr_scaffold_58_F305	Y
 Pr_scaffold_59_R680	Y
-Pr_scaffold_596_R18	N
+Pr_scaffold_596_R18	Y
 Pr_scaffold_6_F2135	Y
 Pr_scaffold_6_F2312	Y
 Pr_scaffold_6_F2334	Y
@@ -704,7 +704,7 @@ Pr_scaffold_7_F2159	Y
 Pr_scaffold_7_F786	Y
 Pr_scaffold_7_R1239	Y
 Pr_scaffold_7_R623	Y
-Pr_scaffold_70_R1101	N
+Pr_scaffold_70_R1101	Y
 Pr_scaffold_72_F755	Y
 Pr_scaffold_729_F14	Y
 Pr_scaffold_74_R718	Y
@@ -716,7 +716,7 @@ Pr_scaffold_78_R164	N
 Pr_scaffold_79_R323	Y
 Pr_scaffold_79_R361	N
 Pr_scaffold_8_F869	Y
-Pr_scaffold_8_R1511	N
+Pr_scaffold_8_R1511	Y
 Pr_scaffold_8_R1673	Y
 Pr_scaffold_81_F608	Y
 Pr_scaffold_81_F739	Y
@@ -724,7 +724,7 @@ Pr_scaffold_81_R909	Y
 Pr_scaffold_82_R211	Y
 Pr_scaffold_83_F509	Y
 Pr_scaffold_83_R408	Y
-Pr_scaffold_839_F1	N
+Pr_scaffold_839_F1	Y
 Pr_scaffold_85_R325	Y
 Pr_scaffold_90_F443	Y
 Pr_scaffold_90_R178	Y
@@ -803,7 +803,7 @@ Ps_scaffold_14_R2959	Y
 Ps_scaffold_146_R175	N
 Ps_scaffold_149_R206	Y
 Ps_scaffold_15_F2538	Y
-Ps_scaffold_15_R852	N
+Ps_scaffold_15_R852	Y
 Ps_scaffold_151_F233	Y
 Ps_scaffold_151_R87	Y
 Ps_scaffold_152_F6	Y
@@ -1254,7 +1254,7 @@ Hp_Contig711.2_R43	Y
 Ps_scaffold_118_R441	Y
 Ps_scaffold_3_R693	Y
 Ps_scaffold_3_F2989	Y
-Pr_scaffold_100_F3	N
+Pr_scaffold_100_F3	Y
 Pr_scaffold_33_F297	Y
 Pr_scaffold_5_F406	Y
 Hp_Contig13.3_R33	Y
