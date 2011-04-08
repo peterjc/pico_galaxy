@@ -42,12 +42,18 @@ Note that Win et al. (2007) used SignalP v2.0, which is no longer available. The
 current release is SignalP v3.0 (Mar 5, 2007), so this is used instead (with the
 Eukaryote model and sequences truncated at 70 amin acids).
 
+See also Whisson et. al (2007) for two related RXLR classifiers.
+
 
 **References**
 
 Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun.
 Adaptive evolution has targeted the C-terminal domain of the RXLR effectors of plant pathogenic oomycetes.
 The Plant Cell 19:2349-2369, 2007.
+
+Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard and Paul R. J. Birch.
+A translocation signal for delivery of oomycete effector proteins into host plant cells.
+Nature 450:115-118, 2007.
 
 Souvik Bhattacharjee, N. Luisa Hiller, Konstantinos Liolios, Joe Win, Thirumala-Devi Kanneganti, Carolyn Young, Sophien Kamoun and Kasturi Haldar.
 The malarial host-targeting signal is conserved in the Irish potato famine pathogen.
