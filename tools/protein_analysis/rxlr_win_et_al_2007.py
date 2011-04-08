@@ -25,13 +25,24 @@ if len(sys.argv) != 4:
    stop_err("Requires three arguments: protein FASTA filename, threads, and output filename")
 
 fasta_file, threads, tabular_file = sys.argv[1:]
+signalp_input_file = tabular_file + ".fasta.tmp"
+signalp_output_file = tabular_file + ".tabular.tmp"
+signalp_trunc = 70
+
+#Prepare short list of candidates containing RXLR to pass to SignalP
+handle = open(signalp_input_file, "w")
+for title, seq in fasta_iterator(fasta_file):
+   name = title.split(None,1)[0]
+   if True:
+      #Might as well truncate the sequence now, makes the temp file smaller
+      handle.write(">%s (truncated)\n%s\n" % (name, seq[:signalp_trunc]))
+handle.close()
 
 #Run SignalP (using our wrapper script to get multi-core support etc)
-signalp_file = tabular_file + ".tmp"
 signalp_script = os.path.join(os.path.split(sys.argv[0])[0], "signalp3.py")
 if not os.path.isfile(signalp_script):
    stop_err("Error - missing signalp3.py script")
-cmd = "python %s euk 70 %s %s %s" % (signalp_script, threads, fasta_file, signalp_file)
+cmd = "python %s euk %i %s %s %s" % (signalp_script, signalp_trunc, threads, signalp_input_file, signalp_output_file)
 return_code = os.system(cmd)
 if return_code:
    stop_err("Error %i from SignalP:\n%s" % (return_code, cmd))
@@ -58,7 +69,7 @@ total = 0
 handle = open(tabular_file, "w")
 handle.write("#ID\tRXLR\n")
 for (title, seq),(sp_id, sp_hmm_score, sp_nn_len) \
-in zip(fasta_iterator(fasta_file), parse_signalp(signalp_file)):
+in zip(fasta_iterator(fasta_file), parse_signalp(signalp_output_file)):
     assert title.split(None,1)[0] == sp_id
     total += 1
     rxlr = "N"
@@ -73,5 +84,6 @@ in zip(fasta_iterator(fasta_file), parse_signalp(signalp_file)):
 handle.close()
 
 #Cleanup
-os.remove(signalp_file)
+os.remove(signalp_input_file)
+os.remove(signalp_output_file)
 print "%i out of %i have RXLR motif" % (count, total)
