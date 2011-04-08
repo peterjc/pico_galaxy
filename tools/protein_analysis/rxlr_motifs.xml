@@ -18,6 +18,13 @@
     <requirements>
         <requirement type="binary">signalp</requirement>
     </requirements>
+    <tests>
+        <test>
+            <param name="fasta_file" value="rxlr_win_et_al_2007.fasta" ftype="fasta" />
+            <param name="model" value="Win2007" />
+            <output name="tabular_file" file="rxlr_win_et_al_2007.tabular" ftype="tabular" />
+        </test>
+    </tests>
     <help>
     
 **What it does**
