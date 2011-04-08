@@ -35,7 +35,7 @@ ID and whether or not it had an RXLR motif (Y or N).
 
 Declaring a protein to have an RXLR motif requires a SignalP Hidden Markov Model (HMM)
 score of at least 0.9, with the Neural Network predicted cleavage site between amino
-acids 10 and 30, with an RXLR pattern after this and starting between amino acids 30
+acids 10 and 40, with an RXLR pattern after this and starting between amino acids 30
 and 60.
 
 Note that Win et al. (2007) used SignalP v2.0, which is no longer available. The
