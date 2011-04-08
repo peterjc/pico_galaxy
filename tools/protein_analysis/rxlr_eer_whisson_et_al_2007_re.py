@@ -86,7 +86,7 @@ for title, seq in fasta_iterator(fasta_file):
         #so it will be in the SignalP results.
         sp_id, sp_hmm_score, sp_nn_len = signalp_results.next()
         assert name == sp_id, "%s vs %s" % (name, sp_id)
-        if sp_hmm_score > 0.9 and 10 <= sp_nn_len <= 40:
+        if sp_hmm_score >= 0.9 and 10 <= sp_nn_len <= 40:
             match = re_rxlr_eer.search(seq[sp_nn_len:].upper())
             if match and match.start() + 1 <= 100: #1-based counting
                 #Within 100aa of the signal peptide cleavage point
