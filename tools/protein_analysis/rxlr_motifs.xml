@@ -9,14 +9,18 @@
         <param name="model" type="select" label="Which RXLR model?">
             <option value="Bhattacharjee2006">Bhattacharjee et al. (2006) RXLR</option>
             <option value="Win2007">Win et al. (2007) RXLR</option>
-            <option value="Whisson2007re" selected="True">Whisson et al. (2007) RXLR-EER heuristic</option>
+            <option value="Whisson2007re" selected="True">Whisson et al. (2007) RXLR-EER heuristic only</option>
+            <option value="Whisson2007">Whisson et al. (2007) RXLR-EER including HMM</option>
         </param>
     </inputs>
     <outputs>
         <data name="tabular_file" format="tabular" label="$model.value_label" />
     </outputs>
     <requirements>
+        <!-- Need SignalP for all the models -->
         <requirement type="binary">signalp</requirement>
+        <!-- Need HMMER for Whisson et al. (2007) -->
+        <requirement type="binary">hmmsearch</requirement>
     </requirements>
     <tests>
         <test>
@@ -66,7 +70,7 @@ SignalP is run truncating the sequences to the first 70 amino acids, to match
 the methodology of Torto et al. (2003) followed in Win et al. (2007).
 
 
-**Whisson et al. (2007) RXLR-EER Heuristic Model**
+**Whisson et al. (2007) RXLR-EER Heuristic Model (only)**
 
 Looks for the protein motif RXLR-EER using the heuristic regular expression
 methodolgy described in Whisson et al. (2007), which was an extension of the
@@ -85,8 +89,14 @@ used the SignalP 3.0 command line tool with its default of not truncating the
 sequences. This does alter some of the scores, and also takes a little longer.
 
 Note that Whisson et al. (2007) also describes a second RXLR-EER classifier
-using a Hidden Markov Model (HMM).
+which combines this with a Hidden Markov Model (HMM), see below.
 
+**Whisson et al. (2007) RXLR-EER including HMM**
+
+Looks for the protein motif RXLR-EER as described in Whisson et al. (2007),
+applying both the heuristic SignalP and regular expression approach based
+on Bhattacharjee et al. (2006), and a cross validated HMM based on known
+positive examples.
 
 **Note**
 
@@ -95,6 +105,10 @@ is no longer available. The current release is SignalP v3.0 (Mar 5, 2007), so
 this is used instead. SignalP is called with the Eukaryote model and the short
 output (one line per protein). Any sequence truncation (e.g. to 70 amino acids)
 is handled via the intemediate sequence files.
+
+Whisson et al. (2007) developed their HMM using HMMER 2.3.2 (Eddy 2008), which
+has since been replaced by the faster HMMER 3 (which can still be run using the
+HMMER 2 model with the HMMER 3 hmmsearch command line tool).
 
 
 **References**
@@ -114,6 +128,10 @@ PLoS Pathogens, 2(5):e50, 2006.
 Trudy A. Torto, Shuang Li, Allison Styer, Edgar Huitema, Antonino Testa, Neil A.R. Gow, Pieter van West and Sophien Kamoun.
 EST mining and functional expression assays identify extracellular effector proteins from the plant pathogen phytophthora.
 Genome Research, 13:1675-1685, 2003.
+
+Sean R. Eddy.
+Profile hidden Markov models.
+Bioinformatics, 14(9):755–763, 1998
 
 Nielsen, Engelbrecht, Brunak and von Heijne.
 Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.

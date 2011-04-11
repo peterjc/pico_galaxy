@@ -4,7 +4,7 @@
 This script takes exactly four command line arguments:
  * Protein FASTA filename
  * Number of threads
- * Model name (Bhattacharjee2006, Win2007, Whisson2007re)
+ * Model name (Bhattacharjee2006, Win2007, Whisson2007re, Whisson2007)
  * Output tabular filename
 
 The model names are:
@@ -17,6 +17,9 @@ different positional requirements.
 
 Whisson2007re: As Bhattacharjee2006 but with a more complex regular
 expression to look for RXLR-EER domain.
+
+Whisson2007: As Whissone2007re but also uses HMMER to look for an
+RXLR-EER domain HMM.
 
 See the help text in the accompanying Galaxy tool XML file for more
 details including the full references.
@@ -64,7 +67,7 @@ elif model == "Win2007":
    #and RXLR, but shortest signal peptide is 10, and furthest
    #away RXLR is 60, so effectively limit is 50.
    max_sp_rxlr = max_rxlr_start - min_sp + 1
-elif model == "Whisson2007re":
+elif model in ["Whisson2007re", "Whisson2007"]:
    signalp_trunc = 0 #zero for no truncation
    re_rxlr = re.compile("R.LR.{,40}[ED][ED][KR]")
    min_sp = 10
@@ -76,6 +79,10 @@ else:
    stop_err("Did not recognise the model name %r\n"
             "Use Bhattacharjee2006, Win2007, or Whisson2007re" % model)
 
+
+if model == "Whisson2007":
+    #Must at some point filter using hmmsearch...
+    stop_err("Full Whisson 2007 method not implemented yet.")
 
 #Prepare short list of candidates containing RXLR to pass to SignalP
 assert min_rxlr_start > 0, "Min value one, since zero based counting"
