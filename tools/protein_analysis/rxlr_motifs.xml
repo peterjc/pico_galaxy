@@ -27,16 +27,19 @@
     </tests>
     <help>
     
-**What it does**
+**Background**
 
-Many effector proteins from Oomycete plant pathogens for manipulating the host have
-been found to contain a signal peptide followed by a conserved RXLR motif (Arg, any
-amino acid, Leu, Arg), and then sometimes EER (Glu, Glu, Arg). There are stiking
-parallels with the malarial host-targeting signal.
+Many effector proteins from Oomycete plant pathogens for manipulating the host
+have been found to contain a signal peptide followed by a conserved RXLR motif
+(Arg, any amino acid, Leu, Arg), and then sometimes EER (Glu, Glu, Arg). There
+are stiking parallels with the malarial host-targeting signal.
 
-It requires a protein sequence FASTA file as input, and produces a simple tabular
-file as output with one line per protein, and two columns giving the sequence ID
-and whether or not it had the selected RXLR motif (Y or N).
+
+**What it does***
+
+Takes a protein sequence FASTA file as input, and produces a simple tabular
+file as output with one line per protein, and two columns giving the sequence
+ID and whether or not it had the selected RXLR motif (Y or N).
 
 
 **Bhattacharjee et al. (2006) RXLR Model**
@@ -47,6 +50,8 @@ Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
 a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
 length between 10 and 40 amino acids inclusive, and the RXLR pattern must be
 after but within 100 amino acids of the clevage site.
+SignalP is run truncating the sequences to the first 70 amino acids, which was
+the default on the SignalP webservice used in Bhattacharjee et al. (2006).
 
 
 **Win et al. (2007) RXLR Model**
@@ -57,31 +62,39 @@ Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
 a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
 length between 10 and 40 amino acids inclusive, and the RXLR pattern must be
 after the clevage site and start between amino acids 30 and 60.
+SignalP is run truncating the sequences to the first 70 amino acids, to match
+the methodology of Torto et al. (2003) followed in Win et al. (2007).
 
 
 **Whisson et al. (2007) RXLR-EER Heuristic Model**
 
 Looks for the protein motif RXLR-EER using the heuristic regular expression
-methodolgy described in Whisson et al. (2007), which was an extension of the RXLR
-clasffier described in Bhattacharjee et al. (2006).
+methodolgy described in Whisson et al. (2007), which was an extension of the
+RXLR clasffier described in Bhattacharjee et al. (2006).
 
 All the requirements described above for Bhattacharjee et al. (2006) apply,
-but rather than just looking for RXLR with the regular expression R.LR the more
-complicated regular expression R.LR.{,40}[ED][ED][KR] is used. This means
-RXLR (Arg, any amino acid, Leu, Arg), then a stretch of up to forty amino acids
-before Glu/Asp, Glu/Asp, Lys/Arg. The EER part of the name is perhaps misleading
-as it also allows for DDR, EEK, and so on.
+but rather than just looking for RXLR with the regular expression R.LR the
+more complicated regular expression R.LR.{,40}[ED][ED][KR] is used. This means
+RXLR (Arg, any amino acid, Leu, Arg), then a stretch of up to forty amino
+acids before Glu/Asp, Glu/Asp, Lys/Arg. The EER part of the name is perhaps
+misleading as it also allows for DDR, EEK, and so on.
 
-Note that Whisson et al. (2007) also describes a second RXLR-EER classifier using
-a Hidden Markov Model (HMM).
+Unlike Bhattacharjee et al. (2006) which used the SignalP webservice which
+defaults to truncating the sequences at 70 amino acids, Whisson et al. (2007)
+used the SignalP 3.0 command line tool with its default of not truncating the
+sequences. This does alter some of the scores, and also takes a little longer.
+
+Note that Whisson et al. (2007) also describes a second RXLR-EER classifier
+using a Hidden Markov Model (HMM).
 
 
 **Note**
 
 Both Bhattacharjee et al. (2006) and Win et al. (2007) used SignalP v2.0, which
 is no longer available. The current release is SignalP v3.0 (Mar 5, 2007), so
-this is used instead (with the Eukaryote model and sequences truncated at 70
-amino acids).
+this is used instead. SignalP is called with the Eukaryote model and the short
+output (one line per protein). Any sequence truncation (e.g. to 70 amino acids)
+is handled via the intemediate sequence files.
 
 
 **References**
