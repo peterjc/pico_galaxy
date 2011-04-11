@@ -42,6 +42,7 @@ if len(sys.argv) != 5:
    stop_err("Requires four arguments: protein FASTA filename, threads, model, and output filename")
 
 fasta_file, threads, model, tabular_file = sys.argv[1:]
+hmm_output_file = tabular_file + ".hmm.tmp"
 signalp_input_file = tabular_file + ".fasta.tmp"
 signalp_output_file = tabular_file + ".tabular.tmp"
 min_hmm = 0.9
@@ -80,9 +81,41 @@ else:
             "Use Bhattacharjee2006, Win2007, or Whisson2007re" % model)
 
 
+#Run hmmsearch for Whisson et al. (2007)
 if model == "Whisson2007":
-    #Must at some point filter using hmmsearch...
-    stop_err("Full Whisson 2007 method not implemented yet.")
+    hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
+                       "whisson_et_al_rxlr_eer_cropped.hmm")
+    if not os.path.isfile(hmm_file):
+        stop_err("Missing HMM file for Whisson et al. (2007)")
+    cmd = "hmmsearch -T 0 --tblout %s --noali %s %s > /dev/null" \
+          % (hmm_output_file, hmm_file, fasta_file)
+    return_code = os.system(cmd)
+    if return_code:
+        stop_err("Error %i from hmmsearch:\n%s" % (return_code, cmd))
+    hmm_hits = set()
+    valid_ids = set()
+    for title, seq in fasta_iterator(fasta_file):
+        name = title.split(None,1)[0]
+        if name in valid_ids:
+            stop_err("Duplicated identifier %r" % name)
+        else:
+            valid_ids.add(name)
+    handle = open(hmm_output_file)
+    for line in handle:
+        if line.startswith("#"):
+            #Header
+            continue
+        else:
+            name = line.split(None,1)[0]
+            if name in valid_ids:
+                hmm_hits.add(name)
+            else:
+                stop_err("Unexpected identifer %r in hmmsearch output" % name)
+    handle.close()
+    #print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
+    del valid_ids
+    os.remove(hmm_output_file)
+
 
 #Prepare short list of candidates containing RXLR to pass to SignalP
 assert min_rxlr_start > 0, "Min value one, since zero based counting"
@@ -152,7 +185,8 @@ for title, seq in fasta_iterator(fasta_file):
             match = re_rxlr.search(seq[sp_nn_len:].upper())
             if match and match.start() + 1 <= max_sp_rxlr: #1-based counting
                 rxlr_start = sp_nn_len + match.start() + 1
-                if min_rxlr_start <= rxlr_start <= max_rxlr_start:
+                if min_rxlr_start <= rxlr_start <= max_rxlr_start \
+                and (model != "Whisson2007" or name in hmm_hits):
                     rxlr = "Y"
                     count += 1
     handle.write("%s\t%s\n" % (name, rxlr))
@@ -170,4 +204,4 @@ os.remove(signalp_input_file)
 os.remove(signalp_output_file)
 
 #Short summary to stdout for Galaxy's info display
-print "%i out of %i have %s RXLR motif" % (count, total, model)
+print "%i out of %i have %s motif" % (count, total, model)
