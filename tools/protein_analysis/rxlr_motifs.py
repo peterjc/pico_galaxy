@@ -197,8 +197,8 @@ def parse_signalp(filename):
 
 
 #Parse SignalP results and apply the strict RXLR criteria
-count = 0
 total = 0
+tally = dict()
 handle = open(tabular_file, "w")
 handle.write("#ID\t%s\n" % model)
 signalp_results = parse_signalp(signalp_output_file)
@@ -220,18 +220,21 @@ for title, seq in fasta_iterator(fasta_file):
                 if min_rxlr_start <= rxlr_start <= max_rxlr_start \
                 and (model != "Whisson2007" or name in hmm_hits):
                     rxlr = "Y"
-                    count += 1
     if model == "Whisson2007":
         #Combine the signalp with regular expression heuristic and the HMM
         if name in hmm_hits and rxlr == "N":
             rxlr = "hmm" #HMM only
         elif name not in hmm_hits and rxlr == "Y":
             rxlr = "re" #Heuristic only
-            count -= 1
         #Now have a four way classifier: Y, hmm, re, N
         #and count is the number of Y results (both HMM and heuristic)
     handle.write("%s\t%s\n" % (name, rxlr))
+    try:
+        tally[rxlr] += 1
+    except KeyError:
+        tally[rxlr] = 1
 handle.close()
+assert sum(tally.values()) == total
 
 #Check the iterator is finished
 try:
@@ -245,4 +248,5 @@ os.remove(signalp_input_file)
 os.remove(signalp_output_file)
 
 #Short summary to stdout for Galaxy's info display
-print "%i out of %i have %s motif" % (count, total, model)
+print "%s for %i sequences:" % (model, total)
+print ", ".join("%s = %i" % kv for kv in sorted(tally.iteritems()))
