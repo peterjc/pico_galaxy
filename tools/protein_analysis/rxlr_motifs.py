@@ -30,9 +30,11 @@ the predicted cleavage site, as this is expected to be more accurate.
 Also note that the HMM score values have changed from v2.0 to v3.0.
 Whisson et al. (2007) used SignalP v3.0 anyway.
 
-Whisson et al. (2007) used HMMER 2.3.2, but their model can still be
-used with hmmsearch from HMMER 3 (although this does give slightly
-different results).
+Whisson et al. (2007) used HMMER 2.3.2, and althought their HMM model
+can still be used with hmmsearch from HMMER 3 this this does give
+slightly different results. We expect the hmmsearch from HMMER 2.3.2
+(the last stable release of HMMER 2) to be present on the path under
+the name hmmsearch2 (allowing it to co-exist with HMMER 3).
 """
 import os
 import sys
@@ -48,8 +50,7 @@ hmm_output_file = tabular_file + ".hmm.tmp"
 signalp_input_file = tabular_file + ".fasta.tmp"
 signalp_output_file = tabular_file + ".tabular.tmp"
 min_signalp_hmm = 0.9
-#hmmer_search = "/home/pjcock/Downloads/hmmer-2.3.2/src/hmmsearch"
-hmmer_search = "hmmsearch"
+hmmer_search = "hmmsearch2"
 
 if model == "Bhattacharjee2006":
    signalp_trunc = 70
@@ -85,11 +86,16 @@ else:
             "Use Bhattacharjee2006, Win2007, or Whisson2007" % model)
 
 
-def get_hmmer_version(exe):
+def get_hmmer_version(exe, required=None):
     cmd = "%s -h" % exe
-    child = subprocess.Popen([exe, "-h"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        child = subprocess.Popen([exe, "-h"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except OSError:
+        raise ValueError("Could not run %s" % exe)
     stdout, stderr = child.communicate()
-    if "HMMER 2" in stdout:
+    if required:
+        return required in stdout
+    elif "HMMER 2" in stdout:
         return 2
     elif "HMMER 3" in stdout:
         return 3
@@ -103,6 +109,10 @@ if model == "Whisson2007":
                        "whisson_et_al_rxlr_eer_cropped.hmm")
     if not os.path.isfile(hmm_file):
         stop_err("Missing HMM file for Whisson et al. (2007)")
+    if not get_hmmer_version(hmmer_search, "HMMER 2.3.2 (Oct 2003)"):
+        stop_err("Missing HMMER 2.3.2 (Oct 2003) binary, %s" % hmmer_searcher)
+    #I've left the code to handle HMMER 3 in situ, in case
+    #we revisit the choice to insist on HMMER 2.
     hmmer3 = (3 == get_hmmer_version(hmmer_search))
     #Using zero (or 5.6?) for bitscore threshold
     if hmmer3:
@@ -145,10 +155,10 @@ if model == "Whisson2007":
             elif hmmer3:
                 stop_err("Unexpected identifer %r in hmmsearch output" % name)
     handle.close()
-    if hmmer3:
-        print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
-    else:
-        print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))  
+    #if hmmer3:
+    #    print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
+    #else:
+    #    print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))  
     #print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
     os.remove(hmm_output_file)
     del valid_ids
