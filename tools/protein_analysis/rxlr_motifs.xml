@@ -40,7 +40,7 @@ have been found to contain a signal peptide followed by a conserved RXLR motif
 are stiking parallels with the malarial host-targeting signal.
 
 
-**What it does***
+**What it does**
 
 Takes a protein sequence FASTA file as input, and produces a simple tabular
 file as output with one line per protein, and two columns giving the sequence
@@ -71,7 +71,7 @@ SignalP is run truncating the sequences to the first 70 amino acids, to match
 the methodology of Torto et al. (2003) followed in Win et al. (2007).
 
 
-**Whisson et al. (2007) RXLR-EER Heuristic Model (only)**
+**Whisson et al. (2007) RXLR-EER Heuristic Model only**
 
 Looks for the protein motif RXLR-EER using the heuristic regular expression
 methodolgy described in Whisson et al. (2007), which was an extension of the
