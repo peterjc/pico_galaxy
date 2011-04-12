@@ -4,7 +4,7 @@
 This script takes exactly four command line arguments:
  * Protein FASTA filename
  * Number of threads
- * Model name (Bhattacharjee2006, Win2007, Whisson2007re, Whisson2007hmm, Whisson2007)
+ * Model name (Bhattacharjee2006, Win2007, Whisson2007)
  * Output tabular filename
 
 The model names are:
@@ -15,13 +15,8 @@ with additional requirements for positioning and signal peptide.
 Win2007: Simple regular expression search for RXLR, but with
 different positional requirements.
 
-Whisson2007re: As Bhattacharjee2006 but with a more complex regular
-expression to look for RXLR-EER domain.
-
-Whisson2007hmm: Uses HMMER to look for an RXLR-EER domain HMM.
-
-Whisson2007: Combines the SignalP and regular expression requirements
-with the HMM.
+Whisson2007: As Bhattacharjee2006 but with a more complex regular
+expression to look for RXLR-EER domain, and additionally calls HMMER.
 
 See the help text in the accompanying Galaxy tool XML file for more
 details including the full references.
@@ -34,10 +29,15 @@ which is no longer available. The current release is SignalP v3.0
 the predicted cleavage site, as this is expected to be more accurate.
 Also note that the HMM score values have changed from v2.0 to v3.0.
 Whisson et al. (2007) used SignalP v3.0 anyway.
+
+Whisson et al. (2007) used HMMER 2.3.2, but their model can still be
+used with hmmsearch from HMMER 3 (although this does give slightly
+different results).
 """
 import os
 import sys
 import re
+import subprocess
 from seq_analysis_utils import stop_err, fasta_iterator
 
 if len(sys.argv) != 5:
@@ -48,6 +48,8 @@ hmm_output_file = tabular_file + ".hmm.tmp"
 signalp_input_file = tabular_file + ".fasta.tmp"
 signalp_output_file = tabular_file + ".tabular.tmp"
 min_hmm = 0.9
+#hmmer_search = "/home/pjcock/Downloads/hmmer-2.3.2/src/hmmsearch"
+hmmer_search = "hmmsearch"
 
 if model == "Bhattacharjee2006":
    signalp_trunc = 70
@@ -70,7 +72,7 @@ elif model == "Win2007":
    #and RXLR, but shortest signal peptide is 10, and furthest
    #away RXLR is 60, so effectively limit is 50.
    max_sp_rxlr = max_rxlr_start - min_sp + 1
-elif model in ["Whisson2007re", "Whisson2007"]:
+elif model == "Whisson2007":
    signalp_trunc = 0 #zero for no truncation
    re_rxlr = re.compile("R.LR.{,40}[ED][ED][KR]")
    min_sp = 10
@@ -78,59 +80,74 @@ elif model in ["Whisson2007re", "Whisson2007"]:
    max_sp_rxlr = 100
    min_rxlr_start = 1
    max_rxlr_start = max_sp + max_sp_rxlr
-elif model == "Whisson2007hmm":
-   pass
 else:
    stop_err("Did not recognise the model name %r\n"
-            "Use Bhattacharjee2006, Win2007, or Whisson2007re" % model)
+            "Use Bhattacharjee2006, Win2007, or Whisson2007" % model)
 
+
+def get_hmmer_version(exe):
+    cmd = "%s -h" % exe
+    child = subprocess.Popen([exe, "-h"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = child.communicate()
+    if "HMMER 2" in stdout:
+        return 2
+    elif "HMMER 3" in stdout:
+        return 3
+    else:
+        raise ValueError("Could not determine version of %s" % exe)
+    
 
 #Run hmmsearch for Whisson et al. (2007)
-if model in ["Whisson2007", "Whisson2007hmm"]:
+if model == "Whisson2007":
     hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
                        "whisson_et_al_rxlr_eer_cropped.hmm")
     if not os.path.isfile(hmm_file):
         stop_err("Missing HMM file for Whisson et al. (2007)")
-    cmd = "hmmsearch -T 0 --tblout %s --noali %s %s > /dev/null" \
-          % (hmm_output_file, hmm_file, fasta_file)
+    hmmer3 = (3 == get_hmmer_version(hmmer_search))
+    if hmmer3:
+        #The HMMER3 table output is easy to parse
+        cmd = "%s -T 0 --tblout %s --noali %s %s > /dev/null" \
+              % (hmmer_search, hmm_output_file, hmm_file, fasta_file)
+    else:
+        #For HMMER2 we are stuck with parsing stdout
+        cmd = "%s -T 0 %s %s > %s" \
+              % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
     return_code = os.system(cmd)
     if return_code:
         stop_err("Error %i from hmmsearch:\n%s" % (return_code, cmd))
     hmm_hits = set()
-    valid_ids = []
+    valid_ids = set()
     for title, seq in fasta_iterator(fasta_file):
         name = title.split(None,1)[0]
         if name in valid_ids:
             stop_err("Duplicated identifier %r" % name)
         else:
-            valid_ids.append(name)
+            valid_ids.add(name)
     handle = open(hmm_output_file)
     for line in handle:
-        if line.startswith("#"):
+        if not line.strip():
+            #We expect blank lines in the HMMER2 stdout
+            continue
+        elif line.startswith("#"):
             #Header
             continue
         else:
             name = line.split(None,1)[0]
+            #Should be a sequence name in the HMMER3 table output.
+            #Could be anything in the HMMER2 stdout.
             if name in valid_ids:
                 hmm_hits.add(name)
-            else:
+            elif hmmer3:
                 stop_err("Unexpected identifer %r in hmmsearch output" % name)
     handle.close()
+    if hmmer3:
+        print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
+    else:
+        print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))  
     #print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
     os.remove(hmm_output_file)
-    if model == "Whisson2007hmm":
-        #Just write this out and we're done
-        handle = open(tabular_file, "w")
-        handle.write("ID\t%s\n" % model)
-        for name in valid_ids:
-            if name in hmm_hits:
-                handle.write("%s\tY\n"  % name)
-            else:
-                handle.write("%s\tN\n"  % name)
-        handle.close()
-        print "%s out of %i have %s motif" % (len(hmm_hits), len(valid_ids), model)
-        sys.exit(0)
     del valid_ids
+
 
 #Prepare short list of candidates containing RXLR to pass to SignalP
 assert min_rxlr_start > 0, "Min value one, since zero based counting"
@@ -162,7 +179,7 @@ cmd = "python %s euk %i %s %s %s" % (signalp_script, signalp_trunc, threads, sig
 return_code = os.system(cmd)
 if return_code:
     stop_err("Error %i from SignalP:\n%s" % (return_code, cmd))
-
+#print "SignalP done"
 
 def parse_signalp(filename):
     """Parse SignalP output, yield tuples of ID, HMM_Sprob_score and NN predicted signal peptide length.
@@ -204,6 +221,15 @@ for title, seq in fasta_iterator(fasta_file):
                 and (model != "Whisson2007" or name in hmm_hits):
                     rxlr = "Y"
                     count += 1
+    if model == "Whisson2007":
+        #Combine the signalp with regular expression heuristic and the HMM
+        if name in hmm_hits and rxlr == "N":
+            rxlr = "hmm" #HMM only
+        elif name not in hmm_hits and rxlr == "Y":
+            rxlr = "re" #Heuristic only
+            count -= 1
+        #Now have a four way classifier: Y, hmm, re, N
+        #and count is the number of Y results (both HMM and heuristic)
     handle.write("%s\t%s\n" % (name, rxlr))
 handle.close()
 

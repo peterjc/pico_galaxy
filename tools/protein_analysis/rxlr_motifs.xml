@@ -1,4 +1,4 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.4">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.5">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
       rxlr_motifs.py $fasta_file 8 $model $tabular_file
@@ -9,9 +9,7 @@
         <param name="model" type="select" label="Which RXLR model?">
             <option value="Bhattacharjee2006">Bhattacharjee et al. (2006) RXLR</option>
             <option value="Win2007">Win et al. (2007) RXLR</option>
-            <option value="Whisson2007re">Whisson et al. (2007) RXLR-EER heuristic only</option>
-            <option value="Whisson2007hmm">Whisson et al. (2007) RXLR-EER HMM only</option>
-            <option value="Whisson2007" selected="True">Whisson et al. (2007) RXLR-EER including HMM</option>
+            <option value="Whisson2007" selected="True">Whisson et al. (2007) RXLR-EER with HMM</option>
         </param>
     </inputs>
     <outputs>
@@ -44,7 +42,8 @@ are stiking parallels with the malarial host-targeting signal.
 
 Takes a protein sequence FASTA file as input, and produces a simple tabular
 file as output with one line per protein, and two columns giving the sequence
-ID and whether or not it had the selected RXLR motif (Y or N).
+ID and the predicted class. This is typically just whether or not it had the
+selected RXLR motif (Y or N).
 
 
 **Bhattacharjee et al. (2006) RXLR Model**
@@ -71,11 +70,11 @@ SignalP is run truncating the sequences to the first 70 amino acids, to match
 the methodology of Torto et al. (2003) followed in Win et al. (2007).
 
 
-**Whisson et al. (2007) RXLR-EER Heuristic Model only**
+**Whisson et al. (2007) RXLR-EER with HMM**
 
 Looks for the protein motif RXLR-EER using the heuristic regular expression
-methodolgy described in Whisson et al. (2007), which was an extension of the
-RXLR clasffier described in Bhattacharjee et al. (2006).
+methodolgy, which was an extension of the Bhattacharjee et al. (2006) model,
+and a HMM as described in Whisson et al. (2007).
 
 All the requirements described above for Bhattacharjee et al. (2006) apply,
 but rather than just looking for RXLR with the regular expression R.LR the
@@ -89,24 +88,15 @@ defaults to truncating the sequences at 70 amino acids, Whisson et al. (2007)
 used the SignalP 3.0 command line tool with its default of not truncating the
 sequences. This does alter some of the scores, and also takes a little longer.
 
-Note that Whisson et al. (2007) also describes a second RXLR-EER classifier
-which combines this with a Hidden Markov Model (HMM), see below.
+Additionally HMMER is run to look for a cross validated HMM for the RXLR-ERR
+domain based on known positive examples. There are no restrictions on where
+within the protein the HMM match must be found.
 
-**Whisson et al. (2007) RXLR-ERR HMM only**
-
-Doesn't run SignalP, just calls HMMER to look for a cross validated HMM
-for the RXLR-ERR domain based on known positive examples. There are no
-restrictions on where within the protein the HMM match must be found.
-
-
-**Whisson et al. (2007) RXLR-EER including HMM**
-
-Looks for the protein motif RXLR-EER as described in Whisson et al. (2007),
-applying both the heuristic SignalP and regular expression approach based
-on Bhattacharjee et al. (2006), and the HMMER HMM based on known positive
-examples.
-
-i.e. Combines the heuristic only and HMM only options above.
+The output of this model has four classes:
+ * Y = Yes, both the heuristic motif and HMM were found.
+ * re = Only the heuristic SignalP with regular expression motif was found.
+ * hmm = Only the HMM was found.
+ * N = No, niether was found.
 
 
 **Note**
