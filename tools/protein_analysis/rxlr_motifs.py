@@ -4,7 +4,7 @@
 This script takes exactly four command line arguments:
  * Protein FASTA filename
  * Number of threads
- * Model name (Bhattacharjee2006, Win2007, Whisson2007re, Whisson2007)
+ * Model name (Bhattacharjee2006, Win2007, Whisson2007re, Whisson2007hmm, Whisson2007)
  * Output tabular filename
 
 The model names are:
@@ -18,8 +18,10 @@ different positional requirements.
 Whisson2007re: As Bhattacharjee2006 but with a more complex regular
 expression to look for RXLR-EER domain.
 
-Whisson2007: As Whissone2007re but also uses HMMER to look for an
-RXLR-EER domain HMM.
+Whisson2007hmm: Uses HMMER to look for an RXLR-EER domain HMM.
+
+Whisson2007: Combines the SignalP and regular expression requirements
+with the HMM.
 
 See the help text in the accompanying Galaxy tool XML file for more
 details including the full references.
@@ -76,13 +78,15 @@ elif model in ["Whisson2007re", "Whisson2007"]:
    max_sp_rxlr = 100
    min_rxlr_start = 1
    max_rxlr_start = max_sp + max_sp_rxlr
+elif model == "Whisson2007hmm":
+   pass
 else:
    stop_err("Did not recognise the model name %r\n"
             "Use Bhattacharjee2006, Win2007, or Whisson2007re" % model)
 
 
 #Run hmmsearch for Whisson et al. (2007)
-if model == "Whisson2007":
+if model in ["Whisson2007", "Whisson2007hmm"]:
     hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
                        "whisson_et_al_rxlr_eer_cropped.hmm")
     if not os.path.isfile(hmm_file):
@@ -93,13 +97,13 @@ if model == "Whisson2007":
     if return_code:
         stop_err("Error %i from hmmsearch:\n%s" % (return_code, cmd))
     hmm_hits = set()
-    valid_ids = set()
+    valid_ids = []
     for title, seq in fasta_iterator(fasta_file):
         name = title.split(None,1)[0]
         if name in valid_ids:
             stop_err("Duplicated identifier %r" % name)
         else:
-            valid_ids.add(name)
+            valid_ids.append(name)
     handle = open(hmm_output_file)
     for line in handle:
         if line.startswith("#"):
@@ -113,9 +117,20 @@ if model == "Whisson2007":
                 stop_err("Unexpected identifer %r in hmmsearch output" % name)
     handle.close()
     #print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
-    del valid_ids
     os.remove(hmm_output_file)
-
+    if model == "Whisson2007hmm":
+        #Just write this out and we're done
+        handle = open(tabular_file, "w")
+        handle.write("ID\t%s\n" % model)
+        for name in valid_ids:
+            if name in hmm_hits:
+                handle.write("%s\tY\n"  % name)
+            else:
+                handle.write("%s\tN\n"  % name)
+        handle.close()
+        print "%s out of %i have %s motif" % (len(hmm_hits), len(valid_ids), model)
+        sys.exit(0)
+    del valid_ids
 
 #Prepare short list of candidates containing RXLR to pass to SignalP
 assert min_rxlr_start > 0, "Min value one, since zero based counting"
