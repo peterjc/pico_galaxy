@@ -217,8 +217,7 @@ for title, seq in fasta_iterator(fasta_file):
             match = re_rxlr.search(seq[sp_nn_len:].upper())
             if match and match.start() + 1 <= max_sp_rxlr: #1-based counting
                 rxlr_start = sp_nn_len + match.start() + 1
-                if min_rxlr_start <= rxlr_start <= max_rxlr_start \
-                and (model != "Whisson2007" or name in hmm_hits):
+                if min_rxlr_start <= rxlr_start <= max_rxlr_start:
                     rxlr = "Y"
     if model == "Whisson2007":
         #Combine the signalp with regular expression heuristic and the HMM
