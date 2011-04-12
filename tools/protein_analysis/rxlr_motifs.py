@@ -47,7 +47,7 @@ fasta_file, threads, model, tabular_file = sys.argv[1:]
 hmm_output_file = tabular_file + ".hmm.tmp"
 signalp_input_file = tabular_file + ".fasta.tmp"
 signalp_output_file = tabular_file + ".tabular.tmp"
-min_hmm = 0.9
+min_signalp_hmm = 0.9
 #hmmer_search = "/home/pjcock/Downloads/hmmer-2.3.2/src/hmmsearch"
 hmmer_search = "hmmsearch"
 
@@ -213,7 +213,7 @@ for title, seq in fasta_iterator(fasta_file):
         #so it will be in the SignalP results.
         sp_id, sp_hmm_score, sp_nn_len = signalp_results.next()
         assert name == sp_id, "%s vs %s" % (name, sp_id)
-        if sp_hmm_score >= min_hmm and min_sp <= sp_nn_len <= max_sp:
+        if sp_hmm_score >= min_signalp_hmm and min_sp <= sp_nn_len <= max_sp:
             match = re_rxlr.search(seq[sp_nn_len:].upper())
             if match and match.start() + 1 <= max_sp_rxlr: #1-based counting
                 rxlr_start = sp_nn_len + match.start() + 1
