@@ -238,9 +238,11 @@ for title, seq in fasta_iterator(fasta_file):
         #Combine the signalp with regular expression heuristic and the HMM
         if name in hmm_hits and rxlr == "N":
             rxlr = "hmm" #HMM only
+        elif rxlr == "N":
+            rxlr = "neither" #Don't use N (no)
         elif name not in hmm_hits and rxlr == "Y":
             rxlr = "re" #Heuristic only
-        #Now have a four way classifier: Y, hmm, re, N
+        #Now have a four way classifier: Y, hmm, re, neither
         #and count is the number of Y results (both HMM and heuristic)
     handle.write("%s\t%s\n" % (name, rxlr))
     try:

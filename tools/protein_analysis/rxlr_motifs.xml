@@ -96,7 +96,7 @@ The output of this model has four classes:
  * Y = Yes, both the heuristic motif and HMM were found.
  * re = Only the heuristic SignalP with regular expression motif was found.
  * hmm = Only the HMM was found.
- * N = No, niether was found.
+ * neither = Niether the heuristic motif nor HMM was found.
 
 
 **Note**
