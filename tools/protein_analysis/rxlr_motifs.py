@@ -104,13 +104,18 @@ if model == "Whisson2007":
     if not os.path.isfile(hmm_file):
         stop_err("Missing HMM file for Whisson et al. (2007)")
     hmmer3 = (3 == get_hmmer_version(hmmer_search))
+    #Using zero (or 5.6?) for bitscore threshold
     if hmmer3:
         #The HMMER3 table output is easy to parse
+        #In HMMER3 can't use both -T and -E
         cmd = "%s -T 0 --tblout %s --noali %s %s > /dev/null" \
               % (hmmer_search, hmm_output_file, hmm_file, fasta_file)
     else:
         #For HMMER2 we are stuck with parsing stdout
-        cmd = "%s -T 0 %s %s > %s" \
+        #Put 1e6 to effectively have no expectation threshold (otherwise
+        #HMMER defaults to 10 and the calculated e-value depends on the
+        #input FASTA file, and we can loose hits of interest).
+        cmd = "%s -T 0 -E 1e6 %s %s > %s" \
               % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
     return_code = os.system(cmd)
     if return_code:
