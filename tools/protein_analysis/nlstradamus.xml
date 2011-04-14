@@ -1,0 +1,67 @@
+<tool id="nlstradamus" name="NLStradamus" version="0.0.1">
+    <description>Find nuclear localization signals (NLSs) in protein sequences</description>
+    <command interpreter="perl">
+      nlstradamus.pl -i $fasta_file -t $threshold -m $model -a $algorithm -quiet | grep -P "\t(posterior\>[0-9\.]+|viterbi)\t" > $tabular_file
+      ##Could use -cpu option (although I want the number of threads to be a Galaxy
+      ##config option...), but that means the order of the results gets randomised
+      ##in nlstradamus 1.6 (hoping for a fix in the next release)
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="model" type="select" display="radio" label="Model">
+            <option value="1" selected="True">Two state</option>
+            <option value="2">Four state</option>
+        </param>
+        <param name="algorithm" type="select" display="radio" label="Algorithm">
+            <option value="0">Viterbi</option>
+            <option value="1" selected="True">Posterior with threshold</option>
+            <option value="2">Both</option>
+        </param>
+        <param name="threshold" type="float" label="Posterior theshold" value="0.6">
+            <validator type="in_range" min="0" max="1" message="Threshold value should be between 0 and 1."/>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="NLStradamus results" />
+    </outputs>
+    <requirements>
+        <requirement type="binary">nlsradamus.pl</requirement>
+    </requirements>
+    <tests>
+    </tests>
+    <help>
+    
+.. class:: warningmark
+
+This tool is still somewhat is flux given feedback from users, and
+also we expect changes in the underlying tool by Summer 2011.
+Do not expect any workflows using it to still work in a months time.
+
+-----
+
+**What it does**
+
+This calls the NLStradamus tool for prediction of nuclear localization
+signals (NLSs), which uses a Hidden Markov Model (HMM).
+
+The input is a FASTA file of protein sequences, and the output is tabular
+with five columns (one row per NLS):
+
+ * Sequence identifier
+ * Algorithm (posterior or Viterbi)
+ * Start
+ * End
+ * Sequence of NLS
+
+-----
+
+**References**
+
+A. N. Nguyen Ba, A. Pogoutse, N. Provart, A. M. Moses.
+NLStradamus: a simple Hidden Markov Model for nuclear localization signal prediction.
+BMC Bioinformatics. 2009 Jun 29;10(1):202.
+
+http://www.moseslab.csb.utoronto.ca/NLStradamus
+
+    </help>
+</tool>
