@@ -30,13 +30,22 @@
     </tests>
     <help>
     
+.. class:: warningmark
+
+This tool is still somewhat is flux given feedback from users.
+Do not expect any workflows using it to still work in a months time.
+
+-----
+
 **Background**
 
 Many effector proteins from Oomycete plant pathogens for manipulating the host
 have been found to contain a signal peptide followed by a conserved RXLR motif
 (Arg, any amino acid, Leu, Arg), and then sometimes EER (Glu, Glu, Arg). There
-are stiking parallels with the malarial host-targeting signal.
+are stiking parallels with the malarial host-targeting signal (Plasmodium
+export element, or "Pexel" for short).
 
+-----
 
 **What it does**
 
@@ -45,10 +54,11 @@ file as output with one line per protein, and two columns giving the sequence
 ID and the predicted class. This is typically just whether or not it had the
 selected RXLR motif (Y or N).
 
+-----
 
 **Bhattacharjee et al. (2006) RXLR Model**
 
-Looks for the protein motif RXLR as described in Bhattacharjee et al. (2006).
+Looks for the oomycete motif RXLR as described in Bhattacharjee et al. (2006).
 
 Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
 a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
@@ -98,6 +108,7 @@ The output of this model has four classes:
  * hmm = Only the HMM was found.
  * neither = Niether the heuristic motif nor HMM was found.
 
+-----
 
 **Note**
 
@@ -111,6 +122,7 @@ Whisson et al. (2007) developed their HMM using HMMER 2.3.2 (Eddy 2008), which
 has since been replaced by the faster HMMER 3 (which can still be run using the
 HMMER 2 model with the HMMER 3 hmmsearch command line tool).
 
+-----
 
 **References**
 
