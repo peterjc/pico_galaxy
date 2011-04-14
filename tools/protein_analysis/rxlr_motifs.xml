@@ -98,9 +98,9 @@ defaults to truncating the sequences at 70 amino acids, Whisson et al. (2007)
 used the SignalP 3.0 command line tool with its default of not truncating the
 sequences. This does alter some of the scores, and also takes a little longer.
 
-Additionally HMMER is run to look for a cross validated HMM for the RXLR-ERR
-domain based on known positive examples. There are no restrictions on where
-within the protein the HMM match must be found.
+Additionally HMMER 2.3.2 is run to look for a cross validated HMM for the
+RXLR-ERR domain based on known positive examples. There are no restrictions
+on where within the protein the HMM match must be found.
 
 The output of this model has four classes:
  * Y = Yes, both the heuristic motif and HMM were found.
@@ -117,10 +117,6 @@ is no longer available. The current release is SignalP v3.0 (Mar 5, 2007), so
 this is used instead. SignalP is called with the Eukaryote model and the short
 output (one line per protein). Any sequence truncation (e.g. to 70 amino acids)
 is handled via the intemediate sequence files.
-
-Whisson et al. (2007) developed their HMM using HMMER 2.3.2 (Eddy 2008), which
-has since been replaced by the faster HMMER 3 (which can still be run using the
-HMMER 2 model with the HMMER 3 hmmsearch command line tool).
 
 -----
 
