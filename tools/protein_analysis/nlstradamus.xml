@@ -1,10 +1,8 @@
 <tool id="nlstradamus" name="NLStradamus" version="0.0.2">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command interpreter="perl">
-      nlstradamus.pl -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
-      ##Could use -cpu option (although I want the number of threads to be a Galaxy
-      ##config option...), but that means the order of the results gets randomised
-      ##in nlstradamus 1.6 (hoping for a fix in the next release)
+      nlstradamus.pl -i $fasta_file -t $threshold -m $model -a $algorithm -tab -cpu 8 > $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
