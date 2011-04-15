@@ -1,45 +1,58 @@
-This package contains Galaxy wrappers for two standalone command line protein
-analysis tools (SignalP 3.0 and THMHMM 2.0) from the Center for Biological
-Sequence Analysis at the Technical University of Denmark,
-http://www.cbs.dtu.dk/cbs/
+This package contains Galaxy wrappers for a selection of standalone command
+line protein analysis tools:
 
-To use these Galaxy wrappers you must first install the CBS command line
-tools. At the time of writing both SignalP 3.0 and TMHMM 2.0 are free for
+* SignalP 3.0 and THMHMM 2.0, from the Center for Biological
+  Sequence Analysis at the Technical University of Denmark,
+  http://www.cbs.dtu.dk/cbs/
+
+* WoLF PSORT v0.2 from http://wolfpsort.org/
+
+To use these Galaxy wrappers you must first install the command line tools.
+At the time of writing SignalP 3.0, TMHMM 2.0 and WoLF PSORT are free for
 academic use.
 
-These wrappers are copyright 2010 by Peter Cock, SCRI, UK. All rights
-reserved. See the included LICENCE file for details.
+These wrappers are copyright 2010-2011 by Peter Cock, James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See the included LICENCE file for details.
 
 Installation
 ============
 
-1. Install the command line version of SignalP 3.0 and ensure it is on the
-   PATH, see: http://www.cbs.dtu.dk/services/SignalP/
+1. Install the command line version of SignalP 3.0 and ensure "signalp" is
+   on the PATH, see: http://www.cbs.dtu.dk/services/SignalP/
 
-2. Install the command line version of TMHMM 2.0 and ensure it is on the
-   PATH, see: http://www.cbs.dtu.dk/services/TMHMM/
+2. Install the command line version of TMHMM 2.0 and ensure "tmhmm" is on
+   the PATH, see: http://www.cbs.dtu.dk/services/TMHMM/
 
-3. Create a folder tools/protein_analysis under your Galaxy installation.
+3. Install the WoLF PSORT v0.2 pacakge, and ensure "runWolfPsortSummary"
+   is on the PATH (we use a wrapper script to change to the WoLF PSORT
+   directory, run runWolfPsortSummary, and then change back to the original
+   directory), see: http://wolfpsort.org/WoLFPSORT_package/version0.2/
 
-4. Copy/move the following files (from this archive) there:
+4. Create a folder tools/protein_analysis under your Galaxy installation.
+
+5. Copy/move the following files (from this archive) there:
 
 tmhmm2.xml (Galaxy tool definition)
 tmhmm2.py (Python wrapper script)
 signalp3.xml (Galaxy tool definition)
 signalp3.py (Python wrapper script)
+wolf_psort.xml (Galaxy tool definition)
+wolf_psort.py (Python wrapper script)
 seq_analysis_utils.py (shared Python code)
 README (optional)
 
-5. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
-   also tool_conf.xml.sample (to run the tests) to include the two new tools
+6. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
+   also tool_conf.xml.sample (to run the tests) to include the new tools
    by adding:
 
   <section name="Protein sequence analysis" id="protein_analysis">
     <tool file="protein_analysis/tmhmm2.xml" />
     <tool file="protein_analysis/signalp3.xml" />
+    <tool file="protein_analysis/wolf_psort.xml" />
   </section>
 
-6. Copy/move the following test files (from these archive) to Galaxy
+7. Copy/move the following test files (from these archive) to Galaxy
    subfolder test-data:
 
 four_human_proteins.fasta
@@ -49,7 +62,7 @@ empty.fasta
 empty_tmhmm2.tabular
 empty_signalp3.tabular
 
-7. Run the Galaxy functional tests for these new wrappers with:
+8. Run the Galaxy functional tests for these new wrappers with:
 
 ./run_functional_tests.sh -id tmhmm2
 ./run_functional_tests.sh -id signalp3
@@ -59,7 +72,7 @@ the XML file tool_conf.xml.sample):
 
 ./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
 
-8. Restart Galaxy and check the new tools are shown and work.
+9. Restart Galaxy and check the new tools are shown and work.
 
 
 History
@@ -75,6 +88,7 @@ v0.0.5 - Explicitly request tmhmm short output (may not be the default)
 v0.0.6 - Improvement to how sub-jobs are run (should be faster)
 v0.0.7 - Change SignalP default truncation from 60 to 70 to match the
          SignalP webservice.
+v0.0.8 - Added WoLF PSORT wrapper to the suite.
 
 
 Developers
@@ -89,7 +103,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf tmhmm_and_signalp.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
+tar -czf tmhmm_and_signalp.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
 
 Check this worked:
 
@@ -102,6 +116,8 @@ tools/protein_analysis/signalp3.xml
 tools/protein_analysis/signalp3.py
 tools/protein_analysis/tmhmm2.xml
 tools/protein_analysis/tmhmm2.py
+tools/protein_analysis/wolf_psort.xml
+tools/protein_analysis/wolf_psort.py
 test-data/four_human_proteins.fasta
 test-data/four_human_proteins.signalp3.tabular
 test-data/four_human_proteins.tmhmm2.tabular

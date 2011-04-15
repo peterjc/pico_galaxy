@@ -1,7 +1,8 @@
-Copyright (c) 2010 Peter Cock, SCRI, UK
+Copyright (c) 2010-2011 Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK.
 
-License for TMHMM 2.0 and SignalP 3.0 wrappers for Galaxy (note that
-TMHMM 2.0 and SignalP 3.0 are copyright and licensed separately).
+License for TMHMM 2.0, SignalP 3.0, and WoLF PSORT  wrappers for Galaxy
+(note that tools themselves are copyright and licensed separately).
 
 Permission to use, copy, modify, and distribute this software and its
 documentation with or without modifications and for any purpose and
