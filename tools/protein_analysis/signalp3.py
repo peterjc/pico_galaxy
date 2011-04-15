@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Wrapper for SignalP v3.0 for use in Galaxy.
 
-This script takes exactly fives command line arguments:
+This script takes exactly five command line arguments:
  * the organism type (euk, gram+ or gram-)
  * length to truncate sequences to (integer)
  * number of threads to use (integer)
