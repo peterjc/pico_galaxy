@@ -28,14 +28,34 @@ gi|301087623|ref|XP_002894700.1|	mito	2	2
 gi|301087623|ref|XP_002894700.1|	cyto	2	3
 gi|301087623|ref|XP_002894700.1|	cyto_mito	2	4
 
+Additionally in order to take full advantage of multiple cores, by subdividing
+the input FASTA file multiple copies of WoLF PSORT are run in parallel. I would
+normally use Python's multiprocessing library in this situation but it requires
+at least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 """
 import sys
 import os
 from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
 FASTA_CHUNK = 500
-#exe = "/home/pjcock/Downloads/WoLFPSORT_package_v0.2/bin/runWolfPsortSummary"
 exe = "runWolfPsortSummary"
+
+"""
+Note: I had trouble getting runWolfPsortSummary on the path, so used a wrapper
+python script called runWolfPsortSummary as follows:
+
+#!/usr/bin/env python
+#Wrapper script to call WoLF PSORT from its own directory.
+import os
+import sys
+import subprocess
+saved_dir = os.path.abspath(os.curdir)
+os.chdir("/opt/WoLFPSORT_package_v0.2/bin")
+args = ["./runWolfPsortSummary"] + sys.argv[1:]
+return_code = subprocess.call(args)
+os.chdir(saved_dir)
+sys.exit(return_code)
+"""
 
 if len(sys.argv) != 5:
    stop_err("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
