@@ -1,0 +1,102 @@
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.1">
+    <description>Eukaryote protein subcellular localization prediction</description>
+    <command interpreter="python">
+      wolf_psort.py $organism 8 $fasta_file $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="organism" type="select" display="radio" label="Organism">
+            <option value="animal">Animal</option>
+            <option value="plant">Plant</option>
+            <option value="fungi">Fungi</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="WoLF PSORT $organism results" />
+    </outputs>
+    <requirements>
+        <requirement type="binary">runWolfPsortSummary</requirement>
+    </requirements>
+    <help>
+    
+**What it does**
+
+This calls the WoLF PSORT tool for prediction of eukaryote protein subcellular localization.
+
+The input is a FASTA file of protein sequences, and the output is tabular with four columns (multiple rows per protein):
+
+ * Sequence identifier
+ * Compartment
+ * Score
+ * Prediction rank
+
+
+**Localization Compartments**
+
+The table below gives the WoLF PSORT localization site definitions, and the corresponding Gene Ontology (GO) term.
+
+====== ===================== =====================
+Abbrev Localization Site     GO Cellular Component
+------ --------------------- ---------------------
+chlo   chloroplast           0009507, 0009543
+cyto   cytosol               0005829
+cysk   cytoskeleton          0005856(2)
+E.R.   endoplasmic reticulum 0005783
+extr   extracellular         0005576, 0005618
+golg   Golgi apparatus       0005794(1)
+lyso   lysosome		     0005764
+mito   mitochondria	     0005739
+nucl   nuclear		     0005634
+pero   peroxisome	     0005777(2)
+plas   plasma membrane	     0005886
+vacu   vacuolar membrane     0005774(2)
+====== ===================== =====================
+
+Additionally compound predictions like mito_nucl are also given.
+
+
+**Notes**
+
+The raw output from WoLF PSORT looks like this (space separated), showing two proteins:
+
+================================ ============================================
+gi|301087619|ref|XP_002894699.1| extr 12, mito 4, E.R. 3, golg 3, mito_nucl 3
+gi|301087623|ref|XP_002894700.1| extr 21, mito 2, cyto 2, cyto_mito 2
+================================ ============================================
+
+This is reformatted into a tabular file as follows for use in Galaxy:
+
+================================ =========== ===== ====
+#ID                              Compartment Score Rank
+-------------------------------- ----------- ----- ----
+gi|301087619|ref|XP_002894699.1| extr           12    1
+gi|301087619|ref|XP_002894699.1| mito            4    2
+gi|301087619|ref|XP_002894699.1| E.R.            3    3
+gi|301087619|ref|XP_002894699.1| golg            3    4
+gi|301087619|ref|XP_002894699.1| mito_nucl       3    5
+gi|301087623|ref|XP_002894700.1| extr           21    1
+gi|301087623|ref|XP_002894700.1| mito            2    2
+gi|301087623|ref|XP_002894700.1| cyto            2    3
+gi|301087623|ref|XP_002894700.1| cyto_mito       2    4
+================================ =========== ===== ====
+
+This way you can easily filter for things like having a top prediction for
+mitochondria (c2=='mito' and c4==1), or extracellular with a score of at
+least 10 (c2=='extr' and 10&lt;=c3), and so on.
+
+
+**References**
+
+Paul Horton, Keun-Joon Park, Takeshi Obayashi, Naoya Fujita, Hajime Harada, C.J. Adams-Collier, and Kenta Nakai,
+WoLF PSORT: Protein Localization Predictor.
+Nucleic Acids Research, 35(S2), W585-W587, doi:10.1093/nar/gkm259, 2007.
+
+Paul Horton, Keun-Joon Park, Takeshi Obayashi and Kenta Nakai.
+Protein Subcellular Localization Prediction with WoLF PSORT.
+Proceedings of the 4th Annual Asia Pacific Bioinformatics Conference APBC06, Taipei, Taiwan. pp. 39-48, 2006.
+
+http://wolfpsort.org
+
+    </help>
+</tool>
