@@ -1,8 +1,7 @@
-<tool id="nlstradamus" name="NLStradamus" version="0.0.2">
+<tool id="nlstradamus" name="NLStradamus" version="0.0.3">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
-    <command interpreter="perl">
-      nlstradamus.pl -i $fasta_file -t $threshold -m $model -a $algorithm -tab -cpu 8 > $tabular_file
-      ##I want the number of threads to be a Galaxy config option...
+    <command>
+      NLStradamus -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
@@ -23,7 +22,7 @@
         <data name="tabular_file" format="tabular" label="NLStradamus results" />
     </outputs>
     <requirements>
-        <requirement type="binary">nlsradamus.pl</requirement>
+        <requirement type="binary">NLStradamus</requirement>
     </requirements>
     <tests>
     </tests>
