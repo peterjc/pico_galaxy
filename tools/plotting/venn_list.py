@@ -40,7 +40,8 @@ if len(sys.argv)-1 >= 10:
 if len(sys.argv)-1 >= 13:
     set_data.append(tuple(sys.argv[10:13]))
 pdf_file = sys.argv[-1]
-print "Doing %i-way Venn Diagram" % len(set_data)
+n = len(set_data)
+print "Doing %i-way Venn Diagram" % n
 
 def load_ids(filename, filetype):
     if filetype=="tabular":
@@ -86,44 +87,35 @@ sets = [set(load_ids_whitelist(f,t,all)) for (f,t,c) in set_data]
 for s, (f,t,c) in zip(sets, set_data):
     print "%i in %s" % (len(s), c)
 
-
-A,B,C = sets
-a_label, b_label, c_label = "A", "B", "C"
-
 #Now call R library to draw simple Venn diagram
 try:
     #Create dummy Venn diagram counts object for three groups
-    rpy.r('groups <- cbind(1,1,1)')
-    rpy.r('colnames(groups) <- c("A", "B", "C")')
+    cols = 'c("%s")' % '","'.join("Set%i" % (i+1) for i in range(n))
+    rpy.r('groups <- cbind(%s)' % ','.join(['1']*n))
+    rpy.r('colnames(groups) <- %s' % cols)
     rpy.r('vc <- vennCounts(groups)')
-    #print rpy.r('vc')
-    #Populate the 8 classes with real counts
+    #Populate the 2^n classes with real counts
     #Don't make any assumptions about the class order
-    for row,(a,b,c) in enumerate(rpy.r('vc[,c("A","B","C")]')):
-        names = all
-        if a:
-            names = names.intersection(A)
-        else:
-            names = names.difference(A)
-        if b:
-            names = names.intersection(B)
-        else:
-            names = names.difference(B)
-        if c:
-            names = names.intersection(C)
-        else:
-            names = names.difference(C)
-        #print a,b,c,names
-        rpy.r('vc[%i,"Counts"] <- %i' % (row+1, len(names)))
     #print rpy.r('vc')
-    #rpy.r.assign("title", "%s\n(Total %i)" % (all_label, len(all)))
-    rpy.r.assign("names", ["%s\n(Total %i)" % (a_label, len(A)),
-                           "%s\n(Total %i)" % (b_label, len(B)),
-                           "%s\n(Total %i)" % (c_label, len(C))])
+    for index, row in enumerate(rpy.r('vc[,%s]' % cols)):
+        if isinstance(row, int) or isinstance(row, float):
+            #Hack for rpy being too clever for single element row
+            row = [row]
+        names = all
+        for wanted, s in zip(row, sets):
+            if wanted:
+                names = names.intersection(s)
+            else:
+                names = names.difference(s)
+        rpy.r('vc[%i,"Counts"] <- %i' % (index+1, len(names)))
+    #print rpy.r('vc')
+    names = ["%s\n(Total %i)" % (c, len(s)) for s, (f,t,c) in zip(sets, set_data)]
+    rpy.r.assign("names", names)
+    rpy.r.assign("colors", ["red","green","blue"][:n])
     rpy.r.pdf(pdf_file, 8, 8)
     rpy.r("""vennDiagram(vc, include="both", names=names,
                          main="%s", sub="(Total %i)",
-                         circle.col=c("red","green","blue"))
+                         circle.col=colors)
                          """ % (all_label, len(all)))
     rpy.r.dev_off()
 except Exception, exc:
