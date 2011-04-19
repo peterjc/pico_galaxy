@@ -20,6 +20,7 @@ $PDF</command>
   </outputs>
   <requirements>
     <requirement type="python-module">rpy</requirement>
+    <requirement type="python-module">Bio</requirement>
   </requirements>
   <tests>
     <!-- Doesn't seem to work properly, manages to get two sets, both
