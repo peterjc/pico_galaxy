@@ -1,7 +1,7 @@
-<tool id="venn_list3" name="Venn Diagram (3 way)" version="0.0.1">
+<tool id="venn_list" name="Venn Diagram" version="0.0.1">
   <description>from lists</description>
   <command interpreter="python">
-venn_list3.py
+venn_list.py
 $main $main.ext "$main_lab"
 $A $A.ext "$A_lab"
 $B $B.ext "$B_lab"

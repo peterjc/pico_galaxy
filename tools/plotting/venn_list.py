@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Plot 3-way Venn Diagram using R (via rpy)
+"""Plot up to 3-way Venn Diagram using R limma vennDiagram (via rpy)
 
 This script is copyright 2010 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.1 of the script.
+This is version 0.0.2 of the script.
 """
 
 
@@ -27,14 +27,20 @@ try:
 except:
     stop_err("Requires the R library limma (for vennDiagram function)")
 
-if len(sys.argv) != 14:
-    stop_err("Expected 12 arguments, not %i" % (len(sys.argv)-1))
 
-all_file, all_type, all_label, \
-a_file, a_type, a_label, \
-b_file, b_type, b_label, \
-c_file, c_type, c_label, \
-pdf_file = sys.argv[1:]
+if len(sys.argv)-1 not in [7, 10, 13]:
+    stop_err("Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i" % (len(sys.argv)-1))
+
+all_file, all_type, all_label = sys.argv[1:4]
+set_data = []
+if len(sys.argv)-1 >= 7:
+    set_data.append(tuple(sys.argv[4:7]))
+if len(sys.argv)-1 >= 10:
+    set_data.append(tuple(sys.argv[7:10]))
+if len(sys.argv)-1 >= 13:
+    set_data.append(tuple(sys.argv[10:13]))
+pdf_file = sys.argv[-1]
+print "Doing %i-way Venn Diagram" % len(set_data)
 
 def load_ids(filename, filetype):
     if filetype=="tabular":
@@ -75,10 +81,14 @@ def load_ids_whitelist(filename, filetype, whitelist):
 
 all = set(load_ids(all_file, all_type))
 print "Total of %i IDs" % len(all)
-A = set(load_ids_whitelist(a_file, a_type, all))
-B = set(load_ids_whitelist(b_file, b_type, all))
-C = set(load_ids_whitelist(c_file, c_type, all))
-print "%i in A, %i in B, %i in C" % (len(A), len(B), len(C))
+sets = [set(load_ids_whitelist(f,t,all)) for (f,t,c) in set_data]
+
+for s, (f,t,c) in zip(sets, set_data):
+    print "%i in %s" % (len(s), c)
+
+
+A,B,C = sets
+a_label, b_label, c_label = "A", "B", "C"
 
 #Now call R library to draw simple Venn diagram
 try:
