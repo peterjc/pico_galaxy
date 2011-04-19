@@ -1,21 +1,45 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.1">
+<tool id="venn_list" name="Venn Diagram" version="0.0.2">
   <description>from lists</description>
   <command interpreter="python">
 venn_list.py
 $main $main.ext "$main_lab"
-$A $A.ext "$A_lab"
-$B $B.ext "$B_lab"
-$C $C.ext "$C_lab"
+$sets.A $sets.A.ext "$sets.A_lab"
+#if int($sets.count)>=2:
+  $sets.B $sets.B.ext "$sets.B_lab"
+#end if
+#if int($sets.count)>=3:
+  $sets.C $sets.C.ext "$sets.C_lab"
+#end if
 $PDF</command>
   <inputs>
     <param name="main" type="data" format="tabular,fasta,fastq,sff" label="Full dataset (with all identifiers)" />
     <param name="main_lab" size="30" type="text" value="Venn Diagram" label="Plot title"/>
-    <param name="A" type="data" format="tabular,fasta,fastq,sff" label="Members of group A"/>
-    <param name="A_lab" size="30" type="text" value="Group A" label="Label for group A"/>
-    <param name="B" type="data" format="tabular,fasta,fastq,sff" label="Members of group B"/>
-    <param name="B_lab" size="30" type="text" value="Group B" label="Label for group B"/>
-    <param name="C" type="data" format="tabular,fasta,fastq,sff" label="Members of group C"/>
-    <param name="C_lab" size="30" type="text" value="Group C" label="Label for group C"/>
+    <!-- Would use the repeat tag, but need min 1 and max 3 -->
+    <conditional name="sets">
+      <param name="count" type="select" label="Number of sets">
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3" selected="True">Three</option>
+      </param>
+      <when value="1">
+        <param name="A" type="data" format="tabular,fasta,fastq,sff" label="Members of group A"/>
+        <param name="A_lab" size="30" type="text" value="Group A" label="Label for group A"/>
+      </when>
+      <when value="2">
+        <param name="A" type="data" format="tabular,fasta,fastq,sff" label="Members of group A"/>
+        <param name="A_lab" size="30" type="text" value="Group A" label="Label for group A"/>
+        <param name="B" type="data" format="tabular,fasta,fastq,sff" label="Members of group B"/>
+        <param name="B_lab" size="30" type="text" value="Group B" label="Label for group B"/>
+      </when>
+      <when value="3">
+        <param name="A" type="data" format="tabular,fasta,fastq,sff" label="Members of group A"/>
+        <param name="A_lab" size="30" type="text" value="Group A" label="Label for group A"/>
+        <param name="B" type="data" format="tabular,fasta,fastq,sff" label="Members of group B"/>
+        <param name="B_lab" size="30" type="text" value="Group B" label="Label for group B"/>
+        <param name="C" type="data" format="tabular,fasta,fastq,sff" label="Members of group C"/>
+        <param name="C_lab" size="30" type="text" value="Group C" label="Label for group C"/>
+      </when>
+    </conditional>
   </inputs>
   <outputs>
     <data format="pdf" name="PDF" />
@@ -27,6 +51,7 @@ $PDF</command>
     <test>
       <param name="main" value="venn_list.tabular" ftype="tabular"/>
       <param name="main_lab" value="Some Proteins"/>
+      <param name="count" value="3"/>
       <param name="A" value="rhodopsin_proteins.fasta"/>
       <param name="A_lab" value="Rhodopsins"/>
       <param name="B" value="four_human_proteins.fasta"/>
