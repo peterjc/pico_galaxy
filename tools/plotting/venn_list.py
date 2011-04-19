@@ -5,7 +5,7 @@ This script is copyright 2010 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.2 of the script.
+This is version 0.0.3 of the script.
 """
 
 
@@ -80,9 +80,18 @@ def load_ids_whitelist(filename, filetype, whitelist):
         else:
             stop_err("Unexpected ID %s in %s file %s" % (name, filetype, filename))
 
-all = set(load_ids(all_file, all_type))
-print "Total of %i IDs" % len(all)
-sets = [set(load_ids_whitelist(f,t,all)) for (f,t,c) in set_data]
+if all_file in ["", "-", '""', '"-"']:
+    #Load without white list
+    sets = [set(load_ids(f,t)) for (f,t,c) in set_data]
+    #Take union
+    all = set()
+    for s in sets:
+        all.update(s)
+    print "Inferred total of %i IDs" % len(all)
+else:
+    all = set(load_ids(all_file, all_type))
+    print "Total of %i IDs" % len(all)
+    sets = [set(load_ids_whitelist(f,t,all)) for (f,t,c) in set_data]
 
 for s, (f,t,c) in zip(sets, set_data):
     print "%i in %s" % (len(s), c)

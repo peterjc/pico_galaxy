@@ -2,14 +2,28 @@
   <description>from lists</description>
   <command interpreter="python">
 venn_list.py
-$main $main.ext "$main_lab"
+#if $universe.type_select=="implicit":
+  - -
+#else:
+  $main $main.ext
+#end if
+"$main_lab"
 #for $s in $sets:
   $s.set $s.set.ext "$s.lab"
 #end for
 $PDF</command>
   <inputs>
-    <param name="main" type="data" format="tabular,fasta,fastq,sff" label="Full dataset (with all identifiers)" />
     <param name="main_lab" size="30" type="text" value="Venn Diagram" label="Plot title"/>
+    <conditional name="universe">
+       <param name="type_select" type="select" label="Implicit or explicit full ID list?">
+         <option value="explicit">Explicit</option>
+         <option value="implicit">Implicit (use union of sets below)</option>
+       </param>
+       <when value="explicit">
+           <param name="main" type="data" format="tabular,fasta,fastq,sff" label="Full dataset (with all identifiers)" help="Tabular file (uses column one), FASTA, FASTQ or SFF file."/>
+       </when>
+       <when value="implicit"/>
+    </conditional>
     <repeat name="sets" min="1" max="3" title="Sets">
       <param name="set" type="data" format="tabular,fasta,fastq,sff" label="Members of set" help="Tabular file (uses column one), FASTA, FASTQ or SFF file."/>
       <param name="lab" size="30" type="text" value="Group" label="Caption for set"/>
@@ -26,6 +40,7 @@ $PDF</command>
     <!-- Doesn't seem to work properly, manages to get two sets, both
          with same FASTA file, but second with default "Group" label.
     <test>
+      <param name="type_select" value="explicit"/>
       <param name="main" value="venn_list.tabular" ftype="tabular"/>
       <param name="main_lab" value="Some Proteins"/>
       <param name="set" value="rhodopsin_proteins.fasta"/>
@@ -35,6 +50,7 @@ $PDF</command>
     -->
     <!-- Can't use more than one repeat value in tests (yet)
     <test>
+      <param name="type_select" value="explicit"/>
       <param name="main" value="venn_list.tabular" ftype="tabular"/>
       <param name="main_lab" value="Some Proteins"/>
       <param name="count" value="3"/>
