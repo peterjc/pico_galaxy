@@ -1,0 +1,48 @@
+<tool id="venn_list3" name="Venn Diagram (3 way)" version="0.0.1">
+  <description>from lists</description>
+  <command interpreter="python">
+venn_list3.py
+$main $main.ext "$main_lab"
+$A $A.ext "$A_lab"
+$B $B.ext "$B_lab"
+$C $C.ext "$C_lab"
+$PDF</command>
+  <inputs>
+    <param name="main" type="data" format="tabular,fasta,fastq,sff" label="Full dataset (with all identifiers)" />
+    <param name="main_lab" size="30" type="text" value="Venn Diagram" label="Plot title"/>
+    <param name="A" type="data" format="tabular,fasta,fastq,sff" label="Members of group A"/>
+    <param name="A_lab" size="30" type="text" value="Group A" label="Label for group A"/>
+    <param name="B" type="data" format="tabular,fasta,fastq,sff" label="Members of group B"/>
+    <param name="B_lab" size="30" type="text" value="Group B" label="Label for group B"/>
+    <param name="C" type="data" format="tabular,fasta,fastq,sff" label="Members of group C"/>
+    <param name="C_lab" size="30" type="text" value="Group C" label="Label for group C"/>
+  </inputs>
+  <outputs>
+    <data format="pdf" name="PDF" />
+  </outputs>
+  <requirements>
+    <requirement type="python-module">rpy</requirement>
+  </requirements>
+  <tests>
+    <test>
+      <param name="main" value="venn_list.tabular" ftype="tabular"/>
+      <param name="main_lab" value="Some Proteins"/>
+      <param name="A" value="rhodopsin_proteins.fasta"/>
+      <param name="A_lab" value="Rhodopsins"/>
+      <param name="B" value="four_human_proteins.fasta"/>
+      <param name="B_lab" value="Human"/>
+      <param name="C" value="blastp_four_human_vs_rhodopsin.tabular"/>
+      <param name="C_lab" value="Human vs Rhodopsin BLAST"/>
+      <output name="PDF" file="venn_list3.pdf" ftype="pdf"/>
+    </test>
+  </tests>
+  <help>
+
+.. class:: infomark
+
+**TIP:** If your data is in tabular files, the identifier is assumed to be in column one.
+
+
+
+  </help>
+</tool>
