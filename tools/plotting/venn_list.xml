@@ -21,22 +21,32 @@ $PDF</command>
   <requirements>
     <requirement type="python-module">rpy</requirement>
   </requirements>
-  <!--
   <tests>
+    <!-- Doesn't seem to work properly, manages to get two sets, both
+         with same FASTA file, but second with default "Group" label.
+    <test>
+      <param name="main" value="venn_list.tabular" ftype="tabular"/>
+      <param name="main_lab" value="Some Proteins"/>
+      <param name="set" value="rhodopsin_proteins.fasta"/>
+      <param name="lab" value="Rhodopsins"/>
+      <output name="PDF" file="venn_list1.pdf" ftype="pdf"/>
+    </test>
+    -->
+    <!-- Can't use more than one repeat value in tests (yet)
     <test>
       <param name="main" value="venn_list.tabular" ftype="tabular"/>
       <param name="main_lab" value="Some Proteins"/>
       <param name="count" value="3"/>
-      <param name="A" value="rhodopsin_proteins.fasta"/>
-      <param name="A_lab" value="Rhodopsins"/>
-      <param name="B" value="four_human_proteins.fasta"/>
-      <param name="B_lab" value="Human"/>
-      <param name="C" value="blastp_four_human_vs_rhodopsin.tabular"/>
-      <param name="C_lab" value="Human vs Rhodopsin BLAST"/>
+      <param name="set" value="rhodopsin_proteins.fasta"/>
+      <param name="lab" value="Rhodopsins"/>
+      <param name="set" value="four_human_proteins.fasta"/>
+      <param name="lab" value="Human"/>
+      <param name="set" value="blastp_four_human_vs_rhodopsin.tabular"/>
+      <param name="lab" value="Human vs Rhodopsin BLAST"/>
       <output name="PDF" file="venn_list3.pdf" ftype="pdf"/>
     </test>
+    -->
   </tests>
-  -->
   <help>
 
 .. class:: infomark
