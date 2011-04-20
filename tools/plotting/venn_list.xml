@@ -70,7 +70,44 @@ $PDF</command>
 
 **TIP:** If your data is in tabular files, the identifier is assumed to be in column one.
 
+**What it does**
 
+Draws Venn Diagram for one, two or three sets (as a PDF file).
+
+You must supply one, two or three sets of identifiers -- corresponding
+to one, two or three circles on the Venn Diagram.
+
+In general you should also give the full list of all the identifiers
+explicitly. This is used to calculate the number of identifers outside
+the circles (and check the identifiers in the other files match up).
+The full list can be omitted by implicitly taking the union of the
+category sets. In this case, the count outside the categories (circles)
+will always be zero.
+
+The identifiers can be taken from the first column of a tabular file
+(e.g. query names in BLAST tabular output, or signal peptide predictions
+after filtering, etc), or from a sequence file (FASTA, FASTQ, SFF).
+
+For example, you may have a set of NGS reads (as a FASTA, FASTQ or SFF
+file), and the results of several different read mappings (e.g. to
+different references) as tabular files (filtered to have just the mapped
+reads). You could then show the different mappings (and their overlaps)
+as a Venn Diagram, and the outside count would be the unmapped reads.
+
+**Citations**
+
+The Venn Diagrams are drawn using Gordon Smyth's limma package from
+R/Bioconductor, http://www.bioconductor.org/
+
+The R library is called from Python via rpy, http://rpy.sourceforge.net/
+
+This tool uses Biopython to read SFF files. If you use this tool with
+SFF files in scientific work leading to a publication, please cite the
+Biopython application note:
+
+Cock et al 2009. Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
   </help>
 </tool>
