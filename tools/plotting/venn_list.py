@@ -60,16 +60,14 @@ def load_ids(filename, filetype):
             #The [1:] is because the fastaReader leaves the @ on the identifer.
             yield record.identifier.split()[0][1:]
         handle.close()
-    elif filename=="sff":
+    elif filetype=="sff":
         try:
-            from Bio.SeqIO.SffIO import SffIterator
+            from Bio.SeqIO import index
         except ImportError:
             stop_err("Require Biopython 1.54 or later (to read SFF files)")
-        #TODO - Try and load the index (if present), much faster!
-        handle = open(filename, "rb")
-        for record in SffIterator(handle):
+        #This will read the SFF index block if present (very fast)
+        for name in index(filename, "sff"):
             yield name
-        handle.close()
     else:
         stop_err("Unexpected file type %s" % filetype)
 
@@ -118,7 +116,11 @@ try:
                 names = names.difference(s)
         rpy.r('vc[%i,"Counts"] <- %i' % (index+1, len(names)))
     #print rpy.r('vc')
-    names = ["%s\n(Total %i)" % (c, len(s)) for s, (f,t,c) in zip(sets, set_data)]
+    if n == 1:
+        #Single circle, don't need to add (Total XXX) line
+        names = [c for (t,f,c) in set_data]
+    else:
+        names = ["%s\n(Total %i)" % (c, len(s)) for s, (f,t,c) in zip(sets, set_data)]
     rpy.r.assign("names", names)
     rpy.r.assign("colors", ["red","green","blue"][:n])
     rpy.r.pdf(pdf_file, 8, 8)
