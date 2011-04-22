@@ -1,0 +1,83 @@
+Galaxy wrapper for NLStradamus v1.7 (C++ version)
+=================================================
+
+This wrapper is copyright 2011 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See the licence text below.
+
+NLStradamus is a command line tools for predicting nuclear localization
+signals (NLSs) in a FASTA file of proteins using a Hidden Markov Model (HMM).
+
+A. N. Nguyen Ba, A. Pogoutse, N. Provart, A. M. Moses.
+NLStradamus: a simple Hidden Markov Model for nuclear localization signal prediction.
+BMC Bioinformatics. 2009 Jun 29;10(1):202.
+
+http://www.moseslab.csb.utoronto.ca/NLStradamus
+
+Early versions of NLStradamus did not have a native tabular output format, this
+was added in version 1.7. Additionally a fast C++ implementation was added at
+this point (early versions of NLStradamus came as a perl script only). This
+wrapper expects the compiled C++ binary "NLStradamus" to be on the system PATH.
+
+To install the wrapper installed the following files under the Galaxy tools
+folder, e.g. in a tools/protein_analysis folder:
+
+* nlstradamus.xml (the Galaxy tool definition)
+* nlstradamus.txt (this README file)
+
+You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+tool. If you are using other protein analysis tools like TMHMM or SignalP, put
+it next to them. Just add the line:
+
+<tool file="protein_analysis/nlstradamus.xml" />
+
+That's it.
+
+
+History
+=======
+
+v0.0.3 - Initial public release
+
+
+Developers
+==========
+
+This script and related tools are being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/tools
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+$ tar -czf nlstradmus.tar.gz tools/protein_analysis/nlstradamus.xml tools/protein_analysis/nlstradamus.txt
+
+Check this worked:
+
+$ tar -tzf nlstradmus.tar.gz
+tools/protein_analysis/nlstradamus.xml
+tools/protein_analysis/nlstradamus.txt
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
+
+NOTE: This is the licence for the Galaxy Wrapper only. NLStradamus
+is available and licenced separately.
