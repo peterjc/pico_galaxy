@@ -1,0 +1,41 @@
+<tool id="predictnls" name="predictNLS" version="0.0.1">
+    <description>Find nuclear localization signals (NLSs) in protein sequences</description>
+    <command interpreter="python">
+      predictnls.py 8 $fasta_file $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="predictNLS results" />
+    </outputs>
+    <requirements>
+        <requirement type="binary">predictNLS</requirement>
+    </requirements>
+    <help>
+    
+**What it does**
+
+This calls the predictNLS tool for prediction of nuclear localization signals
+(NLSs).
+
+The input is a FASTA file of protein sequences, and the output is tabular with
+three columns (multiple rows per protein):
+
+ * Sequence identifier
+ * Start of NLS
+ * NLS sequence
+
+If a sequence has no predicted NLS, then there is no line in the output file
+for it. This is a simplification of the text rich output from the command line
+tool, to give a tabular file suitable for use within Galaxy.
+
+**References**
+
+Murat Cokol, Rajesh Nair, and Burkhard Rost.
+Finding nuclear localization signals.
+EMBO reports 1(5), 411–415, 2000, doi:10.1093/embo-reports/kvd092
+
+    </help>
+</tool>
