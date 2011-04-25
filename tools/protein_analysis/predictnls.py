@@ -51,22 +51,6 @@ from seq_analysis_utils import stop_err, split_fasta, run_jobs
 FASTA_CHUNK = 500
 exe = "predictNLS"
 
-"""
-Note: I had trouble getting predictNLS on the path, so used a wrapper
-python script called predictNLS as follows:
-
-#!/usr/bin/env python
-#Wrapper script to call WoLF PSORT from its own directory.
-import os
-import sys
-import subprocess
-saved_dir = os.path.abspath(os.curdir)
-os.chdir("/opt/predictNLS")
-args = ["./predictNLS"] + sys.argv[1:]
-return_code = subprocess.call(args)
-os.chdir(saved_dir)
-sys.exit(return_code)
-"""
 
 if len(sys.argv) != 4:
    stop_err("Require three arguments: threads, input protein FASTA file & output tabular file")
@@ -81,6 +65,7 @@ if num_threads < 1:
 fasta_file = sys.argv[2]
 
 tabular_file = sys.argv[3]
+
 
 def clean_tabular(raw_handle, out_handle):
     """Clean up predictNLS output to make it tabular.
@@ -99,14 +84,16 @@ def clean_tabular(raw_handle, out_handle):
             assert id is not None
             nls, start = [s.strip() for s in line[1:].split("|")[0:2]]
             if nls != "NLS" and start != "Position in sequence":
-                out_handle.write("%s\t%s\t%s\n" % (id, nls, start))
+                out_handle.write("%s\t%s\t%s\n" % (id, start, nls))
 
 
 #Due to the way predictNLS works, require one sequence per FASTA (!!!)
 fasta_files = split_fasta(fasta_file, tabular_file, n=1)
 temp_files = [f+".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
-jobs = ["%s in=%s out=%s html=0 > /dev/null 2> /dev/null" % (exe, fasta, temp)
+#Send stdout and stderr to /dev/null, its very noisy!
+jobs = ["%s in=%s out=%s html=0 > /dev/null 2> /dev/null" \
+        % (exe, os.path.abspath(fasta), os.path.abspath(temp))
         for (fasta, temp) in zip(fasta_files, temp_files)]
 assert len(fasta_files) == len(temp_files) == len(jobs)
 
@@ -118,18 +105,33 @@ def clean_up(file_list):
 if len(jobs) > 1 and num_threads > 1:
     #A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+#Note predictNLS will create temp files of its own in the current directory,
 results = run_jobs(jobs, num_threads, pause=0.2)
 assert len(fasta_files) == len(temp_files) == len(jobs)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     error_level = results[cmd]
-    try:
-        output = open(temp).readline()
-    except IOError:
-        output = ""
-    if error_level or output.lower().startswith("error running"):
+    if not os.path.isfile(temp):
         clean_up(fasta_files)
         clean_up(temp_files)
-        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+        stop_err("One or more tasks failed, e.g. no output file (return %i) from %r" \
+                 % (error_level, cmd))
+    try:
+        output = open(temp).readline()
+    except IOError, err:
+        clean_up(fasta_files)
+        clean_up(temp_files)
+        stop_err("One or more tasks failed, e.g. error opening output (return %i) from %r" \
+                                 % (error_level, cmd))
+    if not output.strip():
+       clean_up(fasta_files)
+       clean_up(temp_files)
+       stop_err("One or more tasks failed, e.g. empty output (return %i) from %r" \
+                % (error_level, cmd))
+    if error_level:
+        clean_up(fasta_files)
+        clean_up(temp_files)
+        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" \
+                 % (error_level, cmd, output),
                  error_level)
 del results
 
