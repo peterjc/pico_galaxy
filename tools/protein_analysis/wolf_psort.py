@@ -41,7 +41,8 @@ FASTA_CHUNK = 500
 exe = "runWolfPsortSummary"
 
 """
-Note: I had trouble getting runWolfPsortSummary on the path, so used a wrapper
+Note: I had trouble getting runWolfPsortSummary on the path (via a link, other
+than by including all of /opt/WoLFPSORT_package_v0.2/bin , so used a wrapper
 python script called runWolfPsortSummary as follows:
 
 #!/usr/bin/env python
@@ -69,7 +70,7 @@ try:
 except:
    num_threads = 0
 if num_threads < 1:
-   stop_err("Threads argument %s is not a positive integer" % sys.argv[3])
+   stop_err("Threads argument %s is not a positive integer" % sys.argv[2])
 
 fasta_file = sys.argv[3]
 
