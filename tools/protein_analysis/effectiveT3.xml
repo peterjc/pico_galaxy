@@ -1,0 +1,64 @@
+<tool id="effectiveT3" name="Effective T3" version="0.0.7">
+    <description>Find bacterial effectors in protein sequences</description>
+    <command interpreter="python">
+effectiveT3.py $module.fields.path
+#if $restrict.type=="cutoff":
+  cutoff=$restrict.cutoff
+#else:
+  $restrict.type
+#end if
+$fasta_file $tabular_file</command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="module" type="select" display="radio" label="Classification module">
+            <options from_file="effectiveT3.loc">
+                <column name="value" index="0"/>
+                <column name="name" index="1"/>
+                <column name="path" index="2"/>
+            </options>
+        </param>
+        <conditional name="restrict">
+            <param name="type" type="select" label="Cut-off setting">
+                <option value="selective">Selective (threshold set in module)</option>
+                <option value="sensitive">Sensitive (threshold set in module)</option>
+                <option value="cutoff">User defined cut-off</option>
+            </param>
+            <when value="selective" />
+            <when value="sensitive" />
+            <when value="cutoff" >
+                <param name="cutoff" type="float" min="0" max="1" label="Cut-off" value="" help="Threshold cut-off between 0 and 1"  />
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="$module.value_label results" />
+    </outputs>
+    <help>
+    
+**What it does**
+
+This calls the command line Effective T3 v1.0.1 tool for prediction of bacterial effector proteins.
+
+The input is a FASTA file of protein sequences, and the output is tabular with four columns (one row per protein):
+
+ * Sequence identifier
+ * Sequence description (from the FASTA file)
+ * Score (between 0 and 1, or negative for an error such as a very short peptide)
+ * Predicted effector (true/false)
+
+**References**
+
+Jehl, Arnold and Rattei.
+Effective - a database of predicted secreted bacterial proteins
+Nucleic Acids Research, 39(Database issue), D591-5, 2011.
+http://dx.doi.org/10.1093/nar/gkq1154
+
+Arnold, Brandmaier, Kleine, Tischler, Heinz, Behrens, Niinikoski, Mewes, Horn and Rattei.
+Sequence-based prediction of type III secreted proteins.
+PLoS Pathog. 5(4):e1000376, 2009.
+http://dx.doi.org/10.1371/journal.ppat.1000376
+
+http://effectors.org/
+
+    </help>
+</tool>

@@ -1,0 +1,26 @@
+# This is a three column tab separated file to define the modules (models)
+# for the Effective T3 prediction tool.
+#
+# Column 1 - Module ID, string that Galaxy will save in its database
+# Column 2 - Human readable name, Galaxy will show this in the UI
+# Column 3 - Filename, Galaxy will use this when calling the tool
+#
+#NOTE: In EffectiveT3 v1.0.1, the modules are given as their filename
+#(with the JAR extension) but without any path. They are expected to
+#be located in a subdirectory called module under the working directory.
+#For the galaxy wrapper, we assume this means under the folder where the
+#main JAR file is, TTSS_GUI-1.0.1.jar
+#
+#e.g.
+#
+# /opt/EffectiveT3/TTSS_GUI-1.0.1.jar
+# /opt/EffectiveT3/module/TTSS_STD-1.0.1.jar
+# /opt/EffectiveT3/module/TTSS_ANIMAL-1.0.1.jar
+# /opt/EffectiveT3/module/TTSS_PLANT-1.0.1.jar
+#
+#See files ../tools/protein_analysis/effectiveT3.* for more details,
+#and http://effectors.org
+#
+standard	Type III Effector prediction with standard set	TTSS_STD-1.0.1.jar
+animal	Type III Effector prediction with animal set	TTSS_ANIMAL-1.0.1.jar
+plant	Type III Effector prediction with plant set	TTSS_PLANT-1.0.1.jar
