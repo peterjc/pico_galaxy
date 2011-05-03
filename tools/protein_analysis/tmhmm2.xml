@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.6">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.7">
     <description>Find transmembrane domains in protein sequences</description>
     <command interpreter="python">
       tmhmm2.py 8 $fasta_file $tabular_file
@@ -76,10 +76,13 @@ gi|3298468|dbj|BAA31520.1|          107 59.37   31.17       3 o23-45i52-74o89-10
 Krogh, Larsson, von Heijne, and Sonnhammer.
 Predicting Transmembrane Protein Topology with a Hidden Markov Model: Application to Complete Genomes.
 J. Mol. Biol. 305:567-580, 2001.
+http://dx.doi.org/10.1006/jmbi.2000.4315
 
 Sonnhammer, von Heijne, and Krogh.
 A hidden Markov model for predicting transmembrane helices in protein sequences.
 In J. Glasgow et al., eds.: Proc. Sixth Int. Conf. on Intelligent Systems for Molecular Biology, pages 175-182. AAAI Press, 1998.
+
+http://www.cbs.dtu.dk/services/TMHMM/
 
     </help>
 </tool>
