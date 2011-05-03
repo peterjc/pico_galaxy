@@ -30,13 +30,6 @@
     </tests>
     <help>
     
-.. class:: warningmark
-
-This tool is still somewhat is flux given feedback from users.
-Do not expect any workflows using it to still work in a months time.
-
------
-
 **Background**
 
 Many effector proteins from Oomycete plant pathogens for manipulating the host
