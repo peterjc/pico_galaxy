@@ -3,7 +3,7 @@
         <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.7">
             <description>Find transmembrane domains in protein sequences</description>
         </tool>
-        <tool id="signalp3" name="SignalP 3.0" version="0.0.7">
+        <tool id="signalp3" name="SignalP 3.0" version="0.0.8">
             <description>Find signal peptides in protein sequences</description>
         </tool>
         <tool id="wolf_psort" name="WoLF PSORT" version="0.0.1">

@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.7">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.8">
     <description>Find signal peptides in protein sequences</description>
     <command interpreter="python">
       signalp3.py $organism $truncate 8 $fasta_file $tabular_file
@@ -124,15 +124,18 @@ Signal peptides are found at the start of a protein, so there is limited value i
 Bendtsen, Nielsen, von Heijne, and Brunak.
 Improved prediction of signal peptides: SignalP 3.0.
 J. Mol. Biol., 340:783-795, 2004.
+http://dx.doi.org/10.1016/j.jmb.2004.05.028
 
 Nielsen, Engelbrecht, Brunak and von Heijne.
 Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
 Protein Engineering, 10:1-6, 1997.
+http://dx.doi.org/10.1093/protein/10.1.1
 
 Nielsen and Krogh.
 Prediction of signal peptides and signal anchors by a hidden Markov model.
 Proceedings of the Sixth International Conference on Intelligent Systems for Molecular Biology (ISMB 6),
 AAAI Press, Menlo Park, California, pp. 122-130, 1998.
+http://www.ncbi.nlm.nih.gov/pubmed/9783217
 
 http://www.cbs.dtu.dk/services/SignalP-3.0/output.php
 
