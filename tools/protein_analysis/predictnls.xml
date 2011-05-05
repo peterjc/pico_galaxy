@@ -1,4 +1,4 @@
-<tool id="predictnls" name="predictNLS" version="0.0.1">
+<tool id="predictnls" name="PredictNLS" version="0.0.2">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command interpreter="python">
       predictnls.py 8 $fasta_file $tabular_file
@@ -11,13 +11,13 @@
         <data name="tabular_file" format="tabular" label="predictNLS results" />
     </outputs>
     <requirements>
-        <requirement type="binary">predictNLS</requirement>
+        <requirement type="binary">predictnls</requirement>
     </requirements>
     <help>
     
 **What it does**
 
-This calls the predictNLS tool for prediction of nuclear localization signals
+This calls the PredictNLS tool for prediction of nuclear localization signals
 (NLSs).
 
 The input is a FASTA file of protein sequences, and the output is tabular with
@@ -37,6 +37,8 @@ Murat Cokol, Rajesh Nair, and Burkhard Rost.
 Finding nuclear localization signals.
 EMBO reports 1(5), 411–415, 2000
 http://dx.doi.org/10.1093/embo-reports/kvd092
+
+http://rostlab.org
 
     </help>
 </tool>

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-"""Wrapper for predictNLS v1.3 for use in Galaxy.
+"""Wrapper for PredictNLS v1.0.17 (released 2011) for use in Galaxy.
 
 This script takes exactly three command line arguments:
  * number of threads to use (integer)
  * an input protein FASTA filename
  * output tabular filename.
 
-It then calls the standalone predictNLS v1.3 program predictNLS (not the
-webservice), and coverts the text output from something like this:
+It then calls the standalone PredictNLS v1.0.17 program predictnls (not
+the webservice), and coverts the text output from something like this:
 
 Results of Nuclear Localization Signal Prediction(NLS)
 The NLS server can be directly accessed at: http://cubic.bioc.columbia.edu/predictNLS/
@@ -49,7 +49,9 @@ import os
 from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
 FASTA_CHUNK = 500
-exe = "predictNLS"
+#Note the binary was called predictNLS in the old verion v1.3
+#which also has different command line switches.
+exe = "predictnls"
 
 
 if len(sys.argv) != 4:
@@ -92,7 +94,7 @@ fasta_files = split_fasta(fasta_file, tabular_file, n=1)
 temp_files = [f+".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
 #Send stdout and stderr to /dev/null, its very noisy!
-jobs = ["%s in=%s out=%s html=0 > /dev/null 2> /dev/null" \
+jobs = ["%s fileIn=%s fileOut=%s html=0 > /dev/null 2> /dev/null" \
         % (exe, os.path.abspath(fasta), os.path.abspath(temp))
         for (fasta, temp) in zip(fasta_files, temp_files)]
 assert len(fasta_files) == len(temp_files) == len(jobs)
