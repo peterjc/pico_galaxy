@@ -1,149 +1,152 @@
 #!/usr/bin/env python
-"""Wrapper for PredictNLS v1.0.17 (released 2011) for use in Galaxy.
 
-This script takes exactly three command line arguments:
- * number of threads to use (integer)
- * an input protein FASTA filename
- * output tabular filename.
+#Copyright 2011 by Peter Cock, James Hutton Institute (formerly SCRI), UK
+#
+#Licenced under the GPL (GNU General Public Licence) version 3.
+#
+#Based on Perl script predictNLS v1.3, copyright 2001-2005 and the later
+#versions up to predictnls v1.0.17 (copright 2011), by Rajesh Nair
+#(nair@rostlab.org) and Burkhard Rost (rost@rostlab.org), Rost Lab,
+#Columbia University http://rostlab.org/
 
-It then calls the standalone PredictNLS v1.0.17 program predictnls (not
-the webservice), and coverts the text output from something like this:
+"""Batch mode predictNLS, for finding nuclear localization signals
 
-Results of Nuclear Localization Signal Prediction(NLS)
-The NLS server can be directly accessed at: http://cubic.bioc.columbia.edu/predictNLS/
-For help on interpretation of results visit the predictNLS help page:
-http://cubic.bioc.columbia.edu/predictNLS/doc/help.html
------------------------------------------------------------------
-----------------------------------------------------------------------
-Input sequence Id: >MYOD1_HUMAN
-Sequence Length: 319
-----------------------------------------------------------------------
-List of NLS's found in sequence
-----------------------------------------------------------------------
-|                NLS|Position in sequence|
-|      CKRKTTNADRRKA|                 100|
-|        KRKTTNADRRK|                 101|
-|      RRKAATMRERRRL|                 109|
-|       RRKAATMRERRR|                 109|
-|        VNEAFETLKRC|                 124|
-----------------------------------------------------------------------
-...
+This is a Python script implementing the predictNLS method, originally
+written in Perl, described here:
 
-In order to make it easier to use in Galaxy, this wrapper script reformats
-this to use tab separators, with one line per NLS prediction:
+Murat Cokol, Rajesh Nair, and Burkhard Rost.
+Finding nuclear localization signals.
+EMBO reports 1(5), 411-415, 2000
 
-#ID	Start	NLS
-MYOD1_HUMAN	100	CKRKTTNADRRKA
-MYOD1_HUMAN	101	KRKTTNADRRK
-MYOD1_HUMAN	109	RRKAATMRERRRL
-MYOD1_HUMAN	109	RRKAATMRERRR
-MYOD1_HUMAN	124	VNEAFETLKRC
+http://dx.doi.org/10.1093/embo-reports/kvd092
 
-Additionally in order to take full advantage of multiple cores, multiple copies
-of predictNLS are run in parallel. I would normally use Python's multiprocessing
-library in this situation but it requires at least Python 2.6 and at the time of
-writing Galaxy still supports Python 2.4.
+The original Perl script was designed to work on a single sequence at a time,
+but offers quite detailed output, including HTML (webpage).
+
+This Python version is designed to work on a single FASTA file containing
+multiple sequences, and produces a single tabular output file, with one line
+per NLS found (i.e. zero or more rows per query sequence).
+
+It takes either two or three command line arguments:
+
+predictNLS_batch input_file output_file [nls_motif_file]
+
+The input file should be protein sequences in FASTA format, the output file
+is tab separated plain text, and the NLS motif file defaults to using the
+plain text My_NLS_list file located next to the script file, or in a data
+subdirectory.
+
+Tested with the My_NLS_list file included with predictnls-1.0.17.tar.gz
 """
-import sys
+
 import os
-from seq_analysis_utils import stop_err, split_fasta, run_jobs
+import sys
+import re
 
-FASTA_CHUNK = 500
-#Note the binary was called predictNLS in the old verion v1.3
-#which also has different command line switches.
-exe = "predictnls"
+def stop_err(msg, return_code=1):
+    sys.stderr.write(msg.rstrip() + "\n")
+    sys.exit(return_code)
 
+if len(sys.argv) == 4:
+    fasta_filename, tabular_filename, re_filename = sys.argv[1:]
+elif len(sys.argv) == 3:
+    fasta_filename, tabular_filename = sys.argv[1:]
+    #Use os.path.realpath(...) to handle being called via a symlink
+    #Try under subdirectory data:
+    re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
+                               "data", "My_NLS_list")
+    if not os.path.isfile(re_filename):
+        #Try in same directory as this script:
+        re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
+                                                   "My_NLS_list")
+else:
+    stop_err("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
 
-if len(sys.argv) != 4:
-   stop_err("Require three arguments: threads, input protein FASTA file & output tabular file")
+if not os.path.isfile(fasta_filename):
+    stop_err("Could not find FASTA input file: %s" % fasta_filename)
 
-try:
-   num_threads = int(sys.argv[1])
-except:
-   num_threads = 0
-if num_threads < 1:
-   stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
+if not os.path.isfile(re_filename):
+    stop_err("Could not find NLS motif file: %s" % re_filename)
 
-fasta_file = sys.argv[2]
+def load_re(filename):
+    """Parse the 5+ column tabular NLS motif file."""
+    handle = open(filename, "rU")
+    for line in handle:
+        line = line.rstrip("\n")
+        if not line:
+            continue
+        parts = line.split("\t")
+        assert 5 <= len(parts), parts
+        regex, evidence, p_count, percent_nuc, precent_non_nuc = parts[0:5]
+        try:
+            regex = re.compile(regex)
+            p_count = int(p_count)
+        except ValueError:
+            stop_err("Bad data in line: %s" % line)
+        if 6 <= len(parts):
+            proteins = parts[5]
+            assert p_count == len(proteins.split(",")), line
+        else:
+            proteins = ""
+            assert p_count == 0
+        if 7 <= len(parts):
+            domains = parts[6]
+            assert int(p_count) == len(domains.split(",")), line
+        else:
+            domains = ""
+            assert p_count == 0
+        #There can be further columns (DNA binding?), but we don't use them.
+        yield regex, evidence, p_count, percent_nuc, proteins, domains
+    handle.close()
 
-tabular_file = sys.argv[3]
+def fasta_iterator(filename):
+    """Simple FASTA parser yielding tuples of (name, upper case sequence)."""
+    handle = open(filename)
+    name, seq = "", ""
+    for line in handle:
+        if line.startswith(">"):
+            if name:
+                yield name, seq
+            #Take the first word only as the name:
+            name = line[1:].rstrip().split(None,1)[0]
+            seq = ""
+        elif name:
+            #Simple way would leave in any internal white space,
+            #seq += line.strip().upper()
+            seq += "".join(line.strip().upper().split())
+        elif not line.strip():
+            #Ignore blank lines before first record
+            pass
+        else:
+            raise ValueError("Bad FASTA line %r" % line)
+    handle.close()
+    if name:
+        yield name, seq
+    raise StopIteration
 
+motifs = list(load_re(re_filename))
+print "Looking for %i NLS motifs" % len(motifs)
 
-def clean_tabular(raw_handle, out_handle):
-    """Clean up predictNLS output to make it tabular.
-
-    This should cope with concatenated output, or the raw single
-    query output direct from predictNLS.
-    """
-    id = None
-    for line in raw_handle:
-        if line.startswith("Input sequence Id:"):
-            id = line[19:].strip()
-            if id.startswith(">"):
-                #predictNLS seems to leave the FASTA > sign in
-                id = id[1:]
-        elif line.startswith("|") and line.count("|")==3:
-            assert id is not None
-            nls, start = [s.strip() for s in line[1:].split("|")[0:2]]
-            if nls != "NLS" and start != "Position in sequence":
-                out_handle.write("%s\t%s\t%s\n" % (id, start, nls))
-
-
-#Due to the way predictNLS works, require one sequence per FASTA (!!!)
-fasta_files = split_fasta(fasta_file, tabular_file, n=1)
-temp_files = [f+".out" for f in fasta_files]
-assert len(fasta_files) == len(temp_files)
-#Send stdout and stderr to /dev/null, its very noisy!
-jobs = ["%s fileIn=%s fileOut=%s html=0 > /dev/null 2> /dev/null" \
-        % (exe, os.path.abspath(fasta), os.path.abspath(temp))
-        for (fasta, temp) in zip(fasta_files, temp_files)]
-assert len(fasta_files) == len(temp_files) == len(jobs)
-
-def clean_up(file_list):
-    for f in file_list:
-        if os.path.isfile(f):
-            os.remove(f)
-
-if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
-    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
-#Note predictNLS will create temp files of its own in the current directory,
-results = run_jobs(jobs, num_threads, pause=0.2)
-assert len(fasta_files) == len(temp_files) == len(jobs)
-for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
-    error_level = results[cmd]
-    if not os.path.isfile(temp):
-        clean_up(fasta_files)
-        clean_up(temp_files)
-        stop_err("One or more tasks failed, e.g. no output file (return %i) from %r" \
-                 % (error_level, cmd))
-    try:
-        output = open(temp).readline()
-    except IOError, err:
-        clean_up(fasta_files)
-        clean_up(temp_files)
-        stop_err("One or more tasks failed, e.g. error opening output (return %i) from %r" \
-                                 % (error_level, cmd))
-    if not output.strip():
-       clean_up(fasta_files)
-       clean_up(temp_files)
-       stop_err("One or more tasks failed, e.g. empty output (return %i) from %r" \
-                % (error_level, cmd))
-    if error_level:
-        clean_up(fasta_files)
-        clean_up(temp_files)
-        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" \
-                 % (error_level, cmd, output),
-                 error_level)
-del results
-
-out_handle = open(tabular_file, "w")
-out_handle.write("#ID\tStart\tNLS\n")
-for temp in temp_files:
-    data_handle = open(temp)
-    clean_tabular(data_handle, out_handle)
-    data_handle.close()
+out_handle = open(tabular_filename, "w")
+out_handle.write("#ID\tNLS start\tNLS seq\tNLS pattern\tType\tProtCount\t%NucProt\tProtList\tProtLoci\n")
+count = 0
+nls = 0
+for idn, seq in fasta_iterator(fasta_filename):
+    for regex, evidence, p_count, percent_nuc_prot, proteins, domains in motifs:
+        #Perl predictnls v1.0.17 (and older) take right most hit only, Bug #40
+        #This may have been deliberate, so for now do the same here.
+        #for match in regex.finditer(seq):
+        matches = list(regex.finditer(seq))
+        if matches:
+            match = matches[-1]
+            #Perl predictnls v1.0.17 (and older) return NLS start
+            #position with zero based counting, Bug #38
+            #We use one based couting, hence the start+1 here:
+            out_handle.write("%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n" \
+                             % (idn, match.start()+1, match.group(),
+                                regex.pattern, evidence, p_count,
+                                percent_nuc_prot, proteins, domains))
+            nls += 1
+    count += 1
 out_handle.close()
-
-clean_up(fasta_files)
-clean_up(temp_files)
+print "Found %i NLS motifs in %i sequences" % (nls, count)
