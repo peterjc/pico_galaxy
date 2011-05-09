@@ -38,6 +38,26 @@ tool, to give a tabular file suitable for use within Galaxy.
 Information about potential DNA binding (shown in the original predictnls
 tool) is not given.
 
+**Localizations**
+
+The following abbreviations are used (derived from SWISS-PROT):
+
+==== =======================
+Abbr Localization         
+---- -----------------------
+cyt  Cytoplasm
+pla  Chloroplast
+ret  Eendoplasmic reticululm
+ext  Extracellular
+gol  Golgi
+lys  Lysosomal
+mit  Mitochondria
+nuc  Nuclear
+oxi  Peroxisom
+vac  Vacuolar
+rip  Periplasmic
+==== =======================
+
 **References**
 
 Murat Cokol, Rajesh Nair, and Burkhard Rost.
