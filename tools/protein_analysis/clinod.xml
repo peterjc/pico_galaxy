@@ -1,0 +1,49 @@
+<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.1">
+    <description>Find nucleolar localization signals (NoLSs) in protein sequences</description>
+    <command>
+      java -jar /opt/clinod/clinod-1.3.jar -in="$fasta_file" -out="$tabular_file" -t=8 -f=MEDIUM_TAB -nonols -clean_sequence
+      ##I want the number of threads to be a Galaxy config option...
+      ##TODO - Make the -clean_sequece argument a parameter?
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="NoD results" />
+    </outputs>
+    <requirements>
+        <requirement type="binary">java</requirement>
+    </requirements>
+    <help>
+    
+**What it does**
+
+This calls the command line version of the NoD tool from the Barton Group for
+prediction of nucleolar localization sequences (NoLSs). The NoD tool uses an
+artificial neural network trained on a set of human NoLSs.
+
+The nucleolus is a sub-compartmentof the nucleus, thus an NoLS can be regarded
+as a special nuclear localization sequence (NLS).
+
+The input is a FASTA file of protein sequences, and the output is tabular with
+four columns (multiple rows per protein):
+
+ * Sequence identifier
+ * Start of NoLS
+ * End of NoLS
+ * NoLS sequence
+
+If a sequence has no predicted NoLS, then there is no line in the output file
+for it.
+
+**References**
+
+M. S. Scott, F. M. Boisvert, M. D. McDowall, A. I. Lamond and G. J. Barton GJ.
+Characterization and prediction of protein nucleolar localization sequences.
+Nucleic Acids Research 38(21), 7388-7399, 2010.
+http://dx.doi.org/10.1093/nar/gkq653
+
+http://www.compbio.dundee.ac.uk/www-nod/
+
+    </help>
+</tool>
