@@ -38,10 +38,14 @@ for it.
 
 **References**
 
-M. S. Scott, F. M. Boisvert, M. D. McDowall, A. I. Lamond and G. J. Barton GJ.
+M. S. Scott, F. M. Boisvert, M. D. McDowall, A. I. Lamond and G. J. Barton.
 Characterization and prediction of protein nucleolar localization sequences.
 Nucleic Acids Research 38(21), 7388-7399, 2010.
 http://dx.doi.org/10.1093/nar/gkq653
+
+M. S. Michelle, P. V. V. Troshin and G. J. Barton.
+NoD: a Nucleolar localization sequence detector for eukaryotic and viral proteins.
+Submitted.
 
 http://www.compbio.dundee.ac.uk/www-nod/
 
