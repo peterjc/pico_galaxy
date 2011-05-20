@@ -49,8 +49,16 @@ def clean_tabular(raw_handle, out_handle):
         #Normally there will just be three semi-colons, however the
         #original FASTA file's ID or description might have had
         #semi-colons in it as well, hence the following hackery:
-        id_descr, score, effective = line.rstrip("\r\n").rsplit(";",2)
-        id, descr = id_descr.split("; ",1)
+        try:
+            id_descr, score, effective = line.rstrip("\r\n").rsplit(";",2)
+            #Cope when there was no FASTA description
+            if "; " not in id_descr and id_descr.endswith(";"):
+                id = id_descr[:-1]
+                descr = ""
+            else:
+                id, descr = id_descr.split("; ",1)
+        except ValueError:
+            stop_err("Problem parsing line:\n%s\n" % line)
         parts = [s.strip() for s in [id, descr, score, effective]]
         out_handle.write("\t".join(parts) + "\n")
         count += 1
