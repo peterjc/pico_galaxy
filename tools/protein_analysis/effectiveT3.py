@@ -17,7 +17,7 @@ import subprocess
 
 #You may need to edit this to match your local setup,
 effectiveT3_jar = "/opt/EffectiveT3/TTSS_GUI-1.0.1.jar"
-java = "/usr/bin/java"
+
 
 def stop_err(msg, error_level=1):
    """Print error message to stdout and quit with given error level."""
