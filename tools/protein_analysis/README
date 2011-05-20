@@ -7,6 +7,8 @@ line protein analysis tools:
 
 * WoLF PSORT v0.2 from http://wolfpsort.org/
 
+Also, the RXLR motif tool uses SignalP 3.0 and HMMER 2.3.2 internally.
+
 To use these Galaxy wrappers you must first install the command line tools.
 At the time of writing they are all free for academic use.
 
@@ -30,6 +32,10 @@ First install those command line tools you wish to use the wrappers for:
    directory, run runWolfPsortSummary, and then change back to the original
    directory), see: http://wolfpsort.org/WoLFPSORT_package/version0.2/
 
+4. Install hmmsearch from HMMER 2.3.2 (the last stable release of HMMER 2)
+   but put it on the path under the name hmmsearch2 (allowing it to co-exist
+   with HMMER 3), or edit rlxr_motif.py accordingly.
+
 Verify each of the tools is installed and working from the command line
 (when logged in at the Galaxy user if appropriate).
 
@@ -49,6 +55,9 @@ signalp3.py (Python wrapper script)
 wolf_psort.xml (Galaxy tool definition)
 wolf_psort.py (Python wrapper script)
 
+rxlr_motifs.xml (Galaxy tool definition)
+rxlr_motifs.py (Python script)
+
 seq_analysis_utils.py (shared Python code)
 README (optional)
 
@@ -60,6 +69,7 @@ README (optional)
     <tool file="protein_analysis/tmhmm2.xml" />
     <tool file="protein_analysis/signalp3.xml" />
     <tool file="protein_analysis/wolf_psort.xml" />
+    <tool file="protein_analysis/rxlr_motifs.xml" />
   </section>
 
    Leave out the lines for any tools you do not wish to use in Galaxy.
@@ -101,6 +111,7 @@ v0.0.6 - Improvement to how sub-jobs are run (should be faster)
 v0.0.7 - Change SignalP default truncation from 60 to 70 to match the
          SignalP webservice.
 v0.0.8 - Added WoLF PSORT wrapper to the suite.
+v0.0.9 - Added our RXLR motifs tool to the suite.
 
 
 Developers
@@ -115,11 +126,11 @@ http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf tmhmm_signalp_wolfpsort.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
+tar -czf tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py  test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
 
 Check this worked:
 
-$ tar -tzf tmhmm_signalp_wolfpsort.tar.gz
+$ tar -tzf tmhmm_signalp_etc.tar.gz
 tools/protein_analysis/LICENSE
 tools/protein_analysis/README
 tools/protein_analysis/suite_config.xml
@@ -130,6 +141,8 @@ tools/protein_analysis/tmhmm2.xml
 tools/protein_analysis/tmhmm2.py
 tools/protein_analysis/wolf_psort.xml
 tools/protein_analysis/wolf_psort.py
+tools/protein_analysis/rxlr_motifs.xml
+tools/protein_analysis/rxrl_motifs.py
 test-data/four_human_proteins.fasta
 test-data/four_human_proteins.signalp3.tabular
 test-data/four_human_proteins.tmhmm2.tabular
