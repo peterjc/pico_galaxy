@@ -20,7 +20,7 @@ was added in version 1.7. Additionally a fast C++ implementation was added at
 this point (early versions of NLStradamus came as a perl script only). This
 wrapper expects the compiled C++ binary "NLStradamus" to be on the system PATH.
 
-To install the wrapper installed the following files under the Galaxy tools
+To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a tools/protein_analysis folder:
 
 * nlstradamus.xml (the Galaxy tool definition)
