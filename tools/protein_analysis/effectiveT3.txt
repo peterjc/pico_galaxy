@@ -1,0 +1,94 @@
+Galaxy wrapper for EffectiveT3 v1.0.1
+=====================================
+
+This wrapper is copyright 2011 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See the licence text below.
+
+This is a wrapper for the command line Java tool EffectiveT3, v1.0.1,
+
+Jehl, Arnold and Rattei.
+Effective - a database of predicted secreted bacterial proteins
+Nucleic Acids Research, 39(Database issue), D591-5, 2011.
+http://dx.doi.org/10.1093/nar/gkq1154
+
+Arnold, Brandmaier, Kleine, Tischler, Heinz, Behrens, Niinikoski, Mewes, Horn and Rattei.
+Sequence-based prediction of type III secreted proteins.
+PLoS Pathog. 5(4):e1000376, 2009.
+http://dx.doi.org/10.1371/journal.ppat.1000376
+
+http://effectors.org/
+
+You can change the path by editing the definition near the start of the Python
+script effectiveT3.py, but by default it expects the following files to be
+installed at these locations:
+
+/opt/EffectiveT3/TTSS_GUI-1.0.1.jar
+/opt/EffectiveT3/module/TTSS_ANIMAL-1.0.1.jar
+/opt/EffectiveT3/module/TTSS_PLANT-1.0.1.jar
+/opt/EffectiveT3/module/TTSS_STD-1.0.1.jar
+
+To install the wrapper copy or move the following files under the Galaxy tools
+folder, e.g. in a tools/protein_analysis folder:
+
+* effectiveT3.xml (the Galaxy tool definition)
+* effectiveT3.py (the Python wrapper script)
+* effectiveT3.txt (this README file)
+
+You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+tool. If you are using other protein analysis tools like TMHMM or SignalP, put
+it next to them. Just add the line:
+
+<tool file="protein_analysis/effectiveT3.xml" />
+
+That's it.
+
+
+History
+=======
+
+v0.0.7 - Initial public release
+
+
+Developers
+==========
+
+This script and related tools are being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/tools
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+$ tar -czf effectiveT3.tar.gz tools/protein_analysis/effectiveT3.xml tools/protein_analysis/effectiveT3.py tools/protein_analysis/effectiveT3.txt
+
+Check this worked:
+
+$ tar -tzf effectiveT3.tar.gz
+tools/protein_analysis/effectiveT3.xml
+tools/protein_analysis/effectiveT3.py
+tools/protein_analysis/effectiveT3.txt
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
+
+NOTE: This is the licence for the Galaxy Wrapper only. NLStradamus
+is available and licenced separately.
