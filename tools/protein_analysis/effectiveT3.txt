@@ -90,5 +90,5 @@ OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
 OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 
-NOTE: This is the licence for the Galaxy Wrapper only. NLStradamus
-is available and licenced separately.
+NOTE: This is the licence for the Galaxy Wrapper only.
+EffectiveT3 is available and licenced separately.
