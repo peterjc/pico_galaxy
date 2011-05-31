@@ -17,8 +17,13 @@ http://www.moseslab.csb.utoronto.ca/NLStradamus
 
 Early versions of NLStradamus did not have a native tabular output format, this
 was added in version 1.7. Additionally a fast C++ implementation was added at
-this point (early versions of NLStradamus came as a perl script only). This
-wrapper expects the compiled C++ binary "NLStradamus" to be on the system PATH.
+this point (early versions of NLStradamus came as a perl script only).
+
+
+Installation
+============
+This wrapper expects the compiled C++ binary "NLStradamus" to be on the system
+PATH.
 
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a tools/protein_analysis folder:
