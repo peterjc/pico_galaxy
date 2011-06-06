@@ -123,7 +123,7 @@ elif seq_format.lower()=="fasta":
         positive_writer = fastaWriter(open(out_positive_file, "w"))
         negative_writer = fastaWriter(open(out_negative_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifier.
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
             else:
@@ -134,7 +134,7 @@ elif seq_format.lower()=="fasta":
         print "Generating matching FASTA file"
         positive_writer = fastaWriter(open(out_positive_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifier.
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
         positive_writer.close()
@@ -142,7 +142,7 @@ elif seq_format.lower()=="fasta":
         print "Generating non-matching FASTA file"
         negative_writer = fastaWriter(open(out_negative_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifier.
             if not record.identifier or record.identifier.split()[0][1:] not in ids:
                 negative_writer.write(record)
         negative_writer.close()
@@ -156,7 +156,7 @@ elif seq_format.lower().startswith("fastq"):
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifier.
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
             else:
@@ -167,7 +167,7 @@ elif seq_format.lower().startswith("fastq"):
         print "Generating matching FASTQ file"
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifier.
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
         positive_writer.close()
@@ -175,7 +175,7 @@ elif seq_format.lower().startswith("fastq"):
         print "Generating non-matching FASTQ file"
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifier.
             if not record.identifier or record.identifier.split()[0][1:] not in ids:
                 negative_writer.write(record)
         negative_writer.close()
