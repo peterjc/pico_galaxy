@@ -28,7 +28,7 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 This script is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.1 of the script.
+This is version 0.0.2 of the script.
 """
 import sys
 
@@ -146,6 +146,7 @@ elif seq_format.lower()=="fasta":
             if not record.identifier or record.identifier.split()[0][1:] not in ids:
                 negative_writer.write(record)
         negative_writer.close()
+    reader.close()
 elif seq_format.lower().startswith("fastq"):
     #Write filtered FASTQ file based on IDs from tabular file
     from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
@@ -155,7 +156,7 @@ elif seq_format.lower().startswith("fastq"):
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the @ on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifer.
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
             else:
@@ -166,7 +167,7 @@ elif seq_format.lower().startswith("fastq"):
         print "Generating matching FASTQ file"
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the @ on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifer.
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
         positive_writer.close()
@@ -174,9 +175,10 @@ elif seq_format.lower().startswith("fastq"):
         print "Generating non-matching FASTQ file"
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
-            #The [1:] is because the fastaReader leaves the @ on the identifer.
+            #The [1:] is because the fastaReader leaves the > on the identifer.
             if not record.identifier or record.identifier.split()[0][1:] not in ids:
                 negative_writer.write(record)
         negative_writer.close()
+    reader.close()
 else:
     stop_err("Unsupported file type %r" % seq_format)
