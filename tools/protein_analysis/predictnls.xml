@@ -9,6 +9,12 @@
     <outputs>
         <data name="tabular_file" format="tabular" label="predictNLS results" />
     </outputs>
+    <tests>
+        <test>
+             <param name="fasta_file" value="four_human_proteins.fasta"/>
+             <output name="tabular_file" file="four_human_proteins.predictnls.tabular"/>
+        </test>
+    </tests>
     <requirements>
         <requirement type="binary">predictnls</requirement>
     </requirements>
