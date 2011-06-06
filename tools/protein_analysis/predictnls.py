@@ -134,13 +134,10 @@ nls = 0
 for idn, seq in fasta_iterator(fasta_filename):
     for regex, evidence, p_count, percent_nuc_prot, proteins, domains in motifs:
         #Perl predictnls v1.0.17 (and older) take right most hit only, Bug #40
-        #This may have been deliberate, so for now do the same here.
-        #for match in regex.finditer(seq):
-        matches = list(regex.finditer(seq))
-        if matches:
-            match = matches[-1]
+        #This has been fixed now, so we return all the matches
+        for match in regex.finditer(seq):
             #Perl predictnls v1.0.17 (and older) return NLS start
-            #position with zero based counting, Bug #38
+            #position with zero based counting, Bug #38 (fixed)
             #We use one based couting, hence the start+1 here:
             out_handle.write("%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n" \
                              % (idn, match.start()+1, match.group(),
