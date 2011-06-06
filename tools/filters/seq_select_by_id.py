@@ -20,7 +20,7 @@ This script is copyright 2011 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT/BSD
 style).
 
-This is version 0.0.1 of the script.
+This is version 0.0.2 of the script.
 """
 import sys
 
@@ -39,7 +39,7 @@ try:
     else:
         column = int(col_arg)-1
 except ValueError:
-    stop_err("Expected column number, got %s" % cols_arg)
+    stop_err("Expected column number, got %s" % col_arg)
 
 if seq_format == "fastqcssanger":
     stop_err("Colorspace FASTQ not supported.")
