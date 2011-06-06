@@ -1,5 +1,5 @@
-Galaxy tool to select FASTA, FASTQ or SFF sequences by ID
-=========================================================
+Galaxy tool to select FASTA, QUAL, FASTQ or SFF sequences by ID
+===============================================================
 
 This tool is copyright 2011 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
@@ -26,7 +26,7 @@ for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line:
 
-<tool file="filters/sff_select_by_id.xml" />
+<tool file="filters/seq_select_by_id.xml" />
 
 You will also need to install Biopython 1.54 or later. That's it.
 
