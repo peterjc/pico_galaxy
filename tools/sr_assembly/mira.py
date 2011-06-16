@@ -74,20 +74,23 @@ except Exception, err:
 #print os.path.abspath(".")
 #print cmd
 
+handle = open(out_log, "w")
 try:
     #Run MIRA
     child = subprocess.Popen(sys.argv[9:],
-                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                             stdout=handle,
+                             stderr=subprocess.STDOUT)
 except Exception, err:
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
     #TODO - call clean up?
+    handle.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
+    handle.close()
     sys.exit(1)
 #Use .communicate as can get deadlocks with .wait(),
 stdout, stderr = child.communicate()
+assert not stdout and not stderr #Should be empty as sent to handle
 run_time = time.time() - start_time
 return_code = child.returncode
-handle = open(out_log, "w")
-handle.write(stdout)
 handle.write("\n\nMIRA took %0.2f minutes\n" % (run_time / 60.0))
 print "MIRA took %0.2f minutes" % (run_time / 60.0)
 if return_code:

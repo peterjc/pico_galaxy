@@ -34,6 +34,7 @@ History
 =======
 
 v0.0.1 - Initial version (working prototype)
+v0.0.2 - Improve capture of stdout/stderr (should see it as it runs)
 
 
 Developers
