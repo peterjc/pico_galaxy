@@ -1,0 +1,84 @@
+Galaxy wrapper for Command line NoD predictor (v1.3)
+====================================================
+
+This wrapper is copyright 2011 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See the licence text below.
+
+Command line NoD predictor is a tool for predicting nucleolar localization
+sequences (NoLSs) in a FASTA file of proteins using a neural network. There
+is also a webtool version at http://www.compbio.dundee.ac.uk/www-nod/
+
+
+Installation
+============
+This wrapper expects the java binary to be on the system PATH, and to be able
+to access command line NoD as /opt/clinod/clinod-1.3.jar (edit clinod.xml if
+you wish to use a different location).
+
+Internally NoD calls the binary batchman from the Stuttgart Neural Network
+Simulator (SNNS) v 4.2 software suite. This binary can either be on the system
+path or located next to the JAR file, i.e. /opt/clinod/batchman
+
+To install the wrapper copy or move the following files under the Galaxy tools
+folder, e.g. in a tools/protein_analysis folder:
+
+* clinod.xml (the Galaxy tool definition)
+* clinod.txt (this README file)
+
+You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+tool. If you are using other protein analysis tools like TMHMM or SignalP, put
+it next to them. Just add the line:
+
+<tool file="protein_analysis/clinod.xml" />
+
+That's it.
+
+
+History
+=======
+
+v0.0.1 - Initial public release
+
+
+Developers
+==========
+
+This script and related tools are being developed on the following hg branch:
+http://bitbucket.org/peterjc/galaxy-central/src/tools
+
+For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+the following command from the Galaxy root folder:
+
+$ tar -czf clinod.tar.gz tools/protein_analysis/clinod.xml tools/protein_analysis/clinod.txt
+
+Check this worked:
+
+$ tar -tzf clinod.tar.gz
+tools/protein_analysis/clinod.xml
+tools/protein_analysis/clinod.txt
+
+
+Licence (MIT/BSD style)
+=======================
+
+Permission to use, copy, modify, and distribute this software and its
+documentation with or without modifications and for any purpose and
+without fee is hereby granted, provided that any copyright notices
+appear in all copies and that both those copyright notices and this
+permission notice appear in supporting documentation, and that the
+names of the contributors or copyright holders not be used in
+advertising or publicity pertaining to distribution of the software
+without specific prior permission.
+
+THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
+
+NOTE: This is the licence for the Galaxy Wrapper only. Command line
+NoD is available and licenced separately.
