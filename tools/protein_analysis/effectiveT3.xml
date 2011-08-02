@@ -1,4 +1,4 @@
-<tool id="effectiveT3" name="Effective T3" version="0.0.7">
+<tool id="effectiveT3" name="Effective T3" version="0.0.8">
     <description>Find bacterial effectors in protein sequences</description>
     <command interpreter="python">
 effectiveT3.py $module.fields.path

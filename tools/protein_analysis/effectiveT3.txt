@@ -39,6 +39,9 @@ folder, e.g. in a tools/protein_analysis folder:
 * effectiveT3.py (the Python wrapper script)
 * effectiveT3.txt (this README file)
 
+Also copy effectiveT3.loc.sample to effectiveT3.loc in the tool-data folder
+(and edit if appropriate, e.g. to add or remove a model).
+
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
 it next to them. Just add the line:
@@ -52,6 +55,7 @@ History
 =======
 
 v0.0.7 - Initial public release
+v0.0.8 - Include effectiveT3.loc.sample in Tool Shed
 
 
 Developers
@@ -63,7 +67,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf effectiveT3.tar.gz tools/protein_analysis/effectiveT3.xml tools/protein_analysis/effectiveT3.py tools/protein_analysis/effectiveT3.txt
+$ tar -czf effectiveT3.tar.gz tools/protein_analysis/effectiveT3.xml tools/protein_analysis/effectiveT3.py tools/protein_analysis/effectiveT3.txt tool-data/effectiveT3.loc.sample
 
 Check this worked:
 
@@ -71,7 +75,7 @@ $ tar -tzf effectiveT3.tar.gz
 tools/protein_analysis/effectiveT3.xml
 tools/protein_analysis/effectiveT3.py
 tools/protein_analysis/effectiveT3.txt
-
+tool-data/effectiveT3.loc.sample
 
 Licence (MIT/BSD style)
 =======================
