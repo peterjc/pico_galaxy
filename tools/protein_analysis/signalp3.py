@@ -52,7 +52,7 @@ the predictors which gives a cleavage site).
 """
 import sys
 import os
-from seq_analysis_utils import stop_err, split_fasta, run_jobs
+from seq_analysis_utils import stop_err, split_fasta, run_jobs, fasta_iterator
 
 FASTA_CHUNK = 500
 MAX_LEN = 6000 #Found by trial and error
@@ -96,6 +96,13 @@ else:
 
 def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
     """Clean up SignalP output to make it tabular."""
+    if cut_method:
+       cut_col = {"NN_Cmax" : 2,
+                  "NN_Ymax" : 5,
+                  "NN_Smax" : 8,
+                  "HMM_Cmax" : 16}[cut_method]
+    else:
+       cut_col = None
     for line in raw_handle:
         if not line or line.startswith("#"):
             continue
@@ -106,9 +113,57 @@ def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
         #and put full name at start (col 14)
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
-        if cut_method:
-           #TODO
-           gff_handle.write(parts[0] + "\n")
+
+def make_gff(fasta_file, tabular_file, gff_file, cut_method):
+    cut_col, score_col = {"NN_Cmax" : (2,1),
+                          "NN_Ymax" : (5,4),
+                          "NN_Smax" : (8,7),
+                          "HMM_Cmax" : (16,15),
+                          }[cut_method]
+
+    source = "SignalP"
+    strand = "." #not stranded
+    phase = "." #not phased
+    tags = "Note=%s" % cut_method
+    
+    tab_handle = open(tabular_file)
+    line = tab_handle.readline()
+    assert line.startswith("#ID\t"), line
+
+    gff_handle = open(gff_file, "w")
+    gff_handle.write("##gff-version 3\n")
+
+    for (title, seq), line in zip(fasta_iterator(fasta_file), tab_handle):
+        parts = line.rstrip("\n").split("\t")
+        seqid = parts[0]
+        assert title.startswith(seqid), "%s vs %s" % (seqid, title)
+        if len(seq)==0:
+            #Is it possible to have a zero length reference in GFF3?
+            continue
+        cut = int(parts[cut_col])
+        if cut == 0:
+            assert cut_method == "HMM_Cmax", cut_method
+            #TODO - Why does it do this?
+            cut = 1
+        assert 1 <= cut <= len(seq), "%i for %s len %i" % (cut, seqid, len(seq))
+        score = parts[score_col]
+        gff_handle.write("##sequence-region %s %i %i\n" \
+                          % (seqid, 1, len(seq)))
+        #If the cut is at the very begining, there is no signal peptide!
+        if cut > 1:
+            #signal_peptide = SO:0000418
+            gff_handle.write("%s\t%s\t%s\t%i\t%i\t%s\t%s\t%s\t%s\n" \
+                             % (seqid, source,
+                                "signal_peptide", 1, cut-1,
+                                score, strand, phase, tags))
+        #mature_protein_region = SO:0000419
+        gff_handle.write("%s\t%s\t%s\t%i\t%i\t%s\t%s\t%s\t%s\n" \
+                         % (seqid, source,
+                            "mature_protein_region", cut, len(seq),
+                            score, strand, phase, tags))
+        tab_handle.close()
+    gff_handle.close()
+
 
 fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
 temp_files = [f+".out" for f in fasta_files]
@@ -150,18 +205,16 @@ fields.extend(["NN_Smean_score", "NN_Smean_pred", "NN_D_score", "NN_D_pred"])
 fields.extend(["HMM_type", "HMM_Cmax_score", "HMM_Cmax_pos", "HMM_Cmax_pred",
                "HMM_Sprob_score", "HMM_Sprob_pred"])
 out_handle.write("#" + "\t".join(fields) + "\n")
-#GFF
-if cut_method:
-   gff_handle = open(gff3_file, "w")
-   gff_handle.write("##gff-version 3\n")
-#Data...
 for temp in temp_files:
     data_handle = open(temp)
-    clean_tabular(data_handle, out_handle, gff_handle, cut_method)
+    clean_tabular(data_handle, out_handle)
     data_handle.close()
 out_handle.close()
+
+#GFF3:
 if cut_method:
-   gff_handle.close()
+   make_gff(fasta_file, tabular_file, gff3_file, cut_method)
+
 
 clean_up(fasta_files)
 clean_up(temp_files)
