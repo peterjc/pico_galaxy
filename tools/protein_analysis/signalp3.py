@@ -8,6 +8,10 @@ This script takes exactly five command line arguments:
  * an input protein FASTA filename
  * output tabular filename.
 
+There are two further optional arguments
+ * cut type (NN_Cmax, NN_Ymax, NN_Smax or HMM_Cmax)
+ * output GFF3 filename
+
 It then calls the standalone SignalP v3.0 program (not the webservice)
 requesting the short output (one line per protein) using both NN and HMM
 for predictions.
@@ -41,6 +45,10 @@ v3.0 itself is single threaded) by using the individual FASTA input files to
 run multiple copies of TMHMM in parallel. I would normally use Python's
 multiprocessing library in this situation but it requires at least Python 2.6
 and at the time of writing Galaxy still supports Python 2.4.
+
+Finally, you can opt to have a GFF3 file produced which will describe the
+predicted signal peptide and mature peptide for each protein (using one of
+the predictors which gives a cleavage site).
 """
 import sys
 import os
@@ -49,8 +57,11 @@ from seq_analysis_utils import stop_err, split_fasta, run_jobs
 FASTA_CHUNK = 500
 MAX_LEN = 6000 #Found by trial and error
 
-if len(sys.argv) != 6:
-   stop_err("Require five arguments, organism, truncate, threads, input protein FASTA file & output tabular file")
+if len(sys.argv) not in  [6,8]:
+   stop_err("Require five (or 7) arguments, organism, truncate, threads, "
+            "input protein FASTA file & output tabular file (plus "
+            "optionally cut method and GFF3 output file). "
+            "Got %i arguments." % (len(sys.argv)-1))
 
 organism = sys.argv[1]
 if organism not in ["euk", "gram+", "gram-"]:
@@ -74,7 +85,16 @@ fasta_file = sys.argv[4]
 
 tabular_file = sys.argv[5]
 
-def clean_tabular(raw_handle, out_handle):
+if len(sys.argv) == 8:
+   cut_method = sys.argv[6]
+   if cut_method not in ["NN_Cmax", "NN_Ymax", "NN_Smax", "HMM_Cmax"]:
+      stop_err("Invalid cut method %r" % cut_method)
+   gff3_file = sys.argv[7]
+else:
+   cut_method = None
+   gff3_file = None
+
+def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
     """Clean up SignalP output to make it tabular."""
     for line in raw_handle:
         if not line or line.startswith("#"):
@@ -86,6 +106,9 @@ def clean_tabular(raw_handle, out_handle):
         #and put full name at start (col 14)
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
+        if cut_method:
+           #TODO
+           gff_handle.write(parts[0] + "\n")
 
 fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
 temp_files = [f+".out" for f in fasta_files]
@@ -127,11 +150,18 @@ fields.extend(["NN_Smean_score", "NN_Smean_pred", "NN_D_score", "NN_D_pred"])
 fields.extend(["HMM_type", "HMM_Cmax_score", "HMM_Cmax_pos", "HMM_Cmax_pred",
                "HMM_Sprob_score", "HMM_Sprob_pred"])
 out_handle.write("#" + "\t".join(fields) + "\n")
+#GFF
+if cut_method:
+   gff_handle = open(gff3_file, "w")
+   gff_handle.write("##gff-version 3\n")
+#Data...
 for temp in temp_files:
     data_handle = open(temp)
-    clean_tabular(data_handle, out_handle)
+    clean_tabular(data_handle, out_handle, gff_handle, cut_method)
     data_handle.close()
 out_handle.close()
+if cut_method:
+   gff_handle.close()
 
 clean_up(fasta_files)
 clean_up(temp_files)
