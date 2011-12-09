@@ -57,29 +57,29 @@ originally used by Illumina, .f and .r convention, the Sanger convention
 and the current Illumina convention where the reads get the same identifier
 with the fragment number in the description, for example:
 
-@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
-@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
+ * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
+ * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
 
 Note that this does support multiple forward and reverse reads per template
 (which is quite common with Sanger sequencing), e.g. this which is sorted
 alphabetically:
 
-WTSI_1055_4p17.p1kapIBF
-WTSI_1055_4p17.p1kpIBF
-WTSI_1055_4p17.q1kapIBR
-WTSI_1055_4p17.q1kpIBR
+ * WTSI_1055_4p17.p1kapIBF
+ * WTSI_1055_4p17.p1kpIBF
+ * WTSI_1055_4p17.q1kapIBR
+ * WTSI_1055_4p17.q1kpIBR
 
 or this where the reads already come in pairs:
 
-WTSI_1055_4p17.p1kapIBF
-WTSI_1055_4p17.q1kapIBR
-WTSI_1055_4p17.p1kpIBF
-WTSI_1055_4p17.q1kpIBR
+ * WTSI_1055_4p17.p1kapIBF
+ * WTSI_1055_4p17.q1kapIBR
+ * WTSI_1055_4p17.p1kpIBF
+ * WTSI_1055_4p17.q1kpIBR
 
 both become:
 
-WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
-WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
+ * WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
+ * WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
 
 	</help>
 </tool>
