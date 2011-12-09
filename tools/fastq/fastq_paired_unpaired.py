@@ -9,15 +9,19 @@ suffices. See below or run the tool with no arguments for more details.
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
 Color Space should all work equally well).
 
-This script is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
-See accompanying text file for licence details (MIT/BSD style).
+This script is copyright 2010-2011 by Peter Cock, The James Hutton Institute
+(formerly SCRI), Scotland, UK. All rights reserved.
 
-This is version 0.0.4 of the script.
+See accompanying text file for licence details (MIT/BSD style).
 """
 import os
 import sys
 import re
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
+
+if "--version" in sys.argv[1:]:
+    print "Version 0.0.5"
+    sys.exit(0)
 
 def stop_err(msg, err=1):
    sys.stderr.write(msg.rstrip() + "\n")
@@ -44,8 +48,13 @@ preserve this sort order.
 
 Any reads where the forward/reverse naming suffix used is not recognised
 are treated as orphan reads. The tool supports the /1 and /2 convention
-used by Illumina, the .f and .r convention, and the Sanger convention
-(see http://staden.sourceforge.net/manual/pregap4_unix_50.html for details).
+originally used by Illumina, the .f and .r convention, and the Sanger
+convention (see http://staden.sourceforge.net/manual/pregap4_unix_50.html
+for details), and the new Illumina convention where the reads have the
+same identifier with the fragment at the start of the description, e.g.
+
+@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
+@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
 
 Note that this does support multiple forward and reverse reads per template
 (which is quite common with Sanger sequencing), e.g. this which is sorted
@@ -113,6 +122,14 @@ assert not re_f.search("demo/2")
 assert not re_f.search("demo.r")
 assert not re_f.search("demo.q")
 
+re_illumina_f = re.compile(r"^@[a-zA-Z0-9_:-]+ 1:.*$")
+re_illumina_r = re.compile(r"^@[a-zA-Z0-9_:-]+ 2:.*$")
+assert re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
+assert re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
+assert not re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
+assert not re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
+
+
 count, forward, reverse, neither, pairs, singles = 0, 0, 0, 0, 0, 0
 in_handle = open(input_fastq)
 if pairs_fastq:
@@ -128,12 +145,18 @@ for record in fastqReader(in_handle, format):
     count += 1
     name = record.identifier.split(None,1)[0]
     assert name[0]=="@", record.identifier #Quirk of the Galaxy parser
+    is_forward = False
     suffix = re_f.search(name)
     if suffix:
         #============
         #Forward read
         #============
         template = name[:suffix.start()]
+        is_forward = True
+    elif re_illumina_f.match(record.identifier):
+        template = name #No suffix
+        is_forward = True
+    if is_forward:
         #print name, "forward", template
         forward += 1
         if last_template == template:
@@ -145,14 +168,20 @@ for record in fastqReader(in_handle, format):
                 singles += 1
             #Save this read in buffer
             buffered_reads = [record]
-            last_template = template  
+            last_template = template
     else:
+        is_reverse = False
         suffix = re_r.search(name)
         if suffix:
             #============
             #Reverse read
             #============
             template = name[:suffix.start()]
+            is_reverse = True
+        elif re_illumina_r.match(record.identifier):
+            template = name #No suffix
+            is_reverse = True
+        if is_reverse:
             #print name, "reverse", template
             reverse += 1
             if last_template == template and buffered_reads:
@@ -208,5 +237,5 @@ else:
            % (count, forward, reverse, pairs, singles)
 
 assert count == pairs + singles == forward + reverse + neither, \
-       "%i vs %i+%i=%i vs %i+%i=%i" \
+       "%i vs %i+%i=%i vs %i+%i+%i=%i" \
        % (count,pairs,singles,pairs+singles,forward,reverse,neither,forward+reverse+neither)

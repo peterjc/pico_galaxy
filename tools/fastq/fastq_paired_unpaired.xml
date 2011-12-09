@@ -1,4 +1,4 @@
-<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.4">
+<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.5">
 	<description>using the read name suffices</description>
 	<command interpreter="python">
 fastq_paired_unpaired.py $input_fastq.extension $input_fastq
@@ -52,8 +52,13 @@ suffices. See below or run the tool with no arguments for more details.
 
 Any reads where the forward/reverse naming suffix used is not recognised
 are treated as orphan reads. The tool supports the /1 and /2 convention
-used by Illumina, the .f and .r convention, and the Sanger convention
-(see http://staden.sourceforge.net/manual/pregap4_unix_50.html for details).
+originally used by Illumina, .f and .r convention, the Sanger convention
+(see http://staden.sourceforge.net/manual/pregap4_unix_50.html for details),
+and the current Illumina convention where the reads get the same identifier
+with the fragment number in the description, for example:
+
+@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
+@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
 
 Note that this does support multiple forward and reverse reads per template
 (which is quite common with Sanger sequencing), e.g. this which is sorted
