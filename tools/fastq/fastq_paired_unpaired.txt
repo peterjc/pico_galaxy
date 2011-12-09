@@ -36,6 +36,7 @@ v0.0.1 - Initial version, using Biopython
 v0.0.2 - Help text; cope with multiple pairs per template
 v0.0.3 - Galaxy XML wrappers added
 v0.0.4 - Use Galaxy library to handle FASTQ files (avoid Biopython dependency)
+v0.0.5 - Handle Illumina 1.8 style pair names
 
 
 Developers
