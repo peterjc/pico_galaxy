@@ -63,7 +63,7 @@ cmd = " ".join(sys.argv[9:])
 
 assert os.path.isdir(temp)
 d = "%s_assembly" % name
-assert not os.path.isdir(d)
+assert not os.path.isdir(d), "Path %s already exists" % d
 try:
     #Check path access
     os.mkdir(d)

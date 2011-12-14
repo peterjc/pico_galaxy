@@ -7,7 +7,7 @@ See the licence text below.
 
 This tool is a short Python script (to collect the MIRA output and move it
 to where Galaxy expects the files, and convert MIRA's TCS file into a tab
-separate file for use in Galaxy). There are just two files to install:
+separated file for use in Galaxy). There are just two files to install:
 
 * mira.py (the Python script)
 * mira.xml (the Galaxy tool definition)
@@ -16,9 +16,9 @@ The suggested location is the tools/sr_assembly folder. You will also need to
 modify the tools_conf.xml file to tell Galaxy to offer the tool and also do
 this to tools_conf.xml.sample in order to run any tests:
 
-<tool file="sr_assembly/seq_primer_clip.xml" />
+<tool file="sr_assembly/mira.xml" />
 
-You will also need to install MIRA, we used version 3.2.1. See:
+You will also need to install MIRA, we used version 3.4.0. See:
 
 http://chevreux.org/projects_mira.html
 http://sourceforge.net/projects/mira-assembler/
@@ -33,8 +33,11 @@ no attempt to spot and reject such large jobs.
 History
 =======
 
-v0.0.1 - Initial version (working prototype)
+v0.0.1 - Initial version (working prototype, using MIRA 3.2.1)
 v0.0.2 - Improve capture of stdout/stderr (should see it as it runs)
+v0.0.3 - Support Ion Torrent reads, now requires MIRA 3.4.0 or later
+         (some other switched changed, e.g. -OUT rrol to rrot, which
+         means the wrapper no longer works with MIRA 3.2.x)
 
 
 Developers

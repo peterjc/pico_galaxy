@@ -1,5 +1,6 @@
-<tool id="mira_assembler" name="Assemble with MIRA" version="0.0.2">
-    <description>Takes Sanger, Roche, and Illumina data</description>
+<tool id="mira_assembler" name="Assemble with MIRA" version="0.0.3">
+    <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
+        <version_command>mira --version | head -n 1</version_command>
 	<command interpreter="python">mira.py mira $out_fasta $out_qual $out_tcs $out_ace $out_caf $out_wig $out_log
 ##Give the wrapper script list of output filenames, then the mira command...
 mira --job=$job_method,$job_type,$job_quality
@@ -11,30 +12,36 @@ mira --job=$job_method,$job_type,$job_quality
 #end if
 #if $condSanger.use == "true":
     Sanger_SETTINGS
-    ## Not easy to add sanger to --job, so use load_sequence_data(lsd) instead
+    ## Not easy in Galaxy to add sanger to --job, so use load_sequence_data(lsd) instead
     -LR:lsd=yes
     ## I expect hard trimmed FASTQ files with no NCBI traceinfo XML file
     -LR:mxti=no -LR:ft=fastq -FN:fqi=${condSanger.filename}
 #end if
 #if $condRoche.use == "true":
     454_SETTINGS
-    ## Not easy to add 454 to --job, so use load_sequence_data(lsd) instead
+    ## Not easy in Galaxy to add 454 to --job, so use load_sequence_data(lsd) instead
     -LR:lsd=yes
     ## I expect hard trimmed FASTQ files with no NCBI traceinfo XML file
     -LR:mxti=no -LR:ft=fastq -FN:fqi=${condRoche.filename}
 #end if
 #if $condIllumina.use == "true":
     SOLEXA_SETTINGS
-    ## Not easy to add solexa to --job, so use load_sequence_data(lsd) instead
-    -LR:lsd=yes -LR:ft=fastq -FN:fgi=${condIllumina.filename}
+    ## Not easy in Galaxy to add solexa to --job, so use load_sequence_data(lsd) instead
+    -LR:lsd=yes -LR:ft=fastq -FN:fqi=${condIllumina.filename}
     ##TODO - Look at -LR FASTQ qual offset (fqqo)
 #end if
-
+#if $condIonTorrent.use == "true":
+    IONTOR_SETTINGS
+    ## Not easy in Galaxy to add iontor to --job, so use load_sequence_data(lsd) instead
+    -LR:lsd=yes
+    ## I expect hard trimmed FASTQ files with no NCBI traceinfo XML file
+    -LR:mxti=no -LR:ft=fastq -FN:fqi=${condIonTorrent.filename}
+#end if
 
 ##Output files
 COMMON_SETTINGS
-##remove_rollover_logs, remove_log_directory
--OUT:rrol=yes -OUT:rld=yes
+##remove_rollover_tmps, remove_tmp_directory
+-OUT:rrot=yes -OUT:rtd=yes
 
     </command>
 	<inputs>
@@ -47,9 +54,9 @@ COMMON_SETTINGS
             <option value="est">EST (transcriptome)</option>
         </param>
         <param name="job_quality" type="select" label="Assembly quality grade">
-            <option value="normal">Normal</option>
-            <option value="draft">Draft</option>
             <option value="accurate">Accurate</option>
+            <option value="normal">Normal (deprecated)</option>
+            <option value="draft">Draft</option>
         </param>
         <!-- Backbone -->
         <conditional name="condBackbone">
@@ -82,7 +89,8 @@ COMMON_SETTINGS
            </param>
            <when value="false" />
            <when value="true">
-              <param name="filename" type="data" format="fastq,sff" label="Roche 454 reads file" help="FASTQ format" />
+              <!-- TODO? Support SFF files directly, e.g. with sff_extract, but will need linker sequences -->
+              <param name="filename" type="data" format="fastq" label="Roche 454 reads file" help="FASTQ format" />
            </when>
         </conditional>
         <!-- Illumina -->
@@ -94,6 +102,18 @@ COMMON_SETTINGS
            <when value="false" />
            <when value="true">
               <param name="filename" type="data" format="fastq" label="Solexa/Illumina reads file" help="FASTQ format" />
+           </when>
+        </conditional>
+        <!-- Ion Torrent -->
+        <conditional name="condIonTorrent">
+           <param name="use" type="select" label="Ion Torrent reads?">
+               <option value="false">No</option>
+               <option value="true">Yes</option>
+           </param>
+           <when value="false" />
+           <when value="true">
+              <!-- TODO? Support SFF files directly, e.g. with sff_extract -->
+              <param name="filename" type="data" format="fastq" label="Ion Torrent reads file" help="FASTQ format" />
            </when>
         </conditional>
 	</inputs>
