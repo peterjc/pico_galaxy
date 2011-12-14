@@ -1,0 +1,106 @@
+<tool id="get_orfs" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.1">
+	<description>e.g. to get peptides from ESTs</description>
+	<command interpreter="python">
+get_orfs.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
+	</command>
+	<inputs>
+		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file (nucleotides)" help="FASTA, FASTQ, or SFF format." />
+		<param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">
+			<option value="1">1. Standard</option>
+			<option value="2">2. Vertebrate Mitochondrial</option>
+			<option value="3">3. Yeast Mitochondrial</option>
+			<option value="4">4. Mold, Protozoan, Coelenterate Mitochondrial and Mycoplasma/Spiroplasma</option>
+			<option value="5">5. Invertebrate Mitochondrial</option>
+			<option value="6">6. Ciliate Macronuclear and Dasycladacean</option>
+			<option value="9">9. Echinoderm Mitochondrial</option>
+			<option value="10">10. Euplotid Nuclear</option>
+			<option value="11">11. Bacterial</option>
+			<option value="12">12. Alternative Yeast Nuclear</option>
+			<option value="13">13. Ascidian Mitochondrial</option>
+			<option value="14">14. Flatworm Mitochondrial</option>
+			<option value="15">15. Blepharisma Macronuclear</option>
+			<option value="16">16. Chlorophycean Mitochondrial</option>
+			<option value="21">21. Trematode Mitochondrial</option>
+			<option value="22">22. Scenedesmus obliquus</option>
+			<option value="23">23. Thraustochytrium Mitochondrial</option>
+		</param>
+		<param name="ftype" type="select" value="True" label="Look for ORFs or CDSs">
+                        <option value="ORF">Look for ORFs (check for stop codons only, ignore start codons)</option>
+                        <option value="CDS">Look for CDSs (with start and stop codons)</option>
+		</param>
+                <param name="ends" type="select" value="open" label="Sequence end treatment">
+			<option value="open">Open ended (will allow missing start/stop codons at the ends)</option>
+                        <option value="closed">Complete (will check for start/stop codons at the ends)</option>
+                        <!-- TODO? Circular, for using this on finished bacteria etc -->
+                </param>
+
+		<param name="mode" type="select" label="Selection criteria" help="Suppose a sequence has ORFs/CDSs of lengths 100, 102 and 102 -- which should be taken? These options would return 3, 2 or 1 ORF.">
+                    <option value="all">All ORFs/CDSs from each sequence</option>
+                    <option value="top">All ORFs/CDSs from each sequence with the maximum length</option>
+                    <option value="one">First ORF/CDS from each sequence with the maximum length</option>
+		</param>
+                <param name="min_len" type="integer" size="5" value="90" label="Minimum length ORF/CDS (in amino acids, e.g. 30 aa = 90 bp plus any stop codon)">
+                </param>
+                <param name="strand" type="select" label="Strand to search" help="Use the forard only option if your sequence directionality is known (e.g. from poly-A tails, or strand specific RNA sequencing.">
+                    <option value="both">Search both the forward and reverse strand</option>
+                    <option value="forward">Only search the forward strand</option>
+                    <option value="reverse">Only search the reverse strand</option>
+                </param>
+	</inputs>
+	<outputs>
+		<data name="out_nuc_file" format="fasta" label="ORFs or CDSs (nucleotides)" />
+		<data name="out_prot_file" format="fasta" label="ORFs or CDSs (amino acids)" />
+	</outputs>
+	<tests>
+	</tests>
+	<requirements>
+		<requirement type="python-module">Bio</requirement>
+	</requirements>
+	<help>
+
+**What it does**
+
+Takes an input file of nucleotide sequences (typically FASTA, but also FASTQ
+and Standard Flowgram Format (SFF) are supported), and searches each sequence
+for open reading frames (ORFs) or coding sequences (CDSs) of the given minimum
+length. These are returned as FASTA files of nucleotides and protein sequences.
+
+You can choose to have all the ORFs/CDSs above the minimum length for each
+sequence (similar to the EMBOSS getorf tool), those with the longest length
+equal, or the first ORF/CDS with the longest length (in the special case
+where a sequence encodes two or more long ORFs/CDSs of the same length). The
+later option is a reasonable choice when the input sequences represent EST or
+mRNA sequences, where only one ORF/CDS is expected.
+
+Note that if no ORFs/CDSs in a sequence match the criteria, there will be no
+output for that sequence.
+
+Also note that the ORFs/CDSs are assigned modified identifiers to distinguish
+them from the original full length sequences, by appending a suffix.
+
+The start and stop codons are taken from the NCBI table definitions. When
+searching for ORFs, the sequences will run from stop codon to stop codon,
+and any start codons are ignored. When searching for CDSs, the first
+potential start codon will be used, giving the longest possible CDS within
+each ORF. This may not be the correct start codon.
+
+**Example Usage**
+
+Given some EST sequences (Sanger capillary reads) assembled into unigenes,
+or a transcriptome assembly from some RNA-Seq, each of your nucleotide
+sequences should (barring sequencing, assembly errors, frame-shifts etc)
+encode one protein as a single ORF/CDS, which you wish to extract (and
+perhaps translate into amino acids).
+
+**Citation**
+
+This tool uses Biopython. If you use this tool in scientific work leading
+to a publication, please cite the Biopython application note (and Galaxy
+too of course):
+
+Cock et al 2009. Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+	</help>
+</tool>
