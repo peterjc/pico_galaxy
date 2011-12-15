@@ -79,9 +79,10 @@ output for that sequence.
 Also note that the ORFs/CDSs are assigned modified identifiers to distinguish
 them from the original full length sequences, by appending a suffix.
 
-The start and stop codons are taken from the NCBI table definitions. When
-searching for ORFs, the sequences will run from stop codon to stop codon,
-and any start codons are ignored. When searching for CDSs, the first
+The start and stop codons are taken from the `NCBI Genetic Codes
+&lt;http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi&gt;`_.
+When searching for ORFs, the sequences will run from stop codon to stop
+codon, and any start codons are ignored. When searching for CDSs, the first
 potential start codon will be used, giving the longest possible CDS within
 each ORF, and thus the longest possible protein sequence. This is useful
 for things like BLAST or domain searching, but since this may not be the
