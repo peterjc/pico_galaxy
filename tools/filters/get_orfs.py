@@ -141,19 +141,30 @@ def break_up_frame(s):
                         
 
 def get_all_peptides(nuc_seq):
-    """Returns strand, start offset, nucleotides, protein."""
+    """Returns start, end, strand, nucleotides, protein.
+
+    Co-ordinates are Python style zero-based.
+    """
+    #TODO - Refactor to use a generator function (in start order)
+    #rather than making a list and sorting?
     answer = []
+    full_len = len(nuc_seq)
     if strand != "reverse":
         for frame in range(0,3):
             for offset, n, t in break_up_frame(nuc_seq[frame:]):
-                yield +1, frame+offset, n, t
+                start = frame + offset #zero based
+                answer.append((start, start + len(n), +1, n, t))
     if strand != "forward":
         rc = reverse_complement(nuc_seq)
         for frame in range(0,3) :
             for offset, n, t in break_up_frame(rc[frame:]):
-                yield -1, frame+offset, n, t
+                start = full_len - frame - offset #zero based
+                answer.append((start, start + len(n), -1, n ,t))
+    answer.sort()
+    return answer
 
 def get_top_peptides(nuc_seq):
+    """Returns all peptides of max length."""
     values = list(get_all_peptides(nuc_seq))
     if not values:
         raise StopIteration
@@ -163,6 +174,7 @@ def get_top_peptides(nuc_seq):
             yield x
 
 def get_one_peptide(nuc_seq):
+    """Returns first (left most) peptide with max length."""
     values = list(get_top_peptides(nuc_seq))
     if not values:
         raise StopIteration
@@ -180,12 +192,12 @@ out_count = 0
 out_nuc = open(out_nuc_file, "w")
 out_prot = open(out_prot_file, "w")
 for record in SeqIO.parse(input_file, seq_format):
-    for i, (f_strand, f_start, n, t) in enumerate(get_peptides(str(record.seq).upper())):
+    for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
         out_count += 1
         if f_strand == +1:
-            loc = "%i..%i" % (f_start+1, f_start+len(n))
+            loc = "%i..%i" % (f_start+1, f_end)
         else:
-            loc = "complement(%i..%i)" % (len(record)-f_start-len(n)+1, len(record)-f_start)
+            loc = "complement(%i..%i)" % (f_start+1, f_end)
         descr = "length %i aa, %i bp, from %s" % (len(t), len(n), loc)
         r = SeqRecord(Seq(n), id = record.id + "|%s%i" % (ftype, i+1), name = "", description= descr)
         t = SeqRecord(Seq(t), id = record.id + "|%s%i" % (ftype, i+1), name = "", description= descr)
