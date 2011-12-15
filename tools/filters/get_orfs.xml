@@ -62,14 +62,15 @@ get_orfs.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $stra
 
 Takes an input file of nucleotide sequences (typically FASTA, but also FASTQ
 and Standard Flowgram Format (SFF) are supported), and searches each sequence
-for open reading frames (ORFs) or coding sequences (CDSs) of the given minimum
-length. These are returned as FASTA files of nucleotides and protein sequences.
+for open reading frames (ORFs) or potential coding sequences (CDSs) of the
+given minimum length. These are returned as FASTA files of nucleotides and
+protein sequences.
 
 You can choose to have all the ORFs/CDSs above the minimum length for each
 sequence (similar to the EMBOSS getorf tool), those with the longest length
 equal, or the first ORF/CDS with the longest length (in the special case
 where a sequence encodes two or more long ORFs/CDSs of the same length). The
-later option is a reasonable choice when the input sequences represent EST or
+last option is a reasonable choice when the input sequences represent EST or
 mRNA sequences, where only one ORF/CDS is expected.
 
 Note that if no ORFs/CDSs in a sequence match the criteria, there will be no
@@ -82,7 +83,10 @@ The start and stop codons are taken from the NCBI table definitions. When
 searching for ORFs, the sequences will run from stop codon to stop codon,
 and any start codons are ignored. When searching for CDSs, the first
 potential start codon will be used, giving the longest possible CDS within
-each ORF. This may not be the correct start codon.
+each ORF, and thus the longest possible protein sequence. This is useful
+for things like BLAST or domain searching, but since this may not be the
+correct start codon may not be appropriate for signal peptide detection
+etc.
 
 **Example Usage**
 
@@ -91,6 +95,9 @@ or a transcriptome assembly from some RNA-Seq, each of your nucleotide
 sequences should (barring sequencing, assembly errors, frame-shifts etc)
 encode one protein as a single ORF/CDS, which you wish to extract (and
 perhaps translate into amino acids).
+
+If your RNS-Seq data was strand specific, and assembled taking this into
+account, you should only search for ORFs/CDSs on the forward strand.
 
 **Citation**
 
