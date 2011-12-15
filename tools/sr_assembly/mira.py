@@ -11,24 +11,6 @@ def stop_err(msg, err=1):
     sys.stderr.write(msg+"\n")
     sys.exit(err)
 
-def tcs_to_tabular(old, new):
-    in_handle = open(old, "rU")
-    out_handle = open(new, "w")
-    assert in_handle.readline() == "#TCS V1.0\n"
-    assert in_handle.readline() == "#\n"
-    assert in_handle.readline() == "# contig name          padPos  upadPos | B  Q | tcov covA covC covG covT cov* | qA qC qG qT q* |  S | Tags\n"
-    assert in_handle.readline() == "#\n"
-    out_handle.write("#%s\n" % "\t".join(["contig", "pasPos", "upadPos", "B", "Q",
-                                         "tcov", "covA", "covC", "covG", "covT", "cov*",
-                                         "qA", "qC", "qG", "qT", "q*", "S", "Tags"]))
-    for line in in_handle:
-        parts = line.rstrip("\n").split(None,22)
-        assert parts[3] == parts[6] == parts[13] == parts[19] == parts[21] == "|"
-        wanted = parts[:3] + parts[4:6]+parts[7:13]+parts[14:19]+parts[20:21]+parts[22:]
-        out_handle.write("%s\n" % "\t".join(wanted))
-    out_handle.close()
-    in_handle.close()
-
 def collect_output(temp, name):
     n3 = (temp, name, name, name)
     f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
@@ -45,7 +27,6 @@ def collect_output(temp, name):
             stop_err("Missing %s output file" % os.path.splitext(old)[-1])
         else:
             shutil.move(old, new)
-    tcs_to_tabular("%s/%s_assembly/%s_d_results/%s_out.tcs" % n3, out_tcs)
 
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
@@ -56,10 +37,11 @@ def clean_up(temp, name):
 #Currently Galaxy puts us somewhere safe like:
 #/opt/galaxy-dist/database/job_working_directory/846/
 temp = "."
-name, out_fasta, out_qual, out_tcs, out_ace, out_caf, out_wig, out_log = sys.argv[1:9]
+name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 
 start_time = time.time()
-cmd = " ".join(sys.argv[9:])
+cmd_list =sys.argv[8:]
+cmd = " ".join(cmd_list)
 
 assert os.path.isdir(temp)
 d = "%s_assembly" % name
@@ -77,7 +59,7 @@ except Exception, err:
 handle = open(out_log, "w")
 try:
     #Run MIRA
-    child = subprocess.Popen(sys.argv[9:],
+    child = subprocess.Popen(cmd_list,
                              stdout=handle,
                              stderr=subprocess.STDOUT)
 except Exception, err:
@@ -102,6 +84,10 @@ if return_code:
              return_code)
 handle.close()
 
+#print "Collecting output..."
 collect_output(temp, name)
+
+#print "Cleaning up..."
 clean_up(temp, name)
+
 print "Done"

@@ -38,6 +38,7 @@ v0.0.2 - Improve capture of stdout/stderr (should see it as it runs)
 v0.0.3 - Support Ion Torrent reads, now requires MIRA 3.4.0 or later
          (some other switched changed, e.g. -OUT rrol to rrot, which
          means the wrapper no longer works with MIRA 3.2.x)
+       - The contig summary file (TCS file) was removed in MIRA 3.4
 
 
 Developers
