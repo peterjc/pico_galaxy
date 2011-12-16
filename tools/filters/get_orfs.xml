@@ -52,6 +52,17 @@ get_orfs.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $stra
 		<data name="out_prot_file" format="fasta" label="ORFs or CDSs (amino acids)" />
 	</outputs>
 	<tests>
+		<test>
+			<param name="input_file" value="get_orf_input.fasta" />
+			<param name="table" value="11" />
+			<param name="ftype" value="CDS" />
+			<param name="ends" value="closed" />
+			<param name="mode" value="all" />
+			<param name="min_len" value="10" />
+			<param name="strand" value="forward" />
+			<output name="out_nuc_file" file="get_orf_input.t11_nuc_out.fasta" />
+			<output	name="out_prot_file" file="get_orf_input.t11_prot_out.fasta" />
+		</test>
 	</tests>
 	<requirements>
 		<requirement type="python-module">Bio</requirement>
