@@ -189,8 +189,14 @@ elif mode == "one":
 
 in_count = 0
 out_count = 0
-out_nuc = open(out_nuc_file, "w")
-out_prot = open(out_prot_file, "w")
+if out_nuc_file == "-":
+    out_nuc = sys.stdout
+else:
+    out_nuc = open(out_nuc_file, "w")
+if out_prot_file == "-":
+    out_prot = sys.stdout
+else:
+    out_prot = open(out_prot_file, "w")
 for record in SeqIO.parse(input_file, seq_format):
     for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
         out_count += 1
@@ -204,7 +210,9 @@ for record in SeqIO.parse(input_file, seq_format):
         SeqIO.write(r, out_nuc, "fasta")
         SeqIO.write(t, out_prot, "fasta")
     in_count += 1
-out_nuc.close()
-out_prot.close()
+if out_nuc is not sys.stdout:
+    out_nuc.close()
+if out_prot is not sys.stdout:
+    out_prot.close()
 
 print "Found %i %ss in %i sequences" % (out_count, ftype, in_count)
