@@ -1,6 +1,5 @@
 <tool id="mira_assembler" name="Assemble with MIRA" version="0.0.3">
     <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
-        <version_command>mira --version | head -n 1</version_command>
 	<command interpreter="python">mira.py mira $out_fasta $out_qual $out_ace $out_caf $out_wig $out_log
 ##Give the wrapper script list of output filenames, then the mira command...
 mira --job=$job_method,$job_type,$job_quality
