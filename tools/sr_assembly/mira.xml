@@ -10,7 +10,7 @@ mira --job=$job_method,$job_type,$job_quality
     -SB:lb=yes -SB:bft=fasta -FN:bbin=${condBackbone.filename}
 #end if
 #if $condSanger.use == "true":
-    Sanger_SETTINGS
+    SANGER_SETTINGS
     ## Not easy in Galaxy to add sanger to --job, so use load_sequence_data(lsd) instead
     -LR:lsd=yes
     ## I expect hard trimmed FASTQ files with no NCBI traceinfo XML file
