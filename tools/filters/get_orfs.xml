@@ -39,7 +39,7 @@ get_orfs.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $stra
                     <option value="top">All ORFs/CDSs from each sequence with the maximum length</option>
                     <option value="one">First ORF/CDS from each sequence with the maximum length</option>
 		</param>
-                <param name="min_len" type="integer" size="5" value="90" label="Minimum length ORF/CDS (in amino acids, e.g. 30 aa = 90 bp plus any stop codon)">
+                <param name="min_len" type="integer" size="5" value="30" label="Minimum length ORF/CDS (in amino acids, e.g. 30 aa = 90 bp plus any stop codon)">
                 </param>
                 <param name="strand" type="select" label="Strand to search" help="Use the forward only option if your sequence directionality is known (e.g. from poly-A tails, or strand specific RNA sequencing.">
                     <option value="both">Search both the forward and reverse strand</option>
