@@ -39,6 +39,7 @@ v0.0.3 - Support Ion Torrent reads, now requires MIRA 3.4.0 or later
          (some other switched changed, e.g. -OUT rrol to rrot, which
          means the wrapper no longer works with MIRA 3.2.x)
        - The contig summary file (TCS file) was removed in MIRA 3.4
+       - Report all missing output files (not just first missing one)
 
 
 Developers

@@ -18,15 +18,18 @@ def collect_output(temp, name):
         stop_err("Missing output folder")
     if not os.listdir(f):
         stop_err("Empty output folder")
+    missing = []
     for old, new in [("%s/%s_out.unpadded.fasta" % (f, name), out_fasta),
                      ("%s/%s_out.unpadded.fasta.qual" % (f, name), out_qual),
                      ("%s/%s_out.wig" % (f, name), out_wig),
                      ("%s/%s_out.caf" % (f, name), out_caf),
                      ("%s/%s_out.ace" % (f, name), out_ace)]:
         if not os.path.isfile(old):
-            stop_err("Missing %s output file" % os.path.splitext(old)[-1])
+            missing.append(os.path.splitext(old)[-1])
         else:
             shutil.move(old, new)
+    if missing:
+        stop_err("Missing output files: %s" % ", ".join(missing))
 
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
