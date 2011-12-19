@@ -48,8 +48,8 @@ get_orfs.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $stra
                 </param>
 	</inputs>
 	<outputs>
-		<data name="out_nuc_file" format="fasta" label="ORFs or CDSs (nucleotides)" />
-		<data name="out_prot_file" format="fasta" label="ORFs or CDSs (amino acids)" />
+		<data name="out_nuc_file" format="fasta" label="${ftype.value}s (nucleotides)" />
+		<data name="out_prot_file" format="fasta" label="${ftype.value}s (amino acids)" />
 	</outputs>
 	<tests>
                 <test>
