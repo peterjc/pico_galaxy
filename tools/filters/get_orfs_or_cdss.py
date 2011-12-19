@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Find ORFs in a nucleotide sequence file.
 
-get_orfs.py $input_fasta $input_format $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
+get_orfs_or_cdss.py $input_fasta $input_format $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
 
 Takes ten command line options, input sequence filename, format, genetic
 code, CDS vs ORF, end type (open, closed), selection mode (all, top, one),
