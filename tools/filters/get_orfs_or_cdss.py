@@ -204,7 +204,8 @@ for record in SeqIO.parse(input_file, seq_format):
             loc = "%i..%i" % (f_start+1, f_end)
         else:
             loc = "complement(%i..%i)" % (f_start+1, f_end)
-        descr = "length %i aa, %i bp, from %s" % (len(t), len(n), loc)
+        descr = "length %i aa, %i bp, from %s of %s" \
+                % (len(t), len(n), loc, record.description)
         r = SeqRecord(Seq(n), id = record.id + "|%s%i" % (ftype, i+1), name = "", description= descr)
         t = SeqRecord(Seq(t), id = record.id + "|%s%i" % (ftype, i+1), name = "", description= descr)
         SeqIO.write(r, out_nuc, "fasta")
