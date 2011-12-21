@@ -38,7 +38,7 @@ mira --job=$job_method,$job_type,$job_quality
 COMMON_SETTINGS
 ##Explicitly request the FASTA (+QUAL), CAF, ACE, WIG output
 ##Explicitly disable formats we won't use like MAF (reduce IO)
--OUT:orf=1:orc=1:ora=1:orm=0:org=0:ors=0
+-OUT:orf=1:orc=1:ora=1:orw=1:orm=0:org=0:ors=0
 ##remove_rollover_tmps, remove_tmp_directory
 -OUT:rrot=1:rtd=1
 
