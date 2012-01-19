@@ -43,7 +43,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf get_orfs.tar.gz tools/filters/get_orfs_or_cdss.*
+tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.*
 
 Check this worked:
 
