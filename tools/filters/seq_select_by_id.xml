@@ -1,4 +1,4 @@
-<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.1">
+<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.3">
 	<description>from a tabular file</description>
 	<command interpreter="python">
 seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_file

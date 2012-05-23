@@ -16,11 +16,11 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2011 by Peter Cock, The James Hutton Institute UK.
+This script is copyright 2011-2012 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT/BSD
 style).
 
-This is version 0.0.2 of the script.
+This is version 0.0.3 of the script.
 """
 import sys
 
@@ -65,7 +65,7 @@ def parse_ids(tabular_file, col):
     """Read tabular file and record all specified identifiers."""
     handle = open(tabular_file, "rU")
     for line in handle:
-        if not line.startswith("#"):
+        if line.strip() and not line.startswith("#"):
             yield line.rstrip("\n").split("\t")[col].strip()
     handle.close()
 
@@ -105,7 +105,7 @@ if seq_format.lower()=="sff":
     except KeyError, err:
         out_handle.close()
         if name not in records:
-            stop_err("Identifier %s not found in sequence file" % name)
+            stop_err("Identifier %r not found in sequence file" % name)
         else:
             raise err
     out_handle.close()
@@ -119,7 +119,7 @@ else:
             out_handle.write(records.get_raw(name))
         except KeyError:
             out_handle.close()
-            stop_err("Identifier %s not found in sequence file" % name)
+            stop_err("Identifier %r not found in sequence file" % name)
         count += 1
     out_handle.close()
 
