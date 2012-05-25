@@ -15,9 +15,9 @@ There are just two files to install:
 * get_orfs_or_cdss.py (the Python script)
 * get_orfs_or_cdss.xml (the Galaxy tool definition)
 
-The suggested location is in the Galaxy folder tools/filters next to the tool
+If you are installing this manually (rather than via the Tool Shed), the
+suggested location is in the Galaxy folder tools/filters next to the tool
 for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
-
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line:
 
