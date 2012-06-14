@@ -112,7 +112,7 @@ v0.0.7 - Change SignalP default truncation from 60 to 70 to match the
          SignalP webservice.
 v0.0.8 - Added WoLF PSORT wrapper to the suite.
 v0.0.9 - Added our RXLR motifs tool to the suite.
-
+v0.0.?- Support Galaxy's <parallelism> tag for SignalP wrapper.
 
 Developers
 ==========

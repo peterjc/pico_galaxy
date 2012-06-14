@@ -1,8 +1,12 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.8">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.9">
     <description>Find signal peptides in protein sequences</description>
+    <!-- If job splitting is enabled, break up the query file into parts -->
+    <!-- Using 500 to match chunk size in the Python script, and only ask for one CPU per sub-job -->
+    <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="500" merge_outputs="tabular_file"></parallelism>
     <command interpreter="python">
-      signalp3.py $organism $truncate 8 $fasta_file $tabular_file
+      signalp3.py $organism $truncate 1 $fasta_file $tabular_file
       ##I want the number of threads to be a Galaxy config option...
+      ##Increase this from 1 if not using Galaxy's parallelism support.
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 

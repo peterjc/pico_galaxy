@@ -46,9 +46,12 @@ run multiple copies of TMHMM in parallel. I would normally use Python's
 multiprocessing library in this situation but it requires at least Python 2.6
 and at the time of writing Galaxy still supports Python 2.4.
 
+Note that this is somewhat redundant with job-splitting available in Galaxy
+itself (see the SignalP XML file for settings).
+
 Finally, you can opt to have a GFF3 file produced which will describe the
 predicted signal peptide and mature peptide for each protein (using one of
-the predictors which gives a cleavage site).
+the predictors which gives a cleavage site). *WORK IN PROGRESS*
 """
 import sys
 import os
@@ -186,9 +189,10 @@ def clean_up(file_list):
     except:
         pass
 
-if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
-    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+#If using job splitting, this appears for each sub-job, too noisy!
+#if len(jobs) > 1 and num_threads > 1:
+#    #A small "info" message for Galaxy to show the user.
+#    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 results = run_jobs(jobs, num_threads)
 assert len(fasta_files) == len(temp_files) == len(jobs)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
