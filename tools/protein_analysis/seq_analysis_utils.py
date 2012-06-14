@@ -100,6 +100,8 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
             if os.path.isfile(f):
                 os.remove(f)
         raise err
+    for f in files:
+        assert os.path.isfile(f), "Missing split file %r (!??)" % f
     return files
 
 def run_jobs(jobs, threads, pause=10, verbose=False):
