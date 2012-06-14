@@ -52,6 +52,7 @@ the predictors which gives a cleavage site).
 """
 import sys
 import os
+import tempfile
 from seq_analysis_utils import stop_err, split_fasta, run_jobs, fasta_iterator
 
 FASTA_CHUNK = 500
@@ -93,6 +94,9 @@ if len(sys.argv) == 8:
 else:
    cut_method = None
    gff3_file = None
+
+
+tmp_dir = tempfile.mkdtemp()
 
 def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
     """Clean up SignalP output to make it tabular."""
@@ -165,7 +169,8 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
     gff_handle.close()
 
 
-fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
+fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "signalp"),
+                          n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
 temp_files = [f+".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
 jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
@@ -176,6 +181,10 @@ def clean_up(file_list):
     for f in file_list:
         if os.path.isfile(f):
             os.remove(f)
+    try:
+        os.rmdir(tmp_dir)
+    except:
+        pass
 
 if len(jobs) > 1 and num_threads > 1:
     #A small "info" message for Galaxy to show the user.
@@ -187,10 +196,9 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     try:
         output = open(temp).readline()
     except IOError:
-        output = ""
+        output = "(no output)"
     if error_level or output.lower().startswith("error running"):
-        clean_up(fasta_files)
-        clean_up(temp_files)
+        clean_up(fasta_files + temp_files)
         stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 del results
@@ -215,6 +223,4 @@ out_handle.close()
 if cut_method:
    make_gff(fasta_file, tabular_file, gff3_file, cut_method)
 
-
-clean_up(fasta_files)
-clean_up(temp_files)
+clean_up(fasta_files + temp_files)
