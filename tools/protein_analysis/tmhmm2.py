@@ -33,12 +33,16 @@ into chunks and running multiple copies of TMHMM in parallel. I would normally
 use Python's multiprocessing library in this situation but it requires at
 least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 
+Note that this is somewhat redundant with job-splitting available in Galaxy
+itself (see the SignalP XML file for settings).
+
 Also tmhmm2 can fail without returning an error code, for example if run on a
 64 bit machine with only the 32 bit binaries installed. This script will spot
 when there is no output from tmhmm2, and raise an error.
 """
 import sys
 import os
+import tempfile
 from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
 FASTA_CHUNK = 500
@@ -53,6 +57,8 @@ if num_threads < 1:
    stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
 fasta_file = sys.argv[2]
 tabular_file = sys.argv[3]
+
+tmp_dir = tempfile.mkdtemp()
 
 def clean_tabular(raw_handle, out_handle):
     """Clean up tabular TMHMM output, returns output line count."""
@@ -84,7 +90,7 @@ def clean_tabular(raw_handle, out_handle):
 
 #Note that if the input FASTA file contains no sequences,
 #split_fasta returns an empty list (i.e. zero temp files).
-fasta_files = split_fasta(fasta_file, tabular_file, FASTA_CHUNK)
+fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
 temp_files = [f+".out" for f in fasta_files]
 jobs = ["tmhmm -short %s > %s" % (fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
@@ -93,6 +99,10 @@ def clean_up(file_list):
     for f in file_list:
         if os.path.isfile(f):
             os.remove(f)
+    try:
+        os.rmdir(tmp_dir)
+    except:
+        pass
 
 #If using job splitting, this appears for each sub-job, too noisy!
 #if len(jobs) > 1 and num_threads > 1:
@@ -106,8 +116,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
             output = open(temp).readline()
         except IOError:
             output = ""
-        clean_up(fasta_files)
-        clean_up(temp_files)
+        clean_up(fasta_files + temp_files)
         stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 del results
@@ -120,10 +129,8 @@ for temp in temp_files:
     count = clean_tabular(data_handle, out_handle)
     data_handle.close()
     if not count:
-        clean_up(fasta_files)
-        clean_up(temp_files)
+        clean_up(fasta_files + temp_files)
         stop_err("No output from tmhmm2")
 out_handle.close()
 
-clean_up(fasta_files)
-clean_up(temp_files)
+clean_up(fasta_files + temp_files)
