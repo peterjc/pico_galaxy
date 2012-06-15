@@ -1,11 +1,13 @@
 <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.8">
     <description>Find transmembrane domains in protein sequences</description>
-    <!-- Using 500 to match chunk size in the Python script, and only ask for one CPU per sub-job -->
-    <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="500" merge_outputs="tabular_file"></parallelism>
+    <!-- If job splitting is enabled, break up the query file into parts -->
+    <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
+    <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
     <command interpreter="python">
-      tmhmm2.py 1 $fasta_file $tabular_file
-      ##I want the number of threads to be a Galaxy config option...
-      ##Increase this from 1 if not using Galaxy's parallelism support.
+      tmhmm2.py "\$NSLOTS" $fasta_file $tabular_file
+      ##Set the number of threads in the runner entry in universe_wsgi.ini
+      ##which (on SGE at least) will set the $NSLOTS environment variable.
+      ##If the environment variable isn't set, get "", and defaults to one.
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 

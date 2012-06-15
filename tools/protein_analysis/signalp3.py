@@ -4,7 +4,7 @@
 This script takes exactly five command line arguments:
  * the organism type (euk, gram+ or gram-)
  * length to truncate sequences to (integer)
- * number of threads to use (integer)
+ * number of threads to use (integer, defaults to one)
  * an input protein FASTA filename
  * output tabular filename.
 
@@ -81,7 +81,7 @@ if truncate < 0:
 try:
    num_threads = int(sys.argv[3])
 except:
-   num_threads = 0
+   num_threads = 1 #Default, e.g. used "$NSLOTS" and environment variable not defined
 if num_threads < 1:
    stop_err("Threads argument %s is not a positive integer" % sys.argv[3])
 

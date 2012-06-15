@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """Wrapper for TMHMM v2.0 for use in Galaxy.
 
-This script takes exactly two command line arguments - an input protein FASTA
-filename and an output tabular filename. It then calls the standalone TMHMM
-v2.0 program (not the webservice) requesting the short output (one line per
-protein).
+This script takes exactly three command line arguments - number of threads,
+an input protein FASTA filename, and an output tabular filename. It then
+calls the standalone TMHMM v2.0 program (not the webservice) requesting
+the short output (one line per protein).
 
 The first major feature is cleaning up the tabular output. The short form raw
 output from TMHMM v2.0 looks like this (six columns tab separated):
@@ -52,7 +52,7 @@ if len(sys.argv) != 4:
 try:
    num_threads = int(sys.argv[1])
 except:
-   num_threads = 0
+   num_threads = 1 #Default, e.g. used "$NSLOTS" and environment variable not defined
 if num_threads < 1:
    stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
 fasta_file = sys.argv[2]
