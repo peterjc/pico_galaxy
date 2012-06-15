@@ -104,10 +104,9 @@ def clean_up(file_list):
     except:
         pass
 
-#If using job splitting, this appears for each sub-job, too noisy!
-#if len(jobs) > 1 and num_threads > 1:
-#    #A small "info" message for Galaxy to show the user.
-#    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+if len(jobs) > 1 and num_threads > 1:
+    #A small "info" message for Galaxy to show the user.
+    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 results = run_jobs(jobs, num_threads)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     error_level = results[cmd]
