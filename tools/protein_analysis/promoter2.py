@@ -32,8 +32,8 @@ if len(sys.argv) != 3:
    stop_err("Require two arguments: input DNA FASTA file & output tabular file. "
             "Got %i arguments." % (len(sys.argv)-1))
 
-fasta_file = sys.argv[1]
-tabular_file = sys.argv[2]
+fasta_file = os.path.abspath(sys.argv[1])
+tabular_file = os.path.abspath(sys.argv[2])
 
 def get_path_and_binary():
     platform = commands.getoutput("uname") #e.g. Linux
@@ -78,7 +78,10 @@ def run_promoter(bin, fasta_file, tabular_file):
         elif line == "  Position  Score  Likelihood\n":
             assert identifier
         else:
-            position, score, likelihood = line.strip().split(None,2)
+            try:
+                position, score, likelihood = line.strip().split(None,2)
+            except ValueError:
+                stop_err("ERROR: Problem with line: %r" % line)
             out.write("%s\t%s\t%s\t%s\t%s\n" % (identifier, descr, position, score, likelihood))
     out.close()
     print "Results for %i sequences" % queries
