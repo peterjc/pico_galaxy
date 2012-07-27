@@ -1,0 +1,55 @@
+<tool id="promoter2" name="Promoter 2.0" version="0.0.1">
+    <description>Find eukaryotic PolII promoters in DNA sequences</description>
+    <!-- If job splitting is enabled, break up the query file into parts -->
+    <!-- Note currently the Promoter 2.0 and my Python wrapper only uses one thread --> 
+    <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="1000" merge_outputs="tabular_file"></parallelism>
+    <command interpreter="python">
+        promoter2.py $fasta_file $tabular_file
+    </command>
+    <inputs>
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of DNA sequences"/> 
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="Promoter2 on ${fasta_file.name}" />
+    </outputs>
+    <requirements>
+        <requirement type="binary">promoter</requirement>
+    </requirements>
+    <help>
+    
+**What it does**
+
+This calls the Promoter 2.0 tool for prediction of eukaryotic PolII promoters sequences using a Neural Network (NN) model.
+
+The input is a FASTA file of nucleotide sequences (e.g. upstream regions of your genes), and the output is tabular with four columns (one row per promoter):
+
+ 1. Sequence identifier (first word of FASTA header)
+ 2. Sequence description (rest of FASTA header line)
+ 3. Promoter position, e.g. 600
+ 4. Promoter score, e.g. 1.063
+ 5. Promoter likelihood, e.g. Highly likely prediction
+
+The scores are classified very simply as follows:
+
+========= ========================
+Score     Description
+--------- ------------------------
+below 0.5 ignored
+0.5 - 0.8 Marginal prediction
+0.8 - 1.0 Medium likely prediction
+above 1.0 Highly likely prediction 
+========= ========================
+
+Internally the input FASTA file is divided into parts (to allow multiple processors to be used), and the raw output is reformatted into this tabular layout suitable for downstream analysis within Galaxy.
+
+**References**
+
+Knudsen.
+Promoter2.0: for the recognition of PolII promoter sequences.
+Bioinformatics, 15:356-61, 1999.
+http://dx.doi.org/10.1093/bioinformatics/15.5.356
+
+http://www.cbs.dtu.dk/services/Promoter/output.php
+
+    </help>
+</tool>
