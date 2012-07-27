@@ -18,6 +18,8 @@ Note that this wrapper does not (currently) take advantage of multiple
 cores - we recommend using the job-splitting available in Galaxy for this.
 
 TODO - Automatically extract the sequence containing a promoter prediction?
+TODO - Remove FASTA descriptions to avoid bug overserved with some FASTA
+       files where the header line is over 200 characters?
 """
 import sys
 import os
@@ -75,12 +77,22 @@ def run_promoter(bin, fasta_file, tabular_file):
             else:
                 descr = ""
             queries += 1
+        elif line == "  No promoter predicted\n":
+            #End of a record
+            identifier = None
         elif line == "  Position  Score  Likelihood\n":
             assert identifier
         else:
             try:
                 position, score, likelihood = line.strip().split(None,2)
             except ValueError:
+                print "WARNING: Problem with line: %r" % line
+                continue
+                #stop_err("ERROR: Problem with line: %r" % line)
+            if likelihood not in ["ignored",
+                                  "Marginal prediction",
+                                  "Medium likely prediction",
+                                  "Highly likely prediction"]:
                 stop_err("ERROR: Problem with line: %r" % line)
             out.write("%s\t%s\t%s\t%s\t%s\n" % (identifier, descr, position, score, likelihood))
     out.close()
