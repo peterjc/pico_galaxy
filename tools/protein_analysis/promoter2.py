@@ -63,7 +63,7 @@ def run_promoter(bin, fasta_file, tabular_file):
     descr = None
     queries = 0
     out = open(tabular_file, "w")
-    out.write("Identifier\tDescription\tPosition\tScore\tLikelihood\n")
+    out.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
     for line in child.stdout:
         #print repr(line)
         if not line.strip() or line == "Promoter prediction:\n":
