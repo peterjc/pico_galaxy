@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """Wrapper for Promoter 2.0 for use in Galaxy.
 
-This script takes exactly two command line arguments:
+This script takes exactly three command line arguments:
+ * number of threads
  * an input DNA FASTA filename
  * output tabular filename.
 
@@ -14,28 +15,39 @@ The main feature is this Python wrapper script parsers the bespoke
 tabular output from Promoter 2.0 and reformats it into a Galaxy friendly
 tab separated table.
 
-Note that this wrapper does not (currently) take advantage of multiple
-cores - we recommend using the job-splitting available in Galaxy for this.
+Additionally, in order to take advantage of multiple cores the input FASTA
+file is broken into chunks and multiple copies of promoter run at once.
+This can be used in combination with the job-splitting available in Galaxy.
+
+Note that rewriting the FASTA input file allows us to avoid a bug in
+promoter 2 with long descriptions in the FASTA header line (over 200
+characters) which produces stray fragements of the description in the
+output file, making parsing non-trivial.
 
 TODO - Automatically extract the sequence containing a promoter prediction?
-TODO - Remove FASTA descriptions to avoid bug overserved with some FASTA
-       files where the header line is over 200 characters?
 """
 import sys
 import os
-import subprocess
 import commands
-from seq_analysis_utils import stop_err
+import tempfile
+from seq_analysis_utils import stop_err, split_fasta, run_jobs
 
 FASTA_CHUNK = 500
-MAX_LEN = 6000 #Found by trial and error
 
-if len(sys.argv) != 3:
-   stop_err("Require two arguments: input DNA FASTA file & output tabular file. "
-            "Got %i arguments." % (len(sys.argv)-1))
+if len(sys.argv) != 4:
+    stop_err("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
+             "Got %i arguments." % (len(sys.argv)-1))
+try:
+    num_threads = int(sys.argv[1])
+except:
+    num_threads = 1 #Default, e.g. used "$NSLOTS" and environment variable not defined
+if num_threads < 1:
+    stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
 
-fasta_file = os.path.abspath(sys.argv[1])
-tabular_file = os.path.abspath(sys.argv[2])
+fasta_file = os.path.abspath(sys.argv[2])
+tabular_file = os.path.abspath(sys.argv[3])
+
+tmp_dir = tempfile.mkdtemp()
 
 def get_path_and_binary():
     platform = commands.getoutput("uname") #e.g. Linux
@@ -57,16 +69,13 @@ def get_path_and_binary():
         stop_err("ERROR: Missing promoter binary %r" % bin)
     return path, bin
 
-def run_promoter(bin, fasta_file, tabular_file):
-    child = subprocess.Popen([bin, fasta_file],
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE)
+def make_tabular(raw_handle, out_handle):
+    """Parse text output into tabular, return query count."""
     identifier = None
     descr = None
     queries = 0
-    out = open(tabular_file, "w")
-    out.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
-    for line in child.stdout:
+    #out.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
+    for line in raw_handle:
         #print repr(line)
         if not line.strip() or line == "Promoter prediction:\n":
             pass
@@ -94,19 +103,66 @@ def run_promoter(bin, fasta_file, tabular_file):
                                   "Medium likely prediction",
                                   "Highly likely prediction"]:
                 stop_err("ERROR: Problem with line: %r" % line)
-            out.write("%s\t%s\t%s\t%s\t%s\n" % (identifier, descr, position, score, likelihood))
-    out.close()
-    print "Results for %i sequences" % queries
-    return_code = child.wait()
-    if return_code:
-       stop_err("ERROR: Return code %i from promoter" % return_code)
+            out_handle.write("%s\t%s\t%s\t%s\t%s\n" % (identifier, descr, position, score, likelihood))
+    #out.close()
+    return queries
     
 working_dir, bin = get_path_and_binary()
 
 if not os.path.isfile(fasta_file):
    stop_err("ERROR: Missing input FASTA file %r" % fasta_file)
 
+#Note that if the input FASTA file contains no sequences,
+#split_fasta returns an empty list (i.e. zero temp files).
+#We deliberately omit the FASTA descriptions to avoid a
+#bug in promoter2 with descriptions over 200 characters.
+fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "promoter"), FASTA_CHUNK, keep_descr=False)
+temp_files = [f+".out" for f in fasta_files]
+jobs = ["%s %s > %s" % (bin, fasta, temp)
+        for fasta, temp in zip(fasta_files, temp_files)]
+
+def clean_up(file_list):
+    for f in file_list:
+        if os.path.isfile(f):
+            os.remove(f)
+    try:
+        os.rmdir(tmp_dir)
+    except:
+        pass
+
+if len(jobs) > 1 and num_threads > 1:
+    #A small "info" message for Galaxy to show the user.
+    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 cur_dir = os.path.abspath(os.curdir)
 os.chdir(working_dir)
-run_promoter(bin, fasta_file, tabular_file)
+results = run_jobs(jobs, num_threads)
 os.chdir(cur_dir)
+for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
+    error_level = results[cmd]
+    if error_level:
+        try:
+            output = open(temp).readline()
+        except IOError:
+            output = ""
+        clean_up(fasta_files + temp_files)
+        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+                 error_level)
+
+del results
+del jobs
+
+out_handle = open(tabular_file, "w")
+out_handle.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
+queries = 0
+for temp in temp_files:
+    data_handle = open(temp)
+    count = make_tabular(data_handle, out_handle)
+    data_handle.close()
+    if not count:
+        clean_up(fasta_files + temp_files)
+        stop_err("No output from promoter2")
+    out_handle.close()
+    queries += count
+
+clean_up(fasta_files + temp_files)
+print "Results for %i queries" % queries
