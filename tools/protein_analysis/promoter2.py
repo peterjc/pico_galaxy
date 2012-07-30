@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Wrapper for Promoter 2.0 for use in Galaxy.
 
-PRThis script takes exactly two command line arguments:
+This script takes exactly two command line arguments:
  * an input DNA FASTA filename
  * output tabular filename.
 
