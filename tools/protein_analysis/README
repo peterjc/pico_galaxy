@@ -1,7 +1,7 @@
 This package contains Galaxy wrappers for a selection of standalone command
 line protein analysis tools:
 
-* SignalP 3.0 and THMHMM 2.0, from the Center for Biological
+* SignalP 3.0, THMHMM 2.0, Promoter 2.0 from the Center for Biological
   Sequence Analysis at the Technical University of Denmark,
   http://www.cbs.dtu.dk/cbs/
 
@@ -12,9 +12,9 @@ Also, the RXLR motif tool uses SignalP 3.0 and HMMER 2.3.2 internally.
 To use these Galaxy wrappers you must first install the command line tools.
 At the time of writing they are all free for academic use.
 
-These wrappers are copyright 2010-2011 by Peter Cock, James Hutton Institute
+These wrappers are copyright 2010-2012 by Peter Cock, James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
-See the included LICENCE file for details.
+See the included LICENCE file for details (an MIT style open source licence).
 
 Requirements
 ============
@@ -27,22 +27,27 @@ First install those command line tools you wish to use the wrappers for:
 2. Install the command line version of TMHMM 2.0 and ensure "tmhmm" is on
    the PATH, see: http://www.cbs.dtu.dk/services/TMHMM/
 
-3. Install the WoLF PSORT v0.2 package, and ensure "runWolfPsortSummary"
+3. Install the command line version of Promoter 2.0 and ensure "promoter" is
+   on the PATH, see: http://www.cbs.dtu.dk/services/Promoter
+
+4. Install the WoLF PSORT v0.2 package, and ensure "runWolfPsortSummary"
    is on the PATH (we use an extra wrapper script to change to the WoLF PSORT
    directory, run runWolfPsortSummary, and then change back to the original
    directory), see: http://wolfpsort.org/WoLFPSORT_package/version0.2/
 
-4. Install hmmsearch from HMMER 2.3.2 (the last stable release of HMMER 2)
+5. Install hmmsearch from HMMER 2.3.2 (the last stable release of HMMER 2)
    but put it on the path under the name hmmsearch2 (allowing it to co-exist
    with HMMER 3), or edit rlxr_motif.py accordingly.
 
 Verify each of the tools is installed and working from the command line
-(when logged in at the Galaxy user if appropriate).
+(when logged in as the Galaxy user if appropriate).
 
-Installation
-============
+Manual Installation
+===================
 
 1. Create a folder tools/protein_analysis under your Galaxy installation.
+   This folder name is not critical, and can be changed if desired - you
+   must update the paths used in tool_conf.xml to match.
 
 2. Copy/move the following files (from this archive) there:
 
@@ -52,6 +57,9 @@ tmhmm2.py (Python wrapper script)
 signalp3.xml (Galaxy tool definition)
 signalp3.py (Python wrapper script)
 
+promoter2.xml (Galaxy tool definition)
+promoter2.py (Python wrapper script)
+
 wolf_psort.xml (Galaxy tool definition)
 wolf_psort.py (Python wrapper script)
 
@@ -59,7 +67,8 @@ rxlr_motifs.xml (Galaxy tool definition)
 rxlr_motifs.py (Python script)
 
 seq_analysis_utils.py (shared Python code)
-README (optional)
+LICENCE
+README (this file)
 
 3. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
    also tool_conf.xml.sample (to run the tests) to include the new tools
@@ -70,6 +79,9 @@ README (optional)
     <tool file="protein_analysis/signalp3.xml" />
     <tool file="protein_analysis/wolf_psort.xml" />
     <tool file="protein_analysis/rxlr_motifs.xml" />
+  </section>
+  <section name="Nucleotide sequence analysis" id="nucleotide_analysis">
+    <tool file="protein_analysis/promoter2.xml" />
   </section>
 
    Leave out the lines for any tools you do not wish to use in Galaxy.
@@ -112,7 +124,8 @@ v0.0.7 - Change SignalP default truncation from 60 to 70 to match the
          SignalP webservice.
 v0.0.8 - Added WoLF PSORT wrapper to the suite.
 v0.0.9 - Added our RXLR motifs tool to the suite.
-v0.0.? - Support Galaxy's <parallelism> tag for SignalP & TMHMM wrappers.
+v0.1.0 - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
+       - Support Galaxy's <parallelism> tag for SignalP, TMHMM & Promoter
 
 Developers
 ==========
@@ -126,7 +139,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py  test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
+tar -czf ~/tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/promoter2.xml tools/protein_analysis/promoter2.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py  test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
 
 Check this worked:
 
@@ -139,6 +152,8 @@ tools/protein_analysis/signalp3.xml
 tools/protein_analysis/signalp3.py
 tools/protein_analysis/tmhmm2.xml
 tools/protein_analysis/tmhmm2.py
+tools/protein_analysis/promoter2.xml
+tools/protein_analysis/promoter2.py
 tools/protein_analysis/wolf_psort.xml
 tools/protein_analysis/wolf_psort.py
 tools/protein_analysis/rxlr_motifs.xml
