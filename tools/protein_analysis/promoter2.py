@@ -156,8 +156,8 @@ for temp in temp_files:
     if not count:
         clean_up(fasta_files + temp_files)
         stop_err("No output from promoter2")
-    out_handle.close()
     queries += count
+out_handle.close()
 
 clean_up(fasta_files + temp_files)
 print "Results for %i queries" % queries
