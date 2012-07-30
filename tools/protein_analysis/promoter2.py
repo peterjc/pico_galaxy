@@ -73,7 +73,6 @@ def make_tabular(raw_handle, out_handle):
     """Parse text output into tabular, return query count."""
     identifier = None
     queries = 0
-    #out.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
     for line in raw_handle:
         #print repr(line)
         if not line.strip() or line == "Promoter prediction:\n":
@@ -99,7 +98,6 @@ def make_tabular(raw_handle, out_handle):
                                   "Highly likely prediction"]:
                 stop_err("ERROR: Problem with line: %r" % line)
             out_handle.write("%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood))
-    #out.close()
     return queries
     
 working_dir, bin = get_path_and_binary()
@@ -147,7 +145,7 @@ del results
 del jobs
 
 out_handle = open(tabular_file, "w")
-out_handle.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
+out_handle.write("#Identifier\tPosition\tScore\tLikelihood\n")
 queries = 0
 for temp in temp_files:
     data_handle = open(temp)
