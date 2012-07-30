@@ -72,7 +72,6 @@ def get_path_and_binary():
 def make_tabular(raw_handle, out_handle):
     """Parse text output into tabular, return query count."""
     identifier = None
-    descr = None
     queries = 0
     #out.write("#Identifier\tDescription\tPosition\tScore\tLikelihood\n")
     for line in raw_handle:
@@ -80,11 +79,7 @@ def make_tabular(raw_handle, out_handle):
         if not line.strip() or line == "Promoter prediction:\n":
             pass
         elif line[0] != " ":
-            identifier = line.strip().replace("\t", " ")
-            if " " in identifier:
-                identifier, descr = identifier.split(None, 1)
-            else:
-                descr = ""
+            identifier = line.strip().replace("\t", " ").split(None,1)[0]
             queries += 1
         elif line == "  No promoter predicted\n":
             #End of a record
@@ -103,7 +98,7 @@ def make_tabular(raw_handle, out_handle):
                                   "Medium likely prediction",
                                   "Highly likely prediction"]:
                 stop_err("ERROR: Problem with line: %r" % line)
-            out_handle.write("%s\t%s\t%s\t%s\t%s\n" % (identifier, descr, position, score, likelihood))
+            out_handle.write("%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood))
     #out.close()
     return queries
     
