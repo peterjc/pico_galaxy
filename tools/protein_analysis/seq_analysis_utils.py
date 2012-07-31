@@ -109,6 +109,11 @@ def run_jobs(jobs, threads, pause=10, verbose=False):
     pending = jobs[:]
     running = []
     results = {}
+    if threads == 1:
+        #Special case this for speed, don't need the waits
+        for cmd in jobs:
+            results[cmd] = subprocess.call(cmd, shell=True)
+        return results
     while pending or running:
         #See if any have finished
         for (cmd, process) in running:
