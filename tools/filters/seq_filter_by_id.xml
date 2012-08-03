@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.2">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.3">
 	<description>from a tabular file</description>
 	<command interpreter="python">
 seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
@@ -80,7 +80,7 @@ file containing read identifiers. You could use this tool to extract only the
 reads without BLAST matches (i.e. those which do not match your contaminant
 database).
 
-You may have a file of FASTA sequences which has been run some some analysis
+You may have a file of FASTA sequences which has been used with some analysis
 tool giving tabular output, which has then been filtered on some criteria.
 You can then use this tool to divide the original FASTA file into those entries
 matching or not matching your criteria (those with or without their identifier
