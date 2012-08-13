@@ -5,7 +5,7 @@ This script is copyright 2010 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.3 of the script.
+This is version 0.0.4 of the script.
 """
 
 
@@ -46,8 +46,9 @@ print "Doing %i-way Venn Diagram" % n
 def load_ids(filename, filetype):
     if filetype=="tabular":
         for line in open(filename):
-            if not line.startswith("#"):
-                yield line.rstrip("\n").split("\t",1)[0]
+            line = line.rstrip("\n")
+            if line and not line.startswith("#"):
+                yield line.split("\t",1)[0]
     elif filetype=="fasta":
         for line in open(filename):
             if line.startswith(">"):

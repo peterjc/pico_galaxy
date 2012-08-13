@@ -1,4 +1,4 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.3">
+<tool id="venn_list" name="Venn Diagram" version="0.0.4">
   <description>from lists</description>
   <command interpreter="python">
 venn_list.py
