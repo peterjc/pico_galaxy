@@ -128,6 +128,7 @@ v0.1.0 - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
        - Support Galaxy's <parallelism> tag for SignalP, TMHMM & Promoter
 v0.1.1 - Fixed an error in the header of the tabular output from Promoter
 v0.1.2 - Use the new <stdio> settings in the XML wrappers to catch errors
+       - Use SGE style $NSLOTS for thread count (otherwise default to 4)
 
 
 Developers
