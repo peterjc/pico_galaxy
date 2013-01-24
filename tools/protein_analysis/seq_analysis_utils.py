@@ -64,8 +64,8 @@ def thread_count(command_line_arg, default=1):
     except NotImplementedError:
         pass
     #For debugging,
-    hostname = os.environ.get("HOSTNAME", "this machine")
-    sys.stderr.write("Using %i cores on %s\n" % (num, hostname))
+    #hostname = os.environ.get("HOSTNAME", "this machine")
+    #sys.stderr.write("Using %i cores on %s\n" % (num, hostname))
     return num
 
 
