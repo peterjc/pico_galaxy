@@ -35,13 +35,13 @@ at least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 """
 import sys
 import os
-from seq_analysis_utils import stop_err, split_fasta, run_jobs
+from seq_analysis_utils import stop_err, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 exe = "runWolfPsortSummary"
 
 """
-Note: I had trouble getting runWolfPsortSummary on the path (via a link, other
+Note: I had trouble getting runWolfPsortSummary on the path (via a link), other
 than by including all of /opt/WoLFPSORT_package_v0.2/bin , so used a wrapper
 python script called runWolfPsortSummary as follows:
 
@@ -65,15 +65,8 @@ organism = sys.argv[1]
 if organism not in ["animal", "plant", "fungi"]:
    stop_err("Organism argument %s is not one of animal, plant, fungi" % organism)
 
-try:
-   num_threads = int(sys.argv[2])
-except:
-   num_threads = 0
-if num_threads < 1:
-   stop_err("Threads argument %s is not a positive integer" % sys.argv[2])
-
+num_threads = thread_count(sys.argv[2], default=4)
 fasta_file = sys.argv[3]
-
 tabular_file = sys.argv[4]
 
 def clean_tabular(raw_handle, out_handle):

@@ -56,7 +56,8 @@ the predictors which gives a cleavage site). *WORK IN PROGRESS*
 import sys
 import os
 import tempfile
-from seq_analysis_utils import stop_err, split_fasta, run_jobs, fasta_iterator
+from seq_analysis_utils import stop_err, split_fasta, fasta_iterator
+from seq_analysis_utils import run_jobs, thread_count
 
 FASTA_CHUNK = 500
 MAX_LEN = 6000 #Found by trial and error
@@ -78,15 +79,8 @@ except:
 if truncate < 0:
    stop_err("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
 
-try:
-   num_threads = int(sys.argv[3])
-except:
-   num_threads = 1 #Default, e.g. used "$NSLOTS" and environment variable not defined
-if num_threads < 1:
-   stop_err("Threads argument %s is not a positive integer" % sys.argv[3])
-
+num_threads = thread_count(sys.argv[3], default=4)
 fasta_file = sys.argv[4]
-
 tabular_file = sys.argv[5]
 
 if len(sys.argv) == 8:

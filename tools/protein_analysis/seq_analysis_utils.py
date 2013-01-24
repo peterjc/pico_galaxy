@@ -19,6 +19,56 @@ def stop_err(msg, error_level=1):
     sys.stderr.write("%s\n" % msg)
     sys.exit(error_level)
 
+try:
+    from multiprocessing import cpu_count
+except ImportError:
+    #Must be under Python 2.5, this is copied from multiprocessing:
+    def cpu_count():
+        """Returns the number of CPUs in the system."""
+        if sys.platform == 'win32':
+            try:
+                num = int(os.environ['NUMBER_OF_PROCESSORS'])
+            except (ValueError, KeyError):
+                num = 0
+        elif 'bsd' in sys.platform or sys.platform == 'darwin':
+            comm = '/sbin/sysctl -n hw.ncpu'
+            if sys.platform == 'darwin':
+                comm = '/usr' + comm
+                try:
+                    with os.popen(comm) as p:
+                        num = int(p.read())
+                except ValueError:
+                    num = 0
+        else:
+            try:
+                num = os.sysconf('SC_NPROCESSORS_ONLN')
+            except (ValueError, OSError, AttributeError):
+                num = 0
+
+        if num >= 1:
+            return num
+        else:
+            raise NotImplementedError('cannot determine number of cpus')
+
+
+def thread_count(command_line_arg, default=1):
+    try:
+        num = int(command_line_arg)
+    except:
+        num = default
+    if num < 1:
+        stop_err("Threads argument %r is not a positive integer" % command_line_arg)
+    #Cap this with the pysical limit of the machine,
+    try:
+        num = min(num, cpu_count())
+    except NotImplementedError:
+        pass
+    #For debugging,
+    hostname = os.environ.get("HOSTNAME", "this machine")
+    sys.stderr.write("Using %i cores on %s\n" % (num, hostname))
+    return num
+
+
 def fasta_iterator(filename, max_len=None, truncate=None):
     """Simple FASTA parser yielding tuples of (title, sequence) strings."""
     handle = open(filename)

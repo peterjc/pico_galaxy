@@ -30,20 +30,15 @@ import sys
 import os
 import commands
 import tempfile
-from seq_analysis_utils import stop_err, split_fasta, run_jobs
+from seq_analysis_utils import stop_err, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 
 if len(sys.argv) != 4:
     stop_err("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
              "Got %i arguments." % (len(sys.argv)-1))
-try:
-    num_threads = int(sys.argv[1])
-except:
-    num_threads = 1 #Default, e.g. used "$NSLOTS" and environment variable not defined
-if num_threads < 1:
-    stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
 
+num_threads = thread_count(sys.argv[3],default=4)
 fasta_file = os.path.abspath(sys.argv[2])
 tabular_file = os.path.abspath(sys.argv[3])
 

@@ -43,18 +43,14 @@ when there is no output from tmhmm2, and raise an error.
 import sys
 import os
 import tempfile
-from seq_analysis_utils import stop_err, split_fasta, run_jobs
+from seq_analysis_utils import stop_err, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 
 if len(sys.argv) != 4:
    stop_err("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
-try:
-   num_threads = int(sys.argv[1])
-except:
-   num_threads = 1 #Default, e.g. used "$NSLOTS" and environment variable not defined
-if num_threads < 1:
-   stop_err("Threads argument %s is not a positive integer" % sys.argv[1])
+
+num_threads = thread_count(sys.argv[1], default=4)
 fasta_file = sys.argv[2]
 tabular_file = sys.argv[3]
 
