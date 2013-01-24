@@ -1,4 +1,4 @@
-<tool id="promoter2" name="Promoter 2.0" version="0.0.2">
+<tool id="promoter2" name="Promoter 2.0" version="0.0.3">
     <description>Find eukaryotic PolII promoters in DNA sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 per chunk so 4 threads each doing 500 is ideal -->
@@ -9,6 +9,11 @@
         ##which (on SGE at least) will set the $NSLOTS environment variable.
         ##If the environment variable isn't set, get "", and defaults to one.
     </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of DNA sequences"/> 
     </inputs>

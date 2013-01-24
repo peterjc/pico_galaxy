@@ -1,9 +1,14 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.5">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.6">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
       rxlr_motifs.py $fasta_file 8 $model $tabular_file
       ##I want the number of threads to be a Galaxy config option...
     </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" /> 
         <param name="model" type="select" label="Which RXLR model?">

@@ -1,9 +1,14 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.1">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.2">
     <description>Eukaryote protein subcellular localization prediction</description>
     <command interpreter="python">
       wolf_psort.py $organism 8 $fasta_file $tabular_file
       ##I want the number of threads to be a Galaxy config option...
     </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
         <param name="organism" type="select" display="radio" label="Organism">
