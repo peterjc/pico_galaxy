@@ -49,7 +49,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.*
+tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.* test-data/get_orf_input*.fasta
 
 Check this worked:
 
@@ -57,6 +57,15 @@ $ tar -tzf get_orfs_or_cdss.tar.gz
 filter/get_orfs_or_cdss.py
 filter/get_orfs_or_cdss.txt
 filter/get_orfs_or_cdss.xml
+test-data/get_orf_input.fasta
+test-data/get_orf_input.Suis_ORF.nuc.fasta
+test-data/get_orf_input.Suis_ORF.prot.fasta
+test-data/get_orf_input.t11_nuc_out.fasta
+test-data/get_orf_input.t11_open_nuc_out.fasta
+test-data/get_orf_input.t11_open_prot_out.fasta
+test-data/get_orf_input.t11_prot_out.fasta
+test-data/get_orf_input.t1_nuc_out.fasta
+test-data/get_orf_input.t1_prot_out.fasta
 
 
 Licence (MIT/BSD style)
