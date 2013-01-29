@@ -16,12 +16,12 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2011 by Peter Cock, The James Hutton Institute
+This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI), Dundee, UK. All rights reserved.
 
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.1 of the script.
+This is version 0.0.2 of the script.
 """
 import sys
 import re
@@ -159,7 +159,7 @@ def get_all_peptides(nuc_seq):
         for frame in range(0,3) :
             for offset, n, t in break_up_frame(rc[frame:]):
                 start = full_len - frame - offset #zero based
-                answer.append((start, start + len(n), -1, n ,t))
+                answer.append((start - len(n), start, -1, n ,t))
     answer.sort()
     return answer
 

@@ -1,7 +1,7 @@
 Galaxy tool to find ORFs or simple CDSs
 =======================================
 
-This tool is copyright 2011 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -25,13 +25,18 @@ tool. One suggested location is in the filters section. Simply add the line:
 
 You will also need to install Biopython 1.54 or later. If you want to run
 the unit tests, include this line in tools_conf.xml.sample and the sample
-FASTA files under the test-data directory. That's it.
+FASTA files under the test-data directory. Then:
+
+./run_functional_tests.sh -id get_orfs_or_cdss
+
+That's it.
 
 
 History
 =======
 
 v0.0.1 - Initial version.
+v0.0.2 - Correct labelling issue on reverse strand.
 
 
 Developers

@@ -1,4 +1,4 @@
-<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.1">
+<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.2">
 	<description>e.g. to get peptides from ESTs</description>
 	<command interpreter="python">
 get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
@@ -84,6 +84,17 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
                         <param name="strand" value="forward" />
                         <output name="out_nuc_file" file="get_orf_input.t11_open_nuc_out.fasta" />
                         <output name="out_prot_file" file="get_orf_input.t11_open_prot_out.fasta" />
+		</test>
+                <test>
+			<param name="input_file" value="Ssuis.fasta" />
+			<param name="table" value="11" />
+			<param name="ftype" value="ORF" />
+			<param name="ends" value="open" />
+			<param name="mode" value="all" />
+			<param name="min_len" value="100" />
+			<param name="strand" value="both" />
+			<output name="out_nuc_file" file="get_orf_input.Suis_ORF.nuc.fasta" />
+			<output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.fasta" />
 		</test>
 	</tests>
 	<requirements>
