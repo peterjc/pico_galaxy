@@ -41,6 +41,9 @@ v0.0.3 - Support Ion Torrent reads, now requires MIRA 3.4.0 or later
        - The contig summary file (TCS file) was removed in MIRA 3.4
        - Report all missing output files (not just first missing one)
 v0.0.4 - Fix problem with backbone arguments inroduced in v0.0.3
+v0.0.5 - Implement the <version_command> tag to record the wrapper
+         version and the MIRA version being used.
+       - Check using MIRA 3.4 (later versions have a different API)
 
 
 Developers
