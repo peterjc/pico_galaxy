@@ -7,9 +7,37 @@ import subprocess
 import shutil
 import time
 
+WRAPPER_VER = "0.0.5" #Keep in sync with the XML file
+
 def stop_err(msg, err=1):
     sys.stderr.write(msg+"\n")
     sys.exit(err)
+
+
+def get_version():
+    """Run MIRA to find its version number"""
+    # At the commend line I would use: mira -v | head -n 1
+    # however there is some pipe error when doing that here.
+    try:
+        child = subprocess.Popen(["mira", "-v"],
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.STDOUT)
+    except Exception, err:
+        sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (" ".join(cmd), err))
+        sys.exit(1)
+    ver, tmp = child.communicate()
+    del child
+    return ver.split("\n", 1)[0]
+
+
+mira_ver = get_version()
+if "V3.4." not in mira_ver:
+    stop_err("This wrapper is for MIRA V3.4, not %s" % mira_ver)
+if "-v" in sys.argv:
+    print "MIRA wrapper version %s," % WRAPPER_VER
+    print mira_ver
+    sys.exit(0)
+
 
 def collect_output(temp, name):
     n3 = (temp, name, name, name)
