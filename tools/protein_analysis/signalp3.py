@@ -109,7 +109,8 @@ def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
             continue
         parts = line.rstrip("\r\n").split()
         assert len(parts)==21, repr(line)
-        assert parts[14].startswith(parts[0])
+        assert parts[14].startswith(parts[0]), \
+            "Bad entry in SignalP output, ID miss-match:\n%r" % line
         #Remove redundant truncated name column (col 0)
         #and put full name at start (col 14)
         parts = parts[14:15] + parts[1:14] + parts[15:]
