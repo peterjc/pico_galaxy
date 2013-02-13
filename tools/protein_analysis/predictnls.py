@@ -37,6 +37,11 @@ plain text My_NLS_list file located next to the script file, or in a data
 subdirectory.
 
 Tested with the My_NLS_list file included with predictnls-1.0.17.tar.gz
+
+The Rost Lab provide source code tar balls for predictNLS on the FTP site
+ftp://rostlab.org/predictnls/ but for Debian or RedHat based Linux they
+recommend their package repository instead,
+https://rostlab.org/owiki/index.php/Packages
 """
 
 import os
