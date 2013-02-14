@@ -124,7 +124,7 @@ COMMON_SETTINGS
 	    <data name="out_ace" format="txt" label="MIRA contigs (ACE)" />
 	    <data name="out_wig" format="wig" label="MIRA coverage (Wiggle)" />
 	    <data name="out_log" format="txt" label="MIRA log" />
-    </outputs>
+	</outputs>
 	<tests>
 	</tests>
 	<requirements>
