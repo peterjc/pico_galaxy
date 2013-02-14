@@ -137,6 +137,7 @@ COMMON_SETTINGS
 	</tests>
 	<requirements>
 		<requirement type="python-module">Bio</requirement>
+		<requirement type="binary">mira</requirement>
 	</requirements>
 	<help>
 
