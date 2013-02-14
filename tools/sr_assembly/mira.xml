@@ -48,6 +48,9 @@ COMMON_SETTINGS
 ##remove_rollover_tmps, remove_tmp_directory
 -OUT:rrot=1:rtd=1
 
+##put mira temp directory on local storage                                                                              
+-DI:trt=/tmp
+
     </command>
 	<inputs>
         <param name="job_method" type="select" label="Assembly method" help="Mapping mode requires backbone/reference sequence(s)">
