@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
-#Copyright 2011 by Peter Cock, James Hutton Institute (formerly SCRI), UK
+#Copyright 2011-2013 by Peter Cock, James Hutton Institute (formerly SCRI), UK
 #
 #Licenced under the GPL (GNU General Public Licence) version 3.
 #
 #Based on Perl script predictNLS v1.3, copyright 2001-2005 and the later
-#versions up to predictnls v1.0.17 (copright 2011), by Rajesh Nair
+#versions up to predictnls v1.0.20 (copright 2012), by Rajesh Nair
 #(nair@rostlab.org) and Burkhard Rost (rost@rostlab.org), Rost Lab,
 #Columbia University http://rostlab.org/
 
 """Batch mode predictNLS, for finding nuclear localization signals
 
-This is a Python script implementing the predictNLS method, originally
+This is a Python script re-implementing the predictNLS method, originally
 written in Perl, described here:
 
 Murat Cokol, Rajesh Nair, and Burkhard Rost.
@@ -36,7 +36,9 @@ is tab separated plain text, and the NLS motif file defaults to using the
 plain text My_NLS_list file located next to the script file, or in a data
 subdirectory.
 
-Tested with the My_NLS_list file included with predictnls-1.0.17.tar.gz
+Tested with the My_NLS_list file included with predictnls-1.0.7.tar.gz to
+predictnls-1.0.20.tar.gz inclusive (the list was extended in v1.0.7 in
+August 2010, see the change log included in those tar-balls).
 
 The Rost Lab provide source code tar balls for predictNLS on the FTP site
 ftp://rostlab.org/predictnls/ but for Debian or RedHat based Linux they
@@ -139,11 +141,11 @@ nls = 0
 for idn, seq in fasta_iterator(fasta_filename):
     for regex, evidence, p_count, percent_nuc_prot, proteins, domains in motifs:
         #Perl predictnls v1.0.17 (and older) take right most hit only, Bug #40
-        #This has been fixed now, so we return all the matches
+        #This has been fixed (v1.0.18 onwards, June 2011), so we return all the matches
         for match in regex.finditer(seq):
-            #Perl predictnls v1.0.17 (and older) return NLS start
-            #position with zero based counting, Bug #38 (fixed)
-            #We use one based couting, hence the start+1 here:
+            #Perl predictnls v1.0.17 (and older) return NLS start position with zero
+            #but changed to one based counting in v1.0.18 (June 2011) onwards, Bug #38
+            #We therefore also use one based couting, hence the start+1 here:
             out_handle.write("%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n" \
                              % (idn, match.start()+1, match.group(),
                                 regex.pattern, evidence, p_count,
