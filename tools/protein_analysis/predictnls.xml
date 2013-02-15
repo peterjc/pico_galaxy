@@ -1,4 +1,4 @@
-<tool id="predictnls" name="PredictNLS" version="0.0.3">
+<tool id="predictnls" name="PredictNLS" version="0.0.4">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command interpreter="python">
       predictnls.py $fasta_file $tabular_file
@@ -29,14 +29,18 @@ a know set of patterns (described using regular expressions).
 The input is a FASTA file of protein sequences, and the output is tabular with
 these columns (multiple rows per protein):
 
- * Sequence identifier
- * Start of NLS
- * NLS sequence
- * NLS pattern (regular expresion)
- * Number of reference proteins with this NLS
- * Percentage of reference proteins with this NLS which are nuclear localized
- * Comma separated list of reference proteins
- * Comma separated list of reference proteins' localizations
+====== ==========================================================================
+Column Description
+------ --------------------------------------------------------------------------
+     1 Sequence identifier
+     2 Start of NLS
+     3 NLS sequence
+     4 NLS pattern (regular expresion)
+     5 Number of reference proteins with this NLS
+     6 Percentage of reference proteins with this NLS which are nuclear localized
+     7 Comma separated list of reference proteins
+     8 Comma separated list of reference proteins' localizations
+====== ==========================================================================
 
 If a sequence has no predicted NLS, then there is no line in the output file
 for it. This is a simplification of the text rich output from the command line
