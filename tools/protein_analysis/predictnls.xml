@@ -22,8 +22,9 @@
     
 **What it does**
 
-This calls a batch mode version of the PredictNLS tool for prediction of
-nuclear localization signals (NLSs).
+This calls a Python re-implementation of the PredictNLS tool for prediction of
+nuclear localization signals (NLSs), which works by looking for matches to
+a know set of patterns (described using regular expressions).
 
 The input is a FASTA file of protein sequences, and the output is tabular with
 these columns (multiple rows per protein):
