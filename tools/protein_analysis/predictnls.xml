@@ -24,7 +24,7 @@
 
 This calls a Python re-implementation of the PredictNLS tool for prediction of
 nuclear localization signals (NLSs), which works by looking for matches to
-a know set of patterns (described using regular expressions).
+a known set of patterns (described using regular expressions).
 
 The input is a FASTA file of protein sequences, and the output is tabular with
 these columns (multiple rows per protein):
@@ -35,7 +35,7 @@ Column Description
      1 Sequence identifier
      2 Start of NLS
      3 NLS sequence
-     4 NLS pattern (regular expresion)
+     4 NLS pattern (regular expression)
      5 Number of reference proteins with this NLS
      6 Percentage of reference proteins with this NLS which are nuclear localized
      7 Comma separated list of reference proteins
