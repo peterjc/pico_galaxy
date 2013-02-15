@@ -21,7 +21,7 @@ http://effectors.org/
 
 
 Installation
-===========
+============
 
 You can change the path by editing the definition near the start of the Python
 script effectiveT3.py, but by default it expects the following files to be
