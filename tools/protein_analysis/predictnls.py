@@ -36,6 +36,9 @@ is tab separated plain text, and the NLS motif file defaults to using the
 plain text My_NLS_list file located next to the script file, or in a data
 subdirectory.
 
+For convience if using this outside Galaxy, the input filename can be '-'
+to mean stdin, and likewise the output filename can be '-' to mean stdout.
+
 Tested with the My_NLS_list file included with predictnls-1.0.7.tar.gz to
 predictnls-1.0.20.tar.gz inclusive (the list was extended in v1.0.7 in
 August 2010, see the change log included in those tar-balls).
@@ -108,7 +111,10 @@ def load_re(filename):
 
 def fasta_iterator(filename):
     """Simple FASTA parser yielding tuples of (name, upper case sequence)."""
-    handle = open(filename)
+    if filename == "-":
+        handle = sys.stdin
+    else:
+        handle = open(filename)
     name, seq = "", ""
     for line in handle:
         if line.startswith(">"):
@@ -126,7 +132,8 @@ def fasta_iterator(filename):
             pass
         else:
             raise ValueError("Bad FASTA line %r" % line)
-    handle.close()
+    if filename != "-":
+        handle.close()
     if name:
         yield name, seq
     raise StopIteration
@@ -134,7 +141,10 @@ def fasta_iterator(filename):
 motifs = list(load_re(re_filename))
 print "Looking for %i NLS motifs" % len(motifs)
 
-out_handle = open(tabular_filename, "w")
+if tabular_filename == "-":
+    out_handle = sys.stdout
+else:
+    out_handle = open(tabular_filename, "w")
 out_handle.write("#ID\tNLS start\tNLS seq\tNLS pattern\tType\tProtCount\t%NucProt\tProtList\tProtLoci\n")
 count = 0
 nls = 0
@@ -152,5 +162,6 @@ for idn, seq in fasta_iterator(fasta_filename):
                                 percent_nuc_prot, proteins, domains))
             nls += 1
     count += 1
-out_handle.close()
+if tabular_filename != "-":
+    out_handle.close()
 print "Found %i NLS motifs in %i sequences" % (nls, count)
