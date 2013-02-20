@@ -1,5 +1,5 @@
-Galaxy wrapper for EffectiveT3 v1.0.1
-=====================================
+Python re-implementation of predictNLS with Galaxy wrapper
+==========================================================
 
 This Galaxy tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
@@ -38,7 +38,12 @@ You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
 it next to them. Just add the line:
 
-<tool file="protein_analysis/effectiveT3.xml" />
+<tool file="protein_analysis/predictnls.xml" />
+
+If you want to run the unit tests, also add this to tool_conf.xml.sample, and
+copy the test files under test-data, then run:
+
+./run_functional_tests.sh -id predictnls
 
 That's it.
 
@@ -46,7 +51,7 @@ That's it.
 History
 =======
 
-v0.0.x - Initial public release
+v0.0.4 - Initial public release
 
 
 Developers
@@ -58,7 +63,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf predictnls.tar.gz tools/protein_analysis/predictnls.xml tools/protein_analysis/predictnls.py tools/protein_analysis/predictnls.txt tools/protein_analysis/My_NLS_list
+$ tar -czf predictnls.tar.gz tools/protein_analysis/predictnls.xml tools/protein_analysis/predictnls.py tools/protein_analysis/predictnls.txt tools/protein_analysis/My_NLS_list test-data/four_human_proteins.fasta test-data/four_human_proteins.predictnls.tabular
 
 Check this worked:
 
@@ -67,6 +72,8 @@ tools/protein_analysis/predictnls.xml
 tools/protein_analysis/predictnls.py
 tools/protein_analysis/predictnls.txt
 tools/protein_analysis/My_NLS_list
+test-data/four_human_proteins.fasta
+test-data/four_human_proteins.predictnls.tabular
 
 
 Licence (GPL)
