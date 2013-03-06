@@ -1,8 +1,13 @@
-<tool id="predictnls" name="PredictNLS" version="0.0.4">
+<tool id="predictnls" name="PredictNLS" version="0.0.5">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command interpreter="python">
       predictnls.py $fasta_file $tabular_file
     </command>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
     </inputs>

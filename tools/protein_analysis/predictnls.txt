@@ -52,6 +52,7 @@ History
 =======
 
 v0.0.4 - Initial public release
+v0.0.5 - Treat non-zero return codes as errors
 
 
 Developers
