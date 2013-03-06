@@ -1,4 +1,4 @@
-<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.2">
+<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.3">
     <description>Find nucleolar localization signals (NoLSs) in protein sequences</description>
     <command>
       java -jar /opt/clinod/clinod-1.3.jar -in="$fasta_file" -out="$tabular_file" -t=8 -f=MEDIUM_TAB -nonols -clean_sequence
@@ -33,13 +33,18 @@ as a special nuclear localization sequence (NLS).
 The input is a FASTA file of protein sequences, and the output is tabular with
 four columns (multiple rows per protein):
 
- * Sequence identifier
- * Start of NoLS
- * End of NoLS
- * NoLS sequence
+====== ===================
+Column Description
+------ -------------------
+     1 Sequence identifier
+     2 Start of NoLS
+     3 End of NoLS
+     4 NoLS sequence
+====== ===================
 
 If a sequence has no predicted NoLS, then there is no line in the output file
 for it.
+
 
 **References**
 
