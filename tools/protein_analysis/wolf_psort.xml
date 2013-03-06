@@ -1,4 +1,4 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.2">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.3">
     <description>Eukaryote protein subcellular localization prediction</description>
     <command interpreter="python">
       wolf_psort.py $organism 8 $fasta_file $tabular_file
@@ -31,10 +31,14 @@ This calls the WoLF PSORT tool for prediction of eukaryote protein subcellular l
 
 The input is a FASTA file of protein sequences, and the output is tabular with four columns (multiple rows per protein):
 
- * Sequence identifier
- * Compartment
- * Score
- * Prediction rank
+====== ===================
+Column Description
+------ -------------------
+     1 Sequence identifier
+     2 Compartment
+     3 Score
+     4 Prediction rank
+====== ===================
 
 
 **Localization Compartments**
