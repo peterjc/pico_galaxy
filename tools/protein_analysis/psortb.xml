@@ -2,6 +2,11 @@
   <description>Determines sub-cellular localisation of bacterial/archaeal protein sequences</description>
   <requirements><requirement type="package" version="5.0.0">psortb</requirement></requirements>
   <command>/usr/local/psortb/bin/psort $type -c $cutoff -d $divergent -o long $sequence 1> $outfile 2>/dev/null</command>
+  <stdio>
+    <!-- Anything other than zero is an error -->
+    <exit_code range="1:" />
+    <exit_code range=":-1" />
+  </stdio>
   <inputs>
     <param format="fasta" name="sequence" type="data">
       <label>Input sequences for which to predict localisation (protein FASTA format)</label>
