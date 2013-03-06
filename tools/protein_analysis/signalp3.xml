@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.10">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.11">
     <description>Find signal peptides in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
@@ -71,9 +71,13 @@ This calls the SignalP v3.0 tool for prediction of signal peptides, which uses b
 
 The input is a FASTA file of protein sequences, and the output is tabular with twenty columns (one row per protein):
 
- * Sequence identifier
- * Neural Network (NN) predictions (13 columns)
- * Hidden Markov Model (HMM) predictions (6 columns)
+====== =================================================
+Column Description
+------ -------------------------------------------------
+     1 Sequence identifier
+  2-14 Neural Network (NN) predictions (13 columns)
+ 15-20 Hidden Markov Model (HMM) predictions (6 columns)
+====== =================================================
 
 Internally the input FASTA file is divided into parts (to allow multiple processors to be used), and the proteins truncated as specified (see below). The raw output from SignalP is then reformatted into a tabular layout suitable for Galaxy (see below).
 
