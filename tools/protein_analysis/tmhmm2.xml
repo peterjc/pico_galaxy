@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.9">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.10">
     <description>Find transmembrane domains in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
@@ -47,18 +47,23 @@ This calls the TMHMM v2.0 tool for prediction of transmembrane (TM)  helices in 
 
 The input is a FASTA file of protein sequences, and the output is tabular with six columns (one row per protein):
 
- 1. Sequence identifier
- 2. Sequence length
- 3. Expected number of amino acids in TM helices (ExpAA). If this number is larger than 18 it is very likely to be a transmembrane protein (OR have a signal peptide).
- 4. Expected number of amino acids in TM helices in the first 60 amino acids of the protein (Exp60). If this number more than a few, be aware that a predicted transmembrane helix in the N-term could be a signal peptide.
- 5. Number of transmembrane helices predicted by N-best.
- 6. Topology predicted by N-best (encoded as a strip using o for output and i for inside)
+====== =====================================================================================
+Column Description
+------ -------------------------------------------------------------------------------------
+     1 Sequence identifier
+     2 Sequence length
+     3 Expected number of amino acids in TM helices (ExpAA). If this number is larger than 18 it is very likely to be a transmembrane protein (OR have a signal peptide).
+     4 Expected number of amino acids in TM helices in the first 60 amino acids of the protein (Exp60). If this number more than a few, be aware that a predicted transmembrane helix in the N-term could be a signal peptide.
+     5 Number of transmembrane helices predicted by N-best.
+     6 Topology predicted by N-best (encoded as a strip using o for output and i for inside)
+====== =====================================================================================
 
 Predicted TM segments in the n-terminal region sometimes turn out to be signal peptides.
 
 One of the most common mistakes by the program is to reverse the direction of proteins with one TM segment (i.e. mixing up which end of the protein is outside and inside the membrane).
 
 Do not use the program to predict whether a non-membrane protein is cytoplasmic or not. 
+
 
 **Notes**
 
@@ -80,6 +85,7 @@ gi|4959044|gb|AAD34209.1|AF069992_1 600  0.00    0.00       0 o
 gi|671626|emb|CAA85685.1|           473  0.19    0.00       0 o
 gi|3298468|dbj|BAA31520.1|          107 59.37   31.17       3 o23-45i52-74o89-106i
 =================================== === ===== ======= ======= ====================
+
 
 **References**
 
