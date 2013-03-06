@@ -46,10 +46,15 @@ This calls the command line Effective T3 v1.0.1 tool for prediction of bacterial
 
 The input is a FASTA file of protein sequences, and the output is tabular with four columns (one row per protein):
 
- * Sequence identifier
- * Sequence description (from the FASTA file)
- * Score (between 0 and 1, or negative for an error such as a very short peptide)
- * Predicted effector (true/false)
+====== ==============================================================================
+Column Description
+------ ------------------------------------------------------------------------------
+     1 Sequence identifier
+     2 Sequence description (from the FASTA file)
+     3 Score (between 0 and 1, or negative for an error such as a very short peptide)
+     4 Predicted effector (true/false)
+====== ==============================================================================
+
 
 **References**
 
