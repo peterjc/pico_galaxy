@@ -52,8 +52,11 @@ Column Description
 ------ -------------------------------------------------------------------------------------
      1 Sequence identifier
      2 Sequence length
-     3 Expected number of amino acids in TM helices (ExpAA). If this number is larger than 18 it is very likely to be a transmembrane protein (OR have a signal peptide).
-     4 Expected number of amino acids in TM helices in the first 60 amino acids of the protein (Exp60). If this number more than a few, be aware that a predicted transmembrane helix in the N-term could be a signal peptide.
+     3 Expected number of amino acids in TM helices (ExpAA). If this number is larger than
+       18 it is very likely to be a transmembrane protein (OR have a signal peptide).
+     4 Expected number of amino acids in TM helices in the first 60 amino acids of the
+       protein (Exp60). If this number more than a few, be aware that a predicted
+       transmembrane helix in the N-term could be a signal peptide.
      5 Number of transmembrane helices predicted by N-best.
      6 Topology predicted by N-best (encoded as a strip using o for output and i for inside)
 ====== =====================================================================================
