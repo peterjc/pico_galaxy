@@ -56,6 +56,7 @@ History
 
 v0.0.7 - Initial public release
 v0.0.8 - Include effectiveT3.loc.sample in Tool Shed
+v0.0.9 - Check the return code for errors in the XML
 
 
 Developers
