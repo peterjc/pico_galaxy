@@ -1,0 +1,37 @@
+<tool id="Psortb" name="psortb" version="3.0.0">
+  <description>Determines sub-cellular localisation of bacterial/archaeal protein sequences</description>
+  <requirements><requirement type="package" version="5.0.0">psortb</requirement></requirements>
+  <command>/usr/local/psortb/bin/psort $type -c $cutoff -d $divergent -o long $sequence 1> $outfile 2>/dev/null</command>
+  <inputs>
+    <param format="fasta" name="sequence" type="data">
+      <label>Input sequences for which to predict localisation (protein FASTA format)</label>
+    </param>
+    <param name="type" type="select">
+      <label>Organism type (N.B. all sequences in the above file must be of the same type) </label>
+      <option value="-p">Gram positive bacteria</option>
+      <option value="-n">Gram negative bacteria</option>
+      <option value="-a">Archaea</option>
+    </param>
+    <param name="cutoff" size="10" type="float" value="7.5">
+      <label>Sets a cutoff value for reported results</label>
+    </param>
+    <param name="divergent" size="10" type="float" value="4.5">
+      <label>Sets a cutoff value for the multiple localization flag</label>
+    </param>
+  </inputs>
+  <outputs>
+    <data format="tabular" name="outfile" />
+  </outputs>
+  <help>
+
+.. class:: warningmark
+
+The input dataset needs to be protein FASTA sequences.
+
+-----
+
+    You can view the original documentation here_.
+    
+    .. _here: http://www.psort.org/documentation/index.html
+  </help>
+</tool>
