@@ -60,7 +60,7 @@ Developers
 This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
-For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
+For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
 $ tar -czf predictnls.tar.gz tools/protein_analysis/predictnls.xml tools/protein_analysis/predictnls.py tools/protein_analysis/predictnls.txt tools/protein_analysis/My_NLS_list test-data/four_human_proteins.fasta test-data/four_human_proteins.predictnls.tabular
