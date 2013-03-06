@@ -1,4 +1,4 @@
-<tool id="Psortb" name="psortb" version="3.0.0">
+<tool id="Psortb" name="psortb" version="0.0.1">
   <description>Determines sub-cellular localisation of bacterial/archaeal protein sequences</description>
   <requirements><requirement type="package" version="5.0.0">psortb</requirement></requirements>
   <command>/usr/local/psortb/bin/psort $type -c $cutoff -d $divergent -o long $sequence 1> $outfile 2>/dev/null</command>
@@ -24,14 +24,21 @@
   </outputs>
   <help>
 
-.. class:: warningmark
+**What it does**
 
-The input dataset needs to be protein FASTA sequences.
+This calls the command line PSORTb v3.0 tool for prediction of prokaryotic
+localization sites. The input dataset needs to be protein FASTA sequences.
 
------
+**References**
 
-    You can view the original documentation here_.
-    
-    .. _here: http://www.psort.org/documentation/index.html
+N.Y. Yu, J.R. Wagner, M.R. Laird, G. Melli, S. Rey, R. Lo, P. Dao,
+S.C. Sahinalp, M. Ester, L.J. Foster, F.S.L. Brinkman (2010)
+PSORTb 3.0: Improved protein subcellular localization prediction with
+refined localization subcategories and predictive capabilities for all
+prokaryotes, Bioinformatics 26(13):1608-1615
+http://dx.doi.org/10.1093/bioinformatics/btq249
+
+http://www.psort.org/documentation/index.html
+
   </help>
 </tool>
