@@ -46,6 +46,7 @@ History
 v0.0.3 - Initial public release
 v0.0.4 - Adding DOI link to reference
          (Documentation change only)
+v0.0.5 - Assume non-zero return codes are errors
 
 
 Developers
