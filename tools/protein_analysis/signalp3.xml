@@ -90,7 +90,7 @@ The NN output comprises three different scores (C-max, S-max and Y-max) and two 
 ====== ======= ===============================================================
 Column Name    Description 
 ------ ------- ---------------------------------------------------------------
-     2 C-score The C-score is the 'cleavage site' score. For each position in
+   2-4 C-score The C-score is the 'cleavage site' score. For each position in
                the submitted sequence, a C-score is reported, which should
                only be significantly high at the cleavage site. Confusion is
                often seen with the position numbering of the cleavage site.
@@ -100,14 +100,14 @@ Column Name    Description
                is reported as 27, corresponding to the mature protein starting
                at (and including) position 27.
 ------ ------- ---------------------------------------------------------------
-     3 S-score The S-score for the signal peptide prediction is calculated for
+   5-7 S-score The S-score for the signal peptide prediction is calculated for
                every single amino acid position in the submitted sequence (not
                shown in the output via Galaxy), with high scores indicating
                that the corresponding amino acid is part of a signal peptide,
                and low scores indicating that the amino acid is part of a
                mature protein.
 ------ ------- ---------------------------------------------------------------
-     4 Y-max   Y-max is a derivative of the C-score combined with the S-score
+  8-10 Y-max   Y-max is a derivative of the C-score combined with the S-score
                resulting in a better cleavage site prediction than the raw
                C-score alone. This is due to the fact that multiple high-peaking
                C-scores can be found in one sequence, where only one is the
@@ -115,14 +115,14 @@ Column Name    Description
                Y-score where the slope of the S-score is steep and a
                significant C-score is found.
 ------ ------- ---------------------------------------------------------------
-     5 S-mean  The S-mean is the average of the S-score, ranging from the
+ 11-12 S-mean  The S-mean is the average of the S-score, ranging from the
                N-terminal amino acid to the amino acid assigned with the
                highest Y-max score, thus the S-mean score is calculated for
                the length of the predicted signal peptide. The S-mean score
                was in SignalP version 2.0 used as the criteria for
                discrimination of secretory and non-secretory proteins.
 ------ ------- ---------------------------------------------------------------
-     6 D-score The D-score was introduced in SignalP version 3.0 and is a
+ 13-14 D-score The D-score was introduced in SignalP version 3.0 and is a
                simple average of the S-mean and Y-max score. The score shows
                superior discrimination performance of secretory and
                non-secretory proteins to that of the S-mean score which was
