@@ -1,6 +1,7 @@
 <tool id="Psortb" name="psortb" version="0.0.1">
   <description>Determines sub-cellular localisation of bacterial/archaeal protein sequences</description>
   <requirements><requirement type="package" version="5.0.0">psortb</requirement></requirements>
+  <version_command>psort --version</version_command>
   <command>psort $type -c $cutoff -d $divergent -o long $sequence 1> $outfile 2>/dev/null</command>
   <stdio>
     <!-- Anything other than zero is an error -->
