@@ -28,6 +28,9 @@
   <outputs>
     <data format="tabular" name="outfile" />
   </outputs>
+  <requirements>
+    <requirement type="binary">psort</requirement>
+  </requirements>
   <help>
 
 **What it does**
