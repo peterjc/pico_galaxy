@@ -48,7 +48,7 @@ from seq_analysis_utils import stop_err, split_fasta, run_jobs, thread_count
 FASTA_CHUNK = 500
 
 if len(sys.argv) != 4:
-   stop_err("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
+    stop_err("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
 
 num_threads = thread_count(sys.argv[1], default=4)
 fasta_file = sys.argv[2]
