@@ -59,11 +59,11 @@ sys.exit(return_code)
 """
 
 if len(sys.argv) != 5:
-   stop_err("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
+    stop_err("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
 
 organism = sys.argv[1]
 if organism not in ["animal", "plant", "fungi"]:
-   stop_err("Organism argument %s is not one of animal, plant, fungi" % organism)
+    stop_err("Organism argument %s is not one of animal, plant, fungi" % organism)
 
 num_threads = thread_count(sys.argv[2], default=4)
 fasta_file = sys.argv[3]
