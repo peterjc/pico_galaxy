@@ -63,34 +63,34 @@ FASTA_CHUNK = 500
 MAX_LEN = 6000 #Found by trial and error
 
 if len(sys.argv) not in  [6,8]:
-   stop_err("Require five (or 7) arguments, organism, truncate, threads, "
-            "input protein FASTA file & output tabular file (plus "
-            "optionally cut method and GFF3 output file). "
-            "Got %i arguments." % (len(sys.argv)-1))
+    stop_err("Require five (or 7) arguments, organism, truncate, threads, "
+             "input protein FASTA file & output tabular file (plus "
+             "optionally cut method and GFF3 output file). "
+             "Got %i arguments." % (len(sys.argv)-1))
 
 organism = sys.argv[1]
 if organism not in ["euk", "gram+", "gram-"]:
-   stop_err("Organism argument %s is not one of euk, gram+ or gram-" % organism)
+    stop_err("Organism argument %s is not one of euk, gram+ or gram-" % organism)
 
 try:
-   truncate = int(sys.argv[2])
+    truncate = int(sys.argv[2])
 except:
-   truncate = 0
+    truncate = 0
 if truncate < 0:
-   stop_err("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
+    stop_err("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
 
 num_threads = thread_count(sys.argv[3], default=4)
 fasta_file = sys.argv[4]
 tabular_file = sys.argv[5]
 
 if len(sys.argv) == 8:
-   cut_method = sys.argv[6]
-   if cut_method not in ["NN_Cmax", "NN_Ymax", "NN_Smax", "HMM_Cmax"]:
-      stop_err("Invalid cut method %r" % cut_method)
-   gff3_file = sys.argv[7]
+    cut_method = sys.argv[6]
+    if cut_method not in ["NN_Cmax", "NN_Ymax", "NN_Smax", "HMM_Cmax"]:
+        stop_err("Invalid cut method %r" % cut_method)
+    gff3_file = sys.argv[7]
 else:
-   cut_method = None
-   gff3_file = None
+    cut_method = None
+    gff3_file = None
 
 
 tmp_dir = tempfile.mkdtemp()
@@ -98,12 +98,12 @@ tmp_dir = tempfile.mkdtemp()
 def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
     """Clean up SignalP output to make it tabular."""
     if cut_method:
-       cut_col = {"NN_Cmax" : 2,
-                  "NN_Ymax" : 5,
-                  "NN_Smax" : 8,
-                  "HMM_Cmax" : 16}[cut_method]
+        cut_col = {"NN_Cmax" : 2,
+                   "NN_Ymax" : 5,
+                   "NN_Smax" : 8,
+                   "HMM_Cmax" : 16}[cut_method]
     else:
-       cut_col = None
+        cut_col = None
     for line in raw_handle:
         if not line or line.startswith("#"):
             continue
@@ -219,6 +219,6 @@ out_handle.close()
 
 #GFF3:
 if cut_method:
-   make_gff(fasta_file, tabular_file, gff3_file, cut_method)
+    make_gff(fasta_file, tabular_file, gff3_file, cut_method)
 
 clean_up(fasta_files + temp_files)
