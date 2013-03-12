@@ -1,6 +1,5 @@
 <tool id="Psortb" name="psortb" version="0.0.1">
   <description>Determines sub-cellular localisation of bacterial/archaeal protein sequences</description>
-  <requirements><requirement type="package" version="5.0.0">psortb</requirement></requirements>
   <!-- If job splitting is enabled, break up the query file into parts -->
   <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
   <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
