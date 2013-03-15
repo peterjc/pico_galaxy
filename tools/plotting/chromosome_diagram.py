@@ -55,13 +55,12 @@ if min_gap and min_gap < MAXREPEAT:
         seq = str(rec.seq).upper()
         length = len(seq)
         for match in re_gap.finditer(seq):
-            assert match.end() - match.start() >= min_gap, \
-                "%i - %i = %i < %i" % (match.end(), match.start(), match.end() - match.start(), min_gap)
-            assert 0 <= match.start() < match.end() < length, \
-                "0 <= %i < %i < %i " % (match.start(), match.end(), length)
+            #assert match.end() - match.start() >= min_gap, \
+            #    "%i - %i = %i < %i" % (match.end(), match.start(), match.end() - match.start(), min_gap)
+            #assert 0 <= match.start() < match.end() < length, \
+            #    "0 <= %i < %i < %i " % (match.start(), match.end(), length)
             n_regions.append((rec.id, match.start(), match.end()))
-elif min_gap:
-    #stop_err("Gap size too high %r" % min_gap)
+if min_gap:
     print "Identifying long NNNN regions of at least %i" % min_gap
     big_gap = "N" * min_gap
     re_not_gap = re.compile("[^N]")
@@ -80,13 +79,13 @@ elif min_gap:
             match = re_gap_end.search(seq, start)
             if not match:
                 end = length
-                print "%s %i - end (%i)" % (rec.id, start, end-start)
-                assert end-start >= min_gap
+                #print "%s %i - end (%i)" % (rec.id, start, end-start)
+                #assert end-start >= min_gap
                 n_regions.append((rec.id, start, end))
                 break
             end = match.start()
-            print "%s %i - %i (%i)" % (rec.id, start, end, end-start)
-            assert end-start >=min_gap
+            #print "%s %i - %i (%i)" % (rec.id, start, end, end-start)
+            #assert end-start >=min_gap
             n_regions.append((rec.id, start, end))
             start = end
 else:
