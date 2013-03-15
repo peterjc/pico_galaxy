@@ -10,11 +10,6 @@ This is version 0.0.1 of the script.
 import re
 import sys
 
-#See http://bugs.python.org/issue13169
-try:
-    from sre_constants import MAXREPEAT
-except ImportError:
-    MAXREPEAT = 65535
 
 def stop_err(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
@@ -45,21 +40,6 @@ try:
     min_gap = int(min_gap)
 except ValueError:
     min_gap = None
-if min_gap and min_gap < MAXREPEAT:
-    print "Identifying NNNN regions of at least %i" % min_gap
-    re_gap = re.compile("N{%i,}" % min_gap)
-    refs = []
-    n_regions = []
-    for rec in SeqIO.parse(ref_file, "fasta"):
-        refs.append((rec.id, len(rec)))
-        seq = str(rec.seq).upper()
-        length = len(seq)
-        for match in re_gap.finditer(seq):
-            #assert match.end() - match.start() >= min_gap, \
-            #    "%i - %i = %i < %i" % (match.end(), match.start(), match.end() - match.start(), min_gap)
-            #assert 0 <= match.start() < match.end() < length, \
-            #    "0 <= %i < %i < %i " % (match.start(), match.end(), length)
-            n_regions.append((rec.id, match.start(), match.end()))
 if min_gap:
     print "Identifying long NNNN regions of at least %i" % min_gap
     big_gap = "N" * min_gap
