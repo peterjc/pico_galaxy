@@ -45,30 +45,50 @@ try:
     min_gap = int(min_gap)
 except ValueError:
     min_gap = None
-if min_gap:
+if min_gap and min_gap < MAXREPEAT:
     print "Identifying NNNN regions of at least %i" % min_gap
-    if min_gap < MAXREPEAT:
-        re_gap = re.compile("N{%i,}" % min_gap)
-    elif min_gap < MAXREPEAT * 10:
-        #TODO - Make this exact
-        re_gap = re.compile("%s{%i,}" % ("N" * 10, min_gap // 10))
-    elif min_gap < MAXREPEAT * 100:
-        #TODO - Make this exact
-        re_gap = re.compile("%s{%i,}" % ("N" * 100, min_gap // 100))
-    else:
-        stop_err("Gap size too high %r" % min_gap)
+    re_gap = re.compile("N{%i,}" % min_gap)
     refs = []
     n_regions = []
-    #TODO - Speed this up (original script would cache this):
     for rec in SeqIO.parse(ref_file, "fasta"):
         refs.append((rec.id, len(rec)))
-        #Look for gaps
         seq = str(rec.seq).upper()
         length = len(seq)
         for match in re_gap.finditer(seq):
-            assert match.end() - match.start() >= min_gap, match
-            assert 0 <= match.start() < match.end() < length, match
+            assert match.end() - match.start() >= min_gap, \
+                "%i - %i = %i < %i" % (match.end(), match.start(), match.end() - match.start(), min_gap)
+            assert 0 <= match.start() < match.end() < length, \
+                "0 <= %i < %i < %i " % (match.start(), match.end(), length)
             n_regions.append((rec.id, match.start(), match.end()))
+elif min_gap:
+    #stop_err("Gap size too high %r" % min_gap)
+    print "Identifying long NNNN regions of at least %i" % min_gap
+    big_gap = "N" * min_gap
+    re_not_gap = re.compile("[^N]")
+    refs = []
+    n_regions = []
+    for rec in SeqIO.parse(ref_file, "fasta"):
+        refs.append((rec.id, len(rec)))
+        seq = str(rec.seq).upper()
+        length = len(seq)
+        start = 0
+        while True:
+            start = seq.find(big_gap)
+            if start == -1:
+                break
+            start = match.start()
+            match = re_gap_end.search(seq, start)
+            if not match:
+                end = length
+                print "%s %i - end (%i)" % (rec.id, start, end-start)
+                assert end-start >= min_gap
+                n_regions.append((rec.id, start, end))
+                break
+            end = match.start()
+            print "%s %i - %i (%i)" % (rec.id, start, end, end-start)
+            assert end-start >=min_gap
+            n_regions.append((rec.id, start, end))
+            start = end
 else:
     refs = [(rec.id, len(rec)) for rec in SeqIO.parse(ref_file, "fasta")]
     n_regions = []
