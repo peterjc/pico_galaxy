@@ -7,7 +7,7 @@ See accompanying text file for licence details (MIT/BSD style).
 
 This is version 0.0.1 of the script.
 """
-
+import re
 import sys
 
 def stop_err(msg, error_level=1):
@@ -41,6 +41,7 @@ except ValueError:
     min_gap = None
 if min_gap:
     print "Identifying NNNN regions of at least %i" % min_gap
+    re_gap = re.compile("N{%i,}" % min_gap)
     refs = []
     n_regions = []
     #TODO - Speed this up (original script would cache this):
@@ -48,19 +49,8 @@ if min_gap:
         refs.append((rec.id, len(rec)))
         #Look for gaps
         seq = str(rec.seq).upper()
-        length = len(seq)
-        answer = []
-        index = 0
-        gap = "N" * min_gap
-        while True:
-            i = seq.find(gap, index)
-            if i == -1: break
-            start = i
-            end = i + min_gap
-            while end <= length and seq[end+1] == "N":
-                end += 1
-                n_regions.append((rec.id, start, end))
-        index = end
+        for match in re_gap.finditer(seq):
+            n_regions.append((rec.id, match.start, match.end))
 else:
     refs = [(rec.id, len(rec)) for rec in SeqIO.parse(ref_file, "fasta")]
     n_regions = []
