@@ -52,11 +52,10 @@ if min_gap:
         length = len(seq)
         start = 0
         while True:
-            start = seq.find(big_gap)
+            start = seq.find(big_gap, start)
             if start == -1:
                 break
-            start = match.start()
-            match = re_gap_end.search(seq, start)
+            match = re_not_gap.search(seq, start)
             if not match:
                 end = length
                 #print "%s %i - end (%i)" % (rec.id, start, end-start)
