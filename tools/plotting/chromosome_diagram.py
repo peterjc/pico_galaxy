@@ -10,6 +10,12 @@ This is version 0.0.1 of the script.
 import re
 import sys
 
+#See http://bugs.python.org/issue13169
+try:
+    from sre_constants import MAXREPEAT
+except ImportError:
+    MAXREPEAT = 65535
+
 def stop_err(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
     sys.stderr.write("%s\n" % msg)
@@ -41,7 +47,16 @@ except ValueError:
     min_gap = None
 if min_gap:
     print "Identifying NNNN regions of at least %i" % min_gap
-    re_gap = re.compile("N{%i,}" % min_gap)
+    if min_gap < MAXREPEAT:
+        re_gap = re.compile("N{%i,}" % min_gap)
+    elif min_gap < MAXREPEAT * 10:
+        #TODO - Make this exact
+        re_gap = re.compile("%s{%i,}" % ("N" * 10, min_gap // 10))
+    elif min_gap < MAXREPEAT * 100:
+        #TODO - Make this exact
+        re_gap = re.compile("%s{%i,}" % ("N" * 100, min_gap // 100))
+    else:
+        stop_err("Gap size too high %r" % min_gap)
     refs = []
     n_regions = []
     #TODO - Speed this up (original script would cache this):
@@ -49,8 +64,11 @@ if min_gap:
         refs.append((rec.id, len(rec)))
         #Look for gaps
         seq = str(rec.seq).upper()
+        length = len(seq)
         for match in re_gap.finditer(seq):
-            n_regions.append((rec.id, match.start, match.end))
+            assert match.end() - match.start() >= min_gap, match
+            assert 0 <= match.start() < match.end() < length, match
+            n_regions.append((rec.id, match.start(), match.end()))
 else:
     refs = [(rec.id, len(rec)) for rec in SeqIO.parse(ref_file, "fasta")]
     n_regions = []
@@ -85,7 +103,8 @@ for name, length in refs:
     #Add the N-regions
     for n, start, end in n_regions:
         if n==name:
-            features.append((start, end, None, "", colors.black, colors.lightgrey))
+            #Want to use a border and fill color, not available in releases yet:
+            features.append((start, end, None, "", colors.lightgrey))
     
     cur_chromosome = BasicChromosome.Chromosome(caption)
     #Set the length, adding and extra percentage for the tolomeres & spacers:
