@@ -22,7 +22,7 @@ chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$main_lab" $PDF
   </inputs>
   <outputs>
     <!-- Can or should we offer SVG, PS, PNG, etc as well? -->
-    <data format="pdf" name="PDF" />
+    <data format="pdf" name="PDF" label="${main_lab}" />
   </outputs>
   <requirements>
     <requirement type="python-module">reportlab</requirement>
