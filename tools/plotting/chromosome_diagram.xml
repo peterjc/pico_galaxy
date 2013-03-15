@@ -1,0 +1,70 @@
+<tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.1">
+  <description>from simple locus annotation</description>
+  <command interpreter="python">
+chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$main_lab" $PDF
+  </command>
+  <stdio>
+    <!-- Anything other than zero is an error -->
+    <exit_code range="1:" />
+    <exit_code range=":-1" />
+  </stdio>
+  <inputs>
+    <param name="main_lab" size="30" type="text" value="Chromosome Diagram" label="Plot title"/>
+    <param name="reference_file" type="data" format="fasta" label="Chromsomes or psuedo molecules (FASTA file)"/>
+    <param name="gaps" optional="true" type="integer" min="0" value=""
+	   label="Show NNNN regions of at least this length"
+	   help="If you don't want to show such gaps, leave blank or use zero"/>
+    <param name="tab_file" type="data" format="tabular" label="Annotation to draw"/>
+    <!-- Option to draw NNNN gaps? -->
+    <!-- Size settings? Default scale per base pair & horizontal space per reference? -->
+    <!-- Alignment settings? Top, middle, bottom should be easy -->
+    <!-- Default colour? -->
+  </inputs>
+  <outputs>
+    <!-- Can or should we offer SVG, PS, PNG, etc as well? -->
+    <data format="pdf" name="PDF" />
+  </outputs>
+  <requirements>
+    <requirement type="python-module">reportlab</requirement>
+    <requirement type="python-module">Bio</requirement>
+  </requirements>
+  <tests>
+    <!-- Will Galaxy's tests work nicely with a PDF output file?
+	 Will it vary too much depending on ReportLab verion etc? -->
+  </tests>
+  <help>
+
+**What it does**
+
+Draws a 'Chromosome Diagram', with one vertical bar for each sequence
+in the reference FASTA file which is expected to contain one sequence
+per chromosome or psuedo molecule, annotated with the positions and
+captions given in the tabular annotation file.
+
+The annotation file should contain one line per feature to show. The
+features will be added in the order given, so if there are overlaps
+the later features will be on top of the earlier features.
+
+====== =================================================================
+Column Description
+------ -----------------------------------------------------------------
+     1 Chromsome or psuedo molecule identifier (matching the FASTA file)
+     2 Position (single co-ordindate, assumes all features are small)
+     3 Strand
+     4 Caption
+     5 Color
+====== =================================================================
+
+
+**Citations**
+
+This tool uses the Biopython and ReportLab libraries to draw the diagram.
+If you use this tool in scientific work leading to a publication, please
+cite the Biopython application note:
+
+Cock et al 2009. Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+  </help>
+</tool>
