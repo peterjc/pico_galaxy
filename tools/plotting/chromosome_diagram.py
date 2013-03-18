@@ -100,7 +100,9 @@ for line in handle:
     if line.startswith("#"):
         continue
     parts = line.rstrip("\n").split("\t")
-    chr_name = parts[chr_col]
+    chr_name = parts[chr_col].strip()
+    if chr_name not in lengths:
+        stop_err("Unrecognised reference/chromosome %r in this line:\n%r" % (parts[chr_col], line))
     start = int(parts[start_col])
     if end_col is None:
         end = start
