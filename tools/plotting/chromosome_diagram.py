@@ -91,7 +91,12 @@ max_length = max(lengths.values())
 print "%i chromosomes/references, max length %i" % (len(refs), max_length)
 
 def load_color(txt):
-    return colors.red
+    txt = txt.strip()
+    if txt in ["", ".", "?"]:
+        return colors.black
+    else:
+        #Let Biopython deal with it...
+        return txt
 
 #Load the features
 all_features = []
