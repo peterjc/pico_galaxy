@@ -101,8 +101,8 @@ for name, length in refs:
     #Add the N-regions
     for n, start, end in n_regions:
         if n==name:
-            #Want to use a border and fill color, not available in releases yet:
-            features.append((start, end, None, "", colors.lightgrey))
+            #Want to use a border and fill color, needs Biopython 1.62
+            features.append((start, end, None, "", colors.black, colors.lightgrey))
     
     cur_chromosome = BasicChromosome.Chromosome(caption)
     #Set the length, adding and extra percentage for the tolomeres & spacers:
