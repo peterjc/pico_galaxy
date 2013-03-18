@@ -29,10 +29,26 @@ try:
 except:
     stop_err("Requires the Python library ReportLab (for graphical output)")
 
-if len(sys.argv) != 6:
-    stop_err("Expected 5 arguments, not %i" % (len(sys.argv)-1))
+if len(sys.argv) != 13:
+    stop_err("Expected 12 arguments, not %i" % (len(sys.argv)-1))
 
-ref_file, min_gap, tab_file, main_caption, pdf_file = sys.argv[1:]
+ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, \
+caption_col, color_col, fill_col, main_caption, pdf_file = sys.argv[1:]
+
+def load_column(txt):
+    try:
+        return int(txt) - 1
+    except ValueError:
+        if txt.strip():
+            stop_err("Bad column argument %r." % txt)
+        return None
+chr_col = load_column(chr_col)
+start_col = load_column(start_col)
+end_col = load_column(end_col)
+strand_col = load_column(strand_col)
+caption_col = load_column(caption_col)
+color_col = load_column(color_col)
+fill_col = load_column(fill_col)
 
 #Load reference identifiers and their lengths
 #TODO - Support reference aliases? e.g. map 'Chr12' -> '12' or 'XII'
@@ -74,6 +90,45 @@ lengths = dict(refs)
 max_length = max(lengths.values())
 print "%i chromosomes/references, max length %i" % (len(refs), max_length)
 
+def load_color(txt):
+    return colors.red
+
+#Load the features
+all_features = []
+handle = open(tab_file)
+for line in handle:
+    if line.startswith("#"):
+        continue
+    parts = line.rstrip("\n").split("\t")
+    chr_name = parts[chr_col]
+    start = int(parts[start_col])
+    if end_col is None:
+        end = start
+    else:
+        end = int(parts[end_col])
+    if strand_col is None:
+        strand = None
+    elif parts[strand_col].lower() in ["+1", "1", "+", "f", "forward"]:
+        strand = +1
+    elif parts[strand_col].lower() in ["-1", "-", "r", "reverse"]:
+        strand = -1
+    elif parts[strand_col].lower() in ["0", "?", ".", "none", "both"]:
+        strand = None
+    else:
+        stop_err("Bad strand value %r in this line:\n%r" % (parts[strand_col], line))
+    caption = parts[caption_col]
+    if color_col is None:
+        color = colors.black
+    else:
+        color = load_color(parts[color_col])
+    if fill_col is None:
+        fill_color = color
+    else:
+        fill_color = load_color(parts[fill_col])
+    all_features.append((chr_name, start, end, strand, caption, color, fill_color))
+handle.close()
+print "%i features loaded" % len(all_features)
+
 chr_diagram = BasicChromosome.Organism()
 #Automate the size and fonts - or make the user pick?
 if True:
@@ -103,6 +158,9 @@ for name, length in refs:
         if n==name:
             #Want to use a border and fill color, needs Biopython 1.62
             features.append((start, end, None, "", colors.black, colors.lightgrey))
+    for n, start, end, strand, caption, color, fill_color in all_features:
+        if n==name:
+            features.append((start, end, strand, caption, color, fill_color))
     
     cur_chromosome = BasicChromosome.Chromosome(caption)
     #Set the length, adding and extra percentage for the tolomeres & spacers:

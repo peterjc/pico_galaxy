@@ -1,7 +1,7 @@
 <tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.1">
   <description>from simple locus annotation</description>
   <command interpreter="python">
-chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$main_lab" $PDF
+chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_col" "$end_col" "$strand_col" "$caption_col" "$color_col" "$fill_col" "$main_lab" $PDF
   </command>
   <stdio>
     <!-- Anything other than zero is an error -->
@@ -14,7 +14,14 @@ chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$main_lab" $PDF
     <param name="gaps" optional="true" type="integer" min="0" value=""
 	   label="Show NNNN regions of at least this length"
 	   help="If you don't want to show such gaps, leave blank or use zero"/>
-    <param name="tab_file" type="data" format="tabular" label="Annotation to draw"/>
+    <param name="tab_file" type="data" format="tabular" label="Annotation source"/>
+    <param name="caption_col" type="data_column" data_ref="tab_file" label="Feature caption"/>
+    <param name="chr_col" type="data_column" data_ref="tab_file" label="Column for feature chromosome/reference"/>
+    <param name="start_col" type="data_column" data_ref="tab_file" label="Column for feature start co-ordinate"/>
+    <param name="end_col" type="data_column" data_ref="tab_file" label="Column for feature end co-ordinate" optional="true"/>
+    <param name="strand_col" type="data_column" data_ref="tab_file" label="Column for feature strand" optional="true"/>
+    <param name="color_col" type="data_column" data_ref="tab_file" label="Column for feature color" optional="true"/>
+    <param name="fill_col" type="data_column" data_ref="tab_file" label="Column for feature fill color" optional="true"/>
     <!-- Option to draw NNNN gaps? -->
     <!-- Size settings? Default scale per base pair & horizontal space per reference? -->
     <!-- Alignment settings? Top, middle, bottom should be easy -->
@@ -44,16 +51,6 @@ captions given in the tabular annotation file.
 The annotation file should contain one line per feature to show. The
 features will be added in the order given, so if there are overlaps
 the later features will be on top of the earlier features.
-
-====== =================================================================
-Column Description
------- -----------------------------------------------------------------
-     1 Chromsome or psuedo molecule identifier (matching the FASTA file)
-     2 Position (single co-ordindate, assumes all features are small)
-     3 Strand
-     4 Caption
-     5 Color
-====== =================================================================
 
 
 **Citations**
