@@ -24,7 +24,7 @@ except ImportError:
 
 try:
     from reportlab.graphics.shapes import Drawing, String, Line, Rect, Wedge
-    from reportlab.lib.units import cm
+    from reportlab.lib.units import cm, inch
     from reportlab.lib import colors
 except:
     stop_err("Requires the Python library ReportLab (for graphical output)")
@@ -140,7 +140,12 @@ print "%i features loaded" % len(all_features)
 chr_diagram = BasicChromosome.Organism()
 #Automate the size and fonts - or make the user pick?
 if True:
-    chr_diagram.page_size = (29.7*cm, 21*cm)
+    #There is a hard-coded half inch left and right margin.
+    #These widths get 12 chr on a landscape A4 page nicely.
+    if len(refs) > 1:
+        chr_diagram.page_size = (len(refs)*2.2633333*cm + inch, 21*cm)
+    else:
+        chr_diagram.page_size = (10*cm, 21*cm)
     chr_percentage = 0.15
     label_percentage = 0.135
     label_size = 5
