@@ -180,7 +180,6 @@ def draw_page(selected_refs):
     chr_diagram._legend_height = 0
 
     for name, length in selected_refs:
-        caption = name
         features = []
 
         #Add the N-regions
@@ -192,7 +191,7 @@ def draw_page(selected_refs):
             if n==name:
                 features.append((start, end, strand, caption, color, fill_color))
     
-        cur_chromosome = BasicChromosome.Chromosome(caption)
+        cur_chromosome = BasicChromosome.Chromosome(name)
         cur_chromosome.scale_num = max_length + 2 * telomere_length
         cur_chromosome.chr_percent = chr_percentage
         cur_chromosome.label_sep_percent = label_percentage
@@ -232,7 +231,7 @@ def draw_page(selected_refs):
         #This chromosome is done
         chr_diagram.add(cur_chromosome)
 
-        print name, caption, length, len(features)
+        print name, length, len(features)
     return chr_diagram
 
 
