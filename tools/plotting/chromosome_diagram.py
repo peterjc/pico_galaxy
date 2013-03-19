@@ -116,14 +116,16 @@ for line in handle:
         end = int(parts[end_col])
     if strand_col is None:
         strand = None
-    elif parts[strand_col].lower() in ["+1", "1", "+", "f", "forward"]:
-        strand = +1
-    elif parts[strand_col].lower() in ["-1", "-", "r", "reverse"]:
-        strand = -1
-    elif parts[strand_col].lower() in ["0", "?", ".", "none", "both"]:
-        strand = None
     else:
-        stop_err("Bad strand value %r in this line:\n%r" % (parts[strand_col], line))
+        strand = parts[strand_col].strip().lower()
+        if strand in ["+1", "1", "+", "f", "forward"]:
+            strand = +1
+        elif strand in ["-1", "-", "r", "reverse"]:
+            strand = -1
+        elif strand in ["0", "?", ".", "none", "both", ""]:
+            strand = None
+        else:
+            stop_err("Bad strand value %r in this line:\n%r" % (parts[strand_col], line))
     caption = parts[caption_col]
     if color_col is None:
         color = colors.black
