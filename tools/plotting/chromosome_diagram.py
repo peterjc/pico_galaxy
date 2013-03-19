@@ -29,7 +29,7 @@ try:
 except:
     stop_err("Requires the Python library ReportLab (for graphical output)")
 
-if len(sys.argv) != 13:
+if len(sys.argv)-1 != 12:
     stop_err("Expected 12 arguments, not %i" % (len(sys.argv)-1))
 
 ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, \
@@ -49,6 +49,7 @@ strand_col = load_column(strand_col)
 caption_col = load_column(caption_col)
 color_col = load_column(color_col)
 fill_col = load_column(fill_col)
+
 
 #Load reference identifiers and their lengths
 #TODO - Support reference aliases? e.g. map 'Chr12' -> '12' or 'XII'
@@ -170,8 +171,7 @@ for name, length in refs:
             features.append((start, end, strand, caption, color, fill_color))
     
     cur_chromosome = BasicChromosome.Chromosome(caption)
-    #Set the length, adding and extra percentage for the tolomeres & spacers:
-    cur_chromosome.scale_num = max_length * 1.02
+    cur_chromosome.scale_num = max_length + 2 * telomere_length
     cur_chromosome.chr_percent = chr_percentage
     cur_chromosome.label_sep_percent = label_percentage
     cur_chromosome.label_size = label_size
