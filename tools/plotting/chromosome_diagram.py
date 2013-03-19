@@ -23,17 +23,19 @@ except ImportError:
     stop_err("Requires the Python library Biopython")
 
 try:
+    from reportlab.pdfgen import canvas
+    from reportlab.graphics import renderPDF
     from reportlab.graphics.shapes import Drawing, String, Line, Rect, Wedge
     from reportlab.lib.units import cm, inch
     from reportlab.lib import colors
 except:
     stop_err("Requires the Python library ReportLab (for graphical output)")
 
-if len(sys.argv)-1 != 12:
-    stop_err("Expected 12 arguments, not %i" % (len(sys.argv)-1))
+if len(sys.argv)-1 != 13:
+    stop_err("Expected 13 arguments, not %i" % (len(sys.argv)-1))
 
 ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, \
-caption_col, color_col, fill_col, main_caption, pdf_file = sys.argv[1:]
+caption_col, color_col, fill_col, main_caption, per_page, pdf_file = sys.argv[1:]
 
 def load_column(txt):
     try:
@@ -50,6 +52,12 @@ caption_col = load_column(caption_col)
 color_col = load_column(color_col)
 fill_col = load_column(fill_col)
 
+try:
+    per_page = int(per_page.strip())
+except ValueError:
+    if per_page.string():
+        stop_err("Bad per-page argument %r" % per_page)
+    per_page = 0 #All on one page
 
 #Load reference identifiers and their lengths
 #TODO - Support reference aliases? e.g. map 'Chr12' -> '12' or 'XII'
@@ -89,6 +97,8 @@ else:
     n_regions = []
 lengths = dict(refs)
 max_length = max(lengths.values())
+if not per_page:
+    per_page = len(refs)
 print "%i chromosomes/references, max length %i" % (len(refs), max_length)
 
 def load_color(txt):
@@ -101,7 +111,7 @@ def load_color(txt):
     elif len(txt) == 7 and txt[0]=="#" and set("0123456789ABCDEF").issuperset(txt[1:].upper()):
         #Hex color with # prefix
         return colors.HexColor(txt)
-    elif len(txt) == 8 and txt[0]=="#" and and txt[-1]=";" \
+    elif len(txt) == 8 and txt[0]=="#" and txt[-1]==";" \
     and set("0123456789ABCDEF").issuperset(txt[1:-1].upper()):
         #Hex color with # prefix and ; suffix
         return colors.HexColor(txt[:-1])
@@ -147,87 +157,98 @@ for line in handle:
         fill_color = load_color(parts[fill_col])
     all_features.append((chr_name, start, end, strand, caption, color, fill_color))
 handle.close()
+telomere_length = 0.01 * max_length
 print "%i features loaded" % len(all_features)
-
-chr_diagram = BasicChromosome.Organism()
-#Automate the size and fonts - or make the user pick?
-if True:
+if per_page == 1:
+    #Use portrait A4
+    page_size = (21*cm, 29.7*cm)
+    chr_percentage = 0.06
+    label_percentage = 0.15
+    label_size = 12
+else:
     #There is a hard-coded half inch left and right margin.
     #These widths get 12 chr on a landscape A4 page nicely.
-    if len(refs) > 1:
-        chr_diagram.page_size = (len(refs)*2.2633333*cm + inch, 21*cm)
-    else:
-        chr_diagram.page_size = (10*cm, 21*cm)
+    page_size = (per_page*2.2633333*cm + inch, 21*cm)
     chr_percentage = 0.15
     label_percentage = 0.135
     label_size = 5
-elif False:
-    chr_diagram.page_size = (30*cm, 22*cm)
-    chr_percentage = 0.11
-    label_percentage = 0.09
-    label_size = 6
-else:
-    chr_diagram.page_size = (33*cm, 24*cm)
-    chr_percentage = 0.11
-    label_percentage = 0.12
-    label_size = 6
-chr_diagram._legend_height = 0
 
-telomere_length = 0.01 * max_length
-for name, length in refs:
-    caption = name
-    features = []
 
-    #Add the N-regions
-    for n, start, end in n_regions:
-        if n==name:
-            #Want to use a border and fill color, needs Biopython 1.62
-            features.append((start, end, None, "", colors.black, colors.lightgrey))
-    for n, start, end, strand, caption, color, fill_color in all_features:
-        if n==name:
-            features.append((start, end, strand, caption, color, fill_color))
+def draw_page(selected_refs):
+    chr_diagram = BasicChromosome.Organism()
+    chr_diagram.page_size = page_size
+    chr_diagram._legend_height = 0
+
+    for name, length in selected_refs:
+        caption = name
+        features = []
+
+        #Add the N-regions
+        for n, start, end in n_regions:
+            if n==name:
+                #Want to use a border and fill color, needs Biopython 1.62
+                features.append((start, end, None, "", colors.black, colors.lightgrey))
+        for n, start, end, strand, caption, color, fill_color in all_features:
+            if n==name:
+                features.append((start, end, strand, caption, color, fill_color))
     
-    cur_chromosome = BasicChromosome.Chromosome(caption)
-    cur_chromosome.scale_num = max_length + 2 * telomere_length
-    cur_chromosome.chr_percent = chr_percentage
-    cur_chromosome.label_sep_percent = label_percentage
-    cur_chromosome.label_size = label_size
-    cur_chromosome._color_labels = True
+        cur_chromosome = BasicChromosome.Chromosome(caption)
+        cur_chromosome.scale_num = max_length + 2 * telomere_length
+        cur_chromosome.chr_percent = chr_percentage
+        cur_chromosome.label_sep_percent = label_percentage
+        cur_chromosome.label_size = label_size
+        cur_chromosome._color_labels = True
 
-    #Add an opening spacer (to center all chromosomes vertically)
-    space = BasicChromosome.SpacerSegment()
-    space.scale = (cur_chromosome.scale_num - length) * 0.5 - telomere_length
-    space.chr_percent = chr_percentage
-    cur_chromosome.add(space)
-   
-    #Add an opening telomere
-    start = BasicChromosome.TelomereSegment()
-    start.scale = telomere_length
-    start.chr_percent = chr_percentage
-    cur_chromosome.add(start)
+        #Add an opening spacer (to center all chromosomes vertically)
+        space = BasicChromosome.SpacerSegment()
+        space.scale = (cur_chromosome.scale_num - length) * 0.5 - telomere_length
+        space.chr_percent = chr_percentage
+        cur_chromosome.add(space)
 
-    #Add a body - using bp as the scale length here.
-    body = BasicChromosome.AnnotatedChromosomeSegment(length, features, colors.blue)
-    body.scale = length
-    body.chr_percent = chr_percentage
-    cur_chromosome.add(body)
+        #Add an opening telomere
+        start = BasicChromosome.TelomereSegment()
+        start.scale = telomere_length
+        start.chr_percent = chr_percentage
+        cur_chromosome.add(start)
 
-    #Add a closing telomere
-    end = BasicChromosome.TelomereSegment(inverted=True)
-    end.scale = telomere_length
-    end.chr_percent = chr_percentage
-    cur_chromosome.add(end)
+        #Add a body - using bp as the scale length here.
+        body = BasicChromosome.AnnotatedChromosomeSegment(length, features, colors.blue)
+        body.scale = length
+        body.chr_percent = chr_percentage
+        cur_chromosome.add(body)
 
-    #Add an closing spacer
-    space = BasicChromosome.SpacerSegment()
-    space.scale = (cur_chromosome.scale_num - length) * 0.5 - telomere_length
-    space.chr_percent = chr_percentage
-    cur_chromosome.add(space)
+        #Add a closing telomere
+        end = BasicChromosome.TelomereSegment(inverted=True)
+        end.scale = telomere_length
+        end.chr_percent = chr_percentage
+        cur_chromosome.add(end)
 
-    #This chromosome is done
-    chr_diagram.add(cur_chromosome)
+        #Add an closing spacer
+        space = BasicChromosome.SpacerSegment()
+        space.scale = (cur_chromosome.scale_num - length) * 0.5 - telomere_length
+        space.chr_percent = chr_percentage
+        cur_chromosome.add(space)
 
-    print name, caption, length, len(features)
+        #This chromosome is done
+        chr_diagram.add(cur_chromosome)
 
-chr_diagram.draw(pdf_file, main_caption)
+        print name, caption, length, len(features)
+    return chr_diagram
+
+
+#Open PDF
+c = canvas.Canvas(pdf_file, page_size)
+c.setTitle(main_caption)
+while refs:
+    selected = refs[:per_page]
+    refs = refs[per_page:]
+    if len(selected) > 1:
+        print "New page, %s to %s" % (selected[0][0], selected[-1][0])
+    else:
+        print "New page, %s" % (selected[0][0])
+    d = draw_page(selected).draw(None, main_caption)
+    renderPDF.draw(d, c, 0, 0)
+    c.showPage()
+#Close PDF
+c.save()
 print "Done"
