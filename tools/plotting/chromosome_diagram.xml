@@ -1,7 +1,7 @@
 <tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.1">
   <description>from simple locus annotation</description>
   <command interpreter="python">
-chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_col" "$end_col" "$strand_col" "$caption_col" "$color_col" "$fill_col" "$main_lab" $PDF
+chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_col" "$end_col" "$strand_col" "$caption_col" "$color_col" "$fill_col" "$main_lab" "$PDF"
   </command>
   <stdio>
     <!-- Anything other than zero is an error -->
