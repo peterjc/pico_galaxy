@@ -130,10 +130,16 @@ for line in handle:
     if chr_name not in lengths:
         stop_err("Unrecognised reference/chromosome %r in this line:\n%r" % (parts[chr_col], line))
     start = int(parts[start_col])
+    if not (0 <= start <= lengths[chr_name]):
+        stop_err("Start %i outside length %i of reference %s in this line:\n%r" \
+                 % (start, lengths[chr_name], chr_name, line))
     if end_col is None:
         end = start
     else:
         end = int(parts[end_col])
+    if not (0 <= end <= lengths[chr_name]):
+        stop_err("End %i outside length %i of reference %s in this line:\n%r" \
+                 % (end, lengths[chr_name], chr_name, line))
     if strand_col is None:
         strand = None
     else:
