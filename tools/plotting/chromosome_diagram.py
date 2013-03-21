@@ -101,10 +101,10 @@ if not per_page:
     per_page = len(refs)
 print "%i chromosomes/references, max length %i" % (len(refs), max_length)
 
-def load_color(txt):
+def load_color(txt, default=None):
     txt = txt.strip()
-    if txt in ["", ".", "?"]:
-        return colors.black
+    if txt.lower() in ["", ".", "?", "none"]:
+        return default
     elif len(txt) == 6 and set("0123456789ABCDEF").issuperset(txt.upper()):
         #Hex color
         return colors.HexColor("#%s" % txt)
@@ -156,11 +156,11 @@ for line in handle:
     if color_col is None:
         color = colors.black
     else:
-        color = load_color(parts[color_col])
+        color = load_color(parts[color_col], colors.black)
     if fill_col is None:
         fill_color = color
     else:
-        fill_color = load_color(parts[fill_col])
+        fill_color = load_color(parts[fill_col], color)
     all_features.append((chr_name, start, end, strand, caption, color, fill_color))
 handle.close()
 telomere_length = 0.01 * max_length
