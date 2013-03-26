@@ -39,6 +39,13 @@
   <requirements>
     <requirement type="binary">psort</requirement>
   </requirements>
+  <tests>
+    <test>
+      <param name="sequence" value="k12_ten_proteins.fasta" ftype="fasta"/>
+      <param name="long" value="terse"/>
+      <output name="outfile" file="k12_ten_proteins.psortb_p_terse.tabular" ftype="tabular"/>
+    </test>
+  </tests>
   <help>
 
 **What it does**
