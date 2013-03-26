@@ -4,7 +4,7 @@
   <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
   <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
   <version_command interpreter="python">psortb.py --version</version_command>
-  <command interpreter="python">psortb.py "\$NSLOTS" $type "$cutoff" "$divergent" "$sequence" "$outfile"</command>
+  <command interpreter="python">psortb.py "\$NSLOTS" "$type" "$long" "$cutoff" "$divergent" "$sequence" "$outfile"</command>
   <stdio>
     <!-- Anything other than zero is an error -->
     <exit_code range="1:" />
@@ -13,11 +13,18 @@
   <inputs>
     <param format="fasta" name="sequence" type="data"
 	   label="Input sequences for which to predict localisation (protein FASTA format)" />
-    <param name="type" type="select">
-      <label>Organism type (N.B. all sequences in the above file must be of the same type) </label>
+    <param name="type" type="select"
+	   label="Organism type (N.B. all sequences in the above file must be of the same type)" >
       <option value="-p">Gram positive bacteria</option>
       <option value="-n">Gram negative bacteria</option>
       <option value="-a">Archaea</option>
+    </param>
+    <param name="long" type="select" label="Output type">
+      <option value="terse">Short (terse, tabular with 3 columns)</option>
+      <!-- The normal output is text, not tabular - worth offering?
+      <option value="normal">Normal</option>
+      -->
+      <option value="long">Long (verbose, tabular with about 30 columns, depending on organism type)</option>
     </param>
     <param name="cutoff" size="10" type="float" optional="true" value=""
 	   label="Sets a cutoff value for reported results (e.g. 7.5)"
@@ -38,6 +45,17 @@
 
 This calls the command line PSORTb v3.0 tool for prediction of prokaryotic
 localization sites. The input dataset needs to be protein FASTA sequences.
+The default output is a simple tabular file with three columns, one row
+per query sequnece:
+
+====== ===================================
+Column Description
+------ -----------------------------------
+     1 Sequence identifier and description
+     2 Localisation, e.g. Cytoplasmic
+     3 Score
+====== ===================================
+
 
 **References**
 
