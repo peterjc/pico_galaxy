@@ -11,21 +11,20 @@
     <exit_code range=":-1" />
   </stdio>
   <inputs>
-    <param format="fasta" name="sequence" type="data">
-      <label>Input sequences for which to predict localisation (protein FASTA format)</label>
-    </param>
+    <param format="fasta" name="sequence" type="data"
+	   label="Input sequences for which to predict localisation (protein FASTA format)" />
     <param name="type" type="select">
       <label>Organism type (N.B. all sequences in the above file must be of the same type) </label>
       <option value="-p">Gram positive bacteria</option>
       <option value="-n">Gram negative bacteria</option>
       <option value="-a">Archaea</option>
     </param>
-    <param name="cutoff" size="10" type="float" value="7.5">
-      <label>Sets a cutoff value for reported results</label>
-    </param>
-    <param name="divergent" size="10" type="float" value="4.5">
-      <label>Sets a cutoff value for the multiple localization flag</label>
-    </param>
+    <param name="cutoff" size="10" type="float" optional="true" value=""
+	   label="Sets a cutoff value for reported results (e.g. 7.5)"
+	   help="Leave blank or use zero for no cutoff." />
+    <param name="divergent" size="10" type="float" optional="true" value=""
+	   label="Sets a cutoff value for the multiple localization flag (e.g. 4.5)"
+	   help="Leave blank or use zero for no cutoff." />
   </inputs>
   <outputs>
     <data format="tabular" name="outfile" />

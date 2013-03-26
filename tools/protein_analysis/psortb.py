@@ -13,6 +13,8 @@ Call this:
 
 psort $threads $type $cutoff $divergent $sequence $outfile
 
+If ommitting -c or -d options, set $cutoff and $divergent to zero or blank.
+
 Note that this is somewhat redundant with job-splitting available in Galaxy
 itself (see the SignalP XML file for settings), but both can be applied.
 
@@ -36,7 +38,15 @@ if len(sys.argv) != 7:
 num_threads = thread_count(sys.argv[1], default=4)
 org_type = sys.argv[2]
 cutoff = sys.argv[3]
+if cutoff.strip() and float(cutoff.strip()) != 0.0:
+    cutoff = "-c %s" % cutoff
+else:
+    cutoff = ""
 divergent = sys.argv[4]
+if divergent.strip() and float(divergent.strip()) != 0.0:
+    divergent = "-d %s" % divergent
+else:
+    divergent = ""
 fasta_file = sys.argv[5]
 tabular_file = sys.argv[6]
 
@@ -105,7 +115,7 @@ def clean_tabular(raw_handle, out_handle):
 #split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
 temp_files = [f+".out" for f in fasta_files]
-jobs = ["psort %s -c %s -d %s -o long %s > %s" % (org_type, cutoff, divergent, fasta, temp)
+jobs = ["psort %s %s %s -o long %s > %s" % (org_type, cutoff, divergent, fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
 
 def clean_up(file_list):
