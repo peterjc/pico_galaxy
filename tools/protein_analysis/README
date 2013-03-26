@@ -100,11 +100,14 @@ empty_signalp3.tabular
 
 ./run_functional_tests.sh -id tmhmm2
 ./run_functional_tests.sh -id signalp3
+./run_functional_tests.sh -id rxlr_motifs
 
 Alternatively, this should work (assuming you left the name and id as shown in
 the XML file tool_conf.xml.sample):
 
 ./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
+
+To check the section ID expected, use ./run_functional_tests.sh -list
 
 6. Restart Galaxy and check the new tools are shown and work.
 
