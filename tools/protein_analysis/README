@@ -7,10 +7,12 @@ line protein analysis tools:
 
 * WoLF PSORT v0.2 from http://wolfpsort.org/
 
+* PSORTb v3 from http://www.psort.org/downloads/index.html
+
 Also, the RXLR motif tool uses SignalP 3.0 and HMMER 2.3.2 internally.
 
 To use these Galaxy wrappers you must first install the command line tools.
-At the time of writing they are all free for academic use.
+At the time of writing they are all free for academic use, or open source.
 
 These wrappers are copyright 2010-2012 by Peter Cock, James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
@@ -60,6 +62,9 @@ signalp3.py (Python wrapper script)
 promoter2.xml (Galaxy tool definition)
 promoter2.py (Python wrapper script)
 
+psortb.xml (Galaxy tool definition)
+psortb.py (Python wrapper script)
+
 wolf_psort.xml (Galaxy tool definition)
 wolf_psort.py (Python wrapper script)
 
@@ -77,6 +82,7 @@ README (this file)
   <section name="Protein sequence analysis" id="protein_analysis">
     <tool file="protein_analysis/tmhmm2.xml" />
     <tool file="protein_analysis/signalp3.xml" />
+    <tool file="protein_analysis/psortb.xml" />
     <tool file="protein_analysis/wolf_psort.xml" />
     <tool file="protein_analysis/rxlr_motifs.xml" />
   </section>
@@ -95,11 +101,14 @@ four_human_proteins_tmhmm2.tabular
 empty.fasta
 empty_tmhmm2.tabular
 empty_signalp3.tabular
+k12_ten_proteins.fasta
+k12_ten_proteins_psortb_p_terse.tabular
 
 5. Run the Galaxy functional tests for these new wrappers with:
 
 ./run_functional_tests.sh -id tmhmm2
 ./run_functional_tests.sh -id signalp3
+./run_functional_tests.sh -id Psortb
 ./run_functional_tests.sh -id rxlr_motifs
 
 Alternatively, this should work (assuming you left the name and id as shown in
@@ -132,6 +141,8 @@ v0.1.0 - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
 v0.1.1 - Fixed an error in the header of the tabular output from Promoter
 v0.1.2 - Use the new <stdio> settings in the XML wrappers to catch errors
        - Use SGE style $NSLOTS for thread count (otherwise default to 4)
+v0.2.0 - Added PSORTb wrapper to the suite, based on earlier work
+         contributed by Konrad Paszkiewicz.
 
 
 Developers
@@ -146,11 +157,11 @@ http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf ~/tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/promoter2.xml tools/protein_analysis/promoter2.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py  test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular
+tar -czf ~/tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/promoter2.xml tools/protein_analysis/promoter2.py tools/protein_analysis/psortb.xml tools/protein_analysis/psortb.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular test-data/k12_ten_proteins.fasta test-data/k12_ten_proteins_psortb_p_terse.tabular
 
 Check this worked:
 
-$ tar -tzf tmhmm_signalp_etc.tar.gz
+$ tar -tzf ~/tmhmm_signalp_etc.tar.gz
 tools/protein_analysis/LICENSE
 tools/protein_analysis/README
 tools/protein_analysis/suite_config.xml
@@ -161,6 +172,8 @@ tools/protein_analysis/tmhmm2.xml
 tools/protein_analysis/tmhmm2.py
 tools/protein_analysis/promoter2.xml
 tools/protein_analysis/promoter2.py
+tools/protein_analysis/psortb.xml
+tools/protein_analysis/psortb.py
 tools/protein_analysis/wolf_psort.xml
 tools/protein_analysis/wolf_psort.py
 tools/protein_analysis/rxlr_motifs.xml
@@ -171,3 +184,5 @@ test-data/four_human_proteins.tmhmm2.tabular
 test-data/empty.fasta
 test-data/empty_tmhmm2.tabular
 test-data/empty_signalp3.tabular
+test-data/k12_ten_proteins.fasta
+test-data/k12_ten_proteins_psortb_p_terse.tabular
