@@ -48,13 +48,13 @@ localization sites. The input dataset needs to be protein FASTA sequences.
 The default output is a simple tabular file with three columns, one row
 per query sequnece:
 
-====== ===================================
+====== ==============================
 Column Description
------- -----------------------------------
-     1 Sequence identifier and description
+------ ------------------------------
+     1 Sequence identifier
      2 Localisation, e.g. Cytoplasmic
      3 Score
-====== ===================================
+====== ==============================
 
 
 **References**
