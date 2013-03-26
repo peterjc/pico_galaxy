@@ -43,10 +43,10 @@
 
 **What it does**
 
-This calls the command line PSORTb v3.0 tool for prediction of prokaryotic
+This calls the command line tool PSORTb v3.0 for prediction of prokaryotic
 localization sites. The input dataset needs to be protein FASTA sequences.
 The default output is a simple tabular file with three columns, one row
-per query sequnece:
+per query sequence:
 
 ====== ==============================
 Column Description
@@ -55,6 +55,11 @@ Column Description
      2 Localisation, e.g. Cytoplasmic
      3 Score
 ====== ==============================
+
+The long output is also tabular with one row per query sequence, but has
+lots more columns (a different set for each supported organism type). In
+both cases, a simple header line is included (starting with a hash, #,
+so that Galaxy treats it as a comment) giving the column names.
 
 
 **References**
