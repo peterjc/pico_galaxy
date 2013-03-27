@@ -141,6 +141,7 @@ v0.1.0 - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
 v0.1.1 - Fixed an error in the header of the tabular output from Promoter
 v0.1.2 - Use the new <stdio> settings in the XML wrappers to catch errors
        - Use SGE style $NSLOTS for thread count (otherwise default to 4)
+v0.1.3 - Added missing file whisson_et_al_rxlr_eer_cropped.hmm to Tool Shed
 v0.2.0 - Added PSORTb wrapper to the suite, based on earlier work
          contributed by Konrad Paszkiewicz.
 
@@ -157,7 +158,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf ~/tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/promoter2.xml tools/protein_analysis/promoter2.py tools/protein_analysis/psortb.xml tools/protein_analysis/psortb.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular test-data/k12_ten_proteins.fasta test-data/k12_ten_proteins_psortb_p_terse.tabular
+tar -czf ~/tmhmm_signalp_etc.tar.gz tools/protein_analysis/LICENSE tools/protein_analysis/README tools/protein_analysis/suite_config.xml tools/protein_analysis/seq_analysis_utils.py tools/protein_analysis/signalp3.xml tools/protein_analysis/signalp3.py tools/protein_analysis/tmhmm2.xml tools/protein_analysis/tmhmm2.py tools/protein_analysis/promoter2.xml tools/protein_analysis/promoter2.py tools/protein_analysis/psortb.xml tools/protein_analysis/psortb.py tools/protein_analysis/wolf_psort.xml tools/protein_analysis/wolf_psort.py tools/protein_analysis/rxlr_motifs.xml tools/protein_analysis/rxlr_motifs.py tools/protein_analysis/whisson_et_al_rxlr_eer_cropped.hmm test-data/four_human_proteins.* test-data/empty.fasta test-data/empty_tmhmm2.tabular test-data/empty_signalp3.tabular test-data/k12_ten_proteins.fasta test-data/k12_ten_proteins_psortb_p_terse.tabular
 
 Check this worked:
 
@@ -178,6 +179,7 @@ tools/protein_analysis/wolf_psort.xml
 tools/protein_analysis/wolf_psort.py
 tools/protein_analysis/rxlr_motifs.xml
 tools/protein_analysis/rxrl_motifs.py
+tools/protein_analysis/whisson_et_al_rxlr_eer_cropped.hmm
 test-data/four_human_proteins.fasta
 test-data/four_human_proteins.signalp3.tabular
 test-data/four_human_proteins.tmhmm2.tabular
