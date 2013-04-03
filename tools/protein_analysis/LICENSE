@@ -1,8 +1,10 @@
-Copyright (c) 2010-2011 Peter Cock, The James Hutton Institute
-(formerly SCRI, Scottish Crop Research Institute), UK.
+These wrappers are copyright 2010-2013 by Peter Cock, James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+Contributions/revisions copyright 2011 Konrad Paszkiewicz. All rights reserved.
 
-License for TMHMM 2.0, SignalP 3.0, and WoLF PSORT  wrappers for Galaxy
-(note that tools themselves are copyright and licensed separately).
+License for TMHMM 2.0, SignalP 3.0, WoLF PSORT and PSORTb wrappers for
+Galaxy (note that tools themselves are copyright and licensed separately)
+and the RXLR motif tool for Galaxy.
 
 Permission to use, copy, modify, and distribute this software and its
 documentation with or without modifications and for any purpose and
