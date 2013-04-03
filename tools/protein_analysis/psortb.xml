@@ -41,6 +41,11 @@
   </requirements>
   <tests>
     <test>
+      <param name="sequence" value="empty.fasta" ftype="fasta"/>
+      <param name="long" value="terse"/>
+      <output name="outfile" file="empty_psortb_terse.tabular" ftype="tabular"/>
+    </test>
+    <test>
       <param name="sequence" value="k12_ten_proteins.fasta" ftype="fasta"/>
       <param name="long" value="terse"/>
       <output name="outfile" file="k12_ten_proteins_psortb_p_terse.tabular" ftype="tabular"/>
