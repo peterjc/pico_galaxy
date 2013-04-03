@@ -156,9 +156,10 @@ del jobs
 
 out_handle = open(tabular_file, "w")
 out_handle.write("#%s\n" % "\t".join(header))
+count = 0
 for temp in temp_files:
     data_handle = open(temp)
-    count = clean_tabular(data_handle, out_handle)
+    count += clean_tabular(data_handle, out_handle)
     data_handle.close()
     if not count:
         clean_up(fasta_files + temp_files)
