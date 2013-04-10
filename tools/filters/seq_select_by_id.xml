@@ -1,5 +1,6 @@
-<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.3">
+<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.4">
 	<description>from a tabular file</description>
+	<version_command interpreter="python">seq_select_by_id.py --version</version_command>
 	<command interpreter="python">
 seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_file
 	</command>
