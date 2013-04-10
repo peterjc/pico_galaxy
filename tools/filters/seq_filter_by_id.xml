@@ -1,5 +1,6 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.3">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.4">
 	<description>from a tabular file</description>
+	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
 	<command interpreter="python">
 seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
 #if $output_choice_cond.output_choice=="both"
