@@ -35,6 +35,7 @@ History
 =======
 
 v0.0.1 - Initial version, combining three separate scripts for each file format.
+v0.0.4 - Record script version when run from Galaxy.
 
 
 Developers

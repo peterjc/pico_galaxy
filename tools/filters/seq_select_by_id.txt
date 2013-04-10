@@ -36,6 +36,8 @@ History
 
 v0.0.1 - Initial version.
 v0.0.3 - Ignore blank lines in input
+v0.0.4 - Record script version when run from Galaxy.
+
 
 Developers
 ==========
