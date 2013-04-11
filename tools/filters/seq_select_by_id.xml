@@ -23,6 +23,10 @@ seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_f
 		</data>
 	</outputs>
 	<tests>
+        	<param name="input_file" value="test-data/k12_ten_proteins.fasta" ftype="fasta" />
+		<param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
+		<param name="column" value="1" />
+		<output name="output_file" file="test-data/k12_hypothetical.fasta" ftype="fasta" />
 	</tests>
 	<requirements>
 		<requirement type="python-module">Bio</requirement>
