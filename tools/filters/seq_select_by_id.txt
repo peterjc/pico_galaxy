@@ -35,8 +35,9 @@ History
 =======
 
 v0.0.1 - Initial version.
-v0.0.3 - Ignore blank lines in input
+v0.0.3 - Ignore blank lines in input.
 v0.0.4 - Record script version when run from Galaxy.
+       - Basic unit test included.
 
 
 Developers
@@ -48,7 +49,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf seq_select_by_id.tar.gz tools/filters/seq_select_by_id.*
+$ tar -czf seq_select_by_id.tar.gz tools/filters/seq_select_by_id.* test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
 
 Check this worked:
 
@@ -56,6 +57,9 @@ $ tar -tzf seq_select_by_id.tar.gz
 filter/seq_select_by_id.py
 filter/seq_select_by_id.txt
 filter/seq_select_by_id.xml
+test-data/k12_ten_proteins.fasta
+test-data/k12_hypothetical.fasta
+test-data/k12_hypothetical.tabular
 
 
 Licence (MIT/BSD style)
