@@ -28,7 +28,8 @@ tool. One suggested location is in the filters section. Simply add the line:
 
 <tool file="filters/sff_filter_by_id.xml" />
 
-You will also need to install Biopython 1.54 or later. That's it.
+You will also need to install Biopython 1.54 or later (1.61 or later recommended).
+That's it.
 
 
 History
@@ -36,6 +37,7 @@ History
 
 v0.0.1 - Initial version, combining three separate scripts for each file format.
 v0.0.4 - Record script version when run from Galaxy.
+       - Rewrote the FASTA code using Biopython, now wraps lines on output.
        - Basic unit test included.
 
 

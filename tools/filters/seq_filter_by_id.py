@@ -29,7 +29,7 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.3 of the script, use -v or --version to get the version.
+This is version 0.0.4 of the script, use -v or --version to get the version.
 """
 import sys
 
@@ -38,18 +38,20 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.3"
+    print "v0.0.4"
     sys.exit(0)
 
 #Parse Command Line
 try:
     tabular_file, cols_arg, in_file, seq_format, out_positive_file, out_negative_file = sys.argv[1:]
 except ValueError:
-    stop_err("Expected six arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    stop_err("Expected six arguments (tab file, columns, in seq, seq format, out pos, out neg), got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 try:
     columns = [int(arg)-1 for arg in cols_arg.split(",")]
 except ValueError:
     stop_err("Expected list of columns (comma separated integers), got %s" % cols_arg)
+if min(columns) < 0:
+    stop_err("Expect one-based column numbers (not zero-based counting), got %s" % cols_arg)
 
 if out_positive_file == "-" and out_negative_file == "-":
     stop_err("Neither output file requested")
@@ -78,12 +80,94 @@ else:
 handle.close()
 
 
+
+try:
+    from Bio.SeqIO.FastaIO import SimpleFastaParser
+except ImportError:
+    #TODO - Treat this as an error?
+    #stop_err("FASTA filtering requires Biopython 1.61 or later")
+    #Copy and paste job...
+    def SimpleFastaParser(handle):
+        while True:
+            line = handle.readline()
+            if line == "":
+                return # Premature end of file, or just empty?
+            if line[0] == ">":
+                break
+
+        while True:
+            if line[0] != ">":
+                raise ValueError(
+                    "Records in Fasta files should start with '>' character")
+            title = line[1:].rstrip()
+            lines = []
+            line = handle.readline()
+            while True:
+                if not line:
+                    break
+                if line[0] == ">":
+                    break
+                lines.append(line.rstrip())
+                line = handle.readline()
+            yield title, "".join(lines).replace(" ", "").replace("\r", "")
+            if not line:
+                return # StopIteration
+
+
+def fasta_filter(in_file, pos_file, neg_file, wanted):
+    """FASTA filter producing 60 character line wrapped outout."""
+    pos_count = neg_count = 0
+    #Galaxy now requires Python 2.5+ so can use with statements,
+    with open(in_file) as in_handle:
+        #Doing the if statement outside the loop for speed
+        #(with the downside of three very similar loops).
+        if pos_file != "-" and neg_file != "-":
+            print "Generating two FASTA files"
+            with open(pos_file, "w") as pos_handle:
+                with open(neg_file, "w") as neg_handle:
+                    for title, seq in SimpleFastaParser(in_handle):
+                        if title.split(None, 1)[0] in wanted:
+                            pos_handle.write(">%s\n" % title)
+                            for i in range(0, len(seq), 60):
+                                pos_handle.write(seq[i:i+60] + "\n")
+                            pos_count += 1
+                        else:
+                            neg_count += 1
+                            neg_handle.write(">%s\n" % title)
+                            for i in range(0, len(seq), 60):
+                                neg_handle.write(seq[i:i+60] + "\n")
+        elif pos_file != "-":
+            print "Generating matching FASTA file"
+            with open(pos_file, "w") as pos_handle:
+                for title, seq in SimpleFastaParser(in_handle):
+                    if title.split(None, 1)[0] in wanted:
+                        pos_handle.write(">%s\n" % title)
+                        for i in range(0, len(seq), 60):
+                            pos_handle.write(seq[i:i+60] + "\n")
+                        pos_count += 1
+                    else:
+                        neg_count += 1
+        else:
+            print "Generating non-matching FASTA file"
+            assert neg_file != "-"
+            with open(neg_file, "w") as neg_handle:
+                for title, seq in SimpleFastaParser(in_handle):
+                    if title.split(None, 1)[0] in wanted:
+                        pos_count += 1
+                    else:
+                        neg_count += 1
+                        neg_handle.write(">%s\n" % title)
+                        for i in range(0, len(seq), 60):
+                            neg_handle.write(seq[i:i+60] + "\n")
+    return pos_count, neg_count
+
+
 if seq_format.lower()=="sff":
     #Now write filtered SFF file based on IDs from BLAST file
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        stop_err("Requires Biopython 1.54 or later")
+        stop_err("SFF filtering requires Biopython 1.54 or later")
 
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
@@ -97,6 +181,7 @@ if seq_format.lower()=="sff":
         manifest = None
     #This makes two passes though the SFF file with isn't so efficient,
     #but this makes the code simple.
+    pos_count = neg_count = 0
     if out_positive_file != "-":
         out_handle = open(out_positive_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
@@ -113,45 +198,11 @@ if seq_format.lower()=="sff":
     in_handle.close()
     #At the time of writing, Galaxy doesn't show SFF file read counts,
     #so it is useful to put them in stdout and thus shown in job info.
-    if out_positive_file != "-" and out_negative_file != "-":
-        print "%i with and %i without specified IDs" % (pos_count, neg_count)
-    elif out_positive_file != "-":
-        print "%i with specified IDs" % pos_count
-    elif out_negative_file != "-":
-        print "%i without specified IDs" % neg_count
+    print "%i with and %i without specified IDs" % (pos_count, neg_count)
 elif seq_format.lower()=="fasta":
     #Write filtered FASTA file based on IDs from tabular file
-    from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
-    reader = fastaReader(open(in_file, "rU"))
-    if out_positive_file != "-" and out_negative_file != "-":
-        print "Generating two FASTA files"
-        positive_writer = fastaWriter(open(out_positive_file, "w"))
-        negative_writer = fastaWriter(open(out_negative_file, "w"))
-        for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifier.
-            if record.identifier and record.identifier.split()[0][1:] in ids:
-                positive_writer.write(record)
-            else:
-                negative_writer.write(record)
-        positive_writer.close()
-        negative_writer.close()
-    elif out_positive_file != "-":
-        print "Generating matching FASTA file"
-        positive_writer = fastaWriter(open(out_positive_file, "w"))
-        for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifier.
-            if record.identifier and record.identifier.split()[0][1:] in ids:
-                positive_writer.write(record)
-        positive_writer.close()
-    elif out_negative_file != "-":
-        print "Generating non-matching FASTA file"
-        negative_writer = fastaWriter(open(out_negative_file, "w"))
-        for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifier.
-            if not record.identifier or record.identifier.split()[0][1:] not in ids:
-                negative_writer.write(record)
-        negative_writer.close()
-    reader.close()
+    pos_count, neg_count = fasta_filter(in_file, out_positive_file, out_negative_file, ids)
+    print "%i with and %i without specified IDs" % (pos_count, neg_count)
 elif seq_format.lower().startswith("fastq"):
     #Write filtered FASTQ file based on IDs from tabular file
     from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
