@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by ID
 =========================================================
 
-This tool is copyright 2010-2011 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
