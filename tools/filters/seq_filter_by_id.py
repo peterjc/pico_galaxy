@@ -80,38 +80,32 @@ else:
 handle.close()
 
 
+def crude_fasta_iterator(handle):
+    """Yields tuples, record ID and the full record as a string."""
+    while True:
+        line = handle.readline()
+        if line == "":
+            return # Premature end of file, or just empty?
+        if line[0] == ">":
+            break
 
-try:
-    from Bio.SeqIO.FastaIO import SimpleFastaParser
-except ImportError:
-    #TODO - Treat this as an error?
-    #stop_err("FASTA filtering requires Biopython 1.61 or later")
-    #Copy and paste job...
-    def SimpleFastaParser(handle):
+    while True:
+        if line[0] != ">":
+            raise ValueError(
+                "Records in Fasta files should start with '>' character")
+        id = line[1:].split(None, 1)[0]
+        lines = [line]
+        line = handle.readline()
         while True:
-            line = handle.readline()
-            if line == "":
-                return # Premature end of file, or just empty?
+            if not line:
+                break
             if line[0] == ">":
                 break
-
-        while True:
-            if line[0] != ">":
-                raise ValueError(
-                    "Records in Fasta files should start with '>' character")
-            title = line[1:].rstrip()
-            lines = []
+            lines.append(line)
             line = handle.readline()
-            while True:
-                if not line:
-                    break
-                if line[0] == ">":
-                    break
-                lines.append(line.rstrip())
-                line = handle.readline()
-            yield title, "".join(lines).replace(" ", "").replace("\r", "")
-            if not line:
-                return # StopIteration
+        yield id, "".join(lines)
+        if not line:
+            return # StopIteration
 
 
 def fasta_filter(in_file, pos_file, neg_file, wanted):
@@ -125,25 +119,19 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             print "Generating two FASTA files"
             with open(pos_file, "w") as pos_handle:
                 with open(neg_file, "w") as neg_handle:
-                    for title, seq in SimpleFastaParser(in_handle):
-                        if title.split(None, 1)[0] in wanted:
-                            pos_handle.write(">%s\n" % title)
-                            for i in range(0, len(seq), 60):
-                                pos_handle.write(seq[i:i+60] + "\n")
+                    for identifier, record in crude_fasta_iterator(in_handle):
+                        if identifier in wanted:
+                            pos_handle.write(record)
                             pos_count += 1
                         else:
+                            neg_handle.write(record)
                             neg_count += 1
-                            neg_handle.write(">%s\n" % title)
-                            for i in range(0, len(seq), 60):
-                                neg_handle.write(seq[i:i+60] + "\n")
         elif pos_file != "-":
             print "Generating matching FASTA file"
             with open(pos_file, "w") as pos_handle:
-                for title, seq in SimpleFastaParser(in_handle):
-                    if title.split(None, 1)[0] in wanted:
-                        pos_handle.write(">%s\n" % title)
-                        for i in range(0, len(seq), 60):
-                            pos_handle.write(seq[i:i+60] + "\n")
+                for identifier, record in crude_fasta_iterator(in_handle):
+                    if identifier in wanted:
+                        pos_handle.write(record)
                         pos_count += 1
                     else:
                         neg_count += 1
@@ -151,14 +139,12 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             print "Generating non-matching FASTA file"
             assert neg_file != "-"
             with open(neg_file, "w") as neg_handle:
-                for title, seq in SimpleFastaParser(in_handle):
-                    if title.split(None, 1)[0] in wanted:
+                for identifier, record in crude_fasta_iterator(in_handle):
+                    if identifier in wanted:
                         pos_count += 1
                     else:
+                        neg_handle.write(record)
                         neg_count += 1
-                        neg_handle.write(">%s\n" % title)
-                        for i in range(0, len(seq), 60):
-                            neg_handle.write(seq[i:i+60] + "\n")
     return pos_count, neg_count
 
 
