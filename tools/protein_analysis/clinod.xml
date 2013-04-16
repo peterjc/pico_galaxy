@@ -1,4 +1,4 @@
-<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.3">
+<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.4">
     <description>Find nucleolar localization signals (NoLSs) in protein sequences</description>
     <command>
       java -jar /opt/clinod/clinod-1.3.jar -in="$fasta_file" -out="$tabular_file" -t=8 -f=MEDIUM_TAB -nonols -clean_sequence
@@ -19,8 +19,14 @@
     <requirements>
         <requirement type="binary">java</requirement>
     </requirements>
+    <tests>
+        <test>
+            <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />
+	    <output name="tabular_file" file="four_human_proteins.clinod-1.3.tabular" ftype="tabular" />
+        </test>
+    </tests>
     <help>
-    
+
 **What it does**
 
 This calls the command line version of the NoD tool from the Barton Group for
