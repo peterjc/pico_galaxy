@@ -28,6 +28,7 @@
     </outputs>
     <requirements>
         <requirement type="binary">NLStradamus</requirement>
+        <requirement type="package" version="1.8">NLStradamus</requirement>
     </requirements>
     <tests>
         <test>
