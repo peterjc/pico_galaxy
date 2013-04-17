@@ -1,7 +1,7 @@
 Galaxy wrapper for Command line NoD predictor (v1.3)
 ====================================================
 
-This wrapper is copyright 2011 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
