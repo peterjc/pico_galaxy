@@ -45,6 +45,12 @@ $fasta_file $tabular_file</command>
             <param name="type" value="selective" />
             <output name="tabular_file" file="four_human_proteins.effectiveT3.tabular" ftype="tabular" />
         </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta" />
+            <param name="module" value="plant" />
+            <param name="type" value="sensistive" />
+            <output name="tabular_file" file="empty_effectiveT3.tabular" ftype="tabular" />
+        </test>
     </tests>
     <help>
     

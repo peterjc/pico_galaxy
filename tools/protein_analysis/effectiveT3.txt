@@ -72,7 +72,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf effectiveT3.tar.gz tools/protein_analysis/effectiveT3.xml tools/protein_analysis/effectiveT3.py tools/protein_analysis/effectiveT3.txt tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular
+$ tar -czf effectiveT3.tar.gz tools/protein_analysis/effectiveT3.xml tools/protein_analysis/effectiveT3.py tools/protein_analysis/effectiveT3.txt tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
 
 
 Check this worked:
@@ -84,6 +84,8 @@ tools/protein_analysis/effectiveT3.txt
 tool-data/effectiveT3.loc.sample
 test-data/four_human_proteins.fasta
 test-data/four_human_proteins.effectiveT3.tabular
+test-data/empty.fasta
+test-data/empty_effectiveT3.tabular
 
 
 Licence (MIT/BSD style)
