@@ -30,6 +30,20 @@
         <requirement type="binary">NLStradamus</requirement>
     </requirements>
     <tests>
+        <test>
+            <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />
+            <param name="model" value="1" />
+            <param name="algorithm" value="1" />
+	    <param name="threshold" value="0.6" />
+            <output name="tabular_file" file="four_human_proteins.nlstradamus.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta" />
+            <param name="model" value="2" />
+            <param name="algorithm" value="2" />
+            <param name="threshold" value="0.125"/>
+            <output name="tabular_file" file="empty_nlstradamus.tabular" ftype="tabular" />
+        </test>
     </tests>
     <help>
     
