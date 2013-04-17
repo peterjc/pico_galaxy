@@ -23,8 +23,15 @@ Version 1.8 fixed a C++ compilation issue on modern compilers, but is otherwise
 unchanged.
 
 
-Installation
-============
+Automated Installation
+======================
+
+This should be straightforward, Galaxy should automatically download and install
+the C++ implementation of NLStradamus v1.8, and run the unit tests.
+
+
+Manual Installation
+===================
 This wrapper expects the compiled C++ binary "NLStradamus" to be on the system
 PATH.
 
@@ -57,6 +64,8 @@ v0.0.4 - Adding DOI link to reference
 v0.0.5 - Assume non-zero return codes are errors
 v0.0.6 - Show output help text using a table
        - Added unit tests
+v0.0.7 - Automatic installation of the NLStradamus binary when installed
+         via the Galaxy Tool Shed
 
 
 Developers
@@ -68,13 +77,14 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf nlstradmus.tar.gz tools/protein_analysis/nlstradamus.xml tools/protein_analysis/nlstradamus.txt test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
+$ tar -czf nlstradmus.tar.gz tools/nlstradamus/nlstradamus.xml tools/nlstradamus/nlstradamus.txt tools/nlstradamus/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
 
 Check this worked:
 
 $ tar -tzf nlstradmus.tar.gz
-tools/protein_analysis/nlstradamus.xml
-tools/protein_analysis/nlstradamus.txt
+tools/nlstradamus/nlstradamus.xml
+tools/nlstradamus/nlstradamus.txt
+tools/nlstradamus/tool_dependencies.xml
 test-data/four_human_proteins.fasta
 test-data/four_human_proteins.nlstradamus.tabular
 test-data/empty.fasta
@@ -103,4 +113,4 @@ OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 
 NOTE: This is the licence for the Galaxy Wrapper only. NLStradamus
-is available and licenced separately.
+is is available and licenced separately (under the GPL v3 or later).
