@@ -1,4 +1,4 @@
-<tool id="effectiveT3" name="Effective T3" version="0.0.9">
+<tool id="effectiveT3" name="Effective T3" version="0.0.10">
     <description>Find bacterial effectors in protein sequences</description>
     <command interpreter="python">
 effectiveT3.py $module.fields.path
@@ -38,6 +38,14 @@ $fasta_file $tabular_file</command>
     <outputs>
         <data name="tabular_file" format="tabular" label="$module.value_label results" />
     </outputs>
+    <tests>
+        <test>
+            <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />
+            <param name="module" value="animal" />
+            <param name="type" value="selective" />
+            <output name="tabular_file" file="four_human_proteins.effectiveT3.tabular" ftype="tabular" />
+        </test>
+    </tests>
     <help>
     
 **What it does**
