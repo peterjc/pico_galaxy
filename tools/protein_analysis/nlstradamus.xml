@@ -1,4 +1,4 @@
-<tool id="nlstradamus" name="NLStradamus" version="0.0.5">
+<tool id="nlstradamus" name="NLStradamus" version="0.0.6">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command>
       NLStradamus -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
@@ -41,12 +41,16 @@ signals (NLSs), which uses a Hidden Markov Model (HMM).
 The input is a FASTA file of protein sequences, and the output is tabular
 with six columns (one row per NLS):
 
- * Sequence identifier
- * Algorithm (posterior or Viterbi)
- * Score (probability between threshold and 1 for posterior algorithm)
- * Start
- * End
- * Sequence of NLS
+====== ===================================================================
+Column Description
+------ -------------------------------------------------------------------
+    c1 Sequence identifier
+    c2 Algorithm (posterior or Viterbi)
+    c3 Score (probability between threshold and 1 for posterior algorithm)
+    c4 Start
+    c5 End
+    c6 Sequence of NLS
+====== ===================================================================
 
 -----
 
