@@ -51,6 +51,8 @@ it next to them. Just add the line:
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
 and move/copy the test-data files under Galaxy's test-data folder.
 
+$ ./run_functional_tests.sh -id effectiveT3
+
 That's it.
 
 
