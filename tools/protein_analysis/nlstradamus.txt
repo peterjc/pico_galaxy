@@ -1,7 +1,7 @@
-Galaxy wrapper for NLStradamus v1.7 (C++ version)
-=================================================
+Galaxy wrapper for NLStradamus v1.7 or v1.8 (C++ version)
+=========================================================
 
-This wrapper is copyright 2011 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -18,6 +18,9 @@ http://www.moseslab.csb.utoronto.ca/NLStradamus
 Early versions of NLStradamus did not have a native tabular output format, this
 was added in version 1.7. Additionally a fast C++ implementation was added at
 this point (early versions of NLStradamus came as a perl script only).
+
+Version 1.8 fixed a C++ compilation issue on modern compilers, but is otherwise
+unchanged.
 
 
 Installation
