@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="NLStradamus" version="1.8">
+        <install version="0.0.1">
+            <actions>
+                <action type="download_by_url">http://www.moseslab.csb.utoronto.ca/NLStradamus/NLStradamus/NLStradamus.1.8.tar.gz</action>
+		<!-- Although v1.7 used a subfolder in the tar-ball, v1.8 did not -->
+                <action type="shell_command">g++ NLStradamus.cpp -o NLStradamus -O3</action>
+                <action type="move_file"><source>NLStradamus</source><destination>$INSTALL_DIR/</destination></action>
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme>
+This downloads NLStradamus v1.8 from this folder,
+http://www.moseslab.csb.utoronto.ca/NLStradamus/NLStradamus/
+
+The C++ tool is compiled as described in the README_C.txt file, using g++, and included in the $PATH.
+
+The older slower Perl implementation is not installed.
+        </readme>
+    </package>
+</tool_dependency>
+
