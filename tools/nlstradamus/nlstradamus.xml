@@ -1,4 +1,4 @@
-<tool id="nlstradamus" name="NLStradamus" version="0.0.6">
+<tool id="nlstradamus" name="NLStradamus" version="0.0.7">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command>
       NLStradamus -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
