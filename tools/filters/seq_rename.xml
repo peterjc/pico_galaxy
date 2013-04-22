@@ -4,6 +4,11 @@
 	<command interpreter="python">
 seq_rename.py $input_tabular $old_column $new_column $input_file $input_file.ext $output_file
 	</command>
+	<stdio>
+		<!-- Anything other than zero is an error -->
+		<exit_code range="1:" />
+		<exit_code range=":-1" />
+	</stdio>
 	<inputs>
 		<param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file" help="FASTA, QUAL, FASTQ, or SFF format." />
 		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>

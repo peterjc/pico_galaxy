@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.4">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.5">
 	<description>from a tabular file</description>
 	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
 	<command interpreter="python">
@@ -11,6 +11,11 @@ seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
  - $output_neg
 #end if
 	</command>
+        <stdio>
+                <!-- Anything other than zero is an error -->
+                <exit_code range="1:" />
+                <exit_code range=":-1" />
+        </stdio>
 	<inputs>
 		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" help="FASTA, FASTQ, or SFF format." />
 		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>

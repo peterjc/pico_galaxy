@@ -38,6 +38,7 @@ v0.0.1 - Initial version, combining three separate scripts for each file format.
 v0.0.4 - Record script version when run from Galaxy.
        - Faster FASTA code which preserves the original line wrapping.
        - Basic unit test included.
+v0.0.5 - Check for errors using Python script's return code.
 
 
 Developers
