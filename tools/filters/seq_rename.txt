@@ -15,6 +15,9 @@ See also the sister tools to filter or select sequence files according to IDs
 from column(s) of tabular file.
 
 
+Manual Installation
+===================
+
 There are just two files to install:
 
 * seq_rename.py (the Python script)
@@ -35,6 +38,7 @@ History
 =======
 
 v0.0.1 - Initial version.
+v0.0.2 - Record script version when run from Galaxy.
 
 
 Developers
