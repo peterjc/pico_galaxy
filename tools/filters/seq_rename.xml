@@ -24,6 +24,13 @@ seq_rename.py $input_tabular $old_column $new_column $input_file $input_file.ext
 		</data>
 	</outputs>
 	<tests>
+		<test>
+			<param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
+			<param name="input_tabular" value="four_human_proteins.rename.tabular" ftype="tabular" />
+			<param name="old_column" value="1" />
+			<param name="new_column" value="2" />
+			<output name="output_file" file="four_human_proteins.rename.fasta" ftype="fasta" />
+		</test>
 	</tests>
 	<requirements>
 		<requirement type="python-module">Bio</requirement>
