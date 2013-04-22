@@ -19,6 +19,7 @@ These wrappers are copyright 2010-2013 by Peter Cock, James Hutton Institute
 Contributions/revisions copyright 2011 Konrad Paszkiewicz. All rights reserved.
 See the included LICENCE file for details (an MIT style open source licence).
 
+
 Requirements
 ============
 
@@ -44,6 +45,7 @@ First install those command line tools you wish to use the wrappers for:
 
 Verify each of the tools is installed and working from the command line
 (when logged in as the Galaxy user if appropriate).
+
 
 Manual Installation
 ===================
@@ -93,17 +95,8 @@ README (this file)
 
    Leave out the lines for any tools you do not wish to use in Galaxy.
 
-4. Copy/move the following test files (from these archive) to Galaxy
-   subfolder test-data:
-
-four_human_proteins.fasta
-four_human_proteins_signalp3.tabular
-four_human_proteins_tmhmm2.tabular
-empty.fasta
-empty_tmhmm2.tabular
-empty_signalp3.tabular
-k12_ten_proteins.fasta
-k12_ten_proteins_psortb_p_terse.tabular
+4. Copy/move the test-data files (from this archive) to Galaxy's
+   subfolder test-data.
 
 5. Run the Galaxy functional tests for these new wrappers with:
 
