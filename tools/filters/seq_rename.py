@@ -37,7 +37,7 @@ def stop_err(msg, err=1):
 try:
     tabular_file, old_col_arg, new_col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    stop_err("Expected six arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    stop_err("Expected six arguments (tabular file, old col, new col, input file, format, output file), got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
 try:
     if old_col_arg.startswith("c"):
