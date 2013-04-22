@@ -47,10 +47,13 @@ tar -rf tmhmm_and_signalp.tar test-data/empty_tmhmm2.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty_signalp3.tabular
 tar -rf tmhmm_and_signalp.tar test-data/k12_ten_proteins.fasta
 tar -rf tmhmm_and_signalp.tar test-data/k12_ten_proteins_psortb_p_terse.tabular
+tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007.fasta
+tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007.tabular
+tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007_sp3.tabular
 
 #Zip the tar file
 gzip tmhmm_and_signalp.tar
 
 #Check the output
-echo "Expect a tar-ball 25 files, have:"
+echo "Expect a tar-ball 28 files, have:"
 tar -tzf tmhmm_and_signalp.tar.gz | wc -l
