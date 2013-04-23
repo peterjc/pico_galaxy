@@ -21,10 +21,14 @@ This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.2 of the script.
+This is version 0.0.3 of the script.
 """
 import sys
 import re
+
+if "-v" in sys.argv or "--version" in sys.argv:
+    print "v0.0.3"
+    sys.exit(0)
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
