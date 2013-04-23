@@ -52,14 +52,17 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf seq_rename.tar.gz tools/filters/seq_rename.*
+$ tar -czf seq_rename.tar.gz tools/filters/seq_rename.* test-data/four_human_proteins.fasta test-data/four_human_proteins.rename.tabular test-data/four_human_proteins.rename.fasta
 
 Check this worked:
 
 $ tar -tzf seq_rename.tar.gz
-filter/seq_rename.py
-filter/seq_rename.txt
-filter/seq_rename.xml
+tools/filter/seq_rename.py
+tools/filter/seq_rename.txt
+tools/filter/seq_rename.xml
+test-data/four_human_proteins.fasta
+test-data/four_human_proteins.rename.tabular
+test-data/four_human_proteins.rename.fasta
 
 
 Licence (MIT/BSD style)
