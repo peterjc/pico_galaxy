@@ -5,8 +5,8 @@
             <actions>
                 <!-- Sourceforge doesn't offer nice clean download URLs which is a shame -->      
                 <action type="download_by_url">http://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_3.4.1.1_prod_linux-gnu_x86_64_static.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fmira-assembler%2Ffiles%2FMIRA%2Fstable%2F&ts=1366819213&use_mirror=kent</action>
-		<!-- Currently we only need the main binary itself, mira -->
-                <action type="move_file"><source>bin/mira</source><destination>$INSTALL_DIR/</destination></action>
+                <!-- Currently we only need the main binary itself, mira -->
+                <action type="move_file"><source>mira_3.4.1.1_prod_linux-gnu_x86_64_static/bin/mira</source><destination>$INSTALL_DIR/</destination></action>
                 <action type="set_environment">
                     <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR</environment_variable>
                 </action>
