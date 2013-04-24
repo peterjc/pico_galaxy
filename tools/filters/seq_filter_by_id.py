@@ -29,7 +29,7 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.4 of the script, use -v or --version to get the version.
+This is version 0.0.6 of the script, use -v or --version to get the version.
 """
 import sys
 
@@ -38,7 +38,7 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.4"
+    print "v0.0.6"
     sys.exit(0)
 
 #Parse Command Line
@@ -89,11 +89,18 @@ def crude_fasta_iterator(handle):
         if line[0] == ">":
             break
 
+    no_id_warned = False
     while True:
         if line[0] != ">":
             raise ValueError(
                 "Records in Fasta files should start with '>' character")
-        id = line[1:].split(None, 1)[0]
+        try:
+            id = line[1:].split(None, 1)[0]
+        except IndexError:
+            if not no_id_warned:
+                sys.stderr.write("WARNING - Malformed FASTA entry with no identifier\n")
+                no_id_warned = True
+            id = None
         lines = [line]
         line = handle.readline()
         while True:
