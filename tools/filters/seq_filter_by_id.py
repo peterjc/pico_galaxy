@@ -29,7 +29,7 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.6 of the script, use -v or --version to get the version.
+This is version 0.0.5 of the script, use -v or --version to get the version.
 """
 import sys
 
@@ -38,7 +38,7 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.6"
+    print "v0.0.5"
     sys.exit(0)
 
 #Parse Command Line

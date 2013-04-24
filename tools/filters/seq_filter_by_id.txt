@@ -39,7 +39,7 @@ v0.0.4 - Record script version when run from Galaxy.
        - Faster FASTA code which preserves the original line wrapping.
        - Basic unit test included.
 v0.0.5 - Check for errors using Python script's return code.
-v0.0.6 - Cope with malformed FASTA entries without an identifier.
+       - Cope with malformed FASTA entries without an identifier.
 
 
 Developers

@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.6">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.5">
 	<description>from a tabular file</description>
 	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
 	<command interpreter="python">
