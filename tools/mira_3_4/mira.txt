@@ -61,6 +61,7 @@ v0.0.5 - Implement the <version_command> tag to record the wrapper
 v0.0.6 - Tell MIRA to use /tmp for temporary files
        - Tell MIRA to ignore long read names (otherwise it aborts)
 v0.0.7 - Automated installation of the 64 bit Linux MIRA binary.
+v0.0.8 - Basic unit test aded.
 
 
 Developers
@@ -72,7 +73,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.* tools/mira_3_4/tool_dependencies.xml
+$ tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.* tools/mira_3_4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
 
 Check this worked:
 
@@ -81,6 +82,8 @@ tools/mira_3_4/mira.py
 tools/mira_3_4/mira.txt
 tools/mira_3_4/mira.xml
 tools/mira_3_4/tool_dependencies.xml
+test-data/tvc_mini.fastq
+test-data/tvc_contigs.fasta
 
 
 Licence (MIT/BSD style)

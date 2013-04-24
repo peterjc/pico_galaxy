@@ -1,4 +1,4 @@
-<tool id="mira_assembler" name="Assemble with MIRA" version="0.0.6">
+<tool id="mira_assembler" name="Assemble with MIRA v3.4" version="0.0.8">
     <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
     <requirements>
         <requirement type="python-module">Bio</requirement>
@@ -139,6 +139,20 @@ COMMON_SETTINGS
         <data name="out_log" format="txt" label="MIRA log" />
     </outputs>
     <tests>
+        <test>
+            <!-- Based on the MIRA v3.4.1.1 bundled minidemo/estdemo2 which uses
+                 strain data and miraSearchESTSNPs. Here we just assemble it. --> 
+            <param name="job_method" value="denovo" />
+            <param name="job_type" value="est" />
+            <param name="job_qual" value="accurate" />
+            <param name="condBackbone.use" value="false" />
+            <param name="condSanger.use" value="true" />
+            <param name="condSanger.filename" value="tvc_mini.fastq" ftype="fastq" />
+            <param name="condRoche.use" value="false" />
+            <param name="condIllumina.use" value="false" /> 
+            <param name="condIonTorrent.use" value="false" />
+            <output name="out_fasta" file="tvc_contigs.fasta" ftype="fasta" />
+	</test>
     </tests>
     <help>
 
