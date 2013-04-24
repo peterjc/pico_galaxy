@@ -1,7 +1,12 @@
 <tool id="mira_assembler" name="Assemble with MIRA" version="0.0.6">
     <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
-	<version_command interpreter="python">mira.py -v</version_command>
-	<command interpreter="python">mira.py mira $out_fasta $out_qual $out_ace $out_caf $out_wig $out_log
+    <requirements>
+        <requirement type="python-module">Bio</requirement>
+        <requirement type="binary">mira</requirement>
+        <requirement type="package" version="3.4.1.1">MIRA</requirement>
+    </requirements>
+    <version_command interpreter="python">mira.py -v</version_command>
+    <command interpreter="python">mira.py mira $out_fasta $out_qual $out_ace $out_caf $out_wig $out_log
 ##Give the wrapper script list of output filenames, then the mira command...
 mira --job=$job_method,$job_type,$job_quality
 
@@ -52,7 +57,7 @@ COMMON_SETTINGS
 -DI:trt=/tmp
 
     </command>
-	<inputs>
+    <inputs>
         <param name="job_method" type="select" label="Assembly method" help="Mapping mode requires backbone/reference sequence(s)">
             <option value="denovo">De novo</option>
             <option value="mapping">Mapping</option>
@@ -124,22 +129,18 @@ COMMON_SETTINGS
               <param name="filename" type="data" format="fastq" label="Ion Torrent reads file" help="FASTQ format" />
            </when>
         </conditional>
-	</inputs>
-	<outputs>
-	    <data name="out_fasta" format="fasta" label="MIRA contigs (FASTA)" />
-	    <data name="out_qual" format="qual454" label="MIRA contigs (QUAL)" />
-	    <data name="out_caf" format="txt" label="MIRA contigs (CAF)" />
-	    <data name="out_ace" format="txt" label="MIRA contigs (ACE)" />
-	    <data name="out_wig" format="wig" label="MIRA coverage (Wiggle)" />
-	    <data name="out_log" format="txt" label="MIRA log" />
-	</outputs>
-	<tests>
-	</tests>
-	<requirements>
-		<requirement type="python-module">Bio</requirement>
-		<requirement type="binary">mira</requirement>
-	</requirements>
-	<help>
+    </inputs>
+    <outputs>
+        <data name="out_fasta" format="fasta" label="MIRA contigs (FASTA)" />
+        <data name="out_qual" format="qual454" label="MIRA contigs (QUAL)" />
+        <data name="out_caf" format="txt" label="MIRA contigs (CAF)" />
+        <data name="out_ace" format="txt" label="MIRA contigs (ACE)" />
+        <data name="out_wig" format="wig" label="MIRA coverage (Wiggle)" />
+        <data name="out_log" format="txt" label="MIRA log" />
+    </outputs>
+    <tests>
+    </tests>
+    <help>
 
 **What it does**
 
@@ -151,5 +152,5 @@ If you use this tool in scientific work leading to a publication, please cite:
 
 Chevreux et al. (1999) Genome Sequence Assembly Using Trace Signals and Additional Sequence Information Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
 
-	</help>
+    </help>
 </tool>
