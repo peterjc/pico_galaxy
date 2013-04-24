@@ -72,7 +72,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.*
+$ tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.* tools/mira_3_4/tool_dependencies.xml
 
 Check this worked:
 
@@ -80,6 +80,7 @@ $ tar -tzf mira_wrapper.tar.gz
 tools/mira_3_4/mira.py
 tools/mira_3_4/mira.txt
 tools/mira_3_4/mira.xml
+tools/mira_3_4/tool_dependencies.xml
 
 
 Licence (MIT/BSD style)
