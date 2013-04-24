@@ -1,24 +1,38 @@
-Galaxy tool to wrap the MIRA sequence assembly program
-======================================================
+Galaxy tool to wrap the MIRA sequence assembly program (v3.4)
+=============================================================
 
-This tool is copyright 2011 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
 This tool is a short Python script (to collect the MIRA output and move it
 to where Galaxy expects the files, and convert MIRA's TCS file into a tab
-separated file for use in Galaxy). There are just two files to install:
+separated file for use in Galaxy).
+
+
+Automated Installation
+======================
+
+This should be straightforward, Galaxy should automatically download and
+install the precompiled binary for MIRA v3.4.0 for the Galaxy wrapper,
+and run any tests.
+
+
+Manual Installation
+===================
+
+There are just two Galaxy files to install:
 
 * mira.py (the Python script)
 * mira.xml (the Galaxy tool definition)
 
-The suggested location is the tools/sr_assembly folder. You will also need to
-modify the tools_conf.xml file to tell Galaxy to offer the tool and also do
+The suggested location is a new tools/mira_3_4 folder. You will also need to
+modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
 this to tools_conf.xml.sample in order to run any tests:
 
-<tool file="sr_assembly/mira.xml" />
+<tool file="mira_3_4/mira.xml" />
 
-You will also need to install MIRA, we used version 3.4.0. See:
+You will also need to install MIRA, we used version 3.4.1.1. See:
 
 http://chevreux.org/projects_mira.html
 http://sourceforge.net/projects/mira-assembler/
@@ -46,6 +60,7 @@ v0.0.5 - Implement the <version_command> tag to record the wrapper
        - Check using MIRA 3.4 (later versions have a different API)
 v0.0.6 - Tell MIRA to use /tmp for temporary files
        - Tell MIRA to ignore long read names (otherwise it aborts)
+v0.0.7 - Automated installation of the 64 bit Linux MIRA binary.
 
 
 Developers
@@ -57,14 +72,14 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf mira_wrapper.tar.gz tools/sr_assembly/mira.*
+tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.*
 
 Check this worked:
 
 $ tar -tzf mira_wrapper.tar.gz
-tools/sr_assembly/mira.py
-tools/sr_assembly/mira.txt
-tools/sr_assembly/mira.xml
+tools/mira_3_4/mira.py
+tools/mira_3_4/mira.txt
+tools/mira_3_4/mira.xml
 
 
 Licence (MIT/BSD style)
