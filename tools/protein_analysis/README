@@ -142,6 +142,7 @@ v0.2.1 - Use a script to create the Tool Shed tar-ball (removed some stray
          files accidentally included previously via a wildcard).
 v0.2.2 - Include missing test files.
 v0.2.3 - Added unit tests for WoLF PSORT.
+v0.2.4 - Added unit tests for Promoter 2
 
 
 Developers

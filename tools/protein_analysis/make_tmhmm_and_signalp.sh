@@ -42,19 +42,24 @@ tar -rf tmhmm_and_signalp.tar tools/protein_analysis/whisson_et_al_rxlr_eer_crop
 tar -rf tmhmm_and_signalp.tar test-data/four_human_proteins.fasta
 tar -rf tmhmm_and_signalp.tar test-data/four_human_proteins.signalp3.tabular
 tar -rf tmhmm_and_signalp.tar test-data/four_human_proteins.tmhmm2.tabular
+tar -rf tmhmm_and_signalp.tar test-data/four_human_proteins.wolf_psort.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty.fasta
 tar -rf tmhmm_and_signalp.tar test-data/empty_tmhmm2.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty_signalp3.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty_psortb_terse.tabular
+tar -rf tmhmm_and_signalp.tar test-data/empty_wolf_psort.tabular
+tar -rf tmhmm_and_signalp.tar test-data/empty_promoter2.tabular
 tar -rf tmhmm_and_signalp.tar test-data/k12_ten_proteins.fasta
 tar -rf tmhmm_and_signalp.tar test-data/k12_ten_proteins_psortb_p_terse.tabular
 tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007.fasta
 tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007.tabular
 tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007_sp3.tabular
+tar -rf tmhmm_and_signalp.tar test-data/Adenovirus.fasta
+tar -rf tmhmm_and_signalp.tar test-data/Adenovirus.promoter2.tabular
 
-#Zip the tar file
+#Compress the tar file
 gzip tmhmm_and_signalp.tar
 
 #Check the output
-echo "Expect a tar-ball 29 files, have:"
+echo "Expect a tar-ball 34 files, have:"
 tar -tzf tmhmm_and_signalp.tar.gz | wc -l
