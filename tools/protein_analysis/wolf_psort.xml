@@ -1,4 +1,4 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.3">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.4">
     <description>Eukaryote protein subcellular localization prediction</description>
     <command interpreter="python">
       wolf_psort.py $organism 8 $fasta_file $tabular_file
@@ -23,6 +23,28 @@
     <requirements>
         <requirement type="binary">runWolfPsortSummary</requirement>
     </requirements>
+    <tests>
+        <test>
+            <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
+            <param name="organism" value="animal"/>
+            <output name="tabular_file" file="four_human_proteins.wolf_psort.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="organism" value="animal"/>
+            <output name="tabular_file" file="empty_wolf_psort.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="organism" value="plant"/>
+            <output name="tabular_file" file="empty_wolf_psort.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="organism" value="fungi"/>
+            <output name="tabular_file" file="empty_wolf_psort.tabular" ftype="tabular"/>
+        </test>
+    </tests>
     <help>
     
 **What it does**
