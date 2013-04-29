@@ -1,4 +1,4 @@
-<tool id="promoter2" name="Promoter 2.0" version="0.0.3">
+<tool id="promoter2" name="Promoter 2.0" version="0.0.4">
     <description>Find eukaryotic PolII promoters in DNA sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 per chunk so 4 threads each doing 500 is ideal -->
@@ -23,6 +23,16 @@
     <requirements>
         <requirement type="binary">promoter</requirement>
     </requirements>
+    <tests>
+        <test>
+            <param name="fasta_file" value="Adenovirus.fasta" ftype="fasta"/>
+            <output name="tabular_file" file="Adenovirus.promoter2.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <output name="tabular_file" file="empty_promoter2.tabular" ftype="tabular"/>
+        </test>
+    </tests>
     <help>
     
 **What it does**
