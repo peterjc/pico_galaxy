@@ -22,16 +22,21 @@ This can also be used for stripping off (and optionally filtering on) barcodes.
 Note that only the trim/clip values in the SFF file are changed, not the flow
 information of the full read sequence.
 
-This script is copyright 2011 by Peter Cock, SCRI, UK. All rights reserved.
+This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+(formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.7 of the script. Currently it uses Python's regular
+This is version 0.0.8 of the script. Currently it uses Python's regular
 expression engine for finding the primers, which for my needs is fast enough.
 """
 import sys
 import re
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
+
+if "-v" in sys.argv or "--version" in sys.argv:
+    print "v0.0.5"
+    sys.exit(0)
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg)
