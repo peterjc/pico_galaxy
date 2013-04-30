@@ -30,9 +30,9 @@ the Jar files for effectiveT3 v1.0.1 and the three models (animal, plant and std
 Manual Installation
 ===================
 
-You can change the path by editing the definition near the start of the Python
-script effectiveT3.py, but by default it expects the following files to be
-installed at these locations:
+You can change the path by setting the environment variable EFFECTIVET3 to the
+relevant folder, but by default it expects the following files to be installed
+at these locations:
 
 /opt/EffectiveT3/TTSS_GUI-1.0.1.jar
 /opt/EffectiveT3/module/TTSS_ANIMAL-1.0.1.jar
@@ -71,6 +71,7 @@ v0.0.8 - Include effectiveT3.loc.sample in Tool Shed
 v0.0.9 - Check the return code for errors in the XML
 v0.0.10- Added unit test
 v0.0.11- Automated installation
+       - Record version of Python script when called from Galaxy
 
 
 Developers

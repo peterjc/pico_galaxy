@@ -15,9 +15,14 @@ import sys
 import os
 import subprocess
 
-#You may need to edit this to match your local setup,
-effectiveT3_jar = "/opt/EffectiveT3/TTSS_GUI-1.0.1.jar"
+#The Galaxy auto-install via tool_dependencies.xml will set this environment variable
+effectiveT3_dir = os.environ.get("EFFECTIVET3", "/opt/EffectiveT3/")
+effectiveT3_jar = os.path.join(effectiveT3_dir, "TTSS_GUI-1.0.1.jar")
 
+if "-v" in sys.argv or "--version" in sys.argv:
+    #TODO - Get version of the JAR file dynamically?
+    print "Wrapper v0.0.11, TTSS_GUI-1.0.1.jar"
+    sys.exit(0)
 
 def stop_err(msg, error_level=1):
    """Print error message to stdout and quit with given error level."""
@@ -84,12 +89,11 @@ def run(cmd):
         else:
             stop_err("Return code %i from command:\n%s\n%s" % (return_code, err, stderr))
 
-if not os.path.isfile(effectiveT3_jar):
-   stop_err("Effective T3 JAR file not found: %s" % effectiveT3_jar)
-
-effectiveT3_dir = os.path.dirname(effectiveT3_jar)
 if not os.path.isdir(effectiveT3_dir):
    stop_err("Effective T3 folder not found: %s" % effectiveT3_dir)
+
+if not os.path.isfile(effectiveT3_jar):
+   stop_err("Effective T3 JAR file not found: %s" % effectiveT3_jar)
 
 effectiveT3_model = os.path.join(effectiveT3_dir, "module", model)
 if not os.path.isfile(effectiveT3_model):
