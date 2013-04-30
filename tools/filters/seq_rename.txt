@@ -15,6 +15,13 @@ See also the sister tools to filter or select sequence files according to IDs
 from column(s) of tabular file.
 
 
+Automated Installation
+======================
+
+This should be straightforward, provided you have installed Biopython 1.54 or later.
+Galaxy should automatically install the Python script, and run the unit tests.
+
+
 Manual Installation
 ===================
 

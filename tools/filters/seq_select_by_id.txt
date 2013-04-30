@@ -15,6 +15,17 @@ See also the sister tool to filter sequence files according to IDs from column(s
 of a tabular file, where the output order follows the sequence file, and any
 duplicate IDs are ignored.
 
+
+Automated Installation
+======================
+
+This should be straightforward, provided you have installed Biopython 1.54 or later.
+Galaxy should automatically install the Python script, and run the unit tests.
+
+
+Manual Installation
+===================
+
 There are just two files to install:
 
 * seq_select_by_id.py (the Python script)

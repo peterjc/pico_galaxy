@@ -12,8 +12,15 @@ include filtering based on search results from a tool like NCBI BLAST before
 assembly.
 
 
-Installation
-============
+Automated Installation
+======================
+
+This should be straightforward, provided you have installed Biopython 1.54 or later.
+Galaxy should automatically install the Python script, and run the unit tests.
+
+
+Manual Installation
+===================
 
 There are just two files to install:
 
