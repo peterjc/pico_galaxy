@@ -19,7 +19,7 @@ import sys
 import re
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
-if "-v" in sys.argv or --version" in sys.argv:
+if "-v" in sys.argv or "--version" in sys.argv:
     print "Version 0.0.6"
     sys.exit(0)
 
