@@ -10,6 +10,11 @@ fastq_paired_unpaired.py $input_fastq.extension $input_fastq
 #end if
 $output_singles
 	</command>
+	<stdio>
+		<!-- Anything other than zero is an error -->
+		<exit_code range="1:" />
+		<exit_code range=":-1" />
+	</stdio>
 	<inputs>
 		<param name="input_fastq" type="data" format="fastq" label="FASTQ file to divide into paired and unpaired reads"/>
 		<conditional name="output_choice_cond">
@@ -35,6 +40,19 @@ $output_singles
 		</data>
 	</outputs>
 	<tests>
+		<test>
+			<param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
+			<param name="output_choice" value="separate"/>
+			<output name="output_singles" file="sanger-pairs-singles.fastq" ftype="fastq"/>
+			<output name="output_forward" file="sanger-pairs-forward.fastq" ftype="fastq"/>
+			<output name="output_reverse" file="sanger-pairs-reverse.fastq" ftype="fastq"/>
+		</test>
+		<test>
+			<param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
+			<param name="output_choice" value="interleaved"/>
+			<output name="output_singles" file="sanger-pairs-singles.fastq" ftype="fastq"/>
+			<output name="output_paired" file="sanger-pairs-interleaved.fastq" ftype="fastq"/>
+		</test>
 	</tests>
 	<help>
 
