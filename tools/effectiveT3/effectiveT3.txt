@@ -1,7 +1,7 @@
 Galaxy wrapper for EffectiveT3 v1.0.1
 =====================================
 
-This wrapper is copyright 2011 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -20,8 +20,15 @@ http://dx.doi.org/10.1371/journal.ppat.1000376
 http://effectors.org/
 
 
-Installation
-============
+Automated Installation
+======================
+
+This should be straightforward, Galaxy should automatically download and install
+the Jar files for effectiveT3 v1.0.1 and the three models (animal, plant and std).
+
+
+Manual Installation
+===================
 
 You can change the path by editing the definition near the start of the Python
 script effectiveT3.py, but by default it expects the following files to be
@@ -33,7 +40,7 @@ installed at these locations:
 /opt/EffectiveT3/module/TTSS_STD-1.0.1.jar
 
 To install the wrapper copy or move the following files under the Galaxy tools
-folder, e.g. in a tools/protein_analysis folder:
+folder, e.g. in a tools/effectiveT3 folder:
 
 * effectiveT3.xml (the Galaxy tool definition)
 * effectiveT3.py (the Python wrapper script)
@@ -46,7 +53,7 @@ You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
 it next to them. Just add the line:
 
-<tool file="protein_analysis/effectiveT3.xml" />
+<tool file="effectiveT3/effectiveT3.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
 and move/copy the test-data files under Galaxy's test-data folder.
@@ -63,6 +70,7 @@ v0.0.7 - Initial public release
 v0.0.8 - Include effectiveT3.loc.sample in Tool Shed
 v0.0.9 - Check the return code for errors in the XML
 v0.0.10- Added unit test
+v0.0.11- Automated installation
 
 
 Developers
@@ -74,15 +82,15 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf effectiveT3.tar.gz tools/protein_analysis/effectiveT3.xml tools/protein_analysis/effectiveT3.py tools/protein_analysis/effectiveT3.txt tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
+$ tar -czf effectiveT3.tar.gz tools/effectiveT3/effectiveT3.xml tools/effectiveT3/effectiveT3.py tools/effectiveT3/effectiveT3.txt tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
 
 
 Check this worked:
 
 $ tar -tzf effectiveT3.tar.gz
-tools/protein_analysis/effectiveT3.xml
-tools/protein_analysis/effectiveT3.py
-tools/protein_analysis/effectiveT3.txt
+tools/effectiveT3/effectiveT3.xml
+tools/effectiveT3/effectiveT3.py
+tools/effectiveT3/effectiveT3.txt
 tool-data/effectiveT3.loc.sample
 test-data/four_human_proteins.fasta
 test-data/four_human_proteins.effectiveT3.tabular
