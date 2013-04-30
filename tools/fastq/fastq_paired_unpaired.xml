@@ -1,5 +1,6 @@
-<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.5">
+<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.6">
 	<description>using the read name suffices</description>
+	<version_command interpreter="python">fastq_paired_unpaired.py --version</version_command>
 	<command interpreter="python">
 fastq_paired_unpaired.py $input_fastq.extension $input_fastq
 #if $output_choice_cond.output_choice=="separate"
@@ -35,9 +36,6 @@ $output_singles
 	</outputs>
 	<tests>
 	</tests>
-	<requirements>
-		<requirement type="python-module">Bio</requirement>
-	</requirements>
 	<help>
 
 **What it does**

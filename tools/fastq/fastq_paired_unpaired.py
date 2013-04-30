@@ -19,8 +19,8 @@ import sys
 import re
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
-if "--version" in sys.argv[1:]:
-    print "Version 0.0.5"
+if "-v" in sys.argv or --version" in sys.argv:
+    print "Version 0.0.6"
     sys.exit(0)
 
 def stop_err(msg, err=1):
