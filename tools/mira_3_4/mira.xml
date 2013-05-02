@@ -167,7 +167,7 @@ If you use this tool in scientific work leading to a publication, please cite:
 Chevreux et al. (1999) Genome Sequence Assembly Using Trace Signals and Additional Sequence Information Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
-Tool Shed at http://testtoolshed.g2.bx.psu.edu/view/peterjc/mira_assembler 
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler 
 
     </help>
 </tool>
