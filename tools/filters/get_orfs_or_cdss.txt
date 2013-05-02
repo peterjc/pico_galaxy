@@ -10,6 +10,20 @@ to search nucleotide sequences for open reading frames (ORFs) or coding
 sequences (CDSs) where the first potential start codon is used. See the
 help text in the XML file for more information.
 
+This tool is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
+
+
+Automated Installation
+======================
+
+This should be straightforward, Galaxy should automatically download and install
+the tool from the Galaxy Tool Shed, and run the unit tests.
+
+
+Manual Installation
+===================
+
 There are just two files to install:
 
 * get_orfs_or_cdss.py (the Python script)
@@ -40,6 +54,7 @@ v0.0.2 - Correct labelling issue on reverse strand.
        - Use the new <stdio> settings in the XML wrappers to catch errors
 v0.0.3 - Include unit tests.
        - Record Python script version when run from Galaxy.
+v0.0.4 - Link to Tool Shed added to help text and this documentation.
 
 
 Developers
