@@ -9,6 +9,9 @@ This tool is a short Python script (to collect the MIRA output and move it
 to where Galaxy expects the files, and convert MIRA's TCS file into a tab
 separated file for use in Galaxy).
 
+It is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler 
+
 
 Automated Installation
 ======================
@@ -61,7 +64,8 @@ v0.0.5 - Implement the <version_command> tag to record the wrapper
 v0.0.6 - Tell MIRA to use /tmp for temporary files
        - Tell MIRA to ignore long read names (otherwise it aborts)
 v0.0.7 - Automated installation of the 64 bit Linux MIRA binary.
-v0.0.8 - Basic unit test aded.
+v0.0.8 - Basic unit test added.
+       - Link to Tool Shed added to help text and this documentation.
 
 
 Developers
