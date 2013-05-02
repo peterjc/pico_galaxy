@@ -1,4 +1,4 @@
-<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.6">
+<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.7">
 	<description>using the read name suffices</description>
 	<version_command interpreter="python">fastq_paired_unpaired.py --version</version_command>
 	<command interpreter="python">
@@ -97,5 +97,9 @@ both become:
  * WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
  * WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
 
+**Citation**
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_paired_unpaired
 	</help>
 </tool>

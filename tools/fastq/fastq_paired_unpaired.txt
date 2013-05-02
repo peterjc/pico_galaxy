@@ -13,6 +13,20 @@ single file.
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
 Color Space should all work equally well).
 
+This tool is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_paired_unpaired
+
+
+Automated Installation
+======================
+
+This should be straightforward, Galaxy should automatically download and install
+the tool and run the unit tests.
+
+
+Manual Installation
+===================
+
 There are just two files to install:
 
 * fastq_paired_unpaired.py (the Python script)
@@ -40,6 +54,7 @@ v0.0.4 - Use Galaxy library to handle FASTQ files (avoid Biopython dependency)
 v0.0.5 - Handle Illumina 1.8 style pair names
 v0.0.6 - Record script version when run from Galaxy
        - Added unit test (FASTQ file using Sanger naming)
+v0.0.7 - Link to Tool Shed added to help text and this documentation.
 
 
 Developers
