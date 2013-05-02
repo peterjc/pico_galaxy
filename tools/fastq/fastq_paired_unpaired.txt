@@ -21,7 +21,7 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-the tool and run the unit tests.
+the tool from the Galaxy Tool Shed, and run the unit tests
 
 
 Manual Installation
