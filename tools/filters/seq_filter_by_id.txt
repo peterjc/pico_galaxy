@@ -11,6 +11,13 @@ or without an ID present in the specified column(s) of a tabular file. Example u
 include filtering based on search results from a tool like NCBI BLAST before
 assembly.
 
+This tool is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id
+
+See also sister tools:
+http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
+http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
+
 
 Automated Installation
 ======================
@@ -52,6 +59,7 @@ v0.0.4 - Record script version when run from Galaxy.
        - Basic unit test included.
 v0.0.5 - Check for errors using Python script's return code.
        - Cope with malformed FASTA entries without an identifier.
+v0.0.6 - Link to Tool Shed added to help text and this documentation.
 
 
 Developers
