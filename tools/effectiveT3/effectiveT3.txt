@@ -19,6 +19,9 @@ http://dx.doi.org/10.1371/journal.ppat.1000376
 
 http://effectors.org/
 
+This wrapper is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/effectivet3
+
 
 Automated Installation
 ======================
@@ -72,6 +75,7 @@ v0.0.9 - Check the return code for errors in the XML
 v0.0.10- Added unit test
 v0.0.11- Automated installation
        - Record version of Python script when called from Galaxy
+       - Link to Tool Shed added to help text and this documentation.
 
 
 Developers

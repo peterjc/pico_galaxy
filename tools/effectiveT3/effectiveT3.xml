@@ -88,5 +88,7 @@ http://dx.doi.org/10.1371/journal.ppat.1000376
 
 http://effectors.org/
 
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/effectivet3
     </help>
 </tool>
