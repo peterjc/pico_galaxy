@@ -8,6 +8,9 @@ See the licence text below.
 NLStradamus is a command line tools for predicting nuclear localization
 signals (NLSs) in a FASTA file of proteins using a Hidden Markov Model (HMM).
 
+This wrapper is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/nlstradamus
+
 A. N. Nguyen Ba, A. Pogoutse, N. Provart, A. M. Moses.
 NLStradamus: a simple Hidden Markov Model for nuclear localization signal prediction.
 BMC Bioinformatics. 2009 Jun 29;10(1):202.
@@ -66,6 +69,7 @@ v0.0.6 - Show output help text using a table
        - Added unit tests
 v0.0.7 - Automatic installation of the NLStradamus binary when installed
          via the Galaxy Tool Shed
+v0.0.8 - Link to Tool Shed added to help text and this documentation.
 
 
 Developers
