@@ -1,4 +1,4 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.4">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.5">
     <description>Eukaryote protein subcellular localization prediction</description>
     <command interpreter="python">
       wolf_psort.py $organism 8 $fasta_file $tabular_file
@@ -130,5 +130,7 @@ Proceedings of the 4th Annual Asia Pacific Bioinformatics Conference APBC06, Tai
 
 http://wolfpsort.org
 
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
     </help>
 </tool>

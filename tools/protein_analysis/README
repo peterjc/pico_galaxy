@@ -19,6 +19,9 @@ These wrappers are copyright 2010-2013 by Peter Cock, James Hutton Institute
 Contributions/revisions copyright 2011 Konrad Paszkiewicz. All rights reserved.
 See the included LICENCE file for details (an MIT style open source licence).
 
+The wrappers are available from the Galaxy Tool Shed
+http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp 
+
 
 Requirements
 ============
@@ -143,6 +146,7 @@ v0.2.1 - Use a script to create the Tool Shed tar-ball (removed some stray
 v0.2.2 - Include missing test files.
 v0.2.3 - Added unit tests for WoLF PSORT.
 v0.2.4 - Added unit tests for Promoter 2
+v0.2.5 - Link to Tool Shed added to help text and this documentation.
 
 
 Developers

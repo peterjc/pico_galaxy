@@ -1,4 +1,4 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.6">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.7">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
       rxlr_motifs.py $fasta_file 8 $model $tabular_file
@@ -150,5 +150,7 @@ Identification of prokaryotic and eukaryotic signal peptides and prediction of t
 Protein Engineering, 10:1-6, 1997.
 http://dx.doi.org/10.1093/protein/10.1.1
 
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
     </help>
 </tool>
