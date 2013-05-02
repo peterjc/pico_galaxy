@@ -1,4 +1,4 @@
-<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.5">
+<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.6">
 	<description>from a tabular file</description>
 	<version_command interpreter="python">seq_select_by_id.py --version</version_command>
 	<command interpreter="python">
@@ -59,5 +59,7 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
 	</help>
 </tool>
