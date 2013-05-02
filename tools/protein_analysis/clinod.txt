@@ -9,6 +9,9 @@ Command line NoD predictor is a tool for predicting nucleolar localization
 sequences (NoLSs) in a FASTA file of proteins using a neural network. There
 is also a webtool version at http://www.compbio.dundee.ac.uk/www-nod/
 
+This NoD wrapper is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/clinod
+
 
 Installation
 ============
@@ -47,6 +50,7 @@ v0.0.1 - Initial public release
 v0.0.2 - Treat non-zero return codes as errors
 v0.0.3 - Describe output table in help
 v0.0.4 - Added unit test
+v0.0.5 - Link to Tool Shed added to help text and this documentation.
 
 
 Developers
