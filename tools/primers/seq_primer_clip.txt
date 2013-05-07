@@ -6,7 +6,21 @@ This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 See the licence text below.
 
 This tool is a short Python script (using the Galaxy library functions and
-Biopython). There are just two files to install:
+Biopython). It is available from the Galaxy Tool Shed here:
+http://toolshed.g2.bx.psu.edu/view/peterjc/seq_primer_clip
+
+
+Automated Installation
+======================
+
+This should be straightforward, provided you have installed Biopython 1.54 or later.
+Galaxy should automatically install the Python script, and run the unit tests.
+
+
+Manual Installation
+===================
+
+There are just two files to install:
 
 * seq_primer_clip.py (the Python script)
 * seq_primer_clip.xml (the Galaxy tool definition)
@@ -37,6 +51,7 @@ v0.0.7 - Added error check for bad filename arguments
 v0.0.8 - Record version of Python script when run from Galaxy.
        - Check for errors using Python script's return code.
 v0.0.9 - Moved test data to workaround Galaxy Tool Shed limititation.
+v0.0.10- Include links to Tool Shed in help text and this README file.
 
 
 Developers
