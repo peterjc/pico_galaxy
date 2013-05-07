@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="clinod" version="1.3">
+        <install version="1.0">
+            <actions>
+                <!-- clinod requires the SNNS Batch Interpreter v1.0 executable -->
+                <action type="download_by_url">http://www.ra.cs.uni-tuebingen.de/downloads/SNNS/SNNSv4.3.tar.gz</action>
+                <action type="move_file"><source>tools/bin/x86_64-pc-unknown-linux-gnuoldld/batchman</source><destination>$INSTALL_DIR/</destination></action>
+                <!-- clinod itself is just a JAR file -->
+                <action type="download_by_url">http://www.compbio.dundee.ac.uk/nod/downloads/clinod-1.3.jar</action>
+                <action type="move_file"><source>clinod-1.3.jar</source><destination>$INSTALL_DIR</destination></action>
+                <action type="set_environment">
+                    <environment_variable name="CLINOD" action="set_to">$INSTALL_DIR</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme>
+Downloads and installs the command line NoD (clinod) JAR file and the binary
+dependency batchman, and sets $CLINOD to the folder used.
+
+We could download, compiles and install the SNNS Batch Interpreter v1.0 executable
+(batchman) from Stuttgart Neural Network Simulator (SNNS) v4.2. However, we simplify
+this by downloading SNNS v4.3 which includes the precompiled copy of batch man.
+
+For more details, see:
+http://www.compbio.dundee.ac.uk/www-nod/downloads.jsp
+        </readme>
+    </package>
+</tool_dependency>
+
