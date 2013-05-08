@@ -29,8 +29,9 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.5 of the script, use -v or --version to get the version.
+This is version 0.1.0 of the script, use -v or --version to get the version.
 """
+import os
 import sys
 
 def stop_err(msg, err=1):
@@ -38,46 +39,63 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.5"
+    print "v0.1.0"
     sys.exit(0)
 
 #Parse Command Line
-try:
-    tabular_file, cols_arg, in_file, seq_format, out_positive_file, out_negative_file = sys.argv[1:]
-except ValueError:
-    stop_err("Expected six arguments (tab file, columns, in seq, seq format, out pos, out neg), got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
-try:
-    columns = [int(arg)-1 for arg in cols_arg.split(",")]
-except ValueError:
-    stop_err("Expected list of columns (comma separated integers), got %s" % cols_arg)
-if min(columns) < 0:
-    stop_err("Expect one-based column numbers (not zero-based counting), got %s" % cols_arg)
+if len(sys.argv) - 1 < 6 or len(sys.argv) % 2 == 0:
+    stop_err("Expected six or more arguments, four required "
+             "(in seq, seq format, out pos, out neg) "
+             "then one or more pairs (tab file, columns), "
+             "got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
+in_file, seq_format, out_positive_file, out_negative_file = sys.argv[1:5]
+
+if not os.path.isfile(in_file):
+    stop_err("Missing input file %r" % in_file)
 if out_positive_file == "-" and out_negative_file == "-":
     stop_err("Neither output file requested")
 
+identifiers = []
+for i in range((len(sys.argv) - 5) // 2):
+    tabular_file = sys.argv[5+2*i]
+    cols_arg = sys.argv[6+2*i]
+    if not os.path.isfile(tabular_file):
+        stop_err("Missing tabular identifier file %r" % tabular_file)
+    try:
+        columns = [int(arg)-1 for arg in cols_arg.split(",")]
+    except ValueError:
+        stop_err("Expected list of columns (comma separated integers), got %s" % cols_arg)
+    if min(columns) < 0:
+        stop_err("Expect one-based column numbers (not zero-based counting), got %s" % cols_arg)
+    identifiers.append((tabular_file, columns))
 
-#Read tabular file and record all specified identifiers
+#Read tabular file(s) and record all specified identifiers
 ids = set()
-handle = open(tabular_file, "rU")
-if len(columns)>1:
-    #General case of many columns
-    for line in handle:
-        if line.startswith("#"):
-            #Ignore comments
-            continue
-        parts = line.rstrip("\n").split("\t")
-        for col in columns:
-            ids.add(parts[col])
-    print "Using %i IDs from %i columns of tabular file" % (len(ids), len(columns))
-else:
-    #Single column, special case speed up
-    col = columns[0]
-    for line in handle:
-        if not line.startswith("#"):
-            ids.add(line.rstrip("\n").split("\t")[col])
-    print "Using %i IDs from tabular file" % (len(ids))
+for tabular_file, columns in identifiers:
+    handle = open(tabular_file, "rU")
+    if len(columns)>1:
+        #General case of many columns
+        for line in handle:
+            if line.startswith("#"):
+                #Ignore comments
+                continue
+            parts = line.rstrip("\n").split("\t")
+            for col in columns:
+                ids.add(parts[col])
+    else:
+        #Single column, special case speed up
+        col = columns[0]
+        for line in handle:
+            if not line.startswith("#"):
+                ids.add(line.rstrip("\n").split("\t")[col])
 handle.close()
+if len(identifiers) > 1:
+    print "Using %i IDs from %i tabular files" % (len(ids), len(identifiers))
+elif len(identifiers[0]) > 1:
+    print "Using %i IDs from %i column(s) in tabular file" % (len(ids), len(identifiers[0]))
+else:
+    print "Using %i IDs from one column from one tabular file" % len(ids)
 
 
 def crude_fasta_iterator(handle):
