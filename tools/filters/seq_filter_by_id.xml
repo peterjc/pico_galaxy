@@ -21,8 +21,7 @@ seq_filter_by_id.py "$input_file" "$input_file.ext"
         </stdio>
 	<inputs>
 		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" help="FASTA, FASTQ, or SFF format." />
-		<!-- want to use min="1" in the repeat -->
-		<repeat name="identifiers" title="Tabular file(s) with sequence identifiers">
+		<repeat name="identifiers" title="Tabular file(s) with sequence identifiers" min="1">
 			<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
 			<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
 				<validator type="no_options" message="Pick at least one column"/>
