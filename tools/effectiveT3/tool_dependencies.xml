@@ -3,6 +3,10 @@
     <package name="effectiveT3" version="1.0.1">
         <install version="1.0">
             <actions>
+                <!-- Set environment variable so Python script knows where to look -->
+                <action type="set_environment">
+                    <environment_variable name="EFFECTIVET3" action="set_to">$INSTALL_DIR</environment_variable>
+                </action>
                 <!-- Main JAR file -->
                 <action type="download_by_url">http://effectors.org/download/version/TTSS_GUI-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_GUI-1.0.1.jar</source><destination>$INSTALL_DIR/</destination></action>
@@ -14,8 +18,6 @@
                 <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
                 <action type="download_by_url">http://effectors.org/download/module/TTSS_STD-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_STD-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-		<!-- Set environment variable so Python script knows where to look -->
-		<action type="set_environment"><environment_variable name="EFFECTIVET3" action="set_to">$INSTALL_DIR</environment_variable></action>
             </actions>
         </install>
         <readme>
