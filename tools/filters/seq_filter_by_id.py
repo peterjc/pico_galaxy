@@ -73,7 +73,7 @@ for i in range((len(sys.argv) - 6) // 2):
     identifiers.append((tabular_file, columns))
 
 #Read tabular file(s) and record all specified identifiers
-ids = set()
+ids = None #Will be a set
 for tabular_file, columns in identifiers:
     file_ids = set()
     handle = open(tabular_file, "rU")
@@ -92,8 +92,9 @@ for tabular_file, columns in identifiers:
         for line in handle:
             if not line.startswith("#"):
                 file_ids.add(line.rstrip("\n").split("\t")[col])
-    print tabular_file, columns
     print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col+1) for col in columns))
+    if ids is None:
+        ids = file_ids
     if logic == "UNION":
         ids.update(file_ids)
     else:
