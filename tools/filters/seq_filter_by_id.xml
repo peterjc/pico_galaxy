@@ -104,6 +104,7 @@ $id_opts.set_operator
 	<tests>
 		<test>
 			<param name="input_file" value="k12_ten_proteins.fasta" ftype="fasta" />
+			<param name="set_operator" value="SINGLE" />
 			<param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
 			<param name="columns" value="1" />
 			<param name="output_choice" value="pos" />
