@@ -43,23 +43,25 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(0)
 
 #Parse Command Line
-if len(sys.argv) - 1 < 6 or len(sys.argv) % 2 == 0:
-    stop_err("Expected six or more arguments, four required "
-             "(in seq, seq format, out pos, out neg) "
+if len(sys.argv) - 1 < 7 or len(sys.argv) % 2 == 1:
+    stop_err("Expected 7 or more arguments, 5 required "
+             "(in seq, seq format, out pos, out neg, logic) "
              "then one or more pairs (tab file, columns), "
              "got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
-in_file, seq_format, out_positive_file, out_negative_file = sys.argv[1:5]
+in_file, seq_format, out_positive_file, out_negative_file, logic = sys.argv[1:6]
 
 if not os.path.isfile(in_file):
     stop_err("Missing input file %r" % in_file)
 if out_positive_file == "-" and out_negative_file == "-":
     stop_err("Neither output file requested")
+if logic not in ["UNION", "INTERSECTION"]:
+    stop_err("Fifth agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
 
 identifiers = []
-for i in range((len(sys.argv) - 5) // 2):
-    tabular_file = sys.argv[5+2*i]
-    cols_arg = sys.argv[6+2*i]
+for i in range((len(sys.argv) - 6) // 2):
+    tabular_file = sys.argv[6+2*i]
+    cols_arg = sys.argv[7+2*i]
     if not os.path.isfile(tabular_file):
         stop_err("Missing tabular identifier file %r" % tabular_file)
     try:
@@ -73,6 +75,7 @@ for i in range((len(sys.argv) - 5) // 2):
 #Read tabular file(s) and record all specified identifiers
 ids = set()
 for tabular_file, columns in identifiers:
+    file_ids = set()
     handle = open(tabular_file, "rU")
     if len(columns)>1:
         #General case of many columns
@@ -82,20 +85,25 @@ for tabular_file, columns in identifiers:
                 continue
             parts = line.rstrip("\n").split("\t")
             for col in columns:
-                ids.add(parts[col])
+                file_ids.add(parts[col])
     else:
         #Single column, special case speed up
         col = columns[0]
         for line in handle:
             if not line.startswith("#"):
-                ids.add(line.rstrip("\n").split("\t")[col])
-handle.close()
+                file_ids.add(line.rstrip("\n").split("\t")[col])
+    print tabular_file, columns
+    print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col+1) for col in columns))
+    if logic == "UNION":
+        ids.update(file_ids)
+    else:
+        ids.intersection_update(file_ids)
+    handle.close()
 if len(identifiers) > 1:
-    print "Using %i IDs from %i tabular files" % (len(ids), len(identifiers))
-elif len(identifiers[0]) > 1:
-    print "Using %i IDs from %i column(s) in tabular file" % (len(ids), len(identifiers[0]))
-else:
-    print "Using %i IDs from one column from one tabular file" % len(ids)
+    if logic == "UNION":
+        print "Have %i IDs combined from %i tabular files" % (len(ids), len(identifiers))
+    else:
+        print "Have %i IDs in common from %i tabular files" % (len(ids), len(identifiers))
 
 
 def crude_fasta_iterator(handle):
