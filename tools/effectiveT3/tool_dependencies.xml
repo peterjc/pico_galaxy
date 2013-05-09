@@ -8,15 +8,15 @@
                     <environment_variable name="EFFECTIVET3" action="set_to">$INSTALL_DIR</environment_variable>
                 </action>
                 <!-- Main JAR file -->
-                <action type="download_by_url">http://effectors.org/download/version/TTSS_GUI-1.0.1.jar</action>
+                <action type="shell_command">wget http://effectors.org/download/version/TTSS_GUI-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_GUI-1.0.1.jar</source><destination>$INSTALL_DIR/</destination></action>
                 <!-- Three model JAR files -->
                 <action type="make_directory">$INSTALL_DIR/module</action>
-                <action type="download_by_url">http://effectors.org/download/module/TTSS_ANIMAL-1.0.1.jar</action>
+                <action type="shell_command">wget http://effectors.org/download/module/TTSS_ANIMAL-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_ANIMAL-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>		
-                <action type="download_by_url">http://effectors.org/download/module/TTSS_PLANT-1.0.1.jar</action>
+                <action type="shell_command">wget http://effectors.org/download/module/TTSS_PLANT-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-                <action type="download_by_url">http://effectors.org/download/module/TTSS_STD-1.0.1.jar</action>
+                <action type="shell_command">wget http://effectors.org/download/module/TTSS_STD-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_STD-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
             </actions>
         </install>
