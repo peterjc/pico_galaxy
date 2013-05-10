@@ -90,14 +90,18 @@ def run(cmd):
             stop_err("Return code %i from command:\n%s\n%s" % (return_code, err, stderr))
 
 if not os.path.isdir(effectiveT3_dir):
-   stop_err("Effective T3 folder not found: %s" % effectiveT3_dir)
+    stop_err("Effective T3 folder not found: %r" % effectiveT3_dir)
 
 if not os.path.isfile(effectiveT3_jar):
-   stop_err("Effective T3 JAR file not found: %s" % effectiveT3_jar)
+    stop_err("Effective T3 JAR file not found: %r" % effectiveT3_jar)
 
 effectiveT3_model = os.path.join(effectiveT3_dir, "module", model)
 if not os.path.isfile(effectiveT3_model):
-   stop_err("Effective T3 model JAR file not found: %s" % effectiveT3_model)
+    sys.stderr.write("Contents of %r is %s\n"
+                     % (os.path.join(effectiveT3_dir, "module"),
+                        ", ".join(repr(p) for p in os.listdir(os.path.join(effectiveT3_dir, "module")))))
+    sys.stderr.write("Main JAR was found: %r\n" % effectiveT3_jar)
+    stop_err("Effective T3 model JAR file not found: %r" % effectiveT3_model)
 
 #We will have write access whereever the output should be,
 temp_file = os.path.abspath(tabular_file + ".tmp")
