@@ -32,6 +32,21 @@
             <param name="model" value="Win2007" />
             <output name="tabular_file" file="rxlr_win_et_al_2007.tabular" ftype="tabular" />
         </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="model" value="Bhattacharjee2006"/>
+            <output name="tabular_file" file="empty_rxlr.Bhattacharjee2006.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="model" value="Win2007"/>
+            <output name="tabular_file" file="empty_rxlr.Win2007.tabular" ftype="tabular"/>
+        </test>
+        <test>
+            <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
+            <param name="model" value="Whisson2007"/>
+            <output name="tabular_file" file="empty_rxlr.Whisson2007.tabular" ftype="tabular"/>
+        </test>
     </tests>
     <help>
     

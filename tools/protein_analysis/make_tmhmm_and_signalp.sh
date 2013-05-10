@@ -49,6 +49,9 @@ tar -rf tmhmm_and_signalp.tar test-data/empty_signalp3.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty_psortb_terse.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty_wolf_psort.tabular
 tar -rf tmhmm_and_signalp.tar test-data/empty_promoter2.tabular
+tar -rf tmhmm_and_signalp.tar test-data/empty_rxlr.Bhattacharjee2006.tabular
+tar -rf tmhmm_and_signalp.tar test-data/empty_rxlr.Win2007.tabular
+tar -rf tmhmm_and_signalp.tar test-data/empty_rxlr.Whisson2007.tabular
 tar -rf tmhmm_and_signalp.tar test-data/k12_ten_proteins.fasta
 tar -rf tmhmm_and_signalp.tar test-data/k12_ten_proteins_psortb_p_terse.tabular
 tar -rf tmhmm_and_signalp.tar test-data/rxlr_win_et_al_2007.fasta
@@ -61,5 +64,5 @@ tar -rf tmhmm_and_signalp.tar test-data/Adenovirus.promoter2.tabular
 gzip tmhmm_and_signalp.tar
 
 #Check the output
-echo "Expect a tar-ball 34 files, have:"
+echo "Expect a tar-ball 37 files, have:"
 tar -tzf tmhmm_and_signalp.tar.gz | wc -l
