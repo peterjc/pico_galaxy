@@ -111,25 +111,7 @@ if model == "Whisson2007":
         stop_err("Missing HMM file for Whisson et al. (2007)")
     if not get_hmmer_version(hmmer_search, "HMMER 2.3.2 (Oct 2003)"):
         stop_err("Missing HMMER 2.3.2 (Oct 2003) binary, %s" % hmmer_searcher)
-    #I've left the code to handle HMMER 3 in situ, in case
-    #we revisit the choice to insist on HMMER 2.
-    hmmer3 = (3 == get_hmmer_version(hmmer_search))
-    #Using zero (or 5.6?) for bitscore threshold
-    if hmmer3:
-        #The HMMER3 table output is easy to parse
-        #In HMMER3 can't use both -T and -E
-        cmd = "%s -T 0 --tblout %s --noali %s %s > /dev/null" \
-              % (hmmer_search, hmm_output_file, hmm_file, fasta_file)
-    else:
-        #For HMMER2 we are stuck with parsing stdout
-        #Put 1e6 to effectively have no expectation threshold (otherwise
-        #HMMER defaults to 10 and the calculated e-value depends on the
-        #input FASTA file, and we can loose hits of interest).
-        cmd = "%s -T 0 -E 1e6 %s %s > %s" \
-              % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
-    return_code = os.system(cmd)
-    if return_code:
-        stop_err("Error %i from hmmsearch:\n%s" % (return_code, cmd))
+
     hmm_hits = set()
     valid_ids = set()
     for title, seq in fasta_iterator(fasta_file):
@@ -138,29 +120,53 @@ if model == "Whisson2007":
             stop_err("Duplicated identifier %r" % name)
         else:
             valid_ids.add(name)
-    handle = open(hmm_output_file)
-    for line in handle:
-        if not line.strip():
-            #We expect blank lines in the HMMER2 stdout
-            continue
-        elif line.startswith("#"):
-            #Header
-            continue
+    if not valid_ids:
+        #Special case, don't need to run HMMER if there are no sequences
+        pass
+    else:
+        #I've left the code to handle HMMER 3 in situ, in case
+        #we revisit the choice to insist on HMMER 2.
+        hmmer3 = (3 == get_hmmer_version(hmmer_search))
+        #Using zero (or 5.6?) for bitscore threshold
+        if hmmer3:
+            #The HMMER3 table output is easy to parse
+            #In HMMER3 can't use both -T and -E
+            cmd = "%s -T 0 --tblout %s --noali %s %s > /dev/null" \
+                  % (hmmer_search, hmm_output_file, hmm_file, fasta_file)
         else:
-            name = line.split(None,1)[0]
-            #Should be a sequence name in the HMMER3 table output.
-            #Could be anything in the HMMER2 stdout.
-            if name in valid_ids:
-                hmm_hits.add(name)
-            elif hmmer3:
-                stop_err("Unexpected identifer %r in hmmsearch output" % name)
-    handle.close()
-    #if hmmer3:
-    #    print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
-    #else:
-    #    print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))  
-    #print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
-    os.remove(hmm_output_file)
+            #For HMMER2 we are stuck with parsing stdout
+            #Put 1e6 to effectively have no expectation threshold (otherwise
+            #HMMER defaults to 10 and the calculated e-value depends on the
+            #input FASTA file, and we can loose hits of interest).
+            cmd = "%s -T 0 -E 1e6 %s %s > %s" \
+                  % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
+        return_code = os.system(cmd)
+        if return_code:
+            stop_err("Error %i from hmmsearch:\n%s" % (return_code, cmd), return_code)
+
+        handle = open(hmm_output_file)
+        for line in handle:
+            if not line.strip():
+                #We expect blank lines in the HMMER2 stdout
+                continue
+            elif line.startswith("#"):
+                #Header
+                continue
+            else:
+                name = line.split(None,1)[0]
+                #Should be a sequence name in the HMMER3 table output.
+                #Could be anything in the HMMER2 stdout.
+                if name in valid_ids:
+                    hmm_hits.add(name)
+                elif hmmer3:
+                    stop_err("Unexpected identifer %r in hmmsearch output" % name)
+        handle.close()
+        #if hmmer3:
+        #    print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
+        #else:
+        #    print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))  
+        #print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
+        os.remove(hmm_output_file)
     del valid_ids
 
 
