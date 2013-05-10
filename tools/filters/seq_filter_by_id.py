@@ -67,9 +67,9 @@ for i in range((len(sys.argv) - 6) // 2):
     try:
         columns = [int(arg)-1 for arg in cols_arg.split(",")]
     except ValueError:
-        stop_err("Expected list of columns (comma separated integers), got %s" % cols_arg)
+        stop_err("Expected list of columns (comma separated integers), got %r" % cols_arg)
     if min(columns) < 0:
-        stop_err("Expect one-based column numbers (not zero-based counting), got %s" % cols_arg)
+        stop_err("Expect one-based column numbers (not zero-based counting), got %r" % cols_arg)
     identifiers.append((tabular_file, columns))
 
 #Read tabular file(s) and record all specified identifiers
