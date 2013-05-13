@@ -95,6 +95,9 @@ if not os.path.isdir(effectiveT3_dir):
 if not os.path.isfile(effectiveT3_jar):
     stop_err("Effective T3 JAR file not found: %r" % effectiveT3_jar)
 
+if not os.path.isdir(os.path.join(effectiveT3_dir, "module")):
+    stop_err("Effective T3 module folder not found: %r" % os.path.join(effectiveT3_dir, "module"))
+
 effectiveT3_model = os.path.join(effectiveT3_dir, "module", model)
 if not os.path.isfile(effectiveT3_model):
     sys.stderr.write("Contents of %r is %s\n"
