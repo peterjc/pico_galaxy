@@ -9,7 +9,9 @@
                 </action>
                 <!-- Main JAR file -->
                 <action type="shell_command">wget http://effectors.org/download/version/TTSS_GUI-1.0.1.jar</action>
+		<!-- If using action type download_file will need to move the file,
                 <action type="move_file"><source>TTSS_GUI-1.0.1.jar</source><destination>$INSTALL_DIR/</destination></action>
+		-->
                 <!-- Three model JAR files -->
                 <action type="make_directory">$INSTALL_DIR/module</action>
                 <action type="shell_command">wget http://effectors.org/download/module/TTSS_ANIMAL-1.0.1.jar</action>
