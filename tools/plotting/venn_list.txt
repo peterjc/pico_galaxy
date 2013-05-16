@@ -46,7 +46,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-tar -czf venn_list.tar.gz tools/plotting/venn_list.*
+tar -czf venn_list.tar.gz tools/plotting/venn_list.* test-data/venn_list1.pdf test-data/venn_list.tabular
 
 Check this worked:
 
@@ -54,6 +54,8 @@ $ tar -tzf venn_list.tar.gz
 tools/plotting/venn_list.py
 tools/plotting/venn_list.txt
 tools/plotting/venn_list.xml
+test-data/venn_list1.pdf
+test-data/venn_list.tabular
 
 
 Licence (MIT/BSD style)
