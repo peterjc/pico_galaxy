@@ -34,6 +34,7 @@ History
 v0.0.3 - Initial public release.
 v0.0.4 - Ignore blank lines when loading IDs from tabular files
 v0.0.5 - Explicit Galaxy error handling of return codes
+v0.0.6 - Added unit tests.
 
 
 Developers
