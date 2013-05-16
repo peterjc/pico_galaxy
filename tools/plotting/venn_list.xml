@@ -43,7 +43,7 @@ $PDF</command>
   </outputs>
   <tests>
     <!-- Doesn't seem to work properly, manages to get two sets, both
-         with same FASTA file, but second with default "Group" label.
+         with same FASTA file, but second with default "Group" label. -->
     <test>
       <param name="type_select" value="explicit"/>
       <param name="main" value="venn_list.tabular" ftype="tabular"/>
@@ -52,7 +52,6 @@ $PDF</command>
       <param name="lab" value="Rhodopsins"/>
       <output name="PDF" file="venn_list1.pdf" ftype="pdf"/>
     </test>
-    -->
     <!-- Can't use more than one repeat value in tests (yet)
     <test>
       <param name="type_select" value="explicit"/>
