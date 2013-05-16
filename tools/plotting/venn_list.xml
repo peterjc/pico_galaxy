@@ -1,5 +1,9 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.5">
+<tool id="venn_list" name="Venn Diagram" version="0.0.6">
   <description>from lists</description>
+  <requirements>
+    <requirement type="python-module">rpy</requirement>
+    <requirement type="python-module">Bio</requirement>
+  </requirements>
   <command interpreter="python">
 venn_list.py
 #if $universe.type_select=="implicit":
@@ -37,10 +41,6 @@ $PDF</command>
   <outputs>
     <data format="pdf" name="PDF" />
   </outputs>
-  <requirements>
-    <requirement type="python-module">rpy</requirement>
-    <requirement type="python-module">Bio</requirement>
-  </requirements>
   <tests>
     <!-- Doesn't seem to work properly, manages to get two sets, both
          with same FASTA file, but second with default "Group" label.
