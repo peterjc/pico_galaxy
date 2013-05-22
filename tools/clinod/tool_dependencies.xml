@@ -13,7 +13,9 @@
                 <action type="move_file"><source>SNNSv4.3/tools/bin/x86_64-pc-unknown-linux-gnuoldld/batchman</source><destination>$INSTALL_DIR/</destination></action>
                 <!-- clinod itself is just a JAR file -->
                 <action type="shell_command">wget http://www.compbio.dundee.ac.uk/nod/downloads/clinod-1.3.jar</action>
+                <!-- Don't need to move it, $INSTALL_DIR is the current directory -->
                 <action type="move_file"><source>clinod-1.3.jar</source><destination>$INSTALL_DIR</destination></action>
+                -->
             </actions>
         </install>
         <readme>
