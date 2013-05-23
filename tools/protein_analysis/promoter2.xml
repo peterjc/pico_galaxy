@@ -1,4 +1,4 @@
-<tool id="promoter2" name="Promoter 2.0" version="0.0.5">
+<tool id="promoter2" name="Promoter 2.0" version="0.0.6">
     <description>Find eukaryotic PolII promoters in DNA sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 per chunk so 4 threads each doing 500 is ideal -->
@@ -43,10 +43,14 @@ This calls the Promoter 2.0 tool for prediction of eukaryotic PolII promoter seq
 
 The input is a FASTA file of nucleotide sequences (e.g. upstream regions of your genes), and the output is tabular with five columns (one row per promoter):
 
- 1. Sequence identifier (first word of FASTA header)
- 2. Promoter position, e.g. 600
- 3. Promoter score, e.g. 1.063
- 4. Promoter likelihood, e.g. Highly likely prediction
+====== ==================================================
+Column Description
+------ --------------------------------------------------
+     1 Sequence identifier (first word of FASTA header)
+     2 Promoter position, e.g. 600
+     3 Promoter score, e.g. 1.063
+     4 Promoter likelihood, e.g. Highly likely prediction
+====== ==================================================
 
 The scores are classified very simply as follows:
 
