@@ -5,9 +5,11 @@
     <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
     <command interpreter="python">
       tmhmm2.py "\$NSLOTS" $fasta_file $tabular_file
+      ##I want the number of threads to be a Galaxy config option...
       ##Set the number of threads in the runner entry in universe_wsgi.ini
       ##which (on SGE at least) will set the $NSLOTS environment variable.
-      ##If the environment variable isn't set, get "", and defaults to one.
+      ##If the environment variable isn't set, get "", and the python wrapper
+      ##defaults to four threads.
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
