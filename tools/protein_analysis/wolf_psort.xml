@@ -1,8 +1,12 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.5">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.6">
     <description>Eukaryote protein subcellular localization prediction</description>
     <command interpreter="python">
-      wolf_psort.py $organism 8 $fasta_file $tabular_file
+      wolf_psort.py $organism "\$NSLOTS" "$fasta_file" "$tabular_file"
       ##I want the number of threads to be a Galaxy config option...
+      ##Set the number of threads in the runner entry in universe_wsgi.ini
+      ##which (on SGE at least) will set the $NSLOTS environment variable.
+      ##If the environment variable isn't set, get "", and python wrapper
+      ##defaults to four threads.
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
@@ -83,6 +87,11 @@ pero   peroxisome	     0005777(2)
 plas   plasma membrane	     0005886
 vacu   vacuolar membrane     0005774(2)
 ====== ===================== =====================
+
+Numbers in parentheses, such as "0005856(2)" indicate that descendant "part_of"
+cellular components were also included, up to the specified depth (2 in this case).
+For example, all of the children and grandchildren of "GO:0005856" were
+included as "cysk". 
 
 Additionally compound predictions like mito_nucl are also given.
 
