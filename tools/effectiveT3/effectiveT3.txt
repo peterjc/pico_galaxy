@@ -76,6 +76,7 @@ v0.0.10- Added unit test
 v0.0.11- Automated installation
        - Record version of Python script when called from Galaxy
        - Link to Tool Shed added to help text and this documentation.
+v0.0.12- More explicit naming of the output dataset.
 
 
 Developers

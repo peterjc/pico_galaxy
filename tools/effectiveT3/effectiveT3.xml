@@ -1,4 +1,4 @@
-<tool id="effectiveT3" name="Effective T3" version="0.0.11">
+<tool id="effectiveT3" name="Effective T3" version="0.0.12">
     <description>Find bacterial effectors in protein sequences</description>
     <requirements>
         <requirement type="package" version="1.0.1">effectiveT3</requirement>
@@ -40,7 +40,7 @@ $fasta_file $tabular_file</command>
         </conditional>
     </inputs>
     <outputs>
-        <data name="tabular_file" format="tabular" label="$module.value_label results" />
+        <data name="tabular_file" format="tabular" label="Effective T3 $module.value_label on ${on_string}" />
     </outputs>
     <tests>
         <test>
