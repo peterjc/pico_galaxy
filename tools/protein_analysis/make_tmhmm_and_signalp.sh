@@ -22,8 +22,8 @@ rm tmhmm_and_signalp.tar
 fi
 
 #Create tar file (-cf then -rf to add to it)
-tar -cf tmhmm_and_signalp.tar tools/protein_analysis/LICENSE
-tar -rf tmhmm_and_signalp.tar tools/protein_analysis/README
+tar -cf tmhmm_and_signalp.tar tools/protein_analysis/LICENSE.txt
+tar -rf tmhmm_and_signalp.tar tools/protein_analysis/README.txt
 tar -rf tmhmm_and_signalp.tar tools/protein_analysis/suite_config.xml
 tar -rf tmhmm_and_signalp.tar tools/protein_analysis/seq_analysis_utils.py
 tar -rf tmhmm_and_signalp.tar tools/protein_analysis/signalp3.xml
