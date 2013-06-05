@@ -1,0 +1,74 @@
+<tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.0">
+	<description>Interproscan functional predictions of ORFs</description>
+	<command interpreter="python">
+	  interproscan.py 
+           '$__app__.config.new_file_path'
+	   '$input'
+           '$format'
+	   '$output'
+	</command>
+        <inputs>
+            <param name="input" type="data" format="fasta" label="ORFs in protein FASTA format"/>
+           <param name="format" type="boolean" format="gff" label="GFF format?" truevalue="gff" falsevalue="raw"/> 
+        </inputs>
+	<outputs>
+                <data format="tabular" name="output" label="Interproscan output"/>
+		
+	</outputs>
+	<requirements>
+	</requirements>
+	<help>
+**Interproscan **
+
+Interproscan is a batch tool to query the Interpro database. It provides annotations based on multiple searches of profile and other functional databases. These include SCOP, CATH, PFAM and SUPERFAMILY. Currently due to resource limitations, only the PFAM database is searched however.
+
+**Input**
+A FASTA file containing ORF predictions is required. This file must NOT contain any spaces in the FASTA headers - any spaces will be convereted to underscores (_) by this tool before submission to Interproscan.
+
+**Output**
+The output will consist of a file in Interproscan raw format@
+
+This is a basic tab delimited format useful for uploading the data into a relational database or concatenation of different runs. 
+is all on one line. 
+
+Example here (with descriptions): 
+NF00181542      0A5FDCE74AB7C3AD        272     HMMPIR  PIRSF001424     Prephenate dehydratase  1       270     6.5e-141        T       06-Aug-2005\
+        IPR008237       Prephenate dehydratase with ACT region  Molecular Function:prephenate dehydratase activity (GO:0004664), Biological Process\
+        :L-phenylalanine biosynthesis (GO:0009094)
+    
+Key: 
+
+NF00181542 is the id of the input sequence. 
+27A9BBAC0587AB84 is the crc64 (checksum) of the protein sequence (supposed to be unique). 
+272 is the length of the sequence (in AA). 
+HMMPIR is the anaysis method launched. 
+PIRSF001424 is the database members entry for this match. 
+Prephenate dehydratase is the database member description for the entry. 
+1 is the start of the domain match. 
+270 is the end of the domain match. 
+6.5e-141 is the evalue of the match (reported by member database method). 
+T is the status of the match (T: true, ?: unknown). 
+06-Aug-2005 is the date of the run. 
+IPR008237 is the corresponding InterPro entry (if iprlookup requested by the user). 
+Prephenate dehydratase with ACT region is the description of the InterPro entry. 
+Molecular Function:prephenate dehydratase activity (GO:0004664) is the GO (gene ontology) description for the InterPro entry. 
+   
+**Database updates**
+
+Typically these take place 2-3 times a year.
+
+**References** 
+
+Quevillon E., Silventoinen V., Pillai S., Harte N., Mulder N., Apweiler R., Lopez R. 
+InterProScan: protein domains identifier (2005). 
+Nucleic Acids Res. 33 (Web Server issue) :W116-W120 
+
+
+Hunter S, Apweiler R, Attwood TK, Bairoch A, Bateman A, Binns D, Bork P, Das U, Daugherty L, Duquenne L, Finn RD, Gough J, Haft D, Hulo N, Kahn D, Kelly E, Laugraud A, Letunic I, Lonsdale D, Lopez R, Madera M, Maslen J, McAnulla C, McDowall J, Mistry J, Mitchell A, Mulder N, Natale D, Orengo C, Quinn AF, Selengut JD, Sigrist CJ, Thimma M, Thomas PD, Valentin F, Wilson D, Wu CH, Yeats C. 
+InterPro: the integrative protein signature database (2009). 
+Nucleic Acids Res. 37 (Database Issue) :D224-228 
+
+
+
+	</help>
+</tool>
