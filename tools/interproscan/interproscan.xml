@@ -1,4 +1,4 @@
-<tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.0">
+<tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.1">
 	<description>Interproscan functional predictions of ORFs</description>
 	<command interpreter="python">
 	  interproscan.py 
@@ -18,12 +18,13 @@
 	<requirements>
 	</requirements>
 	<help>
-**Interproscan **
+
+**Interproscan**
 
 Interproscan is a batch tool to query the Interpro database. It provides annotations based on multiple searches of profile and other functional databases. These include SCOP, CATH, PFAM and SUPERFAMILY. Currently due to resource limitations, only the PFAM database is searched however.
 
 **Input**
-A FASTA file containing ORF predictions is required. This file must NOT contain any spaces in the FASTA headers - any spaces will be convereted to underscores (_) by this tool before submission to Interproscan.
+A FASTA file containing ORF predictions is required. This file must NOT contain any spaces in the FASTA headers - any spaces will be convereted to underscores by this tool before submission to Interproscan.
 
 **Output**
 The output will consist of a file in Interproscan raw format@
