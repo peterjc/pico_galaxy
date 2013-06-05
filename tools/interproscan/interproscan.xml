@@ -65,7 +65,8 @@ Hunter S, Apweiler R, Attwood TK, Bairoch A, Bateman A, Binns D, Bork P, Das U, 
 InterPro: the integrative protein signature database (2009). 
 Nucleic Acids Res. 37 (Database Issue) :D224-228 
 
-
+This wrapper is available to install into other Galaxy Instances via the Galaxy Tool Shed at
+http://toolshed.g2.bx.psu.edu/view/konradpaszkiewicz/interproscan
 
 	</help>
 </tool>
