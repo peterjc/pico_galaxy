@@ -27,33 +27,29 @@ Interproscan is a batch tool to query the Interpro database. It provides annotat
 A FASTA file containing ORF predictions is required. This file must NOT contain any spaces in the FASTA headers - any spaces will be convereted to underscores by this tool before submission to Interproscan.
 
 **Output**
-The output will consist of a file in Interproscan raw format@
 
-This is a basic tab delimited format useful for uploading the data into a relational database or concatenation of different runs. 
-is all on one line. 
+The output will consist of a file in Interproscan raw format, a tabular file in galaxy with 14 columns.
+This can be use to upload the data into a relational database or concatenation of different runs. 
 
-Example here (with descriptions): 
-NF00181542      0A5FDCE74AB7C3AD        272     HMMPIR  PIRSF001424     Prephenate dehydratase  1       270     6.5e-141        T       06-Aug-2005\
-        IPR008237       Prephenate dehydratase with ACT region  Molecular Function:prephenate dehydratase activity (GO:0004664), Biological Process\
-        :L-phenylalanine biosynthesis (GO:0009094)
-    
-Key: 
+====== ============================================================================================================================= ===========================================
+Column Example                                                                                                                       Description
+------ ----------------------------------------------------------------------------------------------------------------------------- -------------------------------------------
+    c1 NF00181542                                                                                                                    Identifier of the input sequence
+    c2 0A5FDCE74AB7C3AD                                                                                                              crc64 checksum of the protein sequence
+    c3 272                                                                                                                           Length of sequence (in amino acids)
+    c4 HMMPIR                                                                                                                        Analysis metho launched
+    c5 PIRSF001424                                                                                                                   Database members entry for match  
+    c6 Prephenate dehydratase                                                                                                        Description from the database
+    c7 1                                                                                                                             Start of the domain match
+    c8 270                                                                                                                           End of the domain match
+    c9 6.5e-141                                                                                                                      e-value (reported by the database method)
+   c10 T                                                                                                                             Status of match (Tfor true, ? forunknown)
+   c11 06-Aug-2005                                                                                                                   Date of the run
+   c12 IPR008237                                                                                                                     InterPro entry (if iprlookup requested)
+   c13 Prephenate dehydratase with ACT region                                                                                        Description of the InterPro entry
+   c14 Molecular Function:prephenate dehydratase activity (GO:0004664), Biological Process:L-phenylalanine biosynthesis (GO:0009094) GO (gene ontology) description
+====== ============================================================================================================================= ===========================================
 
-NF00181542 is the id of the input sequence. 
-27A9BBAC0587AB84 is the crc64 (checksum) of the protein sequence (supposed to be unique). 
-272 is the length of the sequence (in AA). 
-HMMPIR is the anaysis method launched. 
-PIRSF001424 is the database members entry for this match. 
-Prephenate dehydratase is the database member description for the entry. 
-1 is the start of the domain match. 
-270 is the end of the domain match. 
-6.5e-141 is the evalue of the match (reported by member database method). 
-T is the status of the match (T: true, ?: unknown). 
-06-Aug-2005 is the date of the run. 
-IPR008237 is the corresponding InterPro entry (if iprlookup requested by the user). 
-Prephenate dehydratase with ACT region is the description of the InterPro entry. 
-Molecular Function:prephenate dehydratase activity (GO:0004664) is the GO (gene ontology) description for the InterPro entry. 
-   
 **Database updates**
 
 Typically these take place 2-3 times a year.
