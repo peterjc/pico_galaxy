@@ -7,7 +7,7 @@
     <command>
 ##The Galaxy Tool Shed installation should define $CLINOD to point at folder
 ##containing both clinod-1.3.jar and the batchman binary:
-java -jar \$CLINOD/clinod-1.3.jar -in="$fasta_file" -out="$tabular_file" -t=4 -f=MEDIUM_TAB -nonols -clean_sequence
+java -jar \$CLINOD/clinod-1.3.jar -in="$fasta_file" -out="$tabular_file" -t=2 -f=MEDIUM_TAB -nonols -clean_sequence
 ##I want the number of threads to be a Galaxy config option...
 ##TODO - Make the -clean_sequence argument a parameter?
     </command>
