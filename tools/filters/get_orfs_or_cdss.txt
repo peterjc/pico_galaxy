@@ -68,7 +68,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder:
 
-$ tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.* test-data/get_orf_input*.fasta test-data/Ssuis.fasta
+$ tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.* tools/filters/repository_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
 
 Check this worked:
 
@@ -76,6 +76,7 @@ $ tar -tzf get_orfs_or_cdss.tar.gz
 filter/get_orfs_or_cdss.py
 filter/get_orfs_or_cdss.txt
 filter/get_orfs_or_cdss.xml
+tools/filters/repository_dependencies.xml
 test-data/get_orf_input.fasta
 test-data/get_orf_input.Suis_ORF.nuc.fasta
 test-data/get_orf_input.Suis_ORF.prot.fasta

@@ -1,4 +1,4 @@
-<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.4">
+<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.5">
 	<description>e.g. to get peptides from ESTs</description>
 	<version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
 	<command interpreter="python">
