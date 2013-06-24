@@ -1,4 +1,4 @@
-<tool id="seq_rename" name="Rename sequences" version="0.0.3">
+<tool id="seq_rename" name="Rename sequences" version="0.0.4">
 	<description>with ID mapping from a tabular file</description>
 	<version_commmand interpreter="python">seq_rename.py --version</version_commmand>
 	<command interpreter="python">
