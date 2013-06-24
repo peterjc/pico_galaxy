@@ -22,14 +22,15 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
 Automated Installation
 ======================
 
-This should be straightforward, provided you have installed Biopython 1.54 or later.
-Galaxy should automatically install the Python script, and run the unit tests.
+This should be straightforward using the Galaxy Tool Shed, which should be
+able to automatically install the dependency on Biopython, and then install
+this tool and run its unit tests.
 
 
 Manual Installation
 ===================
 
-There are just two files to install:
+There are just two files to install to use this tool from within Galaxy:
 
 * seq_filter_by_id.py (the Python script)
 * seq_filter_by_id.xml (the Galaxy tool definition)
@@ -61,6 +62,7 @@ v0.0.5 - Check for errors using Python script's return code.
        - Cope with malformed FASTA entries without an identifier.
 v0.0.6 - Link to Tool Shed added to help text and this documentation.
 v0.1.0 - Allow multiple tabular identifier files, allowing OR like usage.
+       - Automated installation of the Biopython dependency.
 
 
 Developers

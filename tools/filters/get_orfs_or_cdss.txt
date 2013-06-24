@@ -17,14 +17,15 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
 Automated Installation
 ======================
 
-This should be straightforward, Galaxy should automatically download and install
-the tool from the Galaxy Tool Shed, and run the unit tests.
+This should be straightforward using the Galaxy Tool Shed, which should be
+able to automatically install the dependency on Biopython, and then install
+this tool and run its unit tests.
 
 
 Manual Installation
 ===================
 
-There are just two files to install:
+There are just two files to install to use this tool from within Galaxy:
 
 * get_orfs_or_cdss.py (the Python script)
 * get_orfs_or_cdss.xml (the Galaxy tool definition)
@@ -55,6 +56,7 @@ v0.0.2 - Correct labelling issue on reverse strand.
 v0.0.3 - Include unit tests.
        - Record Python script version when run from Galaxy.
 v0.0.4 - Link to Tool Shed added to help text and this documentation.
+v0.0.5 - Automated intallation of the Biopython dependency.
 
 
 Developers
