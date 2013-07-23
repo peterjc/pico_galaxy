@@ -14,7 +14,7 @@ This tool is available from the Galaxy Tool Shed at:
 
 * http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
 
-See also the EMBOSS tool `getorf` which offers similar functionality and
+See also the EMBOSS tool ``getorf`` which offers similar functionality and
 has also been wrapped for use within Galaxy.
 
 
