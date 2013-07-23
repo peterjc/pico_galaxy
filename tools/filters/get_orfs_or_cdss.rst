@@ -11,6 +11,7 @@ sequences (CDSs) where the first potential start codon is used. See the
 help text in the XML file for more information.
 
 This tool is available from the Galaxy Tool Shed at:
+
 * http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
 
 
@@ -40,7 +41,7 @@ tool. One suggested location is in the filters section. Simply add the line::
 
 You will also need to install Biopython 1.54 or later. If you want to run
 the unit tests, include this line in tools_conf.xml.sample and the sample
-FASTA files under the test-data directory. Then:
+FASTA files under the test-data directory. Then::
 
     ./run_functional_tests.sh -id get_orfs_or_cdss
 

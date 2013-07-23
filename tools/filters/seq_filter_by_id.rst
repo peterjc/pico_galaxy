@@ -12,9 +12,11 @@ include filtering based on search results from a tool like NCBI BLAST before
 assembly.
 
 This tool is available from the Galaxy Tool Shed at:
+
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id
 
 See also sister tools:
+
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
 

@@ -12,10 +12,12 @@ and if there are duplicates in the input sequence file, there will be duplicates
 in the output sequence file.
 
 This tool is available from the Galaxy Tool Shed,
+
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
 
 See also the sister tools to filter or select sequence files according to IDs
 from column(s) of tabular file:
+
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
 
