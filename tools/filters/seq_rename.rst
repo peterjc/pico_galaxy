@@ -12,12 +12,12 @@ and if there are duplicates in the input sequence file, there will be duplicates
 in the output sequence file.
 
 This tool is available from the Galaxy Tool Shed,
-http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
+* http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
 
 See also the sister tools to filter or select sequence files according to IDs
 from column(s) of tabular file:
-http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id
-http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
+* http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id
+* http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
 
 
 Automated Installation
@@ -40,14 +40,14 @@ The suggested location is in the Galaxy folder tools/filters next to the tool
 for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
-tool. One suggested location is in the filters section. Simply add the line:
+tool. One suggested location is in the filters section. Simply add the line::
 
-<tool file="filters/seq_rename.xml" />
+    <tool file="filters/seq_rename.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then:
+and move/copy the test-data files under Galaxy's test-data folder. Then::
 
-$ ./run_functional_tests.sh -id seq_rename
+    $ ./run_functional_tests.sh -id seq_rename
 
 You will also need to install Biopython 1.54 or later. That's it.
 
@@ -75,20 +75,20 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf seq_rename.tar.gz tools/filters/seq_rename.* tools/filters/repository_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.rename.tabular test-data/four_human_proteins.rename.fasta
+    $ tar -czf seq_rename.tar.gz tools/filters/seq_rename.* tools/filters/repository_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.rename.tabular test-data/four_human_proteins.rename.fasta
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf seq_rename.tar.gz
-tools/filter/seq_rename.py
-tools/filter/seq_rename.rst
-tools/filter/seq_rename.xml
-tools/filters/repository_dependencies.xml
-test-data/four_human_proteins.fasta
-test-data/four_human_proteins.rename.tabular
-test-data/four_human_proteins.rename.fasta
+    $ tar -tzf seq_rename.tar.gz
+    tools/filter/seq_rename.py
+    tools/filter/seq_rename.rst
+    tools/filter/seq_rename.xml
+    tools/filters/repository_dependencies.xml
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.rename.tabular
+    test-data/four_human_proteins.rename.fasta
 
 
 Licence (MIT/BSD style)

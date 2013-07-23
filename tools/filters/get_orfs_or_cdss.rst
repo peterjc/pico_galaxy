@@ -11,7 +11,7 @@ sequences (CDSs) where the first potential start codon is used. See the
 help text in the XML file for more information.
 
 This tool is available from the Galaxy Tool Shed at:
-http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
+* http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
 
 
 Automated Installation
@@ -34,15 +34,15 @@ If you are installing this manually (rather than via the Tool Shed), the
 suggested location is in the Galaxy folder tools/filters next to the tool
 for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
-tool. One suggested location is in the filters section. Simply add the line:
+tool. One suggested location is in the filters section. Simply add the line::
 
-<tool file="filters/get_orfs_or_cdss.xml" />
+    <tool file="filters/get_orfs_or_cdss.xml" />
 
 You will also need to install Biopython 1.54 or later. If you want to run
 the unit tests, include this line in tools_conf.xml.sample and the sample
 FASTA files under the test-data directory. Then:
 
-./run_functional_tests.sh -id get_orfs_or_cdss
+    ./run_functional_tests.sh -id get_orfs_or_cdss
 
 That's it.
 
@@ -71,27 +71,27 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.* tools/filters/repository_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
+    $ tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.* tools/filters/repository_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf get_orfs_or_cdss.tar.gz
-filter/get_orfs_or_cdss.py
-filter/get_orfs_or_cdss.rst
-filter/get_orfs_or_cdss.xml
-tools/filters/repository_dependencies.xml
-test-data/get_orf_input.fasta
-test-data/get_orf_input.Suis_ORF.nuc.fasta
-test-data/get_orf_input.Suis_ORF.prot.fasta
-test-data/get_orf_input.t11_nuc_out.fasta
-test-data/get_orf_input.t11_open_nuc_out.fasta
-test-data/get_orf_input.t11_open_prot_out.fasta
-test-data/get_orf_input.t11_prot_out.fasta
-test-data/get_orf_input.t1_nuc_out.fasta
-test-data/get_orf_input.t1_prot_out.fasta
-test-data/Ssuis.fasta
+    $ tar -tzf get_orfs_or_cdss.tar.gz
+    filter/get_orfs_or_cdss.py
+    filter/get_orfs_or_cdss.rst
+    filter/get_orfs_or_cdss.xml
+    tools/filters/repository_dependencies.xml
+    test-data/get_orf_input.fasta
+    test-data/get_orf_input.Suis_ORF.nuc.fasta
+    test-data/get_orf_input.Suis_ORF.prot.fasta
+    test-data/get_orf_input.t11_nuc_out.fasta
+    test-data/get_orf_input.t11_open_nuc_out.fasta
+    test-data/get_orf_input.t11_open_prot_out.fasta
+    test-data/get_orf_input.t11_prot_out.fasta
+    test-data/get_orf_input.t1_nuc_out.fasta
+    test-data/get_orf_input.t1_prot_out.fasta
+    test-data/Ssuis.fasta
 
 
 Licence (MIT/BSD style)
