@@ -56,13 +56,18 @@ You will also need to install Biopython 1.54 or later. That's it.
 History
 =======
 
-v0.0.1 - Initial version.
-v0.0.3 - Ignore blank lines in input.
-v0.0.4 - Record script version when run from Galaxy.
-       - Basic unit test included.
-v0.0.5 - Check for errors using Python script's return code.
-v0.0.6 - Link to Tool Shed added to help text and this documentation.
-v0.0.7 - Automatic installation of Biopython dependency.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1   - Initial version.
+v0.0.3   - Ignore blank lines in input.
+v0.0.4   - Record script version when run from Galaxy.
+         - Basic unit test included.
+v0.0.5   - Check for errors using Python script's return code.
+v0.0.6   - Link to Tool Shed added to help text and this documentation.
+v0.0.7   - Automatic installation of Biopython dependency.
+         - Use reStructuredText for this README file.
+======= ======================================================================
 
 
 Developers

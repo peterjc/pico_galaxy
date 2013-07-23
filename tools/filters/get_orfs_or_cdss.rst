@@ -50,13 +50,18 @@ That's it.
 History
 =======
 
-v0.0.1 - Initial version.
-v0.0.2 - Correct labelling issue on reverse strand.
-       - Use the new <stdio> settings in the XML wrappers to catch errors
-v0.0.3 - Include unit tests.
-       - Record Python script version when run from Galaxy.
-v0.0.4 - Link to Tool Shed added to help text and this documentation.
-v0.0.5 - Automated intallation of the Biopython dependency.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1   - Initial version.
+v0.0.2   - Correct labelling issue on reverse strand.
+         - Use the new <stdio> settings in the XML wrappers to catch errors
+v0.0.3   - Include unit tests.
+         - Record Python script version when run from Galaxy.
+v0.0.4   - Link to Tool Shed added to help text and this documentation.
+v0.0.5   - Automated intallation of the Biopython dependency.
+         - Use reStructuredText for this README file.
+======= ======================================================================
 
 
 Developers
