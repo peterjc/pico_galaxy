@@ -74,7 +74,7 @@ Check this worked:
 
 $ tar -tzf get_orfs_or_cdss.tar.gz
 filter/get_orfs_or_cdss.py
-filter/get_orfs_or_cdss.txt
+filter/get_orfs_or_cdss.rst
 filter/get_orfs_or_cdss.xml
 tools/filters/repository_dependencies.xml
 test-data/get_orf_input.fasta

@@ -78,7 +78,7 @@ Check this worked:
 
 $ tar -tzf seq_rename.tar.gz
 tools/filter/seq_rename.py
-tools/filter/seq_rename.txt
+tools/filter/seq_rename.rst
 tools/filter/seq_rename.xml
 tools/filters/repository_dependencies.xml
 test-data/four_human_proteins.fasta

@@ -83,7 +83,7 @@ Check this worked:
 
 $ tar -tzf seq_filter_by_id.tar.gz
 filter/seq_filter_by_id.py
-filter/seq_filter_by_id.txt
+filter/seq_filter_by_id.rst
 filter/seq_filter_by_id.xml
 test-data/k12_ten_proteins.fasta
 test-data/k12_hypothetical.fasta
