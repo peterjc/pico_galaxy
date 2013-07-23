@@ -1,5 +1,5 @@
-Galaxy tool to renamed FASTA, QUAL, FASTQ or SFF sequences
-==========================================================
+Galaxy tool to rename FASTA, QUAL, FASTQ or SFF sequences
+=========================================================
 
 This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
