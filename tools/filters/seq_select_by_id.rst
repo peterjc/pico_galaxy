@@ -67,7 +67,7 @@ v0.0.4   - Record script version when run from Galaxy.
          - Basic unit test included.
 v0.0.5   - Check for errors using Python script's return code.
 v0.0.6   - Link to Tool Shed added to help text and this documentation.
-v0.0.7   - Automatic installation of Biopython dependency.
+         - Automatic installation of Biopython dependency.
          - Use reStructuredText for this README file.
          - Adopt standard MIT License.
 ======= ======================================================================
