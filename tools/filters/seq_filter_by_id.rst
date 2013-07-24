@@ -66,7 +66,6 @@ v0.0.4   - Record script version when run from Galaxy.
 v0.0.5   - Check for errors using Python script's return code.
          - Cope with malformed FASTA entries without an identifier.
 v0.0.6   - Link to Tool Shed added to help text and this documentation.
-v0.1.0   - Allow multiple tabular identifier files, allowing OR like usage.
          - Automated installation of the Biopython dependency.
          - Use reStructuredText for this README file.
          - Adopt standard MIT License.

@@ -2,7 +2,7 @@
 	<description>from a tabular file</description>
 	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
 	<command interpreter="python">
-seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
+seq_filter_by_id.py "$input_file" "$input_file.ext"
 #if $output_choice_cond.output_choice=="both"
  $output_pos $output_neg
 #elif $output_choice_cond.output_choice=="pos"
@@ -10,6 +10,9 @@ seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
 #elif $output_choice_cond.output_choice=="neg"
  - $output_neg
 #end if
+## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
+## Single tabular file, can call the Python script with either UNION or INTERSECTION
+UNION "$input_tabular" "$columns"
 	</command>
         <stdio>
                 <!-- Anything other than zero is an error -->
