@@ -1,25 +1,14 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.1.0">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.6">
 	<description>from a tabular file</description>
 	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
 	<command interpreter="python">
-seq_filter_by_id.py "$input_file" "$input_file.ext"
+seq_filter_by_id.py $input_tabular $columns $input_file $input_file.ext
 #if $output_choice_cond.output_choice=="both"
- "$output_pos" "$output_neg"
+ $output_pos $output_neg
 #elif $output_choice_cond.output_choice=="pos"
- "$output_pos" -
+ $output_pos -
 #elif $output_choice_cond.output_choice=="neg"
- - "$output_neg"
-#end if
-#if $id_opts.single_multi=="SINGLE"
-## Single tabular file, can call the Python script with either UNION or INTERSECTION
-UNION "$input_tabular" "$columns"
-#else
-## Multiple tabular files, combined with either UNION or INTERSECTION
-## Note first file is outside the repeat loop (inelegant but for backward compatibility)
-$id_opts.set_operator "$input_tabular" "$columns"
-#for $i in $id_opts.identifiers
- "${i.extra_tabular}" "${i.extra_columns}"
-#end for
+ - $output_neg
 #end if
 	</command>
         <stdio>
@@ -29,37 +18,10 @@ $id_opts.set_operator "$input_tabular" "$columns"
         </stdio>
 	<inputs>
 		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" help="FASTA, FASTQ, or SFF format." />
-		<!-- Note that using a separate set of parameters for the first file is for backward compatibility -->
 		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False"
-		       label="Column(s) containing sequence identifiers"
-		       help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
 			<validator type="no_options" message="Pick at least one column"/>
 		</param>
-		<conditional name="id_opts">
-	                <param name="single_multi" type="select" label="Source of sequence identifier list">
-				<option value="SINGLE">Simple mode - sequences all listed in ONE tabular file</option>
-                	        <option value="MULTI">Advanced mode - build a combined sequence list from several tabular files</option>
-	                </param>
-			<when value="SINGLE" />
-			<when value="MULTI">
-				<!-- Originally wanted to use min="1" on the repeat, but Galaxy broke. -->
-				<repeat name="identifiers" title="Additional tabular file(s) with sequence identifiers">
-					<param name="extra_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-					<param name="extra_columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False"
- 					       label="Column(s) containing sequence identifiers"
- 					       help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
-						<validator type="no_options" message="Pick at least one column"/>
-					</param>
-				</repeat>
-				<!-- Putting this at the end as I want all the file parameters close to each other -->
-				<param name="set_operator" type="select" label="How to combine the identifiers from each file">
-					<option value="UNION">Union - want sequences listed in ANY of given tabular files</option>
-					<option value="INTERSECTION">Intersection - only want sequences listed in ALL of given tabular files</option>
-				</param>
-			</when>
-		</conditional>
-		<!-- This conditional block is used in the output section below -->
 		<conditional name="output_choice_cond">
 			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
 				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two files</option>
@@ -104,7 +66,6 @@ $id_opts.set_operator "$input_tabular" "$columns"
 			<param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
 			<param name="columns" value="1" />
 			<param name="output_choice" value="pos" />
-			<param name="single_multi" value="SINGLE" />
 			<output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
 		</test>
 	</tests>
@@ -116,14 +77,13 @@ $id_opts.set_operator "$input_tabular" "$columns"
 **What it does**
 
 By default it divides a FASTA, FASTQ or Standard Flowgram Format (SFF) file in
-two, those sequences with or without an ID present in the column(s) specified
-for the given tabular file(s). You can opt to have a single output file of
-just the matching records, or just the non-matching ones.
+two, those sequences with or without an ID present in the tabular file column(s)
+specified. You can opt to have a single output file of just the matching records,
+or just the non-matching ones.
 
 Note that the order of sequences in the original sequence file is preserved, as
 is any Roche XML Manifest in an SFF file. Also, if any sequences share an
 identifier (which would be very unusual in SFF files), duplicates are not removed.
-
 
 **Example Usage**
 
@@ -138,11 +98,6 @@ tool giving tabular output, which has then been filtered on some criteria.
 You can then use this tool to divide the original FASTA file into those entries
 matching or not matching your criteria (those with or without their identifier
 in the filtered tabular file).
-
-You may have run three different tools for identifying proteins of interest,
-producing three tabular files listing their identifiers. You can use this tool
-to produce a filtered FASTA file of those proteins on any of the three lists.
-
 
 **Citation**
 
