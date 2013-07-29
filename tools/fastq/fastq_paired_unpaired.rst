@@ -37,9 +37,9 @@ tools provided with Galaxy.
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer
 the tool. One suggested location is next to the fastq_filter.xml entry. Simply
-add the line:
+add the line::
 
-<tool file="fastq/fastq_paired_unpaired.xml" />
+    <tool file="fastq/fastq_paired_unpaired.xml" />
 
 That's it.
 
@@ -55,6 +55,7 @@ v0.0.5 - Handle Illumina 1.8 style pair names
 v0.0.6 - Record script version when run from Galaxy
        - Added unit test (FASTQ file using Sanger naming)
 v0.0.7 - Link to Tool Shed added to help text and this documentation.
+v0.0.8 - Use reStructuredText for this README file.
 
 
 Developers
@@ -65,21 +66,21 @@ currently being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf fastq_paired_unpaired.tar.gz tools/fastq/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
+    $ tar -czf fastq_paired_unpaired.tar.gz tools/fastq/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf fastq_paired_unpaired.tar.gz
-fastq/fastq_paired_unpaired.py
-fastq/fastq_paired_unpaired.txt
-fastq/fastq_paired_unpaired.xml
-test-data/sanger-pairs-forward.fastq
-test-data/sanger-pairs-interleaved.fastq
-test-data/sanger-pairs-mixed.fastq
-test-data/sanger-pairs-reverse.fastq
-test-data/sanger-pairs-singles.fastq
+    $ tar -tzf fastq_paired_unpaired.tar.gz
+    fastq/fastq_paired_unpaired.py
+    fastq/fastq_paired_unpaired.rst
+    fastq/fastq_paired_unpaired.xml
+    test-data/sanger-pairs-forward.fastq
+    test-data/sanger-pairs-interleaved.fastq
+    test-data/sanger-pairs-mixed.fastq
+    test-data/sanger-pairs-reverse.fastq
+    test-data/sanger-pairs-singles.fastq
 
 
 Licence (MIT/BSD style)
