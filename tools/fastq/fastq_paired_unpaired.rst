@@ -77,9 +77,9 @@ the following command from the Galaxy root folder::
 Check this worked::
 
     $ tar -tzf fastq_paired_unpaired.tar.gz
-    fastq/fastq_paired_unpaired.py
-    fastq/fastq_paired_unpaired.rst
-    fastq/fastq_paired_unpaired.xml
+    tools/fastq/fastq_paired_unpaired.py
+    tools/fastq/fastq_paired_unpaired.rst
+    tools/fastq/fastq_paired_unpaired.xml
     test-data/sanger-pairs-forward.fastq
     test-data/sanger-pairs-interleaved.fastq
     test-data/sanger-pairs-mixed.fastq
