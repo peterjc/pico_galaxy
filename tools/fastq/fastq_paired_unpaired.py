@@ -9,10 +9,10 @@ suffices. See below or run the tool with no arguments for more details.
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
 Color Space should all work equally well).
 
-This script is copyright 2010-2011 by Peter Cock, The James Hutton Institute
+This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI), Scotland, UK. All rights reserved.
 
-See accompanying text file for licence details (MIT/BSD style).
+See accompanying text file for licence details (MIT license).
 """
 import os
 import sys
@@ -20,7 +20,7 @@ import re
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "Version 0.0.6"
+    print "Version 0.0.8"
     sys.exit(0)
 
 def stop_err(msg, err=1):

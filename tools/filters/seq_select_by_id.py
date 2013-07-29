@@ -17,10 +17,10 @@ molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute UK.
-All rights reserved. See accompanying text file for licence details (MIT/BSD
-style).
+All rights reserved. See accompanying text file for licence details (MIT
+license).
 
-This is version 0.0.4 of the script.
+This is version 0.0.6 of the script.
 """
 import sys
 
@@ -29,7 +29,7 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.4"
+    print "v0.0.6"
     sys.exit(0)
 
 #Parse Command Line
