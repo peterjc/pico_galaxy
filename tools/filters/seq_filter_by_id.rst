@@ -85,14 +85,15 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_filter_by_id.tar.gz tools/filters/seq_filter_by_id.* test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
+    $ tar -czf seq_filter_by_id.tar.gz tools/filters/seq_filter_by_id.* tools/filters/repository_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
 
 Check this worked::
 
     $ tar -tzf seq_filter_by_id.tar.gz
-    filter/seq_filter_by_id.py
-    filter/seq_filter_by_id.rst
-    filter/seq_filter_by_id.xml
+    tools/filters/seq_filter_by_id.py
+    tools/filters/seq_filter_by_id.rst
+    tools/filters/seq_filter_by_id.xml
+    tools/filters/repository_dependencies.xml
     test-data/k12_ten_proteins.fasta
     test-data/k12_hypothetical.fasta
     test-data/k12_hypothetical.tabular
