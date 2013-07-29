@@ -5,10 +5,9 @@ This tool is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
-This tool is a short Python script (using the Biopython library functions) which
-divides a FASTQ file into paired reads, and single or orphan reads. You can have
-separate files for the forward/reverse reads, or have them interleaved in a
-single file.
+This tool is a short Python script which divides a FASTQ file into paired
+reads, and single or orphan reads. You can have separate files for the
+forward/reverse reads, or have them interleaved in a single file.
 
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
 Color Space should all work equally well).
