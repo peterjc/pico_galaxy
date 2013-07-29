@@ -47,15 +47,19 @@ That's it.
 History
 =======
 
-v0.0.1 - Initial version, using Biopython
-v0.0.2 - Help text; cope with multiple pairs per template
-v0.0.3 - Galaxy XML wrappers added
-v0.0.4 - Use Galaxy library to handle FASTQ files (avoid Biopython dependency)
-v0.0.5 - Handle Illumina 1.8 style pair names
-v0.0.6 - Record script version when run from Galaxy
-       - Added unit test (FASTQ file using Sanger naming)
-v0.0.7 - Link to Tool Shed added to help text and this documentation.
-v0.0.8 - Use reStructuredText for this README file.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1  - Initial version, using Biopython
+v0.0.2  - Help text; cope with multiple pairs per template
+v0.0.3  - Galaxy XML wrappers added
+v0.0.4  - Use Galaxy library to handle FASTQ files (avoid Biopython dependency)
+v0.0.5  - Handle Illumina 1.8 style pair names
+v0.0.6  - Record script version when run from Galaxy
+        - Added unit test (FASTQ file using Sanger naming)
+v0.0.7  - Link to Tool Shed added to help text and this documentation.
+v0.0.8  - Use reStructuredText for this README file.
+======= ======================================================================
 
 
 Developers
