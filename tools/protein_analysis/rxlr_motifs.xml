@@ -74,9 +74,9 @@ selected RXLR motif (Y or N).
 Looks for the oomycete motif RXLR as described in Bhattacharjee et al. (2006).
 
 Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
-a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
+a SignalP Neural Network (NN) predicted cleavage site giving a signal peptide
 length between 10 and 40 amino acids inclusive, and the RXLR pattern must be
-after but within 100 amino acids of the clevage site.
+after but within 100 amino acids of the cleavage site.
 SignalP is run truncating the sequences to the first 70 amino acids, which was
 the default on the SignalP webservice used in Bhattacharjee et al. (2006).
 
@@ -86,9 +86,9 @@ the default on the SignalP webservice used in Bhattacharjee et al. (2006).
 Looks for the protein motif RXLR as described in Win et al. (2007).
 
 Matches must have a SignalP Hidden Markov Model (HMM) score of at least 0.9,
-a SignalP Neural Network (NN) predicted clevage site giving a signal peptide
+a SignalP Neural Network (NN) predicted cleavage site giving a signal peptide
 length between 10 and 40 amino acids inclusive, and the RXLR pattern must be
-after the clevage site and start between amino acids 30 and 60.
+after the cleavage site and start between amino acids 30 and 60.
 SignalP is run truncating the sequences to the first 70 amino acids, to match
 the methodology of Torto et al. (2003) followed in Win et al. (2007).
 

@@ -149,6 +149,7 @@ v0.2.4 - Added unit tests for Promoter 2
 v0.2.5 - Link to Tool Shed added to help text and this documentation.
        - More unit tests.
        - Fixed bug with RXLR tool and empty FASTA files.
+       - Fixed typo in the RXLR tool help text.
 
 
 
