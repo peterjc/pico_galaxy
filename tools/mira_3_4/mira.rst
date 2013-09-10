@@ -31,14 +31,14 @@ There are just two Galaxy files to install:
 
 The suggested location is a new tools/mira_3_4 folder. You will also need to
 modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
-this to tools_conf.xml.sample in order to run any tests:
+this to tools_conf.xml.sample in order to run any tests::
 
-<tool file="mira_3_4/mira.xml" />
+  <tool file="mira_3_4/mira.xml" />
 
 You will also need to install MIRA, we used version 3.4.1.1. See:
 
-http://chevreux.org/projects_mira.html
-http://sourceforge.net/projects/mira-assembler/
+* http://chevreux.org/projects_mira.html
+* http://sourceforge.net/projects/mira-assembler/
 
 WARNING: This tool was developed to construct viral genome assembly and
 mapping pipelines, for which the run time and memory requirements are
@@ -50,22 +50,27 @@ no attempt to spot and reject such large jobs.
 History
 =======
 
-v0.0.1 - Initial version (working prototype, using MIRA 3.2.1)
-v0.0.2 - Improve capture of stdout/stderr (should see it as it runs)
-v0.0.3 - Support Ion Torrent reads, now requires MIRA 3.4.0 or later
-         (some other switches changed, e.g. -OUT rrol to rrot, which
-         means the wrapper no longer works with MIRA 3.2.x)
-       - The contig summary file (TCS file) was removed in MIRA 3.4
-       - Report all missing output files (not just first missing one)
-v0.0.4 - Fix problem with backbone arguments inroduced in v0.0.3
-v0.0.5 - Implement the <version_command> tag to record the wrapper
-         version and the MIRA version being used.
-       - Check using MIRA 3.4 (later versions have a different API)
-v0.0.6 - Tell MIRA to use /tmp for temporary files
-       - Tell MIRA to ignore long read names (otherwise it aborts)
-v0.0.7 - Automated installation of the 64 bit Linux MIRA binary.
-v0.0.8 - Basic unit test added.
-       - Link to Tool Shed added to help text and this documentation.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1  - Initial version (working prototype, using MIRA 3.2.1)
+v0.0.2  - Improve capture of stdout/stderr (should see it as it runs)
+v0.0.3  - Support Ion Torrent reads, now requires MIRA 3.4.0 or later
+          (some other switches changed, e.g. -OUT rrol to rrot, which
+          means the wrapper no longer works with MIRA 3.2.x)
+        - The contig summary file (TCS file) was removed in MIRA 3.4
+        - Report all missing output files (not just first missing one)
+v0.0.4  - Fix problem with backbone arguments inroduced in v0.0.3
+v0.0.5  - Implement the <version_command> tag to record the wrapper
+          version and the MIRA version being used.
+        - Check using MIRA 3.4 (later versions have a different API)
+v0.0.6  - Tell MIRA to use /tmp for temporary files
+        - Tell MIRA to ignore long read names (otherwise it aborts)
+v0.0.7  - Automated installation of the 64 bit Linux MIRA binary.
+v0.0.8  - Basic unit test added.
+        - Link to Tool Shed added to help text and this documentation.
+        - Use reStructuredText for this README file.
+======= ======================================================================
 
 
 Developers
@@ -75,19 +80,19 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.* tools/mira_3_4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
+    $ tar -czf mira_wrapper.tar.gz tools/mira_3_4/mira.* tools/mira_3_4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
 
 Check this worked:
 
-$ tar -tzf mira_wrapper.tar.gz
-tools/mira_3_4/mira.py
-tools/mira_3_4/mira.txt
-tools/mira_3_4/mira.xml
-tools/mira_3_4/tool_dependencies.xml
-test-data/tvc_mini.fastq
-test-data/tvc_contigs.fasta
+    $ tar -tzf mira_wrapper.tar.gz
+    tools/mira_3_4/mira.py
+    tools/mira_3_4/mira.rst
+    tools/mira_3_4/mira.xml
+    tools/mira_3_4/tool_dependencies.xml
+    test-data/tvc_mini.fastq
+    test-data/tvc_contigs.fasta
 
 
 Licence (MIT/BSD style)
