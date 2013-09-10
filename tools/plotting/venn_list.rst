@@ -45,6 +45,7 @@ v0.0.5  - Explicit Galaxy error handling of return codes
 v0.0.6  - Added unit tests.
         - Use reStructuredText for this README file.
         - Adopt standard MIT licence.
+        - Updated citation information (Cock et al. 2013).
 ======= ======================================================================
 
 
