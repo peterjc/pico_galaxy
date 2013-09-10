@@ -46,14 +46,14 @@ folder, e.g. in a tools/protein_analysis folder:
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
-it next to them. Just add the line (matching the chosen install path):
+it next to them. Just add the line (matching the chosen install path)::
 
-<tool file="protein_analysis/nlstradamus.xml" />
+  <tool file="protein_analysis/nlstradamus.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then:
+and move/copy the test-data files under Galaxy's test-data folder. Then::
 
-$ ./run_functional_tests.sh -id nlstradamus
+    $ ./run_functional_tests.sh -id nlstradamus
 
 That's it.
 
@@ -61,15 +61,20 @@ That's it.
 History
 =======
 
-v0.0.3 - Initial public release
-v0.0.4 - Adding DOI link to reference
-         (Documentation change only)
-v0.0.5 - Assume non-zero return codes are errors
-v0.0.6 - Show output help text using a table
-       - Added unit tests
-v0.0.7 - Automatic installation of the NLStradamus binary when installed
-         via the Galaxy Tool Shed
-v0.0.8 - Link to Tool Shed added to help text and this documentation.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.3  - Initial public release
+v0.0.4  - Adding DOI link to reference
+          (Documentation change only)
+v0.0.5  - Assume non-zero return codes are errors
+v0.0.6  - Show output help text using a table
+        - Added unit tests
+v0.0.7  - Automatic installation of the NLStradamus binary when installed
+          via the Galaxy Tool Shed
+v0.0.8  - Link to Tool Shed added to help text and this documentation.
+        - Use reStructuredText for this README file.
+======= ======================================================================
 
 
 Developers
@@ -79,20 +84,20 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf nlstradmus.tar.gz tools/nlstradamus/nlstradamus.xml tools/nlstradamus/nlstradamus.txt tools/nlstradamus/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
+    $ tar -czf nlstradmus.tar.gz tools/nlstradamus/nlstradamus.xml tools/nlstradamus/nlstradamus.rst tools/nlstradamus/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf nlstradmus.tar.gz
-tools/nlstradamus/nlstradamus.xml
-tools/nlstradamus/nlstradamus.txt
-tools/nlstradamus/tool_dependencies.xml
-test-data/four_human_proteins.fasta
-test-data/four_human_proteins.nlstradamus.tabular
-test-data/empty.fasta
-test-data/empty_nlstradamus.tabular
+    $ tar -tzf nlstradmus.tar.gz
+    tools/nlstradamus/nlstradamus.xml
+    tools/nlstradamus/nlstradamus.rst
+    tools/nlstradamus/tool_dependencies.xml
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.nlstradamus.tabular
+    test-data/empty.fasta
+    test-data/empty_nlstradamus.tabular
 
 
 Licence (MIT/BSD style)
