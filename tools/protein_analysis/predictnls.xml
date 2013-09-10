@@ -76,12 +76,20 @@ rip  Periplasmic
 
 **References**
 
-Murat Cokol, Rajesh Nair, and Burkhard Rost.
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Murat Cokol, Rajesh Nair, and Burkhard Rost (2000).
 Finding nuclear localization signals.
-EMBO reports 1(5), 411–415, 2000
+EMBO reports 1(5), 411–415
 http://dx.doi.org/10.1093/embo-reports/kvd092
 
-http://rostlab.org
+See also http://rostlab.org
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/predictnls

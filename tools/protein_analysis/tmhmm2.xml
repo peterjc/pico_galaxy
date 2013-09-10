@@ -96,17 +96,25 @@ gi|3298468|dbj|BAA31520.1|          107 59.37   31.17       3 o23-45i52-74o89-10
 
 **References**
 
-Krogh, Larsson, von Heijne, and Sonnhammer.
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Krogh, Larsson, von Heijne, and Sonnhammer (2001).
 Predicting Transmembrane Protein Topology with a Hidden Markov Model: Application to Complete Genomes.
-J. Mol. Biol. 305:567-580, 2001.
+J. Mol. Biol. 305:567-580.
 http://dx.doi.org/10.1006/jmbi.2000.4315
 
-Sonnhammer, von Heijne, and Krogh.
+Sonnhammer, von Heijne, and Krogh (1998).
 A hidden Markov model for predicting transmembrane helices in protein sequences.
-In J. Glasgow et al., eds.: Proc. Sixth Int. Conf. on Intelligent Systems for Molecular Biology, pages 175-182. AAAI Press, 1998.
+In J. Glasgow et al., eds.: Proc. Sixth Int. Conf. on Intelligent Systems for Molecular Biology, pages 175-182. AAAI Press.
 http://www.ncbi.nlm.nih.gov/pubmed/9783223
 
-http://www.cbs.dtu.dk/services/TMHMM/
+See also http://www.cbs.dtu.dk/services/TMHMM/
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp

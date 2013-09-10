@@ -83,6 +83,14 @@ so that Galaxy treats it as a comment) giving the column names.
 
 **References**
 
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
 N.Y. Yu, J.R. Wagner, M.R. Laird, G. Melli, S. Rey, R. Lo, P. Dao,
 S.C. Sahinalp, M. Ester, L.J. Foster, F.S.L. Brinkman (2010)
 PSORTb 3.0: Improved protein subcellular localization prediction with
@@ -90,7 +98,7 @@ refined localization subcategories and predictive capabilities for all
 prokaryotes, Bioinformatics 26(13):1608-1615
 http://dx.doi.org/10.1093/bioinformatics/btq249
 
-http://www.psort.org/documentation/index.html
+See also http://www.psort.org/documentation/index.html
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp

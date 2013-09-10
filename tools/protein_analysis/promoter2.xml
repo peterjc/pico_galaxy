@@ -67,12 +67,20 @@ Internally the input FASTA file is divided into parts (to allow multiple process
 
 **References**
 
-Knudsen.
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Knudsen (1999).
 Promoter2.0: for the recognition of PolII promoter sequences.
-Bioinformatics, 15:356-61, 1999.
+Bioinformatics, 15:356-61.
 http://dx.doi.org/10.1093/bioinformatics/15.5.356
 
-http://www.cbs.dtu.dk/services/Promoter/output.php
+See also http://www.cbs.dtu.dk/services/Promoter/output.php
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp

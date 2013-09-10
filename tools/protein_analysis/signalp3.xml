@@ -168,23 +168,31 @@ Signal peptides are found at the start of a protein, so there is limited value i
 
 **References**
 
-Bendtsen, Nielsen, von Heijne, and Brunak.
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Bendtsen, Nielsen, von Heijne, and Brunak (2004).
 Improved prediction of signal peptides: SignalP 3.0.
-J. Mol. Biol., 340:783-795, 2004.
+J. Mol. Biol., 340:783-795.
 http://dx.doi.org/10.1016/j.jmb.2004.05.028
 
-Nielsen, Engelbrecht, Brunak and von Heijne.
+Nielsen, Engelbrecht, Brunak and von Heijne (1997).
 Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
-Protein Engineering, 10:1-6, 1997.
+Protein Engineering, 10:1-6.
 http://dx.doi.org/10.1093/protein/10.1.1
 
-Nielsen and Krogh.
+Nielsen and Krogh (1998).
 Prediction of signal peptides and signal anchors by a hidden Markov model.
 Proceedings of the Sixth International Conference on Intelligent Systems for Molecular Biology (ISMB 6),
-AAAI Press, Menlo Park, California, pp. 122-130, 1998.
+AAAI Press, Menlo Park, California, pp. 122-130.
 http://www.ncbi.nlm.nih.gov/pubmed/9783217
 
-http://www.cbs.dtu.dk/services/SignalP-3.0/output.php
+See also http://www.cbs.dtu.dk/services/SignalP-3.0/output.php
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp

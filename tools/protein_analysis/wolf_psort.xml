@@ -128,16 +128,24 @@ least 10 (c2=='extr' and 10&lt;=c3), and so on.
 
 **References**
 
-Paul Horton, Keun-Joon Park, Takeshi Obayashi, Naoya Fujita, Hajime Harada, C.J. Adams-Collier, and Kenta Nakai,
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Paul Horton, Keun-Joon Park, Takeshi Obayashi, Naoya Fujita, Hajime Harada, C.J. Adams-Collier, and Kenta Nakai (2007).
 WoLF PSORT: Protein Localization Predictor.
-Nucleic Acids Research, 35(S2), W585-W587, 2007.
+Nucleic Acids Research, 35(S2), W585-W587.
 http://dx.doi.org/10.1093/nar/gkm259
 
-Paul Horton, Keun-Joon Park, Takeshi Obayashi and Kenta Nakai.
+Paul Horton, Keun-Joon Park, Takeshi Obayashi and Kenta Nakai (2006).
 Protein Subcellular Localization Prediction with WoLF PSORT.
-Proceedings of the 4th Annual Asia Pacific Bioinformatics Conference APBC06, Taipei, Taiwan. pp. 39-48, 2006.
+Proceedings of the 4th Annual Asia Pacific Bioinformatics Conference APBC06, Taipei, Taiwan. pp. 39-48.
 
-http://wolfpsort.org
+See also http://wolfpsort.org
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp

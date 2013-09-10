@@ -22,6 +22,19 @@ See the included LICENCE file for details (an MIT style open source licence).
 The wrappers are available from the Galaxy Tool Shed
 http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp 
 
+Citation
+========
+
+If you use any of these Galaxy tools in work leading to a scientific
+publication, in addition to citing the invididual underlying tools, please cite:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Full reference information is included in the help text for each tool.
+
 
 Requirements
 ============
@@ -150,7 +163,7 @@ v0.2.5 - Link to Tool Shed added to help text and this documentation.
        - More unit tests.
        - Fixed bug with RXLR tool and empty FASTA files.
        - Fixed typo in the RXLR tool help text.
-
+       - Updated citation information (Cock et al. 2013).
 
 
 Developers

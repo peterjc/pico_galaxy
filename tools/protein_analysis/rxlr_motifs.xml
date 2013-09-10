@@ -135,6 +135,14 @@ is handled via the intemediate sequence files.
 
 **References**
 
+If you use this Galaxy tool in work leading to a scientific publication please
+cite Cock et al. (2013) and the appropriate method paper(s):
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
 Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard and Paul R. J. Birch
 A translocation signal for delivery of oomycete effector proteins into host plant cells.
 Nature 450:115-118, 2007.
