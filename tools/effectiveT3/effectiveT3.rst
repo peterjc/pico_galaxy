@@ -81,6 +81,7 @@ v0.0.11 - Automated installation
         - Link to Tool Shed added to help text and this documentation.
 v0.0.12 - More explicit naming of the output dataset.
         - Adopt standard MIT licence.
+        - Use reStructuredText for this README file.
         - Updated citation information (Cock et al. 2013).
 ======= ======================================================================
 
