@@ -102,11 +102,18 @@ You can then use this tool to divide the original FASTA file into those entries
 matching or not matching your criteria (those with or without their identifier
 in the filtered tabular file).
 
-**Citation**
+**References**
 
-This tool uses Biopython to read and write SFF files. If you use this tool in
-scientific work leading to a publication, please cite the Biopython application
-note (and Galaxy too of course):
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+This tool uses Biopython to read and write SFF files, so you may also wish to
+cite the Biopython application note (and Galaxy too of course):
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.

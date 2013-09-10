@@ -49,11 +49,18 @@ in the tabular file (in the order from the tabular file).
 WARNING: If you have any duplicates in the tabular file identifiers, you will get
 duplicate sequences in the output.
 
-**Citation**
+**References**
 
-This tool uses Biopython to read, write and index sequence files. If you use
-this tool in scientific work leading to a publication, please cite the
-Biopython application note (and Galaxy too of course):
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+This tool uses Biopython to read, write and index sequence files, so you may
+also wish to cite the Biopython application note (and Galaxy too of course):
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.

@@ -69,6 +69,7 @@ v0.0.6   - Link to Tool Shed added to help text and this documentation.
          - Automated installation of the Biopython dependency.
          - Use reStructuredText for this README file.
          - Adopt standard MIT License.
+         - Updated citation information (Cock et al. 2013).
 ======= ======================================================================
 
 

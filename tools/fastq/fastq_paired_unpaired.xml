@@ -97,7 +97,15 @@ both become:
  * WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
  * WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
 
-**Citation**
+**References**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following paper:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
 
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_paired_unpaired
