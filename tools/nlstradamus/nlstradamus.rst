@@ -3,9 +3,9 @@ Galaxy wrapper for NLStradamus v1.7 or v1.8 (C++ version)
 
 This wrapper is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
-See the licence text below.
+See the licence text below (MIT licence).
 
-NLStradamus is a command line tools for predicting nuclear localization
+NLStradamus is a command line tool for predicting nuclear localization
 signals (NLSs) in a FASTA file of proteins using a Hidden Markov Model (HMM).
 
 This wrapper is available from the Galaxy Tool Shed at:
@@ -74,6 +74,7 @@ v0.0.7  - Automatic installation of the NLStradamus binary when installed
           via the Galaxy Tool Shed
 v0.0.8  - Link to Tool Shed added to help text and this documentation.
         - Use reStructuredText for this README file.
+        - Adopted standard MIT licence.
 ======= ======================================================================
 
 
@@ -100,26 +101,23 @@ Check this worked::
     test-data/empty_nlstradamus.tabular
 
 
-Licence (MIT/BSD style)
-=======================
+Licence (MIT)
+=============
 
-Permission to use, copy, modify, and distribute this software and its
-documentation with or without modifications and for any purpose and
-without fee is hereby granted, provided that any copyright notices
-appear in all copies and that both those copyright notices and this
-permission notice appear in supporting documentation, and that the
-names of the contributors or copyright holders not be used in
-advertising or publicity pertaining to distribution of the software
-without specific prior permission.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-THE CONTRIBUTORS AND COPYRIGHT HOLDERS OF THIS SOFTWARE DISCLAIM ALL
-WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE
-CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT
-OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
-OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
-OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-NOTE: This is the licence for the Galaxy Wrapper only. NLStradamus
-is is available and licenced separately (under the GPL v3 or later).
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
