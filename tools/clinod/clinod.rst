@@ -39,14 +39,14 @@ folder, e.g. in a tools/clinod folder:
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
-it next to them. Just add the line:
+it next to them. Just add the line::
 
-<tool file="clinod/clinod.xml" />
+  <tool file="clinod/clinod.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder.
+and move/copy the test-data files under Galaxy's test-data folder. Then::
 
-$ ./run_functional_tests.sh -id clinod
+    $ ./run_functional_tests.sh -id clinod
 
 That's it.
 
@@ -54,13 +54,18 @@ That's it.
 History
 =======
 
-v0.0.1 - Initial public release
-v0.0.2 - Treat non-zero return codes as errors
-v0.0.3 - Describe output table in help
-v0.0.4 - Added unit test
-v0.0.5 - Link to Tool Shed added to help text and this documentation.
-       - Automated tool installation.
-v0.0.6 - Adopted standard MIT licence.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1  - Initial public release
+v0.0.2  - Treat non-zero return codes as errors
+v0.0.3  - Describe output table in help
+v0.0.4  - Added unit test
+v0.0.5  - Link to Tool Shed added to help text and this documentation.
+        - Automated tool installation.
+v0.0.6  - Adopted standard MIT licence.
+        - Use reStructuredText for this README file.
+======= ======================================================================
 
 
 Developers
@@ -70,18 +75,18 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf clinod.tar.gz tools/clinod/clinod.xml tools/clinod/clinod.txt tools/clinod/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.clinod-1.3.tabular
+    $ tar -czf clinod.tar.gz tools/clinod/clinod.xml tools/clinod/clinod.rst tools/clinod/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.clinod-1.3.tabular
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf clinod.tar.gz
-tools/clinod/clinod.xml
-tools/clinod/clinod.txt
-tools/clinod/tool_dependencies.xml
-test-data/four_human_proteins.fasta
-test-data/four_human_proteins.clinod-1.3.tabular
+    $ tar -tzf clinod.tar.gz
+    tools/clinod/clinod.xml
+    tools/clinod/clinod.rst
+    tools/clinod/tool_dependencies.xml
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.clinod-1.3.tabular
 
 
 Licence (MIT)
