@@ -75,6 +75,7 @@ v0.0.7  - Automatic installation of the NLStradamus binary when installed
 v0.0.8  - Link to Tool Shed added to help text and this documentation.
         - Use reStructuredText for this README file.
         - Adopted standard MIT licence.
+        - Updated citation information (Cock et al. 2013).
 ======= ======================================================================
 
 

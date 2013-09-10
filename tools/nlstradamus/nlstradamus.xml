@@ -71,12 +71,21 @@ Column Description
 
 **References**
 
-A. N. Nguyen Ba, A. Pogoutse, N. Provart, A. M. Moses.
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+A. N. Nguyen Ba, A. Pogoutse, N. Provart, A. M. Moses (2009).
 NLStradamus: a simple Hidden Markov Model for nuclear localization signal prediction.
-BMC Bioinformatics. 2009 Jun 29;10(1):202.
+BMC Bioinformatics 10(1):202.
 http://dx.doi.org/10.1186/1471-2105-10-202
 
-http://www.moseslab.csb.utoronto.ca/NLStradamus
+See also http://www.moseslab.csb.utoronto.ca/NLStradamus
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/nlstradamus
