@@ -1,5 +1,8 @@
 <tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.10">
     <description>Trim off 5' or 3' primers</description>
+    <requirements>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
     <version_command interpreter="python">seq_primer_clip.py --version</version_command>   
     <command interpreter="python">
 seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file

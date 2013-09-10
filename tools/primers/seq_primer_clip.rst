@@ -13,8 +13,9 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/seq_primer_clip
 Automated Installation
 ======================
 
-This should be straightforward, provided you have installed Biopython 1.54 or later.
-Galaxy should automatically install the Python script, and run the unit tests.
+This should be straightforward using the Galaxy Tool Shed, which should be
+able to automatically install the dependency on Biopython, and then install
+this tool and run its unit tests.
 
 
 Manual Installation
@@ -57,6 +58,7 @@ v0.0.9  - Moved test data to workaround Galaxy Tool Shed limititation.
 v0.0.10 - Include links to Tool Shed in help text and this README file.
         - Use reStructuredText for this README file.
         - Adopted standard MIT licence.
+        - Automated installation of Biopython dependency.
 ======= ======================================================================
 
 
@@ -72,7 +74,7 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_primer_clip.tar.gz tools/primers/seq_primer_clip.* test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
+    $ tar -czf seq_primer_clip.tar.gz tools/primers/seq_primer_clip.* tools/primers/repository_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
 
 Check this worked::
 
@@ -80,6 +82,7 @@ Check this worked::
     tools/primers/seq_primer_clip.py
     tools/primers/seq_primer_clip.rst
     tools/primers/seq_primer_clip.xml
+    tools/primers/repository_dependencies.xml
     test-data/dop_primers.fasta
     test-data/MID4_GLZRM4E04_rnd30.fasta
     test-data/MID4_GLZRM4E04_rnd30.fastqsanger
