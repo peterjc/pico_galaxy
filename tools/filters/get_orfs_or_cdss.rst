@@ -3,7 +3,7 @@ Galaxy tool to find ORFs or simple CDSs
 
 This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
-See the licence text below.
+See the licence text below (MIT licence).
 
 This tool is a short Python script (using Biopython library functions)
 to search nucleotide sequences for open reading frames (ORFs) or coding
@@ -66,6 +66,7 @@ v0.0.4   - Link to Tool Shed added to help text and this documentation.
 v0.0.5   - Automated intallation of the Biopython dependency.
          - Use reStructuredText for this README file.
          - Adopt standard MIT License.
+         - Updated citation information (Cock et al. 2013).
 ======= ======================================================================
 
 
