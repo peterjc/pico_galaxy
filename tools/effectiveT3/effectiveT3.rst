@@ -35,33 +35,33 @@ Manual Installation
 
 You can change the path by setting the environment variable EFFECTIVET3 to the
 relevant folder, but by default it expects the following files to be installed
-at these locations:
+at these locations::
 
-/opt/EffectiveT3/TTSS_GUI-1.0.1.jar
-/opt/EffectiveT3/module/TTSS_ANIMAL-1.0.1.jar
-/opt/EffectiveT3/module/TTSS_PLANT-1.0.1.jar
-/opt/EffectiveT3/module/TTSS_STD-1.0.1.jar
+    /opt/EffectiveT3/TTSS_GUI-1.0.1.jar
+    /opt/EffectiveT3/module/TTSS_ANIMAL-1.0.1.jar
+    /opt/EffectiveT3/module/TTSS_PLANT-1.0.1.jar
+    /opt/EffectiveT3/module/TTSS_STD-1.0.1.jar
 
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a tools/effectiveT3 folder:
 
 * effectiveT3.xml (the Galaxy tool definition)
 * effectiveT3.py (the Python wrapper script)
-* effectiveT3.txt (this README file)
+* effectiveT3.rst (this README file)
 
 Also copy effectiveT3.loc.sample to effectiveT3.loc in the tool-data folder
 (and edit if appropriate, e.g. to add or remove a model).
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
-it next to them. Just add the line:
+it next to them. Just add the line::
 
-<tool file="effectiveT3/effectiveT3.xml" />
+  <tool file="effectiveT3/effectiveT3.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder.
+and move/copy the test-data files under Galaxy's test-data folder. Then::
 
-$ ./run_functional_tests.sh -id effectiveT3
+    $ ./run_functional_tests.sh -id effectiveT3
 
 That's it.
 
@@ -69,16 +69,20 @@ That's it.
 History
 =======
 
-v0.0.7 - Initial public release
-v0.0.8 - Include effectiveT3.loc.sample in Tool Shed
-v0.0.9 - Check the return code for errors in the XML
-v0.0.10- Added unit test
-v0.0.11- Automated installation
-       - Record version of Python script when called from Galaxy
-       - Link to Tool Shed added to help text and this documentation.
-v0.0.12- More explicit naming of the output dataset.
-       - Adopt standard MIT licence.
-       - Updated citation information (Cock et al. 2013).
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.7  - Initial public release
+v0.0.8  - Include effectiveT3.loc.sample in Tool Shed
+v0.0.9  - Check the return code for errors in the XML
+v0.0.10 - Added unit test
+v0.0.11 - Automated installation
+        - Record version of Python script when called from Galaxy
+        - Link to Tool Shed added to help text and this documentation.
+v0.0.12 - More explicit naming of the output dataset.
+        - Adopt standard MIT licence.
+        - Updated citation information (Cock et al. 2013).
+======= ======================================================================
 
 
 Developers
@@ -88,23 +92,23 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf effectiveT3.tar.gz tools/effectiveT3/effectiveT3.xml tools/effectiveT3/effectiveT3.py tools/effectiveT3/effectiveT3.txt tools/effectiveT3/tool_dependencies.xml tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
+    $ tar -czf effectiveT3.tar.gz tools/effectiveT3/effectiveT3.xml tools/effectiveT3/effectiveT3.py tools/effectiveT3/effectiveT3.rst tools/effectiveT3/tool_dependencies.xml tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
 
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf effectiveT3.tar.gz
-tools/effectiveT3/effectiveT3.xml
-tools/effectiveT3/effectiveT3.py
-tools/effectiveT3/effectiveT3.txt
-tools/effectiveT3/tool_dependencies.xml
-tool-data/effectiveT3.loc.sample
-test-data/four_human_proteins.fasta
-test-data/four_human_proteins.effectiveT3.tabular
-test-data/empty.fasta
-test-data/empty_effectiveT3.tabular
+    $ tar -tzf effectiveT3.tar.gz
+    tools/effectiveT3/effectiveT3.xml
+    tools/effectiveT3/effectiveT3.py
+    tools/effectiveT3/effectiveT3.rst
+    tools/effectiveT3/tool_dependencies.xml
+    tool-data/effectiveT3.loc.sample
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.effectiveT3.tabular
+    test-data/empty.fasta
+    test-data/empty_effectiveT3.tabular
 
 
 Licence (MIT)
