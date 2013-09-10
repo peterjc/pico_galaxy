@@ -58,17 +58,25 @@ for it.
 
 **References**
 
-M. S. Scott, F. M. Boisvert, M. D. McDowall, A. I. Lamond and G. J. Barton.
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+M. S. Scott, F. M. Boisvert, M. D. McDowall, A. I. Lamond and G. J. Barton (2010).
 Characterization and prediction of protein nucleolar localization sequences.
-Nucleic Acids Research 38(21), 7388-7399, 2010.
+Nucleic Acids Research 38(21), 7388-7399.
 http://dx.doi.org/10.1093/nar/gkq653
 
-M. S. Scott, P. V. Troshin and G. J. Barton.
+M. S. Scott, P. V. Troshin and G. J. Barton (2011).
 NoD: a Nucleolar localization sequence detector for eukaryotic and viral proteins.
-BMC Bioinformatics, 12:317, 2011.
+BMC Bioinformatics, 12:317.
 http://dx.doi.org/10.1186/1471-2105-12-317
 
-http://www.compbio.dundee.ac.uk/www-nod/
+See also http://www.compbio.dundee.ac.uk/www-nod/
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/clinod

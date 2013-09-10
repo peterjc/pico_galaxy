@@ -35,7 +35,7 @@ To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a tools/clinod folder:
 
 * clinod.xml (the Galaxy tool definition)
-* clinod.txt (this README file)
+* clinod.rst (this README file)
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
@@ -65,6 +65,7 @@ v0.0.5  - Link to Tool Shed added to help text and this documentation.
         - Automated tool installation.
 v0.0.6  - Adopted standard MIT licence.
         - Use reStructuredText for this README file.
+        - Updated citation information (Cock et al. 2013).
 ======= ======================================================================
 
 
