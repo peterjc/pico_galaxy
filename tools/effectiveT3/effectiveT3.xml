@@ -76,6 +76,14 @@ Column Description
 
 **References**
 
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
 Jehl, Arnold and Rattei.
 Effective - a database of predicted secreted bacterial proteins
 Nucleic Acids Research, 39(Database issue), D591-5, 2011.
@@ -86,7 +94,7 @@ Sequence-based prediction of type III secreted proteins.
 PLoS Pathog. 5(4):e1000376, 2009.
 http://dx.doi.org/10.1371/journal.ppat.1000376
 
-http://effectors.org/
+See also http://effectors.org/
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/effectivet3
