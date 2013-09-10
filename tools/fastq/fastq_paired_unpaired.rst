@@ -3,7 +3,7 @@ Galaxy tool to divide FASTQ files into paired and unpaired reads
 
 This tool is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
-See the licence text below.
+See the licence text below (MIT licence).
 
 This tool is a short Python script which divides a FASTQ file into paired
 reads, and single or orphan reads. You can have separate files for the
