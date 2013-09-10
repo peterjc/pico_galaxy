@@ -17,7 +17,7 @@ At the time of writing they are all free for academic use, or open source.
 These wrappers are copyright 2010-2013 by Peter Cock, James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 Contributions/revisions copyright 2011 Konrad Paszkiewicz. All rights reserved.
-See the included LICENCE file for details (an MIT style open source licence).
+See the included LICENCE file for details (MIT open source licence).
 
 The wrappers are available from the Galaxy Tool Shed
 http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp 
@@ -164,6 +164,7 @@ v0.2.5 - Link to Tool Shed added to help text and this documentation.
        - Fixed bug with RXLR tool and empty FASTA files.
        - Fixed typo in the RXLR tool help text.
        - Updated citation information (Cock et al. 2013).
+       - Adopted standard MIT licence.
 
 
 Developers
