@@ -160,11 +160,25 @@ COMMON_SETTINGS
 
 Runs MIRA v3.4, collects the output, and throws away all the temporary files.
 
+MIRA is an open source assembly tool capable of handling sequence data from
+a range of platforms (Sanger capillary, Solexa/Illumina, Roche 454 and also
+Ion Torrent).
+
+It is particularly suited to small genomes such as bacteria.
+
 **Citation**
 
-If you use this tool in scientific work leading to a publication, please cite:
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
 
-Chevreux et al. (1999) Genome Sequence Assembly Using Trace Signals and Additional Sequence Information Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
+Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Chevreux et al. (1999).
+Genome Sequence Assembly Using Trace Signals and Additional Sequence Information.
+Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler 
