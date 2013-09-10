@@ -18,14 +18,19 @@ There are just two files to install:
 The suggested location is in the Galaxy folder tools/plotting next to other
 graph drawing tools.
 
+You will also need to install Biopython 1.54 or later, and the R/Bioconductor
+pacakge limma. You should already have rpy installed for other Galaxy tools.
+
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. The suggested location is in the "Graph/Display Data" section. Simply add
 the line::
 
   <tool file="plotting/venn_list.xml" />
 
-You will also need to install Biopython 1.54 or later, and the R/Bioconductor
-pacakge limma. You should already have rpy installed for other Galaxy tools.
+If you wish to run the unit tests, also add this to tools_conf.xml.sample and
+move/copy the test-data files under Galaxy's test-data folder. Then:
+
+    ./run_functional_tests.sh -id venn_list
 
 
 History
