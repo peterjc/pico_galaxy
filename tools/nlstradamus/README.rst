@@ -88,13 +88,13 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf nlstradmus.tar.gz tools/nlstradamus/nlstradamus.xml tools/nlstradamus/nlstradamus.rst tools/nlstradamus/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
+    $ tar -czf nlstradmus.tar.gz tools/nlstradamus/README.rst tools/nlstradamus/nlstradamus.xml tools/nlstradamus/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
 
 Check this worked::
 
     $ tar -tzf nlstradmus.tar.gz
+    tools/nlstradamus/README.rst
     tools/nlstradamus/nlstradamus.xml
-    tools/nlstradamus/nlstradamus.rst
     tools/nlstradamus/tool_dependencies.xml
     test-data/four_human_proteins.fasta
     test-data/four_human_proteins.nlstradamus.tabular
