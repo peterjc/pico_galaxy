@@ -47,7 +47,7 @@ folder, e.g. in a tools/effectiveT3 folder:
 
 * effectiveT3.xml (the Galaxy tool definition)
 * effectiveT3.py (the Python wrapper script)
-* effectiveT3.rst (this README file)
+* README.rst (this file)
 
 Also copy effectiveT3.loc.sample to effectiveT3.loc in the tool-data folder
 (and edit if appropriate, e.g. to add or remove a model).
@@ -95,15 +95,15 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf effectiveT3.tar.gz tools/effectiveT3/effectiveT3.xml tools/effectiveT3/effectiveT3.py tools/effectiveT3/effectiveT3.rst tools/effectiveT3/tool_dependencies.xml tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
+    $ tar -czf effectiveT3.tar.gz tools/effectiveT3/README.rst tools/effectiveT3/effectiveT3.xml tools/effectiveT3/effectiveT3.py tools/effectiveT3/tool_dependencies.xml tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
 
 
 Check this worked::
 
     $ tar -tzf effectiveT3.tar.gz
+    tools/effectiveT3/README.rst
     tools/effectiveT3/effectiveT3.xml
     tools/effectiveT3/effectiveT3.py
-    tools/effectiveT3/effectiveT3.rst
     tools/effectiveT3/tool_dependencies.xml
     tool-data/effectiveT3.loc.sample
     test-data/four_human_proteins.fasta
