@@ -139,9 +139,12 @@ COMMON_SETTINGS
         <data name="out_log" format="txt" label="MIRA log" />
     </outputs>
     <tests>
-        <test>
             <!-- Based on the MIRA v3.4.1.1 bundled minidemo/estdemo2 which uses
                  strain data and miraSearchESTSNPs. Here we just assemble it. --> 
+<!--
+Commenting out test until Galaxy framework is fixed,
+https://trello.com/c/zSTrfDOB/820-disambiguated-conditional-parameters-not-supported-in-unit-tests
+        <test>
             <param name="job_method" value="denovo" />
             <param name="job_type" value="est" />
             <param name="job_qual" value="accurate" />
@@ -153,6 +156,7 @@ COMMON_SETTINGS
             <param name="condIonTorrent.use" value="false" />
             <output name="out_fasta" file="tvc_contigs.fasta" ftype="fasta" />
 	</test>
+-->
     </tests>
     <help>
 

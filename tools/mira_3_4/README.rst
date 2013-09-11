@@ -67,7 +67,7 @@ v0.0.5  - Implement the <version_command> tag to record the wrapper
 v0.0.6  - Tell MIRA to use /tmp for temporary files
         - Tell MIRA to ignore long read names (otherwise it aborts)
 v0.0.7  - Automated installation of the 64 bit Linux MIRA binary.
-v0.0.8  - Basic unit test added.
+v0.0.8  - Basic unit test added (but commented out due to Galaxy issue).
         - Link to Tool Shed added to help text and this documentation.
         - Use reStructuredText for this README file.
         - Adopted standard MIT licence.
