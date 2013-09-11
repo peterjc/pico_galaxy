@@ -74,14 +74,14 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_primer_clip.tar.gz tools/primers/seq_primer_clip.* tools/primers/repository_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
+    $ tar -czf seq_primer_clip.tar.gz tools/primers/README.rst tools/primers/seq_primer_clip.* tools/primers/repository_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
 
 Check this worked::
 
     $ tar -tzf seq_primer_clip.tar.gz
-    tools/primers/seq_primer_clip.py
-    tools/primers/seq_primer_clip.rst
+    tools/primers/README.rst
     tools/primers/seq_primer_clip.xml
+    tools/primers/seq_primer_clip.py
     tools/primers/repository_dependencies.xml
     test-data/dop_primers.fasta
     test-data/MID4_GLZRM4E04_rnd30.fasta
