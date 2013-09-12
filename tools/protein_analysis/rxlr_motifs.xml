@@ -138,39 +138,39 @@ is handled via the intemediate sequence files.
 If you use this Galaxy tool in work leading to a scientific publication please
 cite Cock et al. (2013) and the appropriate method paper(s):
 
-Peter Cock, Bjoern Gruening, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
 Galaxy tools and workflows for sequence analysis with applications
 in molecular plant pathology. PeerJ 1:e167
 http://dx.doi.org/10.7717/peerj.167
 
-Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard and Paul R. J. Birch
+Stephen C. Whisson, Petra C. Boevink, Lucy Moleleki, Anna O. Avrova, Juan G. Morales, Eleanor M. Gilroy, Miles R. Armstrong, Severine Grouffaud, Pieter van West, Sean Chapman, Ingo Hein, Ian K. Toth, Leighton Pritchard and Paul R. J. Birch (2007).
 A translocation signal for delivery of oomycete effector proteins into host plant cells.
-Nature 450:115-118, 2007.
+Nature 450:115-118.
 http://dx.doi.org/10.1038/nature06203
 
-Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun.
+Joe Win, William Morgan, Jorunn Bos, Ksenia V. Krasileva, Liliana M. Cano, Angela Chaparro-Garcia, Randa Ammar, Brian J. Staskawicz and Sophien Kamoun (2007).
 Adaptive evolution has targeted the C-terminal domain of the RXLR effectors of plant pathogenic oomycetes.
-The Plant Cell 19:2349-2369, 2007.
+The Plant Cell 19:2349-2369.
 http://dx.doi.org/10.1105/tpc.107.051037
 
-Souvik Bhattacharjee, N. Luisa Hiller, Konstantinos Liolios, Joe Win, Thirumala-Devi Kanneganti, Carolyn Young, Sophien Kamoun and Kasturi Haldar.
+Souvik Bhattacharjee, N. Luisa Hiller, Konstantinos Liolios, Joe Win, Thirumala-Devi Kanneganti, Carolyn Young, Sophien Kamoun and Kasturi Haldar (2006).
 The malarial host-targeting signal is conserved in the Irish potato famine pathogen.
-PLoS Pathogens, 2(5):e50, 2006.
+PLoS Pathogens, 2(5):e50.
 http://dx.doi.org/10.1371/journal.ppat.0020050
 
-Trudy A. Torto, Shuang Li, Allison Styer, Edgar Huitema, Antonino Testa, Neil A.R. Gow, Pieter van West and Sophien Kamoun.
+Trudy A. Torto, Shuang Li, Allison Styer, Edgar Huitema, Antonino Testa, Neil A.R. Gow, Pieter van West and Sophien Kamoun (2003).
 EST mining and functional expression assays identify extracellular effector proteins from the plant pathogen *phytophthora*.
-Genome Research, 13:1675-1685, 2003.
+Genome Research, 13:1675-1685.
 http://dx.doi.org/10.1101/gr.910003
 
-Sean R. Eddy.
+Sean R. Eddy (1998).
 Profile hidden Markov models.
-Bioinformatics, 14(9):755–763, 1998
+Bioinformatics, 14(9):755–763.
 http://dx.doi.org/10.1093/bioinformatics/14.9.755
 
-Nielsen, Engelbrecht, Brunak and von Heijne.
+Nielsen, Engelbrecht, Brunak and von Heijne (1997).
 Identification of prokaryotic and eukaryotic signal peptides and prediction of their cleavage sites.
-Protein Engineering, 10:1-6, 1997.
+Protein Engineering, 10:1-6.
 http://dx.doi.org/10.1093/protein/10.1.1
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
