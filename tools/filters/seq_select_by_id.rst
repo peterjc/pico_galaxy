@@ -71,6 +71,7 @@ v0.0.6   - Link to Tool Shed added to help text and this documentation.
          - Use reStructuredText for this README file.
          - Adopt standard MIT License.
 v0.0.7   - Updated citation information (Cock et al. 2013).
+         - Fixed Biopython dependency setup.
 ======= ======================================================================
 
 
