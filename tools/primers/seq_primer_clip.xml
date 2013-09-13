@@ -1,6 +1,7 @@
 <tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.10">
     <description>Trim off 5' or 3' primers</description>
     <requirements>
+        <requirement type="package" version="1.61">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
     <version_command interpreter="python">seq_primer_clip.py --version</version_command>   

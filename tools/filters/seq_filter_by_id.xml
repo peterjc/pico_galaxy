@@ -1,5 +1,9 @@
 <tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.6">
 	<description>from a tabular file</description>
+	<requirements>
+		<requirement type="package" version="1.61">biopython</requirement>
+		<requirement type="python-module">Bio</requirement>
+	</requirements>
 	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
 	<command interpreter="python">
 seq_filter_by_id.py "$input_file" "$input_file.ext"
@@ -72,9 +76,6 @@ UNION "$input_tabular" "$columns"
 			<output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
 		</test>
 	</tests>
-	<requirements>
-		<requirement type="python-module">Bio</requirement>
-	</requirements>
 	<help>
 
 **What it does**
