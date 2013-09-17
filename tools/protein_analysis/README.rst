@@ -96,7 +96,7 @@ README (this file)
 
 3. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
    also tool_conf.xml.sample (to run the tests) to include the new tools
-   by adding:
+   by adding::
 
   <section name="Protein sequence analysis" id="protein_analysis">
     <tool file="protein_analysis/tmhmm2.xml" />
@@ -114,19 +114,19 @@ README (this file)
 4. Copy/move the test-data files (from this archive) to Galaxy's
    subfolder test-data.
 
-5. Run the Galaxy functional tests for these new wrappers with:
+5. Run the Galaxy functional tests for these new wrappers with::
 
-./run_functional_tests.sh -id tmhmm2
-./run_functional_tests.sh -id signalp3
-./run_functional_tests.sh -id Psortb
-./run_functional_tests.sh -id rxlr_motifs
+    ./run_functional_tests.sh -id tmhmm2
+    ./run_functional_tests.sh -id signalp3
+    ./run_functional_tests.sh -id Psortb
+    ./run_functional_tests.sh -id rxlr_motifs
 
-Alternatively, this should work (assuming you left the name and id as shown in
-the XML file tool_conf.xml.sample):
+   Alternatively, this should work (assuming you left the name and id as shown in
+   the XML file tool_conf.xml.sample)::
 
-./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
+    ./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
 
-To check the section ID expected, use ./run_functional_tests.sh -list
+   To check the section ID expected, use ./run_functional_tests.sh -list
 
 6. Restart Galaxy and check the new tools are shown and work.
 
@@ -134,52 +134,59 @@ To check the section ID expected, use ./run_functional_tests.sh -list
 History
 =======
 
-v0.0.1 - Initial release
-v0.0.2 - Corrected some typos in the help text
-       - Renamed test output file to use Galaxy convention of *.tabular
-v0.0.3 - Check for tmhmm2 silent failures (no output)
-       - Additional unit tests
-v0.0.4 - Ignore comment lines in tmhmm2 output.
-v0.0.5 - Explicitly request tmhmm short output (may not be the default)
-v0.0.6 - Improvement to how sub-jobs are run (should be faster)
-v0.0.7 - Change SignalP default truncation from 60 to 70 to match the
-         SignalP webservice.
-v0.0.8 - Added WoLF PSORT wrapper to the suite.
-v0.0.9 - Added our RXLR motifs tool to the suite.
-v0.1.0 - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
-       - Support Galaxy's <parallelism> tag for SignalP, TMHMM & Promoter
-v0.1.1 - Fixed an error in the header of the tabular output from Promoter
-v0.1.2 - Use the new <stdio> settings in the XML wrappers to catch errors
-       - Use SGE style $NSLOTS for thread count (otherwise default to 4)
-v0.1.3 - Added missing file whisson_et_al_rxlr_eer_cropped.hmm to Tool Shed
-v0.2.0 - Added PSORTb wrapper to the suite, based on earlier work
-         contributed by Konrad Paszkiewicz.
-v0.2.1 - Use a script to create the Tool Shed tar-ball (removed some stray
-         files accidentally included previously via a wildcard).
-v0.2.2 - Include missing test files.
-v0.2.3 - Added unit tests for WoLF PSORT.
-v0.2.4 - Added unit tests for Promoter 2
-v0.2.5 - Link to Tool Shed added to help text and this documentation.
-       - More unit tests.
-       - Fixed bug with RXLR tool and empty FASTA files.
-       - Fixed typo in the RXLR tool help text.
-       - Updated citation information (Cock et al. 2013).
-       - Adopted standard MIT licence.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1  - Initial release
+v0.0.2  - Corrected some typos in the help text
+        - Renamed test output file to use Galaxy convention of *.tabular
+v0.0.3  - Check for tmhmm2 silent failures (no output)
+        - Additional unit tests
+v0.0.4  - Ignore comment lines in tmhmm2 output.
+v0.0.5  - Explicitly request tmhmm short output (may not be the default)
+v0.0.6  - Improvement to how sub-jobs are run (should be faster)
+v0.0.7  - Change SignalP default truncation from 60 to 70 to match the
+          SignalP webservice.
+v0.0.8  - Added WoLF PSORT wrapper to the suite.
+v0.0.9  - Added our RXLR motifs tool to the suite.
+v0.1.0  - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
+        - Support Galaxy's <parallelism> tag for SignalP, TMHMM & Promoter
+v0.1.1  - Fixed an error in the header of the tabular output from Promoter
+v0.1.2  - Use the new <stdio> settings in the XML wrappers to catch errors
+        - Use SGE style $NSLOTS for thread count (otherwise default to 4)
+v0.1.3  - Added missing file whisson_et_al_rxlr_eer_cropped.hmm to Tool Shed
+v0.2.0  - Added PSORTb wrapper to the suite, based on earlier work
+          contributed by Konrad Paszkiewicz.
+v0.2.1  - Use a script to create the Tool Shed tar-ball (removed some stray
+          files accidentally included previously via a wildcard).
+v0.2.2  - Include missing test files.
+v0.2.3  - Added unit tests for WoLF PSORT.
+v0.2.4  - Added unit tests for Promoter 2
+v0.2.5  - Link to Tool Shed added to help text and this documentation.
+        - More unit tests.
+        - Fixed bug with RXLR tool and empty FASTA files.
+        - Fixed typo in the RXLR tool help text.
+        - Updated citation information (Cock et al. 2013).
+        - Adopted standard MIT licence.
+        - Use reStructuredText for this README file.
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+======= ======================================================================
 
 
 Developers
 ==========
 
-This script and other tools are being developed on the following hg branch:
+This script and other tools are being developed on the following hg branches:
+http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
-This incorporates the previously used hg branch:
-http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
+Development has now moved to a dedicated GitHub repository:
+https://github.com/peterjc/pico_galaxy/tree/master/tools
 
 For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ ./tools/protein_analysis/make_tmhmm_and_signalp.sh
+    $ ./tools/protein_analysis/make_tmhmm_and_signalp.sh
 
 This simplifies ensuring a consistent set of files is bundled each time,
 including all the relevant test files.
