@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<toolbox>
+  <section name="Get Data" id="getext">
+    <tool file="data_source/upload.xml"/>
+  </section>
+  <section name="Continuous-Integration" id="Travis">
+    <!-- Container section for tools to be tested using TravisCI -->
+    <!--
+    <tool file="clinod/clinod.xml" />
+    <tool file="effectiveT3/effectiveT3.xml" />
+    -->
+    <tool file="fastq/fastq_paired_unpaired.xml" />
+    <!--
+    <tool file="filters/get_orfs_or_cdss.xml" />
+    <tool file="filters/seq_filter_by_id.xml" />
+    <tool file="filters/seq_rename.xml" />
+    <tool file="filters/seq_select_by_id.xml" />
+    <tool file="nlstradamus/nlstradamus.xml" />
+    <tool file="plotting/venn_list.xml" />
+    <tool file="primers/seq_primer_clip.xml" />
+    <tool file="protein_analysis/predictnls.xml" />
+    <tool file="protein_analysis/promoter2.xml" />
+    <tool file="protein_analysis/psortb.xml" />
+    <tool file="protein_analysis/rxlr_motifs.xml" />
+    <tool file="protein_analysis/signalp3.xml" />
+    <tool file="protein_analysis/suite_config.xml" />
+    <tool file="protein_analysis/tmhmm2.xml" />
+    <tool file="protein_analysis/wolf_psort.xml" />
+    -->
+    <!-- No tests yet (trying gives an error from the framework)
+    <tool file="mira_3_4/mira.xml" />
+    <tool file="plotting/chromosome_diagram.xml" />
+    -->
+  </section>
+</toolbox>
