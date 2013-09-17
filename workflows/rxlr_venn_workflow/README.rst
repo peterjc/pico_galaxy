@@ -116,7 +116,7 @@ Developers
 
 This workflow is under source code control here:
 
-https://github.com/peterjc/picobio/tree/master/galaxy_workflows/rxlr_venn_workflow
+https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
 
 To prepare the tar-ball for uploading to the Tool Shed, I use this:
 
