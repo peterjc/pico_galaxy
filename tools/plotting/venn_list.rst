@@ -55,6 +55,9 @@ Developers
 This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
+Development has now moved to a dedicated GitHub repository:
+https://github.com/peterjc/pico_galaxy/tree/master/tools
+
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
