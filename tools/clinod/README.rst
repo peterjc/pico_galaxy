@@ -66,6 +66,7 @@ v0.0.5  - Link to Tool Shed added to help text and this documentation.
 v0.0.6  - Adopted standard MIT licence.
         - Use reStructuredText for this README file.
         - Updated citation information (Cock et al. 2013).
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 ======= ======================================================================
 
 

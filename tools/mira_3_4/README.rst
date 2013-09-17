@@ -72,6 +72,7 @@ v0.0.8  - Basic unit test added (but commented out due to Galaxy issue).
         - Use reStructuredText for this README file.
         - Adopted standard MIT licence.
         - Updated citation information (Cock et al. 2013).
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 ======= ======================================================================
 
 

@@ -59,17 +59,18 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1   - Initial version, combining three separate scripts for each file format.
-v0.0.4   - Record script version when run from Galaxy.
-         - Faster FASTA code which preserves the original line wrapping.
-         - Basic unit test included.
-v0.0.5   - Check for errors using Python script's return code.
-         - Cope with malformed FASTA entries without an identifier.
-v0.0.6   - Link to Tool Shed added to help text and this documentation.
-         - Automated installation of the Biopython dependency.
-         - Use reStructuredText for this README file.
-         - Adopt standard MIT License.
-         - Updated citation information (Cock et al. 2013).
+v0.0.1  - Initial version, combining three separate scripts for each file format.
+v0.0.4  - Record script version when run from Galaxy.
+        - Faster FASTA code which preserves the original line wrapping.
+        - Basic unit test included.
+v0.0.5  - Check for errors using Python script's return code.
+        - Cope with malformed FASTA entries without an identifier.
+v0.0.6  - Link to Tool Shed added to help text and this documentation.
+        - Automated installation of the Biopython dependency.
+        - Use reStructuredText for this README file.
+        - Adopt standard MIT License.
+        - Updated citation information (Cock et al. 2013).
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 ======= ======================================================================
 
 

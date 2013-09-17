@@ -60,15 +60,16 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1   - Initial version.
-v0.0.2   - Record script version when run from Galaxy.
-         - Add unit test.
-         - Check for errors using Python script's return code.
-v0.0.3   - Link to Tool Shed added to help text and this documentation.
-v0.0.4   - Automated installation of Biopython dependency.
-         - Use reStructuredText for this README file.
-         - Adopt standard MIT License.
-         - Updated citation information (Cock et al. 2013).
+v0.0.1  - Initial version.
+v0.0.2  - Record script version when run from Galaxy.
+        - Add unit test.
+        - Check for errors using Python script's return code.
+v0.0.3  - Link to Tool Shed added to help text and this documentation.
+v0.0.4  - Automated installation of Biopython dependency.
+        - Use reStructuredText for this README file.
+        - Adopt standard MIT License.
+        - Updated citation information (Cock et al. 2013).
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 ======= ======================================================================
 
 

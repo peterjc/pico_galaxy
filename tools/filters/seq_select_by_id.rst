@@ -61,17 +61,18 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1   - Initial version.
-v0.0.3   - Ignore blank lines in input.
-v0.0.4   - Record script version when run from Galaxy.
-         - Basic unit test included.
-v0.0.5   - Check for errors using Python script's return code.
-v0.0.6   - Link to Tool Shed added to help text and this documentation.
-         - Automatic installation of Biopython dependency.
-         - Use reStructuredText for this README file.
-         - Adopt standard MIT License.
-v0.0.7   - Updated citation information (Cock et al. 2013).
-         - Fixed Biopython dependency setup.
+v0.0.1  - Initial version.
+v0.0.3  - Ignore blank lines in input.
+v0.0.4  - Record script version when run from Galaxy.
+        - Basic unit test included.
+v0.0.5  - Check for errors using Python script's return code.
+v0.0.6  - Link to Tool Shed added to help text and this documentation.
+        - Automatic installation of Biopython dependency.
+        - Use reStructuredText for this README file.
+        - Adopt standard MIT License.
+v0.0.7  - Updated citation information (Cock et al. 2013).
+        - Fixed Biopython dependency setup.
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 ======= ======================================================================
 
 

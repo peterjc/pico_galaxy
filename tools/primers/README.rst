@@ -59,6 +59,7 @@ v0.0.10 - Include links to Tool Shed in help text and this README file.
         - Use reStructuredText for this README file.
         - Adopted standard MIT licence.
         - Automated installation of Biopython dependency.
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 ======= ======================================================================
 
 
