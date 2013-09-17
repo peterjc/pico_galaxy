@@ -5,6 +5,23 @@ passing all three methods.
 See http://www.galaxyproject.org for information about the Galaxy Project.
 
 
+Availability
+============
+
+This workflow is available to download and/or install from the main
+Galaxy Tool Shed:
+
+http://toolshed.g2.bx.psu.edu/view/peterjc/rxlr_venn_workflow
+
+Test releases (which should not normally be used) are on the Test Tool Shed:
+
+http://testtoolshed.g2.bx.psu.edu/view/peterjc/rxlr_venn_workflow
+
+Development is being done on github here:
+
+https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
+
+
 Sample Data
 ===========
 
@@ -24,7 +41,7 @@ has 19,805 protein sequences. The expected results:
 Of these, only 79 sequences pass all three of the RXLR prediction tools,
 while 19643 have no RXLR matches at all.
 
-.. image:: https://raw.github.com/peterjc/picobio/master/galaxy_workflows/rxlr_venn_workflow/Phyca11_example_output.png
+.. image:: https://raw.github.com/peterjc/pico_galaxy/master/workflows/rxlr_venn_workflow/Phyca11_example_output.png
    :height: 400px
    :width: 400px
 
@@ -42,9 +59,10 @@ Humana Press, Springer. In press.
 
 For the associated RXLR Galaxy tool, please cite:
 
-Cock, P.J.A., Grüning, B., Paszkiewicz, K. and Pritchard, L. (2013)
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
 Galaxy tools and workflows for sequence analysis with applications
-in molecular plant pathology. (Submitted).
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
 
 For the three underlying methods, please cite:
 
@@ -62,23 +80,6 @@ Bhattacharjee, S., Luisa Hiller, N., Liolios, K., et al. (2006)
 The malarial host-targeting signal is conserved in the Irish potato famine
 pathogen. PLoS Pathogens 2(5):e50.
 http://dx.doi.org/10.1371/journal.ppat.0020050
-
-
-Availability
-============
-
-This workflow is available to download and/or install from the main
-Galaxy Tool Shed:
-
-http://toolshed.g2.bx.psu.edu/view/peterjc/rxlr_venn_workflow
-
-Test releases (which should not normally be used) are on the Test Tool Shed:
-
-http://testtoolshed.g2.bx.psu.edu/view/peterjc/rxlr_venn_workflow
-
-Development is being done on github here:
-
-https://github.com/peterjc/picobio/tree/master/galaxy_workflows/rxlr_venn_workflow
 
 
 Dependencies

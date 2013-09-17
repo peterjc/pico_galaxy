@@ -10,6 +10,23 @@ the candidate effector protocol described in Jones et al. (2009).
 See http://www.galaxyproject.org for information about the Galaxy Project.
 
 
+Availability
+============
+
+This workflow is available to download and/or install from the main
+Galaxy Tool Shed:
+
+http://toolshed.g2.bx.psu.edu/view/peterjc/secreted_protein_workflow
+
+Test releases (which should not normally be used) are on the Test Tool Shed:
+
+http://testtoolshed.g2.bx.psu.edu/view/peterjc/secreted_protein_workflow
+
+Development is being done on github here:
+
+https://github.com/peterjc/pico_galaxy/tree/master/workflows/secreted_protein_workflow
+
+
 Sample Data
 ===========
 
@@ -35,11 +52,10 @@ candidate pathogen effectors. Chapter 1 in "Plant-Pathogen Interactions:
 Methods and Protocols (Second Edition)"; Methods in Molecular Biology.
 Humana Press, Springer. In press.
 
-Also consider citing:
-
-Cock, P.J.A., Grüning, B., Paszkiewicz, K. and Pritchard, L. (2013)
-Galaxy tools and workflows for sequence analysis with applications in
-molecular plant pathology. (Submitted).
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
 
 Bendtsen, J.D., Nielsen, H., von Heijne, G., Brunak, S. (2004)
 Improved prediction of signal peptides: SignalP 3.0. J Mol Biol 340: 783–95.
@@ -64,23 +80,6 @@ Identification and functional characterization of effectors in expressed
 sequence tags from various life cycle stages of the potato cyst nematode
 *Globodera pallida*. Mol Plant Pathol 10: 815–28.
 http://dx.doi.org/10.1111/j.1364-3703.2009.00585.x
-
-
-Availability
-============
-
-This workflow is available to download and/or install from the main
-Galaxy Tool Shed:
-
-http://toolshed.g2.bx.psu.edu/view/peterjc/secreted_protein_workflow
-
-Test releases (which should not normally be used) are on the Test Tool Shed:
-
-http://testtoolshed.g2.bx.psu.edu/view/peterjc/secreted_protein_workflow
-
-Development is being done on github here:
-
-https://github.com/peterjc/picobio/tree/master/galaxy_workflows/secreted_protein_workflow
 
 
 Dependencies
