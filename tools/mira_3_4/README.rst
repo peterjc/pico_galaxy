@@ -90,7 +90,7 @@ the following command from the Galaxy root folder::
 
     $ tar -czf mira_wrapper.tar.gz tools/mira_3_4/README.rst tools/mira_3_4/mira.xml tools/mira_3_4/mira.py tools/mira_3_4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
 
-Check this worked:
+Check this worked::
 
     $ tar -tzf mira_wrapper.tar.gz
     tools/mira_3_4/README.rst
