@@ -72,42 +72,42 @@ Manual Installation
 
 2. Copy/move the following files (from this archive) there:
 
-tmhmm2.xml (Galaxy tool definition)
-tmhmm2.py (Python wrapper script)
+   * tmhmm2.xml (Galaxy tool definition)
+   * tmhmm2.py (Python wrapper script)
 
-signalp3.xml (Galaxy tool definition)
-signalp3.py (Python wrapper script)
+   * signalp3.xml (Galaxy tool definition)
+   * signalp3.py (Python wrapper script)
 
-promoter2.xml (Galaxy tool definition)
-promoter2.py (Python wrapper script)
+   * promoter2.xml (Galaxy tool definition)
+   * promoter2.py (Python wrapper script)
 
-psortb.xml (Galaxy tool definition)
-psortb.py (Python wrapper script)
+   * psortb.xml (Galaxy tool definition)
+   * psortb.py (Python wrapper script)
 
-wolf_psort.xml (Galaxy tool definition)
-wolf_psort.py (Python wrapper script)
+   * wolf_psort.xml (Galaxy tool definition)
+   * wolf_psort.py (Python wrapper script)
 
-rxlr_motifs.xml (Galaxy tool definition)
-rxlr_motifs.py (Python script)
+   * rxlr_motifs.xml (Galaxy tool definition)
+   * rxlr_motifs.py (Python script)
 
-seq_analysis_utils.py (shared Python code)
-LICENCE
-README (this file)
+   * seq_analysis_utils.py (shared Python code)
+   * LICENCE
+   * README.rst (this file)
 
 3. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
    also tool_conf.xml.sample (to run the tests) to include the new tools
    by adding::
 
-  <section name="Protein sequence analysis" id="protein_analysis">
-    <tool file="protein_analysis/tmhmm2.xml" />
-    <tool file="protein_analysis/signalp3.xml" />
-    <tool file="protein_analysis/psortb.xml" />
-    <tool file="protein_analysis/wolf_psort.xml" />
-    <tool file="protein_analysis/rxlr_motifs.xml" />
-  </section>
-  <section name="Nucleotide sequence analysis" id="nucleotide_analysis">
-    <tool file="protein_analysis/promoter2.xml" />
-  </section>
+    <section name="Protein sequence analysis" id="protein_analysis">
+      <tool file="protein_analysis/tmhmm2.xml" />
+      <tool file="protein_analysis/signalp3.xml" />
+      <tool file="protein_analysis/psortb.xml" />
+      <tool file="protein_analysis/wolf_psort.xml" />
+      <tool file="protein_analysis/rxlr_motifs.xml" />
+    </section>
+    <section name="Nucleotide sequence analysis" id="nucleotide_analysis">
+      <tool file="protein_analysis/promoter2.xml" />
+    </section>
 
    Leave out the lines for any tools you do not wish to use in Galaxy.
 
