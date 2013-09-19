@@ -58,7 +58,17 @@ language: java
 #
 
 before_install:
+ - echo "Downloading and setting up EffectiveT3..."
+ - cd ${TRAVIS_BUILD_DIR}
+ - mkdir effectiveT3 && cd effectiveT3
+ - export EFFECTIVET3=$PWD
+ - wget http://effectors.org/download/version/TTSS_GUI-1.0.1.jar
+ - mkdir module && cd module
+ - wget http://effectors.org/download/module/TTSS_ANIMAL-1.0.1.jar
+ - wget http://effectors.org/download/module/TTSS_PLANT-1.0.1.jar
+ - wget http://effectors.org/download/module/TTSS_STD-1.0.1.jar
  - echo "Fetching Galaxy..."
+ - cd ${TRAVIS_BUILD_DIR}
  - wget https://codeload.github.com/jmchilton/galaxy-central/tar.gz/master
  - tar -zxvf master | tail
  - cd galaxy-central-master
@@ -95,7 +105,7 @@ install:
  - rm tool_conf.xml.sample
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml tool_conf.xml.sample
  - ln -s ${TRAVIS_BUILD_DIR}/tools/clinod/ tools/clinod
- - ln -s ${TRAVIS_BUILD_DIR}/tools/effectiveT3/ tools/blastxml_to_top_descr
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/effectiveT3/ tools/effectiveT3
  - ln -s ${TRAVIS_BUILD_DIR}/tools/mira_3_4/ tools/mira_3_4
  - ln -s ${TRAVIS_BUILD_DIR}/tools/nlstradamus/ tools/nlstradamus
  - ln -s ${TRAVIS_BUILD_DIR}/tools/primers/ tools/primers
