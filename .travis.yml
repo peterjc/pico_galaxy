@@ -58,6 +58,8 @@ language: java
 #
 
 before_install:
+ - echo "Installing Biopython for system Python..."
+ - sudo apt-get install python-biopython
  - echo "Downloading and compiling nlstradamus..."
  - cd ${TRAVIS_BUILD_DIR}
  - mkdir nlstradamus && cd nlstradamus

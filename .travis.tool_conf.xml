@@ -9,13 +9,13 @@
     <tool file="effectiveT3/effectiveT3.xml" />
     <tool file="fastq/fastq_paired_unpaired.xml" />
     <tool file="nlstradamus/nlstradamus.xml" />
-    <!--
     <tool file="filters/get_orfs_or_cdss.xml" />
     <tool file="filters/seq_filter_by_id.xml" />
     <tool file="filters/seq_rename.xml" />
     <tool file="filters/seq_select_by_id.xml" />
-    <tool file="plotting/venn_list.xml" />
     <tool file="primers/seq_primer_clip.xml" />
+    <!-- Missing dependencies
+    <tool file="plotting/venn_list.xml" />
     <tool file="protein_analysis/predictnls.xml" />
     <tool file="protein_analysis/promoter2.xml" />
     <tool file="protein_analysis/psortb.xml" />
