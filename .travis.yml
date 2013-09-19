@@ -58,6 +58,13 @@ language: java
 #
 
 before_install:
+ - echo "Downloading and compiling nlstradamus..."
+ - cd ${TRAVIS_BUILD_DIR}
+ - mkdir nlstradamus && cd nlstradamus
+ - wget http://www.moseslab.csb.utoronto.ca/NLStradamus/NLStradamus/NLStradamus.1.8.tar.gz
+ - tar -zxvf NLStradamus.1.8.tar.gz
+ - g++ NLStradamus.cpp -o NLStradamus -O3
+ - export PATH=$PWD:$PATH
  - echo "Downloading and setting up clinod..."
  - cd ${TRAVIS_BUILD_DIR}
  - mkdir clinod && cd clinod
