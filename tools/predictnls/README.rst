@@ -39,14 +39,14 @@ e.g. in a tools/protein_analysis filter:
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
-it next to them. Just add the line:
+it next to them. Just add the line::
 
-<tool file="protein_analysis/predictnls.xml" />
+  <tool file="protein_analysis/predictnls.xml" />
 
 If you want to run the unit tests, also add this to tool_conf.xml.sample, and
-copy the test files under test-data, then run:
+copy the test files under test-data, then run::
 
-./run_functional_tests.sh -id predictnls
+    ./run_functional_tests.sh -id predictnls
 
 That's it.
 
@@ -54,9 +54,16 @@ That's it.
 History
 =======
 
-v0.0.4 - Initial public release
-v0.0.5 - Treat non-zero return codes as errors
-v0.0.6 - Link to Tool Shed added to help text and this documentation.
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.4  - Initial public release.
+v0.0.5  - Treat non-zero return codes as errors.
+v0.0.6  - Link to Tool Shed added to help text and this documentation.
+        - Use reStructuredText for this README file.
+        - Updated citation information (Cock et al. 2013).
+        - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+======= ======================================================================
 
 
 Developers
@@ -66,19 +73,19 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+the following command from the Galaxy root folder::
 
-$ tar -czf predictnls.tar.gz tools/protein_analysis/predictnls.xml tools/protein_analysis/predictnls.py tools/protein_analysis/predictnls.txt tools/protein_analysis/My_NLS_list test-data/four_human_proteins.fasta test-data/four_human_proteins.predictnls.tabular
+    $ tar -czf predictnls.tar.gz tools/predictnls/README.rst tools/predictnls/predictnls.xml tools/predictnls/predictnls.py tools/predictnls/My_NLS_list test-data/four_human_proteins.fasta test-data/four_human_proteins.predictnls.tabular
 
-Check this worked:
+Check this worked::
 
-$ tar -tzf predictnls.tar.gz
-tools/protein_analysis/predictnls.xml
-tools/protein_analysis/predictnls.py
-tools/protein_analysis/predictnls.txt
-tools/protein_analysis/My_NLS_list
-test-data/four_human_proteins.fasta
-test-data/four_human_proteins.predictnls.tabular
+    $ tar -tzf predictnls.tar.gz
+    tools/predictnls/README.rst
+    tools/predictnls/predictnls.xml
+    tools/predictnls/predictnls.py
+    tools/predictnls/My_NLS_list
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.predictnls.tabular
 
 
 Licence (GPL)
