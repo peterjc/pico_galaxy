@@ -14,6 +14,7 @@
     <tool file="filters/seq_rename.xml" />
     <tool file="filters/seq_select_by_id.xml" />
     <tool file="primers/seq_primer_clip.xml" />
+    <tool file="predictnls/predictnls.xml" />
     <!-- Missing dependencies
     <tool file="plotting/venn_list.xml" />
     <tool file="protein_analysis/predictnls.xml" />
