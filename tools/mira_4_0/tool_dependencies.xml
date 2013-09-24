@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="MIRA" version="3.4.1.1">
+        <install version="1.0">
+            <actions>
+                <!-- Sourceforge doesn't offer nice clean download URLs which is a shame -->      
+                <action type="download_by_url">https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0rc2_linux-gnu_x86_64_static.tar.bz2?r=&ts=1380039004&use_mirror=kent</action>
+                <!-- Currently we only need the main binary itself, mira -->
+                <action type="move_file"><source>mira_4.0rc2_linux-gnu_x86_64_static/bin/mira</source><destination>$INSTALL_DIR/</destination></action>
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme>
+Downloads MIRA v4.0 RC2 from Sourceforge, requesting Bastien's precompiled binaries
+for 64bit Linux (x86_64). He also has binaries for Mac OS X, which we could
+use if/when the Galaxy installation framework allow that kind of flexibility.
+
+http://chevreux.org/projects_mira.html
+http://sourceforge.net/projects/mira-assembler/
+        </readme>
+    </package>
+</tool_dependency>
+
