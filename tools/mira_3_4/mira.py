@@ -18,8 +18,9 @@ def get_version():
     """Run MIRA to find its version number"""
     # At the commend line I would use: mira -v | head -n 1
     # however there is some pipe error when doing that here.
+    cmd = ["mira", "-v"]
     try:
-        child = subprocess.Popen(["mira", "-v"],
+        child = subprocess.Popen(cmd,
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
     except Exception, err:
