@@ -42,6 +42,15 @@ if "-v" in sys.argv:
     sys.exit(0)
 
 
+def log_manifest(manifest):
+    """Write the manifest file to stderr."""
+    sys.stderr.write("\n%s\nManifest file\n%s\n" % ("="*60, "="*60))
+    with open(manifest) as h:
+        for line in h:
+            sys.stderr.write(line)
+    sys.stderr.write("\n%s\nEnd of manifest\n%s\n" % ("="*60, "="*60))
+
+
 def massage_symlinks(manifest):
     """Create FASTQ aliases and edit the manifest to use them.
 
@@ -68,9 +77,10 @@ def massage_symlinks(manifest):
              cmd = "ln -s %s %s" % (filename, alias)
              if os.system(cmd):
                  stop_err("Problem creating FASTQ alias:\n%s" % cmd)
-         lines[i] = new_line
+         lines[i] = new_line + "\n"
     with open(manifest, "w") as h:
         for line in lines:
+            #sys.stderr.write(line)
             h.write(line)
     return True
 
@@ -79,8 +89,10 @@ def collect_output(temp, name):
     n3 = (temp, name, name, name)
     f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
     if not os.path.isdir(f):
+        log_manifest(manifest)
         stop_err("Missing output folder")
     if not os.listdir(f):
+        log_manifest(manifest)
         stop_err("Empty output folder")
     missing = []
     for old, new in [("%s/%s_out.maf" % (f, name), out_maf),
@@ -90,6 +102,7 @@ def collect_output(temp, name):
         else:
             shutil.move(old, new)
     if missing:
+        log_manifest(manifest)
         sys.stderr.write("Contents of %r: %r\n" % (f, os.listdir(f)))
         stop_err("Missing output files: %s" % ", ".join(missing))
 
@@ -121,6 +134,7 @@ try:
     #Check path access
     os.mkdir(d)
 except Exception, err:
+    log_manifest(manifest)
     sys.stderr.write("Error making directory %s\n%s" % (d, err))
     sys.exit(1)
 
@@ -134,6 +148,7 @@ try:
                              stdout=handle,
                              stderr=subprocess.STDOUT)
 except Exception, err:
+    log_manifest(manifest)
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
     #TODO - call clean up?
     handle.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
@@ -151,6 +166,7 @@ if return_code:
     handle.write(cmd + "\n")
     handle.close()
     clean_up(temp, name)
+    log_manifest(manifest)
     stop_err("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
 handle.close()
