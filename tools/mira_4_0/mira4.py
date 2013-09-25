@@ -83,7 +83,8 @@ def collect_output(temp, name):
     if not os.listdir(f):
         stop_err("Empty output folder")
     missing = []
-    for old, new in [("%s/%s_out.unpadded.fasta" % (f, name), out_fasta)]:
+    for old, new in [("%s/%s_out.maf" % (f, name), out_maf),
+                     ("%s/%s_out.unpadded.fasta" % (f, name), out_fasta)]:
         if not os.path.isfile(old):
             missing.append(os.path.splitext(old)[-1])
         else:
@@ -103,7 +104,7 @@ def clean_up(temp, name):
 temp = "."
 #name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 name = "MIRA"
-manifest, out_fasta, out_log = sys.argv[1:4]
+manifest, out_maf, out_fasta, out_log = sys.argv[1:5]
 
 with open(manifest) as h:
     print "Manifest:"

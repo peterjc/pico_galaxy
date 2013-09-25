@@ -7,7 +7,7 @@
     </requirements>
     <version_command interpreter="python">mira4.py -v</version_command>
     <command interpreter="python">
-mira4.py $manifest $out_fasta $out_log
+mira4.py $manifest $out_maf $out_fasta $out_log
     </command>
     <inputs>
         <param name="job_method" type="select" label="Assembly method" help="Mapping mode requires backbone/reference sequence(s)">
@@ -40,6 +40,7 @@ mira4.py $manifest $out_fasta $out_log
     </inputs>
     <outputs>
         <data name="out_fasta" format="fasta" label="MIRA contigs (FASTA)" />
+        <data name="out_maf" format="mira" label="MIRA Assembly" />
         <data name="out_log" format="txt" label="MIRA log" />
     </outputs>
     <configfiles>
