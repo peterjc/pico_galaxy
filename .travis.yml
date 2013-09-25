@@ -131,6 +131,8 @@ install:
  - cp ${TRAVIS_BUILD_DIR}/tools/plotting/* tools/plotting/
  - cp ${TRAVIS_BUILD_DIR}/tools/fastq/* tools/fastq/
  - cp ${TRAVIS_BUILD_DIR}/tools/filters/* tools/filters/
+ - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
+ - sed -i '6 i import mira' lib/galaxy/datatypes/registry.py
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
