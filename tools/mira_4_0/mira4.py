@@ -106,15 +106,8 @@ temp = "."
 name = "MIRA"
 manifest, out_maf, out_fasta, out_log = sys.argv[1:5]
 
-with open(manifest) as h:
-    print "Manifest:"
-    print h.read()
-
 #Hack until MIRA v4 lets us specify file format explicitly,
 massage_symlinks(manifest)
-with open(manifest) as h:
-    print "Modified manifest:"
-    print h.read()
 
 start_time = time.time()
 #cmd_list =sys.argv[8:]
