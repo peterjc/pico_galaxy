@@ -15,7 +15,7 @@
         <readme>
 Downloads MIRA v3.4 from Sourceforge, requesting Bastien's precompiled binaries
 for 64bit Linux (x86_64). He also has binaries for 32bit Linux, which we could
-use if/when the Galaxy installation framework allow that kind of flexibility.
+use once the Galaxy installation framework allow that kind of flexibility.
 
 http://chevreux.org/projects_mira.html
 http://sourceforge.net/projects/mira-assembler/
