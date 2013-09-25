@@ -15,13 +15,17 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/mira4_assembler
 Automated Installation
 ======================
 
-This should be straightforward, Galaxy should automatically download and
-install the precompiled binary for MIRA v4.0 for the Galaxy wrapper, and
-run any tests.
+This should be straightforward. Via the Tool Shed, Galaxy should automatically
+install the 'mira' datatype, download and install the precompiled binary for
+MIRA v4.0 for the Galaxy wrapper, and run any tests.
 
 
 Manual Installation
 ===================
+
+First install the 'mira' datatype for Galaxy, available here:
+
+* http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes 
 
 There are just two Galaxy files to install:
 

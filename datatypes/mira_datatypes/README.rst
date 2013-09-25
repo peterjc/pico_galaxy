@@ -14,6 +14,9 @@ and https://sourceforge.net/projects/mira-assembler/ for background.
 This format is not to be confused with the existing 'maf' datatype within Galaxy
 for the unrelated Multiple (sequence) Alignment Format (MAF).
 
+It is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes
+
 
 History
 =======
