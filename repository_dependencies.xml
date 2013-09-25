@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="This requires the MIRA Alignment Format dataype definitions ('mira' format).">
+    <repository name="mira_datatypes" owner="peterjc" />
+</repositories>
