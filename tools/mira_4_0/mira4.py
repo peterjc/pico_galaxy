@@ -30,7 +30,9 @@ def get_version(mira_binary):
     del child
     return ver.split("\n", 1)[0]
 
-mira_binary = "/mnt/galaxy/downloads/mira_4.0rc2_linux-gnu_x86_64_static/bin/mira"
+
+os.environ["PATH"] = "/mnt/galaxy/downloads/mira_4.0rc2_linux-gnu_x86_64_static/bin/:%s" % os.environ["PATH"]
+mira_binary = "mira"
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s" % mira_ver)
