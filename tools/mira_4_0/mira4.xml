@@ -54,7 +54,7 @@ readgroup
 technology = ${rg.technology}
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for f in $rg.reads
-data = $f
+data = ${f.filename}
 #end for
 ### Cheetah doesn't want dollar sign on list comprehension intermediate variables
 ###set $files = ' '.join([str(f['filename']) for f in rg['reads']])
@@ -86,11 +86,11 @@ https://trello.com/c/zSTrfDOB/820-disambiguated-conditional-parameters-not-suppo
 
 **What it does**
 
-Runs MIRA v3.4, collects the output, and throws away all the temporary files.
+Runs MIRA v4.0, collects the output, and throws away all the temporary files.
 
 MIRA is an open source assembly tool capable of handling sequence data from
-a range of platforms (Sanger capillary, Solexa/Illumina, Roche 454 and also
-Ion Torrent).
+a range of platforms (Sanger capillary, Solexa/Illumina, Roche 454, Ion Torrent
+and also PacBio).
 
 It is particularly suited to small genomes such as bacteria.
 
