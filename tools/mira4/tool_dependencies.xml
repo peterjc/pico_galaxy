@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="MIRA" version="3.4.1.1">
+    <package name="MIRA" version="4.0">
         <install version="1.0">
             <actions>
                 <!-- Sourceforge doesn't offer nice clean download URLs which is a shame -->      
@@ -15,7 +15,7 @@
             </actions>
         </install>
         <readme>
-Downloads MIRA v4.0 RC2 from Sourceforge, requesting Bastien's precompiled binaries
+Downloads MIRA v4.0 from Sourceforge, requesting Bastien's precompiled binaries
 for 64bit Linux (x86_64). He also has binaries for Mac OS X, which we could
 use once the Galaxy installation framework allow that kind of flexibility.
 
