@@ -43,7 +43,16 @@ mira4.py $manifest $out_maf $out_fasta $out_log
         <configfile name="manifest">
 project = MIRA
 job = denovo,${job_type},${job_quality}
-parameters = -GE:not=1 -DI:trt=/tmp
+parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
+## -GE:not is short for -GENERAL:number_of_threads and using one (1)
+## can be useful for repeatability of assemblies and bug hunting.
+##
+## -NW:cmrnl is short for -NAG_AND_WARN:check_maxreadnamelength
+## and without this MIRA aborts with read names over 40 characters
+## due to limitations of some downstream tools.
+##
+## -DI:trt is short for -DIRECTORY:tmp_redirected_to and should
+## point to a local hard drive (not something like NFS on network).
 
 #for $rg in $read_group
 #=======================================================
