@@ -28,6 +28,7 @@
     <!-- No tests yet (trying gives an error from the framework)
     <tool file="mira_3_4/mira.xml" />
     <tool file="mira_4_0/mira4_de_novo.xml" />
+    <tool file="mira_4_0/mira4_mapping" />
     <tool file="plotting/chromosome_diagram.xml" />
     -->
   </section>

@@ -1,4 +1,4 @@
-<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.1">
+<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.1">
     <description>Takes Sanger, Roche, Illumina, Ion Torrent and PacBio data</description>
     <requirements>
         <requirement type="python-module">Bio</requirement>
@@ -42,7 +42,7 @@ mira4.py $manifest $out_maf $out_fasta $out_log
     <configfiles>
         <configfile name="manifest">
 project = MIRA
-job = denovo,${job_type},${job_quality}
+job = mapping,${job_type},${job_quality}
 parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 ## -GE:not is short for -GENERAL:number_of_threads and using one (1)
 ## can be useful for repeatability of assemblies and bug hunting.
@@ -69,30 +69,12 @@ data = ${f.filename}
         </configfile>
     </configfiles>
     <tests>
-            <!-- Based on the MIRA v3.4.1.1 bundled minidemo/estdemo2 which uses
-                 strain data and miraSearchESTSNPs. Here we just assemble it. --> 
-<!--
-Commenting out test until Galaxy framework is fixed,
-https://trello.com/c/zSTrfDOB/820-disambiguated-conditional-parameters-not-supported-in-unit-tests
-        <test>
-            <param name="job_method" value="denovo" />
-            <param name="job_type" value="est" />
-            <param name="job_qual" value="accurate" />
-            <param name="condBackbone.use" value="false" />
-            <param name="condSanger.use" value="true" />
-            <param name="condSanger.filename" value="tvc_mini.fastq" ftype="fastq" />
-            <param name="condRoche.use" value="false" />
-            <param name="condIllumina.use" value="false" /> 
-            <param name="condIonTorrent.use" value="false" />
-            <output name="out_fasta" file="tvc_contigs.fasta" ftype="fasta" />
-	</test>
--->
     </tests>
     <help>
 
 **What it does**
 
-Runs MIRA v4.0 in de novo mode, collects the output, and throws away all the temporary files.
+Runs MIRA v4.0 in mapping mode, collects the output, and throws away all the temporary files.
 
 MIRA is an open source assembly tool capable of handling sequence data from
 a range of platforms (Sanger capillary, Solexa/Illumina, Roche 454, Ion Torrent
