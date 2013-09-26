@@ -29,7 +29,8 @@
     <tool file="mira3/mira.xml" />
     <tool file="mira4/mira4_de_novo.xml" />
     <tool file="mira4/mira4_mapping" />
-    <tool file="plotting/chromosome_diagram.xml" />
+    <tool file="venn_list/venn_list.xml" />
+    <tool file="chromosome_diagram/chromosome_diagram.xml" />
     -->
   </section>
 </toolbox>

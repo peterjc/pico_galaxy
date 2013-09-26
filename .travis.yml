@@ -130,7 +130,8 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/predictnls/ tools/predictnls
  - ln -s ${TRAVIS_BUILD_DIR}/tools/protein_analysis/ tools/protein_analysis
  - ln -s ${TRAVIS_BUILD_DIR}/tools/fastq_paired_unpaired/ tools/fastq_paired_unpaired
- - cp ${TRAVIS_BUILD_DIR}/tools/plotting/* tools/plotting/
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/venn_list/ tools/venn_list
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/chromosome_diagram/ tools/chromosome_diagram
  - cp ${TRAVIS_BUILD_DIR}/tools/filters/* tools/filters/
  - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
  - sed -i '6 i import mira' lib/galaxy/datatypes/registry.py
