@@ -4,7 +4,7 @@
         <install version="1.0">
             <actions>
                 <!-- Sourceforge doesn't offer nice clean download URLs which is a shame -->      
-                <action type="download_by_url">https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0rc2_linux-gnu_x86_64_static.tar.bz2?r=&ts=1380039004&use_mirror=kent</action>
+                <action type="download_by_url">https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0rc2_linux-gnu_x86_64_static.tar.bz2?r=&amp;ts=1380039004&amp;use_mirror=kent</action>
                 <action type="move_directory_files">
                     <source_directory>mira_4.0rc2_linux-gnu_x86_64_static/bin</source_directory>
                     <destination_directory>$INSTALL_DIR</destination_directory>
