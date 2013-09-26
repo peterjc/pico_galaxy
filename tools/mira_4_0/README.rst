@@ -19,6 +19,16 @@ This should be straightforward. Via the Tool Shed, Galaxy should automatically
 install the 'mira' datatype, download and install the precompiled binary for
 MIRA v4.0 for the Galaxy wrapper, and run any tests.
 
+For MIRA 4, the Galaxy wrapper has been split in two, allowing separate
+cluster settings for de novo usage (high RAM) and mapping (lower RAM).
+Consult the Galaxy adminstration documentation for your cluster setup.
+
+WARNING: This tool was developed to construct viral genome assembly and
+mapping pipelines, for which the run time and memory requirements are
+negligible. For larger tasks, be aware that MIRA can require vast amounts
+of RAM and run-times of over a week are possible. This tool wrapper makes
+no attempt to spot and reject such large jobs.
+
 
 Manual Installation
 ===================
@@ -30,24 +40,23 @@ First install the 'mira' datatype for Galaxy, available here:
 There are just two Galaxy files to install:
 
 * mira4.py (the Python script)
-* mira4.xml (the Galaxy tool definition)
+* mira4_de_novo.xml (the Galaxy tool definition for de novo usage)
+* mira4_mapping.xml (the Galaxy tool definition for mapping usage)
 
 The suggested location is a new tools/mira_4_0 folder. You will also need to
 modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
 this to tools_conf.xml.sample in order to run any tests::
 
-  <tool file="mira_4_0/mira4.xml" />
+  <tool file="mira_4_0/mira4_de_novo.xml" />
+  <tool file="mira_4_0/mira4_mapping.xml" />
 
 You will also need to install MIRA, we used version 4.0 RC2. See:
 
 * http://chevreux.org/projects_mira.html
 * http://sourceforge.net/projects/mira-assembler/
 
-WARNING: This tool was developed to construct viral genome assembly and
-mapping pipelines, for which the run time and memory requirements are
-negligible. For larger tasks, be aware that MIRA can require vast amounts
-of RAM and run-times of over a week are possible. This tool wrapper makes
-no attempt to spot and reject such large jobs.
+You may wish to use different cluster setups for the de novo and mapping
+tools, see above.
 
 
 History
@@ -69,13 +78,13 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_4_0
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira4_wrapper.tar.gz tools/mira_4_0/README.rst tools/mira_4_0/mira4.xml tools/mira_4_0/mira4.py tools/mira_4_0/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs_mira4.fasta
+    $ tar -czf mira4_wrapper.tar.gz tools/mira_4_0/README.rst tools/mira_4_0/mira4_de_novo.xml tools/mira_4_0/mira4.py tools/mira_4_0/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs_mira4.fasta
 
 Check this worked::
 
     $ tar -tzf mira_wrapper.tar.gz
     tools/mira_4_0/README.rst
-    tools/mira_4_0/mira4.xml
+    tools/mira_4_0/mira4_de_novo.xml
     tools/mira_4_0/mira4.py
     tools/mira_4_0/tool_dependencies.xml
     test-data/tvc_mini.fastq
