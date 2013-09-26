@@ -35,10 +35,10 @@ The suggested location is in the Galaxy folder tools/fastq next to other FASTQ
 tools provided with Galaxy.
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer
-the tool. One suggested location is next to the fastq_filter.xml entry. Simply
-add the line::
+the tool. One suggested location is next to the fastq_filter.xml entry, or use
+a dedicated folder like fastq_paired_unpaired. Then simply add the line::
 
-    <tool file="fastq/fastq_paired_unpaired.xml" />
+    <tool file="fastq_paired_unpaired/fastq_paired_unpaired.xml" />
 
 That's it.
 
@@ -60,6 +60,8 @@ v0.0.7  - Link to Tool Shed added to help text and this documentation.
 v0.0.8  - Use reStructuredText for this README file.
         - Adopt standard MIT License.
         - Updated citation information (Cock et al. 2013).
+        - Development moved to GitHub.
+v0.0.9  - Renamed folder and adopted README.rst naming.
 ======= ======================================================================
 
 
@@ -71,19 +73,19 @@ initially developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 
 Development has now moved to a dedicated GitHub repository:
-https://github.com/peterjc/pico_galaxy/tree/master/tools/
+https://github.com/peterjc/pico_galaxy
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf fastq_paired_unpaired.tar.gz tools/fastq/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
+    $ tar -czf fastq_paired_unpaired.tar.gz tools/fastq_paired_unpaired/README.rst tools/fastq/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
 
 Check this worked::
 
     $ tar -tzf fastq_paired_unpaired.tar.gz
-    tools/fastq/fastq_paired_unpaired.py
-    tools/fastq/fastq_paired_unpaired.rst
-    tools/fastq/fastq_paired_unpaired.xml
+    tools/fastq_paired_unpaired/README.rst
+    tools/fastq_paired_unpaired/fastq_paired_unpaired.py
+    tools/fastq_paired_unpaired/fastq_paired_unpaired.xml
     test-data/sanger-pairs-forward.fastq
     test-data/sanger-pairs-interleaved.fastq
     test-data/sanger-pairs-mixed.fastq
