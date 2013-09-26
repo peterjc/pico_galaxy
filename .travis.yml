@@ -123,7 +123,8 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml tool_conf.xml.sample
  - ln -s ${TRAVIS_BUILD_DIR}/tools/clinod/ tools/clinod
  - ln -s ${TRAVIS_BUILD_DIR}/tools/effectiveT3/ tools/effectiveT3
- - ln -s ${TRAVIS_BUILD_DIR}/tools/mira_3_4/ tools/mira_3_4
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/mira3/ tools/mira3
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/mira4/ tools/mira4
  - ln -s ${TRAVIS_BUILD_DIR}/tools/nlstradamus/ tools/nlstradamus
  - ln -s ${TRAVIS_BUILD_DIR}/tools/primers/ tools/primers
  - ln -s ${TRAVIS_BUILD_DIR}/tools/predictnls/ tools/predictnls

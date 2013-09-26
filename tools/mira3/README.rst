@@ -29,11 +29,11 @@ There are just two Galaxy files to install:
 * mira.py (the Python script)
 * mira.xml (the Galaxy tool definition)
 
-The suggested location is a new tools/mira_3_4 folder. You will also need to
+The suggested location is a new tools/mira3 folder. You will also need to
 modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
 this to tools_conf.xml.sample in order to run any tests::
 
-  <tool file="mira_3_4/mira.xml" />
+  <tool file="mira3/mira.xml" />
 
 You will also need to install MIRA, we used version 3.4.1.1. See:
 
@@ -73,6 +73,7 @@ v0.0.8  - Basic unit test added (but commented out due to Galaxy issue).
         - Adopted standard MIT licence.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+v0.0.9  - Renamed folder mira_assembler to mira3 (see also MIRA 4 wrapper).
 ======= ======================================================================
 
 
@@ -88,15 +89,15 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_3_4
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira_wrapper.tar.gz tools/mira_3_4/README.rst tools/mira_3_4/mira.xml tools/mira_3_4/mira.py tools/mira_3_4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
+    $ tar -czf mira3_wrapper.tar.gz tools/mira3/README.rst tools/mira3/mira.xml tools/mira3/mira.py tools/mira3/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
 
 Check this worked::
 
-    $ tar -tzf mira_wrapper.tar.gz
-    tools/mira_3_4/README.rst
-    tools/mira_3_4/mira.xml
-    tools/mira_3_4/mira.py
-    tools/mira_3_4/tool_dependencies.xml
+    $ tar -tzf mira3_wrapper.tar.gz
+    tools/mira3/README.rst
+    tools/mira3/mira.xml
+    tools/mira3/mira.py
+    tools/mira3/tool_dependencies.xml
     test-data/tvc_mini.fastq
     test-data/tvc_contigs.fasta
 

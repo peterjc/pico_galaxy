@@ -43,12 +43,12 @@ There are just two Galaxy files to install:
 * mira4_de_novo.xml (the Galaxy tool definition for de novo usage)
 * mira4_mapping.xml (the Galaxy tool definition for mapping usage)
 
-The suggested location is a new tools/mira_4_0 folder. You will also need to
+The suggested location is a new tools/mira4 folder. You will also need to
 modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
 this to tools_conf.xml.sample in order to run any tests::
 
-  <tool file="mira_4_0/mira4_de_novo.xml" />
-  <tool file="mira_4_0/mira4_mapping.xml" />
+  <tool file="mira4/mira4_de_novo.xml" />
+  <tool file="mira4/mira4_mapping.xml" />
 
 You will also need to install MIRA, we used version 4.0 RC2. See:
 
@@ -78,16 +78,16 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_4_0
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira4_wrapper.tar.gz tools/mira_4_0/README.rst tools/mira_4_0/mira4_de_novo.xml tools/mira_4_0/mira4_mapping.xml tools/mira_4_0/mira4.py tools/mira_4_0/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs_mira4.fasta
+    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs_mira4.fasta
 
 Check this worked::
 
-    $ tar -tzf mira_wrapper.tar.gz
-    tools/mira_4_0/README.rst
-    tools/mira_4_0/mira4_de_novo.xml
-    tools/mira_4_0/mira4_mapping.xml
-    tools/mira_4_0/mira4.py
-    tools/mira_4_0/tool_dependencies.xml
+    $ tar -tzf mira4_wrapper.tar.gz
+    tools/mira4/README.rst
+    tools/mira4/mira4_de_novo.xml
+    tools/mira4/mira4_mapping.xml
+    tools/mira4/mira4.py
+    tools/mira4/tool_dependencies.xml
     test-data/tvc_mini.fastq
     test-data/tvc_contigs_mira4.fasta
 
