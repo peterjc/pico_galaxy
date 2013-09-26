@@ -71,13 +71,13 @@ Development is done on this GitHub repository:
 https://github.com/peterjc/pico_galaxy
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball I use
-the following command from the blast_datatypes  folder::
+the following command from the mira_datatypes  folder::
 
     $ tar -czf mira_datatypes.tar.gz README.rst datatypes_conf.xml mira.py
 
 Check this worked::
 
-    $ tar -tzf blast_datatypes.tar.gz
+    $ tar -tzf mira_datatypes.tar.gz
     README.rst
     datatypes_conf.xml
     mira.py
