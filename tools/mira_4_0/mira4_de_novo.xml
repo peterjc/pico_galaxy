@@ -1,4 +1,4 @@
-<tool id="mira_4_0_assembler" name="Assemble with MIRA v4.0" version="0.0.1">
+<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.1">
     <description>Takes Sanger, Roche, Illumina, Ion Torrent and PacBio data</description>
     <requirements>
         <requirement type="python-module">Bio</requirement>
@@ -10,10 +10,6 @@
 mira4.py $manifest $out_maf $out_fasta $out_log
     </command>
     <inputs>
-        <param name="job_method" type="select" label="Assembly method" help="Mapping mode requires backbone/reference sequence(s)">
-            <option value="denovo">De novo</option>
-            <option value="mapping">Mapping</option>
-        </param>
         <param name="job_type" type="select" label="Assembly type">
             <option value="genome">Genome</option>
             <option value="est">EST (transcriptome)</option>
@@ -46,7 +42,7 @@ mira4.py $manifest $out_maf $out_fasta $out_log
     <configfiles>
         <configfile name="manifest">
 project = MIRA
-job = ${job_method},${job_type},${job_quality}
+job = denovo,${job_type},${job_quality}
 parameters = -GE:not=1 -DI:trt=/tmp
 
 #for $rg in $read_group
