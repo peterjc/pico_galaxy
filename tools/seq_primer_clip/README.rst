@@ -26,10 +26,10 @@ There are just two files to install:
 * seq_primer_clip.py (the Python script)
 * seq_primer_clip.xml (the Galaxy tool definition)
 
-The suggested location is a new tools/primers folder. You will also need to
-modify the tools_conf.xml file to tell Galaxy to offer the tool::
+The suggested location is a new tools/seq_primer_clip folder. You will also
+need to modify the tools_conf.xml file to tell Galaxy to offer the tool::
 
-  <tool file="primers/seq_primer_clip.xml" />
+  <tool file="seq_primer_clip/seq_primer_clip.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
 and move/copy the test-data files under Galaxy's test-data folder. Then::
@@ -60,6 +60,7 @@ v0.0.10 - Include links to Tool Shed in help text and this README file.
         - Adopted standard MIT licence.
         - Automated installation of Biopython dependency.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+v0.0.11 - Renamed folder.
 ======= ======================================================================
 
 
@@ -71,20 +72,20 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 Development has now moved to a dedicated GitHub repository:
-https://github.com/peterjc/pico_galaxy/tree/master/tools
+https://github.com/peterjc/pico_galaxy
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_primer_clip.tar.gz tools/primers/README.rst tools/primers/seq_primer_clip.* tools/primers/repository_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
+    $ tar -czf seq_primer_clip.tar.gz tools/seq_primer_clip/README.rst tools/seq_primer_clip/seq_primer_clip.* tools/seq_primer_clip/repository_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
 
 Check this worked::
 
     $ tar -tzf seq_primer_clip.tar.gz
-    tools/primers/README.rst
-    tools/primers/seq_primer_clip.xml
-    tools/primers/seq_primer_clip.py
-    tools/primers/repository_dependencies.xml
+    tools/seq_primer_clip/README.rst
+    tools/seq_primer_clip/seq_primer_clip.xml
+    tools/seq_primer_clip/seq_primer_clip.py
+    tools/seq_primer_clip/repository_dependencies.xml
     test-data/dop_primers.fasta
     test-data/MID4_GLZRM4E04_rnd30.fasta
     test-data/MID4_GLZRM4E04_rnd30.fastqsanger
