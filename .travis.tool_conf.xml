@@ -7,7 +7,7 @@
     <!-- Container section for tools to be tested using TravisCI -->
     <tool file="clinod/clinod.xml" />
     <tool file="effectiveT3/effectiveT3.xml" />
-    <tool file="fastq/fastq_paired_unpaired.xml" />
+    <tool file="fastq_paired_unpaired/fastq_paired_unpaired.xml" />
     <tool file="nlstradamus/nlstradamus.xml" />
     <tool file="filters/get_orfs_or_cdss.xml" />
     <tool file="filters/seq_filter_by_id.xml" />
