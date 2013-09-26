@@ -54,9 +54,9 @@ seq_rename.py $input_tabular $old_column $new_column $input_file $input_file.ext
 
 Takes a FASTA, QUAL, FASTQ or Standard Flowgram Format (SFF) file and produces a
 new sequence file (of the same format) where the sequence identifiers have been
-renamed according two the specified columns a the tabular file.
+renamed according to the specified columns in your tabular file.
 
-WARNING: If you have any duplicates in the intput sequence file, you will still
+WARNING: If you have any duplicates in the input sequence file, you will still
 have duplicate sequences in the output.
 
 WARNING: If the tabular file has more than one new name for any old ID, the
