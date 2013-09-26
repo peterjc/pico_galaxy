@@ -1,4 +1,4 @@
-Galaxy tool to wrap the MIRA sequence assembly program (v3.4)
+Galaxy tool to wrap the MIRA sequence assembly program (v4.0)
 =============================================================
 
 This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
