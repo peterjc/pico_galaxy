@@ -9,10 +9,10 @@
     <tool file="effectiveT3/effectiveT3.xml" />
     <tool file="fastq_paired_unpaired/fastq_paired_unpaired.xml" />
     <tool file="nlstradamus/nlstradamus.xml" />
-    <tool file="filters/get_orfs_or_cdss.xml" />
-    <tool file="filters/seq_filter_by_id.xml" />
-    <tool file="filters/seq_rename.xml" />
-    <tool file="filters/seq_select_by_id.xml" />
+    <tool file="get_orfs_or_cdss/get_orfs_or_cdss.xml" />
+    <tool file="seq_filter_by_id/seq_filter_by_id.xml" />
+    <tool file="seq_rename/seq_rename.xml" />
+    <tool file="seq_select_by_id/seq_select_by_id.xml" />
     <tool file="seq_primer_clip/seq_primer_clip.xml" />
     <tool file="predictnls/predictnls.xml" />
     <!-- Missing dependencies

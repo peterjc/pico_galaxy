@@ -132,7 +132,10 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/fastq_paired_unpaired/ tools/fastq_paired_unpaired
  - ln -s ${TRAVIS_BUILD_DIR}/tools/venn_list/ tools/venn_list
  - ln -s ${TRAVIS_BUILD_DIR}/tools/chromosome_diagram/ tools/chromosome_diagram
- - cp ${TRAVIS_BUILD_DIR}/tools/filters/* tools/filters/
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_rename/ tools/seq_rename
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_filter_by_id/ tools/seq_filter_by_id
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_select_by_id/ tools/seq_select_by_id
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/get_orfs_or_cdss/ tools/get_orfs_or_cdss
  - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
  - sed -i '6 i import mira' lib/galaxy/datatypes/registry.py
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
