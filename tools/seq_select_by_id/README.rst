@@ -39,13 +39,12 @@ There are just two files to install to use this tool from within Galaxy:
 * seq_select_by_id.py (the Python script)
 * seq_select_by_id.xml (the Galaxy tool definition)
 
-The suggested location is in the Galaxy folder tools/filters next to the tool
-for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
+The suggested location is a dedicated tools/seq_select_by_id folder.
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line::
 
-    <tool file="filters/seq_select_by_id.xml" />
+    <tool file="seq_select_by_id/seq_select_by_id.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
 and move/copy the test-data files under Galaxy's test-data folder. Then::
@@ -73,6 +72,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
 v0.0.7  - Updated citation information (Cock et al. 2013).
         - Fixed Biopython dependency setup.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+        - Renamed folder and adopted README.rst naming.
 ======= ======================================================================
 
 
@@ -88,15 +88,15 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_select_by_id.tar.gz tools/filters/seq_select_by_id.* tools/filters/repository_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
+    $ tar -czf seq_select_by_id.tar.gz tools/seq_select_by_id/README.rst tools/seq_select_by_id/seq_select_by_id.* tools/seq_select_by_id/repository_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
 
 Check this worked::
 
     $ tar -tzf seq_select_by_id.tar.gz
-    tools/filters/seq_select_by_id.py
-    tools/filters/seq_select_by_id.rst
-    tools/filter/seq_select_by_id.xml
-    tools/filters/repository_dependencies.xml
+    tools/seq_select_by_id/README.rst
+    tools/seq_select_by_id/seq_select_by_id.py
+    tools/seq_select_by_id/seq_select_by_id.xml
+    tools/seq_select_by_id/repository_dependencies.xml
     test-data/k12_ten_proteins.fasta
     test-data/k12_hypothetical.fasta
     test-data/k12_hypothetical.tabular

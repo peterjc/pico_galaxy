@@ -34,13 +34,12 @@ There are just two files to install to use this tool from within Galaxy:
 * get_orfs_or_cdss.py (the Python script)
 * get_orfs_or_cdss.xml (the Galaxy tool definition)
 
-If you are installing this manually (rather than via the Tool Shed), the
-suggested location is in the Galaxy folder tools/filters next to the tool
-for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
+The suggested location is in a dedicated tools/get_orfs_or_cdss folder.
+
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line::
 
-    <tool file="filters/get_orfs_or_cdss.xml" />
+    <tool file="get_orfs_or_cdss/get_orfs_or_cdss.xml" />
 
 You will also need to install Biopython 1.54 or later. If you want to run
 the unit tests, include this line in tools_conf.xml.sample and the sample
@@ -57,16 +56,17 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1   - Initial version.
-v0.0.2   - Correct labelling issue on reverse strand.
-         - Use the new <stdio> settings in the XML wrappers to catch errors
-v0.0.3   - Include unit tests.
-         - Record Python script version when run from Galaxy.
-v0.0.4   - Link to Tool Shed added to help text and this documentation.
-v0.0.5   - Automated intallation of the Biopython dependency.
-         - Use reStructuredText for this README file.
-         - Adopt standard MIT License.
-         - Updated citation information (Cock et al. 2013).
+v0.0.1  - Initial version.
+v0.0.2  - Correct labelling issue on reverse strand.
+        - Use the new <stdio> settings in the XML wrappers to catch errors
+v0.0.3  - Include unit tests.
+        - Record Python script version when run from Galaxy.
+v0.0.4  - Link to Tool Shed added to help text and this documentation.
+v0.0.5  - Automated intallation of the Biopython dependency.
+        - Use reStructuredText for this README file.
+        - Adopt standard MIT License.
+        - Updated citation information (Cock et al. 2013).
+        - Renamed folder and adopted README.rst naming.
 ======= ======================================================================
 
 
@@ -82,15 +82,15 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf get_orfs_or_cdss.tar.gz tools/filters/get_orfs_or_cdss.* tools/filters/repository_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
+    $ tar -czf get_orfs_or_cdss.tar.gz tools/get_orfs_or_cdss/README.rst tools/get_orfs_or_cdss/get_orfs_or_cdss.* tools/get_orfs_or_cdss/repository_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
 
 Check this worked::
 
     $ tar -tzf get_orfs_or_cdss.tar.gz
-    filter/get_orfs_or_cdss.py
-    filter/get_orfs_or_cdss.rst
-    filter/get_orfs_or_cdss.xml
-    tools/filters/repository_dependencies.xml
+    tools/get_orfs_or_cdss/README.rst
+    tools/get_orfs_or_cdss/get_orfs_or_cdss.py
+    tools/get_orfs_or_cdss/get_orfs_or_cdss.xml
+    tools/get_orfs_or_cdss/repository_dependencies.xml
     test-data/get_orf_input.fasta
     test-data/get_orf_input.Suis_ORF.nuc.fasta
     test-data/get_orf_input.Suis_ORF.prot.fasta

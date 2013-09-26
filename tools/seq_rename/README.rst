@@ -38,13 +38,12 @@ There are just two files to install to use this tool from within Galaxy:
 * seq_rename.py (the Python script)
 * seq_rename.xml (the Galaxy tool definition)
 
-The suggested location is in the Galaxy folder tools/filters next to the tool
-for calling sff_extract.py for converting SFF to FASTQ or FASTA + QUAL.
+The suggested location is in a dedicated tools/seq_rename folder.
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line::
 
-    <tool file="filters/seq_rename.xml" />
+    <tool file="seq_rename/seq_rename.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample
 and move/copy the test-data files under Galaxy's test-data folder. Then::
@@ -70,6 +69,7 @@ v0.0.4  - Automated installation of Biopython dependency.
         - Adopt standard MIT License.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+        - Renamed folder and adopted README.rst naming.
 ======= ======================================================================
 
 
@@ -85,15 +85,15 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_rename.tar.gz tools/filters/seq_rename.* tools/filters/repository_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.rename.tabular test-data/four_human_proteins.rename.fasta
+    $ tar -czf seq_rename.tar.gz tools/seq_rename/README.rst tools/seq_rename/seq_rename.* tools/seq_rename/repository_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.rename.tabular test-data/four_human_proteins.rename.fasta
 
 Check this worked::
 
     $ tar -tzf seq_rename.tar.gz
-    tools/filter/seq_rename.py
-    tools/filter/seq_rename.rst
-    tools/filter/seq_rename.xml
-    tools/filters/repository_dependencies.xml
+    tools/seq_rename/README.rst
+    tools/seq_rename/seq_rename.py
+    tools/seq_rename/seq_rename.xml
+    tools/seq_rename/repository_dependencies.xml
     test-data/four_human_proteins.fasta
     test-data/four_human_proteins.rename.tabular
     test-data/four_human_proteins.rename.fasta
