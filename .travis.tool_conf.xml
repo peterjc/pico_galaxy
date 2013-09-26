@@ -16,7 +16,7 @@
     <tool file="primers/seq_primer_clip.xml" />
     <tool file="predictnls/predictnls.xml" />
     <!-- Missing dependencies
-    <tool file="plotting/venn_list.xml" />
+    <tool file="venn_list/venn_list.xml" />
     <tool file="protein_analysis/predictnls.xml" />
     <tool file="protein_analysis/promoter2.xml" />
     <tool file="protein_analysis/psortb.xml" />
@@ -29,7 +29,6 @@
     <tool file="mira3/mira.xml" />
     <tool file="mira4/mira4_de_novo.xml" />
     <tool file="mira4/mira4_mapping" />
-    <tool file="venn_list/venn_list.xml" />
     <tool file="chromosome_diagram/chromosome_diagram.xml" />
     -->
   </section>
