@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Generic repository_depencencies.xml file for misc sequence tools -->
+<repositories description="This requires Biopython as a dependency.">
+<!-- Leave out the tool shed and revision to get the current
+     tool shed and latest revision at the time of upload -->
+<repository owner="biopython" name="package_biopython_1_61" />
+</repositories>
