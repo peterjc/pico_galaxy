@@ -37,7 +37,7 @@ First install the 'mira' datatype for Galaxy, available here:
 
 * http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes 
 
-There are just two Galaxy files to install:
+There are just three Galaxy files to install:
 
 * mira4.py (the Python script)
 * mira4_de_novo.xml (the Galaxy tool definition for de novo usage)
