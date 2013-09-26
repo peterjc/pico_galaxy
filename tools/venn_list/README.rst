@@ -16,7 +16,7 @@ There are just two files to install:
 * venn_list.xml (the Galaxy tool definition)
 
 The suggested location is in the Galaxy folder tools/plotting next to other
-graph drawing tools.
+graph drawing tools, or a dedicated tools/venn_list directory.
 
 You will also need to install Biopython 1.54 or later, and the R/Bioconductor
 pacakge limma. You should already have rpy installed for other Galaxy tools.
@@ -25,7 +25,7 @@ You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. The suggested location is in the "Graph/Display Data" section. Simply add
 the line::
 
-  <tool file="plotting/venn_list.xml" />
+  <tool file="venn_list/venn_list.xml" />
 
 If you wish to run the unit tests, also add this to tools_conf.xml.sample and
 move/copy the test-data files under Galaxy's test-data folder. Then::
@@ -47,6 +47,7 @@ v0.0.6  - Added unit tests.
         - Adopt standard MIT licence.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+v0.0.7  - Renamed folder and README file.
 ======= ======================================================================
 
 
@@ -57,19 +58,19 @@ This script and related tools are being developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 Development has now moved to a dedicated GitHub repository:
-https://github.com/peterjc/pico_galaxy/tree/master/tools
+https://github.com/peterjc/pico_galaxy
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf venn_list.tar.gz tools/plotting/venn_list.* test-data/venn_list1.pdf test-data/venn_list.tabular test-data/rhodopsin_proteins.fasta
+    $ tar -czf venn_list.tar.gz tools/venn_list/README.rst tools/venn_list/venn_list.* test-data/venn_list1.pdf test-data/venn_list.tabular test-data/rhodopsin_proteins.fasta
 
 Check this worked::
 
     $ tar -tzf venn_list.tar.gz
-    tools/plotting/venn_list.py
-    tools/plotting/venn_list.rst
-    tools/plotting/venn_list.xml
+    tools/venn_list/README.rst
+    tools/venn_list/venn_list.py
+    tools/venn_list/venn_list.xml
     test-data/venn_list1.pdf
     test-data/venn_list.tabular
     test-data/rhodopsin_proteins.fasta
