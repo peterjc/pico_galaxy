@@ -13,7 +13,7 @@
     <tool file="filters/seq_filter_by_id.xml" />
     <tool file="filters/seq_rename.xml" />
     <tool file="filters/seq_select_by_id.xml" />
-    <tool file="primers/seq_primer_clip.xml" />
+    <tool file="seq_primer_clip/seq_primer_clip.xml" />
     <tool file="predictnls/predictnls.xml" />
     <!-- Missing dependencies
     <tool file="venn_list/venn_list.xml" />

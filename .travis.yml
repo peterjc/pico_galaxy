@@ -126,7 +126,7 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/mira3/ tools/mira3
  - ln -s ${TRAVIS_BUILD_DIR}/tools/mira4/ tools/mira4
  - ln -s ${TRAVIS_BUILD_DIR}/tools/nlstradamus/ tools/nlstradamus
- - ln -s ${TRAVIS_BUILD_DIR}/tools/primers/ tools/primers
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_primer_clip/ tools/seq_primer_clip
  - ln -s ${TRAVIS_BUILD_DIR}/tools/predictnls/ tools/predictnls
  - ln -s ${TRAVIS_BUILD_DIR}/tools/protein_analysis/ tools/protein_analysis
  - ln -s ${TRAVIS_BUILD_DIR}/tools/fastq_paired_unpaired/ tools/fastq_paired_unpaired
