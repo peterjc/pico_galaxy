@@ -1,114 +1,112 @@
 <tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.5">
-	<description>e.g. to get peptides from ESTs</description>
-	<requirements>
-		<requirement type="package" version="1.62">biopython</requirement>
-		<requirement type="python-module">Bio</requirement>
-	</requirements>
-	<version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
-	<command interpreter="python">
+    <description>e.g. to get peptides from ESTs</description>
+    <requirements>
+        <requirement type="package" version="1.62">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
+    <command interpreter="python">
 get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
-	</command>
-	<stdio>
-		<!-- Anything other than zero is an error -->
-		<exit_code range="1:" />
-		<exit_code range=":-1" />
-	</stdio>
-	<inputs>
-		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file (nucleotides)" help="FASTA, FASTQ, or SFF format." />
-		<param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">
-			<option value="1">1. Standard</option>
-			<option value="2">2. Vertebrate Mitochondrial</option>
-			<option value="3">3. Yeast Mitochondrial</option>
-			<option value="4">4. Mold, Protozoan, Coelenterate Mitochondrial and Mycoplasma/Spiroplasma</option>
-			<option value="5">5. Invertebrate Mitochondrial</option>
-			<option value="6">6. Ciliate Macronuclear and Dasycladacean</option>
-			<option value="9">9. Echinoderm Mitochondrial</option>
-			<option value="10">10. Euplotid Nuclear</option>
-			<option value="11">11. Bacterial</option>
-			<option value="12">12. Alternative Yeast Nuclear</option>
-			<option value="13">13. Ascidian Mitochondrial</option>
-			<option value="14">14. Flatworm Mitochondrial</option>
-			<option value="15">15. Blepharisma Macronuclear</option>
-			<option value="16">16. Chlorophycean Mitochondrial</option>
-			<option value="21">21. Trematode Mitochondrial</option>
-			<option value="22">22. Scenedesmus obliquus</option>
-			<option value="23">23. Thraustochytrium Mitochondrial</option>
-		</param>
-		<param name="ftype" type="select" value="True" label="Look for ORFs or CDSs">
-                        <option value="ORF">Look for ORFs (check for stop codons only, ignore start codons)</option>
-                        <option value="CDS">Look for CDSs (with start and stop codons)</option>
-		</param>
-                <param name="ends" type="select" value="open" label="Sequence end treatment">
-			<option value="open">Open ended (will allow missing start/stop codons at the ends)</option>
-                        <option value="closed">Complete (will check for start/stop codons at the ends)</option>
-                        <!-- TODO? Circular, for using this on finished bacteria etc -->
-                </param>
-
-		<param name="mode" type="select" label="Selection criteria" help="Suppose a sequence has ORFs/CDSs of lengths 100, 102 and 102 -- which should be taken? These options would return 3, 2 or 1 ORF.">
-                    <option value="all">All ORFs/CDSs from each sequence</option>
-                    <option value="top">All ORFs/CDSs from each sequence with the maximum length</option>
-                    <option value="one">First ORF/CDS from each sequence with the maximum length</option>
-		</param>
-                <param name="min_len" type="integer" size="5" value="30" label="Minimum length ORF/CDS (in amino acids, e.g. 30 aa = 90 bp plus any stop codon)">
-                </param>
-                <param name="strand" type="select" label="Strand to search" help="Use the forward only option if your sequence directionality is known (e.g. from poly-A tails, or strand specific RNA sequencing.">
-                    <option value="both">Search both the forward and reverse strand</option>
-                    <option value="forward">Only search the forward strand</option>
-                    <option value="reverse">Only search the reverse strand</option>
-                </param>
-	</inputs>
-	<outputs>
-		<data name="out_nuc_file" format="fasta" label="${ftype.value}s (nucleotides)" />
-		<data name="out_prot_file" format="fasta" label="${ftype.value}s (amino acids)" />
-	</outputs>
-	<tests>
-                <test>
-                        <param name="input_file" value="get_orf_input.fasta" />
-                        <param name="table" value="1" />
-                        <param name="ftype" value="CDS" />
-                        <param name="ends" value="open" />
-                        <param name="mode" value="all" />
-                        <param name="min_len" value="10" />
-                        <param name="strand" value="forward" />
-                        <output name="out_nuc_file" file="get_orf_input.t1_nuc_out.fasta" />
-                        <output name="out_prot_file" file="get_orf_input.t1_prot_out.fasta" />
-                </test>
-		<test>
-			<param name="input_file" value="get_orf_input.fasta" />
-			<param name="table" value="11" />
-			<param name="ftype" value="CDS" />
-			<param name="ends" value="closed" />
-			<param name="mode" value="all" />
-			<param name="min_len" value="10" />
-			<param name="strand" value="forward" />
-			<output name="out_nuc_file" file="get_orf_input.t11_nuc_out.fasta" />
-			<output	name="out_prot_file" file="get_orf_input.t11_prot_out.fasta" />
-		</test>
-		<test>
-                        <param name="input_file" value="get_orf_input.fasta" />
-                        <param name="table" value="11" />
-                        <param name="ftype" value="CDS" />
-                        <param name="ends" value="open" />
-                        <param name="mode" value="all" />
-                        <param name="min_len" value="10" />
-                        <param name="strand" value="forward" />
-                        <output name="out_nuc_file" file="get_orf_input.t11_open_nuc_out.fasta" />
-                        <output name="out_prot_file" file="get_orf_input.t11_open_prot_out.fasta" />
-		</test>
-                <test>
-			<param name="input_file" value="Ssuis.fasta" />
-			<param name="table" value="11" />
-			<param name="ftype" value="ORF" />
-			<param name="ends" value="open" />
-			<param name="mode" value="all" />
-			<param name="min_len" value="100" />
-			<param name="strand" value="both" />
-			<output name="out_nuc_file" file="get_orf_input.Suis_ORF.nuc.fasta" />
-			<output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.fasta" />
-		</test>
-	</tests>
-	<help>
-
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file (nucleotides)" help="FASTA, FASTQ, or SFF format." />
+        <param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">
+            <option value="1">1. Standard</option>
+            <option value="2">2. Vertebrate Mitochondrial</option>
+            <option value="3">3. Yeast Mitochondrial</option>
+            <option value="4">4. Mold, Protozoan, Coelenterate Mitochondrial and Mycoplasma/Spiroplasma</option>
+            <option value="5">5. Invertebrate Mitochondrial</option>
+            <option value="6">6. Ciliate Macronuclear and Dasycladacean</option>
+            <option value="9">9. Echinoderm Mitochondrial</option>
+            <option value="10">10. Euplotid Nuclear</option>
+            <option value="11">11. Bacterial</option>
+            <option value="12">12. Alternative Yeast Nuclear</option>
+            <option value="13">13. Ascidian Mitochondrial</option>
+            <option value="14">14. Flatworm Mitochondrial</option>
+            <option value="15">15. Blepharisma Macronuclear</option>
+            <option value="16">16. Chlorophycean Mitochondrial</option>
+            <option value="21">21. Trematode Mitochondrial</option>
+            <option value="22">22. Scenedesmus obliquus</option>
+            <option value="23">23. Thraustochytrium Mitochondrial</option>
+        </param>
+        <param name="ftype" type="select" value="True" label="Look for ORFs or CDSs">
+            <option value="ORF">Look for ORFs (check for stop codons only, ignore start codons)</option>
+            <option value="CDS">Look for CDSs (with start and stop codons)</option>
+        </param>
+        <param name="ends" type="select" value="open" label="Sequence end treatment">
+            <option value="open">Open ended (will allow missing start/stop codons at the ends)</option>
+            <option value="closed">Complete (will check for start/stop codons at the ends)</option>
+            <!-- TODO? Circular, for using this on finished bacteria etc -->
+        </param>
+        <param name="mode" type="select" label="Selection criteria" help="Suppose a sequence has ORFs/CDSs of lengths 100, 102 and 102 -- which should be taken? These options would return 3, 2 or 1 ORF.">
+            <option value="all">All ORFs/CDSs from each sequence</option>
+            <option value="top">All ORFs/CDSs from each sequence with the maximum length</option>
+            <option value="one">First ORF/CDS from each sequence with the maximum length</option>
+        </param>
+        <param name="min_len" type="integer" size="5" value="30" label="Minimum length ORF/CDS (in amino acids, e.g. 30 aa = 90 bp plus any stop codon)">
+        </param>
+        <param name="strand" type="select" label="Strand to search" help="Use the forward only option if your sequence directionality is known (e.g. from poly-A tails, or strand specific RNA sequencing.">
+            <option value="both">Search both the forward and reverse strand</option>
+            <option value="forward">Only search the forward strand</option>
+            <option value="reverse">Only search the reverse strand</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="out_nuc_file" format="fasta" label="${ftype.value}s (nucleotides)" />
+        <data name="out_prot_file" format="fasta" label="${ftype.value}s (amino acids)" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="get_orf_input.fasta" />
+            <param name="table" value="1" />
+            <param name="ftype" value="CDS" />
+            <param name="ends" value="open" />
+            <param name="mode" value="all" />
+            <param name="min_len" value="10" />
+            <param name="strand" value="forward" />
+            <output name="out_nuc_file" file="get_orf_input.t1_nuc_out.fasta" />
+            <output name="out_prot_file" file="get_orf_input.t1_prot_out.fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="get_orf_input.fasta" />
+            <param name="table" value="11" />
+            <param name="ftype" value="CDS" />
+            <param name="ends" value="closed" />
+            <param name="mode" value="all" />
+            <param name="min_len" value="10" />
+            <param name="strand" value="forward" />
+            <output name="out_nuc_file" file="get_orf_input.t11_nuc_out.fasta" />
+            <output    name="out_prot_file" file="get_orf_input.t11_prot_out.fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="get_orf_input.fasta" />
+            <param name="table" value="11" />
+            <param name="ftype" value="CDS" />
+            <param name="ends" value="open" />
+            <param name="mode" value="all" />
+            <param name="min_len" value="10" />
+            <param name="strand" value="forward" />
+            <output name="out_nuc_file" file="get_orf_input.t11_open_nuc_out.fasta" />
+            <output name="out_prot_file" file="get_orf_input.t11_open_prot_out.fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="Ssuis.fasta" />
+            <param name="table" value="11" />
+            <param name="ftype" value="ORF" />
+            <param name="ends" value="open" />
+            <param name="mode" value="all" />
+            <param name="min_len" value="100" />
+            <param name="strand" value="both" />
+            <output name="out_nuc_file" file="get_orf_input.Suis_ORF.nuc.fasta" />
+            <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.fasta" />
+        </test>
+    </tests>
+    <help>
 **What it does**
 
 Takes an input file of nucleotide sequences (typically FASTA, but also FASTQ
@@ -170,5 +168,5 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
-	</help>
+    </help>
 </tool>
