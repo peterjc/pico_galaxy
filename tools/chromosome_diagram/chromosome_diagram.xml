@@ -1,51 +1,50 @@
 <tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.1">
-  <description>from simple locus annotation</description>
-  <requirements>
-    <requirement type="package" version="1.62">biopython</requirement>
-    <requirement type="python-module">Bio</requirement>
-    <!-- TODO, Tool Shed package for ReportLab -->
-    <requirement type="python-module">reportlab</requirement>
-  </requirements>
-  <command interpreter="python">
+    <description>from simple locus annotation</description>
+    <requirements>
+        <requirement type="package" version="1.62">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+        <!-- TODO, Tool Shed package for ReportLab -->
+        <requirement type="python-module">reportlab</requirement>
+    </requirements>
+    <command interpreter="python">
 chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_col" "$end_col" "$strand_col" "$caption_col" "$color_col" "$fill_col" "$main_lab" "$per_page" "$PDF"
-  </command>
-  <stdio>
-    <!-- Anything other than zero is an error -->
-    <exit_code range="1:" />
-    <exit_code range=":-1" />
-  </stdio>
-  <inputs>
-    <param name="main_lab" size="30" type="text" value="Chromosome Diagram" label="Plot title"/>
-    <param name="reference_file" type="data" format="fasta" label="Chromsomes or psuedo molecules (FASTA file)"/>
-    <param name="per_page" type="integer" min="0" value=""
-	   label="Chromosomes per page?"
-	   help="For everything on one page, leave blank or use zero. If set to one, larger fonts are used."/>
-    <param name="gaps" optional="true" type="integer" min="0" value=""
-	   label="Show NNNN regions of at least this length"
-	   help="If you don't want to show such gaps, leave blank or use zero"/>
-    <param name="tab_file" type="data" format="tabular" label="Annotation source"/>
-    <param name="caption_col" type="data_column" data_ref="tab_file" label="Feature caption"/>
-    <param name="chr_col" type="data_column" data_ref="tab_file" label="Column for feature chromosome/reference"/>
-    <param name="start_col" type="data_column" data_ref="tab_file" label="Column for feature start co-ordinate"/>
-    <param name="end_col" type="data_column" data_ref="tab_file" label="Column for feature end co-ordinate" optional="true"/>
-    <param name="strand_col" type="data_column" data_ref="tab_file" label="Column for feature strand" optional="true"/>
-    <param name="color_col" type="data_column" data_ref="tab_file" label="Column for feature color" optional="true"/>
-    <param name="fill_col" type="data_column" data_ref="tab_file" label="Column for feature fill color" optional="true"/>
-    <!-- Option to draw NNNN gaps? -->
-    <!-- Size settings? Default scale per base pair & horizontal space per reference? -->
-    <!-- Alignment settings? Top, middle, bottom should be easy -->
-    <!-- Default colour? -->
-  </inputs>
-  <outputs>
-    <!-- Can or should we offer SVG, PS, PNG, etc as well? -->
-    <data format="pdf" name="PDF" label="${main_lab}" />
-  </outputs>
-  <tests>
-    <!-- Will Galaxy's tests work nicely with a PDF output file?
-	 Will it vary too much depending on ReportLab verion etc? -->
-  </tests>
-  <help>
-
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="main_lab" size="30" type="text" value="Chromosome Diagram" label="Plot title"/>
+        <param name="reference_file" type="data" format="fasta" label="Chromsomes or psuedo molecules (FASTA file)"/>
+        <param name="per_page" type="integer" min="0" value=""
+               label="Chromosomes per page?"
+               help="For everything on one page, leave blank or use zero. If set to one, larger fonts are used."/>
+        <param name="gaps" optional="true" type="integer" min="0" value=""
+               label="Show NNNN regions of at least this length"
+               help="If you don't want to show such gaps, leave blank or use zero"/>
+        <param name="tab_file" type="data" format="tabular" label="Annotation source"/>
+        <param name="caption_col" type="data_column" data_ref="tab_file" label="Feature caption"/>
+        <param name="chr_col" type="data_column" data_ref="tab_file" label="Column for feature chromosome/reference"/>
+        <param name="start_col" type="data_column" data_ref="tab_file" label="Column for feature start co-ordinate"/>
+        <param name="end_col" type="data_column" data_ref="tab_file" label="Column for feature end co-ordinate" optional="true"/>
+        <param name="strand_col" type="data_column" data_ref="tab_file" label="Column for feature strand" optional="true"/>
+        <param name="color_col" type="data_column" data_ref="tab_file" label="Column for feature color" optional="true"/>
+        <param name="fill_col" type="data_column" data_ref="tab_file" label="Column for feature fill color" optional="true"/>
+        <!-- Option to draw NNNN gaps? -->
+        <!-- Size settings? Default scale per base pair & horizontal space per reference? -->
+        <!-- Alignment settings? Top, middle, bottom should be easy -->
+        <!-- Default colour? -->
+    </inputs>
+    <outputs>
+        <!-- Can or should we offer SVG, PS, PNG, etc as well? -->
+        <data format="pdf" name="PDF" label="${main_lab}" />
+    </outputs>
+    <tests>
+        <!-- Will Galaxy's tests work nicely with a PDF output file?
+             Will it vary too much depending on ReportLab verion etc? -->
+    </tests>
+    <help>
 **What it does**
 
 Draws a 'Chromosome Diagram', with one vertical bar for each sequence
@@ -70,6 +69,5 @@ cite the Biopython application note:
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
-
-  </help>
+    </help>
 </tool>
