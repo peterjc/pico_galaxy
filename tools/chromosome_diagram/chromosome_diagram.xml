@@ -1,5 +1,11 @@
 <tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.1">
   <description>from simple locus annotation</description>
+  <requirements>
+    <requirement type="package" version="1.62">biopython</requirement>
+    <requirement type="python-module">Bio</requirement>
+    <!-- TODO, Tool Shed package for ReportLab -->
+    <requirement type="python-module">reportlab</requirement>
+  </requirements>
   <command interpreter="python">
 chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_col" "$end_col" "$strand_col" "$caption_col" "$color_col" "$fill_col" "$main_lab" "$per_page" "$PDF"
   </command>
@@ -34,10 +40,6 @@ chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_c
     <!-- Can or should we offer SVG, PS, PNG, etc as well? -->
     <data format="pdf" name="PDF" label="${main_lab}" />
   </outputs>
-  <requirements>
-    <requirement type="python-module">reportlab</requirement>
-    <requirement type="python-module">Bio</requirement>
-  </requirements>
   <tests>
     <!-- Will Galaxy's tests work nicely with a PDF output file?
 	 Will it vary too much depending on ReportLab verion etc? -->
