@@ -19,7 +19,7 @@ mira4.py $manifest $out_maf $out_fasta $out_log
             <option value="draft">Draft</option>
         </param>
         <repeat name="read_group" title="Read Group" min="1">
-            <param name="technology" type="select" label="Read technology" help="MIRA has different error models for different technologies">
+            <param name="technology" type="select" label="Read technology">
                 <option value="solexa">Solexa/Illumina</option>
                 <option value="sanger">Sanger cappillary sequencing</option>
                 <option value="454">Roche 454</option>
@@ -29,9 +29,8 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                 <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
 		<!-- TODO reference/backbone as an entry here? -->
             </param>
-	    <repeat name="reads" title="Reads" min="1" help="Paired reads can be combined into one file, or given as two files. MIRA will look at the read names to identify pairs.">
-                <param name="filename" type="data" format="fastq" label="Reads in FASTQ format" />
-            </repeat>
+	    <param name="filenames" type="data" multiple="true" required="true" label="Read file(s)"
+		   help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
     </inputs>
     <outputs>
@@ -55,16 +54,16 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 ## point to a local hard drive (not something like NFS on network).
 
 #for $rg in $read_group
+
+##This bar goes into the manifest as a comment line
 #=======================================================
+
 readgroup
 technology = ${rg.technology}
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
-#for f in $rg.reads
-data = ${f.filename}
+#for $f in $rg.filenames
+data = $f
 #end for
-### Cheetah doesn't want dollar sign on list comprehension intermediate variables
-###set $files = ' '.join([str(f['filename']) for f in rg['reads']])
-##data = $files
 #end for
         </configfile>
     </configfiles>
