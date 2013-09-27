@@ -1,11 +1,11 @@
 <tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.0.6">
-	<description>from a tabular file</description>
-	<requirements>
-		<requirement type="package" version="1.62">biopython</requirement>
-		<requirement type="python-module">Bio</requirement>
-	</requirements>
-	<version_command interpreter="python">seq_filter_by_id.py --version</version_command>
-	<command interpreter="python">
+    <description>from a tabular file</description>
+    <requirements>
+        <requirement type="package" version="1.62">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <version_command interpreter="python">seq_filter_by_id.py --version</version_command>
+    <command interpreter="python">
 seq_filter_by_id.py "$input_file" "$input_file.ext"
 #if $output_choice_cond.output_choice=="both"
  $output_pos $output_neg
@@ -17,32 +17,32 @@ seq_filter_by_id.py "$input_file" "$input_file.ext"
 ## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
 ## Single tabular file, can call the Python script with either UNION or INTERSECTION
 UNION "$input_tabular" "$columns"
-	</command>
-        <stdio>
-                <!-- Anything other than zero is an error -->
-                <exit_code range="1:" />
-                <exit_code range=":-1" />
-        </stdio>
-	<inputs>
-		<param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" help="FASTA, FASTQ, or SFF format." />
-		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
-			<validator type="no_options" message="Pick at least one column"/>
-		</param>
-		<conditional name="output_choice_cond">
-			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
-				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two files</option>
-				<option value="pos">Just positive matches (ID on list), as a single file</option>
-				<option value="neg">Just negative matches (ID not on list), as a single file</option>
-			</param>
-			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
-			<when value="both" />
-			<when value="pos" />
-			<when value="neg" />
-		</conditional>
-	</inputs>
-	<outputs>
-		<data name="output_pos" format="fasta" label="With matched ID">
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to filter on the identifiers" help="FASTA, FASTQ, or SFF format." />
+        <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
+        <param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+            <validator type="no_options" message="Pick at least one column"/>
+        </param>
+        <conditional name="output_choice_cond">
+            <param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
+                <option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two files</option>
+                <option value="pos">Just positive matches (ID on list), as a single file</option>
+                <option value="neg">Just negative matches (ID not on list), as a single file</option>
+            </param>
+            <!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+            <when value="both" />
+            <when value="pos" />
+            <when value="neg" />
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="output_pos" format="fasta" label="With matched ID">
             <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
             <change_format>
                 <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
@@ -52,9 +52,9 @@ UNION "$input_tabular" "$columns"
                 <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
                 <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
             </change_format>
-			<filter>output_choice_cond["output_choice"] != "neg"</filter>
-		</data>
-		<data name="output_neg" format="fasta" label="Without matched ID">
+            <filter>output_choice_cond["output_choice"] != "neg"</filter>
+        </data>
+        <data name="output_neg" format="fasta" label="Without matched ID">
             <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
             <change_format>
                 <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
@@ -64,20 +64,19 @@ UNION "$input_tabular" "$columns"
                 <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
                 <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
             </change_format>
-			<filter>output_choice_cond["output_choice"] != "pos"</filter>
-		</data>
-	</outputs>
-	<tests>
-		<test>
-			<param name="input_file" value="k12_ten_proteins.fasta" ftype="fasta" />
-			<param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
-			<param name="columns" value="1" />
-			<param name="output_choice" value="pos" />
-			<output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
-		</test>
-	</tests>
-	<help>
-
+            <filter>output_choice_cond["output_choice"] != "pos"</filter>
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="k12_ten_proteins.fasta" ftype="fasta" />
+            <param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="pos" />
+            <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
+        </test>
+    </tests>
+    <help>
 **What it does**
 
 By default it divides a FASTA, FASTQ or Standard Flowgram Format (SFF) file in
@@ -122,5 +121,5 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id
-	</help>
+    </help>
 </tool>
