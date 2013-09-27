@@ -3,5 +3,5 @@
 <repositories description="This requires Biopython as a dependency.">
 <!-- Leave out the tool shed and revision to get the current
      tool shed and latest revision at the time of upload -->
-<repository owner="biopython" name="package_biopython_1_61" />
+<repository owner="biopython" name="package_biopython_1_62" />
 </repositories>

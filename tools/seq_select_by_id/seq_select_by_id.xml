@@ -1,7 +1,7 @@
 <tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.6">
 	<description>from a tabular file</description>
 	<requirements>
-		<requirement type="package" version="1.61">biopython</requirement>
+		<requirement type="package" version="1.62">biopython</requirement>
 		<requirement type="python-module">Bio</requirement>
 	</requirements>
 	<version_command interpreter="python">seq_select_by_id.py --version</version_command>

@@ -1,7 +1,7 @@
 <tool id="seq_rename" name="Rename sequences" version="0.0.4">
 	<description>with ID mapping from a tabular file</description>
 	<requirements>
-		<requirement type="package" version="1.61">biopython</requirement>
+		<requirement type="package" version="1.62">biopython</requirement>
 		<requirement type="python-module">Bio</requirement>
 	</requirements>
 	<version_commmand interpreter="python">seq_rename.py --version</version_commmand>

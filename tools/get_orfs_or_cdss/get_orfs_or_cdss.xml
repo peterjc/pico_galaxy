@@ -1,5 +1,9 @@
 <tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.5">
 	<description>e.g. to get peptides from ESTs</description>
+	<requirements>
+		<requirement type="package" version="1.62">biopython</requirement>
+		<requirement type="python-module">Bio</requirement>
+	</requirements>
 	<version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
 	<command interpreter="python">
 get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
@@ -103,9 +107,6 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
 			<output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.fasta" />
 		</test>
 	</tests>
-	<requirements>
-		<requirement type="python-module">Bio</requirement>
-	</requirements>
 	<help>
 
 **What it does**
