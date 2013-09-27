@@ -176,7 +176,7 @@ v0.2.5  - Link to Tool Shed added to help text and this documentation.
 Developers
 ==========
 
-This script and other tools are being developed on the following hg branches:
+This script and other tools were initially developed on the following hg branches:
 http://bitbucket.org/peterjc/galaxy-central/src/seq_analysis
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 

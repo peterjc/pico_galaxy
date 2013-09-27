@@ -54,7 +54,7 @@ v0.0.7  - Renamed folder and README file.
 Developers
 ==========
 
-This script and related tools are being developed on the following hg branch:
+This script and related tools were initially developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
 Development has now moved to a dedicated GitHub repository:
