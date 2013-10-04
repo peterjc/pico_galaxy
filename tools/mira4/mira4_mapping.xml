@@ -18,6 +18,11 @@ mira4.py $manifest $out_maf $out_fasta $out_log
             <option value="accurate">Accurate</option>
             <option value="draft">Draft</option>
         </param>
+	<!-- TODO? Allow technology type for references? -->
+	<!-- TODO? Allow strain settings for reference(s) and reads? -->
+	<!-- TODO? Use a repeat to allow for multi-strain references? -->
+	<param name="references" type="data" format="fasta,fastq,mira" multiple="true" required="true" label="Backbone reference file(s)"
+               help="Multiple files allowed, for example one FASTA file per chromosome or plasmid." />
         <repeat name="read_group" title="Read Group" min="1">
             <param name="technology" type="select" label="Read technology">
                 <option value="solexa">Solexa/Illumina</option>
@@ -27,7 +32,6 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                 <option value="pcbiolq">PacBio low quality (raw)</option>
                 <option value="pcbiohq">PacBio high quality (corrected)</option>
                 <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
-		<!-- TODO reference/backbone as an entry here? -->
             </param>
             <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
                    help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
@@ -52,6 +56,15 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 ##
 ## -DI:trt is short for -DIRECTORY:tmp_redirected_to and should
 ## point to a local hard drive (not something like NFS on network).
+
+##This bar goes into the manifest as a comment line
+#=======================================================
+
+readgroup
+is_reference
+#for $f in $references
+data = $f
+#end for
 
 #for $rg in $read_group
 
