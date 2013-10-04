@@ -38,9 +38,9 @@ mira4.py $manifest $out_maf $out_fasta $out_log
         </repeat>
     </inputs>
     <outputs>
-        <data name="out_fasta" format="fasta" label="MIRA contigs (FASTA)" />
-        <data name="out_maf" format="mira" label="MIRA Assembly" />
-        <data name="out_log" format="txt" label="MIRA log" />
+        <data name="out_fasta" format="fasta" label="MIRA mapping contigs (FASTA)" />
+        <data name="out_maf" format="mira" label="MIRA mapping assembly" />
+        <data name="out_log" format="txt" label="MIRA mapping log" />
     </outputs>
     <configfiles>
         <configfile name="manifest">
