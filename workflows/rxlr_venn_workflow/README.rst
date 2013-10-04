@@ -108,6 +108,7 @@ v0.0.2  - Updated versions of the tools used, inclulding core Galaxy Filter
           tool to avoid warning about new ``header_lines`` parameter.
         - Added link to Tool Shed in the workflow annotation explaining there
           is a README file with sample data, and a requested citation.
+        - Bundle sample output image for display in this README file.
 ======= ======================================================================
 
 
@@ -120,7 +121,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
 
 To prepare the tar-ball for uploading to the Tool Shed, I use this:
 
-    $ tar -cf rxlr_venn_workflow.tar.gz README.rst repository_dependencies.xml rxlr_venn_workflow.ga
+    $ tar -cf rxlr_venn_workflow.tar.gz README.rst repository_dependencies.xml rxlr_venn_workflow.ga Phyca11_example_output.png
 
 Check this,
 
@@ -128,3 +129,4 @@ Check this,
     README.rst
     repository_dependencies.xml
     rxlr_venn_workflow.ga
+    Phyca11_example_output.png
