@@ -63,7 +63,17 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 readgroup
 is_reference
 #for $f in $references
-data = $f
+##Must now map Galaxy datatypes to MIRA file types...
+#if $f.ext.startswith("fastq")
+##MIRA doesn't like fastqsanger etc, just plain old fastq:
+data = fastq::$f
+#elif $f.ext == "mira"
+##We're calling *.maf the "mira" format in Galaxy (name space collision)
+data = maf::$f
+#else
+##MIRA is happy with fasta as name,
+data = ${f.ext}::$f
+#end if
 #end for
 #for $rg in $read_group
 
@@ -74,7 +84,17 @@ readgroup
 technology = ${rg.technology}
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for $f in $rg.filenames
-data = $f
+##Must now map Galaxy datatypes to MIRA file types...
+#if $f.ext.startswith("fastq")
+##MIRA doesn't like fastqsanger etc, just plain old fastq:
+data = fastq::$f
+#elif $f.ext == "mira"
+##We're calling *.maf the "mira" format in Galaxy (name space collision)
+data = maf::$f
+#else
+##MIRA is happy with fasta as name,
+data = ${f.ext}::$f
+#end if
 #end for
 #end for
         </configfile>
