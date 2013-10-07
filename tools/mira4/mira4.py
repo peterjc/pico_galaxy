@@ -157,6 +157,15 @@ except Exception, err:
 #print cmd
 
 handle = open(out_log, "w")
+handle.write("======================== MIRA manifest (instructions) ========================\n")
+m = open(manifest, "rU")
+for line in m:
+    handle.write(line)
+m.close()
+del m
+handle.write("\n")
+handle.write("============================ Starting MIRA now ===============================\n")
+handle.flush()
 try:
     #Run MIRA
     child = subprocess.Popen(cmd_list,
@@ -174,8 +183,10 @@ stdout, stderr = child.communicate()
 assert not stdout and not stderr #Should be empty as sent to handle
 run_time = time.time() - start_time
 return_code = child.returncode
-handle.write("\n\nMIRA took %0.2f minutes\n" % (run_time / 60.0))
-print "MIRA took %0.2f minutes" % (run_time / 60.0)
+handle.write("\n")
+handle.write("============================ MIRA has finished ===============================\n")
+handle.write("MIRA took %0.2f hours\n" % (run_time / 3600.0))
+print "MIRA took %0.2f hours" % (run_time / 3600.0)
 if return_code:
     handle.write("Return error code %i from command:\n" % return_code)
     handle.write(cmd + "\n")

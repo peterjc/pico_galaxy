@@ -58,18 +58,17 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 ## point to a local hard drive (not something like NFS on network).
 
 ##This bar goes into the manifest as a comment line
-#=======================================================
+#------------------------------------------------------------------------------
 
 readgroup
 is_reference
 #for $f in $references
 data = $f
 #end for
-
 #for $rg in $read_group
 
 ##This bar goes into the manifest as a comment line
-#=======================================================
+#------------------------------------------------------------------------------
 
 readgroup
 technology = ${rg.technology}
