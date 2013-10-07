@@ -51,40 +51,6 @@ def log_manifest(manifest):
     sys.stderr.write("\n%s\nEnd of manifest\n%s\n" % ("="*60, "="*60))
 
 
-def massage_symlinks(manifest):
-    """Create FASTQ aliases and edit the manifest to use them.
-
-    Short term measure for MIRA 4.0RC2 which depends on data file
-    extensions to decide the file format, and doesn't like *.dat
-    as used in Galaxy.
-    """
-    base = os.path.split(manifest)[0]
-    with open(manifest) as h:
-        lines = h.readlines()
-    f = 0
-    for i, line in enumerate(lines):
-         if not line.startswith("data ="):
-             continue
-         #Assumes no spaces in filename, would they have to be escaped?
-         new_line = "data ="
-         for filename in line[6:].strip().split():
-             if not filename:
-                 continue
-             assert os.path.isfile(filename), filename
-             f += 1
-             alias = os.path.join(base, "input%i.fastq" % f)
-             new_line += " " + alias
-             cmd = "ln -s %s %s" % (filename, alias)
-             if os.system(cmd):
-                 stop_err("Problem creating FASTQ alias:\n%s" % cmd)
-         lines[i] = new_line + "\n"
-    with open(manifest, "w") as h:
-        for line in lines:
-            #sys.stderr.write(line)
-            h.write(line)
-    return True
-
-
 def collect_output(temp, name):
     n3 = (temp, name, name, name)
     f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
@@ -133,9 +99,6 @@ temp = "."
 #name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 name = "MIRA"
 manifest, out_maf, out_fasta, out_log = sys.argv[1:5]
-
-#Hack until MIRA v4 lets us specify file format explicitly,
-massage_symlinks(manifest)
 
 start_time = time.time()
 #cmd_list =sys.argv[8:]
