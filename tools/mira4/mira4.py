@@ -95,16 +95,31 @@ def collect_output(temp, name):
         log_manifest(manifest)
         stop_err("Empty output folder")
     missing = []
-    for old, new in [("%s/%s_out.maf" % (f, name), out_maf),
-                     ("%s/%s_out.unpadded.fasta" % (f, name), out_fasta)]:
+    #TODO - Strain specific files?
+    if os.path.isfile("%s/%s_out.maf" % (f, name)):
+        #De novo
+        old_maf = "%s/%s_out.maf" % (f, name)
+    else:
+        #Mapping
+        old_maf = "%s/%s_LargeContigs_out.maf" % (f, name)
+    if os.path.isfile("%s/%s_out.unpadded.fasta" % (f, name)):
+        #De novo
+        old_fasta = "%s/%s_out.unpadded.fasta" % (f, name)
+    else:
+        #Mapping
+        old_fasta = "%s/%s_LargeContigs_out.fasta" % (f, name)
+    missing = False
+    for old, new in [(old_maf, out_maf),
+                     (old_fasta, out_fasta)]:
         if not os.path.isfile(old):
-            missing.append(os.path.splitext(old)[-1])
+            missing = True
         else:
             shutil.move(old, new)
     if missing:
         log_manifest(manifest)
-        sys.stderr.write("Contents of %r: %r\n" % (f, os.listdir(f)))
-        stop_err("Missing output files: %s" % ", ".join(missing))
+        sys.stderr.write("Contents of %r:\n" % f)
+        for filename in sorted(os.listdir(f)):
+            sys.stderr.write("%s\n" % filename)
 
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
