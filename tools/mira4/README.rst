@@ -50,7 +50,7 @@ this to tools_conf.xml.sample in order to run any tests::
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
 
-You will also need to install MIRA, we used version 4.0 RC2. See:
+You will also need to install MIRA, we used version 4.0 RC3. See:
 
 * http://chevreux.org/projects_mira.html
 * http://sourceforge.net/projects/mira-assembler/
@@ -65,7 +65,7 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1  - Initial version (prototype using MIRA 4.0 RC2, and wrapper for v3.4)
+v0.0.1  - Initial version (prototype for MIRA 4.0 RC3, based on wrapper for v3.4)
 ======= ======================================================================
 
 
@@ -73,7 +73,7 @@ Developers
 ==========
 
 Development is on a dedicated GitHub repository:
-https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_4_0
+https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
