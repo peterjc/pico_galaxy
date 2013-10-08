@@ -51,7 +51,7 @@ def log_manifest(manifest):
     sys.stderr.write("\n%s\nEnd of manifest\n%s\n" % ("="*60, "="*60))
 
 
-def collect_output(temp, name):
+def collect_output(temp, name, handle):
     n3 = (temp, name, name, name)
     f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
     if not os.path.isdir(f):
@@ -61,25 +61,28 @@ def collect_output(temp, name):
         log_manifest(manifest)
         stop_err("Empty output folder")
     missing = []
-    #TODO - Strain specific files?
-    if os.path.isfile("%s/%s_out.maf" % (f, name)):
-        #De novo
-        old_maf = "%s/%s_out.maf" % (f, name)
-    else:
-        #Mapping
+
+    old_maf = "%s/%s_out.maf" % (f, name)
+    if not os.path.isfile(old_maf):
+        #Triggered extractLargeContigs.sh?
         old_maf = "%s/%s_LargeContigs_out.maf" % (f, name)
-    if os.path.isfile("%s/%s_out.unpadded.fasta" % (f, name)):
-        #De novo
-        old_fasta = "%s/%s_out.unpadded.fasta" % (f, name)
-    else:
-        #Mapping
+
+    #De novo or single strain mapping,
+    old_fasta = "%s/%s_out.unpadded.fasta" % (f, name)
+    if not os.path.isfile(old_fasta):
+        #Mapping (currently StrainX versus reference)
+        old_fasta = "%s/%s_out_StrainX.unpadded.fasta" % (f, name)
+    if not os.path.isfile(old_fasta):
+        #Triggered extractLargeContigs.sh?
         old_fasta = "%s/%s_LargeContigs_out.fasta" % (f, name)
+
     missing = False
     for old, new in [(old_maf, out_maf),
                      (old_fasta, out_fasta)]:
         if not os.path.isfile(old):
             missing = True
         else:
+            handle.write("Capturing %s\n" % old)
             shutil.move(old, new)
     if missing:
         log_manifest(manifest)
@@ -158,12 +161,13 @@ if return_code:
     log_manifest(manifest)
     stop_err("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
-handle.close()
+handle.flush()
 
 #print "Collecting output..."
-collect_output(temp, name)
+collect_output(temp, name, handle)
 
 #print "Cleaning up..."
 clean_up(temp, name)
 
+handle.close()
 print "Done"
