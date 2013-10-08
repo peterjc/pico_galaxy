@@ -70,8 +70,11 @@ data = fastq::$f
 #elif $f.ext == "mira"
 ##We're calling *.maf the "mira" format in Galaxy (name space collision)
 data = maf::$f
+#elif $f.ext == "fasta"
+##We're calling MIRA with the file type as "fna" as otherwise it wants quals
+data = fna::$f
 #else
-##MIRA is happy with fasta as name,
+##Currently don't expect anything else...
 data = ${f.ext}::$f
 #end if
 #end for
@@ -92,7 +95,7 @@ data = fastq::$f
 ##We're calling *.maf the "mira" format in Galaxy (name space collision)
 data = maf::$f
 #else
-##MIRA is happy with fasta as name,
+##Currently don't expect anything else...
 data = ${f.ext}::$f
 #end if
 #end for
