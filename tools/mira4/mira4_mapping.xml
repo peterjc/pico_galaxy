@@ -21,8 +21,13 @@ mira4.py $manifest $out_maf $out_fasta $out_log
 	<!-- TODO? Allow technology type for references? -->
 	<!-- TODO? Allow strain settings for reference(s) and reads? -->
 	<!-- TODO? Use a repeat to allow for multi-strain references? -->
+        <!-- TODO? Add strain to the mapping read groups? -->
 	<param name="references" type="data" format="fasta,fastq,mira" multiple="true" required="true" label="Backbone reference file(s)"
                help="Multiple files allowed, for example one FASTA file per chromosome or plasmid." />
+        <param name="strain_setup" type="select" label="Strain configuration (reference vs reads)">
+            <option value="default">Different strains - mapping reads onto a related reference ('StrainX' vs 'ReferenceStrain')</option>
+            <option value="same">Same strain - mapping reads from same reference (all 'StrainX')</option>
+        </param>
         <repeat name="read_group" title="Read Group" min="1">
             <param name="technology" type="select" label="Read technology">
                 <option value="solexa">Solexa/Illumina</option>
@@ -38,9 +43,9 @@ mira4.py $manifest $out_maf $out_fasta $out_log
         </repeat>
     </inputs>
     <outputs>
-        <data name="out_fasta" format="fasta" label="MIRA mapping contigs (FASTA)" />
-        <data name="out_maf" format="mira" label="MIRA mapping assembly" />
-        <data name="out_log" format="txt" label="MIRA mapping log" />
+        <data name="out_fasta" format="fasta" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping contigs (FASTA)" />
+        <data name="out_maf" format="mira" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping assembly" />
+        <data name="out_log" format="txt" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping log" />
     </outputs>
     <configfiles>
         <configfile name="manifest">
@@ -62,6 +67,9 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 
 readgroup
 is_reference
+#if $strain_setup=="same"
+strain = StrainX
+#end if
 #for $f in $references
 ##Must now map Galaxy datatypes to MIRA file types...
 #if $f.ext.startswith("fastq")
@@ -85,6 +93,10 @@ data = ${f.ext}::$f
 
 readgroup
 technology = ${rg.technology}
+#if $strain_setup=="same"
+##This is perhaps redundant as MIRA defaults to StrainX for the reads:
+strain = StrainX
+#end if
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for $f in $rg.filenames
 ##Must now map Galaxy datatypes to MIRA file types...
