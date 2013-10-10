@@ -163,6 +163,16 @@ if return_code:
              return_code)
 handle.flush()
 
+if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
+    handle.write("\n")
+    handle.write("===================== Extract Large Contigs failed? ==========================\n")
+    e = open("MIRA_assembly/MIRA_d_results/ec.log", "rU")
+    for line in e:
+        handle.write(line)
+    e.close()
+    handle.write("============================ (end of ec.log) =================================\n")
+    handle.flush()
+
 #print "Collecting output..."
 collect_output(temp, name, handle)
 
