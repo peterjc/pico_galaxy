@@ -1,5 +1,5 @@
 <tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.1">
-    <description>Takes Sanger, Roche, Illumina, Ion Torrent and PacBio data</description>
+    <description>Takes Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="python-module">Bio</requirement>
         <requirement type="binary">mira</requirement>
