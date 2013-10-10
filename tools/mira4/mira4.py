@@ -165,7 +165,7 @@ handle.flush()
 
 if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
     handle.write("\n")
-    handle.write("===================== Extract Large Contigs failed? ==========================\n")
+    handle.write("====================== Extract Large Contigs failed ==========================\n")
     e = open("MIRA_assembly/MIRA_d_results/ec.log", "rU")
     for line in e:
         handle.write(line)
@@ -176,8 +176,15 @@ if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
 #print "Collecting output..."
 collect_output(temp, name, handle)
 
+if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
+    #Treat as an error, but doing this AFTER collect_output
+    sys.stderr.write("Extract Large Contigs failed\n")
+    handle.write("Extract Large Contigs failed\n")
+    handle.close()
+    sys.exit(1)
+
 #print "Cleaning up..."
 clean_up(temp, name)
 
 handle.close()
-print "Done"
+print("Done")
