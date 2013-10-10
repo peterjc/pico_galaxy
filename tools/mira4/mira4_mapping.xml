@@ -67,7 +67,7 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 
 readgroup
 is_reference
-#if $strain_setup=="same"
+#if str($strain_setup)=="same"
 strain = StrainX
 #end if
 #for $f in $references
@@ -93,7 +93,7 @@ data = ${f.ext}::$f
 
 readgroup
 technology = ${rg.technology}
-#if $strain_setup=="same"
+#if str($strain_setup)=="same"
 ##This is perhaps redundant as MIRA defaults to StrainX for the reads:
 strain = StrainX
 #end if
