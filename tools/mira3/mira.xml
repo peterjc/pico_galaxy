@@ -1,7 +1,6 @@
 <tool id="mira_assembler" name="Assemble with MIRA v3.4" version="0.0.8">
     <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
     <requirements>
-        <requirement type="python-module">Bio</requirement>
         <requirement type="binary">mira</requirement>
         <requirement type="package" version="3.4.1.1">MIRA</requirement>
     </requirements>
