@@ -11,6 +11,11 @@ to where Galaxy expects the files) and associated Galaxy wrapper XML file.
 It is available from the Galaxy Tool Shed at:
 http://toolshed.g2.bx.psu.edu/view/peterjc/mira4_assembler 
 
+It uses a Galaxy datatype definition 'mira' for the MIRA Assembly Format,
+http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes
+
+A separate wrapper for MIRA v3.4 is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler
 
 Automated Installation
 ======================
