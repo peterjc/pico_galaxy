@@ -1,5 +1,5 @@
-Galaxy tool to wrap the MIRA sequence assembly program (v4.0)
-=============================================================
+Galaxy wrapper for the MIRA assembly program (v4.0)
+===================================================
 
 This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
@@ -23,9 +23,7 @@ For MIRA 4, the Galaxy wrapper has been split in two, allowing separate
 cluster settings for de novo usage (high RAM) and mapping (lower RAM).
 Consult the Galaxy adminstration documentation for your cluster setup.
 
-WARNING: This tool was developed to construct viral genome assembly and
-mapping pipelines, for which the run time and memory requirements are
-negligible. For larger tasks, be aware that MIRA can require vast amounts
+WARNING: For larger tasks, be aware that MIRA can require vast amounts
 of RAM and run-times of over a week are possible. This tool wrapper makes
 no attempt to spot and reject such large jobs.
 

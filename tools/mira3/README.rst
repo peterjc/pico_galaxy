@@ -1,5 +1,5 @@
-Galaxy tool to wrap the MIRA sequence assembly program (v3.4)
-=============================================================
+Galaxy wrapper for the MIRA assembly program (v3.4)
+===================================================
 
 This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
@@ -40,8 +40,8 @@ You will also need to install MIRA, we used version 3.4.1.1. See:
 * http://chevreux.org/projects_mira.html
 * http://sourceforge.net/projects/mira-assembler/
 
-WARNING: This tool was developed to construct viral genome assembly and
-mapping pipelines, for which the run time and memory requirements are
+WARNING: This tool was initially developed to construct viral genome assembly
+and mapping pipelines, for which the run time and memory requirements are
 negligible. For larger tasks, be aware that MIRA can require vast amounts
 of RAM and run-times of over a week are possible. This tool wrapper makes
 no attempt to spot and reject such large jobs.
