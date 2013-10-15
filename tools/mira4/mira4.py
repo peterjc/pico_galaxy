@@ -31,7 +31,7 @@ def get_version(mira_binary):
     return ver.split("\n", 1)[0]
 
 
-os.environ["PATH"] = "/mnt/galaxy/downloads/mira_4.0rc3_linux-gnu_x86_64_static/bin/:%s" % os.environ["PATH"]
+os.environ["PATH"] = "/mnt/galaxy/downloads/mira_4.0rc4_linux-gnu_x86_64_static/bin/:%s" % os.environ["PATH"]
 mira_binary = "mira"
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):

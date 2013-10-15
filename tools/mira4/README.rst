@@ -53,7 +53,7 @@ this to tools_conf.xml.sample in order to run any tests::
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
 
-You will also need to install MIRA, we used version 4.0 RC3. See:
+You will also need to install MIRA, we used version 4.0 RC4. See:
 
 * http://chevreux.org/projects_mira.html
 * http://sourceforge.net/projects/mira-assembler/
@@ -68,7 +68,7 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1  - Initial version (prototype for MIRA 4.0 RC3, based on wrapper for v3.4)
+v0.0.1  - Initial version (prototype for MIRA 4.0 RC4, based on wrapper for v3.4)
 ======= ======================================================================
 
 
