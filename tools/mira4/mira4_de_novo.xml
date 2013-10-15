@@ -29,6 +29,15 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                 <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
 		<!-- TODO reference/backbone as an entry here? -->
             </param>
+            <param name="segment_placement" type="select" label="Pairing type (segment placing)">
+                <option value="">None (e.g. single end sequencing)</option>
+                <option value="FR">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
+                <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
+                <option value="SF">1---&gt; 2---&gt; (Not commonly used)</option>
+                <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
+                <option value="samedir">---&gt; ---&gt; (Same direction but order not important. Not commonly used)</option>
+                <option value="?">Unknown or not relevant (e.g. primer walking with Sanger capillary sequencing)</option>
+            </param>
 	    <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
 		   help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
@@ -62,6 +71,10 @@ readgroup
 technology = ${rg.technology}
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for $f in $rg.filenames
+#if str($rg.segment_placement) != ""
+##Record the segment placement (if any)
+segmentplacement = ${rg.segment_placement}
+#end if
 ##Must now map Galaxy datatypes to MIRA file types...
 #if $f.ext.startswith("fastq")
 ##MIRA doesn't like fastqsanger etc, just plain old fastq:
@@ -108,6 +121,19 @@ a range of platforms (Sanger capillary, Solexa/Illumina, Roche 454, Ion Torrent
 and also PacBio).
 
 It is particularly suited to small genomes such as bacteria.
+
+**Notes**
+
+.. class:: warningmark
+
+Note that the raw data for Roche 454 and Ion Torrent paired-end libraries
+sequences a circularised fragment such that the raw data starts with the
+end of the fragment, a linker, then the start of the fragment. This means
+both the start and end are sequenced from the same strand, and thus should
+be given to MIRA as orientation "2---&gt; 1--->&gt;". However, in order to
+use this data with traditional tools expecting Sanger capillary style
+libraries which expect "---&gt; &lt;---" your FASTQ files may have been
+pre-processed to mimic this by reverse complementing one of the pair.
 
 **Citation**
 
