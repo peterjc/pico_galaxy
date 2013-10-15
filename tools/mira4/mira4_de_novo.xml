@@ -5,7 +5,7 @@
         <requirement type="binary">mira</requirement>
         <requirement type="package" version="4.0">MIRA</requirement>
     </requirements>
-    <version_command interpreter="python">mira4.py -v</version_command>
+    <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">
 mira4.py $manifest $out_maf $out_fasta $out_log
     </command>

@@ -36,9 +36,8 @@ mira_binary = "mira"
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s" % mira_ver)
-if "-v" in sys.argv:
-    print "MIRA wrapper version %s," % WRAPPER_VER
-    print mira_ver
+if "-v" in sys.argv or "--version" in sys.argv:
+    print "%s, MIRA wrapper version %s" % (mira_ver, WRAPPER_VER)
     sys.exit(0)
 
 
