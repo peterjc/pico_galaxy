@@ -33,9 +33,7 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                 <option value="">None (e.g. single end sequencing)</option>
                 <option value="FR">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
                 <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
-                <option value="SF">1---&gt; 2---&gt; (Not commonly used)</option>
                 <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
-                <option value="samedir">---&gt; ---&gt; (Same direction but order not important. Not commonly used)</option>
                 <option value="?">Unknown or not relevant (e.g. primer walking with Sanger capillary sequencing)</option>
             </param>
 	    <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
