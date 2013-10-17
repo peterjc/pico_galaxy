@@ -1,15 +1,21 @@
-    <suite id="tmhmm_and_signalp" name="Protein sequence analysis tools" version="0.0.9">
+    <suite id="tmhmm_and_signalp" name="Protein/gene sequence analysis tools" version="0.2.6">
         <description>TMHMM, SignalP, RXLR motifs, WoLF PSORT</description>
-        <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.7">
+        <tool id="tmhmm2" name="TMHMM 2.0" version="0.0.12">
             <description>Find transmembrane domains in protein sequences</description>
         </tool>
-        <tool id="signalp3" name="SignalP 3.0" version="0.0.8">
+        <tool id="signalp3" name="SignalP 3.0" version="0.0.13">
             <description>Find signal peptides in protein sequences</description>
         </tool>
-        <tool id="wolf_psort" name="WoLF PSORT" version="0.0.1">
+        <tool id="promoter2" name="Promoter 2.0" version="0.0.7">
+            <description>Find eukaryotic PolII promoters in DNA sequences</description>
+        </tool>
+        <tool id="psortb" name="PSORTb" version="0.0.4">
+            <description>Bacteria/archaea protein subcellular localization prediction</description>
+        </tool>
+        <tool id="wolf_psort" name="WoLF PSORT" version="0.0.7">
             <description>Eukaryote protein subcellular localization prediction</description>
         </tool>
-        <tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.5">
+        <tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.8">
             <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
         </tool>
     </suite>

@@ -1,10 +1,7 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.6">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.7">
     <description>Eukaryote protein subcellular localization prediction</description>
     <command interpreter="python">
-      wolf_psort.py $organism "\$NSLOTS" "$fasta_file" "$tabular_file"
-      ##I want the number of threads to be a Galaxy config option...
-      ##Set the number of threads in the runner entry in universe_wsgi.ini
-      ##which (on SGE at least) will set the $NSLOTS environment variable.
+      wolf_psort.py $organism "\$GALAXY_SLOTS" "$fasta_file" "$tabular_file"
       ##If the environment variable isn't set, get "", and python wrapper
       ##defaults to four threads.
     </command>

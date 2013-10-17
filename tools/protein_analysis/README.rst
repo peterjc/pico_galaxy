@@ -170,6 +170,8 @@ v0.2.5  - Link to Tool Shed added to help text and this documentation.
         - Adopted standard MIT licence.
         - Use reStructuredText for this README file.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+v0.2.6  - Use the new $GALAXY_SLOTS environment variable for thread count.
+        - Updated the suite_config.xml file (overdue).
 ======= ======================================================================
 
 
