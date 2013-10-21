@@ -39,6 +39,13 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                         <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
                         <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
                     </param>
+                    <!-- min/max validation is done via the <code> tag -->
+                    <param name="min_size" type="integer" optional="true" min="0" value=""
+                           label="Minimum size of 'good' DNA templates in the library preparation"
+                           help="Optional, but if used you must also supply a maximum value." /> 
+                    <param name="max_size" type="integer" optional="true" min="0" value=""
+                           label="Maximum size of 'good' DNA templates in the library preparation"
+                           help="Optional, but if used you must also supply a minimum value." />
                     <param name="naming" type="select" label="Pair naming convention">
                         <option value="solexa">Solexa/Illumina (using '/1' and '/2' suffixes)</option>
                         <option value="FR">Forward/Reverse scheme (using '.f*' and '.r*' suffixes)</option>
@@ -53,6 +60,7 @@ mira4.py $manifest $out_maf $out_fasta $out_log
 		   help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
     </inputs>
+    <code file="mira4_validator.py" />
     <outputs>
         <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
         <data name="out_maf" format="mira" label="MIRA de novo assembly" />
@@ -84,6 +92,10 @@ technology = ${rg.technology}
 #if str($rg.segments.type) == "paired"
 segmentplacement = ${rg.segments.placement}
 segmentnaming = ${rg.segments.naming}
+#if str($rg.segments.min_size) != "" or str($rg.segments.max_size) != ""
+##If our min/max validation failed I trust MIRA to give an error message...
+templatesize = $rg.segments.min_size $rg.segments.max_size
+#end if
 #end if
 #if str($rg.segments.type) == "none"
 segmentplacement = ?
