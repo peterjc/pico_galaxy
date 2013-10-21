@@ -80,8 +80,6 @@ parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
 
 readgroup
 technology = ${rg.technology}
-##MIRA will accept multiple filenames on one data line, or multiple data lines
-#for $f in $rg.filenames
 ##Record the segment placement (if any)
 #if str($rg.segments.type) == "paired"
 segmentplacement = ${rg.segments.placement}
@@ -90,6 +88,8 @@ segmentnaming = ${rg.segments.naming}
 #if str($rg.segments.type) == "none"
 segmentplacement = ?
 #end if
+##MIRA will accept multiple filenames on one data line, or multiple data lines
+#for $f in $rg.filenames
 ##Must now map Galaxy datatypes to MIRA file types...
 #if $f.ext.startswith("fastq")
 ##MIRA doesn't like fastqsanger etc, just plain old fastq:
