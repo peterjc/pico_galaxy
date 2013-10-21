@@ -37,13 +37,20 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                 <option value="pcbiohq">PacBio high quality (corrected)</option>
                 <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
             </param>
-            <param name="segment_placement" type="select" label="Pairing type (segment placing)">
-                <option value="">None (e.g. single end sequencing)</option>
-                <option value="FR">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
-                <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
-                <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
-                <option value="?">Unknown or not relevant (e.g. primer walking with Sanger capillary sequencing)</option>
-            </param>
+            <conditional name="segments">
+                <param name="type" type="select" label="Are these paired reads?">
+                    <option value="paired">Paired reads</option>
+                    <option value="none">Single reads or not relevant (e.g. primer walking with Sanger capillary sequencing)</option>
+                </param>
+                <when value="paired">
+                    <param name="placement" type="select" label="Pairing type (segment placing)">
+                        <option value="FR">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
+                        <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
+                        <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
+                    </param>
+		    </when>
+                <when value="none" /><!-- no further questions -->
+            </conditional>
             <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
                    help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
@@ -103,9 +110,12 @@ technology = ${rg.technology}
 ##This is perhaps redundant as MIRA defaults to StrainX for the reads:
 strain = StrainX
 #end if
-#if str($rg.segment_placement) != ""
 ##Record the segment placement (if any)
-segmentplacement = ${rg.segment_placement}
+#if str($rg.segments.type) == "paired"
+segmentplacement = ${rg.segments.placement}
+#end if
+#if str($rg.segments.type) == "none"
+segmentplacement = ?
 #end if
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for $f in $rg.filenames
