@@ -40,9 +40,10 @@ First install the 'mira' datatype for Galaxy, available here:
 
 * http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes 
 
-There are just three Galaxy files to install:
+There are four Galaxy files to install:
 
-* mira4.py (the Python script)
+* mira4.py (the Python wrapper script)
+* mira4_validator.py (the Python parameter validation script)
 * mira4_de_novo.xml (the Galaxy tool definition for de novo usage)
 * mira4_mapping.xml (the Galaxy tool definition for mapping usage)
 
@@ -81,7 +82,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta
+    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4.py tools/mira4/mira4_validator.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta
 
 Check this worked::
 
@@ -90,6 +91,7 @@ Check this worked::
     tools/mira4/mira4_de_novo.xml
     tools/mira4/mira4_mapping.xml
     tools/mira4/mira4.py
+    tools/mira4/mira4_validator.py
     tools/mira4/tool_dependencies.xml
     test-data/tvc_mini.fastq
     test-data/tvc_contigs.fasta
