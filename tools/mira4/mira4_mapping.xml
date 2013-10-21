@@ -48,7 +48,14 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                         <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
                         <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
                     </param>
-		    </when>
+                    <param name="naming" type="select" label="Pair naming convention">
+                        <option value="solexa">Solexa/Illumina (using '/1' and '/2' suffixes)</option>
+                        <option value="FR">Forward/Reverse scheme (using '.f*' and '.r*' suffixes)</option>
+                        <option value="tigr">TIGR scheme (using 'TF*' and 'TR*' suffixes)</option>
+                        <option value="sanger">Sanger scheme (see notes)</option>
+                        <option value="stlouis">St. Louis scheme (see notes)</option>
+                    </param>
+                </when>
                 <when value="none" /><!-- no further questions -->
             </conditional>
             <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
@@ -113,6 +120,7 @@ strain = StrainX
 ##Record the segment placement (if any)
 #if str($rg.segments.type) == "paired"
 segmentplacement = ${rg.segments.placement}
+segmentnaming = ${rg.segments.naming}
 #end if
 #if str($rg.segments.type) == "none"
 segmentplacement = ?
@@ -169,18 +177,35 @@ and also PacBio).
 
 It is particularly suited to small genomes such as bacteria.
 
-**Notes**
+
+**Notes on paired reads**
 
 .. class:: warningmark
 
-The raw data for Roche 454 and Ion Torrent paired-end libraries
-sequences a circularised fragment such that the raw data starts with the
-end of the fragment, a linker, then the start of the fragment. This means
-both the start and end are sequenced from the same strand, and thus should
-be given to MIRA as orientation "2---&gt; 1---&gt;". However, in order to
-use this data with traditional tools expecting Sanger capillary style
-libraries which expect "---&gt; &lt;---" your FASTQ files may have been
-pre-processed to mimic this by reverse complementing one of the pair.
+MIRA uses read naming conventions to identify paired read partners
+(and does not care about their order in the input files). In most cases,
+the Solexa/Illumina setting is fine. For Sanger capillary sequencing,
+you may need to rename your reads to match one of the standard conventions
+supported by MIRA. For Roche 454 or Ion Torrent the appropriate settings
+depend on how the FASTQ file was produced:
+
+* If using Roche's ``sffinfo`` or older versions of ``sff_extract``
+  to convert SFF files to FASTQ, your reads will probably have the
+  ``---&gt; &lt;---`` orientation and use the ``.f`` and ``.r``
+  suffixes (FR naming).
+
+* If using a recent version of ``sff_extract``, then the ``/1`` and ``/2``
+  suffixes are used (Solexa/Illumina style naming) and the original
+  ``2---&gt; 1---&gt;`` orientation is preserved.
+
+The reason for this is the raw data for Roche 454 and Ion Torrent paired-end
+libraries sequences a circularised fragment such that the raw data begins
+with the end of the fragment, a linker, then the start of the fragment.
+This means both the start and end are sequenced from the same strand, and
+have the orientation ``2---&gt; 1---&gt;``. However, in order to use the data
+with traditional tools expecting Sanger capillary style ``---&gt; &lt;---``
+orientation it was common to reverse complement one of the pair to mimic this.
+
 
 **Citation**
 
