@@ -133,7 +133,7 @@ It is particularly suited to small genomes such as bacteria.
 
 .. class:: warningmark
 
-Note that the raw data for Roche 454 and Ion Torrent paired-end libraries
+The raw data for Roche 454 and Ion Torrent paired-end libraries
 sequences a circularised fragment such that the raw data starts with the
 end of the fragment, a linker, then the start of the fragment. This means
 both the start and end are sequenced from the same strand, and thus should
