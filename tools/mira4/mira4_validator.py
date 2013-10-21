@@ -4,7 +4,7 @@
 def validate_input(trans, error_map, param_values, page_param_map):
     """Validates the min_size/max_size user input, before execution."""
     err_list = []
-    for i, read_group in enumerate(param_values["read_group"]):
+    for read_group in param_values["read_group"]:
         err = dict()
         segments = read_group["segments"]
         if str(segments["type"]) != "paired":
