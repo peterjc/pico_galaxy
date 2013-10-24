@@ -6,7 +6,7 @@
     </requirements>
     <version_command interpreter="python">mira4_bait.py --version</version_command>
     <command interpreter="python">
-mira4_bait.py $input_reads.ext $output_choice $strand_choice "$bait_file" "$input_reads" "$output_reads"
+mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_occurence "$bait_file" "$input_reads" "$output_reads"
     </command>
     <inputs>
 	<param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
@@ -19,7 +19,11 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice "$bait_file" "$inpu
             <option value="both">Check both strands</option>
             <option value="fwd">Just forward strand</option>
         </param>
-	<!-- TODO, -k k-mer length and -n minimum occurence -->
+	<param name="kmer_length" type="integer" value="31" min="1" max="32"
+	       label="k-mer length" help="Maximum 32" />
+	<param name="min_occurence" type="integer" value="1" min="1"
+	       label="Minimum k-mer occurence"
+	       help="How many k-mer matches do you want per read? Minimum one" />
     </inputs>
     <outputs>
         <data name="output_reads" format="fasta" label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name">

@@ -48,7 +48,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(0)
 
 
-format, output_choice, strand_choice, bait_file, in_file, out_file = sys.argv[1:]
+format, output_choice, strand_choice, kmer_length, min_occurance, bait_file, in_file, out_file = sys.argv[1:]
 
 if format.startswith("fastq"):
     format == "fastq"
@@ -60,7 +60,9 @@ elif format != "fasta":
 assert out_file.endswith(".dat")
 out_file_stem = out_file[:-4]
 
-cmd_list = [mira_binary, "-f", format, "-t", format, bait_file, in_file, out_file_stem]
+cmd_list = [mira_binary, "-f", format, "-t", format,
+            "-k", kmer_length, "-n", min_occurance,
+            bait_file, in_file, out_file_stem]
 if output_choice == "pos":
     pass
 elif output_choice == "neg":
