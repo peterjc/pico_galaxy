@@ -1,0 +1,79 @@
+<tool id="mira_4_0_bait" name="MIRA v4.0 mirabait" version="0.0.1">
+    <description>Filter reads using kmer matches</description>
+    <requirements>
+        <requirement type="binary">mirabait</requirement>
+        <requirement type="package" version="4.0">MIRA</requirement>
+    </requirements>
+    <version_command interpreter="python">mira4_bait.py --version</version_command>
+    <command interpreter="python">
+mira4_bait.py $input_reads.ext $output_choice $strand_choice "$bait_file" "$input_reads" "$output_reads"
+    </command>
+    <inputs>
+	<param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
+	<param name="input_reads" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
+        <param name="output_choice" type="select" label="Output positive matches, or negative matches?">
+            <option value="pos">Just positive matches</option>
+            <option value="neg">Just negative matches</option>
+        </param>
+        <param name="strand_choice" type="select" label="Check for matches on both strands?">
+            <option value="both">Check both strands</option>
+            <option value="fwd">Just forward strand</option>
+        </param>
+	<!-- TODO, -k k-mer length and -n minimum occurence -->
+    </inputs>
+    <outputs>
+        <data name="output_reads" format="input:input_reads" label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name" />
+    </outputs>
+    <help>
+**What it does**
+
+Runs the ``mirabait`` utility from MIRA v4.0 to filter your input reads
+according to whether or not they contain perfect kmer matches to your
+bait file. By default this looks for 31-mers (kmers or *k*-mers where
+the fragment length *k* is 31), and only requires a single matching kmer.
+
+The ``mirabait`` utility is useful in many applications and pipelines
+outside of using the main MIRA tool for assembly or mapping.
+
+
+**Example Usage**
+
+To remove over abundant entries like rRNA sequences, run ``mirabait`` with
+known rRNA sequences as the bait and select the *negative* matches.
+
+To do targeted assembly by fishing out reads belonging to a gene and just
+assemble these, run ``mirabait`` with the gene of interest as the bait and
+select the *positive* matches.
+
+To iteratively reconstruct mitochondria you could start by fishing out reads
+matching any known mitochondrial sequence, assembly those, and repeat.
+
+
+**Notes on paired read**
+
+.. class:: warningmark
+
+While MIRA4 is aware of many read naming conventions to identify paired read
+partners, the ``mirabait`` tool considers each read in isolation. Applying
+it to paired read files may leave you with orphaned reads.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Bastien Chevreux, Thomas Wetter and Sándor Suhai (1999).
+Genome Sequence Assembly Using Trace Signals and Additional Sequence Information.
+Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
+http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira4_assembler
+    </help>
+</tool>
