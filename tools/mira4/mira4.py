@@ -40,6 +40,27 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "%s, MIRA wrapper version %s" % (mira_ver, WRAPPER_VER)
     sys.exit(0)
 
+def fix_threads(manifest):
+    """Tweak the manifest to alter the number of threads."""
+    try:
+        threads = int(os.environ.get("GALAXY_SLOTS", "1"))
+    except ValueError:
+        threads = 1
+    assert 1 <= threads 
+    if threads == 1:
+        #Nothing to do...
+        return
+
+    handle = open(manifest)
+    text = handle.read()
+    handle.close()
+
+    text = text.replace(" -GE:not=1 ", " -GE:not=%i " % threads)
+
+    handle = open(manifest, "w")
+    handle.write(text)
+    handle.flush()
+    handle.close()
 
 def log_manifest(manifest):
     """Write the manifest file to stderr."""
@@ -101,6 +122,8 @@ temp = "."
 #name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 name = "MIRA"
 manifest, out_maf, out_fasta, out_log = sys.argv[1:5]
+
+fix_threads(manifest)
 
 start_time = time.time()
 #cmd_list =sys.argv[8:]
