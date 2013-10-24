@@ -47,7 +47,7 @@ mira4.py $manifest $out_maf $out_fasta $out_log
                            label="Maximum size of 'good' DNA templates in the library preparation"
                            help="Optional, but if used you must also supply a minimum value." />
                     <param name="naming" type="select" label="Pair naming convention">
-                        <option value="solexa">Solexa/Illumina (using '/1' and '/2' suffixes)</option>
+                        <option value="solexa">Solexa/Illumina (using '/1' and '/2' suffixes, or later Illumina colon system)</option>
                         <option value="FR">Forward/Reverse scheme (using '.f*' and '.r*' suffixes)</option>
                         <option value="tigr">TIGR scheme (using 'TF*' and 'TR*' suffixes)</option>
                         <option value="sanger">Sanger scheme (see notes)</option>
