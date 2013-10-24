@@ -77,11 +77,13 @@ else:
     stop_err("Strand choice should be 'both' or 'fwd', not %r" % strand_choice)
 
 cmd = " ".join(cmd_list)
-print cmd
+#print cmd
 start_time = time.time()
 try:
     #Run MIRA
-    child = subprocess.Popen(cmd_list)
+    child = subprocess.Popen(cmd_list,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
 except Exception, err:
     log_manifest(manifest)
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
@@ -90,16 +92,16 @@ except Exception, err:
 stdout, stderr = child.communicate()
 run_time = time.time() - start_time
 return_code = child.returncode
+print "mirabait took %0.2f minutes" % (run_time / 60.0)
 
-print "MIRA took %0.2f hours" % (run_time / 3600.0)
 if return_code:
+    sys.stderr.write(stdout + stderr)
     stop_err("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
 
 #Capture output
 out_tmp = out_file_stem + "." + format
 if not os.path.isfile(out_tmp):
+    sys.stderr.write(stdout + stderr)
     stop_err("Missing output file from mirabait: %s" % out_tmp)
 shutil.move(out_tmp, out_file)
-
-print("Done")
