@@ -22,7 +22,16 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice "$bait_file" "$inpu
 	<!-- TODO, -k k-mer length and -n minimum occurence -->
     </inputs>
     <outputs>
-        <data name="output_reads" format="input:input_reads" label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name" />
+        <data name="output_reads" format="fasta" label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name">
+            <!-- TODO - Replace this with format="input:input_reads" if/when that works -->
+            <change_format>
+                <when input_dataset="input_reads" attribute="extension" value="fastq" format="fastq" />
+                <when input_dataset="input_reads" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_reads" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_reads" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_reads" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
+	</data>
     </outputs>
     <help>
 **What it does**
