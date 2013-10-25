@@ -50,6 +50,12 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_o
             <param name="min_occurence" value="50" />
             <output name="output_reads" file="tvc_mini_bait_strict.fastq" ftype="fastqsanger" />
         </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_choice" value="neg" />
+            <output name="output_reads" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
+        </test>
     </tests>
     <help>
 **What it does**
