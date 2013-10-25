@@ -31,8 +31,14 @@ def get_version(mira_binary):
     return ver.split("\n", 1)[0]
 
 
-os.environ["PATH"] = "/mnt/galaxy/downloads/mira_4.0rc4_linux-gnu_x86_64_static/bin/:%s" % os.environ["PATH"]
-mira_binary = "mira"
+try:
+    mira_path = os.environ["MIRA4"]
+except ImportError:
+    stop_err("Environment variable $MIRA4 not set")
+mira_binary = os.path.join(mira_path, "mira")
+if not os.path.isfile(mira_binary):
+    stop_err("Missing mira under $MIRA4, %r" % mira_binary)
+
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s" % mira_ver)

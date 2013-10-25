@@ -54,7 +54,9 @@ this to tools_conf.xml.sample in order to run any tests::
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
 
-You will also need to install MIRA, we used version 4.0 RC4. See:
+You will also need to install MIRA, we used version 4.0 RC4, and define the
+environment variable $MIRA4 pointing at the folder containing the binaries.
+See:
 
 * http://chevreux.org/projects_mira.html
 * http://sourceforge.net/projects/mira-assembler/
