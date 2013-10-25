@@ -68,6 +68,9 @@ the fragment length *k* is 31), and only requires a single matching kmer.
 The ``mirabait`` utility is useful in many applications and pipelines
 outside of using the main MIRA tool for assembly or mapping.
 
+.. class:: warningmark
+
+Note ``mirabait`` cannot be used on protein (amino acid) sequences.
 
 **Example Usage**
 
