@@ -51,9 +51,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
 format, output_choice, strand_choice, kmer_length, min_occurance, bait_file, in_file, out_file = sys.argv[1:]
 
 if format.startswith("fastq"):
-    format == "fastq"
+    format = "fastq"
 elif format == "mira":
-    format == "maf"
+    format = "maf"
 elif format != "fasta":
     stop_err("Was not expected format %r" % format)
 
