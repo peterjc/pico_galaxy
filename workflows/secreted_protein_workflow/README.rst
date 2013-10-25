@@ -47,10 +47,11 @@ Citation
 If you use this workflow directly, or a derivative of it, in work leading
 to a scientific publication, please cite:
 
-Cock, P.J.A. and Pritchard, L. 2013. Galaxy as a platform for identifying
+Cock, P.J.A. and Pritchard, L. (2014). Galaxy as a platform for identifying
 candidate pathogen effectors. Chapter 1 in "Plant-Pathogen Interactions:
-Methods and Protocols (Second Edition)"; Methods in Molecular Biology.
-Humana Press, Springer. In press.
+Methods and Protocols (Second Edition)"; P. Birch, J. Jones, and J.I. Bos, eds.
+Methods in Molecular Biology. Humana Press, Springer. ISBN 978-1-62703-985-7.
+http://www.springer.com/life+sciences/plant+sciences/book/978-1-62703-985-7
 
 Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
 Galaxy tools and workflows for sequence analysis with applications
