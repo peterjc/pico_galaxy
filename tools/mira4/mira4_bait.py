@@ -92,18 +92,19 @@ except Exception, err:
     sys.exit(1)
 #Use .communicate as can get deadlocks with .wait(),
 stdout, stderr = child.communicate()
+assert stderr is None # Due to way we ran with subprocess
 run_time = time.time() - start_time
 return_code = child.returncode
 print "mirabait took %0.2f minutes" % (run_time / 60.0)
 
 if return_code:
-    sys.stderr.write(stdout + stderr)
+    sys.stderr.write(stdout)
     stop_err("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
 
 #Capture output
 out_tmp = out_file_stem + "." + format
 if not os.path.isfile(out_tmp):
-    sys.stderr.write(stdout + stderr)
+    sys.stderr.write(stdout)
     stop_err("Missing output file from mirabait: %s" % out_tmp)
 shutil.move(out_tmp, out_file)
