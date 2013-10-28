@@ -5,7 +5,7 @@
             <actions>
                 <action type="download_by_url">https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0rc4_linux-gnu_x86_64_static.tar.bz2</action>
                 <action type="move_directory_files">
-                    <source_directory>mira_4.0rc4_linux-gnu_x86_64_static/bin</source_directory>
+                    <source_directory>bin</source_directory>
                     <destination_directory>$INSTALL_DIR</destination_directory>
                 </action>
                 <action type="set_environment">
