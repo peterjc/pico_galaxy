@@ -74,6 +74,7 @@ v0.0.8  - Basic unit test added (but commented out due to Galaxy issue).
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.9  - Renamed folder mira_assembler to mira3 (see also MIRA 4 wrapper).
+        - Correct path issue in automated dependency installation
 ======= ======================================================================
 
 
