@@ -1,0 +1,139 @@
+<tool id="clc_mapper" name="CLC Mapper" version="0.0.1">
+    <description>Maps reads giving a SAM/BAM file</description>
+    <requirements>
+        <requirement type="binary">clc_mapper</requirement>    
+        <requirement type="binary">clc_cas_to_sam</requirement>
+        <requirement type="binary">samtools</requirement>
+    </requirements>
+    <version_command>/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_mapper | grep -i version</version_command>
+    <command>/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_mapper
+#for $ref in $references
+#if str($ref.type)=="circular"
+-d -z "$ref.ref_file"
+#else
+-d "$ref.ref_file"
+#end if
+#end for
+#for $rg in $read_group
+##--------------------------------------
+#if str($rg.segments.type) == "paired"
+-p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -i "$rg.segments.filename1" "$rg.segments.filename2"
+#end if
+##--------------------------------------
+#if str($rg.segments.type) == "interleaved"
+-p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -q "$rg.segments.filename"
+#end if
+##--------------------------------------
+#if str($rg.segments.type) == "none"
+-p no -q
+#for $f in $rg.segments.filenames
+"$f"
+#end for
+#end if
+##--------------------------------------
+#end for
+-o "temp_job.cas"
+--cpus \$GALAXY_SLOTS > "$out_log"
+##===========================================
+##TODO, sorting?
+&amp;&amp; samtools view -b -S "temp_job.cas" > "$out_bam"
+##===========================================
+&amp;&amp; rm "temp_job.cas"
+</command>
+    <!-- Job splitting with merge via clc_join_mappings? -->
+    <inputs>
+        <!-- Support linear and circular references (-z) -->
+	<repeat name="references" title="Reference Sequence" min="1">
+            <param name="ref_file" type="data" format="fasta" required="true" label="Reference sequence(s) (FASTA)" />
+	    <param name="type" type="select" label="Reference type">
+                <option value="linear">Linear (e.g. most chromosomes)</option>
+                <option value="circular">Circular (e.g. bacterial chromosomes, mitochondria)</option>
+            </param>
+	</repeat>
+        <repeat name="read_group" title="Read Group" min="1">
+            <conditional name="segments">
+                <param name="type" type="select" label="Are these paired reads?">
+                    <option value="paired">Paired reads (as two files)</option>
+                    <option value="interleaved">Paired reads (as one interleaved file)</option>
+                    <option value="none">Unpaired reads (single or orphan reads)</option>
+                </param>
+                <when value="paired">
+                    <param name="placement" type="select" label="Pairing type (segment placing)">
+                        <option value="fb">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
+                        <option value="bf">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
+                        <option value="ff">---&gt; ---&gt;</option>
+                        <option value="bb">&lt;--- &lt;---</option>
+                    </param>
+                    <param name="dist_mode" type="select" label="How is the fragment distance measured?">
+                        <option value="ss">Start to start (e.g. Sanger capillary or Solexa/Illumina libraries)</option>
+                        <option value="se">Start to end</option>
+                        <option value="es">End to start</option>
+                        <option value="ee">End to end</option>
+                    </param>
+                    <!-- TODO - min/max validation done via the <code> tag? -->
+                    <param name="min_size" type="integer" optional="false" min="0" value=""
+                           label="Minimum size of 'good' DNA templates in the library preparation" />
+                    <param name="max_size" type="integer" optional="false" min="0" value=""
+                           label="Maximum size of 'good' DNA templates in the library preparation" />
+                    <param name="filename1" type="data" format="fastq,fasta" required="true" label="Read file one"/>
+                    <param name="filename2" type="data" format="fastq,fasta" required="true" label="Read file two"/>
+                </when>
+                <when value="interleaved">
+                    <param name="placement" type="select" label="Pairing type (segment placing)">
+                        <option value="fb">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
+                        <option value="bf">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
+                        <option value="ff">---&gt; ---&gt;</option>
+                        <option value="bb">&lt;-- &lt;--</option>
+                    </param>
+                    <param name="dist_mode" type="select" label="How is the fragment distance measured?">
+                        <option value="ss">Start to start (e.g. Sanger capillary or Solexa/Illumina libraries)</option>
+                        <option value="se">Start to end</option>
+                        <option value="es">End to start</option>
+                        <option value="ee">End to end</option>
+                    </param>
+                    <!-- TODO - min/max validation done via the <code> tag? -->
+                    <param name="min_size" type="integer" optional="false" min="0" value=""
+                           label="Minimum size of 'good' DNA templates in the library preparation" />
+                    <param name="max_size" type="integer" optional="false" min="0" value=""
+                           label="Maximum size of 'good' DNA templates in the library preparation" />
+                    <param name="filename" type="data" format="fastq,fasta" required="true" label="Interleaved read file"/>
+                </when>
+                <when value="none">
+                    <param name="filenames" type="data" format="fastq,fasta" multiple="true" required="true" label="Read file(s)"
+                           help="Multiple files allowed, for example several files of orphan reads." />
+                </when>
+            </conditional>
+        </repeat>
+        <!-- Length fraction (-l), default 0.5 -->
+        <!-- Similarity (-s), default 0.8 -->
+	<!-- Option for unmapped reads via clc_unmapped_reads ? -->
+    </inputs>
+    <outputs>
+        <data name="out_log" format="text" label="CLC Bio mapper log" />
+        <data name="out_bam" format="bam" label="CLC Bio mapping (BAM)" />
+    </outputs>
+    <tests>
+        <!-- TODO -->
+    </tests>
+    <help>
+
+**What it does**
+
+Runs the CLCBio tool ``clc_mapper`` which produces a proprietry binary
+CAS format file, which is immediately processed using ``cls_cas_to_sam``
+to generate a self-contained standard BAM file, which is then sorted
+and indexed using ``samtools``.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite this wrapper as:
+
+Peter J.A. Cock (2013), Galaxy wrapper for the CLC Assembly Cell suite from CLCBio
+http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
+    </help>
+</tool>
