@@ -33,7 +33,7 @@
 ##--------------------------------------
 #end for
 -o "temp_job.cas"
---cpus \$GALAXY_SLOTS > "$out_log"
+--cpus \$GALAXY_SLOTS
 ##===========================================
 ##TODO, sorting?
 &amp;&amp; samtools view -b -S "temp_job.cas" > "$out_bam"
@@ -109,7 +109,6 @@
 	<!-- Option for unmapped reads via clc_unmapped_reads ? -->
     </inputs>
     <outputs>
-        <data name="out_log" format="text" label="CLC Bio mapper log" />
         <data name="out_bam" format="bam" label="CLC Bio mapping (BAM)" />
     </outputs>
     <tests>
