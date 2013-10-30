@@ -19,7 +19,7 @@
 #for $rg in $read_group
 ##--------------------------------------
 #if str($rg.segments.type) == "paired"
--p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -i "$rg.segments.filename1" "$rg.segments.filename2"
+-p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -q -i "$rg.segments.filename1" "$rg.segments.filename2"
 #end if
 ##--------------------------------------
 #if str($rg.segments.type) == "interleaved"
