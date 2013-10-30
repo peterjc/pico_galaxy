@@ -38,7 +38,7 @@
 --cpus \$GALAXY_SLOTS
 ##===========================================
 ## TODO - I've required all the input in Sanger FASTQ format (or FASTA) so can
-## use the offset 33, rather then the CLC Bio default of 64 which is only for
+## use the offset 33, rather then the CLCbio default of 64 which is only for
 ## obsolete Illumina FASTQ files. Really need this option per input file...
 &amp;&amp; echo Converting CAS file to BAM with clc_cas_to_sam...
 &amp;&amp; /mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_cas_to_sam --cas "temp_job.cas" -o "temp_job.bam" --no-progress --qualityoffset 33
@@ -120,7 +120,7 @@
 	<!-- Option for unmapped reads via clc_unmapped_reads ? -->
     </inputs>
     <outputs>
-        <data name="out_bam" format="bam" label="CLC Bio mapping (BAM)" />
+        <data name="out_bam" format="bam" label="CLCbio mapping (BAM)" />
     </outputs>
     <tests>
         <!-- TODO -->
@@ -129,7 +129,7 @@
 
 **What it does**
 
-Runs the CLCBio tool ``clc_mapper`` which produces a proprietry binary
+Runs the CLCbio tool ``clc_mapper`` which produces a proprietary binary
 CAS format file, which is immediately processed using ``cls_cas_to_sam``
 to generate a self-contained standard BAM file, which is then sorted
 and indexed using ``samtools``.
@@ -140,7 +140,7 @@ and indexed using ``samtools``.
 If you use this Galaxy tool in work leading to a scientific publication please
 cite this wrapper as:
 
-Peter J.A. Cock (2013), Galaxy wrapper for the CLC Assembly Cell suite from CLCBio
+Peter J.A. Cock (2013), Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy

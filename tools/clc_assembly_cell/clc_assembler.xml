@@ -89,7 +89,7 @@
     </inputs>
     <!-- min/max validation? <code file="clc_validator.py" /> -->
     <outputs>
-        <data name="out_fasta" format="fasta" label="CLC Bio assember contigs (FASTA)" />
+        <data name="out_fasta" format="fasta" label="CLCbio assember contigs (FASTA)" />
     </outputs>
     <tests>
         <!-- TODO -->
@@ -108,7 +108,7 @@ to any perform downstream analysis using the mapped reads.
 If you use this Galaxy tool in work leading to a scientific publication please
 cite this wrapper as:
 
-Peter J.A. Cock (2013), Galaxy wrapper for the CLC Assembly Cell suite from CLCBio
+Peter J.A. Cock (2013), Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy

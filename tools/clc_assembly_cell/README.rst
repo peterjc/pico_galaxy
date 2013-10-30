@@ -1,11 +1,11 @@
-Galaxy wrapper for the CLC Assembly Cell suite from CLCBio
+Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 ==========================================================
 
 This wrapper is copyright 2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
-CLC Assembly Cell is the commercial command line assembly suite from CLCBio.
+CLC Assembly Cell is the commercial command line assembly suite from CLCbio.
 It uses SIMD instructions to parallelize and accelerate their assembly
 algorithms, and is also very memory efficient making it an appealing choice
 for complex genomes where the RAM requirements exclude other popular tools.
@@ -38,7 +38,7 @@ manually install the CLC Assembly Cell software, and setup the environment
 variable ``$CLC_ASSEMBLY_CELL`` to the directory containing the binaries
 (and in particular, the ``clc_assembler`` binary). For example:
 
-$ export CLC_ASSEMBLY_CELL=/opt/clcBio/clc-assembly-cell-4.1.0-linux_64/
+$ export CLC_ASSEMBLY_CELL=/opt/clcbio/clc-assembly-cell-4.1.0-linux_64/
 
 
 Manual Installation
@@ -117,5 +117,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-NOTE: This is the licence for the Galaxy Wrapper only. The CLCBio tools are
+NOTE: This is the licence for the Galaxy Wrapper only. The CLCbio tools are
 commercial, and are available and licenced separately.
