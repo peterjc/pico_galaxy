@@ -83,8 +83,10 @@
                            label="Minimum size of 'good' DNA templates in the library preparation" />
                     <param name="max_size" type="integer" optional="false" min="0" value=""
                            label="Maximum size of 'good' DNA templates in the library preparation" />
-                    <param name="filename1" type="data" format="fastqsanger,fasta" required="true" label="Read file one"/>
-                    <param name="filename2" type="data" format="fastqsanger,fasta" required="true" label="Read file two"/>
+                    <param name="filename1" type="data" format="fastqsanger,fasta" required="true" label="Read file one"
+                           help="FASTA or Sanger FASTQ accepted." />
+                    <param name="filename2" type="data" format="fastqsanger,fasta" required="true" label="Read file two"
+                           help="FASTA or Sanger FASTQ accepted." />
                 </when>
                 <when value="interleaved">
                     <param name="placement" type="select" label="Pairing type (segment placing)">
@@ -104,11 +106,12 @@
                            label="Minimum size of 'good' DNA templates in the library preparation" />
                     <param name="max_size" type="integer" optional="false" min="0" value=""
                            label="Maximum size of 'good' DNA templates in the library preparation" />
-                    <param name="filename" type="data" format="fastqsanger,fasta" required="true" label="Interleaved read file"/>
+                    <param name="filename" type="data" format="fastqsanger,fasta" required="true" label="Interleaved read file"
+                           help="FASTA or Sanger FASTQ accepted."/>
                 </when>
                 <when value="none">
                     <param name="filenames" type="data" format="fastqsanger,fasta" multiple="true" required="true" label="Read file(s)"
-                           help="Multiple files allowed, for example several files of orphan reads." />
+                           help="Multiple files allowed, for example several files of orphan reads. FASTA or Sanger FASTQ accepted." />
                 </when>
             </conditional>
         </repeat>
