@@ -47,6 +47,7 @@
 &amp;&amp; echo Sorting BAM file with samtools...
 &amp;&amp; samtools sort -b -S "temp_job.bam" "temp_sorted"
 &amp;&amp; mv "temp_sorted.bam" "$out_bam"
+&amp;&amp; samtools index "$out_bam"
 </command>
     <!-- Job splitting with merge via clc_join_mappings? -->
     <inputs>
