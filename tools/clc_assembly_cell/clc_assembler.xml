@@ -89,7 +89,7 @@
     </inputs>
     <!-- min/max validation? <code file="clc_validator.py" /> -->
     <outputs>
-        <data name="out_log" format="text" label="CLC Bio assember log" />
+        <data name="out_log" format="txt" label="CLC Bio assember log" />
         <data name="out_fasta" format="fasta" label="CLC Bio assember contigs (FASTA)" />
     </outputs>
     <tests>
