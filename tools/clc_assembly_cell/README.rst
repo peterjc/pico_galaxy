@@ -16,6 +16,9 @@ http://www.clcbio.com/products/clc-assembly-cell/
 You can download the CLC Assembly Cell User Manual here, currently v4.2
 http://www.clcbio.com/files/usermanuals/CLC_Assembly_Cell_User_Manual.pdf
 
+There is also an online manual here:
+http://clcsupport.com/clcassemblycell/current/index.php?manual=Introduction.html
+
 There is currently a free trial download here:
 http://www.clcbio.com/?action=transfer_user&productVersion=4.2&productID=6982&productName=CLC+Assembly+Cell&nonce=db842e3f95
 
