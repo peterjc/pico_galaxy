@@ -49,7 +49,8 @@ First install the CLC Assembly Cell sortware as described above.
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a tools/clcbio folder:
 
-* clc_assembler.xml (the Galaxy tool definition)
+* clc_assembler.xml (Galaxy tool definition)
+* clc_mapper.xml (Galaxy tool definition)
 * README.rst (this file)
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
