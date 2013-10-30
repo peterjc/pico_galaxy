@@ -6,7 +6,7 @@
     </requirements>
     <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">
-mira4.py $manifest $out_maf $out_fasta $out_log
+mira4.py "$manifest" "$out_maf" "$out_fasta" "$out_log"
     </command>
     <inputs>
         <param name="job_type" type="select" label="Assembly type">
