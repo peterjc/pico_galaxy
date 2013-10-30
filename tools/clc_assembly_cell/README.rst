@@ -35,10 +35,10 @@ Automated Installation
 This should be straightforward, Galaxy should automatically download and
 install the wrapper from the Galaxy Tool Shed. However, you will need to
 manually install the CLC Assembly Cell software, and setup the environment
-variable ``$CLC_ASSRMBLY_CELL`` to the directory containing the binaries
+variable ``$CLC_ASSEMBLY_CELL`` to the directory containing the binaries
 (and in particular, the ``clc_assembler`` binary). For example:
 
-$ export CLC_ASSRMBLY_CELL=/opt/clcBio/clc-assembly-cell-4.1.0-linux_64/
+$ export CLC_ASSEMBLY_CELL=/opt/clcBio/clc-assembly-cell-4.1.0-linux_64/
 
 
 Manual Installation
