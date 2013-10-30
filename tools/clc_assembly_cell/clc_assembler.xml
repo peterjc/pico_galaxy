@@ -25,7 +25,7 @@
 #end for
 -o "$out_fasta"
 --cpus \$GALAXY_SLOTS
--v > "$out_log"</command>
+-v | grep -v "^Progress: "</command>
     <inputs>
         <repeat name="read_group" title="Read Group" min="1">
             <conditional name="segments">
@@ -89,7 +89,6 @@
     </inputs>
     <!-- min/max validation? <code file="clc_validator.py" /> -->
     <outputs>
-        <data name="out_log" format="txt" label="CLC Bio assember log" />
         <data name="out_fasta" format="fasta" label="CLC Bio assember contigs (FASTA)" />
     </outputs>
     <tests>
