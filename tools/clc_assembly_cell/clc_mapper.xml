@@ -4,9 +4,11 @@
         <requirement type="binary">clc_mapper</requirement>    
         <requirement type="binary">clc_cas_to_sam</requirement>
         <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <version_command>/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_mapper | grep -i version</version_command>
-    <command>/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_mapper
+    <command>echo Mapping reads with clc_mapper...
+&amp;&amp; /mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_mapper
 #for $ref in $references
 #if str($ref.type)=="circular"
 -d -z "$ref.ref_file"
@@ -35,10 +37,16 @@
 -o "temp_job.cas"
 --cpus \$GALAXY_SLOTS
 ##===========================================
-##TODO, sorting?
-&amp;&amp; samtools view -b -S "temp_job.cas" > "$out_bam"
-##===========================================
+## TODO - I've required all the input in Sanger FASTQ format (or FASTA) so can
+## use the offset 33, rather then the CLC Bio default of 64 which is only for
+## obsolete Illumina FASTQ files. Really need this option per input file...
+&amp;&amp; echo Converting CAS file to BAM with clc_cas_to_sam...
+&amp;&amp; /mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_cas_to_sam --cas "temp_job.cas" -o "temp_job.bam" --no-progress --qualityoffset 33
 &amp;&amp; rm "temp_job.cas"
+##===========================================
+&amp;&amp; echo Sorting BAM file with samtools...
+&amp;&amp; samtools sort -b -S "temp_job.bam" "temp_sorted"
+&amp;&amp; mv "temp_sorted.bam" "$out_bam"
 </command>
     <!-- Job splitting with merge via clc_join_mappings? -->
     <inputs>
@@ -75,8 +83,8 @@
                            label="Minimum size of 'good' DNA templates in the library preparation" />
                     <param name="max_size" type="integer" optional="false" min="0" value=""
                            label="Maximum size of 'good' DNA templates in the library preparation" />
-                    <param name="filename1" type="data" format="fastq,fasta" required="true" label="Read file one"/>
-                    <param name="filename2" type="data" format="fastq,fasta" required="true" label="Read file two"/>
+                    <param name="filename1" type="data" format="fastqsanger,fasta" required="true" label="Read file one"/>
+                    <param name="filename2" type="data" format="fastqsanger,fasta" required="true" label="Read file two"/>
                 </when>
                 <when value="interleaved">
                     <param name="placement" type="select" label="Pairing type (segment placing)">
@@ -96,10 +104,10 @@
                            label="Minimum size of 'good' DNA templates in the library preparation" />
                     <param name="max_size" type="integer" optional="false" min="0" value=""
                            label="Maximum size of 'good' DNA templates in the library preparation" />
-                    <param name="filename" type="data" format="fastq,fasta" required="true" label="Interleaved read file"/>
+                    <param name="filename" type="data" format="fastqsanger,fasta" required="true" label="Interleaved read file"/>
                 </when>
                 <when value="none">
-                    <param name="filenames" type="data" format="fastq,fasta" multiple="true" required="true" label="Read file(s)"
+                    <param name="filenames" type="data" format="fastqsanger,fasta" multiple="true" required="true" label="Read file(s)"
                            help="Multiple files allowed, for example several files of orphan reads." />
                 </when>
             </conditional>
