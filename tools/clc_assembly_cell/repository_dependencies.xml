@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="This requires samtools (to generate a BAM file)">
+    <repository name="package_samtools_0_1_19" owner="iuc" />
+</repositories>
