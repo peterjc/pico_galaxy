@@ -35,7 +35,7 @@
 ##--------------------------------------
 #end for
 -o "temp_job.cas"
---cpus \$GALAXY_SLOTS
+--cpus \$GALAXY_SLOTS | grep -v "^Progress: "
 ##===========================================
 ## TODO - I've required all the input in Sanger FASTQ format (or FASTA) so can
 ## use the offset 33, rather then the CLCbio default of 64 which is only for
@@ -45,10 +45,15 @@
 &amp;&amp; rm "temp_job.cas"
 ##===========================================
 &amp;&amp; echo Sorting BAM file with samtools...
-&amp;&amp; samtools sort -b -S "temp_job.bam" "temp_sorted"
+&amp;&amp; samtools sort "temp_job.bam" "temp_sorted"
 &amp;&amp; mv "temp_sorted.bam" "$out_bam"
-&amp;&amp; samtools index "$out_bam"
-</command>
+&amp;&amp; echo Indexing BAM file with samtools...
+&amp;&amp; samtools index "$out_bam"</command>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <!-- Job splitting with merge via clc_join_mappings? -->
     <inputs>
         <!-- Support linear and circular references (-z) -->

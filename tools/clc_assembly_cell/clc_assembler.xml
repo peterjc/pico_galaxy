@@ -26,6 +26,11 @@
 -o "$out_fasta"
 --cpus \$GALAXY_SLOTS
 -v | grep -v "^Progress: "</command>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <repeat name="read_group" title="Read Group" min="1">
             <conditional name="segments">
