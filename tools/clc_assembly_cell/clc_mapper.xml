@@ -35,7 +35,9 @@
 ##--------------------------------------
 #end for
 -o "temp_job.cas"
---cpus \$GALAXY_SLOTS | grep -v "^Progress: "
+--cpus \$GALAXY_SLOTS
+## TODO - filtering out the progress lines seems to mess up the multiple commands
+## | grep -v "^Progress: "
 ##===========================================
 ## TODO - I've required all the input in Sanger FASTQ format (or FASTA) so can
 ## use the offset 33, rather then the CLCbio default of 64 which is only for
