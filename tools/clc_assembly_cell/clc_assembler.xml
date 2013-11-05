@@ -23,6 +23,7 @@
 #end if
 ##--------------------------------------
 #end for
+-m $min_contig_len
 -o "$out_fasta"
 --cpus \$GALAXY_SLOTS
 -v | grep -v "^Progress: "</command>
@@ -86,10 +87,10 @@
 		</when>
             </conditional>
         </repeat>
+	<param name="min_contig_len" type="integer" optional="false" min="1" value="200" label="Minimum contig length"/>
 	<!-- Word size? -->
 	<!-- Bubble size? -->
 	<!-- Scaffolding options? -->
-        <!-- Minimum contig length? -->
         <!-- AGP / GFF output? -->
     </inputs>
     <!-- min/max validation? <code file="clc_validator.py" /> -->
