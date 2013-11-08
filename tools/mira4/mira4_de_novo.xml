@@ -1,4 +1,4 @@
-<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.1">
+<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.2">
     <description>Takes Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>

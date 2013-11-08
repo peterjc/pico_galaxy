@@ -75,6 +75,7 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial version (prototype for MIRA 4.0 RC4, based on wrapper for v3.4)
+v0.0.2  - Include BAM output (using ``miraconvert`` and ``samtools``).
 ======= ======================================================================
 
 
@@ -87,7 +88,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4.py tools/mira4/mira4_validator.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta test-data/tvc_bait.fasta test-data/tvc_mini_bait_pos.fastq test-data/tvc_mini_bait_strict.fastq test-data/tvc_mini_bait_neg.fastq
+    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4.py tools/mira4/mira4_make_bam.py tools/mira4/mira4_validator.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta test-data/tvc_bait.fasta test-data/tvc_mini_bait_pos.fastq test-data/tvc_mini_bait_strict.fastq test-data/tvc_mini_bait_neg.fastq
 
 Check this worked::
 
@@ -96,6 +97,7 @@ Check this worked::
     tools/mira4/mira4_de_novo.xml
     tools/mira4/mira4_mapping.xml
     tools/mira4/mira4.py
+    tools/mira4/mira4_make_bam.py
     tools/mira4/mira4_validator.py
     tools/mira4/tool_dependencies.xml
     test-data/tvc_mini.fastq

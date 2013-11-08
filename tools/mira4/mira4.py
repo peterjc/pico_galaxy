@@ -7,6 +7,9 @@ import subprocess
 import shutil
 import time
 
+#Do we need any PYTHONPATH magic?
+from mira4_make_bam import make_bam
+
 WRAPPER_VER = "0.0.1" #Keep in sync with the XML file
 
 def stop_err(msg, err=1):
@@ -104,12 +107,15 @@ def collect_output(temp, name, handle):
 
     #De novo or single strain mapping,
     old_fasta = "%s/%s_out.unpadded.fasta" % (f, name)
+    ref_fasta = "%s/%s_out.padded.fasta" % (f, name)
     if not os.path.isfile(old_fasta):
-        #Mapping (currently StrainX versus reference)
+        #Mapping (StrainX versus reference) or de novo
         old_fasta = "%s/%s_out_StrainX.unpadded.fasta" % (f, name)
+        ref_fasta = "%s/%s_out_StrainX.padded.fasta" % (f, name)
     if not os.path.isfile(old_fasta):
-        #Triggered extractLargeContigs.sh?
-        old_fasta = "%s/%s_LargeContigs_out.fasta" % (f, name)
+        old_fasta = "%s/%s_out_ReferenceStrain.unpadded.fasta" % (f, name)
+        ref_fasta = "%s/%s_out_ReferenceStrain.padded.fasta" % (f, name)
+        
 
     missing = False
     for old, new in [(old_maf, out_maf),
@@ -125,6 +131,12 @@ def collect_output(temp, name, handle):
         for filename in sorted(os.listdir(f)):
             sys.stderr.write("%s\n" % filename)
 
+    #For mapping mode, probably most people would expect a BAM file
+    #using the reference FASTA file...
+    msg = make_bam(mira_convert, out_maf, ref_fasta, out_bam)
+    if msg:
+        stop_err(msg)
+
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
     if os.path.isdir(folder):
@@ -136,7 +148,7 @@ def clean_up(temp, name):
 temp = "."
 #name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 name = "MIRA"
-manifest, out_maf, out_bam, out_fasta, out_log = sys.argv[1:5]
+manifest, out_maf, out_bam, out_fasta, out_log = sys.argv[1:]
 
 fix_threads(manifest)
 
