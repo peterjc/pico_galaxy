@@ -2,11 +2,14 @@
     <description>Takes Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
+        <requirement type="binary">miraconvert</requirement>
         <requirement type="package" version="4.0">MIRA</requirement>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">
-mira4.py "$manifest" "$out_maf" "$out_fasta" "$out_log"
+mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
     </command>
     <inputs>
         <param name="job_type" type="select" label="Assembly type">
@@ -63,6 +66,7 @@ mira4.py "$manifest" "$out_maf" "$out_fasta" "$out_log"
     <code file="mira4_validator.py" />
     <outputs>
         <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
+        <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)" />
         <data name="out_maf" format="mira" label="MIRA de novo assembly" />
         <data name="out_log" format="txt" label="MIRA de novo log" />
     </outputs>
@@ -141,7 +145,8 @@ https://trello.com/c/zSTrfDOB/820-disambiguated-conditional-parameters-not-suppo
 
 **What it does**
 
-Runs MIRA v4.0 in de novo mode, collects the output, and throws away all the temporary files.
+Runs MIRA v4.0 in de novo mode, collects the output, generates a sorted BAM
+file, and then throws away all the temporary files.
 
 MIRA is an open source assembly tool capable of handling sequence data from
 a range of platforms (Sanger capillary, Solexa/Illumina, Roche 454, Ion Torrent

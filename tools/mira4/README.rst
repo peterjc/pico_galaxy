@@ -21,8 +21,8 @@ Automated Installation
 ======================
 
 This should be straightforward. Via the Tool Shed, Galaxy should automatically
-install the 'mira' datatype, download and install the precompiled binary for
-MIRA v4.0 for the Galaxy wrapper, and run any tests.
+install the 'mira' datatype, samtools, and download and install the precompiled
+binary for MIRA v4.0 for the Galaxy wrapper, and run any tests.
 
 For MIRA 4, the Galaxy wrapper has been split in two, allowing separate
 cluster settings for de novo usage (high RAM) and mapping (lower RAM).
@@ -63,6 +63,9 @@ See:
 
 You may wish to use different cluster setups for the de novo and mapping
 tools, see above.
+
+You will also need to install samtools (for generating a BAM file from MIRA's
+SAM output).
 
 
 History

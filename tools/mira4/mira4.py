@@ -28,7 +28,7 @@ def get_version(mira_binary):
         sys.exit(1)
     ver, tmp = child.communicate()
     del child
-    return ver.split("\n", 1)[0]
+    return ver.split("\n", 1)[0].strip()
 
 
 try:
@@ -38,12 +38,20 @@ except ImportError:
 mira_binary = os.path.join(mira_path, "mira")
 if not os.path.isfile(mira_binary):
     stop_err("Missing mira under $MIRA4, %r" % mira_binary)
+mira_convert = os.path.join(mira_path, "miraconvert")
+if not os.path.isfile(mira_convert):
+    stop_err("Missing miraconvert under $MIRA4, %r" % mira_convert)
 
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
-    stop_err("This wrapper is for MIRA V4.0, not:\n%s" % mira_ver)
+    stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_binary))
+mira_convert_ver = get_version(mira_convert)
+if not mira_convert_ver.strip().startswith("4.0"):
+    stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_convert))
 if "-v" in sys.argv or "--version" in sys.argv:
     print "%s, MIRA wrapper version %s" % (mira_ver, WRAPPER_VER)
+    if mira_ver != mira_convert_ver:
+        print "WARNING: miraconvert %s" % mira_convert_ver
     sys.exit(0)
 
 def fix_threads(manifest):
@@ -78,6 +86,7 @@ def log_manifest(manifest):
 
 
 def collect_output(temp, name, handle):
+    """Moves files to the output filenames (global variables)."""
     n3 = (temp, name, name, name)
     f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
     if not os.path.isdir(f):
@@ -127,7 +136,7 @@ def clean_up(temp, name):
 temp = "."
 #name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 name = "MIRA"
-manifest, out_maf, out_fasta, out_log = sys.argv[1:5]
+manifest, out_maf, out_bam, out_fasta, out_log = sys.argv[1:5]
 
 fix_threads(manifest)
 
