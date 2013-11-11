@@ -16,7 +16,8 @@ import subprocess
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "Wrapper v0.0.1, samtools:"
+    #Galaxy seems to invert the order of the two lines
+    print "(Galaxy wrapper v0.0.1)"
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
