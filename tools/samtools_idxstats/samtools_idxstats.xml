@@ -4,8 +4,8 @@
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
-    <version_command>samtools 2&gt;&amp;1 | grep -i ^Version</version_command>
-    <command>samtools idxstats $input_bam &gt; $out_tabular</command>
+    <version_command interpreter="python">samtools_idxstats.py --version</version_command>
+    <command interpreter="python">samtools_idxstats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular"</command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
     </inputs>
