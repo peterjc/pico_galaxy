@@ -18,7 +18,10 @@
         <exit_code range=":-1" />
     </stdio>
     <tests>
-        <!-- TODO -->
+        <test>
+            <param name="input_bam" value="ex1.bam" ftype="bam" />
+            <output name="out_tabular" file="ex1.idxstats.tabular" ftype="tabular" />
+        </test>
     </tests>
     <help>
 **What it does**
