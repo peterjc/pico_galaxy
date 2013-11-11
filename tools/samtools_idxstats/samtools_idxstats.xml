@@ -1,0 +1,73 @@
+<tool id="samtools_idxstats" name="BAM mapping statistics" version="0.0.1">
+    <description>samtools idxstats</description>
+    <requirements>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
+    </requirements>
+    <version_command>samtools 2&gt;&amp;1 | grep -i ^Version</version_command>
+    <command>samtools idxstats $input_bam &gt; $out_tabular</command>
+    <inputs>
+        <param name="input_bam" type="data" format="bam" label="Input BAM file" />
+    </inputs>
+    <outputs>
+        <data name="out_tabular" format="tabular" label="$input_bam.name (idxstats)" />
+    </outputs>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <tests>
+        <!-- TODO -->
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools idxstats`` command in the SAMtools toolkit.
+
+Input is a sorted and indexed BAM file, the output is tabular with
+four columns (one row per reference sequence plus a final line for
+unmapped reads):
+
+====== =================================================================================
+Column Description
+------ ---------------------------------------------------------------------------------
+     1 Reference sequence identifier
+     2 Reference sequence length
+     3 Number of mapped reads
+     4 Number of placed but unmapped reads (typically unmapped partners of mapped reads)
+====== =================================================================================
+
+Example output from a *de novo* assembly:
+
+========== ====== ====== =====
+contig_1   170035  98397     0
+contig_2   403835 199564     0
+contig_3   553102 288189     0
+...           ...    ...   ...
+contig_603    653     50     0
+contig_604    214      6     0
+\*              0      0 50320
+========== ====== ====== =====
+
+In this example there were 604 contigs, each with one line in the output table,
+plus the final row (labelled with an asterisk) representing 50320 unmapped reads.
+In this BAM file, the final column was otherwise zero.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Heng Li et al (2009). The Sequence Alignment/Map format and SAMtools.
+Bioinformatics 25(16), 2078-9.
+http://dx.doi.org/10.1093/bioinformatics/btp352
+
+Peter J.A. Cock (2013), Galaxy wrapper for the samtools idxstats command
+http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_idxstats
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_idxstats
+    </help>
+</tool>
