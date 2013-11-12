@@ -42,20 +42,20 @@ First install the 'mira' datatype for Galaxy, available here:
 
 There are four Galaxy files to install:
 
-* mira4.py (the Python wrapper script)
-* mira4_validator.py (the Python parameter validation script)
-* mira4_de_novo.xml (the Galaxy tool definition for de novo usage)
-* mira4_mapping.xml (the Galaxy tool definition for mapping usage)
+* ``mira4.py`` (the Python wrapper script)
+* ``mira4_validator.py`` (the Python parameter validation script)
+* ``mira4_de_novo.xml`` (the Galaxy tool definition for de novo usage)
+* ``mira4_mapping.xml`` (the Galaxy tool definition for mapping usage)
 
-The suggested location is a new tools/mira4 folder. You will also need to
-modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
-this to tools_conf.xml.sample in order to run any tests::
+The suggested location is a new ``tools/mira4`` folder. You will also need to
+modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool, and also do
+this to ``tools_conf.xml.sample`` in order to run the tests::
 
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
 
 You will also need to install MIRA, we used version 4.0 RC4, and define the
-environment variable $MIRA4 pointing at the folder containing the binaries.
+environment variable ``$MIRA4`` pointing at the folder containing the binaries.
 See:
 
 * http://chevreux.org/projects_mira.html
@@ -66,6 +66,16 @@ tools, see above.
 
 You will also need to install samtools (for generating a BAM file from MIRA's
 SAM output).
+
+You can then run the tests with::
+
+    $ ./run_functional_tests.sh -id mira_4_0_bait
+
+Pending::
+
+    $ ./run_functional_tests.sh -id mira_4_0_de_novo
+    $ ./run_functional_tests.sh -id mira_4_0_mapping
+
 
 
 History
