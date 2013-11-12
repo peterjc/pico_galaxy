@@ -52,7 +52,7 @@ $fasta_file $tabular_file</command>
         <test>
             <param name="fasta_file" value="empty.fasta" ftype="fasta" />
             <param name="module" value="plant" />
-            <param name="type" value="sensistive" />
+            <param name="type" value="sensitive" />
             <output name="tabular_file" file="empty_effectiveT3.tabular" ftype="tabular" />
         </test>
     </tests>
