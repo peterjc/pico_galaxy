@@ -32,9 +32,11 @@ if len(sys.argv) != 4:
 bam_filename, bai_filename, tabular_filename = sys.argv[1:]
 
 if not os.path.isfile(bam_filename):
-   stop_err("Input BAM file not found: %s" % bam_filename)
+    stop_err("Input BAM file not found: %s" % bam_filename)
 if not os.path.isfile(bai_filename):
-   stop_err("Input BAI file not found: %s" % bai_filename)
+    if bai_filename == "None":
+        stop_err("Error: Galaxy did not index your BAM file")
+    stop_err("Input BAI file not found: %s" % bai_filename)
 
 #Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
