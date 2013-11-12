@@ -41,23 +41,23 @@ Requirements
 
 First install those command line tools you wish to use the wrappers for:
 
-1. Install the command line version of SignalP 3.0 and ensure "signalp" is
+1. Install the command line version of SignalP 3.0 and ensure ``signalp`` is
    on the PATH, see: http://www.cbs.dtu.dk/services/SignalP/
 
-2. Install the command line version of TMHMM 2.0 and ensure "tmhmm" is on
+2. Install the command line version of TMHMM 2.0 and ensure ``tmhmm`` is on
    the PATH, see: http://www.cbs.dtu.dk/services/TMHMM/
 
-3. Install the command line version of Promoter 2.0 and ensure "promoter" is
+3. Install the command line version of Promoter 2.0 and ensure ``promoter`` is
    on the PATH, see: http://www.cbs.dtu.dk/services/Promoter
 
-4. Install the WoLF PSORT v0.2 package, and ensure "runWolfPsortSummary"
+4. Install the WoLF PSORT v0.2 package, and ensure ``runWolfPsortSummary``
    is on the PATH (we use an extra wrapper script to change to the WoLF PSORT
    directory, run runWolfPsortSummary, and then change back to the original
    directory), see: http://wolfpsort.org/WoLFPSORT_package/version0.2/
 
 5. Install hmmsearch from HMMER 2.3.2 (the last stable release of HMMER 2)
-   but put it on the path under the name hmmsearch2 (allowing it to co-exist
-   with HMMER 3), or edit rlxr_motif.py accordingly.
+   but put it on the path under the name ``hmmsearch2`` (allowing it to
+   co-exist with HMMER 3), or edit ``rlxr_motif.py`` accordingly.
 
 Verify each of the tools is installed and working from the command line
 (when logged in as the Galaxy user if appropriate).
@@ -66,9 +66,9 @@ Verify each of the tools is installed and working from the command line
 Manual Installation
 ===================
 
-1. Create a folder tools/protein_analysis under your Galaxy installation.
+1. Create a folder ``tools/protein_analysis`` under your Galaxy installation.
    This folder name is not critical, and can be changed if desired - you
-   must update the paths used in tool_conf.xml to match.
+   must update the paths used in ``tool_conf.xml`` to match.
 
 2. Copy/move the following files (from this archive) there:
 
@@ -95,7 +95,7 @@ Manual Installation
    * README.rst (this file)
 
 3. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
-   also tool_conf.xml.sample (to run the tests) to include the new tools
+   also ``tool_conf.xml.sample`` (to run the tests) to include the new tools
    by adding::
 
     <section name="Protein sequence analysis" id="protein_analysis">
@@ -116,15 +116,15 @@ Manual Installation
 
 5. Run the Galaxy functional tests for these new wrappers with::
 
-    ./run_functional_tests.sh -id tmhmm2
-    ./run_functional_tests.sh -id signalp3
-    ./run_functional_tests.sh -id Psortb
-    ./run_functional_tests.sh -id rxlr_motifs
+    $ ./run_functional_tests.sh -id tmhmm2
+    $ ./run_functional_tests.sh -id signalp3
+    $ ./run_functional_tests.sh -id Psortb
+    $ ./run_functional_tests.sh -id rxlr_motifs
 
-   Alternatively, this should work (assuming you left the name and id as shown in
-   the XML file tool_conf.xml.sample)::
+   Alternatively, this should work (assuming you left the name and id as shown
+   above in your XML file ``tool_conf.xml.sample``)::
 
-    ./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
+    $ ./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
 
    To check the section ID expected, use ./run_functional_tests.sh -list
 
