@@ -122,8 +122,19 @@ data = ${f.ext}::$f
         </configfile>
     </configfiles>
     <tests>
-            <!-- TODO - The example in the MIRA3 wrapper doesn't give a nice
-                 miniassembly with MIRA4 -->
+        <test>
+            <!-- Simple assembly based on MIRA's minidemo/demo4 example
+                 Note we're using just one repeat group,
+                 but several parameters with the repeat
+                 (in order to specify sanger reads, no pairing)
+            <param name="job_type" value="genome" />
+            <param name="job_quality" value="accurate" />
+            <param name="technology" value="sanger" />
+            <param name="type" value="none" />
+            <param name="filenames" value="U13small_m.fastq" ftype="fastqsanger" />
+            <output name="out_fasta" file="U13small_m.de_novo.fasta" ftype="fasta" />
+            -->
+        </test>
     </tests>
     <help>
 
