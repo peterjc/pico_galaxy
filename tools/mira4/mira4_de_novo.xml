@@ -122,6 +122,16 @@ data = ${f.ext}::$f
         </configfile>
     </configfiles>
     <tests>
+        <!-- Tiger mitochondria, selected paired end Illumina reads from SRR639755
+             Note we're using just one repeat group, and only the filenames parameter
+             within it, so this should work with current test framework limitations:
+        <test>
+            <param name="job_type" value="genome" />
+            <param name="job_quality" value="accurate" />
+            <param name="filenames" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
+            <output name="out_fasta" file="SRR639755_mito_pairs.mira4_de_novo.fasta" ftype="fasta" />
+        </test>
+        -->
         <!-- Simple assembly based on MIRA's minidemo/demo4 example
              Note we're using just one repeat group,
              but several parameters with the repeat

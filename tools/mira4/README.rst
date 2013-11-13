@@ -70,10 +70,10 @@ SAM output).
 You can then run the tests with::
 
     $ ./run_functional_tests.sh -id mira_4_0_bait
+    $ ./run_functional_tests.sh -id mira_4_0_de_novo
 
 Pending::
 
-    $ ./run_functional_tests.sh -id mira_4_0_de_novo
     $ ./run_functional_tests.sh -id mira_4_0_mapping
 
 
