@@ -62,7 +62,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf samtools_idxstats.tar.gz tools/samtools_idxstats/README.rst tools/samtools_idxstats/samtools_idxstats.xml tools/samtools_idxstats/samtools_idxstats.py tools/samtools_idxstats/repository_dependencies.xml test-data/ex1.bam test-data/ex1.idxstats.tabular
+    $ tar -czf samtools_idxstats.tar.gz tools/samtools_idxstats/README.rst tools/samtools_idxstats/samtools_idxstats.xml tools/samtools_idxstats/samtools_idxstats.py tools/samtools_idxstats/tool_dependencies.xml test-data/ex1.bam test-data/ex1.idxstats.tabular
 
 Check this worked::
 
@@ -70,7 +70,7 @@ Check this worked::
     tools/samtools_idxstats/README.rst
     tools/samtools_idxstats/samtools_idxstats.xml
     tools/samtools_idxstats/samtools_idxstats.py
-    tools/samtools_idxstats/repository_dependencies.xml
+    tools/samtools_idxstats/tool_dependencies.xml
     test-data/ex1.bam
     test-data/ex1.idxstats.tabular
 
