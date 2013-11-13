@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="This requires the samtools 0.1.19 binaries">
+    <repository name="package_samtools_0_1_19" owner="iuc" />
+</repositories>
