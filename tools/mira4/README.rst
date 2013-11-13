@@ -67,15 +67,12 @@ tools, see above.
 You will also need to install samtools (for generating a BAM file from MIRA's
 SAM output).
 
-You can then run the tests with::
+After copying (or symlinking) the ``test-data`` files under Galaxy's ``test-data``
+folder, you can run the tests with::
 
     $ ./run_functional_tests.sh -id mira_4_0_bait
     $ ./run_functional_tests.sh -id mira_4_0_de_novo
-
-Pending::
-
     $ ./run_functional_tests.sh -id mira_4_0_mapping
-
 
 
 History
