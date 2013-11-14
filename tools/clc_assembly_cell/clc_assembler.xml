@@ -98,7 +98,19 @@
         <data name="out_fasta" format="fasta" label="CLCbio assember contigs (FASTA)" />
     </outputs>
     <tests>
-        <!-- TODO -->
+        <!-- Review this test once Galaxy handles repeat groups better
+        <test>
+            <param name="type" value="interleaved" />
+            <param name="placement" value="fb" />
+            <param name="dist_mode" value="ss" />
+            <param name="min_size" value="1" />
+            <param name="max_size" value="1000" />
+            <param name="dist_mode" value="ss" />
+            <param name="filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
+            <param name="min_contig_len" value="200" />
+            <output name="out_fasta" file="SRR639755_mito_pairs.clc4_de_novo.fasta" ftype="fasta" />
+        </test>
+        -->
     </tests>
     <help>
 
