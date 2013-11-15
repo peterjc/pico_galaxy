@@ -153,7 +153,7 @@ data = ${f.ext}::$f
             <param name="job_quality" value="accurate" />
             <param name="type" value="none" />
             <param name="filenames" value="ecoli.fastq" ftype="fastqsanger" />
-            <output name="out_fasta" file="ecolo.de_novo.fasta" ftype="fasta" />
+            <output name="out_fasta" file="ecoli.mira4_de_novo.fasta" ftype="fasta" />
         </test>
         -->
     </tests>
