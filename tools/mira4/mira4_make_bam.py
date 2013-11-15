@@ -24,6 +24,11 @@ def run(cmd, log_handle):
     #Use .communicate as can get deadlocks with .wait(),
     stdout, stderr = child.communicate()
     assert not stderr #Should be empty as sent to stdout
+    if len(stdout) > 10000:
+        #miraconvert can be very verbose (is holding stdout in RAM a problem?)
+        stdout = stdout.split("\n")
+        stdout = stdout[:10] + ["...", "<snip>", "..."] + stdout[-10:]
+        stdout = "\n".join(stdout)
     log_handle.write(stdout)
     return child.returncode
 
