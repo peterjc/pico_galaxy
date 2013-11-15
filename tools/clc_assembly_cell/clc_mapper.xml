@@ -10,7 +10,7 @@
     <command>echo Mapping reads with clc_mapper...
 &amp;&amp; /mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_mapper
 #for $ref in $references
-#if str($ref.type)=="circular"
+#if str($ref.ref_type)=="circular"
 -d -z "$ref.ref_file"
 #else
 -d "$ref.ref_file"
@@ -61,11 +61,11 @@
         <!-- Support linear and circular references (-z) -->
 	<repeat name="references" title="Reference Sequence" min="1">
             <param name="ref_file" type="data" format="fasta" required="true" label="Reference sequence(s) (FASTA)" />
-	    <param name="type" type="select" label="Reference type">
+            <param name="ref_type" type="select" label="Reference type">
                 <option value="linear">Linear (e.g. most chromosomes)</option>
                 <option value="circular">Circular (e.g. bacterial chromosomes, mitochondria)</option>
             </param>
-	</repeat>
+        </repeat>
         <repeat name="read_group" title="Read Group" min="1">
             <conditional name="segments">
                 <param name="type" type="select" label="Are these paired reads?">
@@ -125,13 +125,26 @@
         </repeat>
         <!-- Length fraction (-l), default 0.5 -->
         <!-- Similarity (-s), default 0.8 -->
-	<!-- Option for unmapped reads via clc_unmapped_reads ? -->
+        <!-- Option for unmapped reads via clc_unmapped_reads ? -->
     </inputs>
     <outputs>
         <data name="out_bam" format="bam" label="CLCbio mapping (BAM)" />
     </outputs>
     <tests>
-        <!-- TODO -->
+        <!-- TODO, actually test this... tricky due to single machine licence
+        <test>
+            <param name="ref_file" value="NC_010642.fna" ftype="fasta" />
+            <param name="ref_type" value="circular" />
+            <param name="type" value="interleaved" />
+            <param name="placement" value="fb" />
+            <param name="dist_mode" value="ss" />
+            <param name="min_size" value="1" />
+            <param name="max_size" value="1000" />
+            <param name="dist_mode" value="ss" />
+            <param name="filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
+            <output name="out_fasta" file="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" />
+        </test>
+        -->
     </tests>
     <help>
 
