@@ -14,7 +14,7 @@ def stop_err(msg, err=1):
 def run(cmd, log_handle):
     try:
         child = subprocess.Popen(cmd, shell=True,
-                                 stdout=log_handle,
+                                 stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
     except Exception, err:
         sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
@@ -23,7 +23,8 @@ def run(cmd, log_handle):
         sys.exit(1)
     #Use .communicate as can get deadlocks with .wait(),
     stdout, stderr = child.communicate()
-    assert not stdout and not stderr #Should be empty as sent to handle
+    assert not stderr #Should be empty as sent to stdout
+    log_handle.write(stdout)
     return child.returncode
 
 def make_bam(mira_convert, maf_file, fasta_file, bam_file, log_handle):
