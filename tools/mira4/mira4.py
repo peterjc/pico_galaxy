@@ -235,5 +235,6 @@ if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
 #print "Cleaning up..."
 clean_up(temp, name)
 
+handle.write("\nDone\n")
 handle.close()
 print("Done")
