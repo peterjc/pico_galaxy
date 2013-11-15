@@ -133,7 +133,7 @@ def collect_output(temp, name, handle):
 
     #For mapping mode, probably most people would expect a BAM file
     #using the reference FASTA file...
-    msg = make_bam(mira_convert, out_maf, ref_fasta, out_bam)
+    msg = make_bam(mira_convert, out_maf, ref_fasta, out_bam, handle)
     if msg:
         stop_err(msg)
 
