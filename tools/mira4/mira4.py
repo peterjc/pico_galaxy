@@ -201,8 +201,8 @@ return_code = child.returncode
 handle.write("\n")
 handle.write("============================ MIRA has finished ===============================\n")
 handle.write("MIRA took %0.2f hours\n" % (run_time / 3600.0))
-print "MIRA took %0.2f hours" % (run_time / 3600.0)
 if return_code:
+    print "MIRA took %0.2f hours" % (run_time / 3600.0)
     handle.write("Return error code %i from command:\n" % return_code)
     handle.write(cmd + "\n")
     handle.close()
@@ -223,7 +223,11 @@ if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
     handle.flush()
 
 #print "Collecting output..."
+start_time = time.time()
 collect_output(temp, name, handle)
+collect_time = time.time() - start_time
+handle.write("MIRA took %0.2f hours; collecting output %0.2f minutes\n" % (run_time / 3600.0, collect_time / 60.0))
+print("MIRA took %0.2f hours; collecting output %0.2f minutes\n" % (run_time / 3600.0, collect_time / 60.0))
 
 if os.path.isfile("MIRA_assembly/MIRA_d_results/ec.log"):
     #Treat as an error, but doing this AFTER collect_output
