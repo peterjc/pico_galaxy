@@ -151,7 +151,7 @@
 **What it does**
 
 Runs the CLCbio tool ``clc_mapper`` which produces a proprietary binary
-CAS format file, which is immediately processed using ``cls_cas_to_sam``
+CAS format file, which is immediately processed using ``clc_cas_to_sam``
 to generate a self-contained standard BAM file, which is then sorted
 and indexed using ``samtools``.
 
