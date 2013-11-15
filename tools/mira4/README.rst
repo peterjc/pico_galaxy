@@ -42,10 +42,12 @@ First install the 'mira' datatype for Galaxy, available here:
 
 There are four Galaxy files to install:
 
-* ``mira4.py`` (the Python wrapper script)
-* ``mira4_validator.py`` (the Python parameter validation script)
 * ``mira4_de_novo.xml`` (the Galaxy tool definition for de novo usage)
 * ``mira4_mapping.xml`` (the Galaxy tool definition for mapping usage)
+* ``mira4_bait.xml`` (the Galaxy tool definition for mirabait)
+* ``mira4.py`` (the Python wrapper script)
+* ``mira_bait.py`` (the Python wrapper script for mirabait)
+* ``mira4_validator.py`` (the XML parameter validation script)
 
 The suggested location is a new ``tools/mira4`` folder. You will also need to
 modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool, and also do
@@ -95,7 +97,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4.py tools/mira4/mira4_make_bam.py tools/mira4/mira4_validator.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta test-data/tvc_bait.fasta test-data/tvc_mini_bait_pos.fastq test-data/tvc_mini_bait_strict.fastq test-data/tvc_mini_bait_neg.fastq
+    $ tar -czf mira4_wrapper.tar.gz tools/mira4/README.rst tools/mira4/mira4_de_novo.xml tools/mira4/mira4_mapping.xml tools/mira4/mira4_bait.xml tools/mira4/mira4.py tools/mira4/mira4_make_bam.py tools/mira4/mira4_validator.py tools/mira4/mira4_bait.py tools/mira4/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta test-data/tvc_bait.fasta test-data/tvc_mini_bait_pos.fastq test-data/tvc_mini_bait_strict.fastq test-data/tvc_mini_bait_neg.fastq
 
 Check this worked::
 
@@ -103,9 +105,11 @@ Check this worked::
     tools/mira4/README.rst
     tools/mira4/mira4_de_novo.xml
     tools/mira4/mira4_mapping.xml
+    tools/mira4/mira4_bait.xml
     tools/mira4/mira4.py
     tools/mira4/mira4_make_bam.py
     tools/mira4/mira4_validator.py
+    tools/mira4/mira4_bait.py
     tools/mira4/tool_dependencies.xml
     test-data/tvc_mini.fastq
     test-data/tvc_contigs.fasta
