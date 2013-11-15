@@ -11,6 +11,11 @@
     <command interpreter="python">
 mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
     </command>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <param name="job_type" type="select" label="Assembly type">
             <option value="genome">Genome</option>

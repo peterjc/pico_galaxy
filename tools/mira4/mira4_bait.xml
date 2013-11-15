@@ -8,6 +8,11 @@
     <command interpreter="python">
 mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_occurence "$bait_file" "$input_reads" "$output_reads"
     </command>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
 	<param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
 	<param name="input_reads" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
