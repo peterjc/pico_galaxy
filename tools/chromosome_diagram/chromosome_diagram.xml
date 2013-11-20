@@ -31,7 +31,6 @@ chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_c
         <param name="strand_col" type="data_column" data_ref="tab_file" label="Column for feature strand" optional="true"/>
         <param name="color_col" type="data_column" data_ref="tab_file" label="Column for feature color" optional="true"/>
         <param name="fill_col" type="data_column" data_ref="tab_file" label="Column for feature fill color" optional="true"/>
-        <!-- Option to draw NNNN gaps? -->
         <!-- Size settings? Default scale per base pair & horizontal space per reference? -->
         <!-- Alignment settings? Top, middle, bottom should be easy -->
         <!-- Default colour? -->
