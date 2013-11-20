@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<repositories description="This requires the MIRA Alignment Format dataype definitions ('mira' format), and samtools.">
-    <repository name="mira_datatypes" owner="peterjc" />
-    <repository name="package_samtools_0_1_19" owner="iuc" />
-</repositories>
