@@ -61,6 +61,7 @@ v0.0.10 - Include links to Tool Shed in help text and this README file.
         - Automated installation of Biopython dependency.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
         - Renamed folder and adopted README.rst naming.
+v0.0.11 - Correct automated dependency definition.
 ======= ======================================================================
 
 
@@ -77,7 +78,7 @@ https://github.com/peterjc/pico_galaxy
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_primer_clip.tar.gz tools/seq_primer_clip/README.rst tools/seq_primer_clip/seq_primer_clip.* tools/seq_primer_clip/repository_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
+    $ tar -czf seq_primer_clip.tar.gz tools/seq_primer_clip/README.rst tools/seq_primer_clip/seq_primer_clip.* tools/seq_primer_clip/tool_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
 
 Check this worked::
 
@@ -85,7 +86,7 @@ Check this worked::
     tools/seq_primer_clip/README.rst
     tools/seq_primer_clip/seq_primer_clip.xml
     tools/seq_primer_clip/seq_primer_clip.py
-    tools/seq_primer_clip/repository_dependencies.xml
+    tools/seq_primer_clip/tool_dependencies.xml
     test-data/dop_primers.fasta
     test-data/MID4_GLZRM4E04_rnd30.fasta
     test-data/MID4_GLZRM4E04_rnd30.fastqsanger

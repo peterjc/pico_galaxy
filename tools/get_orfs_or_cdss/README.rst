@@ -67,6 +67,7 @@ v0.0.5  - Automated intallation of the Biopython dependency.
         - Adopt standard MIT License.
         - Updated citation information (Cock et al. 2013).
         - Renamed folder and adopted README.rst naming.
+v0.0.6  - Corrected automated dependency defintion.
 ======= ======================================================================
 
 
@@ -82,7 +83,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf get_orfs_or_cdss.tar.gz tools/get_orfs_or_cdss/README.rst tools/get_orfs_or_cdss/get_orfs_or_cdss.* tools/get_orfs_or_cdss/repository_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
+    $ tar -czf get_orfs_or_cdss.tar.gz tools/get_orfs_or_cdss/README.rst tools/get_orfs_or_cdss/get_orfs_or_cdss.* tools/get_orfs_or_cdss/tool_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
 
 Check this worked::
 
@@ -90,7 +91,7 @@ Check this worked::
     tools/get_orfs_or_cdss/README.rst
     tools/get_orfs_or_cdss/get_orfs_or_cdss.py
     tools/get_orfs_or_cdss/get_orfs_or_cdss.xml
-    tools/get_orfs_or_cdss/repository_dependencies.xml
+    tools/get_orfs_or_cdss/tool_dependencies.xml
     test-data/get_orf_input.fasta
     test-data/get_orf_input.Suis_ORF.nuc.fasta
     test-data/get_orf_input.Suis_ORF.prot.fasta

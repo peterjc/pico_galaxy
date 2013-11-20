@@ -71,6 +71,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
         - Renamed folder and adopted README.rst naming.
+v0.0.7  - Correct automated dependency definition.
 ======= ======================================================================
 
 
@@ -88,7 +89,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_filter_by_id.tar.gz tools/seq_filter_by_id/README.rst tools/seq_filter_by_id/seq_filter_by_id.* tools/seq_filter_by_id/repository_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
+    $ tar -czf seq_filter_by_id.tar.gz tools/seq_filter_by_id/README.rst tools/seq_filter_by_id/seq_filter_by_id.* tools/seq_filter_by_id/tool_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
 
 Check this worked::
 
@@ -96,7 +97,7 @@ Check this worked::
     tools/seq_filter_by_id/README.rst
     tools/seq_filter_by_id/seq_filter_by_id.py
     tools/seq_filter_by_id/seq_filter_by_id.xml
-    tools/seq_filter_by_id/repository_dependencies.xml
+    tools/seq_filter_by_id/tool_dependencies.xml
     test-data/k12_ten_proteins.fasta
     test-data/k12_hypothetical.fasta
     test-data/k12_hypothetical.tabular
