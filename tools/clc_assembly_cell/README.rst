@@ -86,7 +86,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/clc_assembly_cell
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf clcbio.tar.gz tools/clc_assembly_cell/README.rst tools/clc_assembly_cell/clc_assembler.xml tools/clc_assembly_cell/clc_mapper.xml tools/clc_assembly_cell/repository_dependencies.xml
+    $ tar -czf clcbio.tar.gz tools/clc_assembly_cell/README.rst tools/clc_assembly_cell/clc_assembler.xml tools/clc_assembly_cell/clc_mapper.xml tools/clc_assembly_cell/tool_dependencies.xml
 
 Check this worked::
 
@@ -94,7 +94,7 @@ Check this worked::
     tools/clc_assembly_cell/README.rst
     tools/clc_assembly_cell/clc_assembler.xml
     tools/clc_assembly_cell/clc_mapper.xml
-    tools/clc_assembly_cell/repository_dependencies.xml
+    tools/clc_assembly_cell/tool_dependencies.xml
 
 
 Licence (MIT)
