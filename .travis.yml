@@ -58,6 +58,8 @@ language: java
 #
 
 before_install:
+ - mkdir "$HOME/.python-eggs"
+ - chmod 700 "$HOME/.python-eggs" 
  - echo "Installing Biopython for system Python..."
  - sudo apt-get install python-biopython
  - echo "Downloading and compiling nlstradamus..."
