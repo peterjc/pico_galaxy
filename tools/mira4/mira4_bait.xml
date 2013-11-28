@@ -47,7 +47,7 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_o
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
             <output name="output_reads" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
-	</test>
+        </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
