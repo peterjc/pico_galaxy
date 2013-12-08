@@ -58,7 +58,10 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(0)
 
 def fix_threads(manifest):
-    """Tweak the manifest to alter the number of threads."""
+    """Tweak the manifest to alter the number of threads.
+
+    TODO - As of MIRA 4.0 RC5 this can be set at the command line instead.
+    """
     try:
         threads = int(os.environ.get("GALAXY_SLOTS", "1"))
     except ValueError:
