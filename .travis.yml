@@ -111,8 +111,8 @@ before_install:
 # We setup our tools under the Galaxy tool folder by using symlinks.
 # TODO - Restructure this to auto-update in future when add folders?
 #
-# We setup our datatypes by adding blast.py to the Galaxy library, and
-# adding the insert into lib/galaxy/datatypes/registry.py, and replacing
+# We setup our datatypes by adding mira.py to the Galaxy library, and
+# adding an import in lib/galaxy/datatypes/registry.py, and replacing
 # the datatypes_conf.xml file.
 #
 # We setup our sample data in the Galaxy test-data folder by copying them
