@@ -37,6 +37,9 @@
                 <action type="set_environment">
                     <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR</environment_variable>
                 </action>
+                <action type="set_environment">
+                    <environment_variable name="MIRA4" action="set_to">$INSTALL_DIR</environment_variable>
+                </action>
             </actions_group>
         </install>
         <readme>
