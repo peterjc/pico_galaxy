@@ -36,7 +36,7 @@ def get_version(mira_binary):
 
 try:
     mira_path = os.environ["MIRA4"]
-except ImportError:
+except KeyError:
     stop_err("Environment variable $MIRA4 not set")
 mira_binary = os.path.join(mira_path, "mira")
 if not os.path.isfile(mira_binary):
