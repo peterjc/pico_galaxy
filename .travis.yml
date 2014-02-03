@@ -88,9 +88,9 @@ before_install:
  - wget http://effectors.org/download/module/TTSS_STD-1.0.1.jar
  - echo "Downloading and setting up MIRA4..."
  - cd ${TRAVIS_BUILD_DIR}
- - wget https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0rc5_linux-gnu_x86_64_static.tar.bz2
- - tar -jxvf mira_4.0rc5_linux-gnu_x86_64_static.tar.bz2
- - export MIRA4=$PWD/mira_4.0rc5_linux-gnu_x86_64_static/bin
+ - wget https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0_linux-gnu_x86_64_static.tar.bz2
+ - tar -jxvf mira_4.0_linux-gnu_x86_64_static.tar.bz2
+ - export MIRA4=$PWD/mira_4.0_linux-gnu_x86_64_static/bin
  - echo "Installing samtools..."
  - sudo apt-get install samtools
  - echo "Fetching Galaxy..."
