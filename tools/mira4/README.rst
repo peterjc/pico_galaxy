@@ -56,7 +56,7 @@ this to ``tools_conf.xml.sample`` in order to run the tests::
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
 
-You will also need to install MIRA, we used version 4.0 RC5, and define the
+You will also need to install MIRA, we used version 4.0, and define the
 environment variable ``$MIRA4`` pointing at the folder containing the binaries.
 See:
 
@@ -85,7 +85,7 @@ Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial version (prototype for MIRA 4.0 RC4, based on wrapper for v3.4)
 v0.0.2  - Include BAM output (using ``miraconvert`` and ``samtools``).
-        - Updated to target MIRA 4.0 RC5
+        - Updated to target MIRA 4.0
 ======= ======================================================================
 
 
