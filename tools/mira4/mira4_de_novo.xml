@@ -79,7 +79,7 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
         <configfile name="manifest">
 project = MIRA
 job = denovo,${job_type},${job_quality}
-parameters = -GE:not=1 -NW:cmrnl -DI:trt=/tmp
+parameters = -GE:not=1 -NW:cmrnl=no -DI:trt=/tmp
 ## -GE:not is short for -GENERAL:number_of_threads and using one (1)
 ## can be useful for repeatability of assemblies and bug hunting.
 ##
