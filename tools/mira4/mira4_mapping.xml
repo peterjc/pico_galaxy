@@ -80,9 +80,11 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
         <configfile name="manifest">
 project = MIRA
 job = mapping,${job_type},${job_quality}
-parameters = -GE:not=1 -NW:cmrnl=no -DI:trt=/tmp
+parameters = -NW:cmrnl=no -DI:trt=/tmp
 ## -GE:not is short for -GENERAL:number_of_threads and using one (1)
 ## can be useful for repeatability of assemblies and bug hunting.
+## This is overriden by the command line -t switch which is easier
+## to set from within Galaxy.
 ##
 ## -NW:cmrnl is short for -NAG_AND_WARN:check_maxreadnamelength
 ## and without this MIRA aborts with read names over 40 characters
