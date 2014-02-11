@@ -15,7 +15,6 @@
     <tool file="seq_select_by_id/seq_select_by_id.xml" />
     <tool file="seq_primer_clip/seq_primer_clip.xml" />
     <tool file="predictnls/predictnls.xml" />
-    <tool file="mira4/mira4_de_novo.xml" />
     <tool file="mira4/mira4_bait.xml" />
     <tool file="samtools_idxstats/samtools_idxstats.xml" />
     <!-- Missing dependencies
@@ -30,6 +29,7 @@
     -->
     <!-- No tests yet (trying gives an error from the framework)
     <tool file="mira3/mira.xml" />
+    <tool file="mira4/mira4_de_novo.xml" />
     <tool file="mira4/mira4_mapping" />
     <tool file="chromosome_diagram/chromosome_diagram.xml" />
     -->
