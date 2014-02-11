@@ -130,11 +130,11 @@ strain = StrainX
 #end if
 ##Record the segment placement (if any)
 #if str($rg.segments.type) == "paired"
-segmentplacement = ${rg.segments.placement}
-segmentnaming = ${rg.segments.naming}
+segment_placement = ${rg.segments.placement}
+segment_naming = ${rg.segments.naming}
 #end if
 #if str($rg.segments.type) == "none"
-segmentplacement = ?
+segment_placement = ?
 #end if
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for $f in $rg.filenames
