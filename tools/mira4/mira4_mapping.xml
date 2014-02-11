@@ -133,9 +133,12 @@ strain = StrainX
 segment_placement = ${rg.segments.placement}
 segment_naming = ${rg.segments.naming}
 #end if
-#if str($rg.segments.type) == "none"
-segment_placement = ?
-#end if
+##if str($rg.segments.type) == "none"
+##MIRA4 manual says use segment_placement = unknown or ? for unpaired data
+##but this stopped working in MIRA 4.0 RC5 and 4.0 (final). See:
+##http://www.freelists.org/post/mira_talk/Unpaired-reads-and-segment-placement--or-unknown
+##segment_placement = ?
+##end if
 ##MIRA will accept multiple filenames on one data line, or multiple data lines
 #for $f in $rg.filenames
 ##Must now map Galaxy datatypes to MIRA file types...
