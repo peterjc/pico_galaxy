@@ -43,7 +43,8 @@ except KeyError:
     stop_err("Environment variable $MIRA4 not set")
 mira_binary = os.path.join(mira_path, "mirabait")
 if not os.path.isfile(mira_binary):
-    stop_err("Missing mirabait under $MIRA4, %r" % mira_binary)
+    stop_err("Missing mirabait under $MIRA4, %r\nFolder contained: %s"
+             % (mira_binary, ", ".join(os.listdir(mira_path))))
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s" % mira_ver)

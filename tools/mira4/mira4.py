@@ -40,10 +40,12 @@ except KeyError:
     stop_err("Environment variable $MIRA4 not set")
 mira_binary = os.path.join(mira_path, "mira")
 if not os.path.isfile(mira_binary):
-    stop_err("Missing mira under $MIRA4, %r" % mira_binary)
+    stop_err("Missing mira under $MIRA4, %r\nFolder contained: %s"
+             % (mira_binary, ", ".join(os.listdir(mira_path))))
 mira_convert = os.path.join(mira_path, "miraconvert")
 if not os.path.isfile(mira_convert):
-    stop_err("Missing miraconvert under $MIRA4, %r" % mira_convert)
+    stop_err("Missing miraconvert under $MIRA4, %r\nFolder contained: %s"
+             % (mira_convert, ", ".join(os.listdir(mira_path))))
 
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
