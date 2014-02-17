@@ -73,6 +73,9 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
         <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
         <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)" />
         <data name="out_maf" format="mira" label="MIRA de novo assembly" />
+        <!-- TODO?
+        <data name="out_contigstats" format="tabular" label="MIRA contig stats" />
+        -->
         <data name="out_log" format="txt" label="MIRA de novo log" />
     </outputs>
     <configfiles>
