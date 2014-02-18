@@ -16,7 +16,7 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
         <conditional name="sampling">
-            <param name="type" type="select" label="Sequence end treatment">
+            <param name="type" type="select" label="Sub-sampling approach">
                 <option value="everyNth">Take every n-th sequence (e.g. every second sequence) ended (will allow missing start/stop codons at the ends)</option>
                 <!-- TODO - target coverage etc -->
             </param>
