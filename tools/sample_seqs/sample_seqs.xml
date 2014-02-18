@@ -1,0 +1,88 @@
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.0.1">
+    <description>e.g. to reduce coverage</description>
+    <requirements>
+        <requirement type="package" version="1.63">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <version_command interpreter="python">sample_seqs.py --version</version_command>
+    <command interpreter="python">
+sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}" "${sampling.every_n}"
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
+        <conditional name="sampling">
+            <param name="type" type="select" label="Sequence end treatment">
+                <option value="everyNth">Take every n-th sequence (e.g. every second sequence) ended (will allow missing start/stop codons at the ends)</option>
+                <!-- TODO - target coverage etc -->
+            </param>
+            <when value="everyNth">
+                <param name="every_n" value="5" type="integer" min="2" help="e.g. 5 with take every 5th sequence (taking 20% of the sequences)" />
+            </when>
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="output_file" format="fasta" label="${input_file.name} (sub-sampled)" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
+            <param name="type" value="everyNth" />
+            <param name="every_n" value="100" />
+            <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="ecoli.fastq" />
+            <param name="type" value="everyNth" />
+            <param name="every_n" value="100" />
+            <output name="out_prot_file" file="ecoli.sample_N100.fastq" />
+        </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
+            <param name="type" value="everyNth" />
+            <param name="every_n" value="5" />
+            <output name="out_prot_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+Takes an input file of sequences (typically FASTA or FASTQ, but also
+Standard Flowgram Format (SFF) is supported), and returns a new sequence
+file sub-sampling from this (in the same format).
+
+Several sampling modes are supported, all designed to be non-random. This
+allows reproducibility, and also works on paired sequence files.
+
+The simplest mode is to take every N-th sequence, for example taking
+every 2nd sequence would sample half the file - while taking every 5th
+sequence would take 20% of the file.
+
+
+**Example Usage**
+
+Suppose you have some Illumina paired end data as files ``R1.fastq`` and
+``R2.fastq`` which give an estimated x200 coverage, and you wish to do a
+*de novo* assembly with a tool like MIRA which recommends lower coverage.
+Taking every 3rd read would reduce the estimated coverage to about x66,
+and would preserve the pairing as well.
+
+
+**Citation**
+
+This tool uses Biopython, so if you use this Galaxy tool in work leading to a
+scientific publication please cite the following paper:
+
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/sample_seqs
+    </help>
+</tool>
