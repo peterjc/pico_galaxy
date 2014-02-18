@@ -68,27 +68,33 @@ def alignment_back_translate(protein_alignment, nucleotide_records, key_function
     return MultipleSeqAlignment(aligned)
 
 
-try:
+if len(sys.argv) == 4:
     align_format, prot_align_file, nuc_fasta_file = sys.argv[1:]
-except:
+    nuc_align_file = sys.stdout
+elif len(sys.argv) == 5:
+    align_format, prot_align_file, nuc_fasta_file, nuc_align_file = sys.argv[1:]
+else:
     stop_err("""This is a Python script for 'back-translating' a protein alignment,
 
-It requires three arguments:
+It requires three or four arguments:
 - alignment format (e.g. fasta, clustal),
 - aligned protein file (in specified format),
 - unaligned nucleotide file (in fasta format).
+- aligned nucleotiode output file (in same format), optional.
 
-The nucleotide alignment is printed to stdout (in the specified format).
+The nucleotide alignment is printed to stdout if no output filename is given.
 
-Example usage, capturing stdout to a file by redirection:
+Example usage:
 
-$ python align_back_trans.py fasta demo_prot_align.fasta demo_nucs.fasta > demo_nuc_align.fasta
+$ python align_back_trans.py fasta demo_prot_align.fasta demo_nucs.fasta demo_nuc_align.fasta
 
-This script is available with sample data here:
-https://github.com/peterjc/picobio/tree/master/align
+Warning: If the output file already exists, it will be overwritten.
+
+This script is available with sample data and a Galaxy wrapper here:
+https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
 """)
 
 prot_align = AlignIO.read(prot_align_file, align_format, alphabet=generic_protein)
 nuc_dict = SeqIO.index(nuc_fasta_file, "fasta")
 nuc_align = alignment_back_translate(prot_align, nuc_dict, gap="-")
-AlignIO.write(nuc_align, sys.stdout, align_format)
+AlignIO.write(nuc_align, nuc_align_file, align_format)
