@@ -7,8 +7,8 @@ See the licence text below (MIT licence).
 
 This tool is a short Python script (using Biopython library functions) to
 load a protein alignment, and matching nucleotide FASTA file of unaligned
-sequences, in order to produce a codon aware nucleotide alignment - which
-can be viewed as a back translation.
+sequences, which are threaded onto the protein alignment in order to produce
+a codon aware nucleotide alignment - which can be viewed as a back translation.
 
 This tool is available from the Galaxy Tool Shed at:
 
