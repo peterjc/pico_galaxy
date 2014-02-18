@@ -59,7 +59,7 @@
     <!-- Job splitting with merge via clc_join_mappings? -->
     <inputs>
         <!-- Support linear and circular references (-z) -->
-	<repeat name="references" title="Reference Sequence" min="1">
+        <repeat name="references" title="Reference Sequence" min="1">
             <param name="ref_file" type="data" format="fasta" required="true" label="Reference sequence(s) (FASTA)" />
             <param name="ref_type" type="select" label="Reference type">
                 <option value="linear">Linear (e.g. most chromosomes)</option>

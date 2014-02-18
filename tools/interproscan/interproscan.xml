@@ -1,23 +1,22 @@
 <tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.1">
-	<description>Interproscan functional predictions of ORFs</description>
-	<command interpreter="python">
-	  interproscan.py 
+    <description>Interproscan functional predictions of ORFs</description>
+    <command interpreter="python">
+      interproscan.py 
            '$__app__.config.new_file_path'
-	   '$input'
+       '$input'
            '$format'
-	   '$output'
-	</command>
-        <inputs>
-            <param name="input" type="data" format="fasta" label="ORFs in protein FASTA format"/>
-           <param name="format" type="boolean" format="gff" label="GFF format?" truevalue="gff" falsevalue="raw"/> 
-        </inputs>
-	<outputs>
-                <data format="tabular" name="output" label="Interproscan output"/>
-		
-	</outputs>
-	<requirements>
-	</requirements>
-	<help>
+       '$output'
+    </command>
+    <inputs>
+        <param name="input" type="data" format="fasta" label="ORFs in protein FASTA format"/>
+        <param name="format" type="boolean" format="gff" label="GFF format?" truevalue="gff" falsevalue="raw"/> 
+    </inputs>
+    <outputs>
+        <data format="tabular" name="output" label="Interproscan output"/>        
+    </outputs>
+    <requirements>
+    </requirements>
+    <help>
 
 **Interproscan**
 
@@ -74,5 +73,5 @@ http://dx.doi.org/10.1093/nar/gkn785
 This wrapper is available to install into other Galaxy Instances via the Galaxy Tool Shed at
 http://toolshed.g2.bx.psu.edu/view/konradpaszkiewicz/interproscan
 
-	</help>
+    </help>
 </tool>

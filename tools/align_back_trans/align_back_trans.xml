@@ -15,7 +15,7 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
     </stdio>
     <inputs>
         <param name="prot_align" type="data" format="fasta,muscle,clustal" label="Aligned protein file" help="Mutliple sequence file in FASTA, ClustalW or PHYLIP format." />
-	<!-- TODO? Could verify the translation
+        <!-- TODO? Could verify the translation
         <param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">
             <option value="1">1. Standard</option>
             <option value="2">2. Vertebrate Mitochondrial</option>
@@ -35,7 +35,7 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
             <option value="22">22. Scenedesmus obliquus</option>
             <option value="23">23. Thraustochytrium Mitochondrial</option>
         </param>
-	-->
+        -->
         <param name="nuc_file" type="data" format="fasta" label="Unaligned nucleotide sequences" help="FASTA format, using same identifiers as your protein alignment" />
     </inputs>
     <outputs>

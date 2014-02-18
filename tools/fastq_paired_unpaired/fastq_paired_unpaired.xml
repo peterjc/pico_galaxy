@@ -1,7 +1,7 @@
 <tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.7">
-	<description>using the read name suffices</description>
-	<version_command interpreter="python">fastq_paired_unpaired.py --version</version_command>
-	<command interpreter="python">
+    <description>using the read name suffices</description>
+    <version_command interpreter="python">fastq_paired_unpaired.py --version</version_command>
+    <command interpreter="python">
 fastq_paired_unpaired.py $input_fastq.extension $input_fastq
 #if $output_choice_cond.output_choice=="separate"
  $output_forward $output_reverse
@@ -9,52 +9,52 @@ fastq_paired_unpaired.py $input_fastq.extension $input_fastq
  $output_paired
 #end if
 $output_singles
-	</command>
-	<stdio>
-		<!-- Anything other than zero is an error -->
-		<exit_code range="1:" />
-		<exit_code range=":-1" />
-	</stdio>
-	<inputs>
-		<param name="input_fastq" type="data" format="fastq" label="FASTQ file to divide into paired and unpaired reads"/>
-		<conditional name="output_choice_cond">
-			<param name="output_choice" type="select" label="How to output paired reads?">
-				<option value="separate">Separate (two FASTQ files, for the forward and reverse reads, in matching order).</option>
-				<option value="interleaved">Interleaved (one FASTQ file, alternating forward read then partner reverse read).</option>
-			</param>
-			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
-			<when value="separate" />
-			<when value="interleaved" />
-		</conditional>
-	</inputs>
-	<outputs>
-		<data name="output_singles" format="input" label="Orphan or single reads"/>
-		<data name="output_forward" format="input" label="Forward paired reads">
-			<filter>output_choice_cond["output_choice"] == "separate"</filter>
-		</data>
-		<data name="output_reverse" format="input" label="Reverse paired reads">
-			<filter>output_choice_cond["output_choice"] == "separate"</filter>
-		</data>
-		<data name="output_paired" format="input" label="Interleaved paired reads">
-			<filter>output_choice_cond["output_choice"] == "interleaved"</filter>
-		</data>
-	</outputs>
-	<tests>
-		<test>
-			<param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
-			<param name="output_choice" value="separate"/>
-			<output name="output_singles" file="sanger-pairs-singles.fastq" ftype="fastq"/>
-			<output name="output_forward" file="sanger-pairs-forward.fastq" ftype="fastq"/>
-			<output name="output_reverse" file="sanger-pairs-reverse.fastq" ftype="fastq"/>
-		</test>
-		<test>
-			<param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
-			<param name="output_choice" value="interleaved"/>
-			<output name="output_singles" file="sanger-pairs-singles.fastq" ftype="fastq"/>
-			<output name="output_paired" file="sanger-pairs-interleaved.fastq" ftype="fastq"/>
-		</test>
-	</tests>
-	<help>
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_fastq" type="data" format="fastq" label="FASTQ file to divide into paired and unpaired reads"/>
+        <conditional name="output_choice_cond">
+            <param name="output_choice" type="select" label="How to output paired reads?">
+                <option value="separate">Separate (two FASTQ files, for the forward and reverse reads, in matching order).</option>
+                <option value="interleaved">Interleaved (one FASTQ file, alternating forward read then partner reverse read).</option>
+            </param>
+            <!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+            <when value="separate" />
+            <when value="interleaved" />
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="output_singles" format="input" label="Orphan or single reads"/>
+        <data name="output_forward" format="input" label="Forward paired reads">
+            <filter>output_choice_cond["output_choice"] == "separate"</filter>
+        </data>
+        <data name="output_reverse" format="input" label="Reverse paired reads">
+            <filter>output_choice_cond["output_choice"] == "separate"</filter>
+        </data>
+        <data name="output_paired" format="input" label="Interleaved paired reads">
+            <filter>output_choice_cond["output_choice"] == "interleaved"</filter>
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
+            <param name="output_choice" value="separate"/>
+            <output name="output_singles" file="sanger-pairs-singles.fastq" ftype="fastq"/>
+            <output name="output_forward" file="sanger-pairs-forward.fastq" ftype="fastq"/>
+            <output name="output_reverse" file="sanger-pairs-reverse.fastq" ftype="fastq"/>
+        </test>
+        <test>
+            <param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
+            <param name="output_choice" value="interleaved"/>
+            <output name="output_singles" file="sanger-pairs-singles.fastq" ftype="fastq"/>
+            <output name="output_paired" file="sanger-pairs-interleaved.fastq" ftype="fastq"/>
+        </test>
+    </tests>
+    <help>
 
 **What it does**
 
@@ -109,5 +109,5 @@ http://dx.doi.org/10.7717/peerj.167
 
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_paired_unpaired
-	</help>
+    </help>
 </tool>

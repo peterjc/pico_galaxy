@@ -14,8 +14,8 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_o
         <exit_code range=":-1" />
     </stdio>
     <inputs>
-	<param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
-	<param name="input_reads" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
+        <param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
+        <param name="input_reads" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
         <param name="output_choice" type="select" label="Output positive matches, or negative matches?">
             <option value="pos">Just positive matches</option>
             <option value="neg">Just negative matches</option>
@@ -24,11 +24,11 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_o
             <option value="both">Check both strands</option>
             <option value="fwd">Just forward strand</option>
         </param>
-	<param name="kmer_length" type="integer" value="31" min="1" max="32"
-	       label="k-mer length" help="Maximum 32" />
-	<param name="min_occurence" type="integer" value="1" min="1"
-	       label="Minimum k-mer occurence"
-	       help="How many k-mer matches do you want per read? Minimum one" />
+        <param name="kmer_length" type="integer" value="31" min="1" max="32"
+               label="k-mer length" help="Maximum 32" />
+        <param name="min_occurence" type="integer" value="1" min="1"
+               label="Minimum k-mer occurence"
+               help="How many k-mer matches do you want per read? Minimum one" />
     </inputs>
     <outputs>
         <data name="output_reads" format="fasta" label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name">
@@ -40,7 +40,7 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_o
                 <when input_dataset="input_reads" attribute="extension" value="fastqillumina" format="fastqillumina" />
                 <when input_dataset="input_reads" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
             </change_format>
-	</data>
+        </data>
     </outputs>
     <tests>
         <test>

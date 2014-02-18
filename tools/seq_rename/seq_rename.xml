@@ -21,14 +21,14 @@ seq_rename.py $input_tabular $old_column $new_column $input_file $input_file.ext
     </inputs>
     <outputs>
         <data name="output_file" format="fasta" label="Renamed ${on_string}">
-            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
+            <!-- TODO - Replace this with format="input:input_file" if/when that works -->
             <change_format>
                 <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
-		<when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
-		<when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
-		<when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
-		<when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
-		<when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+                <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
+                <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
             </change_format>
         </data>
     </outputs>

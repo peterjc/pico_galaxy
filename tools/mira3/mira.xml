@@ -72,61 +72,61 @@ COMMON_SETTINGS
         </param>
         <!-- Backbone -->
         <conditional name="condBackbone">
-           <param name="use" type="select" label="Backbones/reference chromosomes?" help="Required for mapping, optional for de novo assembly.">
-               <option value="false">No</option>
-               <option value="true">Yes</option>
-           </param>
-           <when value="false" />
-           <when value="true">
-              <!-- MIRA also allows CAF and GenBank, but Galaxy doesn't define those (yet) -->
-              <param name="filename" type="data" format="fasta" label="Backbone/reference sequences" help="FASTA format" />
-           </when>
+            <param name="use" type="select" label="Backbones/reference chromosomes?" help="Required for mapping, optional for de novo assembly.">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </param>
+            <when value="false" />
+            <when value="true">
+                <!-- MIRA also allows CAF and GenBank, but Galaxy doesn't define those (yet) -->
+                <param name="filename" type="data" format="fasta" label="Backbone/reference sequences" help="FASTA format" />
+            </when>
         </conditional>
         <!-- Sanger -->
         <conditional name="condSanger">
-           <param name="use" type="select" label="Sanger/Capillary reads?">
-               <option value="false">No</option>
-               <option value="true">Yes</option>
-           </param>
-           <when value="false" />
-           <when value="true">
-              <param name="filename" type="data" format="fastq" label="Sanger/Capillary reads file" help="FASTQ format" />
-           </when>
+            <param name="use" type="select" label="Sanger/Capillary reads?">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </param>
+            <when value="false" />
+            <when value="true">
+                <param name="filename" type="data" format="fastq" label="Sanger/Capillary reads file" help="FASTQ format" />
+            </when>
         </conditional>
         <!-- Roche 454 -->
         <conditional name="condRoche">
-           <param name="use" type="select" label="454 reads?">
-               <option value="false">No</option>
-               <option value="true">Yes</option>
-           </param>
-           <when value="false" />
-           <when value="true">
-              <!-- TODO? Support SFF files directly, e.g. with sff_extract, but will need linker sequences -->
-              <param name="filename" type="data" format="fastq" label="Roche 454 reads file" help="FASTQ format" />
-           </when>
+            <param name="use" type="select" label="454 reads?">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </param>
+            <when value="false" />
+            <when value="true">
+                <!-- TODO? Support SFF files directly, e.g. with sff_extract, but will need linker sequences -->
+                <param name="filename" type="data" format="fastq" label="Roche 454 reads file" help="FASTQ format" />
+            </when>
         </conditional>
         <!-- Illumina -->
         <conditional name="condIllumina">
-           <param name="use" type="select" label="Solexa/Illumina reads?">
-               <option value="false">No</option>
-               <option value="true">Yes</option>
-           </param>
-           <when value="false" />
-           <when value="true">
-              <param name="filename" type="data" format="fastq" label="Solexa/Illumina reads file" help="FASTQ format" />
-           </when>
+            <param name="use" type="select" label="Solexa/Illumina reads?">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </param>
+            <when value="false" />
+            <when value="true">
+                <param name="filename" type="data" format="fastq" label="Solexa/Illumina reads file" help="FASTQ format" />
+            </when>
         </conditional>
         <!-- Ion Torrent -->
         <conditional name="condIonTorrent">
-           <param name="use" type="select" label="Ion Torrent reads?">
-               <option value="false">No</option>
-               <option value="true">Yes</option>
-           </param>
-           <when value="false" />
-           <when value="true">
-              <!-- TODO? Support SFF files directly, e.g. with sff_extract -->
-              <param name="filename" type="data" format="fastq" label="Ion Torrent reads file" help="FASTQ format" />
-           </when>
+            <param name="use" type="select" label="Ion Torrent reads?">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </param>
+            <when value="false" />
+            <when value="true">
+                <!-- TODO? Support SFF files directly, e.g. with sff_extract -->
+                <param name="filename" type="data" format="fastq" label="Ion Torrent reads file" help="FASTQ format" />
+            </when>
         </conditional>
     </inputs>
     <outputs>
@@ -154,7 +154,7 @@ https://trello.com/c/zSTrfDOB/820-disambiguated-conditional-parameters-not-suppo
             <param name="condIllumina.use" value="false" /> 
             <param name="condIonTorrent.use" value="false" />
             <output name="out_fasta" file="tvc_contigs.fasta" ftype="fasta" />
-	</test>
+        </test>
 -->
     </tests>
     <help>

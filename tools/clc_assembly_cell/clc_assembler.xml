@@ -37,7 +37,7 @@
             <conditional name="segments">
                 <param name="type" type="select" label="Are these paired reads?">
                     <option value="paired">Paired reads (as two files)</option>
-		    <option value="interleaved">Paired reads (as one interleaved file)</option>
+                    <option value="interleaved">Paired reads (as one interleaved file)</option>
                     <option value="none">Unpaired reads (single or orphan reads)</option>
                 </param>
                 <when value="paired">
@@ -47,7 +47,7 @@
                         <option value="ff">---&gt; ---&gt;</option>
                         <option value="bb">&lt;--- &lt;---</option>
                     </param>
-		    <param name="dist_mode" type="select" label="How is the fragment distance measured?">
+                    <param name="dist_mode" type="select" label="How is the fragment distance measured?">
                         <option value="ss">Start to start (e.g. Sanger capillary or Solexa/Illumina libraries)</option>
                         <option value="se">Start to end</option>
                         <option value="es">End to start</option>
@@ -58,7 +58,7 @@
                            label="Minimum size of 'good' DNA templates in the library preparation" />
                     <param name="max_size" type="integer" optional="false" min="0" value=""
                            label="Maximum size of 'good' DNA templates in the library preparation" />
-		    <param name="filename1" type="data" format="fastq,fasta" required="true" label="Read file one"/>
+                    <param name="filename1" type="data" format="fastq,fasta" required="true" label="Read file one"/>
                     <param name="filename2" type="data" format="fastq,fasta" required="true" label="Read file two"/>
                 </when>
                 <when value="interleaved">
@@ -84,13 +84,13 @@
                 <when value="none">
                     <param name="filenames" type="data" format="fastq,fasta" multiple="true" required="true" label="Read file(s)"
                            help="Multiple files allowed, for example several files of orphan reads." />
-		</when>
+                </when>
             </conditional>
         </repeat>
-	<param name="min_contig_len" type="integer" optional="false" min="1" value="200" label="Minimum contig length"/>
-	<!-- Word size? -->
-	<!-- Bubble size? -->
-	<!-- Scaffolding options? -->
+        <param name="min_contig_len" type="integer" optional="false" min="1" value="200" label="Minimum contig length"/>
+        <!-- Word size? -->
+        <!-- Bubble size? -->
+        <!-- Scaffolding options? -->
         <!-- AGP / GFF output? -->
     </inputs>
     <!-- min/max validation? <code file="clc_validator.py" /> -->

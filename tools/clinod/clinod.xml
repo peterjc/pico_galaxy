@@ -24,7 +24,7 @@ java -jar \$CLINOD/clinod-1.3.jar -in="$fasta_file" -out="$tabular_file" -t="\$G
     <tests>
         <test>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />
-	    <output name="tabular_file" file="four_human_proteins.clinod-1.3.tabular" ftype="tabular" />
+            <output name="tabular_file" file="four_human_proteins.clinod-1.3.tabular" ftype="tabular" />
         </test>
     </tests>
     <help>

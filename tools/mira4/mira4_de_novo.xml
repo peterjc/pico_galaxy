@@ -34,7 +34,7 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
                 <option value="pcbiolq">PacBio low quality (raw)</option>
                 <option value="pcbiohq">PacBio high quality (corrected)</option>
                 <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
-		<!-- TODO reference/backbone as an entry here? -->
+                <!-- TODO reference/backbone as an entry here? -->
             </param>
             <conditional name="segments">
                 <param name="type" type="select" label="Are these paired reads?">
@@ -64,8 +64,8 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
                 </when>
                 <when value="none" /><!-- no further questions -->
             </conditional>
-	    <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
-		   help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
+            <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
+                  help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
     </inputs>
     <code file="mira4_validator.py" />
@@ -161,10 +161,10 @@ data = ${f.ext}::$f
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta" />
         </test>
         -->
-	<!-- Simple assembly based on MIRA's minidemo/solexa1 example
+    <!-- Simple assembly based on MIRA's minidemo/solexa1 example
              Note we're using just one repeat group,
              but two parameters within the repeat (filename, no pairing)
-	     -->
+         -->
         <test>
             <param name="job_type" value="genome" />
             <param name="job_quality" value="accurate" />

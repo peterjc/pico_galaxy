@@ -4,7 +4,7 @@
         <install version="1.0">
             <actions>
                 <action type="download_by_url">http://www.moseslab.csb.utoronto.ca/NLStradamus/NLStradamus/NLStradamus.1.8.tar.gz</action>
-		<!-- Although v1.7 used a subfolder in the tar-ball, v1.8 did not -->
+                <!-- Although v1.7 used a subfolder in the tar-ball, v1.8 did not -->
                 <action type="shell_command">g++ NLStradamus.cpp -o NLStradamus -O3</action>
                 <action type="move_file"><source>NLStradamus</source><destination>$INSTALL_DIR/</destination></action>
                 <action type="set_environment">

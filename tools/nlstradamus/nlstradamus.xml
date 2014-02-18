@@ -35,7 +35,7 @@
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />
             <param name="model" value="1" />
             <param name="algorithm" value="1" />
-	    <param name="threshold" value="0.6" />
+            <param name="threshold" value="0.6" />
             <output name="tabular_file" file="four_human_proteins.nlstradamus.tabular" ftype="tabular" />
         </test>
         <test>

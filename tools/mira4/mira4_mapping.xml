@@ -25,11 +25,11 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
             <option value="accurate">Accurate</option>
             <option value="draft">Draft</option>
         </param>
-	<!-- TODO? Allow technology type for references? -->
-	<!-- TODO? Allow strain settings for reference(s) and reads? -->
-	<!-- TODO? Use a repeat to allow for multi-strain references? -->
+        <!-- TODO? Allow technology type for references? -->
+        <!-- TODO? Allow strain settings for reference(s) and reads? -->
+        <!-- TODO? Use a repeat to allow for multi-strain references? -->
         <!-- TODO? Add strain to the mapping read groups? -->
-	<param name="references" type="data" format="fasta,fastq,mira" multiple="true" required="true" label="Backbone reference file(s)"
+        <param name="references" type="data" format="fasta,fastq,mira" multiple="true" required="true" label="Backbone reference file(s)"
                help="Multiple files allowed, for example one FASTA file per chromosome or plasmid." />
         <param name="strain_setup" type="select" label="Strain configuration (reference vs reads)">
             <option value="default">Different strains - mapping reads onto a related reference ('StrainX' vs 'ReferenceStrain')</option>
