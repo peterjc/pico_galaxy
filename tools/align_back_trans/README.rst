@@ -69,7 +69,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf align_back_trans.tar.gz tools/align_back_trans/README.rst tools/align_back_trans/align_back_trans.py tools/align_back_trans/align_back_trans.xml tools/align_back_trans/tool_dependencies.xml test-data/demo_nucs.fasta test-data/demo_prot_align.fasta
+    $ tar -czf align_back_trans.tar.gz tools/align_back_trans/README.rst tools/align_back_trans/align_back_trans.py tools/align_back_trans/align_back_trans.xml tools/align_back_trans/tool_dependencies.xml test-data/demo_nucs.fasta test-data/demo_prot_align.fasta test-data/demo_nuc_align.fasta
 
 Check this worked::
 
@@ -80,6 +80,7 @@ Check this worked::
     tools/align_back_trans/tool_dependencies.xml
     test-data/demo_nucs.fasta
     test-data/demo_prot_align.fasta
+    test-data/demo_nuc_align.fasta
 
 
 Licence (MIT)
