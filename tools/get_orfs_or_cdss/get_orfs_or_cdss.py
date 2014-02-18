@@ -19,7 +19,7 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI), Dundee, UK. All rights reserved.
 
-See accompanying text file for licence details (MIT/BSD style).
+See accompanying text file for licence details (MIT licence).
 
 This is version 0.0.3 of the script.
 """
