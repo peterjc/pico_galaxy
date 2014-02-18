@@ -1,10 +1,34 @@
 #!/usr/bin/env python
+"""Back-translate a protein alignment to nucleotides
+
+This tool is a short Python script (using Biopython library functions) to
+load a protein alignment, and matching nucleotide FASTA file of unaligned
+sequences, in order to produce a codon aware nucleotide alignment - which
+can be viewed as a back translation.
+
+The development repository for this tool is here:
+
+* https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans  
+
+This tool is available with a Galaxy wrapper from the Galaxy Tool Shed at:
+
+* http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
+
+See accompanying text file for licence details (MIT licence).
+
+This is version 0.0.2 of the script.
+"""
+
 import sys
 from Bio.Seq import Seq
 from Bio.Alphabet import generic_dna, generic_protein
 from Bio.Align import MultipleSeqAlignment
 from Bio import SeqIO
 from Bio import AlignIO
+
+if "-v" in sys.argv or "--version" in sys.argv:
+    print "v0.0.2"
+    sys.exit(0)
 
 def stop_err(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
@@ -92,6 +116,7 @@ Warning: If the output file already exists, it will be overwritten.
 
 This script is available with sample data and a Galaxy wrapper here:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
+http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
 """)
 
 prot_align = AlignIO.read(prot_align_file, align_format, alphabet=generic_protein)
