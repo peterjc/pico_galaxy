@@ -33,8 +33,9 @@ There are just two files to install to use this tool from within Galaxy:
 
 The suggested location is in a dedicated ``tools/align_back_trans`` folder.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
-tool. One suggested location is in the filters section. Simply add the line::
+You will also need to modify the tools_conf.xml file to tell Galaxy to offer
+the tool. One suggested location is in the multiple alignments section. Simply
+add the line::
 
     <tool file="align_back_trans/align_back_trans.xml" />
 
