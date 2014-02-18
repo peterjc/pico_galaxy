@@ -31,18 +31,18 @@ Manual Installation
 
 There are just two files to install to use this tool from within Galaxy:
 
-* get_orfs_or_cdss.py (the Python script)
-* get_orfs_or_cdss.xml (the Galaxy tool definition)
+* ``get_orfs_or_cdss.py`` (the Python script)
+* ``get_orfs_or_cdss.xml`` (the Galaxy tool definition)
 
-The suggested location is in a dedicated tools/get_orfs_or_cdss folder.
+The suggested location is in a dedicated ``tools/get_orfs_or_cdss`` folder.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="get_orfs_or_cdss/get_orfs_or_cdss.xml" />
 
 You will also need to install Biopython 1.54 or later. If you want to run
-the unit tests, include this line in tools_conf.xml.sample and the sample
+the unit tests, include this line in ``tools_conf.xml.sample`` and the sample
 FASTA files under the test-data directory. Then::
 
     ./run_functional_tests.sh -id get_orfs_or_cdss
