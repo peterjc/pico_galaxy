@@ -6,7 +6,7 @@
     </requirements>
     <version_command interpreter="python">align_back_trans.py --version</version_command>
     <command interpreter="python">
-align_back_trans.py $prot_align.ext $prot_align $nuc_file $out_nuc_align
+align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
