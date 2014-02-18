@@ -66,6 +66,10 @@ be viewed as a back translation.
 Note - the provided nucleotide sequences should be exactly three times the
 length of the protein sequences (exluding the gaps).
 
+Note - the nucleotide FASTA file may contain extra sequences not in the
+protein alignment, they will be ignored. This can be useful if for example
+you have a nucleotide FASTA file containing all the genes in an organism,
+while the protein alignment is a specific gene family.
 
 **Example**
 
