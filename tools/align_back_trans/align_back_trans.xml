@@ -63,6 +63,8 @@ using the same identifiers), and threads the nucleotide sequences onto the
 protein alignment to produce a codon aware nucleotide alignment - which can
 be viewed as a back translation.
 
+Note - the protein and nucleotide sequences must use the same identifers.
+
 Note - the provided nucleotide sequences should be exactly three times the
 length of the protein sequences (exluding the gaps).
 
