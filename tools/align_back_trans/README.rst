@@ -38,7 +38,7 @@ tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="align_back_trans/align_back_trans.xml" />
 
-You will also need to install Biopython 1.54 or later. If you want to run
+You will also need to install Biopython 1.62 or later. If you want to run
 the unit tests, include this line in ``tools_conf.xml.sample`` and the sample
 FASTA files under the test-data directory. Then::
 
