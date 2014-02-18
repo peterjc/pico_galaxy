@@ -1,0 +1,81 @@
+<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.2">
+    <description>Gives a codon aware alignment</description>
+    <requirements>
+        <requirement type="package" version="1.63">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <version_command interpreter="python">align_back_trans.py --version</version_command>
+    <command interpreter="python">
+align_back_trans.py $prot_align.ext $prot_align $nuc_file $out_nuc_align
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="prot_align" type="data" format="fasta,muscle,clustal" label="Aligned protein file" help="Mutliple sequence file in FASTA, ClustalW or PHYLIP format." />
+	<!-- TODO? Could verify the translation
+        <param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">
+            <option value="1">1. Standard</option>
+            <option value="2">2. Vertebrate Mitochondrial</option>
+            <option value="3">3. Yeast Mitochondrial</option>
+            <option value="4">4. Mold, Protozoan, Coelenterate Mitochondrial and Mycoplasma/Spiroplasma</option>
+            <option value="5">5. Invertebrate Mitochondrial</option>
+            <option value="6">6. Ciliate Macronuclear and Dasycladacean</option>
+            <option value="9">9. Echinoderm Mitochondrial</option>
+            <option value="10">10. Euplotid Nuclear</option>
+            <option value="11">11. Bacterial</option>
+            <option value="12">12. Alternative Yeast Nuclear</option>
+            <option value="13">13. Ascidian Mitochondrial</option>
+            <option value="14">14. Flatworm Mitochondrial</option>
+            <option value="15">15. Blepharisma Macronuclear</option>
+            <option value="16">16. Chlorophycean Mitochondrial</option>
+            <option value="21">21. Trematode Mitochondrial</option>
+            <option value="22">22. Scenedesmus obliquus</option>
+            <option value="23">23. Thraustochytrium Mitochondrial</option>
+        </param>
+	-->
+        <param name="nuc_file" type="data" format="fasta" label="Unaligned nucleotide sequences" help="FASTA format, using same identifiers as your protein alignment" />
+    </inputs>
+    <outputs>
+        <data name="out_nuc_align" format="fasta" label="${prot_align.name} (back-translated)">
+            <!-- TODO - Replace this with format="input:prot_align" if/when that works -->
+            <change_format>
+                <when input_dataset="prot_align" attribute="extension" value="clustal" format="clustal" />
+                <when input_dataset="prot_align" attribute="extension" value="phylip" format="phylip" />
+            </change_format>
+        </data>
+    </outputs>
+    <tests>
+        <test>
+            <param name="prot_align" value="demo_prot_align.fasta" />
+            <param name="nuc_file" value="demo_nucs.fasta" />
+            <output name="out_nuc_align" file="demo_nuc_align.fasta" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+Takes an input file of aligned protein sequences (typically FASTA or Clustal
+format), and a matching file of unaligned nucleotide sequences (FASTA format,
+using the same identifiers), and threads the nucleotide sequences onto the
+protein alignment to produce a codon aware nucleotide alignment - which can
+be viewed as a back translation.
+
+Note - the provided nucleotide sequences should be exactly three times the
+length of the protein sequences (exluding the gaps).
+
+**Citation**
+
+This tool uses Biopython, so if you use this Galaxy tool in work leading to a
+scientific publication please cite the following paper:
+
+Cock et al (2009). Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
+    </help>
+</tool>
