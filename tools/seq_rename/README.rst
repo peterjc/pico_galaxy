@@ -35,18 +35,18 @@ Manual Installation
 
 There are just two files to install to use this tool from within Galaxy:
 
-* seq_rename.py (the Python script)
-* seq_rename.xml (the Galaxy tool definition)
+* ``seq_rename.py`` (the Python script)
+* ``seq_rename.xml`` (the Galaxy tool definition)
 
-The suggested location is in a dedicated tools/seq_rename folder.
+The suggested location is in a dedicated ``tools/seq_rename`` folder.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="seq_rename/seq_rename.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml``.sample
+and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     $ ./run_functional_tests.sh -id seq_rename
 

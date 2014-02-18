@@ -26,17 +26,17 @@ This expects samtools to be on the $PATH, and was tested using v0.1.19.
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/samtools_idxstats`` folder:
 
-* samtools_idxstats.xml (the Galaxy tool definition)
-* samtools_idxstats.py (the Python wrapper script)
-* README.rst (this file)
+* ``samtools_idxstats.xml`` (the Galaxy tool definition)
+* ``samtools_idxstats.py`` (the Python wrapper script)
+* ``README.rst`` (this file)
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
 the tool. Just add the line, perhaps under the NGS tools section::
 
   <tool file="samtools_idxstats/samtools_idxstats.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
+and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     $ ./run_functional_tests.sh -id samtools_idxstats
 

@@ -12,23 +12,23 @@ sets, which are then drawn using the R limma package function vennDiagram
 
 There are just two files to install:
 
-* venn_list.py (the Python script)
-* venn_list.xml (the Galaxy tool definition)
+* ``venn_list.py`` (the Python script)
+* ``venn_list.xml`` (the Galaxy tool definition)
 
-The suggested location is in the Galaxy folder tools/plotting next to other
-graph drawing tools, or a dedicated tools/venn_list directory.
+The suggested location is in the Galaxy folder ``tools/plotting`` next to other
+graph drawing tools, or a dedicated ``tools/venn_list`` directory.
 
 You will also need to install Biopython 1.54 or later, and the R/Bioconductor
 pacakge limma. You should already have rpy installed for other Galaxy tools.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. The suggested location is in the "Graph/Display Data" section. Simply add
 the line::
 
   <tool file="venn_list/venn_list.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample and
-move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml.sample`` and
+move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     ./run_functional_tests.sh -id venn_list
 

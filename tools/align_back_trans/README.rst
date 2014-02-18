@@ -33,7 +33,7 @@ There are just two files to install to use this tool from within Galaxy:
 
 The suggested location is in a dedicated ``tools/align_back_trans`` folder.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
 the tool. One suggested location is in the multiple alignments section. Simply
 add the line::
 
@@ -41,7 +41,7 @@ add the line::
 
 You will also need to install Biopython 1.62 or later. If you want to run
 the unit tests, include this line in ``tools_conf.xml.sample`` and the sample
-FASTA files under the test-data directory. Then::
+FASTA files under the ``test-data`` directory. Then::
 
     ./run_functional_tests.sh -id align_back_trans
 

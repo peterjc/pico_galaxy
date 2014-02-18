@@ -33,7 +33,7 @@ the Jar files for effectiveT3 v1.0.1 and the three models (animal, plant and std
 Manual Installation
 ===================
 
-You can change the path by setting the environment variable EFFECTIVET3 to the
+You can change the path by setting the environment variable ``$EFFECTIVET3`` to the
 relevant folder, but by default it expects the following files to be installed
 at these locations::
 
@@ -45,21 +45,21 @@ at these locations::
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a tools/effectiveT3 folder:
 
-* effectiveT3.xml (the Galaxy tool definition)
-* effectiveT3.py (the Python wrapper script)
-* README.rst (this file)
+* ``effectiveT3.xml`` (the Galaxy tool definition)
+* ``effectiveT3.py`` (the Python wrapper script)
+* ``README.rst`` (this file)
 
-Also copy effectiveT3.loc.sample to effectiveT3.loc in the tool-data folder
-(and edit if appropriate, e.g. to add or remove a model).
+Also copy ``effectiveT3.loc.sample`` to ``effectiveT3.loc`` in the ``tool-data``
+folder (and edit if appropriate, e.g. to add or remove a model).
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
 it next to them. Just add the line::
 
   <tool file="effectiveT3/effectiveT3.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
+and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     $ ./run_functional_tests.sh -id effectiveT3
 

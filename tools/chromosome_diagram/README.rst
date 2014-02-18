@@ -49,18 +49,18 @@ Manual Installation
 
 There are just two files to install to use this tool from within Galaxy:
 
-* chromosome_diagram.py (the Python script)
-* chromosome_diagram.xml (the Galaxy tool definition)
+* ``chromosome_diagram.py`` (the Python script)
+* ``chromosome_diagram.xml`` (the Galaxy tool definition)
 
-The suggested location is a dedicated tools/chromosome_diagram folder.
+The suggested location is a dedicated ``tools/chromosome_diagram`` folder.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. One suggested location is in the plotting section. Simply add the line::
 
     <tool file="chromosome_diagram/chromosome_diagram.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
+and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     $ ./run_functional_tests.sh -id chromosome_diagram
 

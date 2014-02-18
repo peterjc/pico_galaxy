@@ -18,33 +18,34 @@ Automated Installation
 
 This should be straightforward, Galaxy should automatically download and install
 the JAR file for clinod v1.3 and the batchman executable from the Stuttgart
-Neural Network Simulator (SNNS), and set the $CLINOD to their folder.
+Neural Network Simulator (SNNS), and set the ``$CLINOD`` to their folder.
 
 
 Manual Installation
 ===================
 This wrapper expects the java binary to be on the system PATH, and to be able
-to access command line NoD as $CLINOD/clinod-1.3.jar which means if you used
-/opt/clinod/clinod-1.3.jar set the environment variable $CLINOD to /opt/clinod
+to access command line NoD as ``$CLINOD/clinod-1.3.jar`` which means if you
+used ``/opt/clinod/clinod-1.3.jar`` set the environment variable ``$CLINOD``
+to ``/opt/clinod``
 
 Internally NoD calls the binary batchman v1.0 from the Stuttgart Neural Network
 Simulator (SNNS) v4.2 or 4.3 software suite. This binary can either be on the
-system path or located next to the JAR file, i.e. /opt/clinod/batchman
+system path or located next to the JAR file, i.e. ``/opt/clinod/batchman``
 
 To install the wrapper copy or move the following files under the Galaxy tools
-folder, e.g. in a tools/clinod folder:
+folder, e.g. in a ``tools/clinod`` folder:
 
-* clinod.xml (the Galaxy tool definition)
-* README.rst (this file)
+* ``clinod.xml`` (the Galaxy tool definition)
+* ``README.rst`` (this file)
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
 it next to them. Just add the line::
 
   <tool file="clinod/clinod.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
+and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     $ ./run_functional_tests.sh -id clinod
 

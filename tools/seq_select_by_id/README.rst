@@ -36,18 +36,18 @@ Manual Installation
 
 There are just two files to install to use this tool from within Galaxy:
 
-* seq_select_by_id.py (the Python script)
-* seq_select_by_id.xml (the Galaxy tool definition)
+* ``seq_select_by_id.py`` (the Python script)
+* ``seq_select_by_id.xml`` (the Galaxy tool definition)
 
-The suggested location is a dedicated tools/seq_select_by_id folder.
+The suggested location is a dedicated ``tools/seq_select_by_id`` folder.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="seq_select_by_id/seq_select_by_id.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
+and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
     $ ./run_functional_tests.sh -id seq_select_by_id
 

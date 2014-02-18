@@ -28,15 +28,15 @@ Manual Installation
 
 There are just two files to install:
 
-* fastq_paired_unpaired.py (the Python script)
-* fastq_paired_unpaired.xml (the Galaxy tool definition)
+* ``fastq_paired_unpaired.py`` (the Python script)
+* ``fastq_paired_unpaired.xml`` (the Galaxy tool definition)
 
 The suggested location is in the Galaxy folder tools/fastq next to other FASTQ
 tools provided with Galaxy.
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer
-the tool. One suggested location is next to the fastq_filter.xml entry, or use
-a dedicated folder like fastq_paired_unpaired. Then simply add the line::
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
+the tool. One suggested location is next to the ``fastq_filter.xml`` entry, or use
+a dedicated folder like ``tools/fastq_paired_unpaired``. Then simply add the line::
 
     <tool file="fastq_paired_unpaired/fastq_paired_unpaired.xml" />
 

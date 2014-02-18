@@ -26,12 +26,12 @@ Manual Installation
 
 There are just two Galaxy files to install:
 
-* mira.py (the Python script)
-* mira.xml (the Galaxy tool definition)
+* ``mira.py`` (the Python script)
+* ``mira.xml`` (the Galaxy tool definition)
 
-The suggested location is a new tools/mira3 folder. You will also need to
-modify the tools_conf.xml file to tell Galaxy to offer the tool, and also do
-this to tools_conf.xml.sample in order to run any tests::
+The suggested location is a new ``tools/mira3`` folder. You will also need to
+modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool, and also do
+this to ``tools_conf.xml.sample`` in order to run any tests::
 
   <tool file="mira3/mira.xml" />
 
