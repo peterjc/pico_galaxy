@@ -66,6 +66,39 @@ be viewed as a back translation.
 Note - the provided nucleotide sequences should be exactly three times the
 length of the protein sequences (exluding the gaps).
 
+
+**Example**
+
+Given this protein alignment in FASTA format::
+
+    >Alpha
+    DEER
+    >Beta
+    DE-R
+    >Gamma
+    D--R
+
+and this matching unaligned nucleotide FASTA file::
+
+    >Alpha
+    GGUGAGGAACGA
+    >Beta
+    GGCGGGCGU
+    >Gamma
+    GGUCGG
+
+the tool would return this nucleotide alignment::
+
+    >Alpha
+    GGUGAGGAACGA
+    >Beta
+    GGCGGG---CGU
+    >Gamma
+    GGU------CGG
+
+Notice that all the gaps are multiples of three in length.
+
+
 **Citation**
 
 This tool uses Biopython, so if you use this Galaxy tool in work leading to a
