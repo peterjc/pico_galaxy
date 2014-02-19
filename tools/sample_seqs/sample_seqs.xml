@@ -85,7 +85,10 @@ Standard Flowgram Format (SFF) is supported), and returns a new sequence
 file sub-sampling from this (in the same format).
 
 Several sampling modes are supported, all designed to be non-random. This
-allows reproducibility, and also works on paired sequence files.
+allows reproducibility, and also works on paired sequence files. Also
+note that by sampling uniformly through the file, this avoids any bias
+should reads in any part of the file are of lesser quality (e.g. one part
+of the slide).
 
 The simplest mode is to take every N-th sequence, for example taking
 every 2nd sequence would sample half the file - while taking every 5th
