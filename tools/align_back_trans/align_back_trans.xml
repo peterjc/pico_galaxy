@@ -53,6 +53,12 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "
             <param name="table" value="0" />
             <output name="out_nuc_align" file="demo_nuc_align.fasta" />
         </test>
+        <test>
+            <param name="prot_align" value="demo_prot_align.fasta" />
+            <param name="nuc_file" value="demo_nucs_trailing_stop.fasta" />
+            <param name="table" value="11" />
+            <output name="out_nuc_align" file="demo_nuc_align.fasta" />
+        </test>
     </tests>
     <help>
 **What it does**
