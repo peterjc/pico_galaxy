@@ -24,15 +24,15 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
         <conditional name="sampling">
             <param name="type" type="select" label="Sub-sampling approach">
-                <option value="everyNth">Take every n-th sequence (e.g. every second sequence)</option>
-		<option value="percentage">Take some percentage of the sequences (e.g. 50% will take every second sequence)</option>
+                <option value="everyNth">Take every N-th sequence (e.g. every fifth sequence)</option>
+                <option value="percentage">Take some percentage of the sequences (e.g. 20% will take every fifth sequence)</option>
                 <!-- TODO - target coverage etc -->
             </param>
             <when value="everyNth">
-                <param name="every_n" value="5" type="integer" min="2" help="e.g. 5 will take every 5th sequence (taking 20% of the sequences)" />
+                <param name="every_n" value="5" type="integer" min="2" label="N" help="At least 2, e.g. 5 will take every 5th sequence (taking 20% of the sequences)" />
             </when>
             <when value="percentage">
-                <param name="percent" value="20.0" type="float" min="0" max="100" help="e.g. 20% will take every 5th sequence" />
+                <param name="percent" value="20.0" type="float" min="0" max="100" label="Percentage" help="Between 0 and 100, e.g. 20% will take every 5th sequence" />
             </when>
         </conditional>
     </inputs>
