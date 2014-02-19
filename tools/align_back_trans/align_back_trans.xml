@@ -98,20 +98,20 @@ Given this protein alignment in FASTA format::
 and this matching unaligned nucleotide FASTA file::
 
     >Alpha
-    GGUGAGGAACGA
+    GATGAGGAACGA
     >Beta
-    GGCGGGCGU
+    GATGAGCGU
     >Gamma
-    GGUCGG
+    GATCGG
 
 the tool would return this nucleotide alignment::
 
     >Alpha
-    GGUGAGGAACGA
+    GATGAGGAACGA
     >Beta
-    GGCGGG---CGU
+    GATGAG---CGU
     >Gamma
-    GGU------CGG
+    GAT------CGG
 
 Notice that all the gaps are multiples of three in length.
 
