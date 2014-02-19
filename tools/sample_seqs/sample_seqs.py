@@ -30,7 +30,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
 if len(sys.argv) < 5:
     stop_err("Requires at least four arguments: seq_format, in_file, out_file, mode, ...")
 seq_format, in_file, out_file, mode = sys.argv[1:5]
-if not os.path.isfile(in_file):
+if in_file != "/dev/stdin" and not os.path.isfile(in_file):
     stop_err("Missing input file %r" % in_file)
 
 if mode == "everyNth":
