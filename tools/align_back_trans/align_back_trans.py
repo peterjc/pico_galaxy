@@ -52,7 +52,8 @@ def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record,
     if len(aligned_protein_record.seq.ungap(gap))*3 != len(unaligned_nucleotide_record.seq):
         stop_err("Inconsistent lengths for %s, ungapped protein %i, "
                  "tripled %i vs ungapped nucleotide %i" %
-                 (len(aligned_protein_record.seq.ungap(gap)),
+                 (aligned_protein_record.id,
+                  len(aligned_protein_record.seq.ungap(gap)),
                   len(aligned_protein_record.seq.ungap(gap))*3,
                   len(unaligned_nucleotide_record.seq)))
 
