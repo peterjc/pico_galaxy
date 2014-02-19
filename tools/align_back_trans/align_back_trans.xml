@@ -1,4 +1,4 @@
-<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.2">
+<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.3">
     <description>Gives a codon aware alignment</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
@@ -6,7 +6,7 @@
     </requirements>
     <version_command interpreter="python">align_back_trans.py --version</version_command>
     <command interpreter="python">
-align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
+align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "$table"
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
@@ -15,7 +15,6 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
     </stdio>
     <inputs>
         <param name="prot_align" type="data" format="fasta,muscle,clustal" label="Aligned protein file" help="Mutliple sequence file in FASTA, ClustalW or PHYLIP format." />
-        <!-- TODO? Could verify the translation
         <param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">
             <option value="1">1. Standard</option>
             <option value="2">2. Vertebrate Mitochondrial</option>
@@ -34,8 +33,8 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
             <option value="21">21. Trematode Mitochondrial</option>
             <option value="22">22. Scenedesmus obliquus</option>
             <option value="23">23. Thraustochytrium Mitochondrial</option>
+            <option value="0">Don't check the translation</option>
         </param>
-        -->
         <param name="nuc_file" type="data" format="fasta" label="Unaligned nucleotide sequences" help="FASTA format, using same identifiers as your protein alignment" />
     </inputs>
     <outputs>
@@ -51,6 +50,7 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align"
         <test>
             <param name="prot_align" value="demo_prot_align.fasta" />
             <param name="nuc_file" value="demo_nucs.fasta" />
+            <param name="table" value="0" />
             <output name="out_nuc_align" file="demo_nuc_align.fasta" />
         </test>
     </tests>
@@ -63,10 +63,15 @@ using the same identifiers), and threads the nucleotide sequences onto the
 protein alignment to produce a codon aware nucleotide alignment - which can
 be viewed as a back translation.
 
+If you specify one of the standard NCBI genetic codes (recommended), then the
+translation is verified. This will allow fuzzy matching if stop codons in the
+protein sequence have been reprented as X, and will allow for a trailing stop
+codon present in the nucleotide sequences but not the protein.
+
 Note - the protein and nucleotide sequences must use the same identifers.
 
-Note - the provided nucleotide sequences should be exactly three times the
-length of the protein sequences (exluding the gaps).
+Note - If not translation table is specified, the provided nucleotide sequences
+should be exactly three times the length of the protein sequences (exluding the gaps).
 
 Note - the nucleotide FASTA file may contain extra sequences not in the
 protein alignment, they will be ignored. This can be useful if for example
