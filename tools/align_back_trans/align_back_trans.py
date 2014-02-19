@@ -16,7 +16,7 @@ This tool is available with a Galaxy wrapper from the Galaxy Tool Shed at:
 
 See accompanying text file for licence details (MIT licence).
 
-This is version 0.0.2 of the script.
+This is version 0.0.3 of the script.
 """
 
 import sys
@@ -54,7 +54,7 @@ def check_trans(identifier, nuc, prot, table):
                  "wrong start codon?" % identifier)
     if len(t) != len(p) and p[1:] in t:
         stop_err("%s translation matched (ignoring first base) but only "
-                 "as subset of nucleotides, wring start codon?" % identifier)
+                 "as subset of nucleotides, wrong start codon?" % identifier)
     if len(t) != len(p):
         stop_err("Inconsistent lengths for %s, ungapped protein %i, "
                  "tripled %i vs ungapped nucleotide %i" %
