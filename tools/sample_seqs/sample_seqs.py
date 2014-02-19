@@ -30,6 +30,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
 if len(sys.argv) < 5:
     stop_err("Requires at least four arguments: seq_format, in_file, out_file, mode, ...")
 seq_format, in_file, out_file, mode = sys.argv[1:5]
+if not os.path.isfile(in_file):
+    stop_err("Missing input file %r" % in_file)
+
 if mode == "everyNth":
     if len(sys.argv) != 6:
         stop_err("If using everyNth, just need argument N")
@@ -47,18 +50,15 @@ if mode == "everyNth":
         print("Sampling every %ird sequence" % N)
     else:
         print("Sampling every %ith sequence" % N)
+    def sampler(iterator):
+        global N
+        count = 0
+        for record in iterator:
+            count += 1
+            if count % N == 1:
+                yield record
 else:
     stop_err("Unsupported mode %r" % mode)
-if not os.path.isfile(in_file):
-    stop_err("Missing input file %r" % in_file)
-
-
-def pick_every_N(iterator, N):
-    count = 0
-    for record in iterator:
-        count += 1
-        if count % N == 1:
-            yield record
 
 def raw_fasta_iterator(handle):
     """Yields raw FASTA records as multi-line strings."""
@@ -94,24 +94,24 @@ def raw_fasta_iterator(handle):
         if not line:
             return # StopIteration 
 
-def fasta_filter_every_N(in_file, out_file, N):
+def fasta_filter(in_file, out_file, iterator_filter):
     count = 0
     #Galaxy now requires Python 2.5+ so can use with statements,
     with open(in_file) as in_handle:
         with open(out_file, "w") as pos_handle:
-            for record in pick_every_N(raw_fasta_iterator(in_handle), N):
+            for record in iterator_filter(raw_fasta_iterator(in_handle)):
                 count += 1
                 pos_handle.write(record)
     return count
 
 try:
     from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-    def fastq_filter_every_N(in_file, out_file, N):
+    def fastq_filter(in_file, out_file, iterator_filter):
         count = 0
         #from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
         reader = fastqReader(open(in_file, "rU"))
         writer = fastqWriter(open(out_file, "w"))
-        for record in pick_every_N(reader, N):
+        for record in iterator_filter(reader):
             count += 1
             writer.write(record)
         writer.close()
@@ -119,16 +119,16 @@ try:
         return count
 except ImportError:
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
-    def fastq_filter_every_N(in_file, out_file, N):
+    def fastq_filter(in_file, out_file, iterator_filter):
         count = 0
         with open(in_file) as in_handle:
             with open(out_file, "w") as pos_handle:
-                for title, seq, qual in pick_every_N(FastqGeneralIterator(in_handle), N):
+                for title, seq, qual in iterator_filter(FastqGeneralIterator(in_handle)):
                     count += 1
                     pos_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
         return count
 
-def sff_filter_every_N(in_file, out_file, N):
+def sff_filter(in_file, out_file, iterator_filter):
     count = 0
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
@@ -148,16 +148,16 @@ def sff_filter_every_N(in_file, out_file, N):
         with open(out_file, "wb") as out_handle:
             writer = SffWriter(out_handle, xml=manifest)
             in_handle.seek(0) #start again after getting manifest
-            count = writer.write_file(pick_every_N(SffIterator(in_handle), N))
+            count = writer.write_file(iterator_filter(SffIterator(in_handle)))
             #count = writer.write_file(SffIterator(in_handle))
     return count
 
 if seq_format.lower()=="sff":
-    count = sff_filter_every_N(in_file, out_file, N)
+    count = sff_filter(in_file, out_file, sampler)
 elif seq_format.lower()=="fasta":
-    count = fasta_filter_every_N(in_file, out_file, N)
+    count = fasta_filter(in_file, out_file, sampler)
 elif seq_format.lower().startswith("fastq"):
-    count = fastq_filter_every_N(in_file, out_file, N)
+    count = fastq_filter(in_file, out_file, sampler)
 else:
     stop_err("Unsupported file type %r" % seq_format)
 
