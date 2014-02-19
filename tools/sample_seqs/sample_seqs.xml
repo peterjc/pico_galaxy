@@ -6,7 +6,14 @@
     </requirements>
     <version_command interpreter="python">sample_seqs.py --version</version_command>
     <command interpreter="python">
+#if str($sampling.type) == "everyNth":
 sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}" "${sampling.every_n}"
+#elif str($sampling.type) == "percentage":
+sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}" "${sampling.percent}"
+#else:
+##Should give an error about invalid sampling type:
+sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
+#end if
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
@@ -18,10 +25,14 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
         <conditional name="sampling">
             <param name="type" type="select" label="Sub-sampling approach">
                 <option value="everyNth">Take every n-th sequence (e.g. every second sequence)</option>
+		<option value="percentage">Take some percentage of the sequences (e.g. 50% will take every second sequence)</option>
                 <!-- TODO - target coverage etc -->
             </param>
             <when value="everyNth">
                 <param name="every_n" value="5" type="integer" min="2" help="e.g. 5 will take every 5th sequence (taking 20% of the sequences)" />
+            </when>
+            <when value="percentage">
+                <param name="percent" value="20.0" type="float" min="0" max="100" help="e.g. 20% will take every 5th sequence" />
             </when>
         </conditional>
     </inputs>
@@ -45,6 +56,24 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="5" />
+            <output name="out_prot_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
+        </test>
+        <test>
+            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
+            <param name="type" value="percentage" />
+            <param name="percent" value="1.0" />
+            <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="ecoli.fastq" />
+            <param name="type" value="percentage" />
+            <param name="percent" value="1.0" />
+            <output name="out_prot_file" file="ecoli.sample_N100.fastq" />
+        </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
+            <param name="type" value="percentage" />
+            <param name="percent" value="20.0" />
             <output name="out_prot_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
         </test>
     </tests>

@@ -35,7 +35,7 @@ if not os.path.isfile(in_file):
 
 if mode == "everyNth":
     if len(sys.argv) != 6:
-        stop_err("If using everyNth, just need argument N")
+        stop_err("If using everyNth, just need argument N (integer, at least 2)")
     try:
         N = int(sys.argv[5])
     except:
@@ -56,6 +56,25 @@ if mode == "everyNth":
         for record in iterator:
             count += 1
             if count % N == 1:
+                yield record
+elif mode == "percentage":
+    if len(sys.argv) != 6:
+        stop_err("If using percentage, just need percentage argument (float, range 0 to 100)")
+    try:
+        percent = float(sys.argv[5]) / 100.0
+    except:
+        stop_err("Bad percent argument %r" % sys.argv[5])
+    if percent <= 0.0 or 1.0 <= percent:
+        stop_err("Bad percent argument %r" % sys.argv[5])
+    print("Sampling %0.3f%% of sequences" % (100.0 * percent))
+    def sampler(iterator):
+        global percent
+        count = 0
+        taken = 0
+        for record in iterator:
+            count += 1
+            if percent * count > taken:
+                taken += 1
                 yield record
 else:
     stop_err("Unsupported mode %r" % mode)
