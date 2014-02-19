@@ -23,7 +23,7 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.1.0"
+    print("v0.1.0")
     sys.exit(0)
 
 #Parse Command Line
@@ -43,13 +43,13 @@ if mode == "everyNth":
     if N < 2:
         stop_err("Bad N argument %r" % sys.argv[5])
     if (N % 10) == 1:
-        print("Sampling every %ist sequence" % N)
+        sys.stderr.write("Sampling every %ist sequence\n" % N)
     elif (N % 10) == 2:
-        print("Sampling every %ind sequence" % N)
+        sys.stderr.write("Sampling every %ind sequence\n" % N)
     elif (N % 10) == 3:
-        print("Sampling every %ird sequence" % N)
+        sys.stderr.write("Sampling every %ird sequence\n" % N)
     else:
-        print("Sampling every %ith sequence" % N)
+        sys.stderr.write("Sampling every %ith sequence\n" % N)
     def sampler(iterator):
         global N
         count = 0
@@ -66,7 +66,7 @@ elif mode == "percentage":
         stop_err("Bad percent argument %r" % sys.argv[5])
     if percent <= 0.0 or 1.0 <= percent:
         stop_err("Bad percent argument %r" % sys.argv[5])
-    print("Sampling %0.3f%% of sequences" % (100.0 * percent))
+    sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
     def sampler(iterator):
         global percent
         count = 0
@@ -180,4 +180,4 @@ elif seq_format.lower().startswith("fastq"):
 else:
     stop_err("Unsupported file type %r" % seq_format)
 
-print("Sampled %i records" % count)
+sys.stderr.write("Sampled %i records\n" % count)
