@@ -21,7 +21,7 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
                 <!-- TODO - target coverage etc -->
             </param>
             <when value="everyNth">
-                <param name="every_n" value="5" type="integer" min="2" help="e.g. 5 with take every 5th sequence (taking 20% of the sequences)" />
+                <param name="every_n" value="5" type="integer" min="2" help="e.g. 5 will take every 5th sequence (taking 20% of the sequences)" />
             </when>
         </conditional>
     </inputs>
