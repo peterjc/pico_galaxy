@@ -161,7 +161,7 @@ data = ${f.ext}::$f
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta" />
         </test>
         -->
-    <!-- Simple assembly based on MIRA's minidemo/solexa1 example
+        <!-- Simple assembly based on MIRA's minidemo/solexa1 example
              Note we're using just one repeat group,
              but two parameters within the repeat (filename, no pairing)
          -->
