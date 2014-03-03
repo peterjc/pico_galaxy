@@ -151,7 +151,7 @@ data = ${f.ext}::$f
         <!-- Simple assembly based on MIRA's minidemo/demo4 example
              Note we're using just one repeat group,
              but several parameters with the repeat
-             (in order to specify sanger reads, no pairing)
+        -->
         <test>
             <param name="job_type" value="genome" />
             <param name="job_quality" value="accurate" />
@@ -159,8 +159,10 @@ data = ${f.ext}::$f
             <param name="type" value="none" />
             <param name="filenames" value="U13small_m.fastq" ftype="fastqsanger" />
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta" />
+            <output name="out_bam" file="empty_file.dat" compare="contains" />
+            <output name="out_maf" file="empty_file.dat" compare="contains" />
+            <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
-        -->
         <!-- Simple assembly based on MIRA's minidemo/solexa1 example
              Note we're using just one repeat group,
              but two parameters within the repeat (filename, no pairing)
