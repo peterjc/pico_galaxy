@@ -159,25 +159,30 @@ data = ${f.ext}::$f
     <tests>
         <!-- Deliberately using default read_group.technology value "solexa"
              as then Galaxy's broken <repeat> handling in tests should work... -->
-        <!-- Tests currently failing,
-             TwillException: more than one form; you must select one (use 'fv') before submitting
         <test>
             <param name="job_type" value="genome" />
             <param name="job_quality" value="accurate" />
             <param name="references" value="tvc_contigs.fasta" ftype="fasta" />
             <param name="strain_setup" value="default" />
+            <param name="type" value="none" />
             <param name="filenames" value="tvc_mini.fastq" ftype="fastqsanger" />
-            <output name="out_fasta" file="tvc_map_same_strain.fasta" ftype="fasta" />
+            <output name="out_fasta" file="tvc_map_ref_strain.fasta" ftype="fasta" />
+            <output name="out_bam" file="empty_file.dat" compare="contains" />
+            <output name="out_maf" file="empty_file.dat" compare="contains" />
+            <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
         <test>
             <param name="job_type" value="genome" />
             <param name="job_quality" value="accurate" />
             <param name="references" value="tvc_contigs.fasta" ftype="fasta" />
             <param name="strain_setup" value="same" />
+            <param name="type" value="none" />
             <param name="filenames" value="tvc_mini.fastq" ftype="fastqsanger" />
-            <output name="out_fasta" file="tvc_map_ref_strain.fasta" ftype="fasta" />
+            <output name="out_fasta" file="tvc_map_same_strain.fasta" ftype="fasta" />
+            <output name="out_bam" file="empty_file.dat" compare="contains" />
+            <output name="out_maf" file="empty_file.dat" compare="contains" />
+            <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
-        -->
     </tests>
     <help>
 
