@@ -1,4 +1,4 @@
-<tool id="mira_assembler" name="Assemble with MIRA v3.4" version="0.0.8">
+<tool id="mira_assembler" name="Assemble with MIRA v3.4" version="0.0.10">
     <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -138,24 +138,25 @@ COMMON_SETTINGS
         <data name="out_log" format="txt" label="MIRA log" />
     </outputs>
     <tests>
-            <!-- Based on the MIRA v3.4.1.1 bundled minidemo/estdemo2 which uses
-                 strain data and miraSearchESTSNPs. Here we just assemble it. --> 
-<!--
-Commenting out test until Galaxy framework is fixed,
-https://trello.com/c/zSTrfDOB/820-disambiguated-conditional-parameters-not-supported-in-unit-tests
+        <!-- Based on the MIRA v3.4.1.1 bundled minidemo/estdemo2 which uses
+             strain data and miraSearchESTSNPs. Here we just assemble it. --> 
         <test>
             <param name="job_method" value="denovo" />
             <param name="job_type" value="est" />
             <param name="job_qual" value="accurate" />
-            <param name="condBackbone.use" value="false" />
-            <param name="condSanger.use" value="true" />
-            <param name="condSanger.filename" value="tvc_mini.fastq" ftype="fastq" />
-            <param name="condRoche.use" value="false" />
-            <param name="condIllumina.use" value="false" /> 
-            <param name="condIonTorrent.use" value="false" />
+            <param name="condBackbone|use" value="false" />
+            <param name="condSanger|use" value="true" />
+            <param name="condSanger|filename" value="tvc_mini.fastq" ftype="fastq" />
+            <param name="condRoche|use" value="false" />
+            <param name="condIllumina|use" value="false" /> 
+            <param name="condIonTorrent|use" value="false" />
             <output name="out_fasta" file="tvc_contigs.fasta" ftype="fasta" />
+            <output name="out_qual" file="empty_file.dat" compare="contains" />
+            <output name="out_caf" file="empty_file.dat" compare="contains" />
+            <output name="out_ace" file="empty_file.dat" compare="contains" />
+            <output name="out_wig" file="empty_file.dat" compare="contains" />
+            <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
--->
     </tests>
     <help>
 
