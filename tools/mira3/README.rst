@@ -17,7 +17,7 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and
-install the precompiled binary for MIRA v3.4.0 for the Galaxy wrapper,
+install the precompiled binary for MIRA v3.4.1.1 for the Galaxy wrapper,
 and run any tests.
 
 
@@ -91,7 +91,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_3_4
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mira3_wrapper.tar.gz tools/mira3/README.rst tools/mira3/mira.xml tools/mira3/mira.py tools/mira3/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta
+    $ tar -czf mira3_wrapper.tar.gz tools/mira3/README.rst tools/mira3/mira.xml tools/mira3/mira.py tools/mira3/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/empty_file.dat
 
 Check this worked::
 
@@ -102,6 +102,7 @@ Check this worked::
     tools/mira3/tool_dependencies.xml
     test-data/tvc_mini.fastq
     test-data/tvc_contigs.fasta
+    test-data/empty_file.dat
 
 
 Licence (MIT)
