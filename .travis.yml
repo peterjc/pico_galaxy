@@ -106,7 +106,8 @@ before_install:
  - wget https://codeload.github.com/jmchilton/galaxy-central/tar.gz/master
  - tar -zxvf master | tail
  - cd galaxy-central-master
-
+ - sudo apt-get install python-pip
+ - sudo pip install requests 
 # Configuring tools within Galaxy
 # ===============================
 #
