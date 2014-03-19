@@ -1,0 +1,72 @@
+<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.2">
+    <description>Convert MIRA assembly to FASTA/SAM/BAM</description>
+    <requirements>
+        <requirement type="binary">mirabait</requirement>
+        <requirement type="package" version="4.0">MIRA</requirement>
+    </requirements>
+    <version_command interpreter="python">mira4_convert.py --version</version_command>
+    <command interpreter="python">
+mira4_convert.py "$mira_file" ...
+    </command>
+    <inputs>
+    <param name="mira_file" type="data" format="mira" required="true" label="MIRA Assembly Format input" />
+    <!-- TODO - top level select for contig versus read output? Or two XML files? -->
+        <param name="output_type" type="multiselect" label="Output type">
+            <option value="ace">ACE format</option> <!-- obsolete? -->
+            <option value="mira">MIRA format (useful if filtering)</option>
+            <option value="fasta">FASTA (unpadded)</option>
+            <option value="sam">SAM (unpadded)</option>
+            <option value="bam">BAM (unpadded)</option>
+        </param>
+    <param name="min_length" type="integer" required="false" value="" min="1"
+           label="Minimum contig length"
+           help="e.g. Set to 1000 to exclude small contigs. Default is to keep all contigs" />
+        <param name="min_reads" type="integer" required="false" value="" min="1"
+               label="Minimum reads per contig"
+               help="e.g. Set to 5 to exclude small contigs with only a few reads. Default is to keep all contigs" />
+    </inputs>
+    <outputs>
+        <data name="output_reads" format="input" metadata_source="input_reads"
+	      label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
+    </data>
+    </outputs>
+    <tests>
+        <!-- TODO -->
+    </tests>
+    <help>
+**What it does**
+
+Runs the ``miraconvert`` utility from MIRA v4.0 to filter and/or convert
+a MIRA Assembly Format file produced by a *mapping* or *de novo* assembly.
+
+**Example Usage**
+
+You want to remove all the low coverage contigs from a transcriptome
+assembly to focus on those with higher coverage.
+
+You want to convert your MIRA assembly into SAM/BAM to run a standard
+SNP finding tool.
+
+You've lost the FASTA consensus from your MIRA assembly and need to
+regenerate it.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Bastien Chevreux, Thomas Wetter and Sándor Suhai (1999).
+Genome Sequence Assembly Using Trace Signals and Additional Sequence Information.
+Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
+http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira4_assembler
+    </help>
+</tool>
