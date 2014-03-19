@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by ID
 =========================================================
 
-This tool is copyright 2010-2013 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -72,6 +72,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
         - Renamed folder and adopted README.rst naming.
 v0.0.7  - Correct automated dependency definition.
+v0.0.8  - Simplified XML to apply input format to output data.
 ======= ======================================================================
 
 
