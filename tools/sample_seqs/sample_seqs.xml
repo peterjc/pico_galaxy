@@ -44,37 +44,37 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
             <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="100" />
-            <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
+            <output name="output_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
         </test>
         <test>
             <param name="input_file" value="ecoli.fastq" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="100" />
-            <output name="out_prot_file" file="ecoli.sample_N100.fastq" />
+            <output name="output_file" file="ecoli.sample_N100.fastq" />
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="5" />
-            <output name="out_prot_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
         </test>
         <test>
             <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
             <param name="type" value="percentage" />
             <param name="percent" value="1.0" />
-            <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
+            <output name="output_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
         </test>
         <test>
             <param name="input_file" value="ecoli.fastq" />
             <param name="type" value="percentage" />
             <param name="percent" value="1.0" />
-            <output name="out_prot_file" file="ecoli.sample_N100.fastq" />
+            <output name="output_file" file="ecoli.sample_N100.fastq" />
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
             <param name="type" value="percentage" />
             <param name="percent" value="20.0" />
-            <output name="out_prot_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
         </test>
     </tests>
     <help>
