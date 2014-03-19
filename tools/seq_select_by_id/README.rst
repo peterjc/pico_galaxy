@@ -1,7 +1,7 @@
 Galaxy tool to select FASTA, QUAL, FASTQ or SFF sequences by ID
 ===============================================================
 
-This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -73,7 +73,8 @@ v0.0.7  - Updated citation information (Cock et al. 2013).
         - Fixed Biopython dependency setup.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
         - Renamed folder and adopted README.rst naming.
-v0.0.8  - Corrected automated dependency definition
+v0.0.8  - Corrected automated dependency definition.
+v0.0.9  - Simplified XML to apply input format to output data.
 ======= ======================================================================
 
 

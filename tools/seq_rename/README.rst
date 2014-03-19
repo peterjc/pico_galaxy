@@ -1,7 +1,7 @@
 Galaxy tool to rename FASTA, QUAL, FASTQ or SFF sequences
 =========================================================
 
-This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -70,7 +70,8 @@ v0.0.4  - Automated installation of Biopython dependency.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
         - Renamed folder and adopted README.rst naming.
-v0.0.5  - Correct automated dependency definition
+v0.0.5  - Correct automated dependency definition.
+v0.0.6  - Simplified XML to apply input format to output data.
 ======= ======================================================================
 
 

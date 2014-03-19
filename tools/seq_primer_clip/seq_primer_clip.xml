@@ -1,4 +1,4 @@
-<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.10">
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.12">
     <description>Trim off 5' or 3' primers</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
@@ -28,18 +28,7 @@ seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $m
         <param name="min_len" type="integer" label="Minimum length for (clipped) sequences " value="1"/>
     </inputs>
     <outputs>
-        <data name="output_file" format="data" label="$primer_type primer clipped">
-            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
-            <change_format>
-                <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
-                <when input_dataset="input_file" attribute="extension" value="fasta" format="fasta" />
-                <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
-                <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
-                <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
-                <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
-                <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
-            </change_format>
-        </data>
+        <data name="output_file" format="input" metadata_source="input_file" label="$primer_type primer clipped"/>
     </outputs>
     <tests>
         <test>

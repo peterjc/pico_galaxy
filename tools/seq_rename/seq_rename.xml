@@ -1,4 +1,4 @@
-<tool id="seq_rename" name="Rename sequences" version="0.0.4">
+<tool id="seq_rename" name="Rename sequences" version="0.0.6">
     <description>with ID mapping from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
@@ -20,17 +20,7 @@ seq_rename.py $input_tabular $old_column $new_column $input_file $input_file.ext
         <param name="new_column" type="data_column" data_ref="input_tabular" multiple="False" numerical="False" label="Column containing new sequence identifiers"/>
     </inputs>
     <outputs>
-        <data name="output_file" format="fasta" label="Renamed ${on_string}">
-            <!-- TODO - Replace this with format="input:input_file" if/when that works -->
-            <change_format>
-                <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
-                <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
-                <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
-                <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
-                <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
-                <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
-            </change_format>
-        </data>
+        <data name="output_file" format="input" metadata_source="input_file" label="Renamed ${on_string}"/>
     </outputs>
     <tests>
         <test>
