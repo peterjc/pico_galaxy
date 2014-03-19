@@ -1,4 +1,4 @@
-<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.3">
+<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.4">
     <description>Gives a codon aware alignment</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
@@ -38,13 +38,7 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "
         <param name="nuc_file" type="data" format="fasta" label="Unaligned nucleotide sequences" help="FASTA format, using same identifiers as your protein alignment" />
     </inputs>
     <outputs>
-        <data name="out_nuc_align" format="fasta" label="${prot_align.name} (back-translated)">
-            <!-- TODO - Replace this with format="input:prot_align" if/when that works -->
-            <change_format>
-                <when input_dataset="prot_align" attribute="extension" value="clustal" format="clustal" />
-                <when input_dataset="prot_align" attribute="extension" value="phylip" format="phylip" />
-            </change_format>
-        </data>
+        <data name="out_nuc_align" format="input" metadata_source="prot_align" label="${prot_align.name} (back-translated)"/>
     </outputs>
     <tests>
         <test>

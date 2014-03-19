@@ -56,6 +56,8 @@ Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial version, based on a previously written Python script
 v0.0.2  - Optionally check the translation is consistent
+v0.0.3  - First official release
+v0.0.4  - Simplified XML to apply input format to output data.
 ======= ======================================================================
 
 
