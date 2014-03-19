@@ -37,7 +37,16 @@ sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
         </conditional>
     </inputs>
     <outputs>
-        <data name="output_file" format="fasta" label="${input_file.name} (sub-sampled)" />
+        <data name="output_file" format="fasta" label="${input_file.name} (sub-sampled)">
+            <change_format>
+                <when input_dataset="input_file" attribute="extension" value="sff" format="sff" />
+                <when input_dataset="input_file" attribute="extension" value="fastq" format="fastq" />
+                <when input_dataset="input_file" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_file" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_file" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_file" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
+        </data>
     </outputs>
     <tests>
         <test>
