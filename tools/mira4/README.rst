@@ -86,6 +86,7 @@ Version Changes
 v0.0.1  - Initial version (prototype for MIRA 4.0 RC4, based on wrapper for v3.4)
 v0.0.2  - Include BAM output (using ``miraconvert`` and ``samtools``).
         - Updated to target MIRA 4.0
+        - Simplified XML to apply input format to output data.
 ======= ======================================================================
 
 
