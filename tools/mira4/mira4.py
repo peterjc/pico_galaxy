@@ -6,6 +6,7 @@ import sys
 import subprocess
 import shutil
 import time
+import tempfile
 
 #Do we need any PYTHONPATH magic?
 from mira4_make_bam import make_bam
@@ -65,6 +66,35 @@ try:
 except ValueError:
     threads = 1
 assert 1 <= threads, threads
+
+
+def override_temp(manifest):
+    """Override ``-DI:trt=/tmp`` in manifest with environment variable.
+
+    Currently MIRA 4 does not allow envronment variables like ``$TMP``
+    inside the manifest, which is a problem if you need to override
+    the default at run time.
+
+    The tool XML will ``/tmp`` and we replace that here with
+    ``tempfile.gettempdir()`` which will respect $TMPDIR, $TEMP, $TMP
+    as explained in the Python standard library documentation:
+    http://docs.python.org/2/library/tempfile.html#tempfile.tempdir
+
+    By default MIRA 4 would write its temporary files within the output
+    folder, which is a problem if that is a network drive.
+    """
+    handle = open(manifest, "r")
+    text = handle.read()
+    handle.close()
+
+    #At time of writing, this is at the end of a file,
+    #but could be followed by a space in future...
+    text = text.replace("-DI:trt=/tmp", "-DI:trt=" + tempfile.gettempdir())
+
+    handle = open(manifest, "w")
+    handle.write(text)
+    handle.flush()
+    handle.close()
 
 
 def log_manifest(manifest):
@@ -137,6 +167,8 @@ temp = "."
 #name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
 name = "MIRA"
 manifest, out_maf, out_bam, out_fasta, out_log = sys.argv[1:]
+
+override_temp(manifest)
 
 start_time = time.time()
 #cmd_list =sys.argv[8:]

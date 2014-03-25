@@ -92,6 +92,7 @@ parameters = -NW:cmrnl=no -DI:trt=/tmp
 ##
 ## -DI:trt is short for -DIRECTORY:tmp_redirected_to and should
 ## point to a local hard drive (not something like NFS on network).
+## We replace /tmp with an environment variable via mira4.py
 
 ##This bar goes into the manifest as a comment line
 #------------------------------------------------------------------------------
