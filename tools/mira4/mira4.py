@@ -91,9 +91,12 @@ def override_temp(manifest):
     #but could be followed by a space in future...
     text = text.replace("-DI:trt=/tmp", "-DI:trt=" + tempfile.gettempdir())
 
+    #Want to try to ensure this gets written to disk before MIRA attempts
+    #to open it - any networked file system may impose a delay...
     handle = open(manifest, "w")
     handle.write(text)
     handle.flush()
+    os.fsync(handle.fileno())
     handle.close()
 
 
