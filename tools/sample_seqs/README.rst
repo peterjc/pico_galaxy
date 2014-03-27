@@ -1,5 +1,5 @@
-Galaxy tool to find ORFs or simple CDSs
-=======================================
+Galaxy tool to sub-sample sequence files
+========================================
 
 This tool is copyright 2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
