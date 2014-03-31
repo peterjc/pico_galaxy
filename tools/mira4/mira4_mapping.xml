@@ -80,7 +80,7 @@ mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
         <configfile name="manifest">
 project = MIRA
 job = mapping,${job_type},${job_quality}
-parameters = -NW:cmrnl=no -DI:trt=/tmp
+parameters = -NW:cmrnl=no -DI:trt=/tmp -OUT:orc=no
 ## -GE:not is short for -GENERAL:number_of_threads and using one (1)
 ## can be useful for repeatability of assemblies and bug hunting.
 ## This is overriden by the command line -t switch which is easier
@@ -93,6 +93,9 @@ parameters = -NW:cmrnl=no -DI:trt=/tmp
 ## -DI:trt is short for -DIRECTORY:tmp_redirected_to and should
 ## point to a local hard drive (not something like NFS on network).
 ## We replace /tmp with an environment variable via mira4.py
+##
+## -OUT:orc=no is short for -OUTPUT:output_result_caf=no
+## which turns off an output file we don't want anyway.
 
 ##This bar goes into the manifest as a comment line
 #------------------------------------------------------------------------------
