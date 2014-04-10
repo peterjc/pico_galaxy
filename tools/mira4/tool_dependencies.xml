@@ -8,7 +8,7 @@
             <actions_group>
                 <!-- Download the binaries for MIRA compatible with 64-bit OSX. -->
                 <actions os="darwin" architecture="x86_64">
-                    <action type="download_by_url">http://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0_darwin13.0.0_x86_64_static.tar.bz2</action>
+                    <action type="download_by_url">http://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0.1_darwin13.1.0_x86_64_static.tar.bz2</action>
                     <action type="move_directory_files">
                          <source_directory>bin</source_directory>
                          <destination_directory>$INSTALL_DIR</destination_directory>
@@ -16,7 +16,7 @@
                 </actions>
                 <!-- Download the binaries for MIRA compatible with 64-bit Linux. -->
                 <actions os="linux" architecture="x86_64">
-                    <action type="download_by_url">https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0_linux-gnu_x86_64_static.tar.bz2</action>
+                    <action type="download_by_url">https://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0.1_linux-gnu_x86_64_static.tar.bz2</action>
                     <action type="move_directory_files">
                         <source_directory>bin</source_directory>
                         <destination_directory>$INSTALL_DIR</destination_directory>
@@ -43,7 +43,7 @@
             </actions_group>
         </install>
         <readme>
-Downloads MIRA v4.0 from Sourceforge, requesting Bastien's precompiled binaries
+Downloads MIRA v4.0.1 from Sourceforge, requesting Bastien's precompiled binaries
 for 64 bit (x86_64) Linux or Mac OS X. Other platforms where compilation from
 source would be required (e.g. 32 bit Linux) are not supported by this automated
 installation script.
