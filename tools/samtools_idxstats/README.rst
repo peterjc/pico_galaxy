@@ -56,7 +56,7 @@ v0.0.1  - Initial public release
 Developers
 ==========
 
-Development is one this GitHub repository:
+Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
 
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
