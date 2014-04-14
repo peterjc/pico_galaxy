@@ -1,0 +1,59 @@
+<tool id="samtools_depad" name="BAM mapping statistics" version="0.0.1">
+    <description>samtools depad</description>
+    <requirements>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
+    </requirements>
+    <version_command interpreter="python">samtools_depad.py --version</version_command>
+    <command interpreter="python">samtools_depad.py "$padded_ref" "$input_bam" "$input_bam.ext" "$output_bam"</command>
+    <inputs>
+        <param name="padded_ref" type="data" format="fasta" label="Padded FASTA file (with gap characters)" />
+        <param name="input_bam" type="data" format="sam,bam" label="Input SAM or BAM file (mapped against the padded FASTA)" />
+    </inputs>
+    <outputs>
+        <data name="output_bam" format="bam" label="$input_bam.name (depad)" />
+    </outputs>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <tests>
+        <test>
+            <param name="padded_ref" value="sam_spec_padded.fasta" ftype="fasta" />
+            <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
+            <output name="output_bam" file="sam_spec_padded.depad.bam" ftype="bam" />
+        </test>
+        <test>
+            <param name="padded_ref" value="sam_spec_padded.fasta" ftype="fasta" />
+            <param name="input_bam" value="sam_spec_padded.sam" ftype="sam" />
+            <output name="output_bam" file="sam_spec_padded.depad.bam" ftype="bam" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools depad`` command in the SAMtools toolkit.
+
+Input is a *padded* FASTA file (with gaps represented by either ``*`` or ``-``
+characters) and a SAM or BAM file mapped against this *padded* FASTA file.
+
+The output is a new BAM file mapped against the *unpadded* FASTA file
+created by removing all gap chacters from the sequence.
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Heng Li et al (2009). The Sequence Alignment/Map format and SAMtools.
+Bioinformatics 25(16), 2078-9.
+http://dx.doi.org/10.1093/bioinformatics/btp352
+
+Peter J.A. Cock (2014), Galaxy wrapper for the samtools depad command
+http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depad
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depad
+    </help>
+</tool>
