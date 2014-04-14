@@ -15,7 +15,10 @@
     <tool file="seq_select_by_id/seq_select_by_id.xml" />
     <tool file="seq_primer_clip/seq_primer_clip.xml" />
     <tool file="predictnls/predictnls.xml" />
+    <!-- MIRA 4.0.1 broke this,
+    http://www.freelists.org/post/mira_talk/MIRA-401-mirabait-f-fromtype-problem
     <tool file="mira4/mira4_bait.xml" />
+    -->
     <tool file="samtools_idxstats/samtools_idxstats.xml" />
     <tool file="align_back_trans/align_back_trans.xml" />
     <tool file="sample_seqs/sample_seqs.xml" />
