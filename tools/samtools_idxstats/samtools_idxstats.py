@@ -49,7 +49,7 @@ assert os.path.isfile(bai_file), bai_file
 assert os.path.isfile(bam_file + ".bai"), bam_file
 
 #Run samtools idxstats:
-cmd = "samtools idxstats %s > %s" % (bam_file, tabular_filename)
+cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, tabular_filename)
 return_code = os.system(cmd)
 
 #Remove the temp symlinks:
