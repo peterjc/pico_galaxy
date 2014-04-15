@@ -1,5 +1,5 @@
-Galaxy wrapper for samtools idxstats
-====================================
+Galaxy wrapper for samtools depad
+=================================
 
 This wrapper is copyright 2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
