@@ -22,6 +22,7 @@
     <tool file="mira4/mira4_bait.xml" />
     -->
     <tool file="samtools_idxstats/samtools_idxstats.xml" />
+    <tool file="samtools_depad/samtools_depad.xml" />
     <tool file="align_back_trans/align_back_trans.xml" />
     <tool file="sample_seqs/sample_seqs.xml" />
     <!-- Missing dependencies

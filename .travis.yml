@@ -160,6 +160,7 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_select_by_id/ tools/seq_select_by_id
  - ln -s ${TRAVIS_BUILD_DIR}/tools/get_orfs_or_cdss/ tools/get_orfs_or_cdss
  - ln -s ${TRAVIS_BUILD_DIR}/tools/samtools_idxstats/ tools/samtools_idxstats
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/samtools_depad/ tools/samtools_depad
  - ln -s ${TRAVIS_BUILD_DIR}/tools/align_back_trans/ tools/align_back_trans
  - ln -s ${TRAVIS_BUILD_DIR}/tools/sample_seqs/ tools/sample_seqs
  - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
