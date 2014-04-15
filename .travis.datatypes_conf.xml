@@ -22,6 +22,9 @@
         <converter file="fastq_to_fqtoc.xml" target_datatype="fqtoc"/>
     </datatype>
     <datatype extension="html" type="galaxy.datatypes.images:Html" mimetype="text/html"/>
+    <datatype extension="sam" type="galaxy.datatypes.tabular:Sam" display_in_upload="true">
+      <converter file="sam_to_bam.xml" target_datatype="bam"/>
+    </datatype>
     <datatype extension="sff" type="galaxy.datatypes.binary:Sff" mimetype="application/octet-stream" display_in_upload="true"/>
     <datatype extension="taxonomy" type="galaxy.datatypes.tabular:Taxonomy" display_in_upload="true"/>
     <datatype extension="tabular" type="galaxy.datatypes.tabular:Tabular" display_in_upload="true"/>
