@@ -1,4 +1,4 @@
-<tool id="samtools_depad" name="BAM mapping statistics" version="0.0.1">
+<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.1">
     <description>samtools depad</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
@@ -39,7 +39,7 @@ Input is a *padded* FASTA file (with gaps represented by either ``*`` or ``-``
 characters) and a SAM or BAM file mapped against this *padded* FASTA file.
 
 The output is a new BAM file mapped against the *unpadded* FASTA file
-created by removing all gap chacters from the sequence.
+created by removing all gap characters from the sequence.
 
 **Citation**
 
