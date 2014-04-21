@@ -20,7 +20,7 @@ import re
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "Version 0.0.8"
+    print "Version 0.0.9"
     sys.exit(0)
 
 def stop_err(msg, err=1):
@@ -91,10 +91,6 @@ if not format:
     format="sanger" #safe default
 elif format not in ["sanger","solexa","illumina","cssanger"]:
     stop_err("Unrecognised format %s" % format)
-
-def f_match(name):
-   if name.endswith("/1") or name.endswith(".f"):
-      return True
 
 #Cope with three widely used suffix naming convensions,
 #Illumina: /1 or /2

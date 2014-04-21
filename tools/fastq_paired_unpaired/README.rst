@@ -62,6 +62,7 @@ v0.0.8  - Use reStructuredText for this README file.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub.
 v0.0.9  - Renamed folder and adopted README.rst naming.
+        - Removed some unused code in the Python script.
 ======= ======================================================================
 
 
