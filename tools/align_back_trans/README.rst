@@ -14,6 +14,10 @@ This tool is available from the Galaxy Tool Shed at:
 
 * http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
 
+The underlying Python script can also be used outside of Galaxy, for
+details run::
+
+    $ python align_back_trans.py
 
 Automated Installation
 ======================
