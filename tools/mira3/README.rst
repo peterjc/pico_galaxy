@@ -76,6 +76,7 @@ v0.0.8  - Basic unit test added (but commented out due to Galaxy issue).
 v0.0.9  - Renamed folder mira_assembler to mira3 (see also MIRA 4 wrapper).
         - Correct path issue in automated dependency installation.
 v0.0.10 - Added a functional test.
+        - Updated URL for automated installation of MIRA v3.4.1.1
 ======= ======================================================================
 
 
