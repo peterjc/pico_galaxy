@@ -92,7 +92,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_filter_by_id.tar.gz tools/seq_filter_by_id/README.rst tools/seq_filter_by_id/seq_filter_by_id.* tools/seq_filter_by_id/tool_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular
+    $ tar -czf seq_filter_by_id.tar.gz tools/seq_filter_by_id/README.rst tools/seq_filter_by_id/seq_filter_by_id.* tools/seq_filter_by_id/tool_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular test-data/sanger-pairs-mixed.fastq test-data/sanger-pairs-names.tabular test-data/empty_file.dat
 
 Check this worked::
 
@@ -104,6 +104,9 @@ Check this worked::
     test-data/k12_ten_proteins.fasta
     test-data/k12_hypothetical.fasta
     test-data/k12_hypothetical.tabular
+    test-data/sanger-pairs-mixed.fastq
+    test-data/sanger-pairs-names.tabular
+    test-data/empty_file.dat
 
 
 Licence (MIT)

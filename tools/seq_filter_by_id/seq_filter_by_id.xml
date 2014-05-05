@@ -69,6 +69,24 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <param name="strip_suffix" value="true" />
             <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
         </test>
+        <test>
+            <param name="input_file" value="sanger-pairs-mixed.fastq" ftype="fastq" />
+            <param name="input_tabular" value="sanger-pairs-names.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="both" />
+            <param name="strip_suffix" value="true" />
+            <output name="output_pos" file="sanger-pairs-mixed.fastq" ftype="fastq" />
+	    <output name="output_neg" file="empty_file.dat" ftype="fastq" />
+        </test>
+        <test>
+            <param name="input_file" value="sanger-pairs-mixed.fastq" ftype="fastq" />
+            <param name="input_tabular" value="sanger-pairs-names.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="both" />
+            <param name="strip_suffix" value="false" />
+            <output name="output_pos" file="empty_file.dat" ftype="fastq" />
+            <output name="output_neg" file="sanger-pairs-mixed.fastq" ftype="fastq" />
+        </test>
     </tests>
     <help>
 **What it does**
