@@ -1,0 +1,83 @@
+<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.1">
+    <description>using the read name suffices</description>
+    <version_command interpreter="python">fastq_pair_names.py --version</version_command>
+    <command interpreter="python">
+fastq_pair_names.py $output_paired $output_singles #for i in $input_fastq#"${i}" #end for#
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_fastq" type="data" multiple="true" format="fastq" label="FASTQ file(s)"/>
+    </inputs>
+    <outputs>
+        <data name="output_singles" format="tabular" label="Unpaired read names (or unsupported pair naming)"/>
+        <data name="output_paired" format="tabular" label="Paired read names"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq"/>
+            <output name="output_singles" file="empty_file.dat" ftype="tabular"/>
+            <output name="output_paired" file="sanger-pairs-names.tabular" ftype="tabular"/>
+        </test>
+    </tests>
+    <help>
+
+**What it does**
+
+Using the common read name suffix conventions, it identifiers paired
+reads in a FASTQ file. This output can be used to recover missing
+partnets.
+
+The input file should be a valid FASTQ file which has been sorted so that
+any partner forward+reverse reads are consecutive. The output files all
+preserve this sort order. Pairing are recognised based on standard name
+suffices. See below or run the tool with no arguments for more details.
+
+Any reads where the forward/reverse naming suffix used is not recognised
+are treated as orphan reads. The tool supports the /1 and /2 convention
+originally used by Illumina, .f and .r convention, the Sanger convention
+(see http://staden.sourceforge.net/manual/pregap4_unix_50.html for details),
+and the current Illumina convention where the reads get the same identifier
+with the fragment number in the description, for example:
+
+ * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
+ * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
+
+Note that this does support multiple forward and reverse reads per template
+(which is quite common with Sanger sequencing), e.g. this which is sorted
+alphabetically:
+
+ * WTSI_1055_4p17.p1kapIBF
+ * WTSI_1055_4p17.p1kpIBF
+ * WTSI_1055_4p17.q1kapIBR
+ * WTSI_1055_4p17.q1kpIBR
+
+or this where the reads already come in pairs:
+
+ * WTSI_1055_4p17.p1kapIBF
+ * WTSI_1055_4p17.q1kapIBR
+ * WTSI_1055_4p17.p1kpIBF
+ * WTSI_1055_4p17.q1kpIBR
+
+both become:
+
+ * WTSI_1055_4p17.p1kapIBF paired with WTSI_1055_4p17.q1kapIBR
+ * WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
+
+**References**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following paper:
+
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_pair_names
+    </help>
+</tool>
