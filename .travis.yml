@@ -112,6 +112,7 @@ before_install:
  - cd galaxy-central-master
  - sudo apt-get install python-pip
  - sudo pip install requests 
+
 # Configuring tools within Galaxy
 # ===============================
 #
@@ -170,6 +171,7 @@ install:
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
  - ./run.sh --stop-daemon || true
+ - python scripts/fetch_eggs.py
 
 
 # Testing tools in Galaxy
