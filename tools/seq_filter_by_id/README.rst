@@ -73,6 +73,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
         - Renamed folder and adopted README.rst naming.
 v0.0.7  - Correct automated dependency definition.
 v0.0.8  - Simplified XML to apply input format to output data.
+v0.2.0  - Using argparse for command line API.
 ======= ======================================================================
 
 

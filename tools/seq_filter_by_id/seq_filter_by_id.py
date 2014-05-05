@@ -29,39 +29,69 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 
-This is version 0.1.0 of the script, use -v or --version to get the version.
+This is version 0.2.0 of the script, use -v or --version to get the version.
 """
 import os
 import sys
+from optparse import OptionParser
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.1.0"
+    print "v0.2.0"
     sys.exit(0)
 
 #Parse Command Line
-if len(sys.argv) - 1 < 7 or len(sys.argv) % 2 == 1:
-    stop_err("Expected 7 or more arguments, 5 required "
-             "(in seq, seq format, out pos, out neg, logic) "
-             "then one or more pairs (tab file, columns), "
-             "got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+usage = """Use as follows:
 
-in_file, seq_format, out_positive_file, out_negative_file, logic = sys.argv[1:6]
+$ python seq_filter_by_id.py [options] tab1 cols1 [, tab2 cols2, ...]
 
-if not os.path.isfile(in_file):
-    stop_err("Missing input file %r" % in_file)
-if out_positive_file == "-" and out_negative_file == "-":
+e.g. Positive matches using column one from tabular file:
+
+$ seq_filter_by_id.py -i my_seqs.fastq -f fastq -p matches.fastq ids.tabular 1
+
+Multiple tabular files and column numbers may be given.
+"""
+parser = OptionParser(usage=usage)
+parser.add_option('-i', '--input', dest='input',
+                  default=None, help='Input sequences filename',
+                  metavar="FILE")
+parser.add_option('-f', '--format', dest='format',
+                  default=None,
+                  help='Input sequence format (e.g. fasta, fastq, sff)')
+parser.add_option('-p', '--positive', dest='output_positive',
+                  default=None,
+                  help='Output filename for matches',
+                  metavar="FILE")
+parser.add_option('-n', '--negative', dest='output_negative',
+                  default=None,
+                  help='Output filename for non-matches',
+                  metavar="FILE")
+parser.add_option("-l", "--logic", dest="logic",
+                  default="UNION",
+                  help="How to combined multiple ID columns (UNION or INTERSECTION)")
+(options, args) = parser.parse_args()
+in_file = options.input
+seq_format = options.format
+out_positive_file = options.output_positive
+out_negative_file = options.output_negative
+logic = options.logic
+
+if in_file is None or not os.path.isfile(in_file):
+    stop_err("Missing input file: %r" % in_file)
+if out_positive_file is None and out_negative_file is None:
     stop_err("Neither output file requested")
 if logic not in ["UNION", "INTERSECTION"]:
     stop_err("Fifth agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
+if len(args) % 2:
+    stop_err("Expected matched pairs of tabular files and columns, not: %r" % args)
 
 identifiers = []
-for i in range((len(sys.argv) - 6) // 2):
-    tabular_file = sys.argv[6+2*i]
-    cols_arg = sys.argv[7+2*i]
+for i in range(len(args) // 2):
+    tabular_file = args[2*i]
+    cols_arg = args[2*i + 1]
     if not os.path.isfile(tabular_file):
         stop_err("Missing tabular identifier file %r" % tabular_file)
     try:
@@ -149,7 +179,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
     with open(in_file) as in_handle:
         #Doing the if statement outside the loop for speed
         #(with the downside of three very similar loops).
-        if pos_file != "-" and neg_file != "-":
+        if pos_file is not None and neg_file is not None:
             print "Generating two FASTA files"
             with open(pos_file, "w") as pos_handle:
                 with open(neg_file, "w") as neg_handle:
@@ -160,7 +190,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
                         else:
                             neg_handle.write(record)
                             neg_count += 1
-        elif pos_file != "-":
+        elif pos_file is not None:
             print "Generating matching FASTA file"
             with open(pos_file, "w") as pos_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
@@ -171,7 +201,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
                         neg_count += 1
         else:
             print "Generating non-matching FASTA file"
-            assert neg_file != "-"
+            assert neg_file is not None
             with open(neg_file, "w") as neg_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
                     if identifier in wanted:
@@ -202,13 +232,13 @@ if seq_format.lower()=="sff":
     #This makes two passes though the SFF file with isn't so efficient,
     #but this makes the code simple.
     pos_count = neg_count = 0
-    if out_positive_file != "-":
+    if out_positive_file is not None:
         out_handle = open(out_positive_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again after getting manifest
         pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if rec.id in ids)
         out_handle.close()
-    if out_negative_file != "-":
+    if out_negative_file is not None:
         out_handle = open(out_negative_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again
@@ -227,7 +257,7 @@ elif seq_format.lower().startswith("fastq"):
     #Write filtered FASTQ file based on IDs from tabular file
     from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
     reader = fastqReader(open(in_file, "rU"))
-    if out_positive_file != "-" and out_negative_file != "-":
+    if out_positive_file is not None and out_negative_file is not None:
         print "Generating two FASTQ files"
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         negative_writer = fastqWriter(open(out_negative_file, "w"))
@@ -239,7 +269,7 @@ elif seq_format.lower().startswith("fastq"):
                 negative_writer.write(record)
         positive_writer.close()
         negative_writer.close()
-    elif out_positive_file != "-":
+    elif out_positive_file is not None:
         print "Generating matching FASTQ file"
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         for record in reader:
@@ -247,7 +277,7 @@ elif seq_format.lower().startswith("fastq"):
             if record.identifier and record.identifier.split()[0][1:] in ids:
                 positive_writer.write(record)
         positive_writer.close()
-    elif out_negative_file != "-":
+    elif out_negative_file is not None:
         print "Generating non-matching FASTQ file"
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
