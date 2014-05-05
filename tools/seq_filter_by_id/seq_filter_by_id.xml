@@ -14,6 +14,9 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
 #elif $output_choice_cond.output_choice=="neg"
  -n $output_neg
 #end if
+#if $strip_suffix
+ -s
+#end if
 ## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
 ## Single tabular file, can call the Python script with either UNION or INTERSECTION
 -l UNION "$input_tabular" "$columns"
@@ -40,6 +43,7 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <when value="pos" />
             <when value="neg" />
         </conditional>
+        <param name="strip_suffix" type="boolean" value="false" label="Remove typical pair read name suffices when matching identifiers?" help="Will remove suffices including Illumina /1 and /2, Roche 454 .f and .r, and assorted Sanger names like .p* and .q*" />
     </inputs>
     <outputs>
         <data name="output_pos" format="input" metadata_source="input_file" label="With matched ID">
@@ -55,6 +59,14 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
             <param name="columns" value="1" />
             <param name="output_choice" value="pos" />
+            <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="k12_ten_proteins.fasta" ftype="fasta" />
+            <param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="pos" />
+            <param name="strip_suffix" value="true" />
             <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
         </test>
     </tests>
