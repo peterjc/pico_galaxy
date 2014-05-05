@@ -33,6 +33,7 @@ This is version 0.2.0 of the script, use -v or --version to get the version.
 """
 import os
 import sys
+import re
 from optparse import OptionParser
 
 def stop_err(msg, err=1):
@@ -72,21 +73,49 @@ parser.add_option('-n', '--negative', dest='output_negative',
 parser.add_option("-l", "--logic", dest="logic",
                   default="UNION",
                   help="How to combined multiple ID columns (UNION or INTERSECTION)")
+parser.add_option("-s", "--suffix", dest="suffix",
+                  action="store_true",
+                  help="Ignore pair-read suffices for matching names")
 (options, args) = parser.parse_args()
 in_file = options.input
 seq_format = options.format
 out_positive_file = options.output_positive
 out_negative_file = options.output_negative
 logic = options.logic
+drop_suffices = bool(options.suffix)
 
 if in_file is None or not os.path.isfile(in_file):
     stop_err("Missing input file: %r" % in_file)
 if out_positive_file is None and out_negative_file is None:
     stop_err("Neither output file requested")
+if seq_format is None:
+    stop_err("Missing sequence format")
 if logic not in ["UNION", "INTERSECTION"]:
     stop_err("Fifth agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
+if not args:
+    stop_err("Expected matched pairs of tabular files and columns")
 if len(args) % 2:
     stop_err("Expected matched pairs of tabular files and columns, not: %r" % args)
+
+
+#Cope with three widely used suffix naming convensions,
+#Illumina: /1 or /2
+#Forward/revered: .f or .r
+#Sanger, e.g. .p1k and .q1k
+#See http://staden.sourceforge.net/manual/pregap4_unix_50.html
+#re_f = re.compile(r"(/1|\.f|\.[sfp]\d\w*)$")
+#re_r = re.compile(r"(/2|\.r|\.[rq]\d\w*)$")
+re_suffix = re.compile(r"(/1|\.f|\.[sfp]\d\w*|/2|\.r|\.[rq]\d\w*)$")
+assert re_suffix.search("demo.f")
+assert re_suffix.search("demo.s1")
+assert re_suffix.search("demo.f1k")
+assert re_suffix.search("demo.p1")
+assert re_suffix.search("demo.p1k")
+assert re_suffix.search("demo.p1lk")
+assert re_suffix.search("demo/2")
+assert re_suffix.search("demo.r")
+assert re_suffix.search("demo.q1")
+assert re_suffix.search("demo.q1lk")
 
 identifiers = []
 for i in range(len(args) // 2):
@@ -102,6 +131,28 @@ for i in range(len(args) // 2):
         stop_err("Expect one-based column numbers (not zero-based counting), got %r" % cols_arg)
     identifiers.append((tabular_file, columns))
 
+if drop_suffices:
+    def clean_name(name):
+        """Remove suffix."""
+        match = re_suffix.search(name)
+        if match:
+            # Use the fact this is a suffix, and regular expression will be
+            # anchored to the end of the name:
+            return name[:match.start()]
+        else:
+            # Nothing to do
+            return name
+    assert clean_name("foo/1") == "foo"
+    assert clean_name("foo/2") == "foo"
+    assert clean_name("bar.f") == "bar"
+    assert clean_name("bar.r") == "bar"
+    assert clean_name("baz.p1") == "baz"
+    assert clean_name("baz.q2") == "baz"
+else:
+    def clean_name(name):
+        """Do nothing!"""
+        return name
+
 #Read tabular file(s) and record all specified identifiers
 ids = None #Will be a set
 for tabular_file, columns in identifiers:
@@ -115,13 +166,13 @@ for tabular_file, columns in identifiers:
                 continue
             parts = line.rstrip("\n").split("\t")
             for col in columns:
-                file_ids.add(parts[col])
+                file_ids.add(clean_name(parts[col]))
     else:
         #Single column, special case speed up
         col = columns[0]
         for line in handle:
             if not line.startswith("#"):
-                file_ids.add(line.rstrip("\n").split("\t")[col])
+                file_ids.add(clean_name(line.rstrip("\n").split("\t")[col]))
     print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col+1) for col in columns))
     if ids is None:
         ids = file_ids
@@ -184,7 +235,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             with open(pos_file, "w") as pos_handle:
                 with open(neg_file, "w") as neg_handle:
                     for identifier, record in crude_fasta_iterator(in_handle):
-                        if identifier in wanted:
+                        if clean_name(identifier) in wanted:
                             pos_handle.write(record)
                             pos_count += 1
                         else:
@@ -194,7 +245,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             print "Generating matching FASTA file"
             with open(pos_file, "w") as pos_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
-                    if identifier in wanted:
+                    if clean_name(identifier) in wanted:
                         pos_handle.write(record)
                         pos_count += 1
                     else:
@@ -204,7 +255,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             assert neg_file is not None
             with open(neg_file, "w") as neg_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
-                    if identifier in wanted:
+                    if clean_name(identifier) in wanted:
                         pos_count += 1
                     else:
                         neg_handle.write(record)
@@ -236,13 +287,13 @@ if seq_format.lower()=="sff":
         out_handle = open(out_positive_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again after getting manifest
-        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if rec.id in ids)
+        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in ids)
         out_handle.close()
     if out_negative_file is not None:
         out_handle = open(out_negative_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again
-        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if rec.id not in ids)
+        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in ids)
         out_handle.close()
     #And we're done
     in_handle.close()
@@ -263,7 +314,7 @@ elif seq_format.lower().startswith("fastq"):
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
             #The [1:] is because the fastaReader leaves the > on the identifier.
-            if record.identifier and record.identifier.split()[0][1:] in ids:
+            if record.identifier and clean_name(record.identifier.split()[0][1:]) in ids:                
                 positive_writer.write(record)
             else:
                 negative_writer.write(record)
@@ -274,7 +325,7 @@ elif seq_format.lower().startswith("fastq"):
         positive_writer = fastqWriter(open(out_positive_file, "w"))
         for record in reader:
             #The [1:] is because the fastaReader leaves the > on the identifier.
-            if record.identifier and record.identifier.split()[0][1:] in ids:
+            if record.identifier and clean_name(record.identifier.split()[0][1:]) in ids:
                 positive_writer.write(record)
         positive_writer.close()
     elif out_negative_file is not None:
@@ -282,7 +333,7 @@ elif seq_format.lower().startswith("fastq"):
         negative_writer = fastqWriter(open(out_negative_file, "w"))
         for record in reader:
             #The [1:] is because the fastaReader leaves the > on the identifier.
-            if not record.identifier or record.identifier.split()[0][1:] not in ids:
+            if not record.identifier or clean_name(record.identifier.split()[0][1:]) not in ids:
                 negative_writer.write(record)
         negative_writer.close()
     reader.close()
