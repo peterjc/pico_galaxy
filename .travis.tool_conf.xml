@@ -14,6 +14,7 @@
     <tool file="seq_rename/seq_rename.xml" />
     <tool file="seq_select_by_id/seq_select_by_id.xml" />
     <tool file="seq_primer_clip/seq_primer_clip.xml" />
+    <tool file="fastq_pair_names/fastq_pair_names.xm" />
     <tool file="predictnls/predictnls.xml" />
     <tool file="mira4/mira4_de_novo.xml" />
     <tool file="mira4/mira4_mapping" />
