@@ -1,4 +1,4 @@
-<tool id="mira_4_0_bait" name="MIRA v4.0 mirabait" version="0.0.2">
+<tool id="mira_4_0_bait" name="MIRA v4.0 mirabait" version="0.0.3">
     <description>Filter reads using kmer matches</description>
     <requirements>
         <requirement type="binary">mirabait</requirement>

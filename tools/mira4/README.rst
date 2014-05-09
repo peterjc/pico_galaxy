@@ -22,7 +22,7 @@ Automated Installation
 
 This should be straightforward. Via the Tool Shed, Galaxy should automatically
 install the 'mira' datatype, samtools, and download and install the precompiled
-binary for MIRA v4.0.1 for the Galaxy wrapper, and run any tests.
+binary for MIRA v4.0.2 for the Galaxy wrapper, and run any tests.
 
 For MIRA 4, the Galaxy wrapper has been split in two, allowing separate
 cluster settings for de novo usage (high RAM) and mapping (lower RAM).
@@ -56,7 +56,7 @@ this to ``tools_conf.xml.sample`` in order to run the tests::
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
 
-You will also need to install MIRA, we used version 4.0.1, and define the
+You will also need to install MIRA, we used version 4.0.2, and define the
 environment variable ``$MIRA4`` pointing at the folder containing the binaries.
 See:
 
@@ -90,6 +90,7 @@ v0.0.2  - Include BAM output (using ``miraconvert`` and ``samtools``).
         - Sets temporary folder at run time to respect environment variables
           (``$TMPDIR``, ``$TEMP``, or ``$TMP`` in that order). This was
           previously hard coded as ``/tmp``.
+v0.0.3  - Updated to target MIRA 4.0.2
 ======= ======================================================================
 
 

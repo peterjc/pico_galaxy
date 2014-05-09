@@ -1,4 +1,4 @@
-<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.2">
+<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.3">
     <description>Maps Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
