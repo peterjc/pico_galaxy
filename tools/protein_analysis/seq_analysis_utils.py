@@ -91,6 +91,7 @@ def fasta_iterator(filename, max_len=None, truncate=None):
             #between records (starting with hash).
             pass
         else:
+            handle.close()
             raise ValueError("Bad FASTA line %r" % line)
     handle.close()
     if title:
