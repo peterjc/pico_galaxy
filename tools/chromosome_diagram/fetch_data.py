@@ -93,3 +93,7 @@ if not os.path.isfile(merged_trna):
     print("Merged tRNA")
 
 print("Done, see %s and %s" % (merged_fasta, merged_trna))
+print("")
+print("Try producing a PDF by running something like this at the command line:")
+print("")
+print('$ ./chromosome_diagram.py A_thaliana.fasta 5000 A_thaliana_tRNA.tsv 2 3 4 5 1 7 8 "A. thaliana tRNA" 0 A_thaliana.pdf')
