@@ -9,6 +9,7 @@ This is version 0.0.1 of the script.
 """
 import re
 import sys
+import warnings
 
 
 def stop_err(msg, error_level=1):
@@ -19,6 +20,7 @@ def stop_err(msg, error_level=1):
 try:
     from Bio import SeqIO
     from Bio.Graphics import BasicChromosome
+    from Bio import BiopythonWarning
 except ImportError:
     stop_err("Requires the Python library Biopython")
 
@@ -251,7 +253,10 @@ while refs:
         print "New page, %s to %s" % (selected[0][0], selected[-1][0])
     else:
         print "New page, %s" % (selected[0][0])
-    d = draw_page(selected).draw(None, main_caption)
+    with warnings.catch_warnings():
+        # BiopythonWarning: Too many labels to avoid overlap
+        warnings.simplefilter("ignore", BiopythonWarning)
+        d = draw_page(selected).draw(None, main_caption)
     renderPDF.draw(d, c, 0, 0)
     c.showPage()
 #Close PDF
