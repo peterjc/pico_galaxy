@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="mummer" version="3.23">
+        <repository name="package_mummer_3_23" owner="iuc" />
+    </package>
+</tool_dependency>

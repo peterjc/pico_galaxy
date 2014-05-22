@@ -1,0 +1,66 @@
+<tool id="mumer_wrapper" name="MUMmer" version="0.0.1">
+    <description>Draw dotplot with mummer/nucmer/promer/mummerplot</description>
+    <requirements>
+            <requirement type="binary">ps2pdf</requirement>
+            <requirement type="binary">nucmer</requirement>
+            <requirement type="binary">mummerplot</requirement>
+            <requirement type="package" version="3.23">mummer</requirement>
+    </requirements>
+    <version_command interpreter="python">
+mummer.py --version
+    </version_command>
+    <command interpreter="python">
+mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$pdf_output"
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <!-- Galaxy does not have sub-types for protein vs nucletide FASTA -->
+        <param name="fasta_a" type="data" format="fasta"
+	       label="Species A"
+	       description="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
+        <param name="fasta_b" type="data" format="fasta"
+	       label="Species B"
+	       description="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
+        <param name="algorithm" type="select" label="MUMmer search algorithm">
+            <option value="mummer">mummer, efficiently locates maximal unique matches between two sequences</option>
+            <option value="nucmer">NUCmer (NUCleotide MUMmer), for closely related sequences</option>
+            <option value="promer">PROmer (PROtein MUMmer), using six frame translation of DNA input, for less similar sequences.</option>
+        </param>
+	<!-- defaults like mincluster vary, 65 for nucmer but 20 for promer -->
+    </inputs>
+    <outputs>
+        <data name="png_output" format="png" label="$algorithm.value: $fasta_a.name vs $fasta_b.name" />
+        <data name="pdf_output" format="pdf" label="$algorithm.value: $fasta_a.name vs $fasta_b.name" />
+    </outputs>
+    <requirements>
+    </requirements>
+    <tests>
+    </tests>
+    <help>
+**What it does**
+
+Takes two FASTA files (*species A* and *species B*), compairs them using one
+of the MUMmer 3 tools (``mummer``, ``nucmer``, or ``promer``), and then draws
+a dotplot using ``mummerplot``.
+
+**References**
+
+MUMmer manual: v3.22 http://mummer.sourceforge.net/manual/
+
+MUMmer tutorials: http://mummer.sourceforge.net/examples/
+
+If you use MUMmer 3, please cite:
+
+S. Kurtz et al. (2004).
+Versatile and open software for comparing large genomes.
+Genome Biology (2004), 5:R12.
+http://dx.doi.org/10.1186/gb-2004-5-2-r12
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mummer
+    </help>
+</tool>
