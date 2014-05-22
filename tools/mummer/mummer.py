@@ -34,9 +34,9 @@ if "-v" in sys.argv [1:]or "--version" in sys.argv[1:]:
 #Parse Command Line
 #TODO - optparse
 try:
-    fasta_a, fasta_b, algorithm, png_out, pdf_out = sys.argv[1:]
+    fasta_a, fasta_b, algorithm, png_out, ps_out, pdf_out = sys.argv[1:]
 except:
-    stop_err("Expect 5 arguments, got %i" % (len(sys.argv) - 1))
+    stop_err("Expect 6 arguments, got %i" % (len(sys.argv) - 1))
 
 
 valid_algo = ["mummer", "nucmer", "promer"]
@@ -49,8 +49,6 @@ coords = prefix + ".mums"
 #gnuplot = prefix + ".gp"
 ps_image = prefix + ".ps"
 png_image = prefix + ".png"
-
-run("export")
 
 if algorithm == "mummer":
     cmd = '%s "%s" "%s" > %s' % (algorithm, fasta_a, fasta_b, coords)
@@ -74,6 +72,7 @@ cmd = 'mummerplot -R "%s" -Q "%s" --postscript --large --prefix=%s %s' % (fasta_
 run(cmd)
 cmd = 'ps2pdf -dEPSCrop "%s" "%s"' % (ps_image, pdf_out)
 run(cmd)
+shutil.move(ps_image, ps_out)
 
 #Remove temp files...
-#shutil.rmtree(base_path)
+shutil.rmtree(base_path)
