@@ -33,8 +33,8 @@ mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$pdf_output"
 	<!-- defaults like mincluster vary, 65 for nucmer but 20 for promer -->
     </inputs>
     <outputs>
-        <data name="png_output" format="png" label="$algorithm.value PNG: $fasta_a.name vs $fasta_b.name" />
         <data name="pdf_output" format="pdf" label="$algorithm.value PDF: $fasta_a.name vs $fasta_b.name" />
+        <data name="png_output" format="png" label="$algorithm.value PNG: $fasta_a.name vs $fasta_b.name" />
     </outputs>
     <requirements>
     </requirements>
