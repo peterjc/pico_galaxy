@@ -1,5 +1,5 @@
-<tool id="mumer_wrapper" name="MUMmer" version="0.0.1">
-    <description>Draw dotplot with mummer/nucmer/promer/mummerplot</description>
+<tool id="mumerplot_wrapper" name="MUMmer dotplot" version="0.0.1">
+    <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <requirement type="binary">ps2pdf</requirement>
             <requirement type="binary">nucmer</requirement>
