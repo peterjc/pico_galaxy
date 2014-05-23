@@ -65,10 +65,13 @@ shutil.move(png_image, png_out)
 
 # PS --> PDF
 # ==========
+# Using --large, puts "set size 3,3" in the gnuplot - which seems to mess up.
 # Problem here is the default bbox (BoundingBox) in the PS output is letter page size,
 # and even if we override that, at least when view the PS output in Adobe Illustrator
 # things don't seem to be lined up properly :(
-cmd = 'mummerplot -R "%s" -Q "%s" --postscript --large --prefix=%s %s' % (fasta_a, fasta_b, prefix, coords)
+#
+# Using "set size 1,1" works better - which is what --small gives:
+cmd = 'mummerplot -R "%s" -Q "%s" --postscript --small --prefix=%s %s' % (fasta_a, fasta_b, prefix, coords)
 run(cmd)
 cmd = 'ps2pdf -dEPSCrop "%s" "%s"' % (ps_image, pdf_out)
 run(cmd)
