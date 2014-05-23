@@ -51,9 +51,10 @@ ps_image = prefix + ".ps"
 png_image = prefix + ".png"
 
 if algorithm == "mummer":
+    #Add -mum as per example to find maximal unique matches between ref and query.
     #Add the -b -c options to search both strands and report relative to forward strand
     #which then matches the default dual-strand approach in nucmer and promer
-    cmd = '%s -b -c "%s" "%s" > %s' % (algorithm, fasta_a, fasta_b, coords)
+    cmd = '%s -mum -b -c "%s" "%s" > %s' % (algorithm, fasta_a, fasta_b, coords)
 else:
     coords = "out.delta"
     cmd = '%s "%s" "%s"' % (algorithm, fasta_a, fasta_b)
