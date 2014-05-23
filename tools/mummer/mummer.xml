@@ -47,6 +47,8 @@ Takes two FASTA files (*species A* and *species B*), compairs them using one
 of the MUMmer 3 tools (``mummer``, ``nucmer``, or ``promer``), comparing both
 strands, and then draws a dotplot using ``mummerplot``.
 
+The full MUMmer suite is more flexible and capable than this limited wrapper.
+
 **References**
 
 MUMmer manual: v3.22 http://mummer.sourceforge.net/manual/
