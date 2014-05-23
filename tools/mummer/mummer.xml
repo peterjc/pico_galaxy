@@ -10,7 +10,7 @@
 mummer.py --version
     </version_command>
     <command interpreter="python">
-mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$ps_output" "$pdf_output"
+mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$pdf_output"
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
@@ -34,7 +34,6 @@ mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$ps_output" "$pdf_outp
     </inputs>
     <outputs>
         <data name="png_output" format="png" label="$algorithm.value PNG: $fasta_a.name vs $fasta_b.name" />
-        <data name="ps_output" format="ps" label="$algorithm.value PS: $fasta_a.name vs $fasta_b.name" />
         <data name="pdf_output" format="pdf" label="$algorithm.value PDF: $fasta_a.name vs $fasta_b.name" />
     </outputs>
     <requirements>
