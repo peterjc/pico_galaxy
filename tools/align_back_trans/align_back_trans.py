@@ -28,7 +28,7 @@ from Bio import AlignIO
 from Bio.Data.CodonTable import ambiguous_generic_by_id
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.3"
+    print "v0.0.4"
     sys.exit(0)
 
 def stop_err(msg, error_level=1):
@@ -40,7 +40,7 @@ def check_trans(identifier, nuc, prot, table):
     """Returns nucleotide sequence if works (can remove trailing stop)"""
     if len(nuc) % 3:
         stop_err("Nucleotide sequence for %s is length %i (not a multiple of three)"
-                 % (identifier, nuc))
+                 % (identifier, len(nuc)))
 
     p = str(prot).upper().replace("*", "X")
     t = str(nuc.translate(table)).upper().replace("*", "X")
