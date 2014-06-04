@@ -63,6 +63,7 @@ v0.0.2  - Optionally check the translation is consistent
 v0.0.3  - First official release
 v0.0.4  - Simplified XML to apply input format to output data.
         - Fixed error message when sequence length not a multiple of three.
+v0.0.5  - More explicit error messages when seqences lengths do not match.
 ======= ======================================================================
 
 

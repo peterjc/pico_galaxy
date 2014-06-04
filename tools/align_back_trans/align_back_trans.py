@@ -28,7 +28,7 @@ from Bio import AlignIO
 from Bio.Data.CodonTable import ambiguous_generic_by_id
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.4"
+    print "v0.0.5"
     sys.exit(0)
 
 def stop_err(msg, error_level=1):
@@ -49,19 +49,20 @@ def check_trans(identifier, nuc, prot, table):
             #Allow this...
             t = t[:-1]
             nuc  = nuc[:-3] #edit return value
-    if len(t) != len(p) and p in t:
-        stop_err("%s translation matched but only as subset of nucleotides, "
-                 "wrong start codon?" % identifier)
-    if len(t) != len(p) and p[1:] in t:
-        stop_err("%s translation matched (ignoring first base) but only "
-                 "as subset of nucleotides, wrong start codon?" % identifier)
     if len(t) != len(p):
-        stop_err("Inconsistent lengths for %s, ungapped protein %i, "
-                 "tripled %i vs ungapped nucleotide %i" %
-                 (identifier,
-                  len(p),
-                  len(p) * 3,
-                  len(nuc)))
+        err = ("Inconsistent lengths for %s, ungapped protein %i, "
+               "tripled %i vs ungapped nucleotide %i." %
+               (identifier, len(p), len(p) * 3, len(nuc)))
+        if t.endswith(p):
+            err += "\nThere are %i extra nucleotides at the start." % (len(t) - len(p))
+        elif t.startswith(p):
+            err += "\nThere are %i extra nucleotides at the end." % (len(t) - len(p))
+        elif p in t:
+            #TODO - Calculate and report the number to trim at start and end?
+            err += "\nHowever, protein sequence found within translated nucleotides."
+        elif p[1:] in t:
+            err += "\nHowever, ignoring first amino acid, protein sequence found within translated nucleotides."
+        stop_err(err)
 
 
     if t == p:
