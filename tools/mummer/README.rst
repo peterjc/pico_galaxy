@@ -5,7 +5,7 @@ This wrapper is copyright 2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
-This is a wrapper for the command suite MUMmer v3.
+This is a dotplot tool wrapping functionality from the MUMmer v3 suite.
 
 S. Kurtz et al. (2004).
 Versatile and open software for comparing large genomes.
@@ -46,7 +46,7 @@ tool. Just add the line::
 If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
 and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
-    $ ./run_functional_tests.sh -id mummer_wrapper
+    $ ./run_functional_tests.sh -id mumerplot_wrapper
 
 That's it.
 
