@@ -1,4 +1,4 @@
-<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.3">
+<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.4">
     <description>Takes Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -8,8 +8,12 @@
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <version_command interpreter="python">mira4.py --version</version_command>
-    <command interpreter="python">
-mira4.py "$manifest" "$out_maf" "$out_bam" "$out_fasta" "$out_log"
+    <command interpreter="python">mira4.py
+--manifest "$manifest"
+--maf "$out_maf"
+--bam "$out_bam"
+--fasta "$out_fasta"
+--log "$out_log"
     </command>
     <stdio>
         <!-- Assume anything other than zero is an error -->

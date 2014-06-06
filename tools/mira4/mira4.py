@@ -7,11 +7,12 @@ import subprocess
 import shutil
 import time
 import tempfile
+from optparse import OptionParser
 
 #Do we need any PYTHONPATH magic?
 from mira4_make_bam import make_bam
 
-WRAPPER_VER = "0.0.1" #Keep in sync with the XML file
+WRAPPER_VER = "0.0.4" #Keep in sync with the XML file
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg+"\n")
@@ -34,6 +35,35 @@ def get_version(mira_binary):
     del child
     return ver.split("\n", 1)[0].strip()
 
+#Parse Command Line
+usage = """Galaxy MIRA4 wrapper script v%s - use as follows:
+
+$ python mira4.py ...
+
+This will run the MIRA binary and collect its output files as directed.
+""" % WRAPPER_VER
+parser = OptionParser(usage=usage)
+parser.add_option("-m", "--manifest", dest="manifest",
+                  default=None, metavar="FILE",
+                  help="MIRA manifest filename")
+parser.add_option("--maf", dest="maf",
+                  default="-", metavar="FILE",
+                  help="MIRA MAF output filename")
+parser.add_option("--bam", dest="bam",
+                  default="-", metavar="FILE",
+                  help="Unpadded BAM output filename")
+parser.add_option("--fasta", dest="fasta",
+                  default="-", metavar="FILE",
+                  help="Unpadded FASTA output filename")
+parser.add_option("--log", dest="log",
+                  default="-", metavar="FILE",
+                  help="MIRA logging output filename")
+options, args = parser.parse_args()
+manifest = options.manifest
+out_maf = options.maf
+out_bam = options.bam
+out_fasta = options.fasta
+out_log = options.log
 
 try:
     mira_path = os.environ["MIRA4"]
@@ -59,6 +89,11 @@ if "-v" in sys.argv or "--version" in sys.argv:
     if mira_ver != mira_convert_ver:
         print "WARNING: miraconvert %s" % mira_convert_ver
     sys.exit(0)
+
+if not manifest:
+    stop_err("Manifest is required")
+elif not os.path.isfile(manifest):
+    stop_err("Missing input MIRA manifest file: %r" % manifest)
 
 
 try:
@@ -143,6 +178,8 @@ def collect_output(temp, name, handle):
                      (old_fasta, out_fasta)]:
         if not os.path.isfile(old):
             missing = True
+        elif not new or new == "-":
+            handle.write("Ignoring %s\n" % old)
         else:
             handle.write("Capturing %s\n" % old)
             shutil.move(old, new)
@@ -154,9 +191,10 @@ def collect_output(temp, name, handle):
 
     #For mapping mode, probably most people would expect a BAM file
     #using the reference FASTA file...
-    msg = make_bam(mira_convert, out_maf, ref_fasta, out_bam, handle)
-    if msg:
-        stop_err(msg)
+    if out_bam and out_bam != "-":
+        msg = make_bam(mira_convert, out_maf, ref_fasta, out_bam, handle)
+        if msg:
+            stop_err(msg)
 
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
@@ -167,14 +205,12 @@ def clean_up(temp, name):
 #Currently Galaxy puts us somewhere safe like:
 #/opt/galaxy-dist/database/job_working_directory/846/
 temp = "."
-#name, out_fasta, out_qual, out_ace, out_caf, out_wig, out_log = sys.argv[1:8]
+
 name = "MIRA"
-manifest, out_maf, out_bam, out_fasta, out_log = sys.argv[1:]
 
 override_temp(manifest)
 
 start_time = time.time()
-#cmd_list =sys.argv[8:]
 cmd_list = [mira_binary, "-t", str(threads), manifest]
 cmd = " ".join(cmd_list)
 
@@ -192,7 +228,10 @@ except Exception, err:
 #print os.path.abspath(".")
 #print cmd
 
-handle = open(out_log, "w")
+if out_log and out_log != "-":
+    handle = open(out_log, "w")
+else:
+    handle = open(os.devnull, "w")
 handle.write("======================== MIRA manifest (instructions) ========================\n")
 m = open(manifest, "rU")
 for line in m:

@@ -91,6 +91,7 @@ v0.0.2  - Include BAM output (using ``miraconvert`` and ``samtools``).
           (``$TMPDIR``, ``$TEMP``, or ``$TMP`` in that order). This was
           previously hard coded as ``/tmp``.
 v0.0.3  - Updated to target MIRA 4.0.2
+v0.0.4  - Using optparse for the Python wrapper script API
 ======= ======================================================================
 
 
