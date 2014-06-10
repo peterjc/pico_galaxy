@@ -192,11 +192,9 @@ data = ${f.ext}::$f
             <param name="job_quality" value="accurate" />
             <param name="type" value="none" />
             <param name="filenames" value="ecoli.fastq" ftype="fastqsanger" />
-            <param name="maf_wanted" value="true"/>
-            <param name="bam_wanted" value="true"/>
+            <param name="maf_wanted" value="false"/>
+            <param name="bam_wanted" value="false"/>
             <output name="out_fasta" file="ecoli.mira4_de_novo.fasta" ftype="fasta" />
-            <output name="out_bam" file="empty_file.dat" compare="contains" />
-            <output name="out_maf" file="empty_file.dat" compare="contains" />
             <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
     </tests>
