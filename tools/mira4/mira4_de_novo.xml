@@ -10,8 +10,12 @@
     <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">mira4.py
 --manifest "$manifest"
+#if str($maf_wanted)=="true":
 --maf "$out_maf"
+#end if
+#if str($bam_wanted)=="true":
 --bam "$out_bam"
+#end if
 --fasta "$out_fasta"
 --log "$out_log"
     </command>
@@ -71,12 +75,18 @@
             <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
                   help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
+        <param name="maf_wanted" type="boolean" label="Output assembly in MIRA's own format?" checked="False" />
+        <param name="bam_wanted" type="boolean" label="Convert assembly into BAM format?" checked="True" />
     </inputs>
     <code file="mira4_validator.py" />
     <outputs>
         <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
-        <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)" />
-        <data name="out_maf" format="mira" label="MIRA de novo assembly" />
+        <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)">
+            <filter>bam_wanted is True</filter>
+        </data>
+        <data name="out_maf" format="mira" label="MIRA de novo assembly">
+            <filter>maf_wanted is True</filter>
+        </data>
         <!-- TODO?
         <data name="out_contigstats" format="tabular" label="MIRA contig stats" />
         -->
@@ -166,6 +176,8 @@ data = ${f.ext}::$f
             <param name="technology" value="sanger" />
             <param name="type" value="none" />
             <param name="filenames" value="U13small_m.fastq" ftype="fastqsanger" />
+            <param name="maf_wanted" value="true"/>
+            <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta" />
             <output name="out_bam" file="empty_file.dat" compare="contains" />
             <output name="out_maf" file="empty_file.dat" compare="contains" />
@@ -180,6 +192,8 @@ data = ${f.ext}::$f
             <param name="job_quality" value="accurate" />
             <param name="type" value="none" />
             <param name="filenames" value="ecoli.fastq" ftype="fastqsanger" />
+            <param name="maf_wanted" value="true"/>
+            <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="ecoli.mira4_de_novo.fasta" ftype="fasta" />
             <output name="out_bam" file="empty_file.dat" compare="contains" />
             <output name="out_maf" file="empty_file.dat" compare="contains" />

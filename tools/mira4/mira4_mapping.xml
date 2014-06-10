@@ -10,8 +10,12 @@
     <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">mira4.py
 --manifest "$manifest"
+#if str($maf_wanted) == "true":
 --maf "$out_maf"
+#end if
+#if str($bam_wanted) == "true":
 --bam "$out_bam"
+#end if
 --fasta "$out_fasta"
 --log "$out_log"
     </command>
@@ -73,11 +77,17 @@
             <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
                    help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
         </repeat>
+        <param name="maf_wanted" type="boolean" label="Output mapping in MIRA's own format?" checked="False" />
+        <param name="bam_wanted" type="boolean" label="Convert mapping into BAM format?" checked="True" />
     </inputs>
     <outputs>
         <data name="out_fasta" format="fasta" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping contigs (FASTA)" />
-        <data name="out_bam" format="bam" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping assembly (BAM)" />
-        <data name="out_maf" format="mira" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping assembly" />
+        <data name="out_bam" format="bam" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping assembly (BAM)">
+            <filter>bam_wanted is True</filter>
+        </data>
+        <data name="out_maf" format="mira" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping assembly">
+            <filter>maf_wanted is True</filter>
+        </data>
         <data name="out_log" format="txt" label="MIRA #if str($strain_setup)=='same' then 'same strain' else 'reference' # mapping log" />
     </outputs>
     <configfiles>
@@ -172,6 +182,8 @@ data = ${f.ext}::$f
             <param name="strain_setup" value="default" />
             <param name="type" value="none" />
             <param name="filenames" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="maf_wanted" value="true"/>
+            <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="tvc_map_ref_strain.fasta" ftype="fasta" />
             <output name="out_bam" file="empty_file.dat" compare="contains" />
             <output name="out_maf" file="empty_file.dat" compare="contains" />
@@ -184,6 +196,8 @@ data = ${f.ext}::$f
             <param name="strain_setup" value="same" />
             <param name="type" value="none" />
             <param name="filenames" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="maf_wanted" value="true"/>
+            <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="tvc_map_same_strain.fasta" ftype="fasta" />
             <output name="out_bam" file="empty_file.dat" compare="contains" />
             <output name="out_maf" file="empty_file.dat" compare="contains" />
