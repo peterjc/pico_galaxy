@@ -1,34 +1,62 @@
-<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.2">
+<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.5">
     <description>Convert MIRA assembly to FASTA/SAM/BAM</description>
     <requirements>
-        <requirement type="binary">mirabait</requirement>
+        <requirement type="binary">miraconvert</requirement>
         <requirement type="package" version="4.0">MIRA</requirement>
     </requirements>
     <version_command interpreter="python">mira4_convert.py --version</version_command>
     <command interpreter="python">
 mira4_convert.py "$mira_file" ...
+--input "$mira_file"
+--min_length $min_length
+--min_reads $min_reads
+#if str($maf_wanted)=="true":
+--maf "$out_maf"
+#end if
+#if str($fasta_wanted)=="true":
+--fasta "$out_fasta"
+#end if
+#if str($sam_wanted)=="true":
+--maf "$out_sam"
+#end if
+#if str($bam_wanted)=="true":
+--bam "$out_bam"
+#end if
+#if str($ace_wanted)=="true":
+--ace "$out_ace"
+#end if
     </command>
     <inputs>
-    <param name="mira_file" type="data" format="mira" required="true" label="MIRA Assembly Format input" />
-    <!-- TODO - top level select for contig versus read output? Or two XML files? -->
-        <param name="output_type" type="multiselect" label="Output type">
-            <option value="ace">ACE format</option> <!-- obsolete? -->
-            <option value="mira">MIRA format (useful if filtering)</option>
-            <option value="fasta">FASTA (unpadded)</option>
-            <option value="sam">SAM (unpadded)</option>
-            <option value="bam">BAM (unpadded)</option>
-        </param>
-    <param name="min_length" type="integer" required="false" value="" min="1"
-           label="Minimum contig length"
-           help="e.g. Set to 1000 to exclude small contigs. Default is to keep all contigs" />
-        <param name="min_reads" type="integer" required="false" value="" min="1"
+        <param name="mira_file" type="data" format="mira" required="true" label="MIRA Assembly Format input" />
+        <!-- TODO - top level select for contig versus read output? Or two Galaxy tools in different XML files? -->
+        <param name="min_length" type="integer" required="false" value="0" min="0"
+               label="Minimum contig length"
+               help="e.g. Set to 1000 to exclude small contigs. Default is to keep all contigs (minimum zero)" />
+        <param name="min_reads" type="integer" required="false" value="0" min="0"
                label="Minimum reads per contig"
-               help="e.g. Set to 5 to exclude small contigs with only a few reads. Default is to keep all contigs" />
+               help="e.g. Set to 5 to exclude low coverage contigs with only a few reads. Default is to keep all contigs (minimum zero)." />
+        <param name="maf_wanted" type="boolean" label="Output assembly in MIRA's own format? (useful if filtering)" checked="False" />
+        <param name="fasta_wanted" type="boolean" label="Convert assembly into (unpadded) FASTA?" checked="True" />
+        <param name="sam_wanted" type="boolean" label="Convert assembly into (upadded) SAM format?" checked="False" />
+        <param name="bam_wanted" type="boolean" label="Convert assembly into (upadded) BAM format?" checked="False" />
+        <param name="ace_wanted" type="boolean" label="Convert assembly in ACE format?" checked="False" />
     </inputs>
     <outputs>
-        <data name="output_reads" format="input" metadata_source="input_reads"
-	      label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
-    </data>
+        <data name="out_maf" format="mira" label="$mira_file.name (filtered)">
+              <filter>maf_wanted is True</filter>
+        </data>
+        <data name="out_fasta" format="fasta" label="$mira_file.name (as FASTA)">
+              <filter>fasta_wanted is True</filter>
+        </data>
+        <data name="out_sam" format="sam" label="$mira_file.name (as SAM)">
+              <filter>sam_wanted is True</filter>
+        </data>
+        <data name="out_bam" format="bam" label="$mira_file.name (as BAM)">
+              <filter>bam_wanted is True</filter>
+        </data>
+        <data name="out_ace" format="ace" label="$mira_file.name (as ACE)">
+            <filter>ace_wanted is True</filter>
+        </data>
     </outputs>
     <tests>
         <!-- TODO -->
