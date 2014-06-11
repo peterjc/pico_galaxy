@@ -49,7 +49,15 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <when value="list">
                 <param name="id_list" type="text" size="20x80" area="True" format="tabular"
                        label="List of sequence identifiers (white space separated)"
-                       help="You can use both spaces and new lines to separate your identifiers."/>
+                       help="You can use both spaces and new lines to separate your identifiers.">
+                    <sanitizer>
+                        <valid>
+                            <!-- default includes underscore, hyphen, etc -->
+                            <add value="%"/>
+                            <add value="|"/>
+                        </valid>
+                    </sanitizer>
+                </param>
             </when>
         </conditional>
         <conditional name="output_choice_cond">
@@ -97,6 +105,13 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <param name="output_choice" value="pos" />
             <param name="adv_opts_selector" value="advanced" />
             <param name="strip_suffix" value="true" />
+            <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="k12_ten_proteins.fasta" ftype="fasta" />
+            <param name="id_opts_selector" value="list" />
+            <param name="id_list" value="gi|16127999|ref|NP_414546.1|" />
+            <param name="output_choice" value="pos" />
             <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
         </test>
         <test>
