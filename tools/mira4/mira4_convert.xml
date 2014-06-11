@@ -22,9 +22,10 @@ mira4_convert.py "$mira_file" ...
 #if str($bam_wanted)=="true":
 --bam "$out_bam"
 #end if
-#if str($ace_wanted)=="true":
---ace "$out_ace"
-#end if
+##Don't yet have a Galaxy datatype defined for ace:
+## #if str($ace_wanted)=="true":
+## --ace "$out_ace"
+## #end if
     </command>
     <inputs>
         <param name="mira_file" type="data" format="mira" required="true" label="MIRA Assembly Format input" />
@@ -39,7 +40,9 @@ mira4_convert.py "$mira_file" ...
         <param name="fasta_wanted" type="boolean" label="Convert assembly into (unpadded) FASTA?" checked="True" />
         <param name="sam_wanted" type="boolean" label="Convert assembly into (upadded) SAM format?" checked="False" />
         <param name="bam_wanted" type="boolean" label="Convert assembly into (upadded) BAM format?" checked="False" />
+        <!-- Don't yet have a Galaxy datatype defined for ace:
         <param name="ace_wanted" type="boolean" label="Convert assembly in ACE format?" checked="False" />
+        -->
     </inputs>
     <outputs>
         <data name="out_maf" format="mira" label="$mira_file.name (filtered)">
@@ -54,9 +57,11 @@ mira4_convert.py "$mira_file" ...
         <data name="out_bam" format="bam" label="$mira_file.name (as BAM)">
               <filter>bam_wanted is True</filter>
         </data>
+        <!--
         <data name="out_ace" format="ace" label="$mira_file.name (as ACE)">
             <filter>ace_wanted is True</filter>
         </data>
+        -->
     </outputs>
     <tests>
         <!-- TODO -->
