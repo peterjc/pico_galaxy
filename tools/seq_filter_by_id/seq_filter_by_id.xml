@@ -14,7 +14,7 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
 #elif $output_choice_cond.output_choice=="neg"
  -n $output_neg
 #end if
-#if $strip_suffix
+#if $adv_opts.adv_opts_selector=="advanced" and $adv_opts.strip_suffix
  -s
 #end if
 ## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
@@ -43,7 +43,16 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <when value="pos" />
             <when value="neg" />
         </conditional>
-        <param name="strip_suffix" type="boolean" value="false" label="Remove typical pair read name suffices when matching identifiers?" help="Will remove suffices including Illumina /1 and /2, Roche 454 .f and .r, and assorted Sanger names like .p* and .q*" />
+        <conditional name="adv_opts">
+            <param name="adv_opts_selector" type="select" label="Advanced Options">
+              <option value="basic" selected="True">Hide Advanced Options</option>
+              <option value="advanced">Show Advanced Options</option>
+            </param>
+            <when value="basic" />
+            <when value="advanced">
+                <param name="strip_suffix" type="boolean" value="false" label="Remove typical pair read name suffices when matching identifiers?" help="Will remove suffices including Illumina /1 and /2, Roche 454 .f and .r, and assorted Sanger names like .p* and .q*" />
+            </when>
+        </conditional>
     </inputs>
     <outputs>
         <data name="output_pos" format="input" metadata_source="input_file" label="With matched ID">
@@ -66,6 +75,7 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
             <param name="columns" value="1" />
             <param name="output_choice" value="pos" />
+            <param name="adv_opts_selector" value="advanced" />
             <param name="strip_suffix" value="true" />
             <output name="output_pos" file="k12_hypothetical.fasta" ftype="fasta" />
         </test>
@@ -74,6 +84,7 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <param name="input_tabular" value="sanger-pairs-names.tabular" ftype="tabular" />
             <param name="columns" value="1" />
             <param name="output_choice" value="both" />
+            <param name="adv_opts_selector" value="advanced" />
             <param name="strip_suffix" value="true" />
             <output name="output_pos" file="sanger-pairs-mixed.fastq" ftype="fastq" />
 	    <output name="output_neg" file="empty_file.dat" ftype="fastq" />
@@ -83,6 +94,7 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
             <param name="input_tabular" value="sanger-pairs-names.tabular" ftype="tabular" />
             <param name="columns" value="1" />
             <param name="output_choice" value="both" />
+            <param name="adv_opts_selector" value="advanced" />
             <param name="strip_suffix" value="false" />
             <output name="output_pos" file="empty_file.dat" ftype="fastq" />
             <output name="output_neg" file="sanger-pairs-mixed.fastq" ftype="fastq" />
