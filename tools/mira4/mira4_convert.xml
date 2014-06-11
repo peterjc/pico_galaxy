@@ -9,6 +9,7 @@
 mira4_convert.py
 --input "$mira_file"
 --min_length $min_length
+--min_cover $min_cover
 --min_reads $min_reads
 #if str($maf_wanted)=="true":
 --maf "$out_maf"
@@ -38,6 +39,9 @@ mira4_convert.py
         <param name="min_length" type="integer" required="false" value="0" min="0"
                label="Minimum contig length"
                help="e.g. Set to 1000 to exclude small contigs. Default is to keep all contigs (minimum zero)" />
+        <param name="min_cover" type="integer" required="false" value="0" min="0"
+               label="Minimum average contig coverage"
+               help="e.g. Set to 10 to exclude low coverage contigs. Default is to keep all contigs (minimum zero)" />
         <param name="min_reads" type="integer" required="false" value="0" min="0"
                label="Minimum reads per contig"
                help="e.g. Set to 5 to exclude low coverage contigs with only a few reads. Default is to keep all contigs (minimum zero)." />

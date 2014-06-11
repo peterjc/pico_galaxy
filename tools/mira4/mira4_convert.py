@@ -63,10 +63,13 @@ parser = OptionParser(usage=usage)
 parser.add_option("--input", dest="input",
                   default=None, metavar="FILE",
                   help="MIRA input filename")
-parser.add_option("--min_length", dest="min_length",
+parser.add_option("-x", "--min_length", dest="min_length",
                   default="0",
                   help="Minimum contig length")
-parser.add_option("--min_reads", dest="min_reads",
+parser.add_option("-y", "--min_cover", dest="min_cover",
+                  default="0",
+                  help="Minimum average contig coverage")
+parser.add_option("-z", "--min_reads", dest="min_reads",
                   default="0",
                   help="Minimum reads per contig")
 parser.add_option("--maf", dest="maf",
@@ -84,6 +87,9 @@ parser.add_option("--bam", dest="bam",
 parser.add_option("--fasta", dest="fasta",
                   default="", metavar="FILE",
                   help="Unpadded FASTA output filename")
+parser.add_option("-v", "--version", dest="version",
+                  default=False, action="store_true",
+                  help="Show version and quit")
 options, args = parser.parse_args()
 if args:
     stop_err("Expected options (e.g. --input example.maf), not arguments")
@@ -107,7 +113,7 @@ if not os.path.isfile(mira_convert):
 mira_convert_ver = get_version(mira_convert)
 if not mira_convert_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_convert))
-if "-v" in sys.argv or "--version" in sys.argv:
+if options.version:
     print "%s, MIRA wrapper version %s" % (mira_convert_ver, WRAPPER_VER)
     sys.exit(0)
 
@@ -119,13 +125,34 @@ elif not os.path.isfile(input_maf):
 if not (out_maf or out_sam or out_bam or out_fasta or out_ace):
     stop_err("No output requested")
 
+
+def check_min_int(value, name):
+    try:
+        i = int(value)
+    except:
+        stop_err("Bad %s setting, %r" % (name, value))
+    if i < 0:
+        stop_err("Negative %s setting, %r" % (name, value))
+    return i
+
+min_length = check_min_int(options.min_length, "minimum length")
+min_cover = check_min_int(options.min_cover, "minimum cover")
+min_reads = check_min_int(options.min_reads, "minimum reads")
+
 #TODO - Run MIRA in /tmp or a configurable directory?
 #Currently Galaxy puts us somewhere safe like:
 #/opt/galaxy-dist/database/job_working_directory/846/
 temp = "."
 
 
-cmd_list = [mira_convert, "-f", "maf", input_maf, os.path.join(temp, "converted")]
+cmd_list = [mira_convert]
+if min_length:
+    cmd_list.extend(["-x", str(min_length)])
+if min_cover:
+    cmd_list.extend(["-y", str(min_cover)])
+if min_reads:
+    cmd_list.extend(["-z", str(min_reads)])
+cmd_list.extend(["-f", "maf", input_maf, os.path.join(temp, "converted")])
 if out_maf:
     cmd_list.append("maf")
 if out_sam or out_bam:
@@ -145,6 +172,7 @@ if out_maf:
     collect(os.path.join(temp, "converted.maf"), out_maf)
 if out_fasta:
     #Can we look at the MAF file to see if there are multiple strains?
+    #TODO - What if the filters mean no contigs? Then this file does not exist...
     collect(os.path.join(temp, "converted_AllStrains.unpadded.fasta"), out_fasta)
 if out_ace:
     collect(os.path.join(temp, "converted.maf"), out_ace)
