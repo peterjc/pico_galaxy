@@ -172,8 +172,19 @@ if out_maf:
     collect(os.path.join(temp, "converted.maf"), out_maf)
 if out_fasta:
     #Can we look at the MAF file to see if there are multiple strains?
-    #TODO - What if the filters mean no contigs? Then this file does not exist...
-    collect(os.path.join(temp, "converted_AllStrains.unpadded.fasta"), out_fasta)
+    old = os.path.join(temp, "converted_AllStrains.unpadded.fasta")
+    if os.path.isfile(old):
+        collect(old, out_fasta)
+    else:
+        #Might the output be filtered down to zero contigs?
+        old = os.path.join(temp, "converted.fasta")
+        if not os.path.isfile(old):
+            stop_err("Missing expected output FASTA file")
+        elif os.path.getsize(old) == 0:
+            print("Warning - no contigs (harsh filters?)")
+            collect(old, out_fasta)
+        else:
+            stop_err("Missing expected output FASTA file (only generic file present)")
 if out_ace:
     collect(os.path.join(temp, "converted.maf"), out_ace)
 
