@@ -27,6 +27,9 @@ mira4_convert.py
 ## #if str($ace_wanted)=="true":
 ## --ace "$out_ace"
 ## #end if
+#if str($cstats_wanted)=="true":
+--cstats "$out_cstats"
+#end if
     </command>
     <stdio>
         <!-- Assume anything other than zero is an error -->
@@ -52,6 +55,7 @@ mira4_convert.py
         <!-- Don't yet have a Galaxy datatype defined for ace:
         <param name="ace_wanted" type="boolean" label="Convert assembly in ACE format?" checked="False" />
         -->
+        <param name="cstats_wanted" type="boolean" label="Assembly statistics file?" checked="False" />
     </inputs>
     <outputs>
         <data name="out_maf" format="mira" label="$mira_file.name (filtered)">
@@ -71,6 +75,9 @@ mira4_convert.py
             <filter>ace_wanted is True</filter>
         </data>
         -->
+        <data name="out_cstats" format="tabular" label="$mira_file.name (filtered stats)">
+              <filter>cstats_wanted is True</filter>
+        </data>
     </outputs>
     <tests>
         <!-- TODO -->
