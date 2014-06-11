@@ -154,7 +154,7 @@ specified. You can opt to have a single output file of just the matching records
 or just the non-matching ones.
 
 Instead of providing the identifiers in a tabular file, you can alternatively
-provide them as a paramter (type or paste them into the text box). This is a
+provide them as a parameter (type or paste them into the text box). This is a
 useful shortcut for extracting a few sequences of interest without first having
 to prepare a tabular file.
 
