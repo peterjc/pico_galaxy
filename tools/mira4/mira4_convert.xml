@@ -27,6 +27,11 @@ mira4_convert.py
 ## --ace "$out_ace"
 ## #end if
     </command>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <inputs>
         <param name="mira_file" type="data" format="mira" required="true" label="MIRA Assembly Format input" />
         <!-- TODO - top level select for contig versus read output? Or two Galaxy tools in different XML files? -->
