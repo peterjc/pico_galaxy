@@ -17,9 +17,13 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
 #if $adv_opts.adv_opts_selector=="advanced" and $adv_opts.strip_suffix
  -s
 #end if
+#if $id_opts.id_opts_selector=="tabular":
 ## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
 ## Single tabular file, can call the Python script with either UNION or INTERSECTION
--l UNION "$input_tabular" "$columns"
+-l UNION "$id_opts.input_tabular" "$id_opts.columns"
+#else
+-t "$id_opts.id_list"
+#end if
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
@@ -28,10 +32,26 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
     </stdio>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />
-        <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-        <param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing sequence identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
-            <validator type="no_options" message="Pick at least one column"/>
-        </param>
+        <conditional name="id_opts">
+            <param name="id_opts_selector" type="select" label="Filter using the ID list from">
+                <option value="tabular" selected="True">tabular file</option>
+                <option value="list">provided list</option>
+                <!-- add UNION or INTERSECTION of multiple tabular files here? -->
+            </param>
+            <when value="tabular">
+                <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
+                <param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False"
+                       label="Column(s) containing sequence identifiers"
+                       help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+                    <validator type="no_options" message="Pick at least one column"/>
+                </param>
+            </when>
+            <when value="list">
+                <param name="id_list" type="text" size="20x80" area="True" format="tabular"
+                       label="List of sequence identifiers (white space separated)"
+                       help="You can use both spaces and new lines to separate your identifiers."/>
+            </when>
+        </conditional>
         <conditional name="output_choice_cond">
             <param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
                 <option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two files</option>
@@ -81,6 +101,16 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
         </test>
         <test>
             <param name="input_file" value="sanger-pairs-mixed.fastq" ftype="fastq" />
+            <param name="id_opts_selector" value="list" />
+            <param name="id_list" value="WTSI_1055_1a05 WTSI_1055_1g02" />
+            <param name="output_choice" value="pos" />
+            <param name="adv_opts_selector" value="advanced" />
+            <param name="strip_suffix" value="true" />
+            <output name="output_pos" file="sanger-sample.fastq" ftype="fastq" />
+        </test>
+        <test>
+            <param name="input_file" value="sanger-pairs-mixed.fastq" ftype="fastq" />
+            <param name="id_opts_selector" value="tabular" />
             <param name="input_tabular" value="sanger-pairs-names.tabular" ftype="tabular" />
             <param name="columns" value="1" />
             <param name="output_choice" value="both" />
@@ -107,6 +137,11 @@ By default it divides a FASTA, FASTQ or Standard Flowgram Format (SFF) file in
 two, those sequences with or without an ID present in the tabular file column(s)
 specified. You can opt to have a single output file of just the matching records,
 or just the non-matching ones.
+
+Instead of providing the identifiers in a tabular file, you can alternatively
+provide them as a paramter (type or paste them into the text box). This is a
+useful shortcut for extracting a few sequences of interest without first having
+to prepare a tabular file.
 
 Note that the order of sequences in the original sequence file is preserved, as
 is any Roche XML Manifest in an SFF file. Also, if any sequences share an

@@ -53,7 +53,8 @@ e.g. Positive matches using column one from tabular file:
 
 $ seq_filter_by_id.py -i my_seqs.fastq -f fastq -p matches.fastq ids.tabular 1
 
-Multiple tabular files and column numbers may be given.
+Multiple tabular files and column numbers may be given, or replaced with
+the -t or --text option.
 """
 parser = OptionParser(usage=usage)
 parser.add_option('-i', '--input', dest='input',
@@ -62,6 +63,8 @@ parser.add_option('-i', '--input', dest='input',
 parser.add_option('-f', '--format', dest='format',
                   default=None,
                   help='Input sequence format (e.g. fasta, fastq, sff)')
+parser.add_option('-t', '--text', dest='id_list',
+                  default=None, help="Lists of white space separated IDs (instead of a tabular file)")
 parser.add_option('-p', '--positive', dest='output_positive',
                   default=None,
                   help='Output filename for matches',
@@ -92,8 +95,10 @@ if seq_format is None:
     stop_err("Missing sequence format")
 if logic not in ["UNION", "INTERSECTION"]:
     stop_err("Fifth agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
-if not args:
-    stop_err("Expected matched pairs of tabular files and columns")
+if options.id_list and args:
+    stop_err("Cannot accepted IDs via both -t and as tabular files")
+elif not options.id_list and not args:
+    stop_err("Expected matched pairs of tabular files and columns (or -t given)")
 if len(args) % 2:
     stop_err("Expected matched pairs of tabular files and columns, not: %r" % args)
 
@@ -153,8 +158,33 @@ else:
         """Do nothing!"""
         return name
 
+mapped_chars = { '>' :'__gt__',
+                 '<' :'__lt__',
+                 "'" :'__sq__',
+                 '"' :'__dq__',
+                 '[' :'__ob__',
+                 ']' :'__cb__',
+                 '{' :'__oc__',
+                 '}' :'__cc__',
+                 '@' : '__at__',
+                 '\n' : '__cn__',
+                 '\r' : '__cr__',
+                 '\t' : '__tc__',
+                 '#' : '__pd__'
+                 }
+
 #Read tabular file(s) and record all specified identifiers
 ids = None #Will be a set
+if options.id_list:
+    assert not identifiers
+    ids = set()
+    id_list = options.id_list
+    #Galaxy turns \r into __cr__ (CR) etc
+    for k in mapped_chars:
+        id_list = id_list.replace(mapped_chars[k], k)
+    for x in options.id_list.split():
+        ids.add(clean_name(x.strip()))
+    print("Have %i unique identifiers from list" % len(ids))
 for tabular_file, columns in identifiers:
     file_ids = set()
     handle = open(tabular_file, "rU")
