@@ -20,6 +20,21 @@ def stop_err(msg, err=1):
     sys.stderr.write(msg+"\n")
     sys.exit(err)
 
+def run(cmd):
+    #Avoid using shell=True when we call subprocess to ensure if the Python
+    #script is killed, so too is the child process.
+    try:
+        child = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except Exception, err:
+        stop_err("Error invoking command:\n%s\n\n%s\n" % (" ".join(cmd), err))
+    #Use .communicate as can get deadlocks with .wait(),
+    stdout, stderr = child.communicate()
+    return_code = child.returncode
+    if return_code:
+        if stderr and stdout:
+            stop_err("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, err, stdout, stderr))
+        else:
+            stop_err("Return code %i from command:\n%s\n%s" % (return_code, err, stderr))
 
 def get_version(mira_binary):
     """Run MIRA to find its version number"""
@@ -55,21 +70,24 @@ parser.add_option("--min_reads", dest="min_reads",
                   default="0",
                   help="Minimum reads per contig")
 parser.add_option("--maf", dest="maf",
-                  default="-", metavar="FILE",
+                  default="", metavar="FILE",
                   help="MIRA MAF output filename")
 parser.add_option("--ace", dest="ace",
-                  default="-", metavar="FILE",
+                  default="", metavar="FILE",
                   help="ACE output filename")
 parser.add_option("--sam", dest="sam",
-                  default="-", metavar="FILE",
+                  default="", metavar="FILE",
                   help="Unpadded SAM output filename")
 parser.add_option("--bam", dest="bam",
-                  default="-", metavar="FILE",
+                  default="", metavar="FILE",
                   help="Unpadded BAM output filename")
 parser.add_option("--fasta", dest="fasta",
-                  default="-", metavar="FILE",
+                  default="", metavar="FILE",
                   help="Unpadded FASTA output filename")
 options, args = parser.parse_args()
+if args:
+    stop_err("Expected options (e.g. --input example.maf), not arguments")
+
 input_maf = options.input
 out_maf = options.maf
 out_sam = options.sam
@@ -98,6 +116,40 @@ if not input_maf:
 elif not os.path.isfile(input_maf):
     stop_err("Missing input MIRA file: %r" % input_maf)
 
-print("TODO...")
-sys.exit(1)
+if not (out_maf or out_sam or out_bam or out_fasta or out_ace):
+    stop_err("No output requested")
+
+#TODO - Run MIRA in /tmp or a configurable directory?
+#Currently Galaxy puts us somewhere safe like:
+#/opt/galaxy-dist/database/job_working_directory/846/
+temp = "."
+
+
+cmd_list = [mira_convert, "-f", "maf", input_maf, os.path.join(temp, "converted")]
+if out_maf:
+    cmd_list.append("maf")
+if out_sam or out_bam:
+    cmd_list.append("samnbb")
+if out_fasta:
+    cmd_list.append("fasta")
+if out_ace:
+    cmd_list.append("ace")
+run(cmd_list)
+
+def collect(old, new):
+    if not os.path.isfile(old):
+        stop_err("Missing expected output file %s" % old)
+    shutil.move(old, new)
+
+if out_maf:
+    collect(os.path.join(temp, "converted.maf"), out_maf)
+if out_fasta:
+    #Can we look at the MAF file to see if there are multiple strains?
+    collect(os.path.join(temp, "converted_AllStrains.unpadded.fasta"), out_fasta)
+if out_ace:
+    collect(os.path.join(temp, "converted.maf"), out_ace)
+
+if out_sam or out_bam:
+    print("SAM/BAM output not done yet...")
+    sys.exit(1)
 print("Done")
