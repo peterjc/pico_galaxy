@@ -6,7 +6,7 @@
     </requirements>
     <version_command interpreter="python">mira4_convert.py --version</version_command>
     <command interpreter="python">
-mira4_convert.py "$mira_file" ...
+mira4_convert.py
 --input "$mira_file"
 --min_length $min_length
 --min_reads $min_reads
