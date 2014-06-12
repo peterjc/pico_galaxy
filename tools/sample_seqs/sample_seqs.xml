@@ -75,6 +75,13 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <output name="output_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
         </test>
         <test>
+            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
+            <param name="type" value="everyNth" />
+            <param name="every_n" value="100" />
+            <param name="interleaved" value="true" />
+            <output name="output_file" file="get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta" />
+        </test>
+        <test>
             <param name="input_file" value="ecoli.fastq" />
             <param name="type" value="percentage" />
             <param name="percent" value="1.0" />
