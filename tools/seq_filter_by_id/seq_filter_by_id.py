@@ -29,7 +29,7 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 
-This is version 0.2.0 of the script, use -v or --version to get the version.
+Use -v or --version to get the version, -h or --help for help.
 """
 import os
 import sys
@@ -39,10 +39,6 @@ from optparse import OptionParser
 def stop_err(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
-
-if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.2.0"
-    sys.exit(0)
 
 #Parse Command Line
 usage = """Use as follows:
@@ -79,7 +75,16 @@ parser.add_option("-l", "--logic", dest="logic",
 parser.add_option("-s", "--suffix", dest="suffix",
                   action="store_true",
                   help="Ignore pair-read suffices for matching names")
-(options, args) = parser.parse_args()
+parser.add_option("-v", "--version", dest="version",
+                  default=False, action="store_true",
+                  help="Show version and quit")
+
+options, args = parser.parse_args()
+
+if options.version:
+    print "v0.2.0"
+    sys.exit(0)
+
 in_file = options.input
 seq_format = options.format
 out_positive_file = options.output_positive
