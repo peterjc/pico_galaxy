@@ -49,18 +49,22 @@ parser.add_option('-p', '--percent', dest='percent',
 parser.add_option('-n', '--everyn', dest='everyn',
                   default=None,
                   help='Take every N-th read')
+parser.add_option("--interleaved", dest="interleaved",
+                  default=False, action="store_true",
+                  help="Input is interleaved reads, preserve the pairings")
 parser.add_option("-v", "--version", dest="version",
                   default=False, action="store_true",
                   help="Show version and quit")
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.1.1")
+    print("v0.1.2")
     sys.exit(0)
 
 seq_format = options.format
 in_file = options.input
 out_file = options.output
+interleaved = options.interleaved
 
 if not in_file:
     stop_err("Require an input filename")
@@ -114,6 +118,18 @@ elif options.percent:
 else:
     stop_err("Must use either -n or -p")
 
+
+def pair(iterator):
+    """Quick and dirty pair batched iterator."""
+    while True:
+        a = next(iterator)
+        b = next(iterator)
+        if not b:
+            assert not a, "Odd number of records?"
+            break
+        yield (a, b)
+
+
 def raw_fasta_iterator(handle):
     """Yields raw FASTA records as multi-line strings."""
     while True:
@@ -148,41 +164,59 @@ def raw_fasta_iterator(handle):
         if not line:
             return # StopIteration 
 
-def fasta_filter(in_file, out_file, iterator_filter):
+def fasta_filter(in_file, out_file, iterator_filter, inter):
     count = 0
     #Galaxy now requires Python 2.5+ so can use with statements,
     with open(in_file) as in_handle:
         with open(out_file, "w") as pos_handle:
-            for record in iterator_filter(raw_fasta_iterator(in_handle)):
-                count += 1
-                pos_handle.write(record)
+            if inter:
+                for r1, r2 in iterator_filter(pair(raw_fasta_iterator(in_handle))):
+                    count += 1
+                    pos_handle.write(r1)
+                    pos_handle.write(r2)
+            else:
+                for record in iterator_filter(raw_fasta_iterator(in_handle)):
+                    count += 1
+                    pos_handle.write(record)
     return count
 
 try:
     from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-    def fastq_filter(in_file, out_file, iterator_filter):
+    def fastq_filter(in_file, out_file, iterator_filter, inter):
         count = 0
         #from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
         reader = fastqReader(open(in_file, "rU"))
         writer = fastqWriter(open(out_file, "w"))
-        for record in iterator_filter(reader):
-            count += 1
-            writer.write(record)
+        if inter:
+            for r1, r2 in iterator_filter(pair(reader)):
+                count += 1
+                writer.write(r1)
+                writer.write(r2)
+        else:
+            for record in iterator_filter(reader):
+                count += 1
+                writer.write(record)
         writer.close()
         reader.close()
         return count
 except ImportError:
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
-    def fastq_filter(in_file, out_file, iterator_filter):
+    def fastq_filter(in_file, out_file, iterator_filter, inter):
         count = 0
         with open(in_file) as in_handle:
             with open(out_file, "w") as pos_handle:
-                for title, seq, qual in iterator_filter(FastqGeneralIterator(in_handle)):
-                    count += 1
-                    pos_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                if inter:
+                    for r1, r2 in iterator_filter(pair(FastqGeneralIterator(in_handle))):
+                        count += 1
+                        pos_handle.write("@%s\n%s\n+\n%s\n" % r1)
+                        pos_handle.write("@%s\n%s\n+\n%s\n" % r2)
+                else:
+                    for title, seq, qual in iterator_filter(FastqGeneralIterator(in_handle)):
+                        count += 1
+                        pos_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
         return count
 
-def sff_filter(in_file, out_file, iterator_filter):
+def sff_filter(in_file, out_file, iterator_filter, inter):
     count = 0
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
@@ -202,17 +236,26 @@ def sff_filter(in_file, out_file, iterator_filter):
         with open(out_file, "wb") as out_handle:
             writer = SffWriter(out_handle, xml=manifest)
             in_handle.seek(0) #start again after getting manifest
-            count = writer.write_file(iterator_filter(SffIterator(in_handle)))
-            #count = writer.write_file(SffIterator(in_handle))
+            if inter:
+                from itertools import chain
+                count = writer.write_file(chain.from_iterable(iterator_filter(pair(SffIterator(in_handle)))))
+                assert count % 2 == 0, "Odd number of records? %i" % count
+                count /= 2
+            else:
+                count = writer.write_file(iterator_filter(SffIterator(in_handle)))
+                #count = writer.write_file(SffIterator(in_handle))
     return count
 
 if seq_format.lower()=="sff":
-    count = sff_filter(in_file, out_file, sampler)
+    count = sff_filter(in_file, out_file, sampler, interleaved)
 elif seq_format.lower()=="fasta":
-    count = fasta_filter(in_file, out_file, sampler)
+    count = fasta_filter(in_file, out_file, sampler, interleaved)
 elif seq_format.lower().startswith("fastq"):
-    count = fastq_filter(in_file, out_file, sampler)
+    count = fastq_filter(in_file, out_file, sampler, interleaved)
 else:
     stop_err("Unsupported file type %r" % seq_format)
 
-sys.stderr.write("Sampled %i records\n" % count)
+if interleaved:
+    sys.stderr.write("Selected %i pairs\n" % count)
+else:
+    sys.stderr.write("Selected %i records\n" % count)

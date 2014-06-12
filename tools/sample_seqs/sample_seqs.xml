@@ -1,4 +1,4 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.1.1">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.1.2">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
@@ -6,12 +6,15 @@
     </requirements>
     <version_command interpreter="python">sample_seqs.py --version</version_command>
     <command interpreter="python">
+sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
 #if str($sampling.type) == "everyNth":
-sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file" -n "${sampling.every_n}"
-#elif str($sampling.type) == "percentage":
-sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file" -p "${sampling.percent}"
-#else:
-echo "Invalid sampling type $sampling.type" &amp;&amp; false
+-n "${sampling.every_n}"
+#else
+##elif str($sampling.type) == "percentage":
+-p "${sampling.percent}"
+#end if
+#if $interleaved
+--interleaved
 #end if
     </command>
     <stdio>
@@ -34,6 +37,7 @@ echo "Invalid sampling type $sampling.type" &amp;&amp; false
                 <param name="percent" value="20.0" type="float" min="0" max="100" label="Percentage" help="Between 0 and 100, e.g. 20% will take every 5th sequence" />
             </when>
         </conditional>
+        <param name="interleaved" type="boolean" label="Interleaved paired reads" help="Tick to preserve interleaved pairs on output" />
     </inputs>
     <outputs>
         <data name="output_file" format="input" metadata_source="input_file" label="${input_file.name} (sub-sampled)"/>
@@ -93,6 +97,10 @@ The simplest mode is to take every N-th sequence, for example taking
 every 2nd sequence would sample half the file - while taking every 5th
 sequence would take 20% of the file.
 
+If you tick the interleaved option, the file is processed as pairs of
+records - taking for example using 20% would take every 5th pair of
+records. This ensures your read pairs are preserved. Note this does not
+actually check your read names match a known pair naming scheme!
 
 **Example Usage**
 
@@ -102,6 +110,10 @@ Suppose you have some Illumina paired end data as files ``R1.fastq`` and
 Taking every 3rd read would reduce the estimated coverage to about x66,
 and would preserve the pairing as well.
 
+Similarly, if you had some Illumina paired end data interleaved into one
+file with an estimated x200 coverage, you would run this tool in
+interleaved mode. Taking every 3rd read pair. This would reduce the
+estimated coverage to about x66, while preserving the read pairing.
 
 **Citation**
 
