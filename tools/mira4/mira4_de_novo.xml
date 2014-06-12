@@ -156,16 +156,18 @@ data = ${f.ext}::$f
         <!-- Tiger mitochondria, selected paired end Illumina reads from SRR639755
              Note we're using just one repeat group, and only the filenames parameter
              within it, so this should work with current test framework limitations:
-             TODO: Revise example and/or -NW:cac=warn and -NW:acv=80 settings
-             MIRA 4.0 complains as coverage is about x93 which is over 80 limit.
-             Also MIRA 4.0 gives three contigs as output.
+	     This has been samples otherwise MIRA 4.0 complains coverage was x93 -->
         <test>
             <param name="job_type" value="genome" />
             <param name="job_quality" value="accurate" />
-            <param name="filenames" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
-            <output name="out_fasta" file="SRR639755_mito_pairs.mira4_de_novo.fasta" ftype="fasta" />
+            <param name="filenames" value="SRR639755_mito_pairs_sample.fastq.gz" ftype="fastqsanger" />
+            <param name="maf_wanted" value="true"/>
+            <param name="bam_wanted" value="true"/>
+            <output name="out_fasta" file="SRR639755_mito_pairs_sample.mira4_de_novo.fasta" ftype="fasta" />
+            <output name="out_bam" file="empty_file.dat" compare="contains" />
+            <output name="out_maf" file="SRR639755_mito_pairs_sample.mira4_de_novo.mira" ftype="mira" />
+            <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
-        -->
         <!-- Simple assembly based on MIRA's minidemo/demo4 example
              Note we're using just one repeat group,
              but several parameters with the repeat
