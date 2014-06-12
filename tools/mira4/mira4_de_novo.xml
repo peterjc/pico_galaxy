@@ -160,7 +160,7 @@ data = ${f.ext}::$f
         <test>
             <param name="job_type" value="genome" />
             <param name="job_quality" value="accurate" />
-            <param name="filenames" value="SRR639755_mito_pairs_sample.fastq.gz" ftype="fastqsanger" />
+            <param name="filenames" value="SRR639755_mito_pairs_sample.fastq" ftype="fastqsanger" />
             <param name="maf_wanted" value="true"/>
             <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="SRR639755_mito_pairs_sample.mira4_de_novo.fasta" ftype="fasta" />
