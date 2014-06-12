@@ -55,6 +55,7 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial version.
+v0.1.1  - Using optparse to provide a proper command line API.
 ======= ======================================================================
 
 

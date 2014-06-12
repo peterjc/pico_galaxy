@@ -13,35 +13,73 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 
-This is version 0.1.0 of the script, use -v or --version to get the version.
+Use -v or --version to get the version, -h or --help for help.
 """
 import os
 import sys
+from optparse import OptionParser
+
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
-if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.1.0")
+#Parse Command Line
+usage = """Use as follows:
+
+$ python sample_seqs.py [options]
+
+e.g. Sample 20% of the reads:
+
+$ python sample_seqs.py -i my_seq.fastq -f fastq -p 20.0 -o sample.fastq
+"""
+parser = OptionParser(usage=usage)
+parser.add_option('-i', '--input', dest='input',
+                  default=None, help='Input sequences filename',
+                  metavar="FILE")
+parser.add_option('-f', '--format', dest='format',
+                  default=None,
+                  help='Input sequence format (e.g. fasta, fastq, sff)')
+parser.add_option('-o', '--output', dest='output',
+                  default=None, help='Output sampled sequenced filename',
+                  metavar="FILE")
+parser.add_option('-p', '--percent', dest='percent',
+                  default=None,
+                  help='Take this percent of the reads')
+parser.add_option('-n', '--everyn', dest='everyn',
+                  default=None,
+                  help='Take every N-th read',
+                  metavar="FILE")
+parser.add_option("-v", "--version", dest="version",
+                  default=False, action="store_true",
+                  help="Show version and quit")
+options, args = parser.parse_args()
+
+if options.version:
+    print("v0.1.1")
     sys.exit(0)
 
-#Parse Command Line
-if len(sys.argv) < 5:
-    stop_err("Requires at least four arguments: seq_format, in_file, out_file, mode, ...")
-seq_format, in_file, out_file, mode = sys.argv[1:5]
+seq_format = options.format
+in_file = options.input
+out_file = options.output
+
+if not in_file:
+    stop_err("Require an input filename")
 if in_file != "/dev/stdin" and not os.path.isfile(in_file):
     stop_err("Missing input file %r" % in_file)
+if not out_file:
+    stop_err("Require and output filename")
 
-if mode == "everyNth":
-    if len(sys.argv) != 6:
-        stop_err("If using everyNth, just need argument N (integer, at least 2)")
+
+if options.percent and options.everyn:
+    stop_err("Cannot combine -p and -n options")
+elif options.everyn:
     try:
-        N = int(sys.argv[5])
+        N = int(options.everyn)
     except:
-        stop_err("Bad N argument %r" % sys.argv[5])
+        stop_err("Bad N argument %r" % options.everyn)
     if N < 2:
-        stop_err("Bad N argument %r" % sys.argv[5])
+        stop_err("Bad N argument %r" % options.everyn)
     if (N % 10) == 1:
         sys.stderr.write("Sampling every %ist sequence\n" % N)
     elif (N % 10) == 2:
@@ -57,15 +95,13 @@ if mode == "everyNth":
             count += 1
             if count % N == 1:
                 yield record
-elif mode == "percentage":
-    if len(sys.argv) != 6:
-        stop_err("If using percentage, just need percentage argument (float, range 0 to 100)")
+elif options.percent:
     try:
-        percent = float(sys.argv[5]) / 100.0
+        percent = float(options.percent) / 100.0
     except:
-        stop_err("Bad percent argument %r" % sys.argv[5])
+        stop_err("Bad percent argument %r" % options.percent)
     if percent <= 0.0 or 1.0 <= percent:
-        stop_err("Bad percent argument %r" % sys.argv[5])
+        stop_err("Bad percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
     def sampler(iterator):
         global percent
@@ -77,7 +113,7 @@ elif mode == "percentage":
                 taken += 1
                 yield record
 else:
-    stop_err("Unsupported mode %r" % mode)
+    stop_err("Must use either -n or -p")
 
 def raw_fasta_iterator(handle):
     """Yields raw FASTA records as multi-line strings."""

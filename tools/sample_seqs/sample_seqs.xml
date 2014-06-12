@@ -1,4 +1,4 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.0.1">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.1.1">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
@@ -7,12 +7,11 @@
     <version_command interpreter="python">sample_seqs.py --version</version_command>
     <command interpreter="python">
 #if str($sampling.type) == "everyNth":
-sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}" "${sampling.every_n}"
+sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file" -n "${sampling.every_n}"
 #elif str($sampling.type) == "percentage":
-sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}" "${sampling.percent}"
+sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file" -p "${sampling.percent}"
 #else:
-##Should give an error about invalid sampling type:
-sample_seqs.py "$input_file.ext" "$input_file" "$output_file" "${sampling.type}"
+echo "Invalid sampling type $sampling.type" &amp;&amp; false
 #end if
     </command>
     <stdio>
