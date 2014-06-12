@@ -32,6 +32,29 @@ def run(cmd, log_handle):
     log_handle.write(stdout)
     return child.returncode
 
+def depad(fasta_file, sam_file, bam_file, log_handle):
+    log_handle.write("\n================= Converting MIRA assembly from SAM to BAM ===================\n")
+    #Also doing SAM to (uncompressed) BAM during depad
+    bam_stem = bam_file + ".tmp" # Have write permissions and want final file in this folder
+    cmd = 'samtools depad -S -u -T "%s" "%s" | samtools sort - "%s"' % (fasta_file, sam_file, bam_stem)
+    return_code = run(cmd, log_handle)
+    if return_code:
+        return "Error %i from command:\n%s" % (return_code, cmd)
+    if not os.path.isfile(bam_stem + ".bam"):
+        return "samtools depad or sort failed to produce BAM file"
+
+    log_handle.write("\n====================== Indexing MIRA assembly BAM file =======================\n")
+    cmd = 'samtools index "%s.bam"' % bam_stem
+    return_code = run(cmd, log_handle)
+    if return_code:
+        return "Error %i from command:\n%s" % (return_code, cmd)
+    if not os.path.isfile(bam_stem + ".bam.bai"):
+        return "samtools indexing of BAM file failed to produce BAI file"
+
+    shutil.move(bam_stem + ".bam", bam_file)
+    os.remove(bam_stem + ".bam.bai") #Let Galaxy handle that...
+
+
 def make_bam(mira_convert, maf_file, fasta_file, bam_file, log_handle):
     if not os.path.isfile(mira_convert):
         return "Missing binary %r" % mira_convert
@@ -52,29 +75,13 @@ def make_bam(mira_convert, maf_file, fasta_file, bam_file, log_handle):
     if not os.path.isfile(sam_file):
         return "Conversion from MIRA to SAM failed"
 
-    log_handle.write("\n================= Converting MIRA assembly from SAM to BAM ===================\n")
     #Also doing SAM to (uncompressed) BAM during depad
-    bam_stem = bam_file + ".tmp" # Have write permissions and want final file in this folder
-    cmd = 'samtools depad -S -u -T "%s" "%s" | samtools sort - "%s"' % (fasta_file, sam_file, bam_stem)
-    return_code = run(cmd, log_handle)
-    if return_code:
-        return "Error %i from command:\n%s" % (return_code, cmd)
-    if not os.path.isfile(bam_stem + ".bam"):
-        return "samtools depad or sort failed to produce BAM file"
+    msg = depad(fasta_file, sam_file, bam_file, log_handle)
+    if msg:
+        return msg
 
     os.remove(sam_file)
     os.rmdir(tmp_dir)
-
-    log_handle.write("\n====================== Indexing MIRA assembly BAM file =======================\n")
-    cmd = 'samtools index "%s.bam"' % bam_stem
-    return_code = run(cmd, log_handle)
-    if return_code:
-        return "Error %i from command:\n%s" % (return_code, cmd)
-    if not os.path.isfile(bam_stem + ".bam.bai"):
-        return "samtools indexing of BAM file failed to produce BAI file"
-
-    shutil.move(bam_stem + ".bam", bam_file)
-    os.remove(bam_stem + ".bam.bai") #Let Galaxy handle that...
 
     return None #Good :)
 

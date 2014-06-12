@@ -10,9 +10,14 @@ import shutil
 import time
 import tempfile
 from optparse import OptionParser
+try:
+    from io import BytesIO
+except ImportError:
+    #Should we worry about Python 2.5 or older?
+    from StringIO import StringIO as BytesIO
 
 #Do we need any PYTHONPATH magic?
-from mira4_make_bam import make_bam
+from mira4_make_bam import depad
 
 WRAPPER_VER = "0.0.5" #Keep in sync with the XML file
 
@@ -157,6 +162,9 @@ if out_maf:
     cmd_list.append("maf")
 if out_bam:
     cmd_list.append("samnbb")
+    if not out_fasta:
+        #Need this for samtools depad
+        out_fasta = os.path.join(temp, "depadded.fasta")
 if out_fasta:
     cmd_list.append("fasta")
 if out_ace:
@@ -193,6 +201,25 @@ if out_cstats:
     collect(os.path.join(temp, "converted_info_contigstats.txt"), out_cstats)
 
 if out_bam:
-    print("SAM/BAM output not done yet...")
-    sys.exit(1)
-print("Done")
+    assert os.path.isfile(out_fasta)
+    old = os.path.join(temp, "converted.samnbb")
+    if not os.path.isfile(old):
+        old = os.path.join(temp, "converted.sam")
+    if not os.path.isfile(old):
+        stop_err("Missing expected intermediate file %s" % old)
+    h = BytesIO()
+    msg = depad(out_fasta, old, out_bam, h)
+    if msg:
+        print(msg)
+        print(h.getvalue())
+        h.close()
+        sys.exit(1)
+    h.close()
+    if out_fasta == os.path.join(temp, "depadded.fasta"):
+        #Not asked for by Galaxy, no longer needed
+        os.remove(out_fasta)
+
+if min_length or min_cover or min_reads:
+    print("Filtered.")
+else:
+    print("Converted.")
