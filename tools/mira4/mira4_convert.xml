@@ -17,9 +17,6 @@ mira4_convert.py
 #if str($fasta_wanted)=="true":
 --fasta "$out_fasta"
 #end if
-#if str($sam_wanted)=="true":
---maf "$out_sam"
-#end if
 #if str($bam_wanted)=="true":
 --bam "$out_bam"
 #end if
@@ -50,7 +47,6 @@ mira4_convert.py
                help="e.g. Set to 5 to exclude low coverage contigs with only a few reads. Default is to keep all contigs (minimum zero)." />
         <param name="maf_wanted" type="boolean" label="Output assembly in MIRA's own format? (useful if filtering)" checked="False" />
         <param name="fasta_wanted" type="boolean" label="Convert assembly into (unpadded) FASTA?" checked="True" />
-        <param name="sam_wanted" type="boolean" label="Convert assembly into (upadded) SAM format?" checked="False" />
         <param name="bam_wanted" type="boolean" label="Convert assembly into (upadded) BAM format?" checked="False" />
         <!-- Don't yet have a Galaxy datatype defined for ace:
         <param name="ace_wanted" type="boolean" label="Convert assembly in ACE format?" checked="False" />
@@ -63,9 +59,6 @@ mira4_convert.py
         </data>
         <data name="out_fasta" format="fasta" label="$mira_file.name (as FASTA)">
               <filter>fasta_wanted is True</filter>
-        </data>
-        <data name="out_sam" format="sam" label="$mira_file.name (as SAM)">
-              <filter>sam_wanted is True</filter>
         </data>
         <data name="out_bam" format="bam" label="$mira_file.name (as BAM)">
               <filter>bam_wanted is True</filter>

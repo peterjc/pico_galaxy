@@ -78,9 +78,6 @@ parser.add_option("--maf", dest="maf",
 parser.add_option("--ace", dest="ace",
                   default="", metavar="FILE",
                   help="ACE output filename")
-parser.add_option("--sam", dest="sam",
-                  default="", metavar="FILE",
-                  help="Unpadded SAM output filename")
 parser.add_option("--bam", dest="bam",
                   default="", metavar="FILE",
                   help="Unpadded BAM output filename")
@@ -99,7 +96,6 @@ if args:
 
 input_maf = options.input
 out_maf = options.maf
-out_sam = options.sam
 out_bam = options.bam
 out_fasta = options.fasta
 out_ace = options.ace
@@ -126,7 +122,7 @@ if not input_maf:
 elif not os.path.isfile(input_maf):
     stop_err("Missing input MIRA file: %r" % input_maf)
 
-if not (out_maf or out_sam or out_bam or out_fasta or out_ace or out_cstats):
+if not (out_maf or out_bam or out_fasta or out_ace or out_cstats):
     stop_err("No output requested")
 
 
@@ -159,7 +155,7 @@ if min_reads:
 cmd_list.extend(["-f", "maf", input_maf, os.path.join(temp, "converted")])
 if out_maf:
     cmd_list.append("maf")
-if out_sam or out_bam:
+if out_bam:
     cmd_list.append("samnbb")
 if out_fasta:
     cmd_list.append("fasta")
@@ -196,7 +192,7 @@ if out_ace:
 if out_cstats:
     collect(os.path.join(temp, "converted_info_contigstats.txt"), out_cstats)
 
-if out_sam or out_bam:
+if out_bam:
     print("SAM/BAM output not done yet...")
     sys.exit(1)
 print("Done")
