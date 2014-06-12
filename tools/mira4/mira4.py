@@ -58,6 +58,9 @@ parser.add_option("--fasta", dest="fasta",
 parser.add_option("--log", dest="log",
                   default="-", metavar="FILE",
                   help="MIRA logging output filename")
+parser.add_option("-v", "--version", dest="version",
+                  default=False, action="store_true",
+                  help="Show version and quit")
 options, args = parser.parse_args()
 manifest = options.manifest
 out_maf = options.maf
@@ -84,7 +87,7 @@ if not mira_ver.strip().startswith("4.0"):
 mira_convert_ver = get_version(mira_convert)
 if not mira_convert_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_convert))
-if "-v" in sys.argv or "--version" in sys.argv:
+if options.version:
     print "%s, MIRA wrapper version %s" % (mira_ver, WRAPPER_VER)
     if mira_ver != mira_convert_ver:
         print "WARNING: miraconvert %s" % mira_convert_ver
