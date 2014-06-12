@@ -79,6 +79,13 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <param name="percent" value="20.0" />
             <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
         </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
+            <param name="type" value="everyNth" />
+            <param name="percent" value="5" />
+            <param name="interleaved" value="true" />
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff" ftype="sff"/>
+        </test>
     </tests>
     <help>
 **What it does**
