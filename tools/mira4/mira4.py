@@ -223,7 +223,9 @@ cmd = " ".join(cmd_list)
 
 assert os.path.isdir(temp)
 d = "%s_assembly" % name
-assert not os.path.isdir(d), "Path %s already exists" % d
+#This can fail on my development machine if stale folders exist
+#under Galaxy's .../database/job_working_directory/ tree:
+assert not os.path.isdir(d), "Path %r already exists:\n%s" % (d, os.path.abspath(d))
 try:
     #Check path access
     os.mkdir(d)
