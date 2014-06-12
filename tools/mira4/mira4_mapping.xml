@@ -186,7 +186,8 @@ data = ${f.ext}::$f
             <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="tvc_map_ref_strain.fasta" ftype="fasta" />
             <output name="out_bam" file="empty_file.dat" compare="contains" />
-            <output name="out_maf" file="empty_file.dat" compare="contains" />
+            <!-- TODO: Suggest startswith as a compare method? -->
+            <output name="out_maf" file="header.mira" compare="contains" />
             <output name="out_log" file="empty_file.dat" compare="contains" />
         </test>
         <test>
