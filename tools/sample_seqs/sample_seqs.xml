@@ -56,6 +56,13 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <output name="output_file" file="ecoli.sample_N100.fastq" />
         </test>
         <test>
+            <param name="input_file" value="ecoli.fastq" />
+            <param name="type" value="everyNth" />
+            <param name="every_n" value="100" />
+            <param name="interleaved" value="true" />
+            <output name="output_file" file="ecoli.pair_sample_N100.fastq" />
+        </test>
+        <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="5" />
