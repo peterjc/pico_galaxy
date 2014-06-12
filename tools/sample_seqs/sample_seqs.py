@@ -48,8 +48,7 @@ parser.add_option('-p', '--percent', dest='percent',
                   help='Take this percent of the reads')
 parser.add_option('-n', '--everyn', dest='everyn',
                   default=None,
-                  help='Take every N-th read',
-                  metavar="FILE")
+                  help='Take every N-th read')
 parser.add_option("-v", "--version", dest="version",
                   default=False, action="store_true",
                   help="Show version and quit")
