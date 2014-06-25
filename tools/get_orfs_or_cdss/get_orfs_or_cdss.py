@@ -9,7 +9,7 @@ minimum length (in amino acids), strand (both, forward, reverse), output
 nucleotide filename, and output protein filename.
 
 For more details, see the help text and argument descriptions in the
-accompanying get_orfs_or_cdss,xml file which defines a Galaxy interface.
+accompanying get_orfs_or_cdss.xml file which defines a Galaxy interface.
 
 This tool is a short Python script which requires Biopython. If you use
 this tool in scientific work leading to a publication, please cite the
