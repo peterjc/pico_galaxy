@@ -1,7 +1,7 @@
 <tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.0">
     <description>from a tabular file</description>
     <requirements>
-        <requirement type="package" version="1.63">biopython</requirement>
+        <requirement type="package" version="1.64">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
     <version_command interpreter="python">seq_filter_by_id.py --version</version_command>
