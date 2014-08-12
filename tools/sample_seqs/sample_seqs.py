@@ -71,7 +71,7 @@ if not in_file:
 if in_file != "/dev/stdin" and not os.path.isfile(in_file):
     stop_err("Missing input file %r" % in_file)
 if not out_file:
-    stop_err("Require and output filename")
+    stop_err("Require an output filename")
 
 
 if options.percent and options.everyn:
