@@ -1,0 +1,64 @@
+<tool id="seq_composition" name="Sequence composition" version="0.0.1">
+    <description>Count bases or amino-acids</description>
+    <requirements>
+        <requirement type="package" version="1.64">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <version_command interpreter="python">seq_composition.py --version</version_command>
+    <command interpreter="python">
+seq_composition.py -o "$output_file"
+##For loop over inputs
+#for i in $input_file
+--$i.ext "${i}"
+#end for
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_file" type="data" format="fasta,fastq,sff" multiple="true" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
+    </inputs>
+    <outputs>
+        <data name="output_file" format="tabular" label="Sequence composition ${on_string}"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
+            <output name="output_file" file="four_human_proteins.seq_composition.tabular" ftype="tabular" />
+        </test> 
+        <test>
+            <param name="input_file" value="ecoli.fastq" ftype="fastq" />
+            <output name="output_file" file="ecoli.seq_composition.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="input_file" value="ecoli.fastq" ftype="fastqsanger" />
+            <output name="output_file" file="ecoli.seq_composition.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.seq_composition.tabular" ftype="tabular"/>
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+Takes input files of sequences (typically FASTA or FASTQ, but also
+Standard Flowgram Format (SFF) is supported), counts all the letters
+in each sequence, and returns a summary table of their counts and
+percentages.
+
+**Citation**
+
+This tool uses Biopython, so if you use this Galaxy tool in work leading to a
+scientific publication please cite the following paper:
+
+Cock et al (2009). Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/seq_composition
+    </help>
+</tool>
