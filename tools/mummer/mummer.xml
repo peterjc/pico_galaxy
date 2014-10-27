@@ -1,4 +1,4 @@
-<tool id="mumerplot_wrapper" name="MUMmer dotplot" version="0.0.1">
+<tool id="mumerplot_wrapper" name="MUMmer dotplot" version="0.0.2">
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <requirement type="binary">ps2pdf</requirement>
@@ -65,4 +65,7 @@ http://dx.doi.org/10.1186/gb-2004-5-2-r12
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mummer
     </help>
+    <citations>
+        <citation type="doi">10.1186/gb-2004-5-2-r12</citation>
+    </citations>
 </tool>

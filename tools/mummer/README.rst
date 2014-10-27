@@ -21,7 +21,8 @@ Automated Installation
 This should be straightforward, Galaxy should automatically download and install
 the MUMmer files.
 
-It also needs gnuplot, and ps2pdf.
+It also needs the tools ``gnuplot`` and ``ps2pdf`` to be installed and on the
+system ``$PATH``.
 
 
 Manual Installation
@@ -46,7 +47,7 @@ tool. Just add the line::
 If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
 and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
 
-    $ ./run_functional_tests.sh -id mumerplot_wrapper
+    $ ./run_tests.sh -id mumerplot_wrapper
 
 That's it.
 
@@ -57,7 +58,8 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1  - Initial public release
+v0.0.1  - Initial public release.
+v0.0.2  - Include MUMmer citation in Galaxy XML markup.
 ======= ======================================================================
 
 
