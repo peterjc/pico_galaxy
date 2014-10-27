@@ -43,8 +43,8 @@ mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$pdf_output"
     <help>
 **What it does**
 
-Takes two FASTA files (*species A* and *species B*), compairs them using one
-of the MUMmer 3 tools (``mummer``, ``nucmer``, or ``promer``), comparing both
+Takes two FASTA files (*species A* and *species B*), compares them using one
+of the MUMmer 3 tools (``mummer``, ``nucmer``, or ``promer``), checking both
 strands, and then draws a dotplot using ``mummerplot``.
 
 The full MUMmer suite is more flexible and capable than this limited wrapper.
