@@ -25,7 +25,8 @@ def run(cmd):
         stop_err("Error %i from: %s" % (return_code, cmd))
 
 if "-v" in sys.argv [1:]or "--version" in sys.argv[1:]:
-    print("MUMmer wrapper v0.0.1\n")
+    print("MUMmer wrapper v0.0.3\n")
+    # TODO - How to get a version string from the mummer binary?
     os.system("nucmer --version")
     os.system("promer --version")
     os.system("mummerplot --version")

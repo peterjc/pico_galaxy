@@ -19,10 +19,9 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-the MUMmer files.
+the MUMmer files, and GhostScript which provides the ``ps2pdf`` binary.
 
-It also needs the tools ``gnuplot`` and ``ps2pdf`` to be installed and on the
-system ``$PATH``.
+It also needs the tool ``gnuplot`` to be installed and on the system ``$PATH``.
 
 
 Manual Installation
@@ -61,6 +60,7 @@ Version Changes
 v0.0.1  - Initial public release.
 v0.0.2  - Correct typo in Tool identifier.
         - Include MUMmer citation in Galaxy XML markup.
+v0.0.3  - Install ``ps2pdf`` using Tool Shed's GhostScript package.
 ======= ======================================================================
 
 

@@ -3,4 +3,7 @@
     <package name="mummer" version="3.23">
         <repository name="package_mummer_3_23" owner="iuc" />
     </package>
+    <package name="ghostscript" version="9.10">
+        <repository name="package_ghostscript_9_10" owner="devteam" />
+    </package>
 </tool_dependency>
