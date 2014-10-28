@@ -1,5 +1,5 @@
-Galaxy wrapper for EffectiveT3 v1.0.1
-=====================================
+Galaxy wrapper for drawing dotplots using MUMmer 3
+==================================================
 
 This wrapper is copyright 2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
