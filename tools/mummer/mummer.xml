@@ -1,4 +1,4 @@
-<tool id="mumerplot_wrapper" name="MUMmer dotplot" version="0.0.2">
+<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.2">
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <requirement type="binary">ps2pdf</requirement>
