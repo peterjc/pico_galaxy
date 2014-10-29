@@ -63,7 +63,12 @@ before_install:
  - echo "Installing Biopython for system Python..."
  - sudo apt-get install python-biopython
  - echo "Installing MUMmer and its dependencies..."
- - sudo apt-get install gnuplot ghostscript mummer
+ - sudo apt-get install gnuplot ghostscript
+ - cd ${TRAVIS_BUILD_DIR}
+ - wget http://downloads.sourceforge.net/project/mummer/mummer/3.23/MUMmer3.23.tar.gz
+ - tar -zxvf MUMmer3.23.tar.gz
+ - cd MUMmer3.23 && make check && make install
+ - export PATH=$PWD:$PATH
  - echo "Downloading and compiling nlstradamus..."
  - cd ${TRAVIS_BUILD_DIR}
  - mkdir nlstradamus && cd nlstradamus
