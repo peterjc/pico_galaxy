@@ -47,6 +47,30 @@ mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$pdf_output"
     <requirements>
     </requirements>
     <tests>
+        <!-- Because exact graphical output is fragile w.r.t. dependency versions,
+             all I am trying to verify is a valid PNG and PDF are produced.
+             Rather than genomes, for size + speed just comparing 3 and 6 genes. -->
+        <test>
+            <param name="fasta_a" value="three_human_mRNA.fasta" ftype="fasta" />
+            <param name="fasta_b" value="rhodopsin_nucs.fasta" ftype="fasta" />
+            <param name="algorithm" value="mummer" />
+            <output name="pdf_output" file="magic.pdf" ftype="pdf" compare="contains" />
+            <output name="png_output" file="magic.png" ftype="png" compare="contains" />
+        </test>
+        <test>
+            <param name="fasta_a" value="three_human_mRNA.fasta" ftype="fasta" />
+            <param name="fasta_b" value="rhodopsin_nucs.fasta" ftype="fasta" />
+            <param name="algorithm" value="nucmer" />
+            <output name="pdf_output" file="magic.pdf" ftype="pdf" compare="contains" />
+            <output name="png_output" file="magic.png" ftype="png" compare="contains" />
+        </test>
+        <test>
+            <param name="fasta_a" value="three_human_mRNA.fasta" ftype="fasta" />
+            <param name="fasta_b" value="rhodopsin_nucs.fasta" ftype="fasta" />
+            <param name="algorithm" value="promer" />
+            <output name="pdf_output" file="magic.pdf" ftype="pdf" compare="contains" />
+            <output name="png_output" file="magic.png" ftype="png" compare="contains" />
+        </test>
     </tests>
     <help>
 **What it does**

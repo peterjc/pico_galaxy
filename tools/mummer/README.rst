@@ -62,6 +62,7 @@ v0.0.2  - Correct typo in Tool identifier.
         - Include MUMmer citation in Galaxy XML markup.
 v0.0.3  - Install ``ps2pdf`` using Tool Shed's GhostScript package.
 v0.0.4  - Install ``gnuplot`` using Tool Shed's gnuplot package.
+        - Test case added.
 ======= ======================================================================
 
 
@@ -74,7 +75,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/mummer
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf mummer.tar.gz tools/mummer/README.rst tools/mummer/mummer.xml tools/mummer/mummer.py tools/mummer/tool_dependencies.xml
+    $ tar -czf mummer.tar.gz tools/mummer/README.rst tools/mummer/mummer.xml tools/mummer/mummer.py tools/mummer/tool_dependencies.xml test-data/magic.png test-data/magic.pdf test-data/rhodopsin_nucs.fasta test-data/three_human_mRNA.fasta
 
 Check this worked::
 
@@ -83,6 +84,10 @@ Check this worked::
     tools/mummer/mummer.xml
     tools/mummer/mummer.py
     tools/mummer/tool_dependencies.xml
+    test-data/magic.png
+    test-data/magic.pdf
+    test-data/rhodopsin_nucs.fasta
+    test-data/three_human_mRNA.fasta
 
 
 Licence (MIT)
