@@ -1,4 +1,4 @@
-<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.3">
+<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.4">
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <!-- Needs ps2pdf from ghostscript -->      
@@ -10,6 +10,9 @@
             <requirement type="binary">promer</requirement>
             <requirement type="binary">mummerplot</requirement>
             <requirement type="package" version="3.23">mummer</requirement>
+	    <!-- mummerplot needs the gnuplot binary -->
+            <requirement type="binary">gnuplot</requirement>
+            <requirement type="package" version="4.6">gnuplot</requirement>
     </requirements>
     <version_command interpreter="python">
 mummer.py --version

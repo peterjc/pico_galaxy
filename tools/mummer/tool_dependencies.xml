@@ -6,4 +6,7 @@
     <package name="ghostscript" version="9.10">
         <repository name="package_ghostscript_9_10" owner="devteam" />
     </package>
+    <package name="gnuplot" version="4.6">
+        <repository name="package_gnuplot_4_6" owner="iuc" />
+    </package>
 </tool_dependency>
