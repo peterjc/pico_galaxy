@@ -23,6 +23,7 @@
     <tool file="samtools_depad/samtools_depad.xml" />
     <tool file="align_back_trans/align_back_trans.xml" />
     <tool file="sample_seqs/sample_seqs.xml" />
+    <tool file="mummer/mummer.xml" />
     <!-- Missing dependencies
     <tool file="venn_list/venn_list.xml" />
     <tool file="protein_analysis/predictnls.xml" />

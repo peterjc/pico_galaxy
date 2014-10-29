@@ -62,6 +62,8 @@ before_install:
  - chmod 700 "$HOME/.python-eggs" 
  - echo "Installing Biopython for system Python..."
  - sudo apt-get install python-biopython
+ - echo "Installing MUMmer and its dependencies..."
+ - sudo apt-get install gnuplot ghostscript mummer
  - echo "Downloading and compiling nlstradamus..."
  - cd ${TRAVIS_BUILD_DIR}
  - mkdir nlstradamus && cd nlstradamus
@@ -158,6 +160,7 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/align_back_trans/ tools/align_back_trans
  - ln -s ${TRAVIS_BUILD_DIR}/tools/sample_seqs/ tools/sample_seqs
  - ln -s ${TRAVIS_BUILD_DIR}/tools/fastq_pair_names/ tools/fastq_pair_names
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/mummer/ tools/mummer
  - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
  - sed -i '6 i import mira' lib/galaxy/datatypes/registry.py
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
