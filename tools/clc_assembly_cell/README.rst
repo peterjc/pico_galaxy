@@ -47,22 +47,23 @@ Manual Installation
 First install the CLC Assembly Cell sortware as described above.
 
 To install the wrapper copy or move the following files under the Galaxy tools
-folder, e.g. in a tools/clcbio folder:
+folder, e.g. in a ``tools/clcbio/`` folder:
 
 * clc_assembler.xml (Galaxy tool definition)
 * clc_mapper.xml (Galaxy tool definition)
 * README.rst (this file)
 
-You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
-tools. Just all these line, for example next to other assembly tools::
+You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
+the tools. Just all these line, for example next to other assembly tools::
 
   <tool file="clc_assembly_cell/clc_assembler.xml" />
   <tool file="clc_assembly_cell/clc_mapper.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then run::
 
-    $ ./run_functional_tests.sh -id clc_assembler
+    $ ./run_tests.sh -id clc_assembler
+    $ ./run_tests.sh -id clc_mapper
 
 That's it.
 
@@ -73,7 +74,9 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1  - Initial public release
+v0.0.1  - Initial public release.
+v0.0.2  - Actually use the ``$CLC_ASSEMBLY_CELL`` environment variable.
+        - Enable and fixed the tests.
 ======= ======================================================================
 
 
@@ -86,7 +89,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/clc_assembly_cell
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf clcbio.tar.gz tools/clc_assembly_cell/README.rst tools/clc_assembly_cell/clc_assembler.xml tools/clc_assembly_cell/clc_mapper.xml tools/clc_assembly_cell/tool_dependencies.xml
+    $ tar -czf clcbio.tar.gz tools/clc_assembly_cell/README.rst tools/clc_assembly_cell/clc_assembler.xml tools/clc_assembly_cell/clc_mapper.xml tools/clc_assembly_cell/tool_dependencies.xml test-data/NC_010642.fna
 
 Check this worked::
 
@@ -95,6 +98,7 @@ Check this worked::
     tools/clc_assembly_cell/clc_assembler.xml
     tools/clc_assembly_cell/clc_mapper.xml
     tools/clc_assembly_cell/tool_dependencies.xml
+    test-data/NC_010642.fna
 
 
 Licence (MIT)

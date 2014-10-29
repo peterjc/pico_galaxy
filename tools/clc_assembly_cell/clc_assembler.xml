@@ -1,10 +1,10 @@
-<tool id="clc_assembler" name="CLC assembler" version="0.0.1">
+<tool id="clc_assembler" name="CLC assembler" version="0.0.2">
     <description>Assembles reads giving a FASTA file</description>
     <requirements>
         <requirement type="binary">clc_assembler</requirement>
     </requirements>
-    <version_command>/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_assembler | grep -i version</version_command>
-    <command>/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_assembler
+    <version_command>\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler | grep -i version</version_command>
+    <command>\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler
 #for $rg in $read_group
 ##--------------------------------------
 #if str($rg.segments.type) == "paired"
@@ -25,7 +25,7 @@
 #end for
 -m $min_contig_len
 -o "$out_fasta"
---cpus \$GALAXY_SLOTS
+--cpus \${GALAXY_SLOTS:-4}
 -v | grep -v "^Progress: "</command>
     <stdio>
         <!-- Assume anything other than zero is an error -->
@@ -98,19 +98,17 @@
         <data name="out_fasta" format="fasta" label="CLCbio assember contigs (FASTA)" />
     </outputs>
     <tests>
-        <!-- Review this test once Galaxy handles repeat groups better
         <test>
-            <param name="type" value="interleaved" />
-            <param name="placement" value="fb" />
-            <param name="dist_mode" value="ss" />
-            <param name="min_size" value="1" />
-            <param name="max_size" value="1000" />
-            <param name="dist_mode" value="ss" />
-            <param name="filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
+            <param name="read_group_0|segments|type" value="interleaved" />
+            <param name="read_group_0|segments|placement" value="fb" />
+            <param name="read_group_0|segments|dist_mode" value="ss" />
+            <param name="read_group_0|segments|min_size" value="1" />
+            <param name="read_group_0|segments|max_size" value="1000" />
+            <param name="read_group_0|segments|dist_mode" value="ss" />
+            <param name="read_group_0|segments|filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
             <param name="min_contig_len" value="200" />
             <output name="out_fasta" file="SRR639755_mito_pairs.clc4_de_novo.fasta" ftype="fasta" />
         </test>
-        -->
     </tests>
     <help>
 
