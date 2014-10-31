@@ -52,8 +52,7 @@ There are four Galaxy files to install:
 * ``mira4_validator.py`` (the XML parameter validation script)
 
 The suggested location is a new ``tools/mira4`` folder. You will also need to
-modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool, and also do
-this to ``tools_conf.xml.sample`` in order to run the tests::
+modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool::
 
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
@@ -71,13 +70,13 @@ tools, see above.
 You will also need to install samtools (for generating a BAM file from MIRA's
 SAM output).
 
-After copying (or symlinking) the ``test-data`` files under Galaxy's ``test-data``
-folder, you can run the tests with::
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
 
-    $ ./run_functional_tests.sh -id mira_4_0_bait
-    $ ./run_functional_tests.sh -id mira_4_0_de_novo
-    $ ./run_functional_tests.sh -id mira_4_0_mapping
-    $ ./run_functional_tests.sh -id mira_4_0_convert
+    $ ./run_tests.sh -id mira_4_0_bait
+    $ ./run_tests.sh -id mira_4_0_de_novo
+    $ ./run_tests.sh -id mira_4_0_mapping
+    $ ./run_tests.sh -id mira_4_0_convert
 
 
 History

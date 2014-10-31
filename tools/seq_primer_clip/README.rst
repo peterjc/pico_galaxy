@@ -23,18 +23,19 @@ Manual Installation
 
 There are just two files to install:
 
-* seq_primer_clip.py (the Python script)
-* seq_primer_clip.xml (the Galaxy tool definition)
+* ``seq_primer_clip.py`` (the Python script)
+* ``seq_primer_clip.xml`` (the Galaxy tool definition)
 
-The suggested location is a new tools/seq_primer_clip folder. You will also
-need to modify the tools_conf.xml file to tell Galaxy to offer the tool::
+The suggested location is a new ``tools/seq_primer_clip/`` folder. You will
+also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
+tool::
 
   <tool file="seq_primer_clip/seq_primer_clip.xml" />
 
-If you wish to run the unit tests, also add this to tools_conf.xml.sample
-and move/copy the test-data files under Galaxy's test-data folder. Then::
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
 
-    $ ./run_functional_tests.sh -id seq_primer_clip
+    $ ./run_tests.sh -id seq_primer_clip
 
 You will also need to install Biopython 1.54 or later. That's it.
 

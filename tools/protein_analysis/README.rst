@@ -72,31 +72,30 @@ Manual Installation
 
 2. Copy/move the following files (from this archive) there:
 
-   * tmhmm2.xml (Galaxy tool definition)
-   * tmhmm2.py (Python wrapper script)
+   * ``tmhmm2.xml`` (Galaxy tool definition)
+   * ``tmhmm2.py`` (Python wrapper script)
 
-   * signalp3.xml (Galaxy tool definition)
-   * signalp3.py (Python wrapper script)
+   * ``signalp3.xml`` (Galaxy tool definition)
+   * ``signalp3.py`` (Python wrapper script)
 
-   * promoter2.xml (Galaxy tool definition)
-   * promoter2.py (Python wrapper script)
+   * ``promoter2.xml`` (Galaxy tool definition)
+   * ``promoter2.py`` (Python wrapper script)
 
-   * psortb.xml (Galaxy tool definition)
-   * psortb.py (Python wrapper script)
+   * ``psortb.xml`` (Galaxy tool definition)
+   * ``psortb.py`` (Python wrapper script)
 
-   * wolf_psort.xml (Galaxy tool definition)
-   * wolf_psort.py (Python wrapper script)
+   * ``wolf_psort.xml`` (Galaxy tool definition)
+   * ``wolf_psort.py`` (Python wrapper script)
 
-   * rxlr_motifs.xml (Galaxy tool definition)
-   * rxlr_motifs.py (Python script)
+   * ``rxlr_motifs.xml`` (Galaxy tool definition)
+   * ``rxlr_motifs.py`` (Python script)
 
-   * seq_analysis_utils.py (shared Python code)
-   * LICENCE
-   * README.rst (this file)
+   * ``seq_analysis_utils.py`` (shared Python code)
+   * ``LICENCE``
+   * ``README.rst`` (this file)
 
-3. Edit your Galaxy conjuration file tool_conf.xml (to use the tools) AND
-   also ``tool_conf.xml.sample`` (to run the tests) to include the new tools
-   by adding::
+3. Edit your Galaxy conjuration file ``tool_conf.xml`` to include the
+   new tools by adding::
 
     <section name="Protein sequence analysis" id="protein_analysis">
       <tool file="protein_analysis/tmhmm2.xml" />
@@ -111,22 +110,24 @@ Manual Installation
 
    Leave out the lines for any tools you do not wish to use in Galaxy.
 
-4. Copy/move the test-data files (from this archive) to Galaxy's
-   subfolder test-data.
+4. Copy/move the ``test-data/*`` files (from this archive) to Galaxy's
+   subfolder ``test-data/``.
 
 5. Run the Galaxy functional tests for these new wrappers with::
 
-    $ ./run_functional_tests.sh -id tmhmm2
-    $ ./run_functional_tests.sh -id signalp3
-    $ ./run_functional_tests.sh -id Psortb
-    $ ./run_functional_tests.sh -id rxlr_motifs
+    $ ./run_tests.sh -id tmhmm2
+    $ ./run_tests.sh -id signalp3
+    $ ./run_tests.sh -id Psortb
+    $ ./run_tests.sh -id rxlr_motifs
 
-   Alternatively, this should work (assuming you left the name and id as shown
-   above in your XML file ``tool_conf.xml.sample``)::
+   Alternatively, this should work (assuming you left the seciont name and id
+   as shown above in your XML file ``tool_conf.xml``)::
 
-    $ ./run_functional_tests.sh -sid Protein_sequence_analysis-protein_analysis
+    $ ./run_tests.sh -sid Protein_sequence_analysis-protein_analysis
 
-   To check the section ID expected, use ./run_functional_tests.sh -list
+   To check the section ID expected, use:
+
+    $ ./run_tests.sh -list
 
 6. Restart Galaxy and check the new tools are shown and work.
 

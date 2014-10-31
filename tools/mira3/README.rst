@@ -30,10 +30,15 @@ There are just two Galaxy files to install:
 * ``mira.xml`` (the Galaxy tool definition)
 
 The suggested location is a new ``tools/mira3`` folder. You will also need to
-modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool, and also do
-this to ``tools_conf.xml.sample`` in order to run any tests::
-
+modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool by adding
+the line::
+ 
   <tool file="mira3/mira.xml" />
+
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
+
+    $ ./run_tests -id mira_assembler
 
 You will also need to install MIRA, we used version 3.4.1.1. See:
 

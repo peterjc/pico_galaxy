@@ -45,10 +45,10 @@ tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="seq_rename/seq_rename.xml" />
 
-If you wish to run the unit tests, also add this to ``tools_conf.xml``.sample
-and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
 
-    $ ./run_functional_tests.sh -id seq_rename
+    $ ./run_tests.sh -id seq_rename
 
 You will also need to install Biopython 1.54 or later. That's it.
 

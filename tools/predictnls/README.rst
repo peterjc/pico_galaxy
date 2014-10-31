@@ -43,10 +43,10 @@ it next to them. Just add the line::
 
   <tool file="protein_analysis/predictnls.xml" />
 
-If you want to run the unit tests, also add this to tool_conf.xml.sample, and
-copy the test files under test-data, then run::
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
 
-    ./run_functional_tests.sh -id predictnls
+    ./run_tests.sh -id predictnls
 
 That's it.
 

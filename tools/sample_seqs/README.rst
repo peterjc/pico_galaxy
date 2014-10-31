@@ -39,11 +39,12 @@ tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="sample_seqs/sample_seqs.xml" />
 
-You will also need to install Biopython 1.62 or later. If you want to run
-the unit tests, include this line in ``tools_conf.xml.sample`` and the sample
-FASTA files under the ``test-data`` directory. Then::
+You will also need to install Biopython 1.62 or later.
 
-    ./run_functional_tests.sh -id sample_seqs
+If you wish to run the unit tests, also	move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
+
+    ./run_tests.sh -id sample_seqs
 
 That's it.
 

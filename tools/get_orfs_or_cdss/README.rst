@@ -41,11 +41,12 @@ tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="get_orfs_or_cdss/get_orfs_or_cdss.xml" />
 
-You will also need to install Biopython 1.54 or later. If you want to run
-the unit tests, include this line in ``tools_conf.xml.sample`` and the sample
-FASTA files under the ``test-data`` directory. Then::
+You will also need to install Biopython 1.54 or later.
 
-    ./run_functional_tests.sh -id get_orfs_or_cdss
+If you wish to run the unit tests, also	move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
+
+    ./run_tests.sh -id get_orfs_or_cdss
 
 That's it.
 

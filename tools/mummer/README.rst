@@ -43,8 +43,8 @@ tool. Just add the line::
 
   <tool file="mummer/mummer.xml" />
 
-If you wish to run the unit tests, also add this to ``tools_conf.xml.sample``
-and move/copy the ``test-data`` files under Galaxy's ``test-data`` folder. Then::
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
+under Galaxy's ``test-data/`` folder. Then::
 
     $ ./run_tests.sh -id mummerplot_wrapper
 
