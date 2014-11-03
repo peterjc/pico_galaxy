@@ -1,0 +1,69 @@
+<tool id="samtools_bam2fq" name="Convert BAM to FASTQ" version="0.0.1">
+    <description>samtools bam2fq</description>
+    <requirements>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
+    <command>samtools bam2fq "$input_bam" &gt; "$out_fastq"</command>
+    <inputs>
+        <!-- Unlike other bits of samtools, this seems to autodetect SAM vs BAM -->
+        <param name="input_bam" type="data" format="bam,sam" label="Input BAM file" />
+	<!-- TODO - new options -n, -O and -s in samtools v1.1 -->
+    </inputs>
+    <outputs>
+        <data name="out_fastq" format="fastqsanger" label="$input_bam.name (bam2fq)" />
+    </outputs>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <tests>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
+            <output name="out_fastq" file="sam_spec_padded.bam2fq.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.sam" ftype="sam" />
+            <output name="out_fastq" file="sam_spec_padded.bam2fq.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.depad.bam" ftype="bam" />
+            <output name="out_fastq" file="sam_spec_padded.bam2fq.fastq" ftype="fastqsanger" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools bam2fq`` command in the SAMtools toolkit.
+
+It is quite common to wish to remap high-throughput sequencing data. If you
+only have the mapped reads in SAM/BAM format, this tool can "unmap" them to
+recover FASTQ format reads to input into an alternative mapping tool.
+
+BAM files can hold both aligned reads and unaligned reads, so another example
+usage would be to filter your BAM file to get only the unaligned reads, and
+turn those back in FASTQ using this tool ready for *de novo* assembly, or to
+try mapping against another reference sequence.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Heng Li et al (2009). The Sequence Alignment/Map format and SAMtools.
+Bioinformatics 25(16), 2078-9.
+http://dx.doi.org/10.1093/bioinformatics/btp352
+
+Peter J.A. Cock (2014), Galaxy wrapper for the samtools bam2fq command
+http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_bam2fq
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_bam2fq
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
+</tool>
