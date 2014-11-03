@@ -51,6 +51,7 @@ Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial public release
 v0.0.2  - Use quoted filenames when calling samtools (in case of spaces etc)
+v0.0.3  - Embed samtools citation in tool XML.
 ======= ======================================================================
 
 

@@ -1,4 +1,4 @@
-<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.1">
+<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.2">
     <description>samtools depad</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
@@ -56,4 +56,7 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depad
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depad
     </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
 </tool>
