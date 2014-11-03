@@ -27,7 +27,6 @@ To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/samtools_bam2fq`` folder:
 
 * ``samtools_bam2fq.xml`` (the Galaxy tool definition)
-* ``samtools_bam2fq.py`` (the Python wrapper script)
 * ``README.rst`` (this file)
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
