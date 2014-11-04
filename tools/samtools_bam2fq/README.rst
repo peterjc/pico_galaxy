@@ -50,6 +50,7 @@ Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial public release, tested with samtools v1.1.
 v0.0.2  - Defaults to pair-aware mode which requires pre-sorting by read name.
+v0.0.3  - Faster not to compress intermediate BAM file when sorting.
 ======= ======================================================================
 
 
