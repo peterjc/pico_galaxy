@@ -10,6 +10,10 @@ This is a wrapper for part of the command line samtools suite.
 This wrapper is available from the Galaxy Tool Shed at:
 http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_bam2fq
 
+WARNING: ``samtools bam2fq`` actually produces a mixture of FASTA and FASTQ
+depending on if your SAM/BAM input reads have QUAL scores. This is a problem
+for Galaxy's more rigid datatypes. https://github.com/samtools/samtools/issues/313
+
 
 Automated Installation
 ======================
