@@ -3,12 +3,8 @@
 
 Takes six command line options, tabular filename, ID column numbers (comma
 separated list using one based counting), input filename, input type (e.g.
-FASTA or SFF) and two output filenames (for records with and without the
-given IDs, same format as input sequence file).
-
-If either output filename is just a minus sign, that file is not created.
-This is intended to allow output for just the matched (or just the non-matched)
-records.
+FASTA or SFF) and up to two output filenames (for records with and without
+the given IDs, same format as input sequence file).
 
 When filtering an SFF file, any Roche XML manifest in the input file is
 preserved in both output files.
@@ -82,7 +78,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.2.0"
+    print "v0.2.1"
     sys.exit(0)
 
 in_file = options.input
@@ -99,7 +95,7 @@ if out_positive_file is None and out_negative_file is None:
 if seq_format is None:
     stop_err("Missing sequence format")
 if logic not in ["UNION", "INTERSECTION"]:
-    stop_err("Fifth agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
+    stop_err("Logic agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
 if options.id_list and args:
     stop_err("Cannot accepted IDs via both -t and as tabular files")
 elif not options.id_list and not args:
