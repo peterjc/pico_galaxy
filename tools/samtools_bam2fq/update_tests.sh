@@ -20,3 +20,7 @@ samtools bam2fq sam_spec_padded.bam > sam_spec_padded.bam2fq.fastq
 
 echo "sam_spec_padded.bam2fq_no_suf.fastq (without suffices)"
 samtools bam2fq -n sam_spec_padded.bam > sam_spec_padded.bam2fq_no_suf.fastq
+
+echo "sam_spec_padded.bam2fq_pairs.fastq and sam_spec_padded.bam2fq_singles.fastq"
+#Shouldn't need the -T argument, https://github.com/samtools/samtools/issues/295
+samtools sort -n -O bam -T TEMP_SORT sam_spec_padded.bam | samtools bam2fq -s sam_spec_padded.bam2fq_singles.fastq - > sam_spec_padded.bam2fq_pairs.fastq
