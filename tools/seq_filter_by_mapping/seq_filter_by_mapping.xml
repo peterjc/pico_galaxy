@@ -1,0 +1,94 @@
+<tool id="seq_filter_by_mapping" name="Filter sequences by mapping" version="0.0.1">
+    <description>from SAM/BAM file</description>
+    <requirements>
+        <requirement type="package" version="1.64">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <version_command interpreter="python">seq_filter_by_mapping.py --version</version_command>
+    <command interpreter="python">
+seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
+#if $output_choice_cond.output_choice=="both"
+ -p $output_pos -n $output_neg
+#elif $output_choice_cond.output_choice=="pos"
+ -p $output_pos
+#elif $output_choice_cond.output_choice=="neg"
+ -n $output_neg
+#end if
+    </command>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <inputs>
+        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />
+	<param name="mapping_file" type="data" format="sam,bam" label="SAM/BAM mapping of those sequences" help="SAM or BAM format." />
+        <conditional name="output_choice_cond">
+            <param name="output_choice" type="select" label="Output mapped reads, unmapped reads, or both?">
+                <option value="both">Both mapped and unmapped reads, as two files</option>
+                <option value="pos">Just mapped reads, as a single file</option>
+                <option value="neg">Just unmapped reads, as a single file</option>
+            </param>
+            <!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+            <when value="both" />
+            <when value="pos" />
+            <when value="neg" />
+        </conditional>
+	<param name="pair_mode" type="select" label="Paired read treatment">
+            <option value="strict">Treat as a pair, require both reads to be mapped</option>
+            <option value="lax" selected="true">Treat as a pair, allow either read to be mapped</option>
+	    <option value="strict">Treat as a pair, require both reads to be mapped</option>
+	    <!-- The following would actually be more work as have to store qname/1 and qname/2 separately for filter...
+            <option value="solo">Treat independently (will split partners when only one maps)</option>
+	    -->
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output_pos" format="input" metadata_source="input_file" label="With matched ID">
+            <filter>output_choice_cond["output_choice"] != "neg"</filter>
+        </data>
+        <data name="output_neg" format="input" metadata_source="input_file" label="Without matched ID">
+            <filter>output_choice_cond["output_choice"] != "pos"</filter>
+        </data>
+    </outputs>
+    <tests>
+        <!-- TODO -->
+    </tests>
+    <help>
+**What it does**
+
+By default it divides a FASTA, FASTQ or Standard Flowgram Format (SFF) file in
+two, those sequences (or read pairs) which do or don't map in the provided
+SAM/BAM file. You can opt to have a single output file of just the mapping reads,
+or just the non-mapping ones.
+
+**Example Usage**
+
+You might wish to perform a contamination screan by mapping your reads against
+known contaminant reference sequences, then use this tool to select only the
+unmapped reads for further analysis (e.g. *de novo* assembly).
+
+Similarly you might wish to map your reads against a known bacterial reference,
+then take the non-mapping sequences forward for analysis if looking for novel
+plasmids.
+
+
+**References**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Peter J.A. Cock (2014), Galaxy tool for filtering reads by mapping
+http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_mapping
+
+This tool uses Biopython to read and write SFF files, so you may also wish to
+cite the Biopython application note (and Galaxy too of course):
+
+Cock et al (2009). Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_mapping
+    </help>
+</tool>
