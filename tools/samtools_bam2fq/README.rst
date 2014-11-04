@@ -49,6 +49,7 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial public release, tested with samtools v1.1.
+v0.0.2  - Defaults to pair-aware mode which requires pre-sorting by read name.
 ======= ======================================================================
 
 
@@ -61,7 +62,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_bam2fq
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf samtools_bam2fq.tar.gz tools/samtools_bam2fq/README.rst tools/samtools_bam2fq/samtools_bam2fq.xml tools/samtools_bam2fq/tool_dependencies.xml test-data/sam_spec_padded.bam test-data/sam_spec_padded.sam test-data/sam_spec_padded.depad.bam test-data/sam_spec_padded.bam2fq.fastq test-data/sam_spec_padded.bam2fq_no_suf.fastq
+    $ tar -czf samtools_bam2fq.tar.gz tools/samtools_bam2fq/README.rst tools/samtools_bam2fq/samtools_bam2fq.xml tools/samtools_bam2fq/tool_dependencies.xml test-data/sam_spec_padded.bam test-data/sam_spec_padded.sam test-data/sam_spec_padded.depad.bam test-data/sam_spec_padded.bam2fq.fastq test-data/sam_spec_padded.bam2fq_no_suf.fastq test-data/sam_spec_padded.bam2fq_singles.fastq test-data/sam_spec_padded.bam2fq_pairs.fastq
 
 Check this worked::
 
@@ -74,6 +75,8 @@ Check this worked::
     test-data/sam_spec_padded.depad.bam
     test-data/sam_spec_padded.bam2fq.fastq
     test-data/sam_spec_padded.bam2fq_no_suf.fastq
+    test-data/sam_spec_padded.bam2fq_singles.fastq
+    test-data/sam_spec_padded.bam2fq_pairs.fastq
 
 
 Licence (MIT)
