@@ -5,11 +5,11 @@ This tool is copyright 2010-2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
-This tool is a short Python script (using both the Galaxy and Biopython library
-functions) which divides a FASTA, FASTQ, or SFF file in two, those sequences with
-or without an ID present in the specified column(s) of a tabular file. Example uses
-include filtering based on search results from a tool like NCBI BLAST before
-assembly.
+This tool is a short Python script (using both Biopython library functions)
+which divides a FASTA, FASTQ, or SFF file in two, those sequences with or
+without an ID present in the specified column(s) of a tabular file. Example
+uses include filtering based on search results from a tool like NCBI BLAST
+before assembly.
 
 This tool is available from the Galaxy Tool Shed at:
 
@@ -77,6 +77,7 @@ v0.2.0  - Can supply ID list as a text parameter (instead of in a file)
         - Using optparse for command line API.
         - Advanced option to ignore paired read suffices.
         - Updated dependencies to use Biopython 1.64.
+v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
 ======= ======================================================================
 
 

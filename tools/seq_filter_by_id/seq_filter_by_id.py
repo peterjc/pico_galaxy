@@ -13,9 +13,9 @@ Note in the default NCBI BLAST+ tabular output, the query sequence ID is
 in column one, and the ID of the match from the database is in column two.
 Here sensible values for the column numbers would therefore be "1" or "2".
 
-This tool is a short Python script which requires Biopython 1.54 or later
-for SFF file support. If you use this tool in scientific work leading to a
-publication, please cite the Biopython application note:
+This tool is a short Python script which requires Biopython 1.54 or later.
+If you use this tool in scientific work leading to a publication, please
+cite the Biopython application note:
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
@@ -337,36 +337,33 @@ elif seq_format.lower()=="fasta":
     print "%i with and %i without specified IDs" % (pos_count, neg_count)
 elif seq_format.lower().startswith("fastq"):
     #Write filtered FASTQ file based on IDs from tabular file
-    from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-    reader = fastqReader(open(in_file, "rU"))
+    from Bio.SeqIO.QualityIO import FastqGeneralIterator
+    handle = open(in_file, "rU")
     if out_positive_file is not None and out_negative_file is not None:
         print "Generating two FASTQ files"
-        positive_writer = fastqWriter(open(out_positive_file, "w"))
-        negative_writer = fastqWriter(open(out_negative_file, "w"))
-        for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifier.
-            if record.identifier and clean_name(record.identifier.split()[0][1:]) in ids:                
-                positive_writer.write(record)
+        positive_handle = open(out_positive_file, "w")
+        negative_handle = open(out_negative_file, "w")
+        for title, seq, qual in FastqGeneralIterator(handle):
+            if clean_name(title.split(None, 1)[0]) in ids:                
+                positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
             else:
-                negative_writer.write(record)
-        positive_writer.close()
-        negative_writer.close()
+                negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+        positive_handle.close()
+        negative_handle.close()
     elif out_positive_file is not None:
         print "Generating matching FASTQ file"
-        positive_writer = fastqWriter(open(out_positive_file, "w"))
-        for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifier.
-            if record.identifier and clean_name(record.identifier.split()[0][1:]) in ids:
-                positive_writer.write(record)
-        positive_writer.close()
+        positive_handle = open(out_positive_file, "w")
+        for title, seq, qual in FastqGeneralIterator(handle):
+            if clean_name(title.split(None, 1)[0]) in ids:
+                positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+        positive_handle.close()
     elif out_negative_file is not None:
         print "Generating non-matching FASTQ file"
-        negative_writer = fastqWriter(open(out_negative_file, "w"))
-        for record in reader:
-            #The [1:] is because the fastaReader leaves the > on the identifier.
-            if not record.identifier or clean_name(record.identifier.split()[0][1:]) not in ids:
-                negative_writer.write(record)
-        negative_writer.close()
-    reader.close()
+        negative_handle = open(out_negative_file, "w")
+        for title, seq, qual in FastqGeneralIterator(handle):
+            if clean_name(title.split(None, 1)[0]) not in ids:
+                negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+        negative_handle.close()
+    handle.close()
 else:
     stop_err("Unsupported file type %r" % seq_format)
