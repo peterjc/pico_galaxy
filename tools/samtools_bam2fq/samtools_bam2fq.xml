@@ -5,11 +5,15 @@
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
     <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
-    <command>samtools bam2fq "$input_bam" &gt; "$out_fastq"</command>
+    <command>samtools bam2fq $suffices $orig_qual "$input_bam" &gt; "$out_fastq"</command>
     <inputs>
         <!-- Unlike other bits of samtools, this seems to autodetect SAM vs BAM -->
         <param name="input_bam" type="data" format="bam,sam" label="Input BAM file" />
-	<!-- TODO - new options -n, -O and -s in samtools v1.1 -->
+        <param name="suffices" type="boolean" label="Add /1 and /2 suffices to paired reads?"
+	       truevalue="" falsevalue="-n" checked="true" />
+        <param name="orig_qual" type="boolean" label="Use original qualities (OQ tags) if present?"
+               truevalue="-O" falsevalue="" checked="false" />
+	<!-- TODO - new option -s in samtools v1.1 -->
     </inputs>
     <outputs>
         <data name="out_fastq" format="fastqsanger" label="$input_bam.name (bam2fq)" />
@@ -22,6 +26,14 @@
     <tests>
         <test>
             <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
+            <param name="suffices" value="true" />
+            <param name="orig_qual" value="false" />
+            <output name="out_fastq" file="sam_spec_padded.bam2fq.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
+            <param name="suffices" value="true" />
+            <param name="orig_qual" value="true" />
             <output name="out_fastq" file="sam_spec_padded.bam2fq.fastq" ftype="fastqsanger" />
         </test>
         <test>
@@ -31,6 +43,11 @@
         <test>
             <param name="input_bam" value="sam_spec_padded.depad.bam" ftype="bam" />
             <output name="out_fastq" file="sam_spec_padded.bam2fq.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
+            <param name="suffices" value="false"/>
+            <output name="out_fastq" file="sam_spec_padded.bam2fq_no_suf.fastq" ftype="fastqsanger" />
         </test>
     </tests>
     <help>
