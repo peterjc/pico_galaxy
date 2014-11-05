@@ -35,7 +35,6 @@ seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
             <when value="neg" />
         </conditional>
 	<param name="pair_mode" type="select" label="Paired read treatment">
-            <option value="strict">Treat as a pair, require both reads to be mapped</option>
             <option value="lax" selected="true">Treat as a pair, allow either read to be mapped</option>
 	    <option value="strict">Treat as a pair, require both reads to be mapped</option>
 	    <!-- The following would actually be more work as have to store qname/1 and qname/2 separately for filter...
