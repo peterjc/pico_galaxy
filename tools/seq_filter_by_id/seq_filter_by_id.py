@@ -294,57 +294,18 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
     return pos_count, neg_count
 
 
-if seq_format.lower()=="sff":
-    #Now write filtered SFF file based on IDs from BLAST file
-    try:
-        from Bio.SeqIO.SffIO import SffIterator, SffWriter
-    except ImportError:
-        stop_err("SFF filtering requires Biopython 1.54 or later")
-
-    try:
-        from Bio.SeqIO.SffIO import ReadRocheXmlManifest
-    except ImportError:
-        #Prior to Biopython 1.56 this was a private function
-        from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
-    in_handle = open(in_file, "rb") #must be binary mode!
-    try:
-        manifest = ReadRocheXmlManifest(in_handle)
-    except ValueError:
-        manifest = None
-    #This makes two passes though the SFF file with isn't so efficient,
-    #but this makes the code simple.
-    pos_count = neg_count = 0
-    if out_positive_file is not None:
-        out_handle = open(out_positive_file, "wb")
-        writer = SffWriter(out_handle, xml=manifest)
-        in_handle.seek(0) #start again after getting manifest
-        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in ids)
-        out_handle.close()
-    if out_negative_file is not None:
-        out_handle = open(out_negative_file, "wb")
-        writer = SffWriter(out_handle, xml=manifest)
-        in_handle.seek(0) #start again
-        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in ids)
-        out_handle.close()
-    #And we're done
-    in_handle.close()
-    #At the time of writing, Galaxy doesn't show SFF file read counts,
-    #so it is useful to put them in stdout and thus shown in job info.
-    print "%i with and %i without specified IDs" % (pos_count, neg_count)
-elif seq_format.lower()=="fasta":
-    #Write filtered FASTA file based on IDs from tabular file
-    pos_count, neg_count = fasta_filter(in_file, out_positive_file, out_negative_file, ids)
-    print "%i with and %i without specified IDs" % (pos_count, neg_count)
-elif seq_format.lower().startswith("fastq"):
-    #Write filtered FASTQ file based on IDs from tabular file
+def fastq_filter(in_file, pos_file, neg_file, wanted):
+    """FASTQ filter."""
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
-    handle = open(in_file, "rU")
+    handle = open(in_file, "r")
     if out_positive_file is not None and out_negative_file is not None:
         print "Generating two FASTQ files"
         positive_handle = open(out_positive_file, "w")
         negative_handle = open(out_negative_file, "w")
+        print in_file
         for title, seq, qual in FastqGeneralIterator(handle):
-            if clean_name(title.split(None, 1)[0]) in ids:                
+            print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
+            if clean_name(title.split(None, 1)[0]) in ids:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
             else:
                 negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
@@ -365,5 +326,62 @@ elif seq_format.lower().startswith("fastq"):
                 negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
         negative_handle.close()
     handle.close()
+    # This does not currently bother to record record counts (faster)
+
+
+def sff_filter(in_file, pos_file, neg_file, wanted):
+    """SFF filter."""
+    try:
+        from Bio.SeqIO.SffIO import SffIterator, SffWriter
+    except ImportError:
+        stop_err("SFF filtering requires Biopython 1.54 or later")
+
+    try:
+        from Bio.SeqIO.SffIO import ReadRocheXmlManifest
+    except ImportError:
+        #Prior to Biopython 1.56 this was a private function
+        from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
+
+    in_handle = open(in_file, "rb") #must be binary mode!
+    try:
+        manifest = ReadRocheXmlManifest(in_handle)
+    except ValueError:
+        manifest = None
+
+    #This makes two passes though the SFF file with isn't so efficient,
+    #but this makes the code simple.
+    pos_count = neg_count = 0
+    if out_positive_file is not None:
+        out_handle = open(out_positive_file, "wb")
+        writer = SffWriter(out_handle, xml=manifest)
+        in_handle.seek(0) #start again after getting manifest
+        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in ids)
+        out_handle.close()
+    if out_negative_file is not None:
+        out_handle = open(out_negative_file, "wb")
+        writer = SffWriter(out_handle, xml=manifest)
+        in_handle.seek(0) #start again
+        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in ids)
+        out_handle.close()
+    #And we're done
+    in_handle.close()
+    #At the time of writing, Galaxy doesn't show SFF file read counts,
+    #so it is useful to put them in stdout and thus shown in job info.
+    return pos_count, neg_count
+
+
+if seq_format.lower()=="sff":
+    # Now write filtered SFF file based on IDs wanted
+    pos_count, neg_count = sff_filter(in_file, out_positive_file, out_negative_file, ids)
+    # At the time of writing, Galaxy doesn't show SFF file read counts,
+    # so it is useful to put them in stdout and thus shown in job info.
+elif seq_format.lower()=="fasta":
+    # Write filtered FASTA file based on IDs from tabular file
+    pos_count, neg_count = fasta_filter(in_file, out_positive_file, out_negative_file, ids)
+    print "%i with and %i without specified IDs" % (pos_count, neg_count)
+elif seq_format.lower().startswith("fastq"):
+    # Write filtered FASTQ file based on IDs from tabular file
+    fastq_filter(in_file, out_positive_file, out_negative_file, ids)
+    # This does not currently track the counts
 else:
     stop_err("Unsupported file type %r" % seq_format)
