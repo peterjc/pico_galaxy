@@ -166,7 +166,7 @@ def load_mapping_ids(filename, ids):
             qname, flag, rest = line.split("\t", 2)
             flag = int(flag)
             # TODO - pair mode
-            if flag & 0x4:
+            if not (flag & 0x4):
                 ids.add(qname)
     if child:
         # Check terminated normally.
@@ -186,7 +186,8 @@ for filename in args:
 # TODO - If want to support naive paired mode, have to record
 # more than just qname (need /1 or /2 indicator)
 print("Loaded %i mapped IDs" % (len(ids)))
-
+if len(ids) < 10:
+    print("Looking for %s" % ", ".join(sorted(ids)))
 
 def crude_fasta_iterator(handle):
     """Yields tuples, record ID and the full record as a string."""
