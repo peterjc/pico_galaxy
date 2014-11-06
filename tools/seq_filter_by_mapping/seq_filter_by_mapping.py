@@ -21,6 +21,7 @@ Use -v or --version to get the version, -h or --help for help.
 import os
 import sys
 import re
+import subprocess
 from optparse import OptionParser
 
 def stop_err(msg, err=1):
@@ -138,11 +139,27 @@ mapped_chars = { '>' :'__gt__',
                  '#' : '__pd__'
                  }
 
-# Read mapping file(s) and record all mapped identifiers
-ids = set()
-for mapping in args:
-    handle = open(mapping)
-    # Hope this is SAM format...
+def load_mapping_ids(filename, ids):
+    """Parse SAM/BAM file, updating given set of ids.
+
+    Parses BAM files via call out to samtools view command.
+    """
+    handle = open(filename, "rb")
+    magic = handle.read(4)
+    if magic == b"\x1f\x8b\x08\x04":
+        # Presumably a BAM file then...
+        handle.close()
+        # Call samtools view, don't need header so no -h added:
+        child = subprocess.Popen(["samtools", "view", filename],
+                                 stdin=None,
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
+        handle = child.stdout
+    else:
+        # Presumably a SAM file...
+        child = None
+        handle.seek(0)
+    # Handle should now contain SAM records
     for line in handle:
         # Ignore header lines
         if line[0] != "@":
@@ -151,6 +168,21 @@ for mapping in args:
             # TODO - pair mode
             if flag & 0x4:
                 ids.add(qname)
+    if child:
+        # Check terminated normally.
+        stdout, stderr = child.communicate()
+        assert child.returncode is not None
+        if child.returncode:
+            msg = "Error %i from 'samtools view %s'\n%s" % (filename, stderr)
+            stop_err(msg.strip(), child.returncode)
+    else:
+        handle.close()
+
+
+# Read mapping file(s) and record all mapped identifiers
+ids = set()
+for filename in args:
+    load_mapping_ids(filename, ids)
 # TODO - If want to support naive paired mode, have to record
 # more than just qname (need /1 or /2 indicator)
 print("Loaded %i mapped IDs" % (len(ids)))
