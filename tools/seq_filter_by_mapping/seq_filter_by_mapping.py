@@ -139,7 +139,7 @@ mapped_chars = { '>' :'__gt__',
                  '#' : '__pd__'
                  }
 
-def load_mapping_ids(filename, ids):
+def load_mapping_ids(filename, pair_mode, ids):
     """Parse SAM/BAM file, updating given set of ids.
 
     Parses BAM files via call out to samtools view command.
@@ -165,9 +165,23 @@ def load_mapping_ids(filename, ids):
         if line[0] != "@":
             qname, flag, rest = line.split("\t", 2)
             flag = int(flag)
-            # TODO - pair mode
-            if not (flag & 0x4):
-                ids.add(qname)
+            if pair_mode == "lax":
+                # If either read or its partner is mapped, take it!
+                # Being lazy, since we will look at both reads
+                # can just check if (either) has 0x4 clear.
+                if not (flag & 0x4):
+                    ids.add(qname)
+            elif pair_mode == "strict":
+                # For paired reads, require BOTH be mapped.
+                if (flag & 0x4):
+                    # This is unmapped, ignore it
+                    pass
+                elif not (flag & 0x1):
+                    # Unpaired (& mapped) - take it
+                    ids.add(qname)
+                elif not (flag & 0x8):
+                    # Paired and partner also mapped, good
+                    ids.add(qname)
     if child:
         # Check terminated normally.
         stdout, stderr = child.communicate()
@@ -182,7 +196,7 @@ def load_mapping_ids(filename, ids):
 # Read mapping file(s) and record all mapped identifiers
 ids = set()
 for filename in args:
-    load_mapping_ids(filename, ids)
+    load_mapping_ids(filename, pair_mode, ids)
 # TODO - If want to support naive paired mode, have to record
 # more than just qname (need /1 or /2 indicator)
 print("Loaded %i mapped IDs" % (len(ids)))
