@@ -158,6 +158,7 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/chromosome_diagram/ tools/chromosome_diagram
  - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_rename/ tools/seq_rename
  - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_filter_by_id/ tools/seq_filter_by_id
+ - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_filter_by_mapping/ tools/seq_filter_by_mapping
  - ln -s ${TRAVIS_BUILD_DIR}/tools/seq_select_by_id/ tools/seq_select_by_id
  - ln -s ${TRAVIS_BUILD_DIR}/tools/get_orfs_or_cdss/ tools/get_orfs_or_cdss
  - ln -s ${TRAVIS_BUILD_DIR}/tools/samtools_idxstats/ tools/samtools_idxstats
