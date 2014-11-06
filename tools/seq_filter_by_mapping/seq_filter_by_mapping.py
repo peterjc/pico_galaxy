@@ -56,7 +56,7 @@ parser.add_option('-n', '--negative', dest='output_negative',
                   metavar="FILE")
 parser.add_option("-m", "--pair-mode", dest="pair_mode",
                   default="lax",
-                  help="How to treat paired reads (lax or strict)")
+                  help="How to treat paired reads (lax or strict, default lax)")
 parser.add_option("-v", "--version", dest="version",
                   default=False, action="store_true",
                   help="Show version and quit")
