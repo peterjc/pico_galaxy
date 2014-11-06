@@ -104,6 +104,9 @@ before_install:
  - cd samtools-0.1.19
  - make
  - export PATH=$PWD:$PATH
+ - echo "Quick hack for testing seq_filter_by_mapping.xml"
+ - cd ${TRAVIS_BUILD_DIR}/test-data
+ - zcat SRR639755_mito_pairs.fastq.gz > SRR639755_mito_pairs.fastq
  - echo "Fetching Galaxy..."
  - cd ${TRAVIS_BUILD_DIR}
  - wget https://codeload.github.com/jmchilton/galaxy-central/tar.gz/master
@@ -111,6 +114,8 @@ before_install:
  - cd galaxy-central-master
  - sudo apt-get install python-pip
  - sudo pip install requests 
+ - echo "Quick hack for testing seq_filter_by_mapping.xml"
+ - cd ${TRAVIS_BUILD_DIR}
 
 # Configuring tools within Galaxy
 # ===============================
