@@ -148,7 +148,7 @@ install:
  - export GALAXY_TEST_UPLOAD_ASYNC=false
  - export GALAXY_TEST_DB_TEMPLATE=https://github.com/jmchilton/galaxy-downloads/raw/master/db_gx_rev_0120.sqlite
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml tool_conf.xml
- - rm config/tool_conf.xml.sample
+ - rm -f config/tool_conf.xml.sample
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml config/tool_conf.xml.sample
  - ln -s ${TRAVIS_BUILD_DIR}/tools/clinod/ tools/clinod
  - ln -s ${TRAVIS_BUILD_DIR}/tools/effectiveT3/ tools/effectiveT3
