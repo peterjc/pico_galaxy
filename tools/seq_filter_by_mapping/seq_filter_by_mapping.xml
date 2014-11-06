@@ -3,6 +3,8 @@
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <version_command interpreter="python">seq_filter_by_mapping.py --version</version_command>
     <command interpreter="python">
