@@ -288,7 +288,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         negative_handle = open(out_negative_file, "w")
         print in_file
         for title, seq, qual in FastqGeneralIterator(handle):
-            print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
+            # print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
             if clean_name(title.split(None, 1)[0]) in ids:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
             else:
