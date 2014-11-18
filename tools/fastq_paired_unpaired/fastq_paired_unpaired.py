@@ -17,15 +17,19 @@ See accompanying text file for licence details (MIT license).
 import os
 import sys
 import re
-from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "Version 0.0.9"
+    print("Version 0.1.0")
     sys.exit(0)
 
 def stop_err(msg, err=1):
    sys.stderr.write(msg.rstrip() + "\n")
    sys.exit(err)
+
+try:
+    from Bio.SeqIO.QualityIO import FastqGeneralIterator
+except ImportError:
+    stop_err("Biopython missing")
 
 msg = """Expect either 3 or 4 arguments, all FASTQ filenames.
 
@@ -118,120 +122,120 @@ assert not re_f.search("demo/2")
 assert not re_f.search("demo.r")
 assert not re_f.search("demo.q")
 
-re_illumina_f = re.compile(r"^@[a-zA-Z0-9_:-]+ 1:.*$")
-re_illumina_r = re.compile(r"^@[a-zA-Z0-9_:-]+ 2:.*$")
-assert re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
-assert re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
-assert not re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
-assert not re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
+re_illumina_f = re.compile(r"^[a-zA-Z0-9_:-]+ 1:.*$")
+re_illumina_r = re.compile(r"^[a-zA-Z0-9_:-]+ 2:.*$")
+assert re_illumina_f.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
+assert re_illumina_r.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
+assert not re_illumina_f.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
+assert not re_illumina_r.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
 
+FASTQ_TEMPLATE = "@%s\n%s\n+\n%s\n"
 
 count, forward, reverse, neither, pairs, singles = 0, 0, 0, 0, 0, 0
 in_handle = open(input_fastq)
 if pairs_fastq:
-    pairs_f_writer = fastqWriter(open(pairs_fastq, "w"), format)
-    pairs_r_writer = pairs_f_writer
+    pairs_f_handle = open(pairs_fastq, "w")
+    pairs_r_handle = pairs_f_handle
 else:
-    pairs_f_writer = fastqWriter(open(pairs_f_fastq, "w"), format)
-    pairs_r_writer = fastqWriter(open(pairs_r_fastq, "w"), format)
-singles_writer = fastqWriter(open(singles_fastq, "w"), format)
+    pairs_f_handle = open(pairs_f_fastq, "w")
+    pairs_r_handle = open(pairs_r_fastq, "w")
+singles_handle = open(singles_fastq, "w")
 last_template, buffered_reads = None, []
 
-for record in fastqReader(in_handle, format):
+for title, seq, qual in FastqGeneralIterator(in_handle):
     count += 1
-    name = record.identifier.split(None,1)[0]
-    assert name[0]=="@", record.identifier #Quirk of the Galaxy parser
+    name = title.split(None,1)[0]
     is_forward = False
     suffix = re_f.search(name)
     if suffix:
-        #============
-        #Forward read
-        #============
+        # ============
+        # Forward read
+        # ============
         template = name[:suffix.start()]
         is_forward = True
-    elif re_illumina_f.match(record.identifier):
-        template = name #No suffix
+    elif re_illumina_f.match(title):
+        template = name  # No suffix
         is_forward = True
     if is_forward:
-        #print name, "forward", template
+        # print(name, "forward", template)
         forward += 1
         if last_template == template:
-            buffered_reads.append(record)
+            buffered_reads.append((title, seq, qual))
         else:
-            #Any old buffered reads are orphans
+            # Any old buffered reads are orphans
             for old in buffered_reads:
-                singles_writer.write(old)
+                singles_handle.write(FASTQ_TEMPLATE % old)
                 singles += 1
-            #Save this read in buffer
-            buffered_reads = [record]
+            # Save this read in buffer
+            buffered_reads = [(title, seq, qual)]
             last_template = template
     else:
         is_reverse = False
         suffix = re_r.search(name)
         if suffix:
-            #============
-            #Reverse read
-            #============
+            # ============
+            # Reverse read
+            # ============
             template = name[:suffix.start()]
             is_reverse = True
-        elif re_illumina_r.match(record.identifier):
-            template = name #No suffix
+        elif re_illumina_r.match(title):
+            template = name  # No suffix
             is_reverse = True
         if is_reverse:
-            #print name, "reverse", template
+            # print(name, "reverse", template)
             reverse += 1
             if last_template == template and buffered_reads:
-                #We have a pair!
-                #If there are multiple buffered forward reads, want to pick
-                #the first one (although we could try and do something more
-                #clever looking at the suffix to match them up...)
+                # We have a pair!
+                # If there are multiple buffered forward reads, want to pick
+                # the first one (although we could try and do something more
+                # clever looking at the suffix to match them up...)
                 old = buffered_reads.pop(0)
-                pairs_f_writer.write(old)
-                pairs_r_writer.write(record)
+                pairs_f_handle.write(FASTQ_TEMPLATE % old)
+                pairs_r_handle.write(FASTQ_TEMPLATE % (title, seq, qual))
                 pairs += 2
             else:
-                #As this is a reverse read, this and any buffered read(s) are
-                #all orphans
+                # As this is a reverse read, this and any buffered read(s) are
+                # all orphans
                 for old in buffered_reads:
-                    singles_writer.write(old)
+                    singles_handle.write(FASTQ_TEMPLATE % old)
                     singles += 1
                 buffered_reads = []
-                singles_writer.write(record)
+                singles_handle.write(FASTQ_TEMPLATE % (title, seq, qual))
                 singles += 1
                 last_template = None
         else:
-            #===========================
-            #Neither forward nor reverse
-            #===========================
-            singles_writer.write(record)
+            # ===========================
+            # Neither forward nor reverse
+            # ===========================
+            singles_handle.write(FASTQ_TEMPLATE % (title, seq, qual))
             singles += 1
             neither += 1
             for old in buffered_reads:
-                singles_writer.write(old)
+                singles_handle.write(FASTQ_TEMPLATE % old)
                 singles += 1
             buffered_reads = []
             last_template = None
 if last_template:
-    #Left over singles...
+    # Left over singles...
     for old in buffered_reads:
-        singles_writer.write(old)
+        singles_handle.write(FASTQ_TEMPLATE % old)
         singles += 1
 in_handle.close
-singles_writer.close()
+singles_handle.close()
 if pairs_fastq:
-    pairs_f_writer.close()
-    assert pairs_r_writer.file.closed
+    pairs_f_handle.close()
+    assert pairs_r_handle.closed
 else:
-    pairs_f_writer.close()
-    pairs_r_writer.close()
+    pairs_f_handle.close()
+    pairs_r_handle.close()
 
 if neither:
-    print "%i reads (%i forward, %i reverse, %i neither), %i in pairs, %i as singles" \
-           % (count, forward, reverse, neither, pairs, singles)
+    print("%i reads (%i forward, %i reverse, %i neither), %i in pairs, %i as singles"
+          % (count, forward, reverse, neither, pairs, singles))
 else:
-    print "%i reads (%i forward, %i reverse), %i in pairs, %i as singles" \
-           % (count, forward, reverse, pairs, singles)
+    print("%i reads (%i forward, %i reverse), %i in pairs, %i as singles"
+          % (count, forward, reverse, pairs, singles))
 
 assert count == pairs + singles == forward + reverse + neither, \
-       "%i vs %i+%i=%i vs %i+%i+%i=%i" \
-       % (count,pairs,singles,pairs+singles,forward,reverse,neither,forward+reverse+neither)
+    "%i vs %i+%i=%i vs %i+%i+%i=%i" \
+    % (count,pairs,singles,pairs+singles,forward,reverse,neither,forward+reverse+neither)

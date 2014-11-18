@@ -1,5 +1,9 @@
-<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.0.7">
+<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.1.0">
     <description>using the read name suffices</description>
+    <requirements>
+        <requirement type="package" version="1.64">biopython</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
     <version_command interpreter="python">fastq_paired_unpaired.py --version</version_command>
     <command interpreter="python">
 fastq_paired_unpaired.py $input_fastq.extension $input_fastq
@@ -110,4 +114,7 @@ http://dx.doi.org/10.7717/peerj.167
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_paired_unpaired
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+    </citations>
 </tool>

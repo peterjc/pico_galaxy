@@ -63,6 +63,9 @@ v0.0.8  - Use reStructuredText for this README file.
         - Development moved to GitHub.
 v0.0.9  - Renamed folder and adopted README.rst naming.
         - Removed some unused code in the Python script.
+v0.1.0  - Switch to using Biopython (easier to use script outside of Galaxy).
+        - Leaves FASTQ plus lines blank (smaller output files).
+        - Tool definition now embeds citation information.
 ======= ======================================================================
 
 
