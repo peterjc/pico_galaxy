@@ -55,6 +55,29 @@ seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
         </data>
     </outputs>
     <tests>
+        <!-- ecoli.fastq is unpaired data, so pair_mode has no effect -->
+        <test>
+            <param name="input_file" value="ecoli.fastq" ftype="fastqsanger" />
+            <param name="mapping_file" value="ecoli.mira4_de_novo.bam" ftype="bam" />
+            <param name="pair_mode" value="lax" />
+            <param name="output_choice" value="neg" />
+            <output name="output_neg" file="empty_file.dat" ftype="fastqsanger" />
+        </test>
+	<test>
+            <param name="input_file" value="ecoli.fastq" ftype="fastqsanger" />
+            <param name="mapping_file" value="ecoli.mira4_de_novo.bam" ftype="bam" />
+            <param name="pair_mode" value="lax" />
+            <param name="output_choice" value="pos" />
+            <output name="output_pos" file="ecoli.fastq" ftype="fastqsanger" />
+        </test>
+	<test>
+            <param name="input_file" value="ecoli.fastq" ftype="fastqsanger" />
+            <param name="mapping_file" value="ecoli.mira4_de_novo.bam" ftype="bam" />
+            <param name="pair_mode" value="strict" />
+            <param name="output_choice" value="both" />
+            <output name="output_pos" file="ecoli.fastq" ftype="fastqsanger" /> 
+            <output name="output_neg" file="empty_file.dat" ftype="fastqsanger" />
+        </test>
     </tests>
     <help>
 **What it does**
