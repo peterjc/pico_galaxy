@@ -78,6 +78,7 @@ v0.2.0  - Can supply ID list as a text parameter (instead of in a file)
         - Advanced option to ignore paired read suffices.
         - Updated dependencies to use Biopython 1.64.
 v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
+        - Tool definition now embeds citation information.
 ======= ======================================================================
 
 
