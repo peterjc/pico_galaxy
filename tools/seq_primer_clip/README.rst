@@ -64,6 +64,7 @@ v0.0.10 - Include links to Tool Shed in help text and this README file.
         - Renamed folder and adopted README.rst naming.
 v0.0.11 - Correct automated dependency definition.
 v0.0.12 - Simplified XML to apply input format to output data.
+        - Tool definition now embeds citation information.
 ======= ======================================================================
 
 
