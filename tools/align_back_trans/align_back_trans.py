@@ -15,8 +15,6 @@ This tool is available with a Galaxy wrapper from the Galaxy Tool Shed at:
 * http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
 
 See accompanying text file for licence details (MIT licence).
-
-This is version 0.0.3 of the script.
 """
 
 import sys
