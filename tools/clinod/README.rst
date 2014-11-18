@@ -69,6 +69,7 @@ v0.0.6  - Adopted standard MIT licence.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.7  - Use the new $GALAXY_SLOTS environment variable for thread count.
+        - Tool definition now embeds citation information.
 ======= ======================================================================
 
 
