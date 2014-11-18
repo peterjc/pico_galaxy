@@ -69,6 +69,7 @@ v0.0.5  - Automated intallation of the Biopython dependency.
         - Updated citation information (Cock et al. 2013).
         - Renamed folder and adopted README.rst naming.
 v0.0.6  - Corrected automated dependency defintion.
+v0.0.7  - Tool definition now embeds citation information.
 ======= ======================================================================
 
 

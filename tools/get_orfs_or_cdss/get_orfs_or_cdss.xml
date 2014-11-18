@@ -1,4 +1,4 @@
-<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.5">
+<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.0.7">
     <description>e.g. to get peptides from ESTs</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
@@ -168,4 +168,8 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/get_orfs_or_cdss
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1093/bioinformatics/btp163</citation>
+    </citations>
 </tool>
