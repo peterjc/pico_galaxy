@@ -55,28 +55,6 @@ seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
         </data>
     </outputs>
     <tests>
-        <test>
-            <param name="input_file" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
-            <param name="mapping_file" value="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" />
-            <param name="pair_mode" value="lax" />
-            <param name="output_choice" value="neg" />
-            <output name="output_neg" file="empty_file.dat" ftype="fastqsanger" />
-        </test>
-        <test>
-          <param name="input_file" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
-          <param name="mapping_file" value="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" />
-          <param name="pair_mode" value="lax" />
-          <param name="output_choice" value="pos" />
-          <output name="output_pos" file="SRR639755_mito_pairs.fastq" ftype="fastqsanger" />
-        </test>
-        <test>
-          <param name="input_file" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
-          <param name="mapping_file" value="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" />
-          <param name="pair_mode" value="lax" />
-          <param name="output_choice" value="both" />
-          <output name="output_pos" file="SRR639755_mito_pairs.fastq" ftype="fastqsanger" />
-          <output name="output_neg" file="empty_file.dat" ftype="fastqsanger" />
-        </test>
     </tests>
     <help>
 **What it does**
