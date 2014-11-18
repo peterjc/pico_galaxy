@@ -1,4 +1,4 @@
-<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.4">
+<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.5">
     <description>Maps Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -264,4 +264,16 @@ http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira4_assembler
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="bibtext">@ARTICLE{Chevreux1999-mira3,
+        author = {B. Chevreux and T. Wetter and S. Suhai},
+        year = {1999},
+        title = {Genome Sequence Assembly Using Trace Signals and Additional Sequence Information},
+        journal = {Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB)}
+        volume = {99},
+        pages = {45-56},
+        url = {http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html}
+        }</citation>
+    </citations>
 </tool>

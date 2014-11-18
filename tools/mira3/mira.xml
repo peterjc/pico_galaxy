@@ -1,4 +1,4 @@
-<tool id="mira_assembler" name="Assemble with MIRA v3.4" version="0.0.10">
+<tool id="mira_assembler" name="Assemble with MIRA v3.4" version="0.0.11">
     <description>Takes Sanger, Roche, Illumina, and Ion Torrent data</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -189,4 +189,16 @@ This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler 
 
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="bibtext">@ARTICLE{Chevreux1999-mira3,
+        author = {B. Chevreux and T. Wetter and S. Suhai},
+        year = {1999},
+        title = {Genome Sequence Assembly Using Trace Signals and Additional Sequence Information},
+        journal = {Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB)}
+        volume = {99},
+        pages = {45-56},
+        url = {http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html}
+        }</citation>
+    </citations>
 </tool>
