@@ -58,10 +58,15 @@ language: java
 #
 
 before_install:
- - mkdir "$HOME/.python-eggs"
+ - echo "Creating virtual environment (with pip) for Galaxy's Python"
+ - sudo apt-get install -y python-virtualenv
+ - virtualenv .
+ - source bin/activate
+ - echo "Fixing permissions on Python eggs cache folder"
+ - mkdir -p "$HOME/.python-eggs"
  - chmod 700 "$HOME/.python-eggs" 
- - echo "Installing Biopython for system Python..."
- - sudo apt-get install python-biopython
+ - echo "Installing Biopython..."
+ - pip install biopython
  - echo "Installing MUMmer and its dependencies..."
  - sudo apt-get install gnuplot ghostscript
  - cd ${TRAVIS_BUILD_DIR}
@@ -109,8 +114,7 @@ before_install:
  - wget https://codeload.github.com/jmchilton/galaxy-central/tar.gz/master
  - tar -zxvf master | tail
  - cd galaxy-central-master
- - sudo apt-get install python-pip
- - sudo pip install requests 
+ - pip install requests 
 
 # Configuring tools within Galaxy
 # ===============================
