@@ -99,4 +99,9 @@ See also http://effectors.org/
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/effectivet3
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1093/nar/gkq1154</citation>
+        <citation type="doi">10.1371/journal.ppat.1000376</citation>
+    </citations>
 </tool>
