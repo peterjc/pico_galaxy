@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.13">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.14">
     <description>Find signal peptides in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
@@ -195,4 +195,10 @@ See also http://www.cbs.dtu.dk/services/SignalP-3.0/output.php
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1016/j.jmb.2004.05.028</citation>
+        <citation type="doi">10.1093/protein/10.1.1</citation>
+        <!-- TODO - Add bibtex entry for PMID: 9783217 -->
+    </citations>
 </tool>

@@ -173,6 +173,7 @@ v0.2.5  - Link to Tool Shed added to help text and this documentation.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.2.6  - Use the new $GALAXY_SLOTS environment variable for thread count.
         - Updated the suite_config.xml file (overdue).
+        - Tool definition now embeds citation information.
 ======= ======================================================================
 
 

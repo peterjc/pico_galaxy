@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.12">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.13">
     <description>Find transmembrane domains in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
@@ -116,4 +116,9 @@ See also http://www.cbs.dtu.dk/services/TMHMM/
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1006/jmbi.2000.4315</citation>
+        <!-- TODO - add entry for PMID: 9783223 -->
+    </citations>
 </tool>

@@ -1,4 +1,4 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.8">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.9">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <command interpreter="python">
       rxlr_motifs.py "$fasta_file" "\$GALAXY_SLOTS" $model "$tabular_file"
@@ -175,4 +175,14 @@ http://dx.doi.org/10.1093/protein/10.1.1
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <!-- TODO - select from these citations depending on method picked -->
+        <citation type="doi">10.1038/nature06203</citation>
+        <citation type="doi">10.1105/tpc.107.051037</citation>
+        <citation type="doi">10.1371/journal.ppat.0020050</citation>
+        <citation type="doi">10.1101/gr.910003</citation>
+        <citation type="doi">10.1093/bioinformatics/14.9.755</citation>
+        <citation type="doi">10.1093/protein/10.1.1</citation>
+    </citations>
 </tool>
