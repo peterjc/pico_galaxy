@@ -9,11 +9,11 @@ venn_list.py
 #if $universe.type_select=="implicit":
   - -
 #else:
-  $main $main.ext
+  "$main" $main.ext
 #end if
 "$main_lab"
 #for $s in $sets:
-  $s.set $s.set.ext "$s.lab"
+  "$s.set" $s.set.ext "$s.lab"
 #end for
 $PDF</command>
   <stdio>
