@@ -1,4 +1,4 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.6">
+<tool id="venn_list" name="Venn Diagram" version="0.0.7">
   <description>from lists</description>
   <requirements>
     <requirement type="python-module">rpy</requirement>
@@ -121,4 +121,8 @@ molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
   </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1093/bioinformatics/15.5.356</citation>
+    </citations>
 </tool>

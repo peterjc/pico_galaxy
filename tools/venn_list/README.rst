@@ -10,6 +10,22 @@ functions) to extract ID lists from tabular, FASTA, FASTQ or SFF files to build
 sets, which are then drawn using the R limma package function vennDiagram
 (called from Python using rpy).
 
+This tool is available from the Galaxy Tool Shed at:
+http://toolshed.g2.bx.psu.edu/view/peterjc/venn_list
+
+
+Automated Installation
+======================
+
+This should be straightforward, Galaxy should automatically download the tool
+and the Biopython dependency.
+
+You will still need to install the R/Bioconductor package limma.
+
+
+Manual Installation
+===================
+
 There are just two files to install:
 
 * ``venn_list.py`` (the Python script)
@@ -19,7 +35,7 @@ The suggested location is in the Galaxy folder ``tools/plotting`` next to other
 graph drawing tools, or a dedicated ``tools/venn_list`` directory.
 
 You will also need to install Biopython 1.54 or later, and the R/Bioconductor
-pacakge limma. You should already have rpy installed for other Galaxy tools.
+package limma. You should already have rpy installed for other Galaxy tools.
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. The suggested location is in the "Graph/Display Data" section. Simply add
@@ -48,6 +64,7 @@ v0.0.6  - Added unit tests.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.7  - Renamed folder and README file.
+        - Tool definition now embeds citation information.
 ======= ======================================================================
 
 
