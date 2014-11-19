@@ -27,7 +27,6 @@ To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/samtools_depth`` folder:
 
 * ``samtools_depth.xml`` (the Galaxy tool definition)
-* ``samtools_depth.py`` (the Python wrapper script)
 * ``README.rst`` (this file)
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
@@ -50,8 +49,6 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial public release
-v0.0.2  - Use quoted filenames when calling samtools (in case of spaces etc)
-v0.0.3  - Embed samtools citation in tool XML.
 ======= ======================================================================
 
 
