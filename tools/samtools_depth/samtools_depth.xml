@@ -1,0 +1,68 @@
+<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.1">
+    <description>samtools depth</description>
+    <requirements>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="1.1">samtools</requirement>
+    </requirements>
+    <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
+    <command>
+samtools depth #for i in $input_bam#"${i}" #end for# &gt; "$out_depth"
+    </command>
+    <inputs>
+        <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
+        <param name="input_bam" multiple="true" type="data" format="bam,sam" label="Input SAM/BAM file(s)" />
+    </inputs>
+    <outputs>
+        <data name="out_depth" format="tabular" label="$on_string (depth)"/>
+    </outputs>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <tests>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.sam" ftype="sam" />
+            <output name="out_depth" file="sam_spec_padded.depth.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
+            <output name="out_depth" file="sam_spec_padded.depth.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="input_bam" value="ex1.bam" ftype="bam" />
+            <output name="out_depth" file="ex1.depth.tabular" ftype="tabular" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the ``samtools depth`` command in the SAMtools toolkit.
+
+The output is a tabular file, with one line for each base of each reference
+with any coverage (bases with no coverage may not appear).
+
+The first column is the reference name, the second column is the reference
+position, and then there is one column for each SAM/BAM file giving the
+coverage depth at that position.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Heng Li et al (2009). The Sequence Alignment/Map format and SAMtools.
+Bioinformatics 25(16), 2078-9.
+http://dx.doi.org/10.1093/bioinformatics/btp352
+
+Peter J.A. Cock (2014), Galaxy wrapper for the samtools depth command
+http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depth
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depth
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
+</tool>
