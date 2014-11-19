@@ -47,10 +47,10 @@ seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
         </param>
     </inputs>
     <outputs>
-        <data name="output_pos" format="input" metadata_source="input_file" label="With matched ID">
+        <data name="output_pos" format="input" metadata_source="input_file" label="$input_file.name (mapped)">
             <filter>output_choice_cond["output_choice"] != "neg"</filter>
         </data>
-        <data name="output_neg" format="input" metadata_source="input_file" label="Without matched ID">
+        <data name="output_neg" format="input" metadata_source="input_file" label="$input_file.name (unmapped)">
             <filter>output_choice_cond["output_choice"] != "pos"</filter>
         </data>
     </outputs>

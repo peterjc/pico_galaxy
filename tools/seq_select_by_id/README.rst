@@ -76,6 +76,7 @@ v0.0.7  - Updated citation information (Cock et al. 2013).
 v0.0.8  - Corrected automated dependency definition.
 v0.0.9  - Simplified XML to apply input format to output data.
         - Tool definition now embeds citation information.
+        - Include input dataset name in output dataset names.
 ======= ======================================================================
 
 

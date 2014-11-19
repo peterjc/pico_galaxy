@@ -19,6 +19,7 @@ See also sister tools:
 
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_select_by_id
 * http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename
+* http://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_mapping
 
 
 Automated Installation
@@ -79,6 +80,7 @@ v0.2.0  - Can supply ID list as a text parameter (instead of in a file)
         - Updated dependencies to use Biopython 1.64.
 v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
         - Tool definition now embeds citation information.
+        - Include input dataset name in output dataset names.
 ======= ======================================================================
 
 
