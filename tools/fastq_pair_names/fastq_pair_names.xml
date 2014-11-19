@@ -1,4 +1,4 @@
-<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.1">
+<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.2">
     <description>using the read name suffices</description>
     <version_command interpreter="python">fastq_pair_names.py --version</version_command>
     <command interpreter="python">
@@ -80,4 +80,7 @@ http://dx.doi.org/10.7717/peerj.167
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_pair_names
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+    </citations>
 </tool>
