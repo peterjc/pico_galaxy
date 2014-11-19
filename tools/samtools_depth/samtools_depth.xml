@@ -6,11 +6,27 @@
     </requirements>
     <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
     <command>
-samtools depth #for i in $input_bam#"${i}" #end for# &gt; "$out_depth"
+samtools depth
+#if int($min_len)
+-l $min_len
+#end if
+#if int($base_quality_threshold)
+-q $base_quality_threshold
+#end if
+#if int($mapping_quality_threshold)
+-Q $mapping_quality_threshold
+#end if
+#for i in $input_bam#"${i}" #end for# &gt; "$out_depth"
     </command>
     <inputs>
         <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
         <param name="input_bam" multiple="true" type="data" format="bam,sam" label="Input SAM/BAM file(s)" />
+        <param name="min_len" type="integer" value="0"
+	       label="Minimum mapped length (use zero for none)" />
+        <param name="base_quality_threshold" type="integer" value="0"
+	       label="Base quality threshold (use zero for none)" />
+        <param name="mapping_quality_threshold" type="integer" value="0"
+	       label="Mapping quality threshold (use zero for none)" />
     </inputs>
     <outputs>
         <data name="out_depth" format="tabular" label="$on_string (depth)"/>
