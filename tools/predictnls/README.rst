@@ -16,14 +16,14 @@ EMBO reports 1(5), 411–415, 2000
 http://dx.doi.org/10.1093/embo-reports/kvd092
 
 This wrapper is available from the Galaxy Tool Shed at
-http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
+http://toolshed.g2.bx.psu.edu/view/peterjc/predictnls
 
 
 Automatic Installation
 ======================
 
 This Galaxy tool is self contained, and so should install automatically via the
-Galaxy Tool Shed. See http://toolshed.g2.bx.psu.edu/view/peterjc/predictnls
+Galaxy Tool Shed.
 
 
 Manual Installation
@@ -63,6 +63,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
         - Use reStructuredText for this README file.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+v0.0.7  - Tool definition now embeds citation information.
 ======= ======================================================================
 
 

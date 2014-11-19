@@ -1,4 +1,4 @@
-<tool id="predictnls" name="PredictNLS" version="0.0.6">
+<tool id="predictnls" name="PredictNLS" version="0.0.7">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command interpreter="python">
       predictnls.py $fasta_file $tabular_file
@@ -94,4 +94,8 @@ See also http://rostlab.org
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/predictnls
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1093/embo-reports/kvd092</citation>
+    </citations>
 </tool>
