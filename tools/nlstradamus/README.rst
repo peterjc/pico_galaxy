@@ -77,6 +77,7 @@ v0.0.8  - Link to Tool Shed added to help text and this documentation.
         - Adopted standard MIT licence.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
+v0.0.9  - Tool definition now embeds citation information.
 ======= ======================================================================
 
 

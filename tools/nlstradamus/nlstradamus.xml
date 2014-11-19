@@ -1,4 +1,4 @@
-<tool id="nlstradamus" name="NLStradamus" version="0.0.8">
+<tool id="nlstradamus" name="NLStradamus" version="0.0.9">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <command>
       NLStradamus -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
@@ -90,4 +90,8 @@ See also http://www.moseslab.csb.utoronto.ca/NLStradamus
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/nlstradamus
     </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="doi">10.1186/1471-2105-10-202</citation>
+    </citations>
 </tool>
