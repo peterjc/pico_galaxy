@@ -191,7 +191,7 @@ Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler
     </help>
     <citations>
         <citation type="doi">10.7717/peerj.167</citation>
-        <citation type="bibtext">@ARTICLE{Chevreux1999-mira3,
+        <citation type="bibtex">@ARTICLE{Chevreux1999-mira3,
         author = {B. Chevreux and T. Wetter and S. Suhai},
         year = {1999},
         title = {Genome Sequence Assembly Using Trace Signals and Additional Sequence Information},
