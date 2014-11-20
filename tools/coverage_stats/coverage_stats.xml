@@ -1,0 +1,88 @@
+<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.1">
+    <description>using samtools idxstats and depth</description>
+    <requirements>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="0.1.19">samtools</requirement>
+    </requirements>
+    <version_command interpreter="python">coverage_stats.py --version</version_command>
+    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular"</command>
+    <inputs>
+        <param name="input_bam" type="data" format="bam" label="Input BAM file" />
+    </inputs>
+    <outputs>
+        <data name="out_tabular" format="tabular" label="$input_bam.name (coverage stats)" />
+    </outputs>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <tests>
+        <test>
+            <param name="input_bam" value="ex1.bam" ftype="bam" />
+            <output name="out_tabular" file="ex1.coverage_stats.tabular" ftype="tabular" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the commands ``samtools idxstats`` and ``samtools depth`` from the
+SAMtools toolkit, and parses their output to produce a consise summary of the
+coverage information for each reference sequence.
+
+Input is a sorted and indexed BAM file, the output is tabular. The first four
+columns match the output from ``samtools idxstats``, the additional columns are
+calculated from the ``samtools depth`` output. The final row with a star as the
+reference identifier represents unmapped reads, and will have zeros in every
+column except columns one and four.
+
+====== =================================================================================
+Column Description
+------ ---------------------------------------------------------------------------------
+     1 Reference sequence identifier
+     2 Reference sequence length
+     3 Number of mapped reads
+     4 Number of placed but unmapped reads (typically unmapped partners of mapped reads)
+     5 Minimum coverage
+     6 Mean coverage
+     7 Maximum coverage
+====== =================================================================================
+
+Example output from a *de novo* assembly:
+
+========== ====== ====== ====== ======= ======= ========
+identiifer length mapped placed min_cov max_cov mean_cov
+---------- ------ ------ ------ ------- ------- --------
+contig_1   170035  98397      0     ...     ...      ...
+contig_2   403835 199564      0     ...     ...      ...
+contig_3   553102 288189      0     ...     ...      ...
+...           ...    ...    ...     ...     ...      ...
+contig_603    653     50      0     ...     ...      ...
+contig_604    214      6      0     ...     ...      ...
+\*              0      0  50320     ...     ...      ...
+========== ====== ====== ====== ======= ======= ========
+
+In this example there were 604 contigs, each with one line in the output table,
+plus the final row (labelled with an asterisk) representing 50320 unmapped reads.
+In this BAM file, the fourth column was otherwise zero.
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Heng Li et al (2009). The Sequence Alignment/Map format and SAMtools.
+Bioinformatics 25(16), 2078-9.
+http://dx.doi.org/10.1093/bioinformatics/btp352
+
+Peter J.A. Cock (2013), BAM coverage statistics using samtools idxstats and depth.
+http://toolshed.g2.bx.psu.edu/view/peterjc/coverage_stats
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/coverage_stats
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
+</tool>
