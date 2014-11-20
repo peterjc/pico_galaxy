@@ -48,7 +48,8 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.1  - Initial public release
+v0.0.1  - Initial working version.
+v0.0.2  - Support for giving a region or a BED file of regions.
 ======= ======================================================================
 
 
@@ -61,7 +62,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depth
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf samtools_depth.tar.gz tools/samtools_depth/README.rst tools/samtools_depth/samtools_depth.xml tools/samtools_depth/tool_dependencies.xml test-data/sam_spec_padded.sam test-data/sam_spec_padded.bam test-data/sam_spec_padded.depth.tabular test-data/ex1.bam test-data/ex1.depth.tabular
+    $ tar -czf samtools_depth.tar.gz tools/samtools_depth/README.rst tools/samtools_depth/samtools_depth.xml tools/samtools_depth/tool_dependencies.xml test-data/sam_spec_padded.sam test-data/sam_spec_padded.bam test-data/sam_spec_padded.depth.tabular test-data/ex1.bam test-data/ex1.depth.tabular test-data/ex1.depth_chr2_500_520.tabular
 
 Check this worked::
 
@@ -74,6 +75,7 @@ Check this worked::
     test-data/sam_spec_padded.depth.tabular
     test-data/ex1.bam
     test-data/ex1.depth.tabular
+    test-data/ex1.depth_chr2_500_520.tabular
 
 
 Licence (MIT)

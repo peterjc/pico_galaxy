@@ -1,4 +1,4 @@
-<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.1">
+<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.2">
     <description>samtools depth</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
@@ -7,6 +7,12 @@
     <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
     <command>
 samtools depth
+#if str($regions.type) == "region"
+## TODO - validate the region string?
+-r "$regions.region"
+#elif str($regions.type) == "bed"
+-b "$regions.bed"
+#end if
 #if int($min_len)
 -l $min_len
 #end if
@@ -16,11 +22,28 @@ samtools depth
 #if int($mapping_quality_threshold)
 -Q $mapping_quality_threshold
 #end if
-#for i in $input_bam#"${i}" #end for# &gt; "$out_depth"
+#for i in $regions.input_bam#"${i}" #end for# &gt; "$out_depth"
     </command>
     <inputs>
-        <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
-        <param name="input_bam" multiple="true" type="data" format="bam,sam" label="Input SAM/BAM file(s)" />
+        <conditional name="regions">
+            <param name="type" type="select" label="Which region(s)?">
+                <option value="all">Everything (works on SAM or BAM files)</option>
+                <option value="region">Single specified region (requires indexed BAM)</option>
+		<option value="bed">BED file listing one or more regions (requires indexed BAM)</option>
+            </param>
+            <when value="all"/>
+                <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
+                <param name="input_bam" multiple="true" type="data" format="bam,sam" label="Input SAM/BAM file(s)" />
+            <when value="region">
+                <param name="input_bam" multiple="true" type="data" format="bam" label="Input BAM file(s)" />
+                <param name="region" type="text" size="200"
+		       label="Region to compute coverage over (chr:from-to, e.g. chr1:10000-20000)" />
+            </when>
+            <when value="bed">
+                <param name="input_bam" multiple="true" type="data" format="bam" label="Input BAM file(s)" />
+                <param name="bed" type="data" format="bed" label="List of positions or regions (BED format)" />
+            </when>
+        </conditional>
         <param name="min_len" type="integer" value="0"
 	       label="Minimum mapped length (use zero for none)" />
         <param name="base_quality_threshold" type="integer" value="0"
@@ -38,16 +61,25 @@ samtools depth
     </stdio>
     <tests>
         <test>
+            <param name="type" value="all" />
             <param name="input_bam" value="sam_spec_padded.sam" ftype="sam" />
             <output name="out_depth" file="sam_spec_padded.depth.tabular" ftype="tabular" />
         </test>
         <test>
+            <param name="type" value="all" />
             <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />
             <output name="out_depth" file="sam_spec_padded.depth.tabular" ftype="tabular" />
         </test>
         <test>
+            <param name="type" value="all" />
             <param name="input_bam" value="ex1.bam" ftype="bam" />
             <output name="out_depth" file="ex1.depth.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="type" value="region" />
+            <param name="input_bam" value="ex1.bam" ftype="bam" />
+            <param name="region" value="chr2:500-520" />
+            <output name="out_depth" file="ex1.depth_chr2_500_520.tabular" ftype="tabular" />
         </test>
     </tests>
     <help>
