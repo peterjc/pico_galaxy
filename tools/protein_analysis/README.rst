@@ -140,7 +140,7 @@ Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial release
 v0.0.2  - Corrected some typos in the help text
-        - Renamed test output file to use Galaxy convention of *.tabular
+        - Renamed test output file to use Galaxy convention of ``*.tabular``
 v0.0.3  - Check for tmhmm2 silent failures (no output)
         - Additional unit tests
 v0.0.4  - Ignore comment lines in tmhmm2 output.
@@ -151,11 +151,11 @@ v0.0.7  - Change SignalP default truncation from 60 to 70 to match the
 v0.0.8  - Added WoLF PSORT wrapper to the suite.
 v0.0.9  - Added our RXLR motifs tool to the suite.
 v0.1.0  - Added Promoter 2.0 wrapper (similar to SignalP & TMHMM wrappers)
-        - Support Galaxy's <parallelism> tag for SignalP, TMHMM & Promoter
+        - Support Galaxy's ``<parallelism>`` tag for SignalP, TMHMM & Promoter
 v0.1.1  - Fixed an error in the header of the tabular output from Promoter
 v0.1.2  - Use the new <stdio> settings in the XML wrappers to catch errors
-        - Use SGE style $NSLOTS for thread count (otherwise default to 4)
-v0.1.3  - Added missing file whisson_et_al_rxlr_eer_cropped.hmm to Tool Shed
+        - Use SGE style ``$NSLOTS`` for thread count (otherwise default to 4)
+v0.1.3  - Added missing file ``whisson_et_al_rxlr_eer_cropped.hmm`` to Tool Shed
 v0.2.0  - Added PSORTb wrapper to the suite, based on earlier work
           contributed by Konrad Paszkiewicz.
 v0.2.1  - Use a script to create the Tool Shed tar-ball (removed some stray
@@ -171,8 +171,8 @@ v0.2.5  - Link to Tool Shed added to help text and this documentation.
         - Adopted standard MIT licence.
         - Use reStructuredText for this README file.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
-v0.2.6  - Use the new $GALAXY_SLOTS environment variable for thread count.
-        - Updated the suite_config.xml file (overdue).
+v0.2.6  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
+        - Updated the ``suite_config.xml`` file (overdue).
         - Tool definition now embeds citation information.
 ======= ======================================================================
 

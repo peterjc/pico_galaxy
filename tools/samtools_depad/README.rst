@@ -21,7 +21,7 @@ samtools 0.1.19 if required.
 Manual Installation
 ===================
 
-This expects samtools to be on the $PATH, and was tested using v0.1.19.
+This expects samtools to be on the ``$PATH``, and was tested using v0.1.19.
 
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/samtools_depad`` folder:
