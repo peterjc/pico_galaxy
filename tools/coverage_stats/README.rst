@@ -62,7 +62,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/coverage_stats
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf coverage_stats.tar.gz tools/coverage_stats/README.rst tools/coverage_stats/coverage_stats.xml tools/coverage_stats/coverage_stats.py tools/coverage_stats/tool_dependencies.xml test-data/ex1.bam test-data/ex1.coverage_stats.tabular
+    $ tar -czf coverage_stats.tar.gz tools/coverage_stats/README.rst tools/coverage_stats/coverage_stats.xml tools/coverage_stats/coverage_stats.py tools/coverage_stats/tool_dependencies.xml test-data/ex1.bam test-data/ex1.coverage_stats.tabular test-data/coverage_test.bam test-data/coverage_test.coverage_stats.tabular
 
 Check this worked::
 
@@ -73,6 +73,8 @@ Check this worked::
     tools/coverage_stats/tool_dependencies.xml
     test-data/ex1.bam
     test-data/ex1.coverage_stats.tabular
+    test-data/coverage_test.bam
+    test-data/coverage_test.coverage_stats.tabular
 
 
 Licence (MIT)
