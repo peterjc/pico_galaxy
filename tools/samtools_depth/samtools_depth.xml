@@ -62,6 +62,12 @@ The first column is the reference name, the second column is the reference
 position, and then there is one column for each SAM/BAM file giving the
 coverage depth at that position.
 
+.. class:: warningmark
+
+**Note**. There is an internal hard limit of 8000 for the pileup routine in
+samtools, meaning the reported coverage from ``samtools depth`` will show
+maximum coverage depths *around* 8000.
+
 
 **Citation**
 

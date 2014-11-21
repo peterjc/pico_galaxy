@@ -75,6 +75,12 @@ In this example there were 604 contigs, each with one line in the output table,
 plus the final row (labelled with an asterisk) representing 950320 unmapped reads.
 In this BAM file, the fourth column was otherwise zero.
 
+.. class:: warningmark
+
+**Note**. There is an internal hard limit of 8000 for the pileup routine in
+samtools, meaning the reported coverage from ``samtools depth`` will show
+maximum coverage depths *around* 8000.
+
 
 **Citation**
 
