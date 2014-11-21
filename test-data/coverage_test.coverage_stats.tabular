@@ -1,4 +1,4 @@
-#identiifer	length	mapped	placed	min_cov	max_cov	mean_cov
+#identifer	length	mapped	placed	min_cov	max_cov	mean_cov
 ref	100	5	0	0	2	0.50
 none	200	0	0	0	0	0.00
 full	10	3	0	2	2	2.00

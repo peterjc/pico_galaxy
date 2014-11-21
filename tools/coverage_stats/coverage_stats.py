@@ -139,7 +139,7 @@ def load_total_coverage(depth_handle, identifier, length):
 
 # Parse and combine the output
 out_handle = open(tabular_filename, "w")
-out_handle.write("#identiifer\tlength\tmapped\tplaced\tmin_cov\tmax_cov\tmean_cov\n")
+out_handle.write("#identifer\tlength\tmapped\tplaced\tmin_cov\tmax_cov\tmean_cov\n")
 
 idxstats_handle = open(idxstats_filename)
 depth_handle = open(depth_filename)
