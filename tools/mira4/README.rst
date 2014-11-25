@@ -97,6 +97,7 @@ v0.0.4  - Using optparse for the Python wrapper script API
         - Made MAF and BAM outputs optional
         - Include wrapper for ``miraconvert``
 v0.0.5  - Tool definition now embeds citation information.
+v0.0.6  - Fixed error handling in ``mira4_convert.py``.
 ======= ======================================================================
 
 

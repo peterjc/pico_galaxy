@@ -19,7 +19,7 @@ except ImportError:
 #Do we need any PYTHONPATH magic?
 from mira4_make_bam import depad
 
-WRAPPER_VER = "0.0.5" #Keep in sync with the XML file
+WRAPPER_VER = "0.0.6" #Keep in sync with the XML file
 
 def stop_err(msg, err=1):
     sys.stderr.write(msg+"\n")
@@ -36,10 +36,11 @@ def run(cmd):
     stdout, stderr = child.communicate()
     return_code = child.returncode
     if return_code:
+        cmd_str = " ".join(cmd)  # doesn't quote spaces etc
         if stderr and stdout:
-            stop_err("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, err, stdout, stderr))
+            stop_err("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
         else:
-            stop_err("Return code %i from command:\n%s\n%s" % (return_code, err, stderr))
+            stop_err("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
 
 def get_version(mira_binary):
     """Run MIRA to find its version number"""
@@ -119,7 +120,7 @@ mira_convert_ver = get_version(mira_convert)
 if not mira_convert_ver.strip().startswith("4.0"):
     stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_convert))
 if options.version:
-    print "%s, MIRA wrapper version %s" % (mira_convert_ver, WRAPPER_VER)
+    print("%s, MIRA wrapper version %s" % (mira_convert_ver, WRAPPER_VER))
     sys.exit(0)
 
 if not input_maf:
