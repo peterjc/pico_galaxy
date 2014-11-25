@@ -17,7 +17,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     #Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.1")
+    print("BAM coverage statistics v0.0.2 [with depth hack]")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -66,7 +66,7 @@ if return_code:
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
-cmd = 'samtools depth "%s" > "%s"' % (bam_file, depth_filename)
+cmd = 'samtools depth -d 250000 "%s" > "%s"' % (bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()
