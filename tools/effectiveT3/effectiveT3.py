@@ -15,12 +15,12 @@ import sys
 import os
 import subprocess
 
-#The Galaxy auto-install via tool_dependencies.xml will set this environment variable
+# The Galaxy auto-install via tool_dependencies.xml will set this environment variable
 effectiveT3_dir = os.environ.get("EFFECTIVET3", "/opt/EffectiveT3/")
 effectiveT3_jar = os.path.join(effectiveT3_dir, "TTSS_GUI-1.0.1.jar")
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    #TODO - Get version of the JAR file dynamically?
+    # TODO - Get version of the JAR file dynamically?
     print("Wrapper v0.0.14, TTSS_GUI-1.0.1.jar")
     sys.exit(0)
 
@@ -51,12 +51,12 @@ def clean_tabular(raw_handle, out_handle):
         or line.startswith("Id; Description; Score;"):
             continue
         assert line.count(";") >= 3, repr(line)
-        #Normally there will just be three semi-colons, however the
-        #original FASTA file's ID or description might have had
-        #semi-colons in it as well, hence the following hackery:
+        # Normally there will just be three semi-colons, however the
+        # original FASTA file's ID or description might have had
+        # semi-colons in it as well, hence the following hackery:
         try:
             id_descr, score, effective = line.rstrip("\r\n").rsplit(";",2)
-            #Cope when there was no FASTA description
+            # Cope when there was no FASTA description
             if "; " not in id_descr and id_descr.endswith(";"):
                 id = id_descr[:-1]
                 descr = ""
@@ -74,17 +74,17 @@ def clean_tabular(raw_handle, out_handle):
     return count, positive, errors
 
 def run(cmd):
-    #Avoid using shell=True when we call subprocess to ensure if the Python
-    #script is killed, so too is the child process.
+    # Avoid using shell=True when we call subprocess to ensure if the Python
+    # script is killed, so too is the child process.
     try:
         child = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except Exception, err:
         stop_err("Error invoking command:\n%s\n\n%s\n" % (" ".join(cmd), err))
-    #Use .communicate as can get deadlocks with .wait(),
+    # Use .communicate as can get deadlocks with .wait(),
     stdout, stderr = child.communicate()
     return_code = child.returncode
     if return_code:
-        cmd_str= " ".join(cmd) # doesn't quote spaces etc
+        cmd_str= " ".join(cmd)  # doesn't quote spaces etc
         if stderr and stdout:
             stop_err("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
         else:
@@ -107,10 +107,10 @@ if not os.path.isfile(effectiveT3_model):
     sys.stderr.write("Main JAR was found: %r\n" % effectiveT3_jar)
     stop_err("Effective T3 model JAR file not found: %r" % effectiveT3_model)
 
-#We will have write access whereever the output should be,
+# We will have write access whereever the output should be,
 temp_file = os.path.abspath(tabular_file + ".tmp")
 
-#Use absolute paths since will change current directory...
+# Use absolute paths since will change current directory...
 tabular_file = os.path.abspath(tabular_file)
 fasta_file = os.path.abspath(fasta_file)
 
@@ -122,7 +122,7 @@ cmd = ["java", "-jar", effectiveT3_jar,
        "-q"]
 
 try:
-    #Must run from directory above the module subfolder:
+    # Must run from directory above the module subfolder:
     os.chdir(effectiveT3_dir)
 except:
     stop_err("Could not change to Effective T3 folder: %s" % effectiveT3_dir)
@@ -148,5 +148,5 @@ else:
    print("%i/%i sequences positive" % (positive, count))
 
 if count and count==errors:
-   #Galaxy will still  allow them to see the output file
+   # Galaxy will still  allow them to see the output file
    stop_err("All your sequences gave an error code")
