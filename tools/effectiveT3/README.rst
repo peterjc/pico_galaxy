@@ -86,6 +86,7 @@ v0.0.12 - More explicit naming of the output dataset.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.13 - Relax unit test to allow for small floating point score difference.
         - Tool definition now embeds citation information.
+v0.0.14 - Fixed error handling in ``effectiveT3.py``.
 ======= ======================================================================
 
 

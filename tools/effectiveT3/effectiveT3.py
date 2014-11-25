@@ -21,7 +21,7 @@ effectiveT3_jar = os.path.join(effectiveT3_dir, "TTSS_GUI-1.0.1.jar")
 
 if "-v" in sys.argv or "--version" in sys.argv:
     #TODO - Get version of the JAR file dynamically?
-    print "Wrapper v0.0.11, TTSS_GUI-1.0.1.jar"
+    print("Wrapper v0.0.14, TTSS_GUI-1.0.1.jar")
     sys.exit(0)
 
 def stop_err(msg, error_level=1):
@@ -84,10 +84,11 @@ def run(cmd):
     stdout, stderr = child.communicate()
     return_code = child.returncode
     if return_code:
+        cmd_str= " ".join(cmd) # doesn't quote spaces etc
         if stderr and stdout:
-            stop_err("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, err, stdout, stderr))
+            stop_err("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
         else:
-            stop_err("Return code %i from command:\n%s\n%s" % (return_code, err, stderr))
+            stop_err("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
 
 if not os.path.isdir(effectiveT3_dir):
     stop_err("Effective T3 folder not found: %r" % effectiveT3_dir)
@@ -141,10 +142,10 @@ out_handle.close()
 os.remove(temp_file)
 
 if errors:
-   print "%i sequences, %i positive, %i errors" \
-         % (count, positive, errors)
+   print("%i sequences, %i positive, %i errors"
+         % (count, positive, errors))
 else:
-   print "%i/%i sequences positive" % (positive, count)
+   print("%i/%i sequences positive" % (positive, count))
 
 if count and count==errors:
    #Galaxy will still  allow them to see the output file
