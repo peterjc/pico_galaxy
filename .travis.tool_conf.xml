@@ -26,7 +26,10 @@
     <tool file="align_back_trans/align_back_trans.xml" />
     <tool file="sample_seqs/sample_seqs.xml" />
     <tool file="mummer/mummer.xml" />
+    <!-- comment out pending samtools depth fix,
+    see https://github.com/samtools/samtools/pull/322
     <tool file="coverage_stats/coverage_stats.xml" />
+    -->
     <!-- Missing dependencies
     <tool file="venn_list/venn_list.xml" />
     <tool file="protein_analysis/predictnls.xml" />
