@@ -28,6 +28,13 @@ seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_f
             <param name="column" value="1" />
             <output name="output_file" file="k12_hypothetical.fasta" ftype="fasta" />
         </test>
+        <!-- this version has white space in the identifier column (id and description) -->
+        <test>
+            <param name="input_file" value="k12_ten_proteins.fasta" ftype="fasta" />
+            <param name="input_tabular" value="k12_hypothetical_alt.tabular" ftype="tabular" />
+            <param name="column" value="1" />
+            <output name="output_file" file="k12_hypothetical.fasta" ftype="fasta" />
+        </test>
     </tests>
     <help>
 **What it does**

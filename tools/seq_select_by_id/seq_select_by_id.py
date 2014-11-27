@@ -19,8 +19,6 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT
 license).
-
-This is version 0.0.6 of the script.
 """
 import sys
 
@@ -29,7 +27,7 @@ def stop_err(msg, err=1):
     sys.exit(err)
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.6"
+    print "v0.0.9"
     sys.exit(0)
 
 #Parse Command Line
@@ -66,12 +64,25 @@ except ImportError:
 
 
 def parse_ids(tabular_file, col):
-    """Read tabular file and record all specified identifiers."""
+    """Read tabular file and record all specified identifiers.
+
+    Will print a single warning to stderr if any of the fields have
+    non-trailing white space (only the first word will be used as
+    the identifier).
+    """
     handle = open(tabular_file, "rU")
+    warn = False
     for line in handle:
         if line.strip() and not line.startswith("#"):
-            yield line.rstrip("\n").split("\t")[col].strip()
+            field = line.rstrip("\n").split("\t")[col].strip()
+            parts = field.split(None, 1)
+            if len(parts) > 1 and not warn:
+                warn = "WARNING: Some of your identifiers had white space in them, " + \
+                       "using first word only. e.g.:\n%s\n" % field
+            yield parts[0]
     handle.close()
+    if warn:
+        sys.stderr.write(warn)
 
 #Index the sequence file.
 #If very big, could use SeqIO.index_db() to avoid memory bottleneck...
