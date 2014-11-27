@@ -137,9 +137,19 @@ for i in range(len(args) // 2):
         stop_err("Expect one-based column numbers (not zero-based counting), got %r" % cols_arg)
     identifiers.append((tabular_file, columns))
 
+name_warn = False
+def check_white_space(name):
+    parts = name.split(None, 1)
+    global name_warn
+    if not name_warn and len(parts) > 1:
+        name_warn = "WARNING: Some of your identifiers had white space in them, " + \
+                    "using first word only. e.g.:\n%s\n" % name
+    return parts[0]
+
 if drop_suffices:
     def clean_name(name):
         """Remove suffix."""
+        name = check_white_space(name)
         match = re_suffix.search(name)
         if match:
             # Use the fact this is a suffix, and regular expression will be
@@ -155,9 +165,9 @@ if drop_suffices:
     assert clean_name("baz.p1") == "baz"
     assert clean_name("baz.q2") == "baz"
 else:
-    def clean_name(name):
-        """Do nothing!"""
-        return name
+    # Just check the white space
+    clean_name = check_white_space
+
 
 mapped_chars = { '>' :'__gt__',
                  '<' :'__lt__',
@@ -217,7 +227,8 @@ if len(identifiers) > 1:
         print "Have %i IDs combined from %i tabular files" % (len(ids), len(identifiers))
     else:
         print "Have %i IDs in common from %i tabular files" % (len(ids), len(identifiers))
-
+if name_warn:
+    sys.stderr.write(name_warn)
 
 def crude_fasta_iterator(handle):
     """Yields tuples, record ID and the full record as a string."""
