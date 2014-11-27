@@ -20,13 +20,11 @@ http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT
 license).
-
-This is version 0.0.4 of the script.
 """
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.4"
+    print "v0.0.6"
     sys.exit(0)
 
 def stop_err(msg, err=1):
@@ -57,13 +55,38 @@ if old_column == new_column:
     stop_err("Old and new column arguments are the same!")
 
 def parse_ids(tabular_file, old_col, new_col):
-    """Read tabular file and record all specified ID mappings."""
+    """Read tabular file and record all specified ID mappings.
+
+    Will print a single warning to stderr if any of the old/new column
+    entries have non-trailing white space (only the first word will
+    be used as the identifier).
+
+    Internal white space in the new column is taken as desired output.
+    """
     handle = open(tabular_file, "rU")
+    old_warn = False
+    new_warn = False
     for line in handle:
+        if not line.strip():
+            # Ignore blank lines
+            continue
         if not line.startswith("#"):
             parts = line.rstrip("\n").split("\t")
-            yield parts[old_col].strip(), parts[new_col].strip()
+            old = parts[old_col].strip().split(None, 1)
+            new = parts[new_col].strip().split(None, 1)
+            if not old_warn and len(old) > 1:
+                old_warn = "WARNING: Some of your old identifiers had white space in them, " + \
+                           "using first word only. e.g.:\n%s\n" % parts[old_col].strip()
+            if not new_warn and len(new) > 1:
+                new_warn = "WARNING: Some of your new identifiers had white space in them, " + \
+                           "using first word only. e.g.:\n%s\n" % parts[new_col].strip()
+            yield old[0], new[0]
     handle.close()
+    if old_warn:
+        sys.stderr.write(old_warn)
+    if new_warn:
+        sys.stderr.write(new_warn)
+
 
 #Load the rename mappings
 rename = dict(parse_ids(tabular_file, old_column, new_column))
