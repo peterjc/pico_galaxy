@@ -25,8 +25,9 @@ http://www.clcbio.com/?action=transfer_user&productVersion=4.2&productID=6982&pr
 This wrapper is available from the Galaxy Tool Shed at:
 http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
 
-This Galaxy wrapper was written and tested using CLC Assembly Cell
-version 4.10.86742
+This Galaxy wrapper was written and tested using CLC Assembly Cell v4.1.0,
+specifically ``clc_assember`` and ``clc_mapper`` binaries for 64 bit Linux
+which report version 4.10.86742 at the command line.
 
 
 Automated Installation
@@ -36,9 +37,16 @@ This should be straightforward, Galaxy should automatically download and
 install the wrapper from the Galaxy Tool Shed. However, you will need to
 manually install the CLC Assembly Cell software, and setup the environment
 variable ``$CLC_ASSEMBLY_CELL`` to the directory containing the binaries
-(and in particular, the ``clc_assembler`` binary). For example:
+(in particular, binaries ``clc_assembler``, ``clc_mapper`` and
+``clc_cas_to_sam``). For example:
 
 $ export CLC_ASSEMBLY_CELL=/opt/clcbio/clc-assembly-cell-4.1.0-linux_64/
+
+If your CLC Bio licence is restricted to specific machines on your cluster,
+use Galaxy's job configuration settings to ensure CLC jobs are only sent
+to those licenced computers. For SGE, we use the ``-l hostname="..."``
+option to do this. Alternatively your cluster administrator might setup
+a dedicated job queue.
 
 
 Manual Installation
@@ -49,9 +57,9 @@ First install the CLC Assembly Cell sortware as described above.
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/clcbio/`` folder:
 
-* clc_assembler.xml (Galaxy tool definition)
-* clc_mapper.xml (Galaxy tool definition)
-* README.rst (this file)
+* ``clc_assembler.xml`` (Galaxy tool definition)
+* ``clc_mapper.xml`` (Galaxy tool definition)
+* ``README.rst`` (this file)
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
 the tools. Just all these line, for example next to other assembly tools::
