@@ -82,7 +82,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_paired_unpaired
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf fastq_paired_unpaired.tar.gz tools/fastq_paired_unpaired/README.rst tools/fastq/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
+    $ tar -czf fastq_paired_unpaired.tar.gz tools/fastq_paired_unpaired/README.rst tools/fastq_paired_unpaired/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
 
 Check this worked::
 
