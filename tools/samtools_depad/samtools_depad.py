@@ -11,22 +11,20 @@ Runs "samtools depad" and captures the output to the desired BAM file.
 """
 import sys
 import os
-import subprocess
-import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     #Galaxy seems to invert the order of the two lines
-    print "(Galaxy wrapper v0.0.1)"
+    print "(Galaxy wrapper v0.0.2)"
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
 def stop_err(msg, error_level=1):
-   """Print error message to stdout and quit with given error level."""
-   sys.stderr.write("%s\n" % msg)
-   sys.exit(error_level)
+    """Print error message to stdout and quit with given error level."""
+    sys.stderr.write("%s\n" % msg)
+    sys.exit(error_level)
 
 if len(sys.argv) != 5:
-   stop_err("Require four arguments: padded FASTA, SAM/BAM file, format (SAM or BAM), output BAM filenames")
+    stop_err("Require four arguments: padded FASTA, SAM/BAM file, format (SAM or BAM), output BAM filenames")
 
 padded_ref, bam_filename, input_format, output_filename = sys.argv[1:]
 
