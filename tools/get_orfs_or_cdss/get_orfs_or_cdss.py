@@ -33,7 +33,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.3"
     sys.exit(0)
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
@@ -43,34 +43,34 @@ try:
     from Bio import SeqIO
     from Bio.Data import CodonTable
 except ImportError:
-    stop_err("Missing Biopython library")
+    sys_exit("Missing Biopython library")
 
 #Parse Command Line
 try:
     input_file, seq_format, table, ftype, ends, mode, min_len, strand, out_nuc_file, out_prot_file = sys.argv[1:]
 except ValueError:
-    stop_err("Expected ten arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys_exit("Expected ten arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
 try:
     table = int(table)
 except ValueError:
-    stop_err("Expected integer for genetic code table, got %s" % table)
+    sys_exit("Expected integer for genetic code table, got %s" % table)
 
 try:
     table_obj = CodonTable.ambiguous_generic_by_id[table]
 except KeyError:
-    stop_err("Unknown codon table %i" % table)
+    sys_exit("Unknown codon table %i" % table)
 
 if ftype not in ["CDS", "ORF"]:
-    stop_err("Expected CDS or ORF, got %s" % ftype)
+    sys_exit("Expected CDS or ORF, got %s" % ftype)
 
 if ends not in ["open", "closed"]:
-    stop_err("Expected open or closed for end treatment, got %s" % ends)
+    sys_exit("Expected open or closed for end treatment, got %s" % ends)
 
 try:
     min_len = int(min_len)
 except ValueError:
-    stop_err("Expected integer for min_len, got %s" % min_len)
+    sys_exit("Expected integer for min_len, got %s" % min_len)
 
 if seq_format.lower()=="sff":
     seq_format = "sff-trim"
@@ -79,7 +79,7 @@ elif seq_format.lower()=="fasta":
 elif seq_format.lower().startswith("fastq"):
     seq_format = "fastq"
 else:
-    stop_err("Unsupported file type %r" % seq_format)
+    sys_exit("Unsupported file type %r" % seq_format)
 
 print "Genetic code table %i" % table
 print "Minimum length %i aa" % min_len

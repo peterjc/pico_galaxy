@@ -43,12 +43,12 @@ when there is no output from tmhmm2, and raise an error.
 import sys
 import os
 import tempfile
-from seq_analysis_utils import stop_err, split_fasta, run_jobs, thread_count
+from seq_analysis_utils import sys_exit, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 
 if len(sys.argv) != 4:
-    stop_err("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
+    sys_exit("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
 
 num_threads = thread_count(sys.argv[1], default=4)
 fasta_file = sys.argv[2]
@@ -68,7 +68,7 @@ def clean_tabular(raw_handle, out_handle):
             identifier, length, expAA, first60, predhel, topology = parts
         except:
             assert len(parts)!=6
-            stop_err("Bad line: %r" % line)
+            sys_exit("Bad line: %r" % line)
         assert length.startswith("len="), line
         length = length[4:]
         assert expAA.startswith("ExpAA="), line
@@ -112,7 +112,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         except IOError:
             output = ""
         clean_up(fasta_files + temp_files)
-        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+        sys_exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 del results
 del jobs
@@ -125,7 +125,7 @@ for temp in temp_files:
     data_handle.close()
     if not count:
         clean_up(fasta_files + temp_files)
-        stop_err("No output from tmhmm2")
+        sys_exit("No output from tmhmm2")
 out_handle.close()
 
 clean_up(fasta_files + temp_files)

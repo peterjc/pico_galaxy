@@ -32,7 +32,7 @@ import sys
 import re
 from optparse import OptionParser
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
@@ -89,19 +89,19 @@ logic = options.logic
 drop_suffices = bool(options.suffix)
 
 if in_file is None or not os.path.isfile(in_file):
-    stop_err("Missing input file: %r" % in_file)
+    sys_exit("Missing input file: %r" % in_file)
 if out_positive_file is None and out_negative_file is None:
-    stop_err("Neither output file requested")
+    sys_exit("Neither output file requested")
 if seq_format is None:
-    stop_err("Missing sequence format")
+    sys_exit("Missing sequence format")
 if logic not in ["UNION", "INTERSECTION"]:
-    stop_err("Logic agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
+    sys_exit("Logic agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
 if options.id_list and args:
-    stop_err("Cannot accepted IDs via both -t and as tabular files")
+    sys_exit("Cannot accepted IDs via both -t and as tabular files")
 elif not options.id_list and not args:
-    stop_err("Expected matched pairs of tabular files and columns (or -t given)")
+    sys_exit("Expected matched pairs of tabular files and columns (or -t given)")
 if len(args) % 2:
-    stop_err("Expected matched pairs of tabular files and columns, not: %r" % args)
+    sys_exit("Expected matched pairs of tabular files and columns, not: %r" % args)
 
 
 #Cope with three widely used suffix naming convensions,
@@ -128,13 +128,13 @@ for i in range(len(args) // 2):
     tabular_file = args[2*i]
     cols_arg = args[2*i + 1]
     if not os.path.isfile(tabular_file):
-        stop_err("Missing tabular identifier file %r" % tabular_file)
+        sys_exit("Missing tabular identifier file %r" % tabular_file)
     try:
         columns = [int(arg)-1 for arg in cols_arg.split(",")]
     except ValueError:
-        stop_err("Expected list of columns (comma separated integers), got %r" % cols_arg)
+        sys_exit("Expected list of columns (comma separated integers), got %r" % cols_arg)
     if min(columns) < 0:
-        stop_err("Expect one-based column numbers (not zero-based counting), got %r" % cols_arg)
+        sys_exit("Expect one-based column numbers (not zero-based counting), got %r" % cols_arg)
     identifiers.append((tabular_file, columns))
 
 name_warn = False
@@ -345,7 +345,7 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        stop_err("SFF filtering requires Biopython 1.54 or later")
+        sys_exit("SFF filtering requires Biopython 1.54 or later")
 
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
@@ -395,4 +395,4 @@ elif seq_format.lower().startswith("fastq"):
     fastq_filter(in_file, out_positive_file, out_negative_file, ids)
     # This does not currently track the counts
 else:
-    stop_err("Unsupported file type %r" % seq_format)
+    sys_exit("Unsupported file type %r" % seq_format)

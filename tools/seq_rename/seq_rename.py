@@ -27,7 +27,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.6"
     sys.exit(0)
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
@@ -35,7 +35,7 @@ def stop_err(msg, err=1):
 try:
     tabular_file, old_col_arg, new_col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    stop_err("Expected six arguments (tabular file, old col, new col, input file, format, output file), got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys_exit("Expected six arguments (tabular file, old col, new col, input file, format, output file), got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
 try:
     if old_col_arg.startswith("c"):
@@ -43,16 +43,16 @@ try:
     else:
         old_column = int(old_col_arg)-1
 except ValueError:
-    stop_err("Expected column number, got %s" % old_col_arg)
+    sys_exit("Expected column number, got %s" % old_col_arg)
 try:
     if old_col_arg.startswith("c"):
         new_column = int(new_col_arg[1:])-1
     else:
         new_column = int(new_col_arg)-1
 except ValueError:
-    stop_err("Expected column number, got %s" % new_col_arg)
+    sys_exit("Expected column number, got %s" % new_col_arg)
 if old_column == new_column:
-    stop_err("Old and new column arguments are the same!")
+    sys_exit("Old and new column arguments are the same!")
 
 def parse_ids(tabular_file, old_col, new_col):
     """Read tabular file and record all specified ID mappings.
@@ -109,7 +109,7 @@ if seq_format.lower()=="sff":
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        stop_err("Requires Biopython 1.54 or later")
+        sys_exit("Requires Biopython 1.54 or later")
 
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
@@ -142,7 +142,7 @@ else:
         writer = fastqWriter(open(out_file, "w"))
         marker = "@"
     else:
-        stop_err("Unsupported file type %r" % seq_format)
+        sys_exit("Unsupported file type %r" % seq_format)
     #Now do the renaming
     count = 0
     renamed = 0

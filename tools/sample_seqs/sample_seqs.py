@@ -20,7 +20,7 @@ import sys
 from optparse import OptionParser
 
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
@@ -67,22 +67,22 @@ out_file = options.output
 interleaved = options.interleaved
 
 if not in_file:
-    stop_err("Require an input filename")
+    sys_exit("Require an input filename")
 if in_file != "/dev/stdin" and not os.path.isfile(in_file):
-    stop_err("Missing input file %r" % in_file)
+    sys_exit("Missing input file %r" % in_file)
 if not out_file:
-    stop_err("Require an output filename")
+    sys_exit("Require an output filename")
 
 
 if options.percent and options.everyn:
-    stop_err("Cannot combine -p and -n options")
+    sys_exit("Cannot combine -p and -n options")
 elif options.everyn:
     try:
         N = int(options.everyn)
     except:
-        stop_err("Bad N argument %r" % options.everyn)
+        sys_exit("Bad N argument %r" % options.everyn)
     if N < 2:
-        stop_err("Bad N argument %r" % options.everyn)
+        sys_exit("Bad N argument %r" % options.everyn)
     if (N % 10) == 1:
         sys.stderr.write("Sampling every %ist sequence\n" % N)
     elif (N % 10) == 2:
@@ -102,9 +102,9 @@ elif options.percent:
     try:
         percent = float(options.percent) / 100.0
     except:
-        stop_err("Bad percent argument %r" % options.percent)
+        sys_exit("Bad percent argument %r" % options.percent)
     if percent <= 0.0 or 1.0 <= percent:
-        stop_err("Bad percent argument %r" % options.percent)
+        sys_exit("Bad percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
     def sampler(iterator):
         global percent
@@ -116,7 +116,7 @@ elif options.percent:
                 taken += 1
                 yield record
 else:
-    stop_err("Must use either -n or -p")
+    sys_exit("Must use either -n or -p")
 
 
 def pair(iterator):
@@ -221,7 +221,7 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        stop_err("SFF filtering requires Biopython 1.54 or later")
+        sys_exit("SFF filtering requires Biopython 1.54 or later")
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
     except ImportError:
@@ -253,7 +253,7 @@ elif seq_format.lower()=="fasta":
 elif seq_format.lower().startswith("fastq"):
     count = fastq_filter(in_file, out_file, sampler, interleaved)
 else:
-    stop_err("Unsupported file type %r" % seq_format)
+    sys_exit("Unsupported file type %r" % seq_format)
 
 if interleaved:
     sys.stderr.write("Selected %i pairs\n" % count)

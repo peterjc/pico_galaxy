@@ -38,7 +38,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.5"
     sys.exit(0)
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg)
     sys.exit(err)
 
@@ -46,7 +46,7 @@ try:
     from Bio.Seq import reverse_complement
     from Bio.SeqIO.SffIO import SffIterator, SffWriter
 except ImportError:
-    stop_err("Requires Biopython 1.54 or later")
+    sys_exit("Requires Biopython 1.54 or later")
 try:
     from Bio.SeqIO.SffIO import ReadRocheXmlManifest
 except ImportError:
@@ -57,30 +57,30 @@ except ImportError:
 try:
     in_file, seq_format, primer_fasta, primer_type, mm, min_len, keep_negatives, out_file = sys.argv[1:]
 except ValueError:
-    stop_err("Expected 8 arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys_exit("Expected 8 arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
 if in_file == primer_fasta:
-    stop_err("Same file given as both primer sequences and sequences to clip!")
+    sys_exit("Same file given as both primer sequences and sequences to clip!")
 if in_file == out_file:
-    stop_err("Same file given as both sequences to clip and output!")
+    sys_exit("Same file given as both sequences to clip and output!")
 if primer_fasta == out_file:
-    stop_err("Same file given as both primer sequences and output!")
+    sys_exit("Same file given as both primer sequences and output!")
 
 try:
     mm = int(mm)
 except ValueError:
-    stop_err("Expected non-negative integer number of mismatches (e.g. 0 or 1), not %r" % mm)
+    sys_exit("Expected non-negative integer number of mismatches (e.g. 0 or 1), not %r" % mm)
 if mm < 0:
-    stop_err("Expected non-negtive integer number of mismatches (e.g. 0 or 1), not %r" % mm)
+    sys_exit("Expected non-negtive integer number of mismatches (e.g. 0 or 1), not %r" % mm)
 if mm not in [0,1,2]:
     raise NotImplementedError
 
 try:
     min_len = int(min_len)
 except ValueError:
-    stop_err("Expected non-negative integer min_len (e.g. 0 or 1), not %r" % min_len)
+    sys_exit("Expected non-negative integer min_len (e.g. 0 or 1), not %r" % min_len)
 if min_len < 0:
-    stop_err("Expected non-negtive integer min_len (e.g. 0 or 1), not %r" % min_len)
+    sys_exit("Expected non-negtive integer min_len (e.g. 0 or 1), not %r" % min_len)
 
 
 if keep_negatives.lower() in ["true", "yes", "on"]:
@@ -88,7 +88,7 @@ if keep_negatives.lower() in ["true", "yes", "on"]:
 elif keep_negatives.lower() in ["false", "no", "off"]:
     keep_negatives = False
 else:
-    stop_err("Expected boolean for keep_negatives (e.g. true or false), not %r" % keep_negatives)
+    sys_exit("Expected boolean for keep_negatives (e.g. true or false), not %r" % keep_negatives)
 
 
 if primer_type.lower() == "forward":
@@ -101,7 +101,7 @@ elif primer_type.lower() == "reverse-complement":
     forward = False
     rc = True
 else:
-    stop_err("Expected foward, reverse or reverse-complement not %r" % primer_type)
+    sys_exit("Expected foward, reverse or reverse-complement not %r" % primer_type)
 
 
 ambiguous_dna_values = {
@@ -347,7 +347,7 @@ elif seq_format.lower()=="fasta":
                 else:
                     short_negs += 1
 else:
-    stop_err("Unsupported file type %r" % seq_format)
+    sys_exit("Unsupported file type %r" % seq_format)
 in_handle.close()
 out_handle.close()
 

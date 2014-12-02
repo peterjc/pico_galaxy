@@ -53,7 +53,7 @@ import os
 import sys
 import re
 
-def stop_err(msg, return_code=1):
+def sys_exit(msg, return_code=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(return_code)
 
@@ -70,13 +70,13 @@ elif len(sys.argv) == 3:
         re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
                                                    "My_NLS_list")
 else:
-    stop_err("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
+    sys_exit("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
 
 if not os.path.isfile(fasta_filename):
-    stop_err("Could not find FASTA input file: %s" % fasta_filename)
+    sys_exit("Could not find FASTA input file: %s" % fasta_filename)
 
 if not os.path.isfile(re_filename):
-    stop_err("Could not find NLS motif file: %s" % re_filename)
+    sys_exit("Could not find NLS motif file: %s" % re_filename)
 
 def load_re(filename):
     """Parse the 5+ column tabular NLS motif file."""
@@ -92,7 +92,7 @@ def load_re(filename):
             regex = re.compile(regex)
             p_count = int(p_count)
         except ValueError:
-            stop_err("Bad data in line: %s" % line)
+            sys_exit("Bad data in line: %s" % line)
         if 6 <= len(parts):
             proteins = parts[5]
             assert p_count == len(proteins.split(",")), line

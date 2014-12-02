@@ -56,28 +56,28 @@ the predictors which gives a cleavage site). *WORK IN PROGRESS*
 import sys
 import os
 import tempfile
-from seq_analysis_utils import stop_err, split_fasta, fasta_iterator
+from seq_analysis_utils import sys_exit, split_fasta, fasta_iterator
 from seq_analysis_utils import run_jobs, thread_count
 
 FASTA_CHUNK = 500
 MAX_LEN = 6000 #Found by trial and error
 
 if len(sys.argv) not in  [6,8]:
-    stop_err("Require five (or 7) arguments, organism, truncate, threads, "
+    sys_exit("Require five (or 7) arguments, organism, truncate, threads, "
              "input protein FASTA file & output tabular file (plus "
              "optionally cut method and GFF3 output file). "
              "Got %i arguments." % (len(sys.argv)-1))
 
 organism = sys.argv[1]
 if organism not in ["euk", "gram+", "gram-"]:
-    stop_err("Organism argument %s is not one of euk, gram+ or gram-" % organism)
+    sys_exit("Organism argument %s is not one of euk, gram+ or gram-" % organism)
 
 try:
     truncate = int(sys.argv[2])
 except:
     truncate = 0
 if truncate < 0:
-    stop_err("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
+    sys_exit("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
 
 num_threads = thread_count(sys.argv[3], default=4)
 fasta_file = sys.argv[4]
@@ -86,7 +86,7 @@ tabular_file = sys.argv[5]
 if len(sys.argv) == 8:
     cut_method = sys.argv[6]
     if cut_method not in ["NN_Cmax", "NN_Ymax", "NN_Smax", "HMM_Cmax"]:
-        stop_err("Invalid cut method %r" % cut_method)
+        sys_exit("Invalid cut method %r" % cut_method)
     gff3_file = sys.argv[7]
 else:
     cut_method = None
@@ -197,7 +197,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         output = "(no output)"
     if error_level or output.lower().startswith("error running"):
         clean_up(fasta_files + temp_files)
-        stop_err("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+        sys_exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 del results
 

@@ -21,7 +21,7 @@ from optparse import OptionParser
 
 from Bio import SeqIO
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
@@ -58,9 +58,9 @@ if options.version:
     sys.exit(0)
 
 if not (options.fasta or options.fastq or options.sff):
-    stop_err("Require an input filename")
+    sys_exit("Require an input filename")
 if not options.output:
-    stop_err("Require an output filename")
+    sys_exit("Require an output filename")
 
 
 file_count = 0

@@ -21,7 +21,7 @@ log = logging.getLogger( __name__ )
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
-def stop_err( msg ):
+def sys_exit( msg ):
     sys.stderr.write( "%s\n" % msg )
     sys.exit()
 
@@ -53,7 +53,7 @@ def __main__():
         if returncode != 0:
             raise Exception, stderr
     except Exception, e:
-        stop_err( 'Error running sed ' + str( e ) )
+        sys_exit( 'Error running sed ' + str( e ) )
 
     cmdline = 'iprscan -cli -nocrc -i temp.fa -o temp.iprscan -goterms -seqtype p -altjobs -format %s -appl hmmpfam > /dev/null' % (format)
     # print >> sys.stderr, cmdline # so will appear as blurb for file
@@ -73,7 +73,7 @@ def __main__():
         if returncode != 0:
             raise Exception, stderr
     except Exception, e:
-        stop_err( 'Error running iprscan ' + str( e ) )
+        sys_exit( 'Error running iprscan ' + str( e ) )
 
     out = open(output,'w')
     # outpe_path = os.path.join(working_dir,'')

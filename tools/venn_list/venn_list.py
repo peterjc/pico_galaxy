@@ -12,7 +12,7 @@ This is version 0.0.4 of the script.
 import sys
 import rpy
 
-def stop_err(msg, error_level=1):
+def sys_exit(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
     sys.stderr.write("%s\n" % msg)
     sys.exit(error_level)
@@ -20,16 +20,16 @@ def stop_err(msg, error_level=1):
 try:
     import rpy
 except ImportError:
-    stop_err("Requires the Python library rpy (to call R)")
+    sys_exit("Requires the Python library rpy (to call R)")
 
 try:
     rpy.r.library("limma")
 except:
-    stop_err("Requires the R library limma (for vennDiagram function)")
+    sys_exit("Requires the R library limma (for vennDiagram function)")
 
 
 if len(sys.argv)-1 not in [7, 10, 13]:
-    stop_err("Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i" % (len(sys.argv)-1))
+    sys_exit("Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i" % (len(sys.argv)-1))
 
 all_file, all_type, all_label = sys.argv[1:4]
 set_data = []
@@ -65,19 +65,19 @@ def load_ids(filename, filetype):
         try:
             from Bio.SeqIO import index
         except ImportError:
-            stop_err("Require Biopython 1.54 or later (to read SFF files)")
+            sys_exit("Require Biopython 1.54 or later (to read SFF files)")
         #This will read the SFF index block if present (very fast)
         for name in index(filename, "sff"):
             yield name
     else:
-        stop_err("Unexpected file type %s" % filetype)
+        sys_exit("Unexpected file type %s" % filetype)
 
 def load_ids_whitelist(filename, filetype, whitelist):
     for name in load_ids(filename, filetype):
         if name in whitelist:
             yield name
         else:
-            stop_err("Unexpected ID %s in %s file %s" % (name, filetype, filename))
+            sys_exit("Unexpected ID %s in %s file %s" % (name, filetype, filename))
 
 if all_file in ["", "-", '""', '"-"']:
     #Load without white list
@@ -131,6 +131,6 @@ try:
                          """ % (all_label, len(all)))
     rpy.r.dev_off()
 except Exception, exc:
-    stop_err( "%s" %str( exc ) )
+    sys_exit( "%s" %str( exc ) )
 rpy.r.quit( save="no" )
 print "Done"

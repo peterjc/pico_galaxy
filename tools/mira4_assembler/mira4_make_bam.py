@@ -7,7 +7,7 @@ import shutil
 import subprocess
 import tempfile
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg+"\n")
     sys.exit(err)
 
@@ -89,4 +89,4 @@ if __name__ == "__main__":
     mira_convert, maf_file, fasta_file, bam_file = sys.argv[1:]
     msg = make_bam(mira_convert, maf_file, fasta_file, bam_file, sys.stdout)
     if msg:
-        stop_err(msg)
+        sys_exit(msg)

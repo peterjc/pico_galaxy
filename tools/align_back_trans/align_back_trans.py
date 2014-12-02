@@ -29,7 +29,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.5"
     sys.exit(0)
 
-def stop_err(msg, error_level=1):
+def sys_exit(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
     sys.stderr.write("%s\n" % msg)
     sys.exit(error_level)
@@ -37,7 +37,7 @@ def stop_err(msg, error_level=1):
 def check_trans(identifier, nuc, prot, table):
     """Returns nucleotide sequence if works (can remove trailing stop)"""
     if len(nuc) % 3:
-        stop_err("Nucleotide sequence for %s is length %i (not a multiple of three)"
+        sys_exit("Nucleotide sequence for %s is length %i (not a multiple of three)"
                  % (identifier, len(nuc)))
 
     p = str(prot).upper().replace("*", "X")
@@ -60,7 +60,7 @@ def check_trans(identifier, nuc, prot, table):
             err += "\nHowever, protein sequence found within translated nucleotides."
         elif p[1:] in t:
             err += "\nHowever, ignoring first amino acid, protein sequence found within translated nucleotides."
-        stop_err(err)
+        sys_exit(err)
 
 
     if t == p:
@@ -70,7 +70,7 @@ def check_trans(identifier, nuc, prot, table):
         if str(nuc[0:3]).upper() in ambiguous_generic_by_id[table].start_codons:
             return nuc
         else:
-            stop_err("Translation check failed for %s\n"
+            sys_exit("Translation check failed for %s\n"
                      "Would match if %s was a start codon (check correct table used)\n"
                      % (identifier, nuc[0:3].upper()))
     else:
@@ -85,7 +85,7 @@ def check_trans(identifier, nuc, prot, table):
                 sys.stderr.write("Protein:     %s\n" % p[offset:offset+60])
                 sys.stderr.write("             %s\n" % m[offset:offset+60])
                 sys.stderr.write("Translation: %s\n\n" % t[offset:offset+60])
-        stop_err("Translation check failed for %s\n" % identifier)
+        sys_exit("Translation check failed for %s\n" % identifier)
 
 def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record, gap, table=0):
     #TODO - Separate arguments for protein gap and nucleotide gap?
@@ -106,7 +106,7 @@ def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record,
     if table:
         ungapped_nucleotide = check_trans(aligned_protein_record.id, ungapped_nucleotide, ungapped_protein, table)
     elif len(ungapped_protein) * 3 != len(ungapped_nucleotide):
-        stop_err("Inconsistent lengths for %s, ungapped protein %i, "
+        sys_exit("Inconsistent lengths for %s, ungapped protein %i, "
                  "tripled %i vs ungapped nucleotide %i" %
                  (aligned_protein_record.id,
                   len(ungapped_protein),
@@ -159,7 +159,7 @@ elif len(sys.argv) == 5:
 elif len(sys.argv) == 6:
     align_format, prot_align_file, nuc_fasta_file, nuc_align_file, table = sys.argv[1:]
 else:
-    stop_err("""This is a Python script for 'back-translating' a protein alignment,
+    sys_exit("""This is a Python script for 'back-translating' a protein alignment,
 
 It requires three, four or five arguments:
 - alignment format (e.g. fasta, clustal),
@@ -184,7 +184,7 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
 try:
     table = int(table)
 except:
-    stop_err("Bad table argument %r" % table)
+    sys_exit("Bad table argument %r" % table)
 
 prot_align = AlignIO.read(prot_align_file, align_format, alphabet=generic_protein)
 nuc_dict = SeqIO.index(nuc_fasta_file, "fasta")

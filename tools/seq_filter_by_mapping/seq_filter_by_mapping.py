@@ -24,7 +24,7 @@ import re
 import subprocess
 from optparse import OptionParser
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
     sys.exit(err)
 
@@ -74,18 +74,18 @@ out_negative_file = options.output_negative
 pair_mode = options.pair_mode
 
 if in_file is None or not os.path.isfile(in_file):
-    stop_err("Missing input file: %r" % in_file)
+    sys_exit("Missing input file: %r" % in_file)
 if out_positive_file is None and out_negative_file is None:
-    stop_err("Neither output file requested")
+    sys_exit("Neither output file requested")
 if seq_format is None:
-    stop_err("Missing sequence format")
+    sys_exit("Missing sequence format")
 if pair_mode not in ["lax", "strict"]:
-    stop_err("Pair mode argument should be 'lax' or 'strict', not %r" % logic)
+    sys_exit("Pair mode argument should be 'lax' or 'strict', not %r" % logic)
 for mapping in args:
     if not os.path.isfile(mapping):
-        stop_err("Mapping file %r not found")
+        sys_exit("Mapping file %r not found")
 if not args:
-    stop_err("At least one SAM/BAM mapping file is required")
+    sys_exit("At least one SAM/BAM mapping file is required")
 
 
 #Cope with three widely used suffix naming convensions,
@@ -188,7 +188,7 @@ def load_mapping_ids(filename, pair_mode, ids):
         assert child.returncode is not None
         if child.returncode:
             msg = "Error %i from 'samtools view %s'\n%s" % (filename, stderr)
-            stop_err(msg.strip(), child.returncode)
+            sys_exit(msg.strip(), child.returncode)
     else:
         handle.close()
 
@@ -317,7 +317,7 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        stop_err("SFF filtering requires Biopython 1.54 or later")
+        sys_exit("SFF filtering requires Biopython 1.54 or later")
 
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
@@ -366,4 +366,4 @@ elif seq_format.lower().startswith("fastq"):
     fastq_filter(in_file, out_positive_file, out_negative_file, ids)
     # This does not currently track the counts
 else:
-    stop_err("Unsupported file type %r" % seq_format)
+    sys_exit("Unsupported file type %r" % seq_format)

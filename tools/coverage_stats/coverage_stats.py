@@ -21,22 +21,22 @@ if "-v" in sys.argv or "--version" in sys.argv:
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
-def stop_err(msg, error_level=1):
+def sys_exit(msg, error_level=1):
    """Print error message to stdout and quit with given error level."""
    sys.stderr.write("%s\n" % msg)
    sys.exit(error_level)
 
 if len(sys.argv) != 4:
-   stop_err("Require three arguments: BAM, BAI, tabular filenames")
+   sys_exit("Require three arguments: BAM, BAI, tabular filenames")
 
 bam_filename, bai_filename, tabular_filename = sys.argv[1:]
 
 if not os.path.isfile(bam_filename):
-    stop_err("Input BAM file not found: %s" % bam_filename)
+    sys_exit("Input BAM file not found: %s" % bam_filename)
 if not os.path.isfile(bai_filename):
     if bai_filename == "None":
-        stop_err("Error: Galaxy did not index your BAM file")
-    stop_err("Input BAI file not found: %s" % bai_filename)
+        sys_exit("Error: Galaxy did not index your BAM file")
+    sys_exit("Input BAI file not found: %s" % bai_filename)
 
 #Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
@@ -62,7 +62,7 @@ cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, idxstats_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()
-    stop_err("Return code %i from command:\n%s" % (return_code, cmd))
+    sys_exit("Return code %i from command:\n%s" % (return_code, cmd))
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
@@ -70,7 +70,7 @@ cmd = 'samtools depth -d 250000 "%s" > "%s"' % (bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()
-    stop_err("Return code %i from command:\n%s" % (return_code, cmd))
+    sys_exit("Return code %i from command:\n%s" % (return_code, cmd))
 
 def load_total_coverage(depth_handle, identifier, length):
     """Parse some of the 'samtools depth' output for coverages.
@@ -173,7 +173,7 @@ for line in idxstats_handle:
         depth_handle.close()
         out_handle.close()
         clean_up()
-        stop_err("Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
+        sys_exit("Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
                  % identifier)
 
 idxstats_handle.close()
@@ -184,4 +184,4 @@ out_handle.close()
 clean_up()
 
 if depth_ref is not None:
-    stop_err("Left over output from 'samtools depth'? %r" % depth_ref)
+    sys_exit("Left over output from 'samtools depth'? %r" % depth_ref)

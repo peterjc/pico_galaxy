@@ -14,7 +14,7 @@ from mira4_make_bam import make_bam
 
 WRAPPER_VER = "0.0.4" #Keep in sync with the XML file
 
-def stop_err(msg, err=1):
+def sys_exit(msg, err=1):
     sys.stderr.write(msg+"\n")
     sys.exit(err)
 
@@ -71,22 +71,22 @@ out_log = options.log
 try:
     mira_path = os.environ["MIRA4"]
 except KeyError:
-    stop_err("Environment variable $MIRA4 not set")
+    sys_exit("Environment variable $MIRA4 not set")
 mira_binary = os.path.join(mira_path, "mira")
 if not os.path.isfile(mira_binary):
-    stop_err("Missing mira under $MIRA4, %r\nFolder contained: %s"
+    sys_exit("Missing mira under $MIRA4, %r\nFolder contained: %s"
              % (mira_binary, ", ".join(os.listdir(mira_path))))
 mira_convert = os.path.join(mira_path, "miraconvert")
 if not os.path.isfile(mira_convert):
-    stop_err("Missing miraconvert under $MIRA4, %r\nFolder contained: %s"
+    sys_exit("Missing miraconvert under $MIRA4, %r\nFolder contained: %s"
              % (mira_convert, ", ".join(os.listdir(mira_path))))
 
 mira_ver = get_version(mira_binary)
 if not mira_ver.strip().startswith("4.0"):
-    stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_binary))
+    sys_exit("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_binary))
 mira_convert_ver = get_version(mira_convert)
 if not mira_convert_ver.strip().startswith("4.0"):
-    stop_err("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_convert))
+    sys_exit("This wrapper is for MIRA V4.0, not:\n%s\n%s" % (mira_ver, mira_convert))
 if options.version:
     print "%s, MIRA wrapper version %s" % (mira_ver, WRAPPER_VER)
     if mira_ver != mira_convert_ver:
@@ -94,9 +94,9 @@ if options.version:
     sys.exit(0)
 
 if not manifest:
-    stop_err("Manifest is required")
+    sys_exit("Manifest is required")
 elif not os.path.isfile(manifest):
-    stop_err("Missing input MIRA manifest file: %r" % manifest)
+    sys_exit("Missing input MIRA manifest file: %r" % manifest)
 
 
 try:
@@ -153,10 +153,10 @@ def collect_output(temp, name, handle):
     f = "%s/%s_assembly/%s_d_results" % (temp, name, name)
     if not os.path.isdir(f):
         log_manifest(manifest)
-        stop_err("Missing output folder")
+        sys_exit("Missing output folder")
     if not os.listdir(f):
         log_manifest(manifest)
-        stop_err("Empty output folder")
+        sys_exit("Empty output folder")
     missing = []
 
     old_maf = "%s/%s_out.maf" % (f, name)
@@ -201,7 +201,7 @@ def collect_output(temp, name, handle):
             #Not collecting the MAF file, use original location        
             msg = make_bam(mira_convert, old_maf, ref_fasta, out_bam, handle)
         if msg:
-            stop_err(msg)
+            sys_exit(msg)
 
 def clean_up(temp, name):
     folder = "%s/%s_assembly" % (temp, name)
@@ -277,7 +277,7 @@ if return_code:
     handle.close()
     clean_up(temp, name)
     log_manifest(manifest)
-    stop_err("Return error code %i from command:\n%s" % (return_code, cmd),
+    sys_exit("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
 handle.flush()
 
