@@ -26,8 +26,8 @@ This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.8 of the script. Currently it uses Python's regular
-expression engine for finding the primers, which for my needs is fast enough.
+NOTE: Currently it uses Python's regular expression engine for finding the
+primers, which for my needs is fast enough.
 """
 import sys
 import re
@@ -35,7 +35,7 @@ from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.5"
+    print "v0.0.12"
     sys.exit(0)
 
 def sys_exit(msg, err=1):
@@ -281,7 +281,7 @@ elif seq_format.lower().startswith("fastq"):
                     negs += 1
                     writer.write(record)
                 else:
-                    short_negs += 1
+                    short_neg += 1
     else:
         for record in reader:
             seq = record.sequence.upper()
@@ -301,7 +301,7 @@ elif seq_format.lower().startswith("fastq"):
                     negs += 1
                     writer.write(record)
                 else:
-                    short_negs += 1
+                    short_neg += 1
 elif seq_format.lower()=="fasta":
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
@@ -326,7 +326,7 @@ elif seq_format.lower()=="fasta":
                     negs += 1
                     writer.write(record)
                 else:
-                    short_negs += 1
+                    short_neg += 1
     else:
         for record in reader:
             seq = record.sequence.upper()
@@ -345,7 +345,7 @@ elif seq_format.lower()=="fasta":
                     negs += 1
                     writer.write(record)
                 else:
-                    short_negs += 1
+                    short_neg += 1
 else:
     sys_exit("Unsupported file type %r" % seq_format)
 in_handle.close()
