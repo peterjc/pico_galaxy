@@ -64,7 +64,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.0.1"
+    print "v0.0.2"
     sys.exit(0)
 
 in_file = options.input
@@ -80,7 +80,7 @@ if out_positive_file is None and out_negative_file is None:
 if seq_format is None:
     sys_exit("Missing sequence format")
 if pair_mode not in ["lax", "strict"]:
-    sys_exit("Pair mode argument should be 'lax' or 'strict', not %r" % logic)
+    sys_exit("Pair mode argument should be 'lax' or 'strict', not %r" % pair_mode)
 for mapping in args:
     if not os.path.isfile(mapping):
         sys_exit("Mapping file %r not found")
@@ -187,7 +187,8 @@ def load_mapping_ids(filename, pair_mode, ids):
         stdout, stderr = child.communicate()
         assert child.returncode is not None
         if child.returncode:
-            msg = "Error %i from 'samtools view %s'\n%s" % (filename, stderr)
+            msg = "Error %i from 'samtools view %s'\n%s" % (child.returncode,
+                                                            filename, stderr)
             sys_exit(msg.strip(), child.returncode)
     else:
         handle.close()
