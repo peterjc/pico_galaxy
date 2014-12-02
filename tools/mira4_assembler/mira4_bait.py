@@ -7,7 +7,7 @@ import subprocess
 import shutil
 import time
 
-WRAPPER_VER = "0.0.1" #Keep in sync with the XML file
+WRAPPER_VER = "0.0.5" #Keep in sync with the XML file
 
 def sys_exit(msg, err=1):
     sys.stderr.write(msg+"\n")
@@ -92,7 +92,6 @@ try:
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
 except Exception, err:
-    log_manifest(manifest)
     sys.stderr.write("Error invoking command:\n%s\n\n%s\n" % (cmd, err))
     sys.exit(1)
 #Use .communicate as can get deadlocks with .wait(),
