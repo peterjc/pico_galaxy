@@ -59,7 +59,7 @@ if not os.path.isfile(merged_fasta):
         filename = "%s.fna" % acc
         with open(filename) as h:
             line = h.readline()
-            assert line.startswith(">"), title
+            assert line.startswith(">"), line
             #Rename to chrI etc
             handle.write(">chr%s %s" % (chr, line[1:]))
             print(line.rstrip())
