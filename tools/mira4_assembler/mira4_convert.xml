@@ -1,4 +1,4 @@
-<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.6">
+<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.7">
     <description>Convert MIRA assembly to FASTA/SAM/BAM</description>
     <requirements>
         <requirement type="binary">miraconvert</requirement>
