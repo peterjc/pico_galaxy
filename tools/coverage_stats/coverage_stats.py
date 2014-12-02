@@ -17,7 +17,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     #Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.2 [with depth hack]")
+    print("BAM coverage statistics v0.0.3 [with depth hack]")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -86,8 +86,13 @@ def load_total_coverage(depth_handle, identifier, length):
     # print("%s coverage calculation, length %i, ..." % (identifier, length))
 
     if depth_ref is None:
-        # Right at start of file!
+        # Right at start of file / new contig
         line = depth_handle.readline()
+        # Are we at the end of the file?
+        if not line:
+            # Must be at the end of the file.
+            # This can happen if the file contig(s) had no reads mapped
+            return 0, 0, 0.0
         depth_ref, depth_pos, depth_reads = line.rstrip("\n").split()
         depth_pos = int(depth_pos)
         depth_reads = int(depth_reads)

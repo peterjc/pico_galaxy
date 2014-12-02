@@ -50,7 +50,9 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial public release
-v0.0.2  - Cope with samtools' default depth limit
+v0.0.2  - Cope with samtools' default depth limit using modified samtools,
+          see https://github.com/samtools/samtools/pull/322
+v0.0.3  - Cope with no coverage in final contigs.
 ======= ======================================================================
 
 
