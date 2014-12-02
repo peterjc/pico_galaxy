@@ -1,5 +1,6 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.9">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.10">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
+    <version_command interpreter="python">rxlr_motifs.py -v</version_command>
     <command interpreter="python">
       rxlr_motifs.py "$fasta_file" "\$GALAXY_SLOTS" $model "$tabular_file"
     </command>

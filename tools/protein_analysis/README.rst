@@ -174,6 +174,7 @@ v0.2.5  - Link to Tool Shed added to help text and this documentation.
 v0.2.6  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
         - Updated the ``suite_config.xml`` file (overdue).
         - Tool definition now embeds citation information.
+v0.2.7  - Style cleanup in Python scripts.
 ======= ======================================================================
 
 
