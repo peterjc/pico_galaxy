@@ -3,6 +3,10 @@
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
     <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
+    <requirements>
+        <requirement type="binary">signalp</requirement>
+        <requirement type="package">signalp</requirement>
+    </requirements>
     <command interpreter="python">
       signalp3.py $organism $truncate "\$GALAXY_SLOTS" $fasta_file $tabular_file
       ##If the environment variable isn't set, get "", and the python wrapper
@@ -27,9 +31,6 @@
     <outputs>
         <data name="tabular_file" format="tabular" label="SignalP $organism results" />
     </outputs>
-    <requirements>
-        <requirement type="binary">signalp</requirement>
-    </requirements>
     <tests>
         <test>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>

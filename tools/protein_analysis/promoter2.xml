@@ -3,6 +3,10 @@
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 per chunk so 4 threads each doing 500 is ideal -->
     <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
+    <requirements>
+        <requirement type="binary">promoter</requirement>
+        <requirement type="package">promoter</requirement>
+    </requirements>
     <command interpreter="python">
         promoter2.py "\$GALAXY_SLOTS" "$fasta_file" "$tabular_file"
         ##If the environment variable isn't set, get "", and the python wrapper
@@ -19,9 +23,6 @@
     <outputs>
         <data name="tabular_file" format="tabular" label="Promoter2 on ${fasta_file.name}" />
     </outputs>
-    <requirements>
-        <requirement type="binary">promoter</requirement>
-    </requirements>
     <tests>
         <test>
             <param name="fasta_file" value="Adenovirus.fasta" ftype="fasta"/>

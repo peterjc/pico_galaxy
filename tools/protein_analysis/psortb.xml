@@ -4,6 +4,10 @@
   <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
   <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
   <version_command interpreter="python">psortb.py --version</version_command>
+  <requirements>
+    <requirement type="binary">psort</requirement>
+    <requirement type="package">psort</requirement>
+  </requirements>
   <command interpreter="python">
     psortb.py "\$GALAXY_SLOTS" "$type" "$long" "$cutoff" "$divergent" "$sequence" "$outfile"
     ##If the environment variable isn't set, get "", and python wrapper
@@ -40,9 +44,6 @@
   <outputs>
     <data format="tabular" name="outfile" />
   </outputs>
-  <requirements>
-    <requirement type="binary">psort</requirement>
-  </requirements>
   <tests>
     <test>
       <param name="sequence" value="empty.fasta" ftype="fasta"/>
