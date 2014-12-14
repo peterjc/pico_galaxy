@@ -174,7 +174,6 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/tools/mummer/ tools/mummer
  - ln -s ${TRAVIS_BUILD_DIR}/tools/coverage_stats/ tools/coverage_stats
  - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
- - sed -i '6 i import mira' lib/galaxy/datatypes/registry.py
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
