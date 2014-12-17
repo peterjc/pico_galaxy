@@ -83,7 +83,7 @@ if pair_mode not in ["lax", "strict"]:
     sys_exit("Pair mode argument should be 'lax' or 'strict', not %r" % pair_mode)
 for mapping in args:
     if not os.path.isfile(mapping):
-        sys_exit("Mapping file %r not found")
+        sys_exit("Mapping file %r not found" % mapping)
 if not args:
     sys_exit("At least one SAM/BAM mapping file is required")
 
