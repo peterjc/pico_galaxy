@@ -65,9 +65,6 @@ before_install:
  - echo "Fixing permissions on Python eggs cache folder"
  - mkdir -p "$HOME/.python-eggs"
  - chmod 700 "$HOME/.python-eggs" 
- - echo "Uncompressing test file to workaround apparent Galaxy regression"
- - cd ${TRAVIS_BUILD_DIR}
- - gunzip -c test-data/SRR639755_mito_pairs.fastq.gz > test-data/SRR639755_mito_pairs.fastq
  - echo "Installing Biopython..."
  - pip install biopython
  - echo "Installing MUMmer and its dependencies..."
