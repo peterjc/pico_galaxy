@@ -77,7 +77,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_id
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_filter_by_mapping.tar.gz tools/seq_filter_by_mapping/README.rst tools/seq_filter_by_mapping/seq_filter_by_mapping.* tools/seq_filter_by_mapping/tool_dependencies.xml test-data/SRR639755_mito_pairs.fastq.gz test-data/SRR639755_sample_by_coord.sam test-data/SRR639755_sample_strict.fastq test-data/SRR639755_sample_lax.fastq
+    $ tar -czf seq_filter_by_mapping.tar.gz tools/seq_filter_by_mapping/README.rst tools/seq_filter_by_mapping/seq_filter_by_mapping.py tools/seq_filter_by_mapping/seq_filter_by_mapping.xml tools/seq_filter_by_mapping/tool_dependencies.xml test-data/SRR639755_mito_pairs.fastq.gz test-data/SRR639755_sample_by_coord.sam test-data/SRR639755_sample_strict.fastq test-data/SRR639755_sample_lax.fastq
 
 Check this worked::
 
