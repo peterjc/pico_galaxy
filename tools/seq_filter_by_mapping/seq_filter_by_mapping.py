@@ -372,4 +372,6 @@ else:
     sys_exit("Unsupported file type %r" % seq_format)
 
 pos_count, neg_count = sequence_filter(in_file, out_positive_file, out_negative_file, ids)
-print("%i with and %i without specified IDs" % (pos_count, neg_count))
+print("%i mapped and %i unmapped reads." % (pos_count, neg_count))
+fraction = float(pos_count) * 100.0 / float(pos_count + neg_count)
+print("In total %i reads, of which %0.1f%% mapped." % (pos_count + neg_count, fraction))
