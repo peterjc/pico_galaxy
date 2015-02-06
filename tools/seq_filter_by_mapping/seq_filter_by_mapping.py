@@ -64,7 +64,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.0.2"
+    print "v0.0.3"
     sys.exit(0)
 
 in_file = options.input
@@ -282,6 +282,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
 def fastq_filter(in_file, pos_file, neg_file, wanted):
     """FASTQ filter."""
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
+    pos_count = neg_count = 0
     handle = open(in_file, "r")
     if out_positive_file is not None and out_negative_file is not None:
         print "Generating two FASTQ files"
@@ -292,8 +293,10 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
             # print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
             if clean_name(title.split(None, 1)[0]) in ids:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                pos_count += 1
             else:
                 negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                neg_count += 1
         positive_handle.close()
         negative_handle.close()
     elif out_positive_file is not None:
@@ -302,16 +305,23 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         for title, seq, qual in FastqGeneralIterator(handle):
             if clean_name(title.split(None, 1)[0]) in ids:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                pos_count += 1
+            else:
+                neg_count += 1
         positive_handle.close()
     elif out_negative_file is not None:
         print "Generating non-matching FASTQ file"
         negative_handle = open(out_negative_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
-            if clean_name(title.split(None, 1)[0]) not in ids:
+            if clean_name(title.split(None, 1)[0]) in ids:
+                pos_count += 1
+            else:
                 negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+                neg_count += 1
         negative_handle.close()
     handle.close()
-    # This does not currently bother to record record counts (faster)
+    return pos_count, neg_count
+
 
 def sff_filter(in_file, pos_file, neg_file, wanted):
     """SFF filter."""
@@ -353,18 +363,13 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
 
 
 if seq_format.lower()=="sff":
-    # Now write filtered SFF file based on IDs wanted
-    pos_count, neg_count = sff_filter(in_file, out_positive_file, out_negative_file, ids)
-    # At the time of writing, Galaxy doesn't show SFF file read counts,
-    # so it is useful to put them in stdout and thus shown in job info.
-    print "%i with and %i without specified IDs" % (pos_count, neg_count)
+    sequence_filter = sff_filter
 elif seq_format.lower()=="fasta":
-    # Write filtered FASTA file based on IDs from tabular file
-    pos_count, neg_count = fasta_filter(in_file, out_positive_file, out_negative_file, ids)
-    print "%i with and %i without specified IDs" % (pos_count, neg_count)
+    sequence_filter = fasta_filter
 elif seq_format.lower().startswith("fastq"):
-    #Write filtered FASTQ file based on IDs from mapping file
-    fastq_filter(in_file, out_positive_file, out_negative_file, ids)
-    # This does not currently track the counts
+    sequence_filter = fastq_filter
 else:
     sys_exit("Unsupported file type %r" % seq_format)
+
+pos_count, neg_count = sequence_filter(in_file, out_positive_file, out_negative_file, ids)
+print("%i with and %i without specified IDs" % (pos_count, neg_count))

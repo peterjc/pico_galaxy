@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_mapping" name="Filter sequences by mapping" version="0.0.2">
+<tool id="seq_filter_by_mapping" name="Filter sequences by mapping" version="0.0.3">
     <description>from SAM/BAM file</description>
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
