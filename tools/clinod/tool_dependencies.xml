@@ -22,7 +22,7 @@
 Downloads and installs the command line NoD (clinod) JAR file and the binary
 dependency batchman, and sets $CLINOD to the folder used.
 
-We could download, compiles and install the SNNS Batch Interpreter v1.0 executable
+We could download, compile and install the SNNS Batch Interpreter v1.0 executable
 (batchman) from Stuttgart Neural Network Simulator (SNNS) v4.2. However, we simplify
 this by downloading SNNS v4.3 which includes the precompiled copy of batch man.
 
