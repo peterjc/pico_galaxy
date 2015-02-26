@@ -93,7 +93,7 @@ before_install:
  - cd ${TRAVIS_BUILD_DIR}
  - wget https://codeload.github.com/galaxyproject/galaxy/tar.gz/master
  - tar -zxvf master | tail
- - cd galaxy-central-master
+ - cd galaxy-master
  - pip install requests 
 
 # Configuring tools within Galaxy
