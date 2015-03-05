@@ -1,4 +1,4 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.1.2">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.0">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
@@ -9,9 +9,10 @@
 sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
 #if str($sampling.type) == "everyNth":
 -n "${sampling.every_n}"
-#else
-##elif str($sampling.type) == "percentage":
+#elif str($sampling.type) == "percentage":
 -p "${sampling.percent}"
+#else
+-c "${sampling.count}"
 #end if
 #if $interleaved
 --interleaved
@@ -28,6 +29,7 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <param name="type" type="select" label="Sub-sampling approach">
                 <option value="everyNth">Take every N-th sequence (e.g. every fifth sequence)</option>
                 <option value="percentage">Take some percentage of the sequences (e.g. 20% will take every fifth sequence)</option>
+                <option value="desired_count">Take exactly N sequences (or pairs if using interleaved mode, e.g. 1000 sequences)</option>
                 <!-- TODO - target coverage etc -->
             </param>
             <when value="everyNth">
@@ -35,6 +37,9 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             </when>
             <when value="percentage">
                 <param name="percent" value="20.0" type="float" min="0" max="100" label="Percentage" help="Between 0 and 100, e.g. 20% will take every 5th sequence" />
+            </when>
+            <when value="desired_count">
+                <param name="count" value="1000" type="integer" min="1" label="N" help="Number of unique sequences to pick (between 1 and number itotal n input file)" />
             </when>
         </conditional>
         <param name="interleaved" type="boolean" label="Interleaved paired reads" help="Tick to preserve interleaved pairs on output" />
@@ -82,10 +87,35 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <output name="output_file" file="get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta" />
         </test>
         <test>
+            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="2910" />
+            <output name="output_file" file="get_orf_input.Suis_ORF.prot.fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="10" />
+            <param name="interleaved" value="true" />
+            <output name="output_file" file="get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta" />
+        </test>
+        <test>
             <param name="input_file" value="ecoli.fastq" />
             <param name="type" value="percentage" />
             <param name="percent" value="1.0" />
             <output name="output_file" file="ecoli.sample_N100.fastq" />
+        </test>
+        <test>
+            <param name="input_file" value="ecoli.fastq" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="10" />
+            <output name="output_file" file="ecoli.sample_C10.fastq" />
+        </test>
+        <test>
+            <param name="input_file" value="ecoli.sample_C10.fastq" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="10" />
+            <output name="output_file" file="ecoli.sample_C10.fastq" />
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
@@ -100,27 +130,59 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <param name="interleaved" value="true" />
             <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff" ftype="sff"/>
         </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30.sff" ftype="sff" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="30" />
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30.sff" ftype="sff"/>
+        </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="1" />
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff" ftype="sff"/>
+        </test>
     </tests>
     <help>
 **What it does**
 
 Takes an input file of sequences (typically FASTA or FASTQ, but also
 Standard Flowgram Format (SFF) is supported), and returns a new sequence
-file sub-sampling from this (in the same format).
+file sub-sampling uniformly from this (in the same format, preserving the
+input sequence order).
 
-Several sampling modes are supported, all designed to be non-random. This
-allows reproducibility, and also works on paired sequence files. Also
-note that by sampling uniformly through the file, this avoids any bias
-should reads in any part of the file are of lesser quality (e.g. one part
-of the slide).
+Several sampling modes are supported, all designed to do non-random
+uniform sampling. This allows reproducibility, and also works on paired
+sequence files (run the tool twice, once on each file using the same
+settings).
 
-The simplest mode is to take every N-th sequence, for example taking
+Also note that by sampling uniformly through the file, this avoids any
+bias should reads in any part of the file be of lesser quality (e.g.
+for high throughput sequencing the startreads at  and end of the file
+can be of lower quality).
+
+The simplest mode is to take every *N*-th sequence, for example taking
 every 2nd sequence would sample half the file - while taking every 5th
 sequence would take 20% of the file.
 
 If you tick the interleaved option, the file is processed as pairs of
-records - taking for example using 20% would take every 5th pair of
-records. This ensures your read pairs are preserved. Note this does not
+records - for example using 20% would take every 5th pair of records.
+This ensures your read pairs are preserved. Note this does not
+actually check your read names match a known pair naming scheme!
+
+The target count method picks *N* sequences from the input file, which
+will be distributed uniformly though the file. This works by first
+counting the number of records, then calculating the desired percentage
+of sequences to take. Note if your input file has exactly *N* sequences
+this selects them all (effectively copying the input file). If your
+input file has less than *N* sequences, this is treated as an error.
+
+If you tick the interleaved option, the file is processed as pairs of
+records to ensure your read pairs are not separated by sampling.
+For example using 20% would take every 5th pair of records, or you
+could request 1000 read pairs.
+
+.. class:: warningmark Note interleaves/pair mode does *not*
 actually check your read names match a known pair naming scheme!
 
 **Example Usage**
@@ -133,8 +195,12 @@ and would preserve the pairing as well.
 
 Similarly, if you had some Illumina paired end data interleaved into one
 file with an estimated x200 coverage, you would run this tool in
-interleaved mode. Taking every 3rd read pair. This would reduce the
-estimated coverage to about x66, while preserving the read pairing.
+interleaved mode, taking every 3rd read pair. This would again reduce
+the estimated coverage to about x66, while preserving the read pairing.
+
+Suppose you have a transcriptome assembly, and wish to look at the
+species distribution of the top BLAST hits for an initial quality check.
+Rather than using all your sequences, you could pick 1000 only for this.
 
 **Citation**
 

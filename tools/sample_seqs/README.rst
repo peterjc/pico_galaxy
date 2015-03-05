@@ -59,6 +59,10 @@ v0.0.1  - Initial version.
 v0.1.1  - Using optparse to provide a proper command line API.
 v0.1.2  - Interleaved mode for working with paired records.
         - Tool definition now embeds citation information.
+v0.2.0  - Option to give number of sequences (or pairs) desired.
+          This works by first counting all your sequences, then calculates
+          the percentage required in order to sample them uniformly.
+	  This makes two passes through the input and is therefore slower. 
 ======= ======================================================================
 
 
@@ -71,7 +75,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/sample_seqs
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf sample_seqs.tar.gz tools/sample_seqs/README.rst tools/sample_seqs/sample_seqs.py tools/sample_seqs/sample_seqs.xml tools/sample_seqs/tool_dependencies.xml test-data/ecoli.fastq test-data/ecoli.sample_N100.fastq test-data/ecoli.pair_sample_N100.fastq test-data/get_orf_input.Suis_ORF.prot.fasta test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta test-data/MID4_GLZRM4E04_rnd30_frclip.sff test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
+    $ tar -czf sample_seqs.tar.gz tools/sample_seqs/README.rst tools/sample_seqs/sample_seqs.py tools/sample_seqs/sample_seqs.xml tools/sample_seqs/tool_dependencies.xml test-data/ecoli.fastq test-data/ecoli.sample_N100.fastq test-data/ecoli.pair_sample_N100.fastq test-data/ecoli.sample_C10.fastq test-data/get_orf_input.Suis_ORF.prot.fasta test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta test-data/get_orf_input.Suis_ORF.prot.sample_C10.fasta test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta test-data/MID4_GLZRM4E04_rnd30_frclip.sff test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff
 
 Check this worked::
 
@@ -83,13 +87,17 @@ Check this worked::
     test-data/ecoli.fastq
     test-data/ecoli.sample_N100.fastq
     test-data/ecoli.pair_sample_N100.fastq
+    test-data/ecoli.sample_C10.fastq
     test-data/get_orf_input.Suis_ORF.prot.fasta
     test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta
     test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta
+    test-data/get_orf_input.Suis_ORF.prot.sample_C10.fasta
+    test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta
     test-data/MID4_GLZRM4E04_rnd30_frclip.sff
     test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff
     test-data/MID4_GLZRM4E04_rnd30_pair_sample.sff
     test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
+    test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff
 
 
 Licence (MIT)

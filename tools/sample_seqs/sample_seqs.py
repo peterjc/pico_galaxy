@@ -32,6 +32,9 @@ $ python sample_seqs.py [options]
 e.g. Sample 20% of the reads:
 
 $ python sample_seqs.py -i my_seq.fastq -f fastq -p 20.0 -o sample.fastq
+
+This samples uniformly though the file, rather than at random, and therefore
+should be reproducible.
 """
 parser = OptionParser(usage=usage)
 parser.add_option('-i', '--input', dest='input',
@@ -49,6 +52,9 @@ parser.add_option('-p', '--percent', dest='percent',
 parser.add_option('-n', '--everyn', dest='everyn',
                   default=None,
                   help='Take every N-th read')
+parser.add_option('-c', '--count', dest='count',
+                  default=None,
+                  help='Take exactly N reads')
 parser.add_option("--interleaved", dest="interleaved",
                   default=False, action="store_true",
                   help="Input is interleaved reads, preserve the pairings")
@@ -58,10 +64,9 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.1.2")
+    print("v0.2.0")
     sys.exit(0)
 
-seq_format = options.format
 in_file = options.input
 out_file = options.output
 interleaved = options.interleaved
@@ -72,17 +77,61 @@ if in_file != "/dev/stdin" and not os.path.isfile(in_file):
     sys_exit("Missing input file %r" % in_file)
 if not out_file:
     sys_exit("Require an output filename")
+if not options.format:
+    sys_exit("Require the sequence format")
+seq_format = options.format.lower()
+
+
+def count_fasta(filename):
+    from Bio.SeqIO.FastaIO import SimpleFastaParser
+    count = 0
+    with open(filename) as handle:
+        for title, seq in SimpleFastaParser(handle):
+            count += 1
+    return count
+
+
+def count_fastq(filename):
+    from Bio.SeqIO.QualityIO import FastqGeneralIterator
+    count = 0
+    with open(filename) as handle:
+        for title, seq, qual in FastqGeneralIterator(handle):
+            count += 1
+    return count
+
+
+def count_sff(filename):
+    from Bio import SeqIO
+    # If the SFF file has a built in index (which is normal),
+    # this will be parsed and is the quicker than scanning
+    # the whole file.
+    return len(SeqIO.index(filename, "sff"))
+
+
+def count_sequences(filename, format):
+    if seq_format == "sff":
+        return count_sff(filename)
+    elif seq_format == "fasta":
+        return count_fasta(filename)
+    elif seq_format.startswith("fastq"):
+        return count_fastq(filename)
+    else:
+        sys_exit("Unsupported file type %r" % seq_format)
 
 
 if options.percent and options.everyn:
     sys_exit("Cannot combine -p and -n options")
+elif options.everyn and options.count:
+    sys_exit("Cannot combine -p and -c options")
+elif options.percent and options.count:
+    sys_exit("Cannot combine -n and -c options")
 elif options.everyn:
     try:
         N = int(options.everyn)
     except:
-        sys_exit("Bad N argument %r" % options.everyn)
+        sys_exit("Bad -n argument %r" % options.everyn)
     if N < 2:
-        sys_exit("Bad N argument %r" % options.everyn)
+        sys_exit("Bad -n argument %r" % options.everyn)
     if (N % 10) == 1:
         sys.stderr.write("Sampling every %ist sequence\n" % N)
     elif (N % 10) == 2:
@@ -102,9 +151,9 @@ elif options.percent:
     try:
         percent = float(options.percent) / 100.0
     except:
-        sys_exit("Bad percent argument %r" % options.percent)
+        sys_exit("Bad -p percent argument %r" % options.percent)
     if percent <= 0.0 or 1.0 <= percent:
-        sys_exit("Bad percent argument %r" % options.percent)
+        sys_exit("Bad -p percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
     def sampler(iterator):
         global percent
@@ -115,8 +164,76 @@ elif options.percent:
             if percent * count > taken:
                 taken += 1
                 yield record
+elif options.count:
+    try:
+        N = int(options.count)
+    except:
+        sys_exit("Bad -c count argument %r" % options.count)
+    if N < 1:
+        sys_exit("Bad -c count argument %r" % options.count)
+    total = count_sequences(in_file, seq_format)
+    print("Input file has %i sequences" % total)
+    if interleaved:
+        # Paired
+        if total % 2:
+            sys_exit("Paired mode, but input file has an odd number of sequences: %i"
+                     % total)
+        elif N > total // 2:
+            sys_exit("Requested %i sequence pairs, but file only has %i pairs (%i sequences)."
+                     % (N, total // 2, total))
+        total = total // 2
+        if N == 1:
+            sys.stderr.write("Sampling just first sequence pair!\n")
+        elif N == total:
+            sys.stderr.write("Taking all the sequence pairs\n")
+        else:
+            sys.stderr.write("Sampling %i sequence pairs\n" % N)
+    else:
+        # Not paired
+        if total < N:
+            sys_exit("Requested %i sequences, but file only has %i." % (N, total))
+        if N == 1:
+            sys.stderr.write("Sampling just first sequence!\n")
+        elif N == total:
+            sys.stderr.write("Taking all the sequences\n")
+        else:
+            sys.stderr.write("Sampling %i sequences\n" % N)
+    if N == total:
+        def sampler(iterator):
+            """Dummy filter to filter nothing, taking everything."""
+            global N
+            taken = 0
+            for record in iterator:
+                taken += 1
+                yield record
+            assert taken == N, "Picked %i, wanted %i" % (taken, N)
+    else:
+        def sampler(iterator):
+            # Mimic the percentage sampler, with double check on final count
+            global N, total
+            # Do we need a floating point fudge factor epsilon?
+            # i.e. What if percentage comes out slighty too low, and
+            # we could end up missing last few desired sequences?
+            percentage = float(N) / float(total)
+            #print("DEBUG: Want %i out of %i sequences/pairs, as a percentage %0.2f"
+            #      % (N, total, percentage * 100.0))
+            count = 0
+            taken = 0
+            for record in iterator:
+                count += 1
+                # Do we need the extra upper bound?
+                if percentage * count > taken and taken < N:
+                    taken += 1
+                    yield record
+                elif total - count + 1 <= N - taken:
+                    # remaining records (incuding this one) <= what we still need.
+                    # This is a safey check for floating point edge cases where
+                    # we need to take all remaining sequences to meet target
+                    taken += 1
+                    yield record
+            assert taken == N, "Picked %i, wanted %i" % (taken, N)
 else:
-    sys_exit("Must use either -n or -p")
+    sys_exit("Must use either -n, -p or -c")
 
 
 def pair(iterator):
@@ -246,11 +363,11 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
                 #count = writer.write_file(SffIterator(in_handle))
     return count
 
-if seq_format.lower()=="sff":
+if seq_format == "sff":
     count = sff_filter(in_file, out_file, sampler, interleaved)
-elif seq_format.lower()=="fasta":
+elif seq_format == "fasta":
     count = fasta_filter(in_file, out_file, sampler, interleaved)
-elif seq_format.lower().startswith("fastq"):
+elif seq_format.startswith("fastq"):
     count = fastq_filter(in_file, out_file, sampler, interleaved)
 else:
     sys_exit("Unsupported file type %r" % seq_format)
