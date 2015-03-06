@@ -178,8 +178,10 @@ records to ensure your read pairs are not separated by sampling.
 For example using 20% would take every 5th pair of records, or you
 could request 1000 read pairs.
 
-.. class:: warningmark Note interleaves/pair mode does *not*
-actually check your read names match a known pair naming scheme!
+.. class:: warningmark
+
+Note interleaves/pair mode does *not* actually check your read names
+match a known pair naming scheme!
 
 **Example Usage**
 
