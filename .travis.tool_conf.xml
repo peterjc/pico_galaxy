@@ -22,9 +22,12 @@
     <tool file="mira4/mira4_de_novo.xml" />
     <tool file="mira4/mira4_mapping.xml" />
     <tool file="mira4/mira4_bait.xml" />
+    <!-- comment out pending solving: Exception: History in error state.
+         which may be a samtools version conflict?
     <tool file="samtools_idxstats/samtools_idxstats.xml" />
     <tool file="samtools_depad/samtools_depad.xml" />
     <tool file="samtools_depth/samtools_depth.xml" />
+    -->
     <tool file="align_back_trans/align_back_trans.xml" />
     <tool file="sample_seqs/sample_seqs.xml" />
     <tool file="mummer/mummer.xml" />
