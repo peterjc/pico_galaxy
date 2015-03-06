@@ -2,14 +2,14 @@
 """Sub-sample sequence from a FASTA, FASTQ or SFF file.
 
 This tool is a short Python script which requires Biopython 1.62 or later
-for SFF file support. If you use this tool in scientific work leading to a
+for sequence parsing. If you use this tool in scientific work leading to a
 publication, please cite the Biopython application note:
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2014 by Peter Cock, The James Hutton Institute
+This script is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 

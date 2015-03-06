@@ -61,8 +61,8 @@ v0.1.2  - Interleaved mode for working with paired records.
         - Tool definition now embeds citation information.
 v0.2.0  - Option to give number of sequences (or pairs) desired.
           This works by first counting all your sequences, then calculates
-          the percentage required in order to sample them uniformly.
-	  This makes two passes through the input and is therefore slower. 
+          the percentage required in order to sample them uniformly (evenly).
+          This makes two passes through the input and is therefore slower. 
 ======= ======================================================================
 
 

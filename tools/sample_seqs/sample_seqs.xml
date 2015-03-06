@@ -27,9 +27,9 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
         <conditional name="sampling">
             <param name="type" type="select" label="Sub-sampling approach">
-                <option value="everyNth">Take every N-th sequence (e.g. every fifth sequence)</option>
-                <option value="percentage">Take some percentage of the sequences (e.g. 20% will take every fifth sequence)</option>
-                <option value="desired_count">Take exactly N sequences (or pairs if using interleaved mode, e.g. 1000 sequences)</option>
+                <option value="everyNth">Take every N-th sequence (or pair, e.g. every fifth sequence)</option>
+                <option value="percentage">Take some percentage of the sequences (or pairs, e.g. 20% will take every fifth sequence)</option>
+                <option value="desired_count">Take exactly N sequences (or pairs, e.g. 1000 sequences)</option>
                 <!-- TODO - target coverage etc -->
             </param>
             <when value="everyNth">
@@ -42,7 +42,7 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
                 <param name="count" value="1000" type="integer" min="1" label="N" help="Number of unique sequences to pick (between 1 and number itotal n input file)" />
             </when>
         </conditional>
-        <param name="interleaved" type="boolean" label="Interleaved paired reads" help="Tick to preserve interleaved pairs on output" />
+        <param name="interleaved" type="boolean" label="Interleaved paired reads" help="This mode keeps paired reads together (e.g. take every 5th read pair)" />
     </inputs>
     <outputs>
         <data name="output_file" format="input" metadata_source="input_file" label="${input_file.name} (sub-sampled)"/>
@@ -149,33 +149,29 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
 Takes an input file of sequences (typically FASTA or FASTQ, but also
 Standard Flowgram Format (SFF) is supported), and returns a new sequence
 file sub-sampling uniformly from this (in the same format, preserving the
-input sequence order).
+input order and selecting sequencing evenly though the input file).
 
 Several sampling modes are supported, all designed to do non-random
-uniform sampling. This allows reproducibility, and also works on paired
-sequence files (run the tool twice, once on each file using the same
-settings).
+uniform sampling (i.e. evenly through the input file). This allows
+reproducibility, and also works on paired sequence files (run the tool
+twice, once on each file using the same settings).
 
-Also note that by sampling uniformly through the file, this avoids any
-bias should reads in any part of the file be of lesser quality (e.g.
-for high throughput sequencing the startreads at  and end of the file
+By sampling uniformly (evenly) through the file, this avoids any bias
+should reads in any part of the file be of lesser quality (e.g. for
+high throughput sequencing the reads at the start and end of the file
 can be of lower quality).
 
 The simplest mode is to take every *N*-th sequence, for example taking
 every 2nd sequence would sample half the file - while taking every 5th
 sequence would take 20% of the file.
 
-If you tick the interleaved option, the file is processed as pairs of
-records - for example using 20% would take every 5th pair of records.
-This ensures your read pairs are preserved. Note this does not
-actually check your read names match a known pair naming scheme!
-
 The target count method picks *N* sequences from the input file, which
-will be distributed uniformly though the file. This works by first
-counting the number of records, then calculating the desired percentage
-of sequences to take. Note if your input file has exactly *N* sequences
-this selects them all (effectively copying the input file). If your
-input file has less than *N* sequences, this is treated as an error.
+again will be distributed uniformly (evenly) though the file. This works
+by first counting the number of records, then calculating the desired
+percentage of sequences to take. Note if your input file has exactly
+*N* sequences this selects them all (effectively copying the input file).
+If your input file has less than *N* sequences, this is treated as an
+error.
 
 If you tick the interleaved option, the file is processed as pairs of
 records to ensure your read pairs are not separated by sampling.
