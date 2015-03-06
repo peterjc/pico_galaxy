@@ -1,7 +1,7 @@
 <tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.0">
     <description>e.g. to reduce coverage</description>
     <requirements>
-        <requirement type="package" version="1.63">biopython</requirement>
+        <requirement type="package" version="1.65">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
     <version_command interpreter="python">sample_seqs.py --version</version_command>
