@@ -297,41 +297,23 @@ def fasta_filter(in_file, out_file, iterator_filter, inter):
                     pos_handle.write(record)
     return count
 
-try:
-    from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-    def fastq_filter(in_file, out_file, iterator_filter, inter):
-        count = 0
-        #from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-        reader = fastqReader(open(in_file, "rU"))
-        writer = fastqWriter(open(out_file, "w"))
-        if inter:
-            for r1, r2 in iterator_filter(pair(reader)):
-                count += 1
-                writer.write(r1)
-                writer.write(r2)
-        else:
-            for record in iterator_filter(reader):
-                count += 1
-                writer.write(record)
-        writer.close()
-        reader.close()
-        return count
-except ImportError:
-    from Bio.SeqIO.QualityIO import FastqGeneralIterator
-    def fastq_filter(in_file, out_file, iterator_filter, inter):
-        count = 0
-        with open(in_file) as in_handle:
-            with open(out_file, "w") as pos_handle:
-                if inter:
-                    for r1, r2 in iterator_filter(pair(FastqGeneralIterator(in_handle))):
-                        count += 1
-                        pos_handle.write("@%s\n%s\n+\n%s\n" % r1)
-                        pos_handle.write("@%s\n%s\n+\n%s\n" % r2)
-                else:
-                    for title, seq, qual in iterator_filter(FastqGeneralIterator(in_handle)):
-                        count += 1
-                        pos_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
-        return count
+
+from Bio.SeqIO.QualityIO import FastqGeneralIterator
+def fastq_filter(in_file, out_file, iterator_filter, inter):
+    count = 0
+    with open(in_file) as in_handle:
+        with open(out_file, "w") as pos_handle:
+            if inter:
+                for r1, r2 in iterator_filter(pair(FastqGeneralIterator(in_handle))):
+                    count += 1
+                    pos_handle.write("@%s\n%s\n+\n%s\n" % r1)
+                    pos_handle.write("@%s\n%s\n+\n%s\n" % r2)
+            else:
+                for title, seq, qual in iterator_filter(FastqGeneralIterator(in_handle)):
+                    count += 1
+                    pos_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
+    return count
+
 
 def sff_filter(in_file, out_file, iterator_filter, inter):
     count = 0
