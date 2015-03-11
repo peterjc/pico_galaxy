@@ -1,4 +1,4 @@
-<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.9">
+<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.10">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
@@ -27,6 +27,10 @@ seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_f
             <param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
             <param name="column" value="1" />
             <output name="output_file" file="k12_hypothetical.fasta" ftype="fasta" />
+            <assert_stdout>
+                <has_line line="Indexed 10 sequences" />
+                <has_line line="Selected 1 sequences by ID" />
+            </assert_stdout>
         </test>
         <!-- this version has white space in the identifier column (id and description) -->
         <test>
@@ -34,6 +38,24 @@ seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_f
             <param name="input_tabular" value="k12_hypothetical_alt.tabular" ftype="tabular" />
             <param name="column" value="1" />
             <output name="output_file" file="k12_hypothetical.fasta" ftype="fasta" />
+            <assert_stdout>
+                <has_line line="Indexed 10 sequences" />
+                <has_line line="Selected 1 sequences by ID" />
+            </assert_stdout>
+            <assert_stderr>
+                <has_line line="WARNING: Some of your identifiers had white space in them, using first word only. e.g.:" />
+            </assert_stderr>
+        </test>
+        <test expect_failure="true" expect_exit_code="1">
+            <param name="input_file" value="empty.fasta" ftype="fasta" />
+            <param name="input_tabular" value="k12_hypothetical.tabular" ftype="tabular" />
+            <param name="column" value="1" />
+            <assert_stdout>
+                <has_line line="Indexed 0 sequences" />
+            </assert_stdout>
+            <assert_stderr>
+                <has_line line="Identifier 'gi|16127999|ref|NP_414546.1|' not found in sequence file" />
+            </assert_stderr>
         </test>
     </tests>
     <help>

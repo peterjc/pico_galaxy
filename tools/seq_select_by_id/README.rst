@@ -79,6 +79,8 @@ v0.0.9  - Simplified XML to apply input format to output data.
         - Include input dataset name in output dataset names.
         - If white space is found in the requested tabular field then only
           the first word is used as the identifier (with a warning to stderr).
+v0.0.10 - Includes testing of stdout messages.
+        - Includes testing of failure modes.
 ======= ======================================================================
 
 
@@ -94,7 +96,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf seq_select_by_id.tar.gz tools/seq_select_by_id/README.rst tools/seq_select_by_id/seq_select_by_id.* tools/seq_select_by_id/tool_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular test-data/k12_hypothetical_alt.tabular
+    $ tar -czf seq_select_by_id.tar.gz tools/seq_select_by_id/README.rst tools/seq_select_by_id/seq_select_by_id.* tools/seq_select_by_id/tool_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular test-data/k12_hypothetical_alt.tabular test-data/empty.fasta
 
 Check this worked::
 
@@ -107,6 +109,7 @@ Check this worked::
     test-data/k12_hypothetical.fasta
     test-data/k12_hypothetical.tabular
     test-data/k12_hypothetical_alt.tabular
+    test-data/empty.fasta
 
 
 Licence (MIT)
