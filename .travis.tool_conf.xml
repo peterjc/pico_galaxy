@@ -6,9 +6,7 @@
   <section name="Continuous-Integration" id="Travis">
     <!-- Container section for tools to be tested using TravisCI -->
     <tool file="clinod/clinod.xml" />
-    <!-- website currently offline so cannot be installed right now,
     <tool file="effectiveT3/effectiveT3.xml" />
-    -->
     <tool file="fastq_paired_unpaired/fastq_paired_unpaired.xml" />
     <tool file="nlstradamus/nlstradamus.xml" />
     <tool file="get_orfs_or_cdss/get_orfs_or_cdss.xml" />
