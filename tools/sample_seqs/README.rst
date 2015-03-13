@@ -1,7 +1,7 @@
 Galaxy tool to sub-sample sequence files
 ========================================
 
-This tool is copyright 2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2014 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
