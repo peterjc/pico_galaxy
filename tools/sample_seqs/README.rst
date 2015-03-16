@@ -63,6 +63,9 @@ v0.2.0  - Option to give number of sequences (or pairs) desired.
           This works by first counting all your sequences, then calculates
           the percentage required in order to sample them uniformly (evenly).
           This makes two passes through the input and is therefore slower. 
+v0.2.1  - Was missing a file for the functional tests.
+        - Included testing of stdout messages.
+        - Includes testing of failure modes.
 ======= ======================================================================
 
 

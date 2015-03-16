@@ -64,7 +64,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.0")
+    print("v0.2.1")
     sys.exit(0)
 
 in_file = options.input
@@ -172,7 +172,7 @@ elif options.count:
     if N < 1:
         sys_exit("Bad -c count argument %r" % options.count)
     total = count_sequences(in_file, seq_format)
-    print("Input file has %i sequences" % total)
+    sys.stderr.write("Input file has %i sequences\n" % total)
     if interleaved:
         # Paired
         if total % 2:

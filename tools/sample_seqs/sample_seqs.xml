@@ -1,4 +1,4 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.0">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.1">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.65">biopython</requirement>
@@ -122,6 +122,10 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <param name="type" value="percentage" />
             <param name="percent" value="20.0" />
             <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff" ftype="sff"/>
+            <assert_stderr>
+                <has_line line="Sampling 20.000% of sequences" />
+                <has_line line="Selected 5 records" />
+            </assert_stderr>
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
@@ -129,18 +133,41 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
             <param name="every_n" value="5" />
             <param name="interleaved" value="true" />
             <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff" ftype="sff"/>
+            <assert_stderr>
+                <has_line line="Sampling every 5th sequence" />
+                <has_line line="Selected 3 pairs" />
+            </assert_stderr>
         </test>
         <test>
-            <param name="input_file" value="MID4_GLZRM4E04_rnd30.sff" ftype="sff" />
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
             <param name="type" value="desired_count" />
-            <param name="count" value="30" />
-            <output name="output_file" file="MID4_GLZRM4E04_rnd30.sff" ftype="sff"/>
+            <param name="count" value="25" />
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff"/>
+            <assert_stderr>
+                <has_line line="Input file has 25 sequences" />
+                <has_line line="Taking all the sequences" />
+                <has_line line="Selected 25 records" />
+            </assert_stderr>
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
             <param name="type" value="desired_count" />
             <param name="count" value="1" />
             <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff" ftype="sff"/>
+            <assert_stderr>
+                <has_line line="Input file has 25 sequences" />
+                <has_line line="Sampling just first sequence!" />
+                <has_line line="Selected 1 records" />
+            </assert_stderr>
+        </test>
+        <test expect_failure="true" expect_exit_code="1">
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
+            <param name="type" value="desired_count" />
+            <param name="count" value="30" />
+            <assert_stderr>
+                <has_line line="Input file has 25 sequences" />
+                <has_line line="Requested 30 sequences, but file only has 25." />
+            </assert_stderr>
         </test>
     </tests>
     <help>
