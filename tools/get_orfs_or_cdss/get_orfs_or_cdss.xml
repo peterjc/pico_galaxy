@@ -6,7 +6,7 @@
     </requirements>
     <version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
     <command interpreter="python">
-get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
+get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file $out_bed_file
     </command>
     <stdio>
         <!-- Anything other than zero is an error -->
@@ -58,6 +58,7 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
     <outputs>
         <data name="out_nuc_file" format="fasta" label="${ftype.value}s (nucleotides)" />
         <data name="out_prot_file" format="fasta" label="${ftype.value}s (amino acids)" />
+        <data name="out_bed_file" format="bed" label="${ftype.value}s (bed)" />
     </outputs>
     <tests>
         <test>

@@ -47,7 +47,7 @@ except ImportError:
 
 #Parse Command Line
 try:
-    input_file, seq_format, table, ftype, ends, mode, min_len, strand, out_nuc_file, out_prot_file = sys.argv[1:]
+    input_file, seq_format, table, ftype, ends, mode, min_len, strand, out_nuc_file, out_prot_file, out_bed_file = sys.argv[1:]
 except ValueError:
     sys_exit("Expected ten arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 
@@ -145,7 +145,7 @@ def break_up_frame(s):
             t = translate(n, table, to_stop=True)
         if n and len(t) >= min_len:
             yield start + offset, n, t
-                        
+
 
 def get_all_peptides(nuc_seq):
     """Returns start, end, strand, nucleotides, protein.
@@ -204,6 +204,11 @@ if out_prot_file == "-":
     out_prot = sys.stdout
 else:
     out_prot = open(out_prot_file, "w")
+if out_bed_file == "-":
+    out_bed = sys.stdout
+else:
+    out_bed = open(out_bed_file, "w")
+
 for record in SeqIO.parse(input_file, seq_format):
     for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
         out_count += 1
@@ -213,14 +218,18 @@ for record in SeqIO.parse(input_file, seq_format):
             loc = "complement(%i..%i)" % (f_start+1, f_end)
         descr = "length %i aa, %i bp, from %s of %s" \
                 % (len(t), len(n), loc, record.description)
-        r = SeqRecord(Seq(n), id = record.id + "|%s%i" % (ftype, i+1), name = "", description= descr)
-        t = SeqRecord(Seq(t), id = record.id + "|%s%i" % (ftype, i+1), name = "", description= descr)
+        fid = record.id + "|%s%i" % (ftype, i+1)
+        r = SeqRecord(Seq(n), id = fid, name = "", description= descr)
+        t = SeqRecord(Seq(t), id = fid, name = "", description= descr)
         SeqIO.write(r, out_nuc, "fasta")
         SeqIO.write(t, out_prot, "fasta")
+        out_bed.write('\t'.join(map(str,[record.id, f_start+1, f_end, fid, 0, '+' if f_strand == +1 else '-'])) + '\n')
     in_count += 1
 if out_nuc is not sys.stdout:
     out_nuc.close()
 if out_prot is not sys.stdout:
     out_prot.close()
+if out_bed is not sys.stdout:
+    out_bed.close()
 
 print "Found %i %ss in %i sequences" % (out_count, ftype, in_count)
