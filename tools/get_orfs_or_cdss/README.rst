@@ -70,7 +70,8 @@ v0.0.5  - Automated intallation of the Biopython dependency.
         - Renamed folder and adopted README.rst naming.
 v0.0.6  - Corrected automated dependency defintion.
 v0.0.7  - Tool definition now embeds citation information.
-v0.0.8  - Tool now outputs BED formatted calls (Courtesy of @erasche)
+v0.1.0  - Tool now outputs BED formatted calls (Courtesy of @erasche)
+        - Optparse is now used in lieu of sys.argv
 ======= ======================================================================
 
 

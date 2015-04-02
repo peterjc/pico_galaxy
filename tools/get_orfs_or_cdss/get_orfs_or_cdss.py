@@ -24,15 +24,11 @@ This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 
 See accompanying text file for licence details (MIT licence).
 
-This is version 0.0.4 of the script.
+This is version 0.1.0 of the script.
 """
 import sys
 import re
 from optparse import OptionParser
-
-if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.4"
-    sys.exit(0)
 
 def sys_exit(msg, err=1):
     sys.stderr.write(msg.rstrip() + "\n")
@@ -91,7 +87,7 @@ parser.add_option('-v', '--version', dest='version',
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.0.4"
+    print "v0.1.0"
     sys.exit(0)
 
 try:
