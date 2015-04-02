@@ -86,7 +86,7 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf get_orfs_or_cdss.tar.gz tools/get_orfs_or_cdss/README.rst tools/get_orfs_or_cdss/get_orfs_or_cdss.* tools/get_orfs_or_cdss/tool_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta
+    $ tar -czf get_orfs_or_cdss.tar.gz tools/get_orfs_or_cdss/README.rst tools/get_orfs_or_cdss/get_orfs_or_cdss.* tools/get_orfs_or_cdss/tool_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta test-data/get_orf_input*.bed
 
 Check this worked::
 
@@ -105,6 +105,10 @@ Check this worked::
     test-data/get_orf_input.t1_nuc_out.fasta
     test-data/get_orf_input.t1_prot_out.fasta
     test-data/Ssuis.fasta
+    test-data/get_orf_input.Suis_ORF.bed
+    test-data/get_orf_input.t11_open_bed_out.bed
+    test-data/get_orf_input.t11_bed_out.bed
+    test-data/get_orf_input.t1_bed_out.bed
 
 
 Licence (MIT)
