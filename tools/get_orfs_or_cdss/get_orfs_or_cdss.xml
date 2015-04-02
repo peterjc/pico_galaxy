@@ -71,6 +71,7 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
             <param name="strand" value="forward" />
             <output name="out_nuc_file" file="get_orf_input.t1_nuc_out.fasta" />
             <output name="out_prot_file" file="get_orf_input.t1_prot_out.fasta" />
+            <output name="out_bed_file" file="get_orf_input.t1_bed_out.bed" />
         </test>
         <test>
             <param name="input_file" value="get_orf_input.fasta" />
@@ -81,7 +82,8 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
             <param name="min_len" value="10" />
             <param name="strand" value="forward" />
             <output name="out_nuc_file" file="get_orf_input.t11_nuc_out.fasta" />
-            <output    name="out_prot_file" file="get_orf_input.t11_prot_out.fasta" />
+            <output name="out_prot_file" file="get_orf_input.t11_prot_out.fasta" />
+            <output name="out_bed_file" file="get_orf_input.t11_bed_out.bed" />
         </test>
         <test>
             <param name="input_file" value="get_orf_input.fasta" />
@@ -93,6 +95,7 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
             <param name="strand" value="forward" />
             <output name="out_nuc_file" file="get_orf_input.t11_open_nuc_out.fasta" />
             <output name="out_prot_file" file="get_orf_input.t11_open_prot_out.fasta" />
+            <output name="out_bed_file" file="get_orf_input.t11_open_bed_out.bed" />
         </test>
         <test>
             <param name="input_file" value="Ssuis.fasta" />
@@ -104,6 +107,7 @@ get_orfs_or_cdss.py $input_file $input_file.ext $table $ftype $ends $mode $min_l
             <param name="strand" value="both" />
             <output name="out_nuc_file" file="get_orf_input.Suis_ORF.nuc.fasta" />
             <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.fasta" />
+            <output name="out_bed_file" file="get_orf_input.Suis_ORF.bed" />
         </test>
     </tests>
     <help>
