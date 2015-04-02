@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 """Find ORFs in a nucleotide sequence file.
 
-get_orfs_or_cdss.py $input_fasta $input_format $table $ftype $ends $mode $min_len $strand $out_nuc_file $out_prot_file
-
-Takes ten command line options, input sequence filename, format, genetic
-code, CDS vs ORF, end type (open, closed), selection mode (all, top, one),
-minimum length (in amino acids), strand (both, forward, reverse), output
-nucleotide filename, and output protein filename.
-
 For more details, see the help text and argument descriptions in the
 accompanying get_orfs_or_cdss.xml file which defines a Galaxy interface.
 
