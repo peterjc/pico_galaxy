@@ -223,7 +223,7 @@ for record in SeqIO.parse(input_file, seq_format):
         t = SeqRecord(Seq(t), id = fid, name = "", description= descr)
         SeqIO.write(r, out_nuc, "fasta")
         SeqIO.write(t, out_prot, "fasta")
-        out_bed.write('\t'.join(map(str,[record.id, f_start+1, f_end, fid, 0, '+' if f_strand == +1 else '-'])) + '\n')
+        out_bed.write('\t'.join(map(str,[record.id, f_start, f_end, fid, 0, '+' if f_strand == +1 else '-'])) + '\n')
     in_count += 1
 if out_nuc is not sys.stdout:
     out_nuc.close()
