@@ -58,7 +58,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
     <outputs>
         <data name="out_nuc_file" format="fasta" label="${ftype.value}s (nucleotides)" />
         <data name="out_prot_file" format="fasta" label="${ftype.value}s (amino acids)" />
-        <data name="out_bed_file" format="bed" label="${ftype.value}s (bed)" />
+        <data name="out_bed_file" format="bed6" label="${ftype.value}s (bed)" />
     </outputs>
     <tests>
         <test>
