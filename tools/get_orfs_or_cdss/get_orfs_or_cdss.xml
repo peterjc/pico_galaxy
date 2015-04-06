@@ -50,7 +50,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <option value="one">First ORF/CDS from each sequence with the maximum length</option>
         </param>
         <param name="min_len" type="integer" size="5" value="30" label="Minimum length ORF/CDS (in amino acids, e.g. 30 aa = 90 bp plus any stop codon)" />
-        <param name="strand" type="select" label="Strand to search" help="Use the forward only option if your sequence directionality is known (e.g. from poly-A tails, or strand specific RNA sequencing.">
+        <param name="strand" type="select" label="Strand to search" help="Use the forward only option if your sequence directionality is known (e.g. from poly-A tails, or strand specific RNA sequencing).">
             <option value="both">Search both the forward and reverse strand</option>
             <option value="forward">Only search the forward strand</option>
             <option value="reverse">Only search the reverse strand</option>
