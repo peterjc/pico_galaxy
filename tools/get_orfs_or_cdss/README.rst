@@ -41,7 +41,8 @@ tool. One suggested location is in the filters section. Simply add the line::
 
     <tool file="get_orfs_or_cdss/get_orfs_or_cdss.xml" />
 
-You will also need to install Biopython 1.54 or later.
+You will also need to install Biopython 1.65 or later (slightly older versions
+should be fine, but will not have the latest NCBI genetic code tables).
 
 If you wish to run the unit tests, also	move/copy the ``test-data/`` files
 under Galaxy's ``test-data/`` folder. Then::
@@ -70,8 +71,9 @@ v0.0.5  - Automated intallation of the Biopython dependency.
         - Renamed folder and adopted README.rst naming.
 v0.0.6  - Corrected automated dependency defintion.
 v0.0.7  - Tool definition now embeds citation information.
-v0.1.0  - Tool now outputs BED formatted calls (Courtesy of @erasche)
-        - Optparse is now used in lieu of sys.argv
+v0.1.0  - Tool now outputs BED formatted calls (by @erasche, Eric Rasche).
+        - Using ``optparse`` for the Python command line API (Eric Rasche).
+        - Added NCBI genetic code table 24, Pterobranchia Mitochondrial.
 ======= ======================================================================
 
 

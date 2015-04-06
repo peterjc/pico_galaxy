@@ -1,7 +1,7 @@
 <tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.1.0">
     <description>e.g. to get peptides from ESTs</description>
     <requirements>
-        <requirement type="package" version="1.62">biopython</requirement>
+        <requirement type="package" version="1.65">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
     <version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
@@ -33,6 +33,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <option value="21">21. Trematode Mitochondrial</option>
             <option value="22">22. Scenedesmus obliquus</option>
             <option value="23">23. Thraustochytrium Mitochondrial</option>
+            <option value="24">24. Pterobranchia Mitochondrial</option>
         </param>
         <param name="ftype" type="select" value="True" label="Look for ORFs or CDSs">
             <option value="ORF">Look for ORFs (check for stop codons only, ignore start codons)</option>
