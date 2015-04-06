@@ -56,7 +56,7 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial version.
-v0.1.1  - Using optparse to provide a proper command line API.
+v0.1.1  - Using ``optparse`` to provide a proper Python command line API.
 v0.1.2  - Interleaved mode for working with paired records.
         - Tool definition now embeds citation information.
 v0.2.0  - Option to give number of sequences (or pairs) desired.

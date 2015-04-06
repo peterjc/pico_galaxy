@@ -75,7 +75,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
 v0.0.7  - Correct automated dependency definition.
 v0.0.8  - Simplified XML to apply input format to output data.
 v0.2.0  - Can supply ID list as a text parameter (instead of in a file)
-        - Using optparse for command line API.
+        - Using ``optparse`` for the Python command line API.
         - Advanced option to ignore paired read suffices.
         - Updated dependencies to use Biopython 1.64.
 v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
