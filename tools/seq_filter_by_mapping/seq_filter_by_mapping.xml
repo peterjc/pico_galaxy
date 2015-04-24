@@ -6,6 +6,11 @@
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">seq_filter_by_mapping.py --version</version_command>
     <command interpreter="python">
 seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
@@ -19,11 +24,6 @@ seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
 ## Now loop over all the mapping files
 #for i in $mapping_file#${i} #end for#
     </command>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />
 	<param name="mapping_file" type="data" format="sam,bam" multiple="true" label="SAM/BAM mapping of those sequences" help="SAM or BAM format." />

@@ -1,18 +1,18 @@
-<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.12">
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.13">
     <description>Trim off 5' or 3' primers</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
-    <version_command interpreter="python">seq_primer_clip.py --version</version_command>   
-    <command interpreter="python">
-seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
-    </command>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <version_command interpreter="python">seq_primer_clip.py --version</version_command>   
+    <command interpreter="python">
+seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
+    </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to clip" description="FASTA, FASTQ, or SFF format."/>
         <param name="primer_fasta" type="data" format="fasta" label="FASTA file containing primer(s)"/>
@@ -28,7 +28,7 @@ seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $m
         <param name="min_len" type="integer" label="Minimum length for (clipped) sequences " value="1"/>
     </inputs>
     <outputs>
-        <data name="output_file" format="input" metadata_source="input_file" label="$primer_type primer clipped"/>
+        <data name="output_file" format_source="input" metadata_source="input_file" label="$primer_type primer clipped"/>
     </outputs>
     <tests>
         <test>
@@ -86,9 +86,6 @@ seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $m
             <output name="output_file" file="MID4_GLZRM4E04_rnd30_frclip.sff" ftype="sff" />
         </test>
     </tests>
-    <requirements>
-        <requirement type="python-module">Bio</requirement>
-    </requirements>
     <help>
 
 **What it does**

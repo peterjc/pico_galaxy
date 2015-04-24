@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by SAM/BAM mapping
 ======================================================================
 
-This tool is copyright 2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -64,6 +64,7 @@ v0.0.1  - Initial version.
 v0.0.2  - Fixed some error messages.
 v0.0.3  - Report counts for FASTQ as done for FASTA and SFF files.
 v0.0.4  - Use the ``format_source=...`` tag.
+        - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

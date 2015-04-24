@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by ID
 =========================================================
 
-This tool is copyright 2010-2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -83,7 +83,8 @@ v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
         - Include input dataset name in output dataset names.
         - If white space is found in the requested tabular field then only
           the first word is used as the identifier (with a warning to stderr).
-        - Use the ``format_source=...`` tag.
+v0.2.2  - Use the ``format_source=...`` tag.
+        - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

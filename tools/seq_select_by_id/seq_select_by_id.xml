@@ -1,18 +1,18 @@
-<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.10">
+<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.11">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
-    <version_command interpreter="python">seq_select_by_id.py --version</version_command>
-    <command interpreter="python">
-seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_file
-    </command>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <version_command interpreter="python">seq_select_by_id.py --version</version_command>
+    <command interpreter="python">
+seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_file
+    </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file to select from" help="FASTA, QUAL, FASTQ, or SFF format." />
         <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>

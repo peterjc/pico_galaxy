@@ -1,9 +1,14 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.1">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.2">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">seq_filter_by_id.py --version</version_command>
     <command interpreter="python">
 seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
@@ -25,11 +30,6 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
 -t "$id_opts.id_list"
 #end if
     </command>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />
         <conditional name="id_opts">

@@ -1,7 +1,7 @@
 Galaxy tool to select FASTA, QUAL, FASTQ or SFF sequences by ID
 ===============================================================
 
-This tool is copyright 2011-2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -81,7 +81,8 @@ v0.0.9  - Simplified XML to apply input format to output data.
           the first word is used as the identifier (with a warning to stderr).
 v0.0.10 - Includes testing of stdout messages.
         - Includes testing of failure modes.
-        - Use the ``format_source=...`` tag.
+v0.0.11 - Use the ``format_source=...`` tag.
+        - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

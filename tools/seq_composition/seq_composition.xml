@@ -1,9 +1,14 @@
-<tool id="seq_composition" name="Sequence composition" version="0.0.1">
+<tool id="seq_composition" name="Sequence composition" version="0.0.2">
     <description>Count bases or amino-acids</description>
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">seq_composition.py --version</version_command>
     <command interpreter="python">
 seq_composition.py -o "$output_file"
@@ -12,11 +17,6 @@ seq_composition.py -o "$output_file"
 --$i.ext "${i}"
 #end for
     </command>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" multiple="true" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
     </inputs>
