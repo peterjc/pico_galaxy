@@ -1,13 +1,17 @@
-<tool id="nlstradamus" name="NLStradamus" version="0.0.9">
+<tool id="nlstradamus" name="NLStradamus" version="0.0.10">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
-    <command>
-      NLStradamus -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
-    </command>
+    <requirements>
+        <requirement type="binary">NLStradamus</requirement>
+        <requirement type="package" version="1.8">NLStradamus</requirement>
+    </requirements>
     <stdio>
         <!-- Assume anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <command>
+      NLStradamus -i $fasta_file -t $threshold -m $model -a $algorithm -tab > $tabular_file
+    </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
         <param name="model" type="select" display="radio" label="Model">
@@ -26,10 +30,6 @@
     <outputs>
         <data name="tabular_file" format="tabular" label="NLStradamus results" />
     </outputs>
-    <requirements>
-        <requirement type="binary">NLStradamus</requirement>
-        <requirement type="package" version="1.8">NLStradamus</requirement>
-    </requirements>
     <tests>
         <test>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />

@@ -1,7 +1,7 @@
 Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 ==========================================================
 
-This wrapper is copyright 2013 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2013-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -38,9 +38,9 @@ install the wrapper from the Galaxy Tool Shed. However, you will need to
 manually install the CLC Assembly Cell software, and setup the environment
 variable ``$CLC_ASSEMBLY_CELL`` to the directory containing the binaries
 (in particular, binaries ``clc_assembler``, ``clc_mapper`` and
-``clc_cas_to_sam``). For example:
+``clc_cas_to_sam``). For example::
 
-$ export CLC_ASSEMBLY_CELL=/opt/clcbio/clc-assembly-cell-4.1.0-linux_64/
+    $ export CLC_ASSEMBLY_CELL=/opt/clcbio/clc-assembly-cell-4.1.0-linux_64/
 
 If your CLC Bio licence is restricted to specific machines on your cluster,
 use Galaxy's job configuration settings to ensure CLC jobs are only sent
@@ -85,6 +85,7 @@ Version Changes
 v0.0.1  - Initial public release.
 v0.0.2  - Actually use the ``$CLC_ASSEMBLY_CELL`` environment variable.
         - Enable and fixed the tests.
+v0.0.3  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

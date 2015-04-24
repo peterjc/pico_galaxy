@@ -1,7 +1,7 @@
 Galaxy tool to find ORFs or simple CDSs
 =======================================
 
-This tool is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -74,6 +74,7 @@ v0.0.7  - Tool definition now embeds citation information.
 v0.1.0  - Tool now outputs BED formatted calls (by @erasche, Eric Rasche).
         - Using ``optparse`` for the Python command line API (Eric Rasche).
         - Added NCBI genetic code table 24, Pterobranchia Mitochondrial.
+v0.1.1  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

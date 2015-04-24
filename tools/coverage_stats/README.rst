@@ -1,7 +1,7 @@
 BAM coverage statistics using samtools idxstats and depth
 =========================================================
 
-This tool is copyright 2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -53,6 +53,7 @@ v0.0.1  - Initial public release
 v0.0.2  - Cope with samtools' default depth limit using modified samtools,
           see https://github.com/samtools/samtools/pull/322
 v0.0.3  - Cope with no coverage in final contigs.
+v0.0.4  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

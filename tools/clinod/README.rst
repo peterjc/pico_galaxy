@@ -1,7 +1,7 @@
 Galaxy wrapper for Command line NoD predictor (v1.3)
 ====================================================
 
-This wrapper is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -70,6 +70,7 @@ v0.0.6  - Adopted standard MIT licence.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.7  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
         - Tool definition now embeds citation information.
+v0.0.8  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

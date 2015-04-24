@@ -1,7 +1,7 @@
 Galaxy tool to draw a Venn Diagram with up to 3 sets
 ====================================================
 
-This tool is copyright 2011 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -65,6 +65,7 @@ v0.0.6  - Added unit tests.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.7  - Renamed folder and README file.
         - Tool definition now embeds citation information.
+v0.0.8  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

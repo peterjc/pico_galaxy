@@ -1,7 +1,7 @@
 Galaxy wrapper for drawing dotplots using MUMmer 3
 ==================================================
 
-This wrapper is copyright 2014 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -63,6 +63,7 @@ v0.0.2  - Correct typo in Tool identifier.
 v0.0.3  - Install ``ps2pdf`` using Tool Shed's GhostScript package.
 v0.0.4  - Install ``gnuplot`` using Tool Shed's gnuplot package.
         - Test case added.
+v0.0.5  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

@@ -1,9 +1,14 @@
-<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.3">
+<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.4">
     <description>using samtools idxstats and depth</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">coverage_stats.py --version</version_command>
     <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular"</command>
     <inputs>
@@ -12,11 +17,6 @@
     <outputs>
         <data name="out_tabular" format="tabular" label="$input_bam.name (coverage stats)" />
     </outputs>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <tests>
         <test>
             <param name="input_bam" value="ex1.bam" ftype="bam" />

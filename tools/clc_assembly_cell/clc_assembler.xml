@@ -1,8 +1,13 @@
-<tool id="clc_assembler" name="CLC assembler" version="0.0.2">
+<tool id="clc_assembler" name="CLC assembler" version="0.0.3">
     <description>Assembles reads giving a FASTA file</description>
     <requirements>
         <requirement type="binary">clc_assembler</requirement>
     </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command>\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler | grep -i version</version_command>
     <command>\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler
 #for $rg in $read_group
@@ -27,11 +32,6 @@
 -o "$out_fasta"
 --cpus \${GALAXY_SLOTS:-4}
 -v | grep -v "^Progress: "</command>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <repeat name="read_group" title="Read Group" min="1">
             <conditional name="segments">
