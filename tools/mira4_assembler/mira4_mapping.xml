@@ -1,4 +1,4 @@
-<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.5">
+<tool id="mira_4_0_mapping" name="MIRA v4.0 mapping" version="0.0.7">
     <description>Maps Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -7,6 +7,11 @@
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">mira4.py
 --manifest "$manifest"
@@ -19,11 +24,6 @@
 --fasta "$out_fasta"
 --log "$out_log"
     </command>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <param name="job_type" type="select" label="Assembly type">
             <option value="genome">Genome</option>

@@ -1,4 +1,4 @@
-<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.5">
+<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.7">
     <description>Takes Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -7,6 +7,12 @@
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
+    <code file="mira4_validator.py" />
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">mira4.py --version</version_command>
     <command interpreter="python">mira4.py
 --manifest "$manifest"
@@ -19,11 +25,6 @@
 --fasta "$out_fasta"
 --log "$out_log"
     </command>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <param name="job_type" type="select" label="Assembly type">
             <option value="genome">Genome</option>
@@ -78,7 +79,6 @@
         <param name="maf_wanted" type="boolean" label="Output assembly in MIRA's own format?" checked="False" />
         <param name="bam_wanted" type="boolean" label="Convert assembly into BAM format?" checked="True" />
     </inputs>
-    <code file="mira4_validator.py" />
     <outputs>
         <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
         <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)">
