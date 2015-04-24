@@ -83,6 +83,7 @@ v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
         - Include input dataset name in output dataset names.
         - If white space is found in the requested tabular field then only
           the first word is used as the identifier (with a warning to stderr).
+        - Use the ``format_source=...`` tag.
 ======= ======================================================================
 
 

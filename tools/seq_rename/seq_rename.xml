@@ -1,4 +1,4 @@
-<tool id="seq_rename" name="Rename sequences" version="0.0.6">
+<tool id="seq_rename" name="Rename sequences" version="0.0.7">
     <description>with ID mapping from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
@@ -20,7 +20,7 @@ seq_rename.py $input_tabular $old_column $new_column $input_file $input_file.ext
         <param name="new_column" type="data_column" data_ref="input_tabular" multiple="False" numerical="False" label="Column containing new sequence identifiers"/>
     </inputs>
     <outputs>
-        <data name="output_file" format="input" metadata_source="input_file" label="Renamed ${on_string}"/>
+        <data name="output_file" format_source="input" metadata_source="input_file" label="Renamed ${on_string}"/>
     </outputs>
     <tests>
         <test>

@@ -1,7 +1,7 @@
 Galaxy tool to rename FASTA, QUAL, FASTQ or SFF sequences
 =========================================================
 
-This tool is copyright 2011-2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -75,6 +75,7 @@ v0.0.6  - Simplified XML to apply input format to output data.
         - Tool definition now embeds citation information.
         - If white space is found in the requested tabular field then only
           the first word is used as the identifier (with a warning to stderr).
+v0.0.7  - Use the ``format_source=...`` tag.
 ======= ======================================================================
 
 

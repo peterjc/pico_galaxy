@@ -100,6 +100,7 @@ v0.0.5  - Tool definition now embeds citation information.
 v0.0.6  - Fixed error handling in ``mira4_convert.py``.
 v0.0.7  - Renamed folder (internal change only).
         - Reorder XML elements (internal change only).
+        - Use the ``format_source=...`` tag in the MIRA bait wrapper.
 ======= ======================================================================
 
 

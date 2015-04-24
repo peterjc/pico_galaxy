@@ -81,6 +81,7 @@ v0.0.9  - Simplified XML to apply input format to output data.
           the first word is used as the identifier (with a warning to stderr).
 v0.0.10 - Includes testing of stdout messages.
         - Includes testing of failure modes.
+        - Use the ``format_source=...`` tag.
 ======= ======================================================================
 
 
