@@ -28,7 +28,7 @@ seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $m
         <param name="min_len" type="integer" label="Minimum length for (clipped) sequences " value="1"/>
     </inputs>
     <outputs>
-        <data name="output_file" format_source="input" metadata_source="input_file" label="$primer_type primer clipped"/>
+        <data name="output_file" format_source="input_file" metadata_source="input_file" label="$primer_type primer clipped"/>
     </outputs>
     <tests>
         <test>

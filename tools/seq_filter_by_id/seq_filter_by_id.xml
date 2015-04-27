@@ -83,10 +83,10 @@ seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
         </conditional>
     </inputs>
     <outputs>
-        <data name="output_pos" format_source="input" metadata_source="input_file" label="$input_file.name with matched ID">
+        <data name="output_pos" format_source="input_input" metadata_source="input_file" label="$input_file.name with matched ID">
             <filter>output_choice_cond["output_choice"] != "neg"</filter>
         </data>
-        <data name="output_neg" format_source="input" metadata_source="input_file" label="$input_file.name without matched ID">
+        <data name="output_neg" format_source="input_input" metadata_source="input_file" label="$input_file.name without matched ID">
             <filter>output_choice_cond["output_choice"] != "pos"</filter>
         </data>
     </outputs>
