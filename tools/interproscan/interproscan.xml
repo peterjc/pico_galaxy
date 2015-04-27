@@ -1,4 +1,4 @@
-<tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.1">
+<tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.2">
     <description>Interproscan functional predictions of ORFs</description>
     <command interpreter="python">
       interproscan.py 
@@ -14,8 +14,6 @@
     <outputs>
         <data format="tabular" name="output" label="Interproscan output"/>        
     </outputs>
-    <requirements>
-    </requirements>
     <help>
 
 **Interproscan**

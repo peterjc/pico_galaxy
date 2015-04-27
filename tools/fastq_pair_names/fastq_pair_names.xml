@@ -1,14 +1,14 @@
-<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.2">
+<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.3">
     <description>using the read name suffices</description>
-    <version_command interpreter="python">fastq_pair_names.py --version</version_command>
-    <command interpreter="python">
-fastq_pair_names.py $output_paired $output_singles #for i in $input_fastq#"${i}" #end for#
-    </command>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <version_command interpreter="python">fastq_pair_names.py --version</version_command>
+    <command interpreter="python">
+fastq_pair_names.py $output_paired $output_singles #for i in $input_fastq#"${i}" #end for#
+    </command>
     <inputs>
         <param name="input_fastq" type="data" multiple="true" format="fastq" label="FASTQ file(s)"/>
     </inputs>

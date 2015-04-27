@@ -76,6 +76,7 @@ v0.0.6  - Simplified XML to apply input format to output data.
         - If white space is found in the requested tabular field then only
           the first word is used as the identifier (with a warning to stderr).
 v0.0.7  - Use the ``format_source=...`` tag.
+        - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

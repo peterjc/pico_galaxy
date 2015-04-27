@@ -1,7 +1,7 @@
 Galaxy Tool for producing Biopython Chromosome Diagrams
 =======================================================
 
-Copyright 2011-2013 by Peter Cock, The James Hutton Institute
+Copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -65,6 +65,17 @@ under Galaxy's ``test-data/`` folder. Then::
     $ ./run_tests.sh -id chromosome_diagram
 
 You will also need to install Biopython 1.62 or later, and ReportLab. That's it.
+
+
+History
+=======
+
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1  - Initial version, not a public release to Tool Shed
+v0.0.2  - Reorder XML elements (internal change only).
+======= ======================================================================
 
 
 Developers

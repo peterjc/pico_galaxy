@@ -1,9 +1,14 @@
-<tool id="samtools_bam2fq" name="Convert BAM to FASTQ" version="0.0.3">
+<tool id="samtools_bam2fq" name="Convert BAM to FASTQ" version="0.0.4">
     <description>samtools bam2fq</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
     <command>
         #if $action_mode.mode == "pairs":
@@ -43,11 +48,6 @@
             <filter>(action_mode['mode'] == 'naive')</filter>
         </data>
     </outputs>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <tests>
         <test>
             <param name="input_bam" value="sam_spec_padded.bam" ftype="bam" />

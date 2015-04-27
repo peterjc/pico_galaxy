@@ -1,7 +1,7 @@
 Galaxy tool to divide FASTQ files into paired and unpaired reads
 ================================================================
 
-This tool is copyright 2010-2013 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -66,6 +66,7 @@ v0.0.9  - Renamed folder and adopted README.rst naming.
 v0.1.0  - Switch to using Biopython (easier to use script outside of Galaxy).
         - Leaves FASTQ plus lines blank (smaller output files).
         - Tool definition now embeds citation information.
+v0.1.1  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

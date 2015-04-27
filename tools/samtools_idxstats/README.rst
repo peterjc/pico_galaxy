@@ -1,7 +1,7 @@
 Galaxy wrapper for samtools idxstats
 ====================================
 
-This wrapper is copyright 2013-2014 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2013-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -52,6 +52,7 @@ Version Changes
 v0.0.1  - Initial public release
 v0.0.2  - Use quoted filenames when calling samtools (in case of spaces etc)
 v0.0.3  - Embed samtools citation in tool XML.
+v0.0.4  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

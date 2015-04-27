@@ -1,7 +1,7 @@
 Galaxy wrapper for samtools depad
 =================================
 
-This wrapper is copyright 2014 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -52,6 +52,7 @@ Version Changes
 v0.0.1  - Initial public release.
 v0.0.2  - Embed samtools citation in the tool XML.
         - Removed unused imports from Python wrapper script.
+v0.0.3  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

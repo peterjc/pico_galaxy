@@ -1,6 +1,5 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.10">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.11">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
-    <version_command interpreter="python">rxlr_motifs.py -v</version_command>
     <requirements>
         <!-- Need SignalP for all the models -->
         <requirement type="binary">signalp</requirement>
@@ -9,14 +8,15 @@
         <requirement type="binary">hmmsearch</requirement>
         <requirement type="package">hmmsearch</requirement>
     </requirements>
-    <command interpreter="python">
-      rxlr_motifs.py "$fasta_file" "\$GALAXY_SLOTS" $model "$tabular_file"
-    </command>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <version_command interpreter="python">rxlr_motifs.py -v</version_command>
+    <command interpreter="python">
+      rxlr_motifs.py "$fasta_file" "\$GALAXY_SLOTS" $model "$tabular_file"
+    </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" /> 
         <param name="model" type="select" label="Which RXLR model?">

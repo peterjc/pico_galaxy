@@ -14,7 +14,7 @@ Also, the RXLR motif tool uses SignalP 3.0 and HMMER 2.3.2 internally.
 To use these Galaxy wrappers you must first install the command line tools.
 At the time of writing they are all free for academic use, or open source.
 
-These wrappers are copyright 2010-2013 by Peter Cock, James Hutton Institute
+These wrappers are copyright 2010-2015 by Peter Cock, James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 Contributions/revisions copyright 2011 Konrad Paszkiewicz. All rights reserved.
 See the included LICENCE file for details (MIT open source licence).
@@ -175,6 +175,7 @@ v0.2.6  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
         - Updated the ``suite_config.xml`` file (overdue).
         - Tool definition now embeds citation information.
 v0.2.7  - Style cleanup in Python scripts.
+v0.2.8  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

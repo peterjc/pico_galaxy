@@ -1,9 +1,14 @@
-<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.1">
+<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.2">
     <description>samtools depth</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
     <command>
 samtools depth
@@ -31,11 +36,6 @@ samtools depth
     <outputs>
         <data name="out_depth" format="tabular" label="$on_string (depth)"/>
     </outputs>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <tests>
         <test>
             <param name="input_bam" value="sam_spec_padded.sam" ftype="sam" />

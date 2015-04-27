@@ -1,7 +1,7 @@
 Galaxy wrapper for samtools bam2fq
 ====================================
 
-This wrapper is copyright 2014 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -55,6 +55,7 @@ Version Changes
 v0.0.1  - Initial public release, tested with samtools v1.1.
 v0.0.2  - Defaults to pair-aware mode which requires pre-sorting by read name.
 v0.0.3  - Faster not to compress intermediate BAM file when sorting.
+v0.0.4  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

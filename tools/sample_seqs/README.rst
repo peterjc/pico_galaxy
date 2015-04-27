@@ -1,7 +1,7 @@
 Galaxy tool to sub-sample sequence files
 ========================================
 
-This tool is copyright 2014-2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -66,6 +66,7 @@ v0.2.0  - Option to give number of sequences (or pairs) desired.
 v0.2.1  - Was missing a file for the functional tests.
         - Included testing of stdout messages.
         - Includes testing of failure modes.
+v0.2.2  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

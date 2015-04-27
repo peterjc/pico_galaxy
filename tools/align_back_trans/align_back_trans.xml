@@ -1,18 +1,18 @@
-<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.5">
+<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.6">
     <description>Gives a codon aware alignment</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
-    <version_command interpreter="python">align_back_trans.py --version</version_command>
-    <command interpreter="python">
-align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "$table"
-    </command>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <version_command interpreter="python">align_back_trans.py --version</version_command>
+    <command interpreter="python">
+align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "$table"
+    </command>
     <inputs>
         <param name="prot_align" type="data" format="fasta,muscle,clustal" label="Aligned protein file" help="Mutliple sequence file in FASTA, ClustalW or PHYLIP format." />
         <param name="table" type="select" label="Genetic code" help="Tables from the NCBI, these determine the start and stop codons">

@@ -1,7 +1,7 @@
 Galaxy tool to back-translate a protein alignment to nucleotides
 ================================================================
 
-This tool is copyright 2012-2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2012-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -66,6 +66,7 @@ v0.0.4  - Simplified XML to apply input format to output data.
         - Fixed error message when sequence length not a multiple of three.
 v0.0.5  - More explicit error messages when seqences lengths do not match.
         - Tool definition now embeds citation information.
+v0.0.6  - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 

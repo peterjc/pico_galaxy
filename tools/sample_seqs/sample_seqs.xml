@@ -1,9 +1,14 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.1">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.2">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.65">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">sample_seqs.py --version</version_command>
     <command interpreter="python">
 sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
@@ -18,11 +23,6 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
 --interleaved
 #end if
     </command>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
         <conditional name="sampling">

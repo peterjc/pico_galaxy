@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.14">
+<tool id="signalp3" name="SignalP 3.0" version="0.0.15">
     <description>Find signal peptides in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
@@ -7,16 +7,16 @@
         <requirement type="binary">signalp</requirement>
         <requirement type="package">signalp</requirement>
     </requirements>
-    <command interpreter="python">
-      signalp3.py $organism $truncate "\$GALAXY_SLOTS" $fasta_file $tabular_file
-      ##If the environment variable isn't set, get "", and the python wrapper
-      ##defaults to four threads.
-    </command>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <command interpreter="python">
+      signalp3.py $organism $truncate "\$GALAXY_SLOTS" $fasta_file $tabular_file
+      ##If the environment variable isn't set, get "", and the python wrapper
+      ##defaults to four threads.
+    </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
         <param name="organism" type="select" display="radio" label="Organism">

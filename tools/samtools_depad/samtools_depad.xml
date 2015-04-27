@@ -1,9 +1,14 @@
-<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.2">
+<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.3">
     <description>samtools depad</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
     <version_command interpreter="python">samtools_depad.py --version</version_command>
     <command interpreter="python">samtools_depad.py "$padded_ref" "$input_bam" "$input_bam.ext" "$output_bam"</command>
     <inputs>
@@ -13,11 +18,6 @@
     <outputs>
         <data name="output_bam" format="bam" label="$input_bam.name (depad)" />
     </outputs>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
     <tests>
         <test>
             <param name="padded_ref" value="sam_spec_padded.fasta" ftype="fasta" />

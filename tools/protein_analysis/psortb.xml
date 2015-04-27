@@ -1,23 +1,23 @@
-<tool id="Psortb" name="psortb" version="0.0.5">
+<tool id="Psortb" name="psortb" version="0.0.6">
   <description>Determines sub-cellular localisation of bacterial/archaeal protein sequences</description>
   <!-- If job splitting is enabled, break up the query file into parts -->
   <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
   <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
-  <version_command interpreter="python">psortb.py --version</version_command>
   <requirements>
     <requirement type="binary">psort</requirement>
     <requirement type="package">psort</requirement>
   </requirements>
-  <command interpreter="python">
-    psortb.py "\$GALAXY_SLOTS" "$type" "$long" "$cutoff" "$divergent" "$sequence" "$outfile"
-    ##If the environment variable isn't set, get "", and python wrapper
-    ##defaults to four threads.
-  </command>
   <stdio>
     <!-- Anything other than zero is an error -->
     <exit_code range="1:" />
     <exit_code range=":-1" />
   </stdio>
+  <version_command interpreter="python">psortb.py --version</version_command>
+  <command interpreter="python">
+    psortb.py "\$GALAXY_SLOTS" "$type" "$long" "$cutoff" "$divergent" "$sequence" "$outfile"
+    ##If the environment variable isn't set, get "", and python wrapper
+    ##defaults to four threads.
+  </command>
   <inputs>
     <param format="fasta" name="sequence" type="data"
            label="Input sequences for which to predict localisation (protein FASTA format)" />

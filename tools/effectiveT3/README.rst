@@ -1,7 +1,7 @@
 Galaxy wrapper for EffectiveT3 v1.0.1
 =====================================
 
-This wrapper is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -87,6 +87,7 @@ v0.0.12 - More explicit naming of the output dataset.
 v0.0.13 - Relax unit test to allow for small floating point score difference.
         - Tool definition now embeds citation information.
 v0.0.14 - Fixed error handling in ``effectiveT3.py``.
+v0.0.15 - Reorder XML elements (internal change only).
 ======= ======================================================================
 
 
