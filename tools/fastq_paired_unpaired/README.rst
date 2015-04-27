@@ -67,6 +67,7 @@ v0.1.0  - Switch to using Biopython (easier to use script outside of Galaxy).
         - Leaves FASTQ plus lines blank (smaller output files).
         - Tool definition now embeds citation information.
 v0.1.1  - Reorder XML elements (internal change only).
+        - Use ``format_source=...`` tag.
 ======= ======================================================================
 
 

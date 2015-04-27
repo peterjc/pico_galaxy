@@ -45,7 +45,7 @@ sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
         <param name="interleaved" type="boolean" label="Interleaved paired reads" help="This mode keeps paired reads together (e.g. take every 5th read pair)" />
     </inputs>
     <outputs>
-        <data name="output_file" format="input" metadata_source="input_file" label="${input_file.name} (sub-sampled)"/>
+        <data name="output_file" format_source="input_file" metadata_source="input_file" label="${input_file.name} (sub-sampled)"/>
     </outputs>
     <tests>
         <test>

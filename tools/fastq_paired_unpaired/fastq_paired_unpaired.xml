@@ -32,14 +32,14 @@ $output_singles
         </conditional>
     </inputs>
     <outputs>
-        <data name="output_singles" format="input" label="Orphan or single reads"/>
-        <data name="output_forward" format="input" label="Forward paired reads">
+        <data name="output_singles" format_source="input_fastq" label="Orphan or single reads"/>
+        <data name="output_forward" format_source="input_fastq" label="Forward paired reads">
             <filter>output_choice_cond["output_choice"] == "separate"</filter>
         </data>
-        <data name="output_reverse" format="input" label="Reverse paired reads">
+        <data name="output_reverse" format_source="input_fastq" label="Reverse paired reads">
             <filter>output_choice_cond["output_choice"] == "separate"</filter>
         </data>
-        <data name="output_paired" format="input" label="Interleaved paired reads">
+        <data name="output_paired" format_source="input_fastq" label="Interleaved paired reads">
             <filter>output_choice_cond["output_choice"] == "interleaved"</filter>
         </data>
     </outputs>

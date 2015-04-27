@@ -67,6 +67,7 @@ v0.0.4  - Simplified XML to apply input format to output data.
 v0.0.5  - More explicit error messages when seqences lengths do not match.
         - Tool definition now embeds citation information.
 v0.0.6  - Reorder XML elements (internal change only).
+        - Use ``format_source=...`` tag.
 ======= ======================================================================
 
 

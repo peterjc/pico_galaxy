@@ -38,7 +38,7 @@ align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "
         <param name="nuc_file" type="data" format="fasta" label="Unaligned nucleotide sequences" help="FASTA format, using same identifiers as your protein alignment" />
     </inputs>
     <outputs>
-        <data name="out_nuc_align" format="input" metadata_source="prot_align" label="${prot_align.name} (back-translated)"/>
+        <data name="out_nuc_align" format_source="prot_align" metadata_source="prot_align" label="${prot_align.name} (back-translated)"/>
     </outputs>
     <tests>
         <test>
