@@ -19,7 +19,7 @@ seq_select_by_id.py $input_tabular $column $input_file $input_file.ext $output_f
         <param name="column" type="data_column" data_ref="input_tabular" multiple="False" numerical="False" label="Column containing sequence identifiers"/>
     </inputs>
     <outputs>
-        <data name="output_file" format_source="input" metadata_source="input_file" label="Selected sequences from $input_file.name"/>
+        <data name="output_file" format_source="input_file" metadata_source="input_file" label="Selected sequences from $input_file.name"/>
     </outputs>
     <tests>
         <test>

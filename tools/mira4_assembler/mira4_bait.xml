@@ -31,7 +31,7 @@ mira4_bait.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_o
                help="How many k-mer matches do you want per read? Minimum one" />
     </inputs>
     <outputs>
-        <data name="output_reads" format_source="input" metadata_source="input_reads"
+        <data name="output_reads" format_source="input_reads" metadata_source="input_reads"
 	      label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
     </outputs>
     <tests>
