@@ -25,73 +25,6 @@
 --fasta "$out_fasta"
 --log "$out_log"
     </command>
-    <inputs>
-        <param name="job_type" type="select" label="Assembly type">
-            <option value="genome">Genome</option>
-            <option value="est">EST (transcriptome)</option>
-        </param>
-        <param name="job_quality" type="select" label="Assembly quality grade">
-            <option value="accurate">Accurate</option>
-            <option value="draft">Draft</option>
-        </param>
-        <repeat name="read_group" title="Read Group" min="1">
-            <param name="technology" type="select" label="Read technology">
-                <option value="solexa">Solexa/Illumina</option>
-                <option value="sanger">Sanger cappillary sequencing</option>
-                <option value="454">Roche 454</option>
-                <option value="iontor">Ion Torrent</option>
-                <option value="pcbiolq">PacBio low quality (raw)</option>
-                <option value="pcbiohq">PacBio high quality (corrected)</option>
-                <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
-                <!-- TODO reference/backbone as an entry here? -->
-            </param>
-            <conditional name="segments">
-                <param name="type" type="select" label="Are these paired reads?">
-                    <option value="paired">Paired reads</option>
-                    <option value="none">Single reads or not relevant (e.g. primer walking with Sanger capillary sequencing)</option>
-                </param>
-                <when value="paired">
-                    <param name="placement" type="select" label="Pairing type (segment placing)">
-                        <option value="FR">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
-                        <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
-                        <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
-                    </param>
-                    <!-- min/max validation is done via the <code> tag -->
-                    <param name="min_size" type="integer" optional="true" min="0" value=""
-                           label="Minimum size of 'good' DNA templates in the library preparation"
-                           help="Optional, but if used you must also supply a maximum value." /> 
-                    <param name="max_size" type="integer" optional="true" min="0" value=""
-                           label="Maximum size of 'good' DNA templates in the library preparation"
-                           help="Optional, but if used you must also supply a minimum value." />
-                    <param name="naming" type="select" label="Pair naming convention">
-                        <option value="solexa">Solexa/Illumina (using '/1' and '/2' suffixes, or later Illumina colon system)</option>
-                        <option value="FR">Forward/Reverse scheme (using '.f*' and '.r*' suffixes)</option>
-                        <option value="tigr">TIGR scheme (using 'TF*' and 'TR*' suffixes)</option>
-                        <option value="sanger">Sanger scheme (see notes)</option>
-                        <option value="stlouis">St. Louis scheme (see notes)</option>
-                    </param>
-                </when>
-                <when value="none" /><!-- no further questions -->
-            </conditional>
-            <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
-                  help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
-        </repeat>
-        <param name="maf_wanted" type="boolean" label="Output assembly in MIRA's own format?" checked="False" />
-        <param name="bam_wanted" type="boolean" label="Convert assembly into BAM format?" checked="True" />
-    </inputs>
-    <outputs>
-        <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
-        <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)">
-            <filter>bam_wanted is True</filter>
-        </data>
-        <data name="out_maf" format="mira" label="MIRA de novo assembly">
-            <filter>maf_wanted is True</filter>
-        </data>
-        <!-- TODO?
-        <data name="out_contigstats" format="tabular" label="MIRA contig stats" />
-        -->
-        <data name="out_log" format="txt" label="MIRA de novo log" />
-    </outputs>
     <configfiles>
         <configfile name="manifest">
 project = MIRA
@@ -152,6 +85,73 @@ data = ${f.ext}::$f
 #end for
         </configfile>
     </configfiles>
+    <inputs>
+        <param name="job_type" type="select" label="Assembly type">
+            <option value="genome">Genome</option>
+            <option value="est">EST (transcriptome)</option>
+        </param>
+        <param name="job_quality" type="select" label="Assembly quality grade">
+            <option value="accurate">Accurate</option>
+            <option value="draft">Draft</option>
+        </param>
+        <repeat name="read_group" title="Read Group" min="1">
+            <param name="technology" type="select" label="Read technology">
+                <option value="solexa">Solexa/Illumina</option>
+                <option value="sanger">Sanger cappillary sequencing</option>
+                <option value="454">Roche 454</option>
+                <option value="iontor">Ion Torrent</option>
+                <option value="pcbiolq">PacBio low quality (raw)</option>
+                <option value="pcbiohq">PacBio high quality (corrected)</option>
+                <option value="text">Synthetic reads (database entries, consensus sequences, artifical reads, etc)</option>
+                <!-- TODO reference/backbone as an entry here? -->
+            </param>
+            <conditional name="segments">
+                <param name="type" type="select" label="Are these paired reads?">
+                    <option value="paired">Paired reads</option>
+                    <option value="none">Single reads or not relevant (e.g. primer walking with Sanger capillary sequencing)</option>
+                </param>
+                <when value="paired">
+                    <param name="placement" type="select" label="Pairing type (segment placing)">
+                        <option value="FR">---&gt; &lt;--- (e.g. Sanger capillary or Solexa/Illumina paired-end library)</option>
+                        <option value="RF">&lt;--- ---&gt; (e.g. Solexa/Illumina mate-pair library)</option>
+                        <option value="SB">2---&gt; 1---&gt; (e.g. Roche 454 paired-end libraries or IonTorrent long-mate; see note)</option>
+                    </param>
+                    <!-- min/max validation is done via the <code> tag -->
+                    <param name="min_size" type="integer" optional="true" min="0" value=""
+                           label="Minimum size of 'good' DNA templates in the library preparation"
+                           help="Optional, but if used you must also supply a maximum value." />
+                    <param name="max_size" type="integer" optional="true" min="0" value=""
+                           label="Maximum size of 'good' DNA templates in the library preparation"
+                           help="Optional, but if used you must also supply a minimum value." />
+                    <param name="naming" type="select" label="Pair naming convention">
+                        <option value="solexa">Solexa/Illumina (using '/1' and '/2' suffixes, or later Illumina colon system)</option>
+                        <option value="FR">Forward/Reverse scheme (using '.f*' and '.r*' suffixes)</option>
+                        <option value="tigr">TIGR scheme (using 'TF*' and 'TR*' suffixes)</option>
+                        <option value="sanger">Sanger scheme (see notes)</option>
+                        <option value="stlouis">St. Louis scheme (see notes)</option>
+                    </param>
+                </when>
+                <when value="none" /><!-- no further questions -->
+            </conditional>
+            <param name="filenames" type="data" format="fastq,mira" multiple="true" required="true" label="Read file(s)"
+                  help="Multiple files allowed, for example paired reads can be given as two files (MIRA looks at read names to identify pairs)." />
+        </repeat>
+        <param name="maf_wanted" type="boolean" label="Output assembly in MIRA's own format?" checked="False" />
+        <param name="bam_wanted" type="boolean" label="Convert assembly into BAM format?" checked="True" />
+    </inputs>
+    <outputs>
+        <data name="out_fasta" format="fasta" label="MIRA de novo contigs (FASTA)" />
+        <data name="out_bam" format="bam" label="MIRA de novo assembly (BAM)">
+            <filter>bam_wanted is True</filter>
+        </data>
+        <data name="out_maf" format="mira" label="MIRA de novo assembly">
+            <filter>maf_wanted is True</filter>
+        </data>
+        <!-- TODO?                                                                                                                          
+        <data name="out_contigstats" format="tabular" label="MIRA contig stats" />                                                          
+        -->
+        <data name="out_log" format="txt" label="MIRA de novo log" />
+    </outputs>
     <tests>
         <!-- Tiger mitochondria, selected paired end Illumina reads from SRR639755
              Note we're using just one repeat group, and only the filenames parameter
