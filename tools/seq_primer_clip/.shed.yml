@@ -1,0 +1,14 @@
+name: seq_primer_clip
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_primer_clip
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_primer_clip
+description: Trim off 5' or 3' primers
+long_description: |
+  Takes reads in FASTA, FASTQ or SFF format and looks for the given primer sequences
+  (within the existing clipped sequence) and further clips the reads to remove the
+  primers and any preceding/trailing sequence. Supports forward and reverse primers,
+  including IUPAC ambiguity codes.
+
+  Note this tool was initially written for Roche 454 data, and should also work fine
+  on Sanger or Ion Torrent as well. However, it is probably too slow for use on large
+  Illumina datasets.

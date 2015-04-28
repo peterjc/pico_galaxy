@@ -1,0 +1,10 @@
+name: mummer
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/mummer
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/mummer
+description: Draw dotplots using mummer, mucmer, or promer with mummerplot
+long_description: |
+  A simple wrapper allowing MUMmer to be used to draw dotplots from within Galaxy.
+
+  This offers alignment with mummer, mucmer, or promer which is then drawn with
+  mummerplot giving PNG and PDF as output.

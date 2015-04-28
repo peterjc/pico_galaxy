@@ -1,0 +1,14 @@
+name: seq_filter_by_mapping
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_filter_by_mapping
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_filter_by_mapping
+description: Filter sequencing reads using SAM/BAM mapping files
+long_description: |
+  This tool is a short Python script (using Biopython library functions) which divides
+  a FASTA, FASTQ, or SFF file in two, those sequences which do or do not map according
+  to given SAM/BAM file(s).
+
+  Example uses include mapping of FASTQ reads against a known contaminant in order
+  to remove reads prior to a de novo assembly.
+
+  See https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_mapping

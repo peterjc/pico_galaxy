@@ -1,0 +1,17 @@
+name: seq_select_by_id
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_select_by_id
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_select_by_id
+description: Select sequences by ID
+long_description: |
+  Select FASTA, FASTQ, QUAL or SFF sequences using a list of IDs in a tabular file.
+
+  A column of a tabular file specifies a list of desired sequences which will be extracted
+  from the given sequence file. The order comes from the tabular file, so in order
+  to do this the sequence file is first indexed.
+
+  This tool is a short Python script (using Biopython and Galaxy library functions).
+  It requires Biopython to be installed.
+
+  NOTE: I have a similar tool "Filter sequences by ID" which does a similar but less
+  demanding job, but preserves the order of the sequence file.

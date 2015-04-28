@@ -1,0 +1,13 @@
+name: clinod
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/clinod
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/clinod
+description: 'NoD: a Nucleolar localization sequence detector for eukaryotic and viral proteins'
+long_description: |
+  NoD is a predictor of nucleolar localization sequences (NoLSs) in proteins. NoLSs
+  are short basic motifs that localize proteins to the nucleolus, a sub-compartment
+  of the nucleus.
+
+  http://www.compbio.dundee.ac.uk/www-nod/
+
+  This is a Galaxy wrapper for command line nod (clinod) v1.3

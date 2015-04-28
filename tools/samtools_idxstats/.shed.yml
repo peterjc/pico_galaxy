@@ -1,0 +1,9 @@
+name: samtools_idxstats
+owner: peterjc
+homepage_url: 
+remote_repository_url: 
+description: BAM mapping statistics (using samtools idxstats)
+long_description: Runs "samtools idxstats" to get mapping statistics from a sorted index BAM file as
+  a tabular output file.
+
+  https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstat

@@ -1,0 +1,16 @@
+name: venn_list
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/venn_list
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/venn_list
+description: Draw Venn Diagram (PDF) from lists, FASTA files, etc
+long_description: |
+  Draw Venn Diagrams for 1, 2 or 3 sets of identifiers as a PDF file.
+
+  Can parse FASTA, FASTQ, SFF or tabular files (taking column one) for identifiers.
+  This can be combined with the extensive tabular file filtering and manipulation
+  tools within Galaxy to prepare the input data.
+
+  Uses the R/Bioconductor package limma to draw the PDF file, called from Python with
+  rpy.
+
+  Uses Biopython to parse SFF files.

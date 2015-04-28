@@ -1,0 +1,9 @@
+name: sample_seqs
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/sample_seqs
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/sample_seqs
+description: Sub-sample sequences files (e.g. to reduce coverage)
+long_description: |
+  Takes an input file of sequences (typically FASTA or FASTQ, but also
+  Standard Flowgram Format (SFF) is supported), and returns a new sequence
+  file sub-sampling from this (in the same format).

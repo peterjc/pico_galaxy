@@ -1,0 +1,17 @@
+name: predictnls
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/predictnls
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/predictnls
+description: Python reimplementation of predictNLS for Galaxy
+long_description: |
+  A tool for the analysis and determination of Nuclear Localization Signals (NLS).
+
+  This reimplements the Rost Lab tool predictNLS as a Python script with Galaxy
+  interface. Like the original, this is licensed under the GPL v3. See
+  https://rostlab.org/owiki/index.php/PredictNLS for background and the original
+  paper:
+
+  Murat Cokol, Rajesh Nair, and Burkhard Rost.
+  Finding nuclear localization signals.
+  EMBO reports 1(5), 411X415, 2000
+  http://dx.doi.org/10.1093/embo-reports/kvd092

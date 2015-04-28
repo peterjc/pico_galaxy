@@ -1,0 +1,19 @@
+name: seq_filter_by_id
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_filter_by_id
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_filter_by_id
+description: Filter sequences by ID
+long_description: |
+  Divide a FASTA, FASTQ or SFF file in two, those sequences with or without an ID present
+  in the specified column(s) of a tabular file.
+
+  Example uses include filtering based on search results from a tool like NCBI BLAST,
+  TMHMM, SignalP, or a read mapper. i.e. Split your sequences according to whether
+  or not they have a BLAST match, transmembrane domain, signal peptide, or map to
+  the reference sequence.
+
+  This tool is a short Python script (using Biopython and Galaxy library functions).
+  It requires Biopython to be installed.
+
+  Note this tool replaces my three previously separate tools for FASTA, FASTA and
+  SFF filtering by ID.

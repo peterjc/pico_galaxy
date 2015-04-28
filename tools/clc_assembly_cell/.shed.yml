@@ -1,0 +1,10 @@
+name: clc_assembly_cell
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/clc_assembly_cell
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/clc_assembly_cell
+description: Galaxy wrapper for the CLC Assembly Cell suite from CLCBio
+long_description: |
+  This is a wrapper for the commercial "CLC Assembly Cell" suite from CLCBio which
+  includes a de novo assembler and read mapper.
+
+  http://www.clcbio.com/products/clc-assembly-cell/

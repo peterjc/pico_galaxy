@@ -1,0 +1,17 @@
+name: fastq_paired_unpaired
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/fastq_paired_unpaired
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/fastq_paired_unpaired
+description: Divide FASTQ file into paired and unpaired reads
+long_description: |
+  Using the common read name suffix conventions, it divides a FASTQ file into paired
+  reads, and orphan or single reads.
+
+  The input file should be a valid FASTQ file which has been sorted so that any partner
+  forward+reverse reads are consecutive. The output files all preserve this sort order.
+  Pairings are recognised based on standard name suffices.
+
+  Any reads where the forward/reverse naming suffix used is not recognised are treated
+  as orphan reads. The tool supports the old /1 and /2 convention used by Illumina,
+  the new Illumina convention, the .f and .r convention, and the Sanger convention
+  (see http://staden.sourceforge.net/manual/pregap4_unix_50.html for details).

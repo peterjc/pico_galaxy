@@ -1,0 +1,14 @@
+name: seq_rename
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_rename
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_rename
+description: Rename sequences with ID mapping from a tabular file
+long_description: |
+  Allows you to rename sequences in FASTA, QUAL, FASTQ or SFF files.
+
+  The renaming rules are given by two columns of a tabular file (old names and new
+  names). Any sequence not mentioned in the tabular file keeps its current name.
+
+  This tool requires Biopython for working with SFF files.
+
+  See also my related tools to filter sequences by ID, or select sequences by ID.

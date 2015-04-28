@@ -1,0 +1,16 @@
+name: get_orfs_or_cdss
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/get_orfs_or_cdss
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/get_orfs_or_cdss
+description: Search nucleotide sequences for open reading frames (ORFs), or coding sequences (CDSs) 
+long_description: |
+  This tool is a short Python script (using Biopython library functions) to search
+  nucleotide sequences for open reading frames (ORFs) or coding sequences (CDSs) where
+  the first potential start codon is used.
+
+  It is intended for very simplistic gene finding in Prokaryotes and viruses, or for
+  finding the likely CDS in an EST or mRNA sequence. It is not suitable for Eurakoytic
+  gene prediction since it is not intro aware.
+
+  See also the EMBOSS tool ``getorf`` which also has a Galaxy wrapper. This offers
+  much of the same functionality, but is likely faster as it is written in C.

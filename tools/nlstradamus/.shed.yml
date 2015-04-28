@@ -1,0 +1,14 @@
+name: nlstradamus
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/nlstradamus
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/nlstradamus
+description: Find nuclear localization signals (NLSs) in protein sequences
+long_description: |
+  Wraps the NLStradamus tool for prediction of nuclear localization signals (NLSs),
+  which uses a Hidden Markov Model (HMM).
+
+  Takes a FASTA file of proteins as input, returns a tabular file as output.
+
+  Requires the C++ version of NLStradamus, included with NLStradamus 1.7 (or later).
+
+  http://www.moseslab.csb.utoronto.ca/NLStradamus
