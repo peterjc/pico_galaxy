@@ -127,7 +127,20 @@ cite this wrapper as:
 Peter J.A. Cock (2013), Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
 
+CLC Assembly Cell, CLC bio (2008--2015)
+http://www.clcbio.com/products/clc-assembly-cell/
+
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
     </help>
+    <citations>
+        <citation type="bibtex">
+@MISC{clcbio,
+AUTHOR = {CLC Bio}
+title ={{CLC Assembly Cell}},
+howpublished = {\url{http://www.clcbio.com/products/clc-assembly-cell/}},
+year = {2008--2015}
+}
+        </citation>
+    </citations>
 </tool>

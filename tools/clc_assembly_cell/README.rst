@@ -86,6 +86,7 @@ v0.0.1  - Initial public release.
 v0.0.2  - Actually use the ``$CLC_ASSEMBLY_CELL`` environment variable.
         - Enable and fixed the tests.
 v0.0.3  - Reorder XML elements (internal change only).
+        - Added citation tags.
 ======= ======================================================================
 
 
