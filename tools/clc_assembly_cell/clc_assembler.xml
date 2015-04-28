@@ -138,7 +138,7 @@ Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
 @MISC{clcbio,
 AUTHOR = {CLC Bio}
 title ={{CLC Assembly Cell}},
-howpublished = {\url{http://www.clcbio.com/products/clc-assembly-cell/}},
+url = {http://www.clcbio.com/products/clc-assembly-cell/},
 year = {2008--2015}
 }
         </citation>
