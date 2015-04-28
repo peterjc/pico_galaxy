@@ -1,5 +1,5 @@
-#Created 07/01/2011 - Konrad Paszkiewicz, Exeter Sequencing Service, University of Exeter, UK
-Revisions 2013 by Peter Cock, The James Hutton Institute, UK
+Created 07/01/2011 - Konrad Paszkiewicz, Exeter Sequencing Service, University of Exeter, UK
+Revisions 2013-5015 by Peter Cock, The James Hutton Institute, UK
 
 The attached is a crude wrapper script for Interproscan. Typically this is useful when one wants to produce an annotation which is not based on sequence 
 similarity. E.g after a denovo transcriptome assembly, each transcript could be translated and run through this tool.
