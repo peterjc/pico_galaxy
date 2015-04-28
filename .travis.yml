@@ -52,7 +52,7 @@ before_install:
  - source bin/activate
  - echo "Using planemo lint to check for obvious tool errors"
  - pip install git+git://github.com/galaxyproject/planemo.git@master
- - planemo shed_lint --report_level warn --tools --fail_level error --recursive ${TRAVIS_BUILD_DIR}
+ - planemo shed_lint --report_level warn --tools --fail_level error --recursive ${TRAVIS_BUILD_DIR}/tools/
  - echo "Fixing permissions on Python eggs cache folder"
  - mkdir -p "$HOME/.python-eggs"
  - chmod 700 "$HOME/.python-eggs" 
