@@ -6,3 +6,8 @@ description: Re-align a SAM/BAM file with a padded reference (using samtools dep
 long_description: |
   Runs "samtools depad" to remap a SAM/BAM file using a padded reference (with
   gap characters) giving a new BAM file using an unpadded (ungapped) reference.
+categories:
+- Assembly
+- SAM
+- Sequence Analysis
+type: unrestricted

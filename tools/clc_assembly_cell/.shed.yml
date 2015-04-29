@@ -8,3 +8,8 @@ long_description: |
   includes a de novo assembler and read mapper.
 
   http://www.clcbio.com/products/clc-assembly-cell/
+categories:
+- Assembly
+- Next Gen Mappers
+- SAM
+type: unrestricted

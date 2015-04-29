@@ -7,3 +7,6 @@ long_description: |
   Counts the letters in given sequence files, returning a table listing them
   with percentages. Suitable for use on assemblies or gene/protein sets.
   Probably not suitable for raw NGS reads.
+categories:
+- Sequence Analysis
+type: unrestricted

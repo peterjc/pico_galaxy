@@ -8,3 +8,8 @@ long_description: |
 
   This offers alignment with mummer, mucmer, or promer which is then drawn with
   mummerplot giving PNG and PDF as output.
+categories:
+- Graphics
+- Sequence Analysis
+- Visualization
+type: unrestricted

@@ -7,3 +7,7 @@ long_description: |
   This tool runs the commands ``samtools idxstats`` and ``samtools depth`` from
   the SAMtools toolkit, and parses their output to produce a consise summary of
   the coverage information for each reference sequence.
+categories:
+- Assembly
+- SAM
+type: unrestricted

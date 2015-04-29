@@ -11,3 +11,6 @@ long_description: |
   http://www.compbio.dundee.ac.uk/www-nod/
 
   This is a Galaxy wrapper for command line nod (clinod) v1.3
+categories:
+- Sequence Analysis
+type: unrestricted

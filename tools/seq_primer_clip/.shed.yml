@@ -12,3 +12,8 @@ long_description: |
   Note this tool was initially written for Roche 454 data, and should also work fine
   on Sanger or Ion Torrent as well. However, it is probably too slow for use on large
   Illumina datasets.
+categories:
+- Assembly
+- Fasta Manipulation
+- Text Manipulation
+type: unrestricted

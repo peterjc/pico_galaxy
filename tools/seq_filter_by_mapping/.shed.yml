@@ -12,3 +12,10 @@ long_description: |
   to remove reads prior to a de novo assembly.
 
   See https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_mapping
+categories:
+- Assembly
+- Fasta Manipulation
+- Fastq Manipulation
+- SAM
+- Sequence Analysis
+type: unrestricted

@@ -8,3 +8,10 @@ long_description: |
   command in earlier versions (e.g. samtools v0.1.19).
 
   See https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_bam2fq
+categories:
+- Assembly
+- Convert Formats
+- Fastq Manipulation
+- Next Gen Mappers
+- SAM
+type: unrestricted

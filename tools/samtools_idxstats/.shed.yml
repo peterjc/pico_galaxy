@@ -7,3 +7,8 @@ long_description: Runs "samtools idxstats" to get mapping statistics from a sort
   a tabular output file.
 
   https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstat
+categories:
+- Assembly
+- Next Gen Mappers
+- SAM
+type: unrestricted

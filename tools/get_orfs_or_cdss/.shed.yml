@@ -14,3 +14,6 @@ long_description: |
 
   See also the EMBOSS tool ``getorf`` which also has a Galaxy wrapper. This offers
   much of the same functionality, but is likely faster as it is written in C.
+categories:
+- Sequence Analysis
+type: unrestricted

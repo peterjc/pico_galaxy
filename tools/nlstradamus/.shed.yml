@@ -12,3 +12,7 @@ long_description: |
   Requires the C++ version of NLStradamus, included with NLStradamus 1.7 (or later).
 
   http://www.moseslab.csb.utoronto.ca/NLStradamus
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+type: unrestricted

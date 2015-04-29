@@ -7,3 +7,9 @@ long_description: |
   Takes an input file of sequences (typically FASTA or FASTQ, but also
   Standard Flowgram Format (SFF) is supported), and returns a new sequence
   file sub-sampling from this (in the same format).
+categories:
+- Assembly
+- Fasta Manipulation
+- Fastq Manipulation
+- Sequence Analysis
+type: unrestricted

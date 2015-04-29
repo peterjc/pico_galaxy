@@ -12,3 +12,8 @@ long_description: |
   This tool requires Biopython for working with SFF files.
 
   See also my related tools to filter sequences by ID, or select sequences by ID.
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+- Text Manipulation
+type: unrestricted

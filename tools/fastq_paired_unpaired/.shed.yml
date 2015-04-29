@@ -15,3 +15,7 @@ long_description: |
   as orphan reads. The tool supports the old /1 and /2 convention used by Illumina,
   the new Illumina convention, the .f and .r convention, and the Sanger convention
   (see http://staden.sourceforge.net/manual/pregap4_unix_50.html for details).
+categories:
+- Sequence Analysis
+- Text Manipulation
+type: unrestricted

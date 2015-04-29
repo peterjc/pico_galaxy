@@ -11,3 +11,7 @@ long_description: |
 
   The key MIRA output files are captured, but the other files are deleted when the
   job finishes.
+categories:
+- Assembly
+- Next Gen Mappers
+type: unrestricted

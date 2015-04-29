@@ -17,3 +17,8 @@ long_description: |
 
   Note this tool replaces my three previously separate tools for FASTA, FASTA and
   SFF filtering by ID.
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+- Text Manipulation
+type: unrestricted

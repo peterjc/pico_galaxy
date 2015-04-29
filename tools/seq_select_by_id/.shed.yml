@@ -15,3 +15,8 @@ long_description: |
 
   NOTE: I have a similar tool "Filter sequences by ID" which does a similar but less
   demanding job, but preserves the order of the sequence file.
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+- Text Manipulation
+type: unrestricted

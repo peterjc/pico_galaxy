@@ -9,3 +9,7 @@ long_description: |
   using the same identifiers), and threads the nucleotide sequences onto the
   protein alignment to produce a codon aware nucleotide alignment - which can
   be viewed as a back translation.
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+type: unrestricted
