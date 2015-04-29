@@ -52,7 +52,7 @@ $PDF
             <param name="main_lab" value="Some Proteins"/>
             <param name="set" value="rhodopsin_proteins.fasta"/>
             <param name="lab" value="Rhodopsins"/>
-            <output name="PDF" file="venn_list1.pdf" ftype="pdf"/>
+            <output name="PDF" file="magic.pdf" ftype="pdf" compare="contains" />
         </test>
         <!-- Can't use more than one repeat value in tests (yet)
         <test>
@@ -66,7 +66,7 @@ $PDF
             <param name="lab" value="Human"/>
             <param name="set" value="blastp_four_human_vs_rhodopsin.tabular"/>
             <param name="lab" value="Human vs Rhodopsin BLAST"/>
-            <output name="PDF" file="venn_list3.pdf" ftype="pdf"/>
+            <output name="PDF" file="magic.pdf" ftype="pdf" compare="contains" />
         </test>
         -->
     </tests>
