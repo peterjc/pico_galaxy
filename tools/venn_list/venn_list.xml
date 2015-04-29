@@ -1,15 +1,15 @@
 <tool id="venn_list" name="Venn Diagram" version="0.0.8">
-  <description>from lists</description>
-  <requirements>
-    <requirement type="python-module">rpy</requirement>
-    <requirement type="python-module">Bio</requirement>
-  </requirements>
-  <stdio>
-    <!-- Anything other than zero is an error -->
-    <exit_code range="1:" />
-    <exit_code range=":-1" />
-  </stdio>
-  <command interpreter="python">
+    <description>from lists</description>
+    <requirements>
+        <requirement type="python-module">rpy</requirement>
+        <requirement type="python-module">Bio</requirement>
+    </requirements>
+    <stdio>
+        <!-- Anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <command interpreter="python">
 venn_list.py
 #if $universe.type_select=="implicit":
   - -
@@ -20,55 +20,56 @@ venn_list.py
 #for $s in $sets:
   "$s.set" $s.set.ext "$s.lab"
 #end for
-$PDF</command>
-  <inputs>
-    <param name="main_lab" size="30" type="text" value="Venn Diagram" label="Plot title"/>
-    <conditional name="universe">
-       <param name="type_select" type="select" label="Implicit or explicit full ID list?">
-         <option value="explicit">Explicit</option>
-         <option value="implicit">Implicit (use union of sets below)</option>
-       </param>
-       <when value="explicit">
-           <param name="main" type="data" format="tabular,fasta,fastq,sff" label="Full dataset (with all identifiers)" help="Tabular file (uses column one), FASTA, FASTQ or SFF file."/>
-       </when>
-       <when value="implicit"/>
-    </conditional>
-    <repeat name="sets" min="1" max="3" title="Sets">
-      <param name="set" type="data" format="tabular,fasta,fastq,sff" label="Members of set" help="Tabular file (uses column one), FASTA, FASTQ or SFF file."/>
-      <param name="lab" size="30" type="text" value="Group" label="Caption for set"/>
-    </repeat>
-  </inputs>
-  <outputs>
-    <data format="pdf" name="PDF" />
-  </outputs>
-  <tests>
-    <!-- Doesn't seem to work properly, manages to get two sets, both
-         with same FASTA file, but second with default "Group" label. -->
-    <test>
-      <param name="type_select" value="explicit"/>
-      <param name="main" value="venn_list.tabular" ftype="tabular"/>
-      <param name="main_lab" value="Some Proteins"/>
-      <param name="set" value="rhodopsin_proteins.fasta"/>
-      <param name="lab" value="Rhodopsins"/>
-      <output name="PDF" file="venn_list1.pdf" ftype="pdf"/>
-    </test>
-    <!-- Can't use more than one repeat value in tests (yet)
-    <test>
-      <param name="type_select" value="explicit"/>
-      <param name="main" value="venn_list.tabular" ftype="tabular"/>
-      <param name="main_lab" value="Some Proteins"/>
-      <param name="count" value="3"/>
-      <param name="set" value="rhodopsin_proteins.fasta"/>
-      <param name="lab" value="Rhodopsins"/>
-      <param name="set" value="four_human_proteins.fasta"/>
-      <param name="lab" value="Human"/>
-      <param name="set" value="blastp_four_human_vs_rhodopsin.tabular"/>
-      <param name="lab" value="Human vs Rhodopsin BLAST"/>
-      <output name="PDF" file="venn_list3.pdf" ftype="pdf"/>
-    </test>
-    -->
-  </tests>
-  <help>
+$PDF
+    </command>
+    <inputs>
+        <param name="main_lab" size="30" type="text" value="Venn Diagram" label="Plot title"/>
+        <conditional name="universe">
+            <param name="type_select" type="select" label="Implicit or explicit full ID list?">
+                <option value="explicit">Explicit</option>
+                <option value="implicit">Implicit (use union of sets below)</option>
+            </param>
+            <when value="explicit">
+                 <param name="main" type="data" format="tabular,fasta,fastq,sff" label="Full dataset (with all identifiers)" help="Tabular file (uses column one), FASTA, FASTQ or SFF file."/>
+            </when>
+            <when value="implicit"/>
+        </conditional>
+        <repeat name="sets" min="1" max="3" title="Sets">
+            <param name="set" type="data" format="tabular,fasta,fastq,sff" label="Members of set" help="Tabular file (uses column one), FASTA, FASTQ or SFF file."/>
+            <param name="lab" size="30" type="text" value="Group" label="Caption for set"/>
+        </repeat>
+    </inputs>
+    <outputs>
+        <data format="pdf" name="PDF" />
+    </outputs>
+    <tests>
+         <!-- Doesn't seem to work properly, manages to get two sets, both
+              with same FASTA file, but second with default "Group" label. -->
+        <test>
+            <param name="type_select" value="explicit"/>
+            <param name="main" value="venn_list.tabular" ftype="tabular"/>
+            <param name="main_lab" value="Some Proteins"/>
+            <param name="set" value="rhodopsin_proteins.fasta"/>
+            <param name="lab" value="Rhodopsins"/>
+            <output name="PDF" file="venn_list1.pdf" ftype="pdf"/>
+        </test>
+        <!-- Can't use more than one repeat value in tests (yet)
+        <test>
+            <param name="type_select" value="explicit"/>
+            <param name="main" value="venn_list.tabular" ftype="tabular"/>
+            <param name="main_lab" value="Some Proteins"/>
+            <param name="count" value="3"/>
+            <param name="set" value="rhodopsin_proteins.fasta"/>
+            <param name="lab" value="Rhodopsins"/>
+            <param name="set" value="four_human_proteins.fasta"/>
+            <param name="lab" value="Human"/>
+            <param name="set" value="blastp_four_human_vs_rhodopsin.tabular"/>
+            <param name="lab" value="Human vs Rhodopsin BLAST"/>
+            <output name="PDF" file="venn_list3.pdf" ftype="pdf"/>
+        </test>
+        -->
+    </tests>
+    <help>
 
 .. class:: infomark
 
@@ -120,7 +121,7 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-  </help>
+    </help>
     <citations>
         <citation type="doi">10.7717/peerj.167</citation>
         <citation type="doi">10.1093/bioinformatics/15.5.356</citation>
