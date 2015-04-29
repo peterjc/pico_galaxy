@@ -1,0 +1,10 @@
+name: rxlr_venn_workflow
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
+description: RXLR motif prediction comparisons with Venn Diagram
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+- Visualization
+type: unrestricted

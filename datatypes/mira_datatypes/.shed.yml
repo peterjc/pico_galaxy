@@ -1,0 +1,12 @@
+name: mira_datatypes
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/datatypes/mira_datatypes
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/datatypes/mira_datatypes
+description: Defines "mira" datatype for the MIRA Assembly Format
+long_description: |
+  Note that Galaxy already has a "maf" datatype for the Multiple (sequence)
+  Alignment Format (MAF). This is specifically for the MIRA Assembly Format
+  (also called MAF).
+categories:
+- Assembly
+type: unrestricted

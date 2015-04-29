@@ -1,0 +1,9 @@
+name: secreted_protein_workflow
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/workflows/secreted_protein_workflow
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/workflows/secreted_protein_workflow
+description: Indentify candidate secreted proteins using SignalP and TMHMM
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+type: unrestricted
