@@ -2,6 +2,7 @@
     <description>from lists</description>
     <requirements>
         <requirement type="python-module">rpy</requirement>
+        <requirement type="package" version="1.65">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
     <stdio>
