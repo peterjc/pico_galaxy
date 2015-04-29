@@ -68,6 +68,7 @@ v0.0.7  - Renamed folder and README file.
 v0.0.8  - Reorder XML elements (internal change only).
         - Fixed and improved error handling when rpy is not available.
         - Test output relaxed to cope with more variation in PDF output.
+        - Declare Biopython dependency via the Tool Shed.
 ======= ======================================================================
 
 
@@ -83,7 +84,7 @@ https://github.com/peterjc/pico_galaxy
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf venn_list.tar.gz tools/venn_list/README.rst tools/venn_list/venn_list.* test-data/magic.pdf test-data/venn_list.tabular test-data/rhodopsin_proteins.fasta
+    $ tar -czf venn_list.tar.gz tools/venn_list/README.rst tools/venn_list/venn_list.* tools/venn_list/tool_dependencies.xml test-data/magic.pdf test-data/venn_list.tabular test-data/rhodopsin_proteins.fasta
 
 Check this worked::
 
@@ -91,6 +92,7 @@ Check this worked::
     tools/venn_list/README.rst
     tools/venn_list/venn_list.py
     tools/venn_list/venn_list.xml
+    tools/venn_list/tool_dependencies.xml
     test-data/magic.pdf
     test-data/venn_list.tabular
     test-data/rhodopsin_proteins.fasta
