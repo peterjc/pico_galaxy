@@ -5,12 +5,11 @@ This script is copyright 2010 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.4 of the script.
+This is version 0.0.8 of the script.
 """
 
 
 import sys
-import rpy
 
 def sys_exit(msg, error_level=1):
     """Print error message to stdout and quit with given error level."""
@@ -21,6 +20,8 @@ try:
     import rpy
 except ImportError:
     sys_exit("Requires the Python library rpy (to call R)")
+except RuntimeError, e:
+    sys_exit("The Python library rpy is not availble for the current R version\n\n%s" % e)
 
 try:
     rpy.r.library("limma")

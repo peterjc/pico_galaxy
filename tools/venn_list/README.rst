@@ -66,6 +66,7 @@ v0.0.6  - Added unit tests.
 v0.0.7  - Renamed folder and README file.
         - Tool definition now embeds citation information.
 v0.0.8  - Reorder XML elements (internal change only).
+        - Fixed and improved error handling when rpy is not available.
 ======= ======================================================================
 
 
