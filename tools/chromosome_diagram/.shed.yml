@@ -1,0 +1,15 @@
+name: chromosome_diagram
+owner: peterjc
+description: Chromosome Diagrams using Biopython
+long_description: |
+  An unfinished Galaxy Tool for drawing Chromosome Diagrams using Biopython
+categories:
+- Graphics
+- Sequence Analysis
+- Visualization
+type: unrestricted
+include:
+- chromosome_diagram.py
+- chromosome_diagram.xml
+- README.rst
+- tool_dependencies.xml
