@@ -19,3 +19,13 @@ categories:
 - Sequence Analysis
 - Visualization
 type: unrestricted
+include:
+- README.rst
+- tool_dependencies.xml
+- venn_list.py
+- venn_list.xml
+- strip_components: 2
+  source:
+  - ../../test-data/magic.pdf
+  - ../../test-data/venn_list.tabular
+  - ../../test-data/rhodopsin_proteins.fasta

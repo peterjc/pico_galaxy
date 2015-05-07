@@ -81,21 +81,25 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/
+use the following Planemo command (which requires you have set your Tool Shed
+access details in ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf venn_list.tar.gz tools/venn_list/README.rst tools/venn_list/venn_list.* tools/venn_list/tool_dependencies.xml test-data/magic.pdf test-data/venn_list.tabular test-data/rhodopsin_proteins.fasta
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/venn_list/
+    ...
 
-Check this worked::
+To just build and check the tar ball, use::
 
-    $ tar -tzf venn_list.tar.gz
-    tools/venn_list/README.rst
-    tools/venn_list/venn_list.py
-    tools/venn_list/venn_list.xml
-    tools/venn_list/tool_dependencies.xml
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/venn_list/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    README.rst
     test-data/magic.pdf
-    test-data/venn_list.tabular
     test-data/rhodopsin_proteins.fasta
+    test-data/venn_list.tabular
+    tool_dependencies.xml
+    venn_list.py
+    venn_list.xml
 
 
 Licence (MIT)
