@@ -93,13 +93,13 @@ To just build and check the tar ball, use::
     $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/venn_list/
     ...
     $ tar -tzf shed_upload.tar.gz 
-    README.rst
+    tools/venn_list/README.rst
+    tools/venn_list/tool_dependencies.xml
+    tools/venn_list/venn_list.py
+    tools/venn_list/venn_list.xml
     test-data/magic.pdf
     test-data/rhodopsin_proteins.fasta
     test-data/venn_list.tabular
-    tool_dependencies.xml
-    venn_list.py
-    venn_list.xml
 
 
 Licence (MIT)
