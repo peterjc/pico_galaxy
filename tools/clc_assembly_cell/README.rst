@@ -87,6 +87,7 @@ v0.0.2  - Actually use the ``$CLC_ASSEMBLY_CELL`` environment variable.
         - Enable and fixed the tests.
 v0.0.3  - Reorder XML elements (internal change only).
         - Added citation tags.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -96,19 +97,28 @@ Developers
 Development is on this itHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/clc_assembly_cell
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf clcbio.tar.gz tools/clc_assembly_cell/README.rst tools/clc_assembly_cell/clc_assembler.xml tools/clc_assembly_cell/clc_mapper.xml tools/clc_assembly_cell/tool_dependencies.xml test-data/NC_010642.fna
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/clc_assembly_cell/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf clcbio.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/clc_assembly_cell/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/clc_assembly_cell/
+    ...
+    $ tar -tzf shed_upload.tar.gz
+    test-data/NC_010642.fna
     tools/clc_assembly_cell/README.rst
     tools/clc_assembly_cell/clc_assembler.xml
     tools/clc_assembly_cell/clc_mapper.xml
     tools/clc_assembly_cell/tool_dependencies.xml
-    test-data/NC_010642.fna
 
 
 Licence (MIT)
