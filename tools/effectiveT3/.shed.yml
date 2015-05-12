@@ -1,0 +1,35 @@
+name: effectivet3
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/effectiveT3
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/effectiveT3
+description: Find bacterial type III effectors in protein sequences
+long_description: |
+  Wrapper for the command line Java tool EffectiveT3, v1.0.1, which
+  converts the output into a tab separated table for use in Galaxy.
+
+  Jehl, Arnold and Rattei. Effective - a database of predicted secreted
+  bacterial proteins. Nucleic Acids Research, 39(Database issue), D591-5, 2011.
+  http://dx.doi.org/10.1093/nar/gkq1154
+
+  Arnold, Brandmaier, Kleine, Tischler, Heinz, Behrens, Niinikoski,
+  Mewes, Horn and Rattei. Sequence-based prediction of type III
+  secreted proteins. PLoS Pathog. 5(4):e1000376, 2009.
+  http://dx.doi.org/10.1371/journal.ppat.1000376
+
+  See http://effectors.org/
+categories:
+- Sequence Analysis
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../tool-data/effectiveT3.loc.sample
+  - ../../test-data/empty.fasta
+  - ../../test-data/empty_effectiveT3.tabular
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.effectiveT3.tabular
+  - ../../tool-data/effectiveT3.loc.sample
+  - ../../tools/effectiveT3/README.rst
+  - ../../tools/effectiveT3/effectiveT3.py
+  - ../../tools/effectiveT3/effectiveT3.xml
+  - ../../tools/effectiveT3/tool_dependencies.xml

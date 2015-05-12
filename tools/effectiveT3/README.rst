@@ -88,6 +88,7 @@ v0.0.13 - Relax unit test to allow for small floating point score difference.
         - Tool definition now embeds citation information.
 v0.0.14 - Fixed error handling in ``effectiveT3.py``.
 v0.0.15 - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -100,24 +101,33 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/effectiveT3
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf effectiveT3.tar.gz tools/effectiveT3/README.rst tools/effectiveT3/effectiveT3.xml tools/effectiveT3/effectiveT3.py tools/effectiveT3/tool_dependencies.xml tool-data/effectiveT3.loc.sample test-data/four_human_proteins.fasta test-data/four_human_proteins.effectiveT3.tabular test-data/empty.fasta test-data/empty_effectiveT3.tabular
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/effectiveT3/
+    ...
 
+or::
 
-Check this worked::
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/effectiveT3/
+    ...
 
-    $ tar -tzf effectiveT3.tar.gz
-    tools/effectiveT3/README.rst
-    tools/effectiveT3/effectiveT3.xml
-    tools/effectiveT3/effectiveT3.py
-    tools/effectiveT3/tool_dependencies.xml
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/effectiveT3/
+    ...
+    $ tar -tzf shed_upload.tar.gz
     tool-data/effectiveT3.loc.sample
-    test-data/four_human_proteins.fasta
-    test-data/four_human_proteins.effectiveT3.tabular
     test-data/empty.fasta
     test-data/empty_effectiveT3.tabular
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.effectiveT3.tabular
+    tool-data/effectiveT3.loc.sample
+    tools/effectiveT3/README.rst
+    tools/effectiveT3/effectiveT3.py
+    tools/effectiveT3/effectiveT3.xml
+    tools/effectiveT3/tool_dependencies.xml
 
 
 Licence (MIT)
