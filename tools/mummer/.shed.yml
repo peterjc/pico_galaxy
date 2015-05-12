@@ -13,3 +13,14 @@ categories:
 - Sequence Analysis
 - Visualization
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/magic.pdf
+  - ../../test-data/magic.png
+  - ../../test-data/rhodopsin_nucs.fasta
+  - ../../test-data/three_human_mRNA.fasta
+  - ../../tools/mummer/README.rst
+  - ../../tools/mummer/mummer.py
+  - ../../tools/mummer/mummer.xml
+  - ../../tools/mummer/tool_dependencies.xml

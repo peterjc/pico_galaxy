@@ -64,6 +64,7 @@ v0.0.3  - Install ``ps2pdf`` using Tool Shed's GhostScript package.
 v0.0.4  - Install ``gnuplot`` using Tool Shed's gnuplot package.
         - Test case added.
 v0.0.5  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -73,22 +74,32 @@ Developers
 Development is on GitHub at:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/mummer
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
 
-    $ tar -czf mummer.tar.gz tools/mummer/README.rst tools/mummer/mummer.xml tools/mummer/mummer.py tools/mummer/tool_dependencies.xml test-data/magic.png test-data/magic.pdf test-data/rhodopsin_nucs.fasta test-data/three_human_mRNA.fasta
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-Check this worked::
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/mummer/
+    ...
 
-    $ tar -tzf mummer.tar.gz
-    tools/mummer/README.rst
-    tools/mummer/mummer.xml
-    tools/mummer/mummer.py
-    tools/mummer/tool_dependencies.xml
-    test-data/magic.png
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/mummer/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/mummer/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/magic.pdf
+    test-data/magic.png
     test-data/rhodopsin_nucs.fasta
     test-data/three_human_mRNA.fasta
+    tools/mummer/README.rst
+    tools/mummer/mummer.py
+    tools/mummer/mummer.xml
+    tools/mummer/tool_dependencies.xml
 
 
 Licence (MIT)
