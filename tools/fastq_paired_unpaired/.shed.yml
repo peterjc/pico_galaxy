@@ -19,3 +19,14 @@ categories:
 - Sequence Analysis
 - Text Manipulation
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/sanger-pairs-forward.fastq
+  - ../../test-data/sanger-pairs-interleaved.fastq
+  - ../../test-data/sanger-pairs-mixed.fastq
+  - ../../test-data/sanger-pairs-reverse.fastq
+  - ../../test-data/sanger-pairs-singles.fastq
+  - ../../tools/fastq_paired_unpaired/README.rst
+  - ../../tools/fastq_paired_unpaired/fastq_paired_unpaired.py
+  - ../../tools/fastq_paired_unpaired/fastq_paired_unpaired.xml

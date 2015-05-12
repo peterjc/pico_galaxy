@@ -68,6 +68,7 @@ v0.1.0  - Switch to using Biopython (easier to use script outside of Galaxy).
         - Tool definition now embeds citation information.
 v0.1.1  - Reorder XML elements (internal change only).
         - Use ``format_source=...`` tag.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -81,22 +82,31 @@ http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_paired_unpaired
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf fastq_paired_unpaired.tar.gz tools/fastq_paired_unpaired/README.rst tools/fastq_paired_unpaired/fastq_paired_unpaired.* test-data/sanger-pairs-*.fastq
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/fastq_paired_unpaired/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf fastq_paired_unpaired.tar.gz
-    tools/fastq_paired_unpaired/README.rst
-    tools/fastq_paired_unpaired/fastq_paired_unpaired.py
-    tools/fastq_paired_unpaired/fastq_paired_unpaired.xml
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/fastq_paired_unpaired/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/fastq_paired_unpaired/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/sanger-pairs-forward.fastq
     test-data/sanger-pairs-interleaved.fastq
     test-data/sanger-pairs-mixed.fastq
     test-data/sanger-pairs-reverse.fastq
     test-data/sanger-pairs-singles.fastq
+    tools/fastq_paired_unpaired/README.rst
+    tools/fastq_paired_unpaired/fastq_paired_unpaired.py
+    tools/fastq_paired_unpaired/fastq_paired_unpaired.xml
 
 
 Licence (MIT)
