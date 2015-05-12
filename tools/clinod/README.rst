@@ -71,6 +71,7 @@ v0.0.6  - Adopted standard MIT licence.
 v0.0.7  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
         - Tool definition now embeds citation information.
 v0.0.8  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -83,19 +84,28 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/clinod
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf clinod.tar.gz tools/clinod/README.rst tools/clinod/clinod.xml tools/clinod/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.clinod-1.3.tabular
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/clinod/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf clinod.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/clinod/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/clinod/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.clinod-1.3.tabular
     tools/clinod/README.rst
     tools/clinod/clinod.xml
     tools/clinod/tool_dependencies.xml
-    test-data/four_human_proteins.fasta
-    test-data/four_human_proteins.clinod-1.3.tabular
 
 
 Licence (MIT)

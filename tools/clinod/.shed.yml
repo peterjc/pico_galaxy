@@ -14,3 +14,11 @@ long_description: |
 categories:
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.clinod-1.3.tabular
+  - ../../tools/clinod/README.rst
+  - ../../tools/clinod/clinod.xml
+  - ../../tools/clinod/tool_dependencies.xml
