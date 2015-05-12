@@ -54,6 +54,7 @@ v0.0.2  - Cope with samtools' default depth limit using modified samtools,
           see https://github.com/samtools/samtools/pull/322
 v0.0.3  - Cope with no coverage in final contigs.
 v0.0.4  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -63,22 +64,35 @@ Developers
 Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/coverage_stats
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf coverage_stats.tar.gz tools/coverage_stats/README.rst tools/coverage_stats/coverage_stats.xml tools/coverage_stats/coverage_stats.py tools/coverage_stats/tool_dependencies.xml test-data/ex1.bam test-data/ex1.coverage_stats.tabular test-data/coverage_test.bam test-data/coverage_test.coverage_stats.tabular
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/coverage_stats/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf coverage_stats.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/coverage_stats/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/coverage_stats/
+    ...
+    $ tar -tzf shed_upload.tar.gz
     tools/coverage_stats/README.rst
     tools/coverage_stats/coverage_stats.xml
     tools/coverage_stats/coverage_stats.py
     tools/coverage_stats/tool_dependencies.xml
-    test-data/ex1.bam
-    test-data/ex1.coverage_stats.tabular
     test-data/coverage_test.bam
     test-data/coverage_test.coverage_stats.tabular
+    test-data/ex1.bam
+    test-data/ex1.coverage_stats.tabular
+    tools/coverage_stats/README.rst
+    tools/coverage_stats/coverage_stats.xml
+    tools/coverage_stats/coverage_stats.py
+    tools/coverage_stats/tool_dependencies.xml
 
 
 Licence (MIT)
