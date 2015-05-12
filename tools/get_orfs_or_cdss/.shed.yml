@@ -17,3 +17,24 @@ long_description: |
 categories:
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/Ssuis.fasta
+  - ../../test-data/get_orf_input.Suis_ORF.bed
+  - ../../test-data/get_orf_input.Suis_ORF.nuc.fasta
+  - ../../test-data/get_orf_input.Suis_ORF.prot.fasta
+  - ../../test-data/get_orf_input.fasta
+  - ../../test-data/get_orf_input.t11_bed_out.bed
+  - ../../test-data/get_orf_input.t11_nuc_out.fasta
+  - ../../test-data/get_orf_input.t11_open_bed_out.bed
+  - ../../test-data/get_orf_input.t11_open_nuc_out.fasta
+  - ../../test-data/get_orf_input.t11_open_prot_out.fasta
+  - ../../test-data/get_orf_input.t11_prot_out.fasta
+  - ../../test-data/get_orf_input.t1_bed_out.bed
+  - ../../test-data/get_orf_input.t1_nuc_out.fasta
+  - ../../test-data/get_orf_input.t1_prot_out.fasta
+  - ../../tools/get_orfs_or_cdss/get_orfs_or_cdss.py
+  - ../../tools/get_orfs_or_cdss/get_orfs_or_cdss.xml
+  - ../../tools/get_orfs_or_cdss/README.rst
+  - ../../tools/get_orfs_or_cdss/tool_dependencies.xml

@@ -87,32 +87,41 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf get_orfs_or_cdss.tar.gz tools/get_orfs_or_cdss/README.rst tools/get_orfs_or_cdss/get_orfs_or_cdss.* tools/get_orfs_or_cdss/tool_dependencies.xml test-data/get_orf_input*.fasta test-data/Ssuis.fasta test-data/get_orf_input*.bed
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/get_orfs_or_cdss/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf get_orfs_or_cdss.tar.gz
-    tools/get_orfs_or_cdss/README.rst
-    tools/get_orfs_or_cdss/get_orfs_or_cdss.py
-    tools/get_orfs_or_cdss/get_orfs_or_cdss.xml
-    tools/get_orfs_or_cdss/tool_dependencies.xml
-    test-data/get_orf_input.fasta
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/get_orfs_or_cdss/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/get_orfs_or_cdss/
+    ...
+    $ tar -tzf shed_upload.tar.gz
+    test-data/Ssuis.fasta
+    test-data/get_orf_input.Suis_ORF.bed
     test-data/get_orf_input.Suis_ORF.nuc.fasta
     test-data/get_orf_input.Suis_ORF.prot.fasta
+    test-data/get_orf_input.fasta
+    test-data/get_orf_input.t11_bed_out.bed
     test-data/get_orf_input.t11_nuc_out.fasta
+    test-data/get_orf_input.t11_open_bed_out.bed
     test-data/get_orf_input.t11_open_nuc_out.fasta
     test-data/get_orf_input.t11_open_prot_out.fasta
     test-data/get_orf_input.t11_prot_out.fasta
+    test-data/get_orf_input.t1_bed_out.bed
     test-data/get_orf_input.t1_nuc_out.fasta
     test-data/get_orf_input.t1_prot_out.fasta
-    test-data/Ssuis.fasta
-    test-data/get_orf_input.Suis_ORF.bed
-    test-data/get_orf_input.t11_open_bed_out.bed
-    test-data/get_orf_input.t11_bed_out.bed
-    test-data/get_orf_input.t1_bed_out.bed
+    tools/get_orfs_or_cdss/get_orfs_or_cdss.py
+    tools/get_orfs_or_cdss/get_orfs_or_cdss.xml
+    tools/get_orfs_or_cdss/README.rst
+    tools/get_orfs_or_cdss/tool_dependencies.xml
 
 
 Licence (MIT)
