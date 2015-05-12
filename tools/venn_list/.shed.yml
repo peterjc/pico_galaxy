@@ -22,10 +22,10 @@ type: unrestricted
 include:
 - strip_components: 2
   source:
+  - ../../test-data/magic.pdf
+  - ../../test-data/venn_list.tabular
+  - ../../test-data/rhodopsin_proteins.fasta
   - ../../tools/venn_list/README.rst
   - ../../tools/venn_list/tool_dependencies.xml
   - ../../tools/venn_list/venn_list.py
   - ../../tools/venn_list/venn_list.xml
-  - ../../test-data/magic.pdf
-  - ../../test-data/venn_list.tabular
-  - ../../test-data/rhodopsin_proteins.fasta
