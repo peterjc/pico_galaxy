@@ -69,6 +69,9 @@ v0.0.8  - Reorder XML elements (internal change only).
         - Fixed and improved error handling when rpy is not available.
         - Test output relaxed to cope with more variation in PDF output.
         - Declare Biopython dependency via the Tool Shed.
+v0.0.9  - Test with three-way Venn diagram.
+        - Includes testing of failure mode.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 

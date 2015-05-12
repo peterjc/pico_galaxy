@@ -1,4 +1,4 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.8">
+<tool id="venn_list" name="Venn Diagram" version="0.0.9">
     <description>from lists</description>
     <requirements>
         <requirement type="python-module">rpy</requirement>
@@ -53,22 +53,47 @@ $PDF
             <param name="set" value="rhodopsin_proteins.fasta"/>
             <param name="lab" value="Rhodopsins"/>
             <output name="PDF" file="magic.pdf" ftype="pdf" compare="contains" />
+            <assert_stdout>
+                <has_line line="Doing 1-way Venn Diagram" />
+                <has_line line="Total of 10 IDs" />
+                <has_line line="6 in Rhodopsins" />
+            </assert_stdout>
         </test>
-        <!-- Can't use more than one repeat value in tests (yet)
         <test>
+            <param name="type_select" value="implicit"/>
+            <param name="sets_0|set" value="rhodopsin_proteins.fasta"/>
+            <param name="sets_0|lab" value="Rhodopsins"/>
+            <param name="sets_1|set" value="four_human_proteins.fasta"/>
+            <param name="sets_1|lab" value="Human"/>
+            <param name="sets_2|set" value="blastp_four_human_vs_rhodopsin.tabular"/>
+            <param name="sets_2|lab" value="Human vs Rhodopsin BLAST"/>
+            <output name="PDF" file="magic.pdf" ftype="pdf" compare="contains" />
+            <assert_stdout>
+                <has_line line="Doing 3-way Venn Diagram" />
+                <has_line line="Inferred total of 10 IDs" />
+		<has_line line="6 in Rhodopsins" />
+                <has_line line="4 in Human" />
+                <has_line line="1 in Human vs Rhodopsin BLAST" />
+            </assert_stdout>
+        </test>
+        <test expect_failure="true" expect_exit_code="1">
             <param name="type_select" value="explicit"/>
             <param name="main" value="venn_list.tabular" ftype="tabular"/>
             <param name="main_lab" value="Some Proteins"/>
-            <param name="count" value="3"/>
-            <param name="set" value="rhodopsin_proteins.fasta"/>
-            <param name="lab" value="Rhodopsins"/>
-            <param name="set" value="four_human_proteins.fasta"/>
-            <param name="lab" value="Human"/>
-            <param name="set" value="blastp_four_human_vs_rhodopsin.tabular"/>
-            <param name="lab" value="Human vs Rhodopsin BLAST"/>
-            <output name="PDF" file="magic.pdf" ftype="pdf" compare="contains" />
+            <param name="sets_0|set" value="rhodopsin_proteins.fasta"/>
+            <param name="sets_0|lab" value="Rhodopsins"/>
+            <param name="sets_1|set" value="four_human_proteins.fasta"/>
+            <param name="sets_1|lab" value="Human"/>
+            <param name="sets_2|set" value="blastp_four_human_vs_rhodopsin.tabular"/>
+            <param name="sets_2|lab" value="Human vs Rhodopsin BLAST"/>            
+            <assert_stdout>
+                <has_line line="Doing 3-way Venn Diagram" />
+                <has_line line="Total of 10 IDs" />
+            </assert_stdout>
+            <assert_stderr>
+                <has_text_matching expression="Unexpected ID sp|Q9BS26|ERP44_HUMAN in fasta file *" />
+            </assert_stderr>
         </test>
-        -->
     </tests>
     <help>
 
