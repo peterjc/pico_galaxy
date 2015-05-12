@@ -68,6 +68,7 @@ v0.0.5  - More explicit error messages when seqences lengths do not match.
         - Tool definition now embeds citation information.
 v0.0.6  - Reorder XML elements (internal change only).
         - Use ``format_source=...`` tag.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -80,22 +81,31 @@ https://github.com/peterjc/picobio/blob/master/align/align_back_trans.py
 With the addition of a Galaxy wrapper, developement moved here:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf align_back_trans.tar.gz tools/align_back_trans/README.rst tools/align_back_trans/align_back_trans.py tools/align_back_trans/align_back_trans.xml tools/align_back_trans/tool_dependencies.xml test-data/demo_nucs.fasta test-data/demo_nucs_trailing_stop.fasta test-data/demo_prot_align.fasta test-data/demo_nuc_align.fasta
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/align_back_trans/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf align_back_trans.tar.gz
-    tools/align_back_trans/README.rst
-    tools/align_back_trans/align_back_trans.py
-    tools/align_back_trans/align_back_trans.xml
-    tools/align_back_trans/tool_dependencies.xml
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/align_back_trans/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/align_back_trans/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/demo_nucs.fasta
     test-data/demo_nucs_trailing_stop.fasta
     test-data/demo_prot_align.fasta
     test-data/demo_nuc_align.fasta
+    tools/align_back_trans/README.rst
+    tools/align_back_trans/align_back_trans.py
+    tools/align_back_trans/align_back_trans.xml
+    tools/align_back_trans/tool_dependencies.xml
 
 
 Licence (MIT)

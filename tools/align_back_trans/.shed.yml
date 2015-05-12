@@ -13,3 +13,14 @@ categories:
 - Fasta Manipulation
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/demo_nuc_align.fasta
+  - ../../test-data/demo_nucs.fasta
+  - ../../test-data/demo_nucs_trailing_stop.fasta
+  - ../../test-data/demo_prot_align.fasta
+  - ../../tools/align_back_trans/README.rst
+  - ../../tools/align_back_trans/align_back_trans.py
+  - ../../tools/align_back_trans/align_back_trans.xml
+  - ../../tools/align_back_trans/tool_dependencies.xml
