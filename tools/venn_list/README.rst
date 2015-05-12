@@ -84,11 +84,16 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy
 
-For pushing a release to the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/
-use the following Planemo command (which requires you have set your Tool Shed
-access details in ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
     $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/venn_list/
+    ...
+
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/venn_list/
     ...
 
 To just build and check the tar ball, use::
