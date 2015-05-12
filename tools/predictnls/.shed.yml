@@ -18,3 +18,12 @@ long_description: |
 categories:
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.predictnls.tabular
+  - ../../tools/predictnls/My_NLS_list
+  - ../../tools/predictnls/README.rst
+  - ../../tools/predictnls/predictnls.py
+  - ../../tools/predictnls/predictnls.xml

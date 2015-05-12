@@ -65,6 +65,7 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.7  - Tool definition now embeds citation information.
 v0.0.8  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -77,17 +78,30 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
 the following command from the Galaxy root folder::
 
-    $ tar -czf predictnls.tar.gz tools/predictnls/README.rst tools/predictnls/predictnls.xml tools/predictnls/predictnls.py tools/predictnls/My_NLS_list test-data/four_human_proteins.fasta test-data/four_human_proteins.predictnls.tabular
 
-Check this worked::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -tzf predictnls.tar.gz
-    tools/predictnls/README.rst
-    tools/predictnls/predictnls.xml
-    tools/predictnls/predictnls.py
-    tools/predictnls/My_NLS_list
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/predictnls/
+    ...
+
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/predictnls/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/predictnls/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/four_human_proteins.fasta
     test-data/four_human_proteins.predictnls.tabular
+    tools/predictnls/My_NLS_list
+    tools/predictnls/README.rst
+    tools/predictnls/predictnls.py
+    tools/predictnls/predictnls.xml
 
 
 Licence (GPL)
