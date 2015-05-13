@@ -67,6 +67,7 @@ v0.0.12 - Simplified XML to apply input format to output data.
         - Tool definition now embeds citation information.
 v0.0.13 - Use ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -80,19 +81,24 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
 
-    $ tar -czf seq_primer_clip.tar.gz tools/seq_primer_clip/README.rst tools/seq_primer_clip/seq_primer_clip.* tools/seq_primer_clip/tool_dependencies.xml test-data/dop_primers.fasta test-data/MID4_GLZRM4E04_rnd30*
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-Check this worked::
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/seq_primer_clip/
+    ...
 
-    $ tar -tzf seq_primer_clip.tar.gz
-    tools/seq_primer_clip/README.rst
-    tools/seq_primer_clip/seq_primer_clip.xml
-    tools/seq_primer_clip/seq_primer_clip.py
-    tools/seq_primer_clip/tool_dependencies.xml
-    test-data/dop_primers.fasta
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/seq_primer_clip/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/seq_primer_clip/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/MID4_GLZRM4E04_rnd30.fasta
     test-data/MID4_GLZRM4E04_rnd30.fastqsanger
     test-data/MID4_GLZRM4E04_rnd30_fclip.fasta
@@ -102,6 +108,11 @@ Check this worked::
     test-data/MID4_GLZRM4E04_rnd30_frclip.fastqsanger
     test-data/MID4_GLZRM4E04_rnd30_frclip.sff
     test-data/MID4_GLZRM4E04_rnd30.sff
+    test-data/dop_primers.fasta
+    tools/seq_primer_clip/README.rst
+    tools/seq_primer_clip/seq_primer_clip.py
+    tools/seq_primer_clip/seq_primer_clip.xml
+    tools/seq_primer_clip/tool_dependencies.xml
 
 
 Licence (MIT)

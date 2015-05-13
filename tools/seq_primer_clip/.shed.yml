@@ -17,3 +17,19 @@ categories:
 - Fasta Manipulation
 - Text Manipulation
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/MID4_GLZRM4E04_rnd30.fastqsanger
+  - ../../test-data/MID4_GLZRM4E04_rnd30.sff
+  - ../../test-data/MID4_GLZRM4E04_rnd30_fclip.fasta
+  - ../../test-data/MID4_GLZRM4E04_rnd30_fclip.fastqsanger
+  - ../../test-data/MID4_GLZRM4E04_rnd30_fclip.sff
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.fasta
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.fastqsanger
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sff
+  - ../../test-data/dop_primers.fasta
+  - ../../tools/seq_primer_clip/README.rst
+  - ../../tools/seq_primer_clip/seq_primer_clip.py
+  - ../../tools/seq_primer_clip/seq_primer_clip.xml
+  - ../../tools/seq_primer_clip/tool_dependencies.xml
