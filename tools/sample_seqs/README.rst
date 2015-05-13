@@ -68,6 +68,7 @@ v0.2.1  - Was missing a file for the functional tests.
         - Includes testing of failure modes.
 v0.2.2  - Reorder XML elements (internal change only).
         - Use ``format_source=...``` tag.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -77,32 +78,41 @@ Developers
 This script and related tools are being developed on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/sample_seqs
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf sample_seqs.tar.gz tools/sample_seqs/README.rst tools/sample_seqs/sample_seqs.py tools/sample_seqs/sample_seqs.xml tools/sample_seqs/tool_dependencies.xml test-data/ecoli.fastq test-data/ecoli.sample_N100.fastq test-data/ecoli.pair_sample_N100.fastq test-data/ecoli.sample_C10.fastq test-data/get_orf_input.Suis_ORF.prot.fasta test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta test-data/get_orf_input.Suis_ORF.prot.sample_C10.fasta test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta test-data/MID4_GLZRM4E04_rnd30_frclip.sff test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/sample_seqs/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf sample_seqs.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/sample_seqs/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/sample_seqs/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
+    test-data/MID4_GLZRM4E04_rnd30_frclip.sff
+    test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff
+    test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff
+    test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
+    test-data/ecoli.fastq
+    test-data/ecoli.pair_sample_N100.fastq
+    test-data/ecoli.sample_C10.fastq
+    test-data/ecoli.sample_N100.fastq
+    test-data/get_orf_input.Suis_ORF.prot.fasta
+    test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta
+    test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta
+    test-data/get_orf_input.Suis_ORF.prot.sample_C10.fasta
+    test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta
     tools/sample_seqs/README.rst
     tools/sample_seqs/sample_seqs.py
     tools/sample_seqs/sample_seqs.xml
     tools/sample_seqs/tool_dependencies.xml
-    test-data/ecoli.fastq
-    test-data/ecoli.sample_N100.fastq
-    test-data/ecoli.pair_sample_N100.fastq
-    test-data/ecoli.sample_C10.fastq
-    test-data/get_orf_input.Suis_ORF.prot.fasta
-    test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta
-    test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta
-    test-data/get_orf_input.Suis_ORF.prot.sample_C10.fasta
-    test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta
-    test-data/MID4_GLZRM4E04_rnd30_frclip.sff
-    test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff
-    test-data/MID4_GLZRM4E04_rnd30_pair_sample.sff
-    test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
-    test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff
 
 
 Licence (MIT)

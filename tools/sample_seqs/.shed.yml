@@ -13,3 +13,23 @@ categories:
 - Fastq Manipulation
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sff
+  - ../../test-data/ecoli.fastq
+  - ../../test-data/ecoli.pair_sample_N100.fastq
+  - ../../test-data/ecoli.sample_C10.fastq
+  - ../../test-data/ecoli.sample_N100.fastq
+  - ../../test-data/get_orf_input.Suis_ORF.prot.fasta
+  - ../../test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta
+  - ../../test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta
+  - ../../test-data/get_orf_input.Suis_ORF.prot.sample_C10.fasta
+  - ../../test-data/get_orf_input.Suis_ORF.prot.sample_N100.fasta
+  - ../../tools/sample_seqs/README.rst
+  - ../../tools/sample_seqs/sample_seqs.py
+  - ../../tools/sample_seqs/sample_seqs.xml
+  - ../../tools/sample_seqs/tool_dependencies.xml
