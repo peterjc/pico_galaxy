@@ -19,3 +19,14 @@ categories:
 - SAM
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/SRR639755_mito_pairs.fastq.gz
+  - ../../test-data/SRR639755_sample_by_coord.sam
+  - ../../test-data/SRR639755_sample_lax.fastq
+  - ../../test-data/SRR639755_sample_strict.fastq
+  - ../../tools/seq_filter_by_mapping/README.rst
+  - ../../tools/seq_filter_by_mapping/seq_filter_by_mapping.py
+  - ../../tools/seq_filter_by_mapping/seq_filter_by_mapping.xml
+  - ../../tools/seq_filter_by_mapping/tool_dependencies.xml

@@ -65,6 +65,7 @@ v0.0.2  - Fixed some error messages.
 v0.0.3  - Report counts for FASTQ as done for FASTA and SFF files.
 v0.0.4  - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -77,22 +78,31 @@ https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_mapping
 Much of the code was copied from my older tool:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_id
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf seq_filter_by_mapping.tar.gz tools/seq_filter_by_mapping/README.rst tools/seq_filter_by_mapping/seq_filter_by_mapping.py tools/seq_filter_by_mapping/seq_filter_by_mapping.xml tools/seq_filter_by_mapping/tool_dependencies.xml test-data/SRR639755_mito_pairs.fastq.gz test-data/SRR639755_sample_by_coord.sam test-data/SRR639755_sample_strict.fastq test-data/SRR639755_sample_lax.fastq
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/seq_filter_by_mapping/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf seq_filter_by_mapping.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/seq_filter_by_mapping/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/seq_filter_by_mapping/
+    ...
+    $ tar -tzf shed_upload.tar.gz
+    test-data/SRR639755_mito_pairs.fastq.gz
+    test-data/SRR639755_sample_by_coord.sam
+    test-data/SRR639755_sample_lax.fastq
+    test-data/SRR639755_sample_strict.fastq
     tools/seq_filter_by_mapping/README.rst
     tools/seq_filter_by_mapping/seq_filter_by_mapping.py
     tools/seq_filter_by_mapping/seq_filter_by_mapping.xml
     tools/seq_filter_by_mapping/tool_dependencies.xml
-    test-data/SRR639755_mito_pairs.fastq.gz
-    test-data/SRR639755_sample_by_coord.sam
-    test-data/SRR639755_sample_strict.fastq
-    test-data/SRR639755_sample_lax.fastq
 
 
 Licence (MIT)
