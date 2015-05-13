@@ -1,7 +1,7 @@
 name: mira4_assembler
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/mira4_assembler/
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/mira4_assembler/
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4_assembler
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4_assembler
 description: MIRA 4.0 assembler
 long_description: |
   Wrapper for core functionality of assembly tool MIRA 4.0. Accepts data
