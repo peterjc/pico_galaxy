@@ -11,3 +11,14 @@ categories:
 - SAM
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/sam_spec_padded.bam
+  - ../../test-data/sam_spec_padded.depad.bam
+  - ../../test-data/sam_spec_padded.fasta
+  - ../../test-data/sam_spec_padded.sam
+  - ../../tools/samtools_depad/README.rst
+  - ../../tools/samtools_depad/samtools_depad.py
+  - ../../tools/samtools_depad/samtools_depad.xml
+  - ../../tools/samtools_depad/tool_dependencies.xml

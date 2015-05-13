@@ -53,6 +53,7 @@ v0.0.1  - Initial public release.
 v0.0.2  - Embed samtools citation in the tool XML.
         - Removed unused imports from Python wrapper script.
 v0.0.3  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -62,22 +63,31 @@ Developers
 Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depad
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf samtools_depad.tar.gz tools/samtools_depad/README.rst tools/samtools_depad/samtools_depad.xml tools/samtools_depad/samtools_depad.py tools/samtools_depad/tool_dependencies.xml test-data/sam_spec_padded.fasta test-data/sam_spec_padded.sam test-data/sam_spec_padded.bam test-data/sam_spec_padded.depad.bam
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_depad/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf samtools_depad.tar.gz
-    tools/samtools_depad/README.rst
-    tools/samtools_depad/samtools_depad.xml
-    tools/samtools_depad/samtools_depad.py
-    tools/samtools_depad/tool_dependencies.xml
-    test-data/sam_spec_padded.fasta
-    test-data/sam_spec_padded.sam
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_depad/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/samtools_depad/
+    ...
+    $ tar -tzf shed_upload.tar.gz
     test-data/sam_spec_padded.bam
     test-data/sam_spec_padded.depad.bam
+    test-data/sam_spec_padded.fasta
+    test-data/sam_spec_padded.sam
+    tools/samtools_depad/README.rst
+    tools/samtools_depad/samtools_depad.py
+    tools/samtools_depad/samtools_depad.xml
+    tools/samtools_depad/tool_dependencies.xml
 
 
 Licence (MIT)
