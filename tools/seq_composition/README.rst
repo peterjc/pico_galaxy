@@ -59,6 +59,7 @@ Version Changes
 v0.0.1  - Initial version.
         - Tool definition now embeds citation information.
 v0.0.2  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -68,25 +69,34 @@ Developers
 This script and related tools are being developed on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_composition
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
 
-    $ tar -czf seq_composition.tar.gz tools/seq_composition/README.rst tools/seq_composition/seq_composition.py tools/seq_composition/seq_composition.xml tools/seq_composition/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.seq_composition.tabular test-data/ecoli.fastq test-data/ecoli.seq_composition.tabular test-data/MID4_GLZRM4E04_rnd30_frclip.sff test-data/MID4_GLZRM4E04_rnd30_frclip.seq_composition.tabular
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/seq_composition/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf seq_composition.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/seq_composition/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/seq_composition/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/MID4_GLZRM4E04_rnd30_frclip.sff
+    test-data/MID4_GLZRM4E04_rnd30_frclip.seq_composition.tabular
+    test-data/ecoli.fastq
+    test-data/ecoli.seq_composition.tabular
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.seq_composition.tabular
     tools/seq_composition/README.rst
     tools/seq_composition/seq_composition.py
     tools/seq_composition/seq_composition.xml
     tools/seq_composition/tool_dependencies.xml
-    test-data/four_human_proteins.fasta
-    test-data/four_human_proteins.seq_composition.tabular
-    test-data/ecoli.fastq
-    test-data/ecoli.seq_composition.tabular
-    test-data/MID4_GLZRM4E04_rnd30_frclip.sff
-    test-data/MID4_GLZRM4E04_rnd30_frclip.seq_composition.tabular
 
 
 Licence (MIT)

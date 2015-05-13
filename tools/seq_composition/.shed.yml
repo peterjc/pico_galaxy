@@ -10,3 +10,16 @@ long_description: |
 categories:
 - Sequence Analysis
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sff
+  - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.seq_composition.tabular
+  - ../../test-data/ecoli.fastq
+  - ../../test-data/ecoli.seq_composition.tabular
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.seq_composition.tabular
+  - ../../tools/seq_composition/README.rst
+  - ../../tools/seq_composition/seq_composition.py
+  - ../../tools/seq_composition/seq_composition.xml
+  - ../../tools/seq_composition/tool_dependencies.xml
