@@ -83,6 +83,7 @@ v0.0.9  - Renamed folder mira_assembler to mira3 (see also MIRA 4 wrapper).
 v0.0.10 - Added a functional test.
         - Updated URL for automated installation of MIRA v3.4.1.1
 v0.0.11 - Tool definition now embeds citation information.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -95,21 +96,30 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_3_4
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf mira3_wrapper.tar.gz tools/mira3/README.rst tools/mira3/mira.xml tools/mira3/mira.py tools/mira3/tool_dependencies.xml test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/empty_file.dat
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/mira3/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf mira3_wrapper.tar.gz
-    tools/mira3/README.rst
-    tools/mira3/mira.xml
-    tools/mira3/mira.py
-    tools/mira3/tool_dependencies.xml
-    test-data/tvc_mini.fastq
-    test-data/tvc_contigs.fasta
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/mira3/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/mira3/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/empty_file.dat
+    test-data/tvc_contigs.fasta
+    test-data/tvc_mini.fastq
+    tools/mira3/README.rst
+    tools/mira3/mira.py
+    tools/mira3/mira.xml
+    tools/mira3/tool_dependencies.xml
 
 
 Licence (MIT)
