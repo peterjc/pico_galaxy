@@ -56,6 +56,7 @@ v0.0.1  - Initial public release, tested with samtools v1.1.
 v0.0.2  - Defaults to pair-aware mode which requires pre-sorting by read name.
 v0.0.3  - Faster not to compress intermediate BAM file when sorting.
 v0.0.4  - Reorder XML elements (internal change only).
+        - lanemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -65,24 +66,33 @@ Developers
 Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_bam2fq
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf samtools_bam2fq.tar.gz tools/samtools_bam2fq/README.rst tools/samtools_bam2fq/samtools_bam2fq.xml tools/samtools_bam2fq/tool_dependencies.xml test-data/sam_spec_padded.bam test-data/sam_spec_padded.sam test-data/sam_spec_padded.depad.bam test-data/sam_spec_padded.bam2fq.fastq test-data/sam_spec_padded.bam2fq_no_suf.fastq test-data/sam_spec_padded.bam2fq_singles.fastq test-data/sam_spec_padded.bam2fq_pairs.fastq
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_bam2fq/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf samtools_bam2fq.tar.gz
-    tools/samtools_bam2fq/README.rst
-    tools/samtools_bam2fq/samtools_bam2fq.xml
-    tools/samtools_bam2fq/tool_dependencies.xml
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_bam2fq/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/samtools_bam2fq/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/sam_spec_padded.bam
-    test-data/sam_spec_padded.sam
-    test-data/sam_spec_padded.depad.bam
     test-data/sam_spec_padded.bam2fq.fastq
     test-data/sam_spec_padded.bam2fq_no_suf.fastq
     test-data/sam_spec_padded.bam2fq_singles.fastq
     test-data/sam_spec_padded.bam2fq_pairs.fastq
+    test-data/sam_spec_padded.depad.bam
+    test-data/sam_spec_padded.sam
+    tools/samtools_bam2fq/README.rst
+    tools/samtools_bam2fq/samtools_bam2fq.xml
+    tools/samtools_bam2fq/tool_dependencies.xml
 
 
 Licence (MIT)
