@@ -78,6 +78,7 @@ v0.0.8  - Link to Tool Shed added to help text and this documentation.
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
 v0.0.9  - Tool definition now embeds citation information.
 v0.0.10 - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -90,21 +91,32 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/nlstradamus
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
 
-    $ tar -czf nlstradmus.tar.gz tools/nlstradamus/README.rst tools/nlstradamus/nlstradamus.xml tools/nlstradamus/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.nlstradamus.tabular test-data/empty.fasta test-data/empty_nlstradamus.tabular
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-Check this worked::
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/nlstradamus/
+    ...
 
-    $ tar -tzf nlstradmus.tar.gz
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/nlstradamus/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/nlstradamus/
+    ...
+    $ tar -tzf shed_upload.tar.gz
+    test-data/empty.fasta
+    test-data/empty_nlstradamus.tabular
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.nlstradamus.tabular
     tools/nlstradamus/README.rst
     tools/nlstradamus/nlstradamus.xml
     tools/nlstradamus/tool_dependencies.xml
     test-data/four_human_proteins.fasta
-    test-data/four_human_proteins.nlstradamus.tabular
-    test-data/empty.fasta
-    test-data/empty_nlstradamus.tabular
 
 
 Licence (MIT)
