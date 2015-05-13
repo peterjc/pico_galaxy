@@ -101,6 +101,7 @@ v0.0.6  - Fixed error handling in ``mira4_convert.py``.
 v0.0.7  - Renamed folder (internal change only).
         - Reorder XML elements (internal change only).
         - Use the ``format_source=...`` tag in the MIRA bait wrapper.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -108,30 +109,29 @@ Developers
 ==========
 
 Development is on a dedicated GitHub repository:
-https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4
+https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4_assembler
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf mira4_wrapper.tar.gz tools/mira4_assembler/README.rst tools/mira4_assembler/mira4_de_novo.xml tools/mira4_assembler/mira4_mapping.xml tools/mira4_assembler/mira4_bait.xml tools/mira4_assembler/mira4_convert.xml tools/mira4_assembler/mira4.py tools/mira4_assembler/mira4_make_bam.py tools/mira4_assembler/mira4_validator.py tools/mira4_assembler/mira4_convert.py tools/mira4_assembler/mira4_bait.py tools/mira4_assembler/tool_dependencies.xml tools/mira4_assembler/repository_dependencies.xml test-data/U13small_m.fastq test-data/U13small_m.mira4_de_novo.fasta test-data/tvc_mini.fastq test-data/tvc_contigs.fasta test-data/tvc_map_ref_strain.fasta test-data/tvc_map_same_strain.fasta test-data/tvc_bait.fasta test-data/tvc_mini_bait_pos.fastq test-data/tvc_mini_bait_strict.fastq test-data/tvc_mini_bait_neg.fastq test-data/ecoli.fastq test-data/ecoli.mira4_de_novo.fasta test-data/header.mira test-data/empty_file.dat
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/mira4_assembler/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf mira4_wrapper.tar.gz
-    tools/mira4_assembler/README.rst
-    tools/mira4_assembler/mira4_de_novo.xml
-    tools/mira4_assembler/mira4_mapping.xml
-    tools/mira4_assembler/mira4_bait.xml
-    tools/mira4_assembler/mira4_convert.xml
-    tools/mira4_assembler/mira4.py
-    tools/mira4_assembler/mira4_make_bam.py
-    tools/mira4_assembler/mira4_validator.py
-    tools/mira4_assembler/mira4_convert.py
-    tools/mira4_assembler/mira4_bait.py
-    tools/mira4_assembler/tool_dependencies.xml
-    tools/mira4_assembler/repository_dependencies.xml
-    test-data/U13small_m.fastq
-    test-data/U13small_m.mira4_de_novo.fasta
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/mira4_assembler/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/mira4_assembler/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/ecoli.fastq
+    test-data/ecoli.mira4_de_novo.fasta
+    test-data/empty_file.dat
+    test-data/header.mira
     test-data/tvc_mini.fastq
     test-data/tvc_contigs.fasta
     test-data/tvc_map_ref_strain.fasta
@@ -140,11 +140,18 @@ Check this worked::
     test-data/tvc_mini_bait_pos.fastq
     test-data/tvc_mini_bait_strict.fastq
     test-data/tvc_mini_bait_neg.fastq
-    test-data/ecoli.fastq
-    test-data/ecoli.mira4_de_novo.fasta
-    test-data/header.mira
-    test-data/empty_file.dat
-
+    test-data/U13small_m.fastq
+    test-data/U13small_m.mira4_de_novo.fasta
+    tools/mira4_assembler/README.rst
+    tools/mira4_assembler/mira4.py
+    tools/mira4_assembler/mira4_bait.py
+    tools/mira4_assembler/mira4_convert.py
+    tools/mira4_assembler/mira4_de_novo.xml
+    tools/mira4_assembler/mira4_make_bam.py
+    tools/mira4_assembler/mira4_mapping.xml
+    tools/mira4_assembler/mira4_validator.py
+    tools/mira4_assembler/repository_dependencies.xml
+    tools/mira4_assembler/tool_dependencies.xml
 
 
 Licence (MIT)
