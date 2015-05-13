@@ -77,6 +77,7 @@ v0.0.6  - Simplified XML to apply input format to output data.
           the first word is used as the identifier (with a warning to stderr).
 v0.0.7  - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -89,21 +90,30 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf seq_rename.tar.gz tools/seq_rename/README.rst tools/seq_rename/seq_rename.* tools/seq_rename/tool_dependencies.xml test-data/four_human_proteins.fasta test-data/four_human_proteins.rename.tabular test-data/four_human_proteins.rename.fasta
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/seq_rename/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf seq_rename.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/seq_rename/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/seq_rename/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.rename.fasta
+    test-data/four_human_proteins.rename.tabular
     tools/seq_rename/README.rst
     tools/seq_rename/seq_rename.py
     tools/seq_rename/seq_rename.xml
     tools/seq_rename/tool_dependencies.xml
-    test-data/four_human_proteins.fasta
-    test-data/four_human_proteins.rename.tabular
-    test-data/four_human_proteins.rename.fasta
 
 
 Licence (MIT)

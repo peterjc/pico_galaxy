@@ -17,3 +17,13 @@ categories:
 - Sequence Analysis
 - Text Manipulation
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.rename.fasta
+  - ../../test-data/four_human_proteins.rename.tabular
+  - ../../tools/seq_rename/README.rst
+  - ../../tools/seq_rename/seq_rename.py
+  - ../../tools/seq_rename/seq_rename.xml
+  - ../../tools/seq_rename/tool_dependencies.xml
