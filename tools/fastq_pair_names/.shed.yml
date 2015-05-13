@@ -1,0 +1,20 @@
+name: venn_list
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/fastq_pair_names
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/fastq_pair_names
+description: Extract FASTQ paired read names
+long_description: |
+  Given FASTQ input, extracts lists of all paired reads, and all unpaired reads,
+  as two tabular files.
+categories:
+- Sequence Analysis
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/empty_file.dat
+  - ../../test-data/sanger-pairs-mixed.fastq
+  - ../../test-data/sanger-pairs-names.tabular
+  - ../../tools/fastq_pair_names/README.rst
+  - ../../tools/fastq_pair_names/fastq_pair_names.py
+  - ../../tools/fastq_pair_names/fastq_pair_names.xml

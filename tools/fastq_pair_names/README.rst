@@ -6,15 +6,13 @@ This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 See the licence text below (MIT licence).
 
 This tool is a short Python script which handles FASTQ files with paired
-reads to identifer pairs, and can be used to recover missing partners.
+reads to identify pairs, and can be used to recover missing partners.
 
 The inputs are FASTQ files, and the output is two tabular files. The first
 file has one line per read pair (showing the read pair's name with any
 suffix like ``/1`` or ``/2`` removed). The second file has one line per
 non-paired read (or paired read with unrecognised naming) giving the read
 name.
-
-The expectaction is the pair
 
 This tool is available from the Galaxy Tool Shed at:
 http://toolshed.g2.bx.psu.edu/view/peterjc/fastq_pair_names
@@ -24,7 +22,7 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-the tool from the Galaxy Tool Shed, and run the unit tests
+the tool from the Galaxy Tool Shed, and run the unit tests.
 
 
 Manual Installation
@@ -56,6 +54,7 @@ Version Changes
 v0.0.1  - Initial version.
 v0.0.2  - Tool definition now embeds citation information.
 v0.0.3  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -65,20 +64,29 @@ Developers
 Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_pair_names
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf fastq_pair_names.tar.gz tools/fastq_pair_names/README.rst tools/fastq/fastq_pair_names.* test-data/sanger-pairs-mixed.fastq test-data/sanger-pairs-names.tabular test-data/empty_file.dat
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/fastq_pair_names/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf fastq_pair_names.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/fastq_pair_names/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/fastq_pair_names/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/empty_file.dat
+    test-data/sanger-pairs-mixed.fastq
+    test-data/sanger-pairs-names.tabular
     tools/fastq_pair_names/README.rst
     tools/fastq_pair_names/fastq_pair_names.py
     tools/fastq_pair_names/fastq_pair_names.xml
-    test-data/sanger-pairs-mixed.fastq
-    test-data/sanger-pairs-names.tabular
-    test-data/empty_file.dat
 
 
 Licence (MIT)
