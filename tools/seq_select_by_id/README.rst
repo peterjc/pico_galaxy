@@ -84,6 +84,7 @@ v0.0.10 - Includes testing of stdout messages.
 v0.0.11 - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - Quote filenames in case of spaces (internal change only).
 ======= ======================================================================
 
 
