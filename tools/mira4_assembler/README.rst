@@ -128,6 +128,8 @@ To just build and check the tar ball, use::
     $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/mira4_assembler/
     ...
     $ tar -tzf shed_upload.tar.gz 
+    test-data/U13small_m.fastq
+    test-data/U13small_m.mira4_de_novo.fasta
     test-data/ecoli.fastq
     test-data/ecoli.mira4_de_novo.fasta
     test-data/empty_file.dat
@@ -137,11 +139,9 @@ To just build and check the tar ball, use::
     test-data/tvc_map_ref_strain.fasta
     test-data/tvc_map_same_strain.fasta
     test-data/tvc_bait.fasta
+    test-data/tvc_mini_bait_neg.fastq
     test-data/tvc_mini_bait_pos.fastq
     test-data/tvc_mini_bait_strict.fastq
-    test-data/tvc_mini_bait_neg.fastq
-    test-data/U13small_m.fastq
-    test-data/U13small_m.mira4_de_novo.fasta
     tools/mira4_assembler/README.rst
     tools/mira4_assembler/mira4.py
     tools/mira4_assembler/mira4_bait.py
