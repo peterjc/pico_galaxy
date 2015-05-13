@@ -1,0 +1,71 @@
+name: tmhmm_and_signalp
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/protein_analysis
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/protein_analysis
+description: TMHMM, SignalP, Promoter, RXLR motifs, WoLF PSORT and PSORTb
+long_description: |
+  Galaxy wrappers for several standalone command line sequence analysis tools:
+
+  SignalP 3.0 predicts signal peptides, see:
+  http://www.cbs.dtu.dk/services/SignalP/
+
+  TMHMM 2.0 predicts transmembrane helices, see:
+  http://www.cbs.dtu.dk/services/TMHMM/
+
+  Promoter 2.0 predicts eukaryotic PolII promoters, see:
+  http://www.cbs.dtu.dk/services/Promoter/
+
+  WoLF PSORT predicts eukaryote protein sub-cellular localization, see:
+  http://wolfpsort.org/
+
+  POSRTb predicts prokaryote protein sub-cellular localization, see:
+  http://www.psort.org/documentation/index.html
+
+  Oomycete RXLR motif prediction - a Python script implementing three published
+  methods, which calls SignalP 3.0 and HMMER 2.3.2 internally.
+
+  To use these Galaxy wrappers you must first install the command line tools,
+  which at the the time of writing are all free for academic use or open source.
+categories:
+- Sequence Analysis
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/Adenovirus.fasta
+  - ../../test-data/Adenovirus.promoter2.tabular
+  - ../../test-data/empty.fasta
+  - ../../test-data/empty_promoter2.tabular
+  - ../../test-data/empty_psortb_terse.tabular
+  - ../../test-data/empty_rxlr.Bhattacharjee2006.tabular
+  - ../../test-data/empty_rxlr.Whisson2007.tabular
+  - ../../test-data/empty_rxlr.Win2007.tabular
+  - ../../test-data/empty_signalp3.tabular
+  - ../../test-data/empty_tmhmm2.tabular
+  - ../../test-data/empty_wolf_psort.tabular
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.signalp3.tabular
+  - ../../test-data/four_human_proteins.tmhmm2.tabular
+  - ../../test-data/four_human_proteins.wolf_psort.tabular
+  - ../../test-data/k12_ten_proteins.fasta
+  - ../../test-data/k12_ten_proteins_psortb_p_terse.tabular
+  - ../../test-data/rxlr_win_et_al_2007.fasta
+  - ../../test-data/rxlr_win_et_al_2007.tabular
+  - ../../test-data/rxlr_win_et_al_2007_sp3.tabular
+  - ../../tools/protein_analysis/LICENSE.txt
+  - ../../tools/protein_analysis/README.rst
+  - ../../tools/protein_analysis/promoter2.py
+  - ../../tools/protein_analysis/promoter2.xml
+  - ../../tools/protein_analysis/psortb.py
+  - ../../tools/protein_analysis/psortb.xml
+  - ../../tools/protein_analysis/rxlr_motifs.py
+  - ../../tools/protein_analysis/rxlr_motifs.xml
+  - ../../tools/protein_analysis/seq_analysis_utils.py
+  - ../../tools/protein_analysis/signalp3.py
+  - ../../tools/protein_analysis/signalp3.xml
+  - ../../tools/protein_analysis/suite_config.xml
+  - ../../tools/protein_analysis/tmhmm2.py
+  - ../../tools/protein_analysis/tmhmm2.xml
+  - ../../tools/protein_analysis/whisson_et_al_rxlr_eer_cropped.hmm
+  - ../../tools/protein_analysis/wolf_psort.py
+  - ../../tools/protein_analysis/wolf_psort.xml

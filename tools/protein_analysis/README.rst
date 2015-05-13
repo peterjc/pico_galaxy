@@ -176,6 +176,7 @@ v0.2.6  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
         - Tool definition now embeds citation information.
 v0.2.7  - Style cleanup in Python scripts.
 v0.2.8  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -189,10 +190,61 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools
 
-For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
 
-    $ ./tools/protein_analysis/make_tmhmm_and_signalp.sh
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
+
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/protein_analysis/
+    ...
+
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/protein_analysis/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/protein_analysis/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/Adenovirus.fasta
+    test-data/Adenovirus.promoter2.tabular
+    test-data/empty.fasta
+    test-data/empty_promoter2.tabular
+    test-data/empty_psortb_terse.tabular
+    test-data/empty_rxlr.Bhattacharjee2006.tabular
+    test-data/empty_rxlr.Whisson2007.tabular
+    test-data/empty_rxlr.Win2007.tabular
+    test-data/empty_signalp3.tabular
+    test-data/empty_tmhmm2.tabular
+    test-data/empty_wolf_psort.tabular
+    test-data/four_human_proteins.fasta
+    test-data/four_human_proteins.signalp3.tabular
+    test-data/four_human_proteins.tmhmm2.tabular
+    test-data/four_human_proteins.wolf_psort.tabular
+    test-data/k12_ten_proteins.fasta
+    test-data/k12_ten_proteins_psortb_p_terse.tabular
+    test-data/rxlr_win_et_al_2007.fasta
+    test-data/rxlr_win_et_al_2007.tabular
+    test-data/rxlr_win_et_al_2007_sp3.tabular
+    tools/protein_analysis/LICENSE.txt
+    tools/protein_analysis/README.rst
+    tools/protein_analysis/promoter2.py
+    tools/protein_analysis/promoter2.xml
+    tools/protein_analysis/psortb.py
+    tools/protein_analysis/psortb.xml
+    tools/protein_analysis/rxlr_motifs.py
+    tools/protein_analysis/rxlr_motifs.xml
+    tools/protein_analysis/seq_analysis_utils.py
+    tools/protein_analysis/signalp3.py
+    tools/protein_analysis/signalp3.xml
+    tools/protein_analysis/suite_config.xml
+    tools/protein_analysis/tmhmm2.py
+    tools/protein_analysis/tmhmm2.xml
+    tools/protein_analysis/whisson_et_al_rxlr_eer_cropped.hmm
+    tools/protein_analysis/wolf_psort.py
+    tools/protein_analysis/wolf_psort.xml
 
 This simplifies ensuring a consistent set of files is bundled each time,
 including all the relevant test files.
