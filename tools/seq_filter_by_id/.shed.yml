@@ -22,3 +22,18 @@ categories:
 - Sequence Analysis
 - Text Manipulation
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/empty_file.dat
+  - ../../test-data/k12_hypothetical.fasta
+  - ../../test-data/k12_hypothetical.tabular
+  - ../../test-data/k12_hypothetical_alt.tabular
+  - ../../test-data/k12_ten_proteins.fasta
+  - ../../test-data/sanger-pairs-mixed.fastq
+  - ../../test-data/sanger-pairs-names.tabular
+  - ../../test-data/sanger-sample.fastq
+  - ../../tools/seq_filter_by_id/README.rst
+  - ../../tools/seq_filter_by_id/seq_filter_by_id.py
+  - ../../tools/seq_filter_by_id/seq_filter_by_id.xml
+  - ../../tools/seq_filter_by_id/tool_dependencies.xml
