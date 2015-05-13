@@ -1,0 +1,23 @@
+name: samtools_depth
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tools/samtools_depth
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/samtools_depth
+description: Coverage depth via samtools
+long_description: |
+  Wrapper for samtools depth command.
+categories:
+- Assembly
+- Sequence Analysis
+- SAM
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/ex1.bam
+  - ../../test-data/ex1.depth.tabular
+  - ../../test-data/sam_spec_padded.bam
+  - ../../test-data/sam_spec_padded.depth.tabular
+  - ../../test-data/sam_spec_padded.sam
+  - ../../tools/samtools_depth/README.rst
+  - ../../tools/samtools_depth/samtools_depth.xml
+  - ../../tools/samtools_depth/tool_dependencies.xml
