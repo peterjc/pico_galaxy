@@ -83,6 +83,7 @@ v0.0.10 - Includes testing of stdout messages.
         - Includes testing of failure modes.
 v0.0.11 - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -95,23 +96,31 @@ http://bitbucket.org/peterjc/galaxy-central/src/tools
 Development has now moved to a dedicated GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ tar -czf seq_select_by_id.tar.gz tools/seq_select_by_id/README.rst tools/seq_select_by_id/seq_select_by_id.* tools/seq_select_by_id/tool_dependencies.xml test-data/k12_ten_proteins.fasta test-data/k12_hypothetical.fasta test-data/k12_hypothetical.tabular test-data/k12_hypothetical_alt.tabular test-data/empty.fasta
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/seq_select_by_id/
+    ...
 
-Check this worked::
+or::
 
-    $ tar -tzf seq_select_by_id.tar.gz
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/seq_select_by_id/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/seq_select_by_id/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
+    test-data/k12_hypothetical.fasta
+    test-data/k12_hypothetical.tabular
+    test-data/k12_hypothetical_alt.tabular
+    test-data/k12_ten_proteins.fasta
     tools/seq_select_by_id/README.rst
     tools/seq_select_by_id/seq_select_by_id.py
     tools/seq_select_by_id/seq_select_by_id.xml
     tools/seq_select_by_id/tool_dependencies.xml
-    test-data/k12_ten_proteins.fasta
-    test-data/k12_hypothetical.fasta
-    test-data/k12_hypothetical.tabular
-    test-data/k12_hypothetical_alt.tabular
-    test-data/empty.fasta
 
 
 Licence (MIT)
