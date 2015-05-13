@@ -1,14 +1,22 @@
 name: samtools_idxstats
 owner: peterjc
-homepage_url: 
-remote_repository_url: 
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
 description: BAM mapping statistics (using samtools idxstats)
-long_description: Runs "samtools idxstats" to get mapping statistics from a sorted index BAM file as
-  a tabular output file.
-
-  https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstat
+long_description: |
+  Runs "samtools idxstats" to get mapping statistics from a sorted index BAM
+  file as a tabular output file.
 categories:
 - Assembly
 - Next Gen Mappers
 - SAM
 type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/ex1.bam
+  - ../../test-data/ex1.idxstats.tabular
+  - ../../tools/samtools_idxstats/README.rst
+  - ../../tools/samtools_idxstats/samtools_idxstats.py
+  - ../../tools/samtools_idxstats/samtools_idxstats.xml
+  - ../../tools/samtools_idxstats/tool_dependencies.xml

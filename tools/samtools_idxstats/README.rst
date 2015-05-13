@@ -53,6 +53,7 @@ v0.0.1  - Initial public release
 v0.0.2  - Use quoted filenames when calling samtools (in case of spaces etc)
 v0.0.3  - Embed samtools citation in tool XML.
 v0.0.4  - Reorder XML elements (internal change only).
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 ======= ======================================================================
 
 
@@ -62,20 +63,30 @@ Developers
 Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
 
-    $ tar -czf samtools_idxstats.tar.gz tools/samtools_idxstats/README.rst tools/samtools_idxstats/samtools_idxstats.xml tools/samtools_idxstats/samtools_idxstats.py tools/samtools_idxstats/tool_dependencies.xml test-data/ex1.bam test-data/ex1.idxstats.tabular
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-Check this worked::
+    $ planemo shed_upload --shed_target testtoolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_idxstats/
+    ...
 
-    $ tar -tzf samtools_idxstats.tar.gz
-    tools/samtools_idxstats/README.rst
-    tools/samtools_idxstats/samtools_idxstats.xml
-    tools/samtools_idxstats/samtools_idxstats.py
-    tools/samtools_idxstats/tool_dependencies.xml
+or::
+
+    $ planemo shed_upload --shed_target toolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_idxstats/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/samtools_idxstats/
+    ...
+    $ tar -tzf shed_upload.tar.gz 
     test-data/ex1.bam
     test-data/ex1.idxstats.tabular
+    tools/samtools_idxstats/README.rst
+    tools/samtools_idxstats/samtools_idxstats.py
+    tools/samtools_idxstats/samtools_idxstats.xml
+    tools/samtools_idxstats/tool_dependencies.xml
 
 
 Licence (MIT)
