@@ -47,6 +47,9 @@ installation script.
 
 http://chevreux.org/projects_mira.html
 http://sourceforge.net/projects/mira-assembler/
+
+The environment variable ``$MIRA4`` will point to the folder containing the binaries,
+which is also pre-pended to the``$PATH`` variable.
         </readme>
     </package>
 </tool_dependency>
