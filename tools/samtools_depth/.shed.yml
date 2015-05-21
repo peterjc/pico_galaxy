@@ -1,6 +1,6 @@
 name: samtools_depth
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depth
+homepage_url: http://www.htslib.org/
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depth
 description: Coverage depth via samtools
 long_description: |

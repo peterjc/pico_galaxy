@@ -1,6 +1,6 @@
 name: samtools_idxstats
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
+homepage_url: http://www.htslib.org/
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_idxstats
 description: BAM mapping statistics (using samtools idxstats)
 long_description: |

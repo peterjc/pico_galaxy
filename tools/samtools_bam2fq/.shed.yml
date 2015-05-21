@@ -1,6 +1,6 @@
 name: samtools_bam2fq
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_bam2fq
+homepage_url: http://www.htslib.org/
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_bam2fq
 description: Convert SAM or BAM files to FASTQ using samtools bam2fq
 long_description: |

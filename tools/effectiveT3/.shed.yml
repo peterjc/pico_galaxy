@@ -1,6 +1,6 @@
 name: effectivet3
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/effectiveT3
+homepage_url: http://effectors.org
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/effectiveT3
 description: Find bacterial type III effectors in protein sequences
 long_description: |

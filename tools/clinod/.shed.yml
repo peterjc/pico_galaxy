@@ -1,6 +1,6 @@
 name: clinod
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/clinod
+homepage_url: http://www.compbio.dundee.ac.uk/www-nod/
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/clinod
 description: 'NoD: a Nucleolar localization sequence detector for eukaryotic and viral proteins'
 long_description: |
