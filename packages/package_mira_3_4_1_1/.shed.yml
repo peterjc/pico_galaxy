@@ -1,0 +1,15 @@
+name: package_mira_3_4_1_1
+owner: peterjc
+homepage_url: http://chevreux.org/projects_mira.html
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/packages/package_mira_3_4_1_1
+description: MIRA assembler v3.4.1.1
+long_description: |
+  Downloads MIRA v3.4.1.1 from Sourceforge, requesting Bastien's precompiled binaries
+  for 64bit Linux (x86_64). He also has binaries for 32bit Linux (686 only), which we
+  could use once the Galaxy installation framework allow that kind of flexibility.
+  
+  http://chevreux.org/projects_mira.html
+  http://sourceforge.net/projects/mira-assembler/
+categories:
+- Tool Dependency Packages
+type: tool_dependency_definition
