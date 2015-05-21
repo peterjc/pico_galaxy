@@ -3,7 +3,7 @@
     <requirements>
         <requirement type="binary">mira</requirement>
         <requirement type="binary">miraconvert</requirement>
-        <requirement type="package" version="4.0">MIRA</requirement>
+        <requirement type="package" version="4.0.2">MIRA</requirement>
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>

@@ -102,6 +102,7 @@ v0.0.7  - Renamed folder (internal change only).
         - Reorder XML elements (internal change only).
         - Use the ``format_source=...`` tag in the MIRA bait wrapper.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - MIRA 4.0.2 dependency now declared via dedicated Tool Shed package.
 ======= ======================================================================
 
 

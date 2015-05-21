@@ -2,7 +2,7 @@
     <description>Filter reads using kmer matches</description>
     <requirements>
         <requirement type="binary">mirabait</requirement>
-        <requirement type="package" version="4.0">MIRA</requirement>
+        <requirement type="package" version="4.0.2">MIRA</requirement>
     </requirements>
     <stdio>
         <!-- Assume anything other than zero is an error -->
