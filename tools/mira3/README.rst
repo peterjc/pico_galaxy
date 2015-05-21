@@ -84,6 +84,7 @@ v0.0.10 - Added a functional test.
         - Updated URL for automated installation of MIRA v3.4.1.1
 v0.0.11 - Tool definition now embeds citation information.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - MIRA 3.4.1.1 dependency now declared via dedicated Tool Shed package.
 ======= ======================================================================
 
 
