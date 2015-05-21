@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="MIRA" version="4.0">
+    <package name="MIRA" version="4.0.2">
         <install version="1.0">
             <actions_group>
                 <!-- Download the binaries for MIRA compatible with 64-bit OSX. -->
