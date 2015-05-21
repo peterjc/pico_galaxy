@@ -1,7 +1,7 @@
 name: seq_select_by_id
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_select_by_id
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_select_by_id
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_select_by_id
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_select_by_id
 description: Select sequences by ID
 long_description: |
   Select FASTA, FASTQ, QUAL or SFF sequences using a list of IDs in a tabular file.

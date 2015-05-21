@@ -1,7 +1,7 @@
 name: fastq_paired_unpaired
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/fastq_paired_unpaired
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/fastq_paired_unpaired
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_paired_unpaired
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_paired_unpaired
 description: Divide FASTQ file into paired and unpaired reads
 long_description: |
   Using the common read name suffix conventions, it divides a FASTQ file into paired

@@ -1,7 +1,7 @@
 name: fastq_pair_names
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/fastq_pair_names
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/fastq_pair_names
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_pair_names
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_pair_names
 description: Extract FASTQ paired read names
 long_description: |
   Given FASTQ input, extracts lists of all paired reads, and all unpaired reads,

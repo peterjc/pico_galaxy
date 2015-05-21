@@ -1,7 +1,7 @@
 name: tmhmm_and_signalp
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/protein_analysis
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/protein_analysis
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/protein_analysis
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/protein_analysis
 description: TMHMM, SignalP, Promoter, RXLR motifs, WoLF PSORT and PSORTb
 long_description: |
   Galaxy wrappers for several standalone command line sequence analysis tools:

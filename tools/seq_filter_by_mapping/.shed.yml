@@ -1,7 +1,7 @@
 name: seq_filter_by_mapping
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_filter_by_mapping
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_filter_by_mapping
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_mapping
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_mapping
 description: Filter sequencing reads using SAM/BAM mapping files
 long_description: |
   This tool is a short Python script (using Biopython library functions) which divides

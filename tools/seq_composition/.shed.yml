@@ -1,7 +1,7 @@
 name: seq_composition
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_composition
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_composition
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_composition
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_composition
 description: Sequence composition
 long_description: |
   Counts the letters in given sequence files, returning a table listing them

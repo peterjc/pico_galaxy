@@ -1,7 +1,7 @@
 name: venn_list
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/venn_list
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/venn_list
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/venn_list
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/venn_list
 description: Draw Venn Diagram (PDF) from lists, FASTA files, etc
 long_description: |
   Draw Venn Diagrams for 1, 2 or 3 sets of identifiers as a PDF file.

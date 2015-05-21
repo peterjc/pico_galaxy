@@ -1,7 +1,7 @@
 name: samtools_depad
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/samtools_depad
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/samtools_depad
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depad
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depad
 description: Re-align a SAM/BAM file with a padded reference (using samtools depad)
 long_description: |
   Runs "samtools depad" to remap a SAM/BAM file using a padded reference (with

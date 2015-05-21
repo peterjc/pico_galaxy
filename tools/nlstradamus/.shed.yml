@@ -1,7 +1,7 @@
 name: nlstradamus
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/nlstradamus
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/nlstradamus
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/nlstradamus
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/nlstradamus
 description: Find nuclear localization signals (NLSs) in protein sequences
 long_description: |
   Wraps the NLStradamus tool for prediction of nuclear localization signals (NLSs),

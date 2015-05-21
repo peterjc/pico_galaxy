@@ -1,7 +1,7 @@
 name: coverage_stats
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/coverage_stats
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/coverage_stats
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/coverage_stats
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/coverage_stats
 description: BAM coverage statistics using samtools idxstats and depth
 long_description: |
   This tool runs the commands ``samtools idxstats`` and ``samtools depth`` from

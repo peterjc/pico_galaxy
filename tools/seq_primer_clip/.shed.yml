@@ -1,7 +1,7 @@
 name: seq_primer_clip
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/seq_primer_clip
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/seq_primer_clip
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_primer_clip
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_primer_clip
 description: Trim off 5' or 3' primers
 long_description: |
   Takes reads in FASTA, FASTQ or SFF format and looks for the given primer sequences

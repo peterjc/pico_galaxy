@@ -1,7 +1,7 @@
 name: samtools_depth
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/samtools_depth
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/samtools_depth
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depth
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/samtools_depth
 description: Coverage depth via samtools
 long_description: |
   Wrapper for samtools depth command.

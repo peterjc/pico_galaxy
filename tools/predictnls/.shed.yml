@@ -1,7 +1,7 @@
 name: predictnls
 owner: peterjc
-homepage_url: https://github.com/peterjc/pico_galaxy/tools/predictnls
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tools/predictnls
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/predictnls
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/predictnls
 description: Python reimplementation of predictNLS for Galaxy
 long_description: |
   A tool for the analysis and determination of Nuclear Localization Signals (NLS).
