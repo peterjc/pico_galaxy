@@ -26,7 +26,7 @@
                     <action type="shell_command">uname</action>
                     <action type="shell_command">arch</action>
                     <action type="shell_command">echo "If pre-compiled MIRA binaries are now available for this, please report this"</action>
-                    <action type="shell_command">echo "via https://github.com/peterjc/pico_galaxyt/issues - thank you!"</action>
+                    <action type="shell_command">echo "via https://github.com/peterjc/pico_galaxy/issues - thank you!"</action>
                     <action type="shell_command">false</action>
                     <!-- The 'false' command will return an error, so Galaxy should treat this as a failed install -->
                 </actions>
