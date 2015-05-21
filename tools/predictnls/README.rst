@@ -5,8 +5,8 @@ This Galaxy tool is copyright 2011-2015 by Peter Cock, The James Hutton Institut
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
-The tool consists of a Galaxy interface definition (predictnls.xml), and a Python
-script (predictnls.py) which re-implements the command line tool predictNLS. This
+The tool consists of a Galaxy interface definition (``predictnls.xml``), and a Python
+script (``predictnls.py``) which re-implements the command line tool predictNLS. This
 should match the behaviour of predictNLS v1.0.20 (July 2011), the current latest
 release from the Rost Lab, see http://rostlab.org and their paper:
 
@@ -30,12 +30,12 @@ Manual Installation
 ===================
 
 There are just four files which should be moved under the Galaxy tools folder,
-e.g. in a tools/protein_analysis filter:
+e.g. in a ``tools/protein_analysis`` filter:
 
-* predictlns.xml (the Galaxy tool definition)
-* predictlns.py (the Python script)
-* predictlns.txt (this README file)
-* My_NLS_list (the default set of NLS motifs from the Rost Lab)
+* ``predictlns.xml`` (the Galaxy tool definition)
+* ``predictlns.py`` (the Python script)
+* ``predictlns.txt`` (this README file)
+* ``My_NLS_list`` (the default set of NLS motifs from the Rost Lab)
 
 You will also need to modify the tools_conf.xml file to tell Galaxy to offer the
 tool. If you are using other protein analysis tools like TMHMM or SignalP, put
@@ -75,10 +75,6 @@ Developers
 This script and related tools were initially developed on the following hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
 
-For making the "Galaxy Tool Shed" http://toolshed.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder::
-
-
 For pushing a release to the test or main "Galaxy Tool Shed", use the following
 Planemo commands (which requires you have set your Tool Shed access details in
 ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
@@ -114,7 +110,7 @@ The Python script is my reimplementation of the original Perl program from
 the Rost Lab, which was released under the GPL v3. Therefore, as I consider
 this to be a derivative work, this too is released under the GPL v3.
 
-Please note that the My_NLS_list should be an exact copy of the file of the
-same name included with predictnls-1.0.7.tar.gz to predictnls-1.0.20.tar.gz
+Please note that the ``My_NLS_list`` file should be an exact copy of the file of the
+same name included with ``predictnls-1.0.7.tar.gz`` to ``predictnls-1.0.20.tar.gz``
 inclusive (the list was extended in v1.0.7 in August 2010, see the change log
 included in those tar-balls), available from ftp://rostlab.org/predictnls/
