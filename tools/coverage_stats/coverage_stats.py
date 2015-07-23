@@ -32,6 +32,7 @@ def sys_exit(msg, error_level=1):
    sys.stderr.write("%s\n" % msg)
    sys.exit(error_level)
 
+# TODO - Proper command line API
 if len(sys.argv) == 4:
     bam_filename, bai_filename, tabular_filename = sys.argv[1:]
     max_depth = "8000"
@@ -46,12 +47,18 @@ if not os.path.isfile(bai_filename):
     if bai_filename == "None":
         sys_exit("Error: Galaxy did not index your BAM file")
     sys_exit("Input BAI file not found: %s" % bai_filename)
+
 try:
     max_depth = int(max_depth)
 except ValueError:
     sys_exit("Bad argument for max depth: %r" % max_depth)
 if max_depth < 0:
-    sys_exit("Bad argument for max depth: %r" %max_depth)
+    sys_exit("Bad argument for max depth: %r" % max_depth)
+
+# fuzz factor to ensure can reach max_depth, e.g. region with
+# many reads having a deletion present could underestimate the
+# coverage by capping the number of reads considered
+depth_margin = 100
 
 #Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
@@ -81,7 +88,7 @@ if return_code:
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
-cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth, bam_file, depth_filename)
+cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth + depth_margin, bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()
@@ -110,7 +117,7 @@ def load_total_coverage(depth_handle, identifier, length):
             return 0, 0, 0.0
         depth_ref, depth_pos, depth_reads = line.rstrip("\n").split()
         depth_pos = int(depth_pos)
-        depth_reads = int(depth_reads)
+        depth_reads = min(max_depth, int(depth_reads))
         # Can now treat as later references where first line cached
     elif identifier != depth_ref:
         # Infer that identifier had coverage zero,
@@ -135,7 +142,7 @@ def load_total_coverage(depth_handle, identifier, length):
     for line in depth_handle:
         ref, pos, depth = line.rstrip("\n").split()
         pos = int(pos)
-        depth = int(depth)
+        depth = min(max_depth, int(depth))
         if ref != identifier:
             # Reached the end of this identifier's coverage
             # so cache this ready for next identifier
@@ -179,6 +186,9 @@ for line in idxstats_handle:
         mean_cov = 0.0
     else:
         min_cov, max_cov, mean_cov = load_total_coverage(depth_handle, identifier, length)
+    if max_cov > max_depth:
+        sys_exit("Using max depth %i yet saw max coverage %i for %s"
+                 % (max_depth, max_cov, identifier))
     out_handle.write("%s\t%i\t%i\t%i\t%i\t%i\t%0.2f\n"
                      % (identifier, length, mapped, placed,
                         min_cov, max_cov, mean_cov))

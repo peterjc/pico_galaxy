@@ -56,6 +56,9 @@ v0.0.3  - Cope with no coverage in final contigs.
 v0.0.4  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.5  - Expose the new ``samtools depth -d ...`` argument added after v1.2.1
+        - Apply the new maximum depth parameter within the script to ensure
+          excess coverage is clear by getting the max coverage equal to the
+          max depth setting (the raw output from samtools is more fuzzy).
 ======= ======================================================================
 
 
