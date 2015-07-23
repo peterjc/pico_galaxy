@@ -6,9 +6,15 @@ This script takes exactly three command line arguments:
  * Input BAI filename (via Galaxy metadata)
  * Output tabular filename
 
+Optional fourth argument:
+ * Max coverage depth (integer)
+
 This messes about with the filenames to make samtools happy, then
 runs "samtools idxstats" and "samtools depth", captures and combines
 the output to the desired output tabular file.
+
+TODO: Note that "samtools depth" treats the max depth a little fuzzily.
+Perhaps this tool should account for this and apply a clear cut off?
 """
 import sys
 import os
@@ -17,7 +23,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     #Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.3 [with depth hack]")
+    print("BAM coverage statistics v0.0.5")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -26,10 +32,13 @@ def sys_exit(msg, error_level=1):
    sys.stderr.write("%s\n" % msg)
    sys.exit(error_level)
 
-if len(sys.argv) != 4:
-   sys_exit("Require three arguments: BAM, BAI, tabular filenames")
-
-bam_filename, bai_filename, tabular_filename = sys.argv[1:]
+if len(sys.argv) == 4:
+    bam_filename, bai_filename, tabular_filename = sys.argv[1:]
+    max_depth = "8000"
+elif len(sys.argv) == 5:
+    bam_filename, bai_filename, tabular_filename, max_depth = sys.argv[1:]
+else:
+    sys_exit("Require 3 or 4 arguments: BAM, BAI, tabular filename, [max depth]")
 
 if not os.path.isfile(bam_filename):
     sys_exit("Input BAM file not found: %s" % bam_filename)
@@ -37,6 +46,12 @@ if not os.path.isfile(bai_filename):
     if bai_filename == "None":
         sys_exit("Error: Galaxy did not index your BAM file")
     sys_exit("Input BAI file not found: %s" % bai_filename)
+try:
+    max_depth = int(max_depth)
+except ValueError:
+    sys_exit("Bad argument for max depth: %r" % max_depth)
+if max_depth < 0:
+    sys_exit("Bad argument for max depth: %r" %max_depth)
 
 #Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
@@ -66,7 +81,7 @@ if return_code:
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
-cmd = 'samtools depth -d 250000 "%s" > "%s"' % (bam_file, depth_filename)
+cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth, bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()

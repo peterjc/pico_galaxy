@@ -1,8 +1,8 @@
-<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.4">
+<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.5">
     <description>using samtools idxstats and depth</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
-        <requirement type="package" version="0.1.19">samtools</requirement>
+        <requirement type="package" version="1.2.2">samtools</requirement>
     </requirements>
     <stdio>
         <!-- Assume anything other than zero is an error -->
@@ -10,9 +10,10 @@
         <exit_code range=":-1" />
     </stdio>
     <version_command interpreter="python">coverage_stats.py --version</version_command>
-    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular"</command>
+    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$max_depth"</command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
+        <param name="max_depth" type="integer" min="0" max="1000000" label="Max depth" value="8000" />
     </inputs>
     <outputs>
         <data name="out_tabular" format="tabular" label="$input_bam.name (coverage stats)" />
@@ -20,10 +21,12 @@
     <tests>
         <test>
             <param name="input_bam" value="ex1.bam" ftype="bam" />
+	    <param name="max_depth" value="123" />
             <output name="out_tabular" file="ex1.coverage_stats.tabular" ftype="tabular" />
         </test>
         <test>
             <param name="input_bam" value="coverage_test.bam" ftype="bam" />
+	    <param name="max_depth" value="123" />
             <output name="out_tabular" file="coverage_test.coverage_stats.tabular" ftype="tabular" />
         </test>
     </tests>

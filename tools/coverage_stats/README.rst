@@ -55,6 +55,7 @@ v0.0.2  - Cope with samtools' default depth limit using modified samtools,
 v0.0.3  - Cope with no coverage in final contigs.
 v0.0.4  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.5  - Expose the new ``samtools depth -d ...`` argument added after v1.2.1
 ======= ======================================================================
 
 
