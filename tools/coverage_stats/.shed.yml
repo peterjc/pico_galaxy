@@ -18,6 +18,7 @@ include:
   - ../../test-data/coverage_test.coverage_stats.tabular
   - ../../test-data/ex1.bam
   - ../../test-data/ex1.coverage_stats.tabular
+  - ../../test-data/ex1.coverage_stats.md50.tabular
   - ../../tools/coverage_stats/README.rst
   - ../../tools/coverage_stats/coverage_stats.xml
   - ../../tools/coverage_stats/coverage_stats.py

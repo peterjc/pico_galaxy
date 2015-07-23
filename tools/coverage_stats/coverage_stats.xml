@@ -25,6 +25,11 @@
             <output name="out_tabular" file="ex1.coverage_stats.tabular" ftype="tabular" />
         </test>
         <test>
+            <param name="input_bam" value="ex1.bam" ftype="bam" />
+            <param name="max_depth" value="50" />
+            <output name="out_tabular" file="ex1.coverage_stats.md50.tabular" ftype="tabular" />
+        </test>
+        <test>
             <param name="input_bam" value="coverage_test.bam" ftype="bam" />
 	    <param name="max_depth" value="123" />
             <output name="out_tabular" file="coverage_test.coverage_stats.tabular" ftype="tabular" />

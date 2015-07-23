@@ -1,0 +1,4 @@
+#identifer	length	mapped	placed	min_cov	max_cov	mean_cov
+chr1	1575	1446	18	0	50	32.06
+chr2	1584	1789	17	0	50	38.70
+*	0	0	0	0	0	0.00
