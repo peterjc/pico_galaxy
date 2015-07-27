@@ -85,9 +85,15 @@ In this BAM file, the fourth column was otherwise zero.
 
 .. class:: warningmark
 
-**Note**. There is an internal hard limit of 8000 for the pileup routine in
-samtools, meaning the reported coverage from ``samtools depth`` will show
-maximum coverage depths *around* 8000.
+**Note**. If using this on a mapping BAM file, beware that the coverage counting is
+done per base of the reference.  This means if your reference has any extra bases
+compared to the reads being mapped, those bases will be skipped by CIGAR D operators
+and these "extra" bases can have an extremely low coverage, giving a potentially
+misleading ``min_cov`` values. A sliding window coverage may be more appropriate.
+
+**Note**. Up until samtools 1.2, there was an internal hard limit of 8000 for the
+pileup routine, meaning the reported coverage from ``samtools depth`` would show
+maximum coverage depths *around* 8000. This is now a run time option.
 
 
 **Citation**
