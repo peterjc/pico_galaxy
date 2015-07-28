@@ -88,6 +88,7 @@ if return_code:
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
+# TODO - Check stderr for "depth: invalid option" indicating samtools too old?
 cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth + depth_margin, bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
