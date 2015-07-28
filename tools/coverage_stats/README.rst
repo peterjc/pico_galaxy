@@ -61,6 +61,9 @@ v0.0.5  - Expose new ``samtools depth -d ...`` argument added in samtools v1.3
         - Apply the new maximum depth parameter within the script to ensure
           excess coverage is clear by getting the max coverage equal to the
           max depth setting (the raw output from samtools is more fuzzy).
+v0.1.0  - Option to calculate min/max windowed coverage (useful when mapping
+          reads and not interested where common CIGAR deletions can give low
+          coverage to an "insert" in the reference).
 ======= ======================================================================
 
 

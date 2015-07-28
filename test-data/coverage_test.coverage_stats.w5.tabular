@@ -1,0 +1,7 @@
+#identifer	length	mapped	placed	min_cov	max_cov	mean_cov	min_win_cov	max_win_cov
+ref	100	5	0	0	2	0.50	0.00	1.60
+none	200	0	0	0	0	0.00	0.00	0.00
+full	10	3	0	2	2	2.00	2.00	2.00
+head	10	1	0	0	1	0.50	0.00	1.00
+tail	20	1	0	0	1	0.25	0.00	1.00
+*	0	0	1	0	0	0.00	0.00	0.00

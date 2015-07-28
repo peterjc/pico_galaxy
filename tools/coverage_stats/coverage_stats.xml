@@ -1,4 +1,4 @@
-<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.5">
+<tool id="coverage_stats" name="BAM coverage statistics" version="0.1.0">
     <description>using samtools idxstats and depth</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
@@ -10,10 +10,11 @@
         <exit_code range=":-1" />
     </stdio>
     <version_command interpreter="python">coverage_stats.py --version</version_command>
-    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$max_depth"</command>
+    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$max_depth" "$window_size"</command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
         <param name="max_depth" type="integer" min="0" max="1000000" label="Max depth" value="8000" />
+        <param name="window_size" type="integer" min="0" max="1000" label="Window size (zero means no window calculation)" value="0" />
     </inputs>
     <outputs>
         <data name="out_tabular" format="tabular" label="$input_bam.name (coverage stats)" />
@@ -33,6 +34,12 @@
             <param name="input_bam" value="coverage_test.bam" ftype="bam" />
 	    <param name="max_depth" value="123" />
             <output name="out_tabular" file="coverage_test.coverage_stats.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="input_bam" value="coverage_test.bam" ftype="bam" />
+            <param name="max_depth" value="123" />
+            <param name="window_size" value="5" />
+            <output name="out_tabular" file="coverage_test.coverage_stats.w5.tabular" ftype="tabular" />
         </test>
     </tests>
     <help>
@@ -58,6 +65,8 @@ Column Description
      5 Minimum coverage (per base of reference)
      6 Maximum coverage (per base of reference)
      7 Mean coverage (given to 2 dp)
+     8 Minimum coverage using sliding window (optional column)
+     9 Maximum coverage using sliding window (optional column)
 ====== =================================================================================
 
 Example output from a *de novo* assembly:
