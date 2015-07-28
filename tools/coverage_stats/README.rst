@@ -15,7 +15,7 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-samtools 0.1.19 if required.
+samtools 1.3 if required [TODO: NOT YET RELEASED].
 
 
 Manual Installation
@@ -55,7 +55,8 @@ v0.0.2  - Cope with samtools' default depth limit using modified samtools,
 v0.0.3  - Cope with no coverage in final contigs.
 v0.0.4  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
-v0.0.5  - Expose the new ``samtools depth -d ...`` argument added after v1.2.1
+v0.0.5  - Expose new ``samtools depth -d ...`` argument added in samtools v1.3
+        - Depends on samtools v1.3, available as an IUC Tool Shed package.
         - Apply the new maximum depth parameter within the script to ensure
           excess coverage is clear by getting the max coverage equal to the
           max depth setting (the raw output from samtools is more fuzzy).
