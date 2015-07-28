@@ -1,8 +1,9 @@
-<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.5">
+<tool id="coverage_stats" name="BAM coverage statistics" version="0.1.0">
     <description>using samtools idxstats and depth</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.2.2">samtools</requirement>
+        <requirement type="package" version="1.9">numpy</requirement>
     </requirements>
     <stdio>
         <!-- Assume anything other than zero is an error -->
@@ -10,7 +11,7 @@
         <exit_code range=":-1" />
     </stdio>
     <version_command interpreter="python">coverage_stats.py --version</version_command>
-    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$max_depth"</command>
+    <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$max_depth" "$window_size"</command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
         <param name="max_depth" type="integer" min="0" max="1000000" label="Max depth" value="8000" />
@@ -58,6 +59,15 @@ Column Description
      5 Minimum coverage (per base of reference)
      6 Maximum coverage (per base of reference)
      7 Mean coverage (given to 2 dp)
+     8 Coverage 1st percential (1% of bases have less coverage, 99% have more)
+     9 Coverage 5th percentile
+    10 Coverage 10th percentile
+    11 Coverage 25th percentile (1st quartile)
+    12 Coverage 50th percentile (median, 50% of bases have less coverage, 50% have more)
+    13 Coverage 75th percentile (3rd quartile)
+    14 Coverage 90th percentile
+    15 Coverage 95th percentile
+    16 Coverage 99th percential (99% of bases have less coverage, 1% have more)
 ====== =================================================================================
 
 Example output from a *de novo* assembly:
