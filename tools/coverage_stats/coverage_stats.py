@@ -79,6 +79,21 @@ def clean_up():
     os.remove(bai_file)
     os.rmdir(tmp_dir)
 
+
+def samtools_depth_opt_available():
+    child = subprocess.Popen(["samtools", "depth"],
+                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # Combined stdout/stderr in case samtools is every inconsistent
+    output, tmp = child.communicate()
+    assert tmp is None
+    # Expect to find this line in the help text, exact wording could change:
+    #    -d/-m <int>         maximum coverage depth [8000]
+    return " -d/-m " in output
+
+if not samtools_depth_opt_available():
+    # TODO - gracefull fall back if user wants max depth under 8000?
+    sys_exit("The version of samtools installed does not support the -d option.")
+
 # Run samtools idxstats:
 cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, idxstats_filename)
 return_code = os.system(cmd)
@@ -88,7 +103,6 @@ if return_code:
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
-# TODO - Check stderr for "depth: invalid option" indicating samtools too old?
 cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth + depth_margin, bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
