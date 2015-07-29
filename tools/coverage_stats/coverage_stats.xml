@@ -55,8 +55,8 @@ Column Description
      2 Reference sequence length
      3 Number of mapped reads
      4 Number of placed but unmapped reads (typically unmapped partners of mapped reads)
-     5 Minimum coverage
-     6 Maximum coverage
+     5 Minimum coverage (per base of reference)
+     6 Maximum coverage (per base of reference)
      7 Mean coverage (given to 2 dp)
 ====== =================================================================================
 
