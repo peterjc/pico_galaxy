@@ -140,7 +140,7 @@ codon, and any start codons are ignored. When searching for CDSs, the first
 potential start codon will be used, giving the longest possible CDS within
 each ORF, and thus the longest possible protein sequence. This is useful
 for things like BLAST or domain searching, but since this may not be the
-correct start codon may not be appropriate for signal peptide detection
+correct start codon, it may not be appropriate for signal peptide detection
 etc.
 
 **Example Usage**
@@ -151,7 +151,7 @@ sequences should (barring sequencing, assembly errors, frame-shifts etc)
 encode one protein as a single ORF/CDS, which you wish to extract (and
 perhaps translate into amino acids).
 
-If your RNS-Seq data was strand specific, and assembled taking this into
+If your RNA-Seq data was strand specific, and assembled taking this into
 account, you should only search for ORFs/CDSs on the forward strand.
 
 **Citation**
