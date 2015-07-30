@@ -185,7 +185,6 @@ def get_stats_window(depth_iterator, length, window_size):
     total_cov = 0
     min_cov = None
     max_cov = 0.0
-    everything = []
 
     assert 1 <= window_size <= length
 
@@ -206,7 +205,6 @@ def get_stats_window(depth_iterator, length, window_size):
             min_cov = min(min_cov, depth)
         max_cov = max(max_cov, depth)
         window.append(depth)
-        everything.append(depth)
 
     assert len(window) == window_size
     min_win = max_win = mean(window)
@@ -218,30 +216,10 @@ def get_stats_window(depth_iterator, length, window_size):
         max_cov = max(max_cov, depth)
         window.popleft()
         window.append(depth)
-        everything.append(depth)
         assert len(window) == window_size
         win_depth = mean(window)
         min_win = min(min_win, win_depth)
         max_win = max(max_win, win_depth)
-
-    assert total_cov == sum(everything)
-    assert length == len(everything)
-    #if length < 1500:
-    #    print everything
-    if window_size <= length:
-        windows = []
-        for i in range(length - window_size + 1):
-            windows.append(everything[i : i + window_size])
-        assert windows[0] == everything[:window_size]
-        assert windows[-1] == everything[-window_size:]
-        if windows[-1] != list(window):
-            print("Old code final window: %r" % window)
-            print("Brute force windows %r ... %r" % (windows[0], windows[-1]))
-        window_means = [mean(x) for x in windows]
-        if min(window_means) != min_win or max(window_means) != max_win:
-            print("Old code window values %r, %r - but brute force %r, %r"
-                  % (min_win, max_win, min(window_means), max(window_means)))
-    del everything
 
     mean_cov = total_cov / float(length)
 
