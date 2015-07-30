@@ -8,7 +8,7 @@ See the licence text below.
 This is a wrapper for part of the command line samtools suite.
 
 This wrapper is available from the Galaxy Tool Shed at:
-http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_idxstats
+http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depth
 
 
 Automated Installation
