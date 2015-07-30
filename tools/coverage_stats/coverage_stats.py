@@ -90,9 +90,15 @@ def samtools_depth_opt_available():
     #    -d/-m <int>         maximum coverage depth [8000]
     return " -d/-m " in output
 
+depth_hack = False
 if not samtools_depth_opt_available():
-    # TODO - gracefull fall back if user wants max depth under 8000?
-    sys_exit("The version of samtools installed does not support the -d option.")
+    if max_depth + depth_margin <= 8000:
+        sys.stderr.write("WARNING: The version of samtools depth installed does not "
+                         "support the -d option, however, the requested max-depth "
+                         "is safely under the default of 8000.\n")
+        depth_hack = True
+    else:
+        sys_exit("The version of samtools depth installed does not support the -d option.")
 
 # Run samtools idxstats:
 cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, idxstats_filename)
@@ -103,7 +109,12 @@ if return_code:
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
-cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth + depth_margin, bam_file, depth_filename)
+if depth_hack:
+    # Using an old samtools without the -d option, but hard coded default
+    # of 8000 should be fine even allowing a margin for fuzzy output
+    cmd = 'samtools depth "%s" > "%s"' % (bam_file, depth_filename)
+else:
+    cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth + depth_margin, bam_file, depth_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()
