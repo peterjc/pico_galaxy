@@ -25,10 +25,7 @@
     <tool file="align_back_trans/align_back_trans.xml" />
     <tool file="sample_seqs/sample_seqs.xml" />
     <tool file="mummer/mummer.xml" />
-    <!-- TODO: pending samtools depth fix,
-    see https://github.com/samtools/samtools/pull/322
     <tool file="coverage_stats/coverage_stats.xml" />
-    -->
     <!-- TODO: Currently still fails on TravisCI
     <tool file="samtools_depth/samtools_depth.xml" />
     -->
