@@ -13,8 +13,8 @@ This messes about with the filenames to make samtools happy, then
 runs "samtools idxstats" and "samtools depth", captures and combines
 the output to the desired output tabular file.
 
-TODO: Note that "samtools depth" treats the max depth a little fuzzily.
-Perhaps this tool should account for this and apply a clear cut off?
+Because "samtools depth" treats the max depth a little fuzzily, this
+tool tries to account for this and applies a clear max-depth cut off.
 """
 import sys
 import os
