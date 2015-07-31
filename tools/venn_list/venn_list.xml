@@ -71,7 +71,7 @@ $PDF
             <assert_stdout>
                 <has_line line="Doing 3-way Venn Diagram" />
                 <has_line line="Inferred total of 10 IDs" />
-		<has_line line="6 in Rhodopsins" />
+                <has_line line="6 in Rhodopsins" />
                 <has_line line="4 in Human" />
                 <has_line line="1 in Human vs Rhodopsin BLAST" />
             </assert_stdout>
