@@ -85,7 +85,7 @@ $PDF
             <param name="sets_1|set" value="four_human_proteins.fasta"/>
             <param name="sets_1|lab" value="Human"/>
             <param name="sets_2|set" value="blastp_four_human_vs_rhodopsin.tabular"/>
-            <param name="sets_2|lab" value="Human vs Rhodopsin BLAST"/>            
+            <param name="sets_2|lab" value="Human vs Rhodopsin BLAST"/>
             <assert_stdout>
                 <has_line line="Doing 3-way Venn Diagram" />
                 <has_line line="Total of 10 IDs" />
