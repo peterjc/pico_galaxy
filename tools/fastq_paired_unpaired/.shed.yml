@@ -30,3 +30,4 @@ include:
   - ../../tools/fastq_paired_unpaired/README.rst
   - ../../tools/fastq_paired_unpaired/fastq_paired_unpaired.py
   - ../../tools/fastq_paired_unpaired/fastq_paired_unpaired.xml
+  - ../../tools/fastq_paired_unpaired/tool_dependencies.xml

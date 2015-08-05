@@ -20,7 +20,8 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-the tool from the Galaxy Tool Shed, and run the unit tests
+the tool from the Galaxy Tool Shed, and Biopython, and allow you to run the unit
+tests.
 
 
 Manual Installation
@@ -69,6 +70,7 @@ v0.1.0  - Switch to using Biopython (easier to use script outside of Galaxy).
 v0.1.1  - Reorder XML elements (internal change only).
         - Use ``format_source=...`` tag.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.1.2  - Belatedly declare Biopython dependency via Tool Shed.
 ======= ======================================================================
 
 
