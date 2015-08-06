@@ -80,12 +80,11 @@ v0.0.2  - Reorder XML elements (internal change only).
 
 Developers
 ==========
-
-This script and related tools were being developed on the following hg branch:
-http://bitbucket.org/peterjc/galaxy-central/src/tools
-
-Development has now moved to a dedicated GitHub repository:
+Development is on this GitHub repository:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/chromosome_diagram
+
+The script ``fetch_data.py`` should download *A. thaliana* data in order
+to draw a diagram showing the position of the tRNA genes.
 
 
 Licence (MIT)
