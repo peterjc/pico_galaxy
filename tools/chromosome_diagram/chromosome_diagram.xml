@@ -58,6 +58,11 @@ The annotation file should contain one line per feature to show. The
 features will be added in the order given, so if there are overlaps
 the later features will be on top of the earlier features.
 
+Colors in the tabular file can be given as standard HTML color names
+(e.g. ``red``), or hex RGB color strings (e.g. ``FF0000``, ``#FF0000``
+or ``#FF0000;`` all mean red).  Additionally the field can be ``.``,
+``?``, ``None``, or left empty for the default (black).
+
 
 **Citations**
 
