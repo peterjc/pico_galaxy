@@ -16,7 +16,7 @@ chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_c
     </command>
     <inputs>
         <param name="main_lab" size="30" type="text" value="Chromosome Diagram" label="Plot title"/>
-        <param name="reference_file" type="data" format="fasta" label="Chromsomes or psuedo molecules (FASTA file)"/>
+        <param name="reference_file" type="data" format="fasta" label="Chromosomes or pseudomolecules (FASTA file)"/>
         <param name="per_page" type="integer" min="0" value=""
                label="Chromosomes per page?"
                help="For everything on one page, leave blank or use zero. If set to one, larger fonts are used."/>
@@ -48,11 +48,11 @@ chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_c
 
 Draws a 'Chromosome Diagram', with one vertical bar for each sequence
 in the reference FASTA file which is expected to contain one sequence
-per chromosome or psuedo molecule, annotated with the positions and
+per chromosome or pseudomolecule, annotated with the positions and
 captions given in the tabular annotation file.
 
 The same vertical scale is used for all the chromosomes (even when drawn
-of different pages), based fitting the longest chromosome on a page.
+of different pages), based on fitting the longest chromosome on a page.
 
 The annotation file should contain one line per feature to show. The
 features will be added in the order given, so if there are overlaps
