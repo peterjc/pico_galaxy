@@ -1,7 +1,7 @@
 Galaxy wrapper for the MIRA assembly program (v4.0)
 ===================================================
 
-This tool is copyright 2011-2014 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -40,7 +40,7 @@ First install the 'mira' datatype for Galaxy, available here:
 
 * http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes 
 
-There are four Galaxy files to install:
+There are various Python and XML files to install into Galaxy:
 
 * ``mira4_de_novo.xml`` (the Galaxy tool definition for de novo usage)
 * ``mira4_mapping.xml`` (the Galaxy tool definition for mapping usage)
@@ -56,6 +56,7 @@ modify the ``tools_conf.xml`` file to tell Galaxy to offer the tool::
 
   <tool file="mira4/mira4_de_novo.xml" />
   <tool file="mira4/mira4_mapping.xml" />
+  ...
 
 You will also need to install MIRA, we used version 4.0.2, and define the
 environment variable ``$MIRA4`` pointing at the folder containing the binaries.
