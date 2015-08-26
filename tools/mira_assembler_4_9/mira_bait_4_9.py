@@ -62,29 +62,37 @@ elif format == "mira":
 elif format != "fasta":
     sys_exit("Was not expected format %r" % format)
 
-assert out_file.endswith(".dat")
-out_file_stem = out_file[:-4]
-
 cmd_list = [mira_binary, "-f", format, "-t", format,
             "-k", kmer_length, "-n", min_occurance,
-            bait_file, in_file, out_file_stem]
+            "-b", bait_file]
+
+
 if output_choice == "pos":
-    pass
+    cmd_list.extend(["-o", out_file])
 elif output_choice == "neg":
     #Invert the selection...
-    cmd_list.insert(1, "-i")
+    cmd_list.extend(["-i", "-o", out_file])
 else:
+    #Can in theory offer both postivie and negative to different files...
     sys_exit("Output choice should be 'pos' or 'neg', not %r" % output_choice)
+
 if strand_choice == "both":
     pass
 elif strand_choice == "fwd":
     #Ingore reverse strand...
-    cmd_list.insert(1, "-r")
+    cmd_list.append("-r")
 else:
     sys_exit("Strand choice should be 'both' or 'fwd', not %r" % strand_choice)
 
+
+#TODO: Want to allow any of:
+# -p file_R1.fastq file_R2.fastq
+# -P interleaved.fastq
+# solo.fastq
+cmd_list.append(in_file)
+
 cmd = " ".join(cmd_list)
-#print cmd
+print(cmd)
 start_time = time.time()
 try:
     #Run MIRA
@@ -106,9 +114,7 @@ if return_code:
     sys_exit("Return error code %i from command:\n%s" % (return_code, cmd),
              return_code)
 
-#Capture output
-out_tmp = out_file_stem + "." + format
-if not os.path.isfile(out_tmp):
+#Check output exists
+if not os.path.isfile(out_file):
     sys.stderr.write(stdout)
     sys_exit("Missing output file from mirabait: %s" % out_tmp)
-shutil.move(out_tmp, out_file)
