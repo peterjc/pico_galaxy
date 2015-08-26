@@ -1,0 +1,22 @@
+name: mira_assembler_4_9
+owner: peterjc
+homepage_url: http://chevreux.org/projects_mira.html
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_assembler_4_9
+description: MIRA 4.9 assembler
+long_description: |
+  Wrapper for core functionality of assembly tool MIRA 4.9. Accepts data
+  from Solexa/Illumina, Roche 454, Ion Torrent, PacBio and Sanger capillary
+  sequencing. The key MIRA output files are captured, but the other files are
+  deleted when the job finishes.
+categories:
+- Assembly
+- Next Gen Mappers
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../tools/mira4_assembler/README.rst
+  - ../../tools/mira4_assembler/mira_bait_4_9.py
+  - ../../tools/mira4_assembler/mira_bait_4_9.py
+  - ../../tools/mira4_assembler/repository_dependencies.xml
+  - ../../tools/mira4_assembler/tool_dependencies.xml
