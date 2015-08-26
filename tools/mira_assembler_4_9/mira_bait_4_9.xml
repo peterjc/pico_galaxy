@@ -9,9 +9,36 @@
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
-    <version_command interpreter="python">mira_bait_4_9.py --version</version_command>
-    <command interpreter="python">
-mira_bait_4_9.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_occurence "$bait_file" "$input_reads" "$output_reads"
+    <version_command interpreter="python">mira_check_version.py mirabait</version_command>
+    <command interpreter="python">./mira_check_version.py mirabait 4.9 &amp;&amp;
+##First checked it is mirabait v4.9 on the path... now actually run it
+##-----------------------------------------------------------------------
+mirabait -k "$kmer_length" -n "$min_occurence" -b "$bait_file" -o "$output_reads"
+##-----------------------------------------------------------------------
+##Must now map Galaxy datatypes to MIRA file types...
+#if $input_reads.ext.startswith("fastq")
+##MIRA doesn't like fastqsanger etc, just plain old fastq
+ -f fastq -t fastq
+#elif $input_reads.ext == "mira"
+##We're calling *.maf the "mira" format in Galaxy (name space collision)
+ -f maf -t maf
+#else
+##MIRA is happy with fasta as name,
+ -f "$input_reads.ext" -t "$input_reads.ext"
+#end if
+##-----------------------------------------------------------------------
+##Do we need toinvert the output selection?
+#if $output_choice == "neg"
+-i
+#end if
+##-----------------------------------------------------------------------
+##Do we need to ignore the reverse strand?
+#if $strand_choice == "fwd"
+-r
+#end if
+##-----------------------------------------------------------------------
+##TODO: A switch statement for paired, interleaved, or unpaired...
+"$input_reads"
     </command>
     <inputs>
         <!-- TODO: Must restructure this to allow paired files, interleaved files, and solo-files -->
