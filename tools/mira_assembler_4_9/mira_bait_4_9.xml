@@ -41,20 +41,20 @@ mira_bait_4_9.py $input_reads.ext $output_choice $strand_choice $kmer_length $mi
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
-            <output name="output_reads" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
+            <output name="output_reads" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="kmer_length" value="32" />
             <param name="min_occurence" value="50" />
-            <output name="output_reads" file="tvc_mini_bait_strict.fastq" ftype="fastqsanger" />
+            <output name="output_reads" file="tvc_mini_bait_strict_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_choice" value="neg" />
-            <output name="output_reads" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
+            <output name="output_reads" file="tvc_mini_bait_neg_case.fastq" ftype="fastqsanger" />
         </test>
     </tests>
     <help>
