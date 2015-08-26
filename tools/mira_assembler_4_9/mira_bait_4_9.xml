@@ -1,0 +1,127 @@
+<tool id="mira_4_9_bait" name="MIRA v4.9 mirabait" version="0.0.1">
+    <description>Filter reads using kmer matches</description>
+    <requirements>
+        <requirement type="binary">mirabait</requirement>
+        <requirement type="package" version="4.9.5">MIRA</requirement>
+    </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <version_command interpreter="python">mira_bait_4_9.py --version</version_command>
+    <command interpreter="python">
+mira_bait_4_9.py $input_reads.ext $output_choice $strand_choice $kmer_length $min_occurence "$bait_file" "$input_reads" "$output_reads"
+    </command>
+    <inputs>
+        <!-- TODO: Must restructure this to allow paired files, interleaved files, and solo-files -->
+        <!-- TODO: mirabait now allows multiple input files, and can do multiple outputs - or merge into one? -->
+        <!-- TODO: define a new Galaxy datatype for the bait hash file? -->
+        <param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
+        <param name="input_reads" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
+        <param name="output_choice" type="select" label="Output positive matches, or negative matches?">
+            <option value="pos">Just positive matches</option>
+            <option value="neg">Just negative matches</option>
+        </param>
+        <param name="strand_choice" type="select" label="Check for matches on both strands?">
+            <option value="both">Check both strands</option>
+            <option value="fwd">Just forward strand</option>
+        </param>
+        <param name="kmer_length" type="integer" value="31" min="1" max="32"
+               label="k-mer length" help="Maximum 32" />
+        <param name="min_occurence" type="integer" value="1" min="1"
+               label="Minimum k-mer occurence"
+               help="How many k-mer matches do you want per read? Minimum one" />
+    </inputs>
+    <outputs>
+        <data name="output_reads" format_source="input_reads" metadata_source="input_reads"
+	      label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <output name="output_reads" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="kmer_length" value="32" />
+            <param name="min_occurence" value="50" />
+            <output name="output_reads" file="tvc_mini_bait_strict.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_choice" value="neg" />
+            <output name="output_reads" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+Runs the ``mirabait`` utility from MIRA v4.9 to filter your input reads
+according to whether or not they contain perfect kmer matches to your
+bait file. By default this looks for 31-mers (kmers or *k*-mers where
+the fragment length *k* is 31), and only requires a single matching kmer.
+
+The ``mirabait`` utility is useful in many applications and pipelines
+outside of using the main MIRA tool for assembly or mapping.
+
+.. class:: warningmark
+
+Note ``mirabait`` cannot be used on protein (amino acid) sequences.
+
+**Example Usage**
+
+To remove over abundant entries like rRNA sequences, run ``mirabait`` with
+known rRNA sequences as the bait and select the *negative* matches.
+
+To do targeted assembly by fishing out reads belonging to a gene and just
+assemble these, run ``mirabait`` with the gene of interest as the bait and
+select the *positive* matches.
+
+To iteratively reconstruct mitochondria you could start by fishing out reads
+matching any known mitochondrial sequence, assembly those, and repeat.
+
+
+**Notes on paired read**
+
+.. class:: warningmark
+
+Unlike ``mirabait`` from MIRA v4.0, this version is aware of paired reads
+and will preserve the pairing (if either the forward or the reverse read
+has enough *k*-mer matches, the pair is accepted).
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following papers:
+
+Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
+Galaxy tools and workflows for sequence analysis with applications
+in molecular plant pathology. PeerJ 1:e167
+http://dx.doi.org/10.7717/peerj.167
+
+Bastien Chevreux, Thomas Wetter and Sándor Suhai (1999).
+Genome Sequence Assembly Using Trace Signals and Additional Sequence Information.
+Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB) 99, pp. 45-56.
+http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler_4_9
+    </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+        <citation type="bibtex">@ARTICLE{Chevreux1999-mira3,
+        author = {B. Chevreux and T. Wetter and S. Suhai},
+        year = {1999},
+        title = {Genome Sequence Assembly Using Trace Signals and Additional Sequence Information},
+        journal = {Computer Science and Biology: Proceedings of the German Conference on Bioinformatics (GCB)}
+        volume = {99},
+        pages = {45-56},
+        url = {http://www.bioinfo.de/isb/gcb99/talks/chevreux/main.html}
+        }</citation>
+    </citations>
+</tool>
