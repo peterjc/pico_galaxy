@@ -56,8 +56,8 @@ tool::
   ...
 
 You will also need to install MIRA 4.9, we used version 4.9.5, and define the
-environment variable ``$MIRA4`` pointing at the folder containing the binaries.
-See:
+environment variable ``$MIRA4_9`` pointing at the folder containing the
+binaries. See:
 
 * http://chevreux.org/projects_mira.html
 * http://sourceforge.net/projects/mira-assembler/

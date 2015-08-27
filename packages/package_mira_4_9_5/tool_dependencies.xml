@@ -35,7 +35,7 @@
                     <environment_variable action="prepend_to" name="PATH">$INSTALL_DIR</environment_variable>
                 </action>
                 <action type="set_environment">
-                    <environment_variable action="set_to" name="MIRA4">$INSTALL_DIR</environment_variable>
+                    <environment_variable action="set_to" name="MIRA4_9">$INSTALL_DIR</environment_variable>
                 </action>
             </actions_group>
         </install>
@@ -48,8 +48,8 @@ installation script.
 http://chevreux.org/projects_mira.html
 http://sourceforge.net/projects/mira-assembler/
 
-The environment variable ``$MIRA4`` will point to the folder containing the binaries,
-which is also pre-pended to the``$PATH`` variable.
+The environment variable ``$MIRA4_9`` will point to the folder containing the
+binaries, which is also pre-pended to the``$PATH`` variable.
         </readme>
     </package>
 </tool_dependency>
