@@ -86,9 +86,8 @@
                help="How many k-mer matches do you want per read? Minimum one" />
     </inputs>
     <outputs>
-        <!-- TODO: How to get filename2 into this label? -->
         <data name="output_reads" format_source="filename" metadata_source="filename"
-             label="$reads.filename.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
+             label="$reads.filename.name #if str($reads.type)=='paired' then 'and $reads.filename2.name' else ''# #if str($output_choice)=='pos' then 'matching' else 'excluding matches to'# $bait_file.name"/>
     </outputs>
     <tests>
         <test>
