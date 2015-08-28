@@ -17,9 +17,9 @@
     <tool file="seq_primer_clip/seq_primer_clip.xml" />
     <tool file="fastq_pair_names/fastq_pair_names.xml" />
     <tool file="predictnls/predictnls.xml" />
-    <tool file="mira4/mira4_de_novo.xml" />
-    <tool file="mira4/mira4_mapping.xml" />
-    <tool file="mira4/mira4_bait.xml" />
+    <tool file="mira4_assembler/mira4_de_novo.xml" />
+    <tool file="mira4_assembler/mira4_mapping.xml" />
+    <tool file="mira4_assembler/mira4_bait.xml" />
     <tool file="samtools_idxstats/samtools_idxstats.xml" />
     <tool file="samtools_depad/samtools_depad.xml" />
     <tool file="align_back_trans/align_back_trans.xml" />
