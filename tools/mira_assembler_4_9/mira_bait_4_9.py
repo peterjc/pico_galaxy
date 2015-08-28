@@ -92,7 +92,7 @@ else:
 cmd_list.append(in_file)
 
 cmd = " ".join(cmd_list)
-print(cmd)
+#print(cmd)
 start_time = time.time()
 try:
     #Run MIRA

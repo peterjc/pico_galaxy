@@ -105,6 +105,9 @@ before_install:
  - wget http://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0.2_linux-gnu_x86_64_static.tar.bz2
  - tar -jxvf mira_4.0.2_linux-gnu_x86_64_static.tar.bz2
  - export MIRA4=$PWD/mira_4.0.2_linux-gnu_x86_64_static/bin
+ - wget http://downloads.sourceforge.net/project/mira-assembler/MIRA/development/mira_4.9.5_2_linux-gnu_x86_64_static.tar.bz2
+ - tar -jxvf mira_4.9.5_2_linux-gnu_x86_64_static.tar.bz2
+ - export MIRA4=$PWD/mira_4.9.5_2_linux-gnu_x86_64_static/bin
  - echo "Installing samtools..."
  - wget http://downloads.sourceforge.net/project/samtools/samtools/0.1.19/samtools-0.1.19.tar.bz2
  - tar -jxvf samtools-0.1.19.tar.bz2

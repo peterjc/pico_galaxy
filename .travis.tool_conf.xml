@@ -20,6 +20,7 @@
     <tool file="mira4_assembler/mira4_de_novo.xml" />
     <tool file="mira4_assembler/mira4_mapping.xml" />
     <tool file="mira4_assembler/mira4_bait.xml" />
+    <tool file="mira_assembler_4_9/mira_bait_4_9.xml" />
     <tool file="samtools_idxstats/samtools_idxstats.xml" />
     <tool file="samtools_depad/samtools_depad.xml" />
     <tool file="align_back_trans/align_back_trans.xml" />
