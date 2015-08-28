@@ -9,7 +9,7 @@
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
-    <version_command interpreter="python">mira_check_version.py mirabait</version_command>
+    <version_command interpreter="python">mira_check_version.py \${MIRA4_9}mirabait</version_command>
     <command interpreter="python">./mira_check_version.py \${MIRA4_9}mirabait 4.9 &amp;&amp;
 ##First checked it is mirabait v4.9 on the path... now actually run it
 ##-----------------------------------------------------------------------
