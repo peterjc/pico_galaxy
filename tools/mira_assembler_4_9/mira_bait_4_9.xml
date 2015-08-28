@@ -10,10 +10,10 @@
         <exit_code range=":-1" />
     </stdio>
     <version_command interpreter="python">mira_check_version.py mirabait</version_command>
-    <command interpreter="python">./mira_check_version.py mirabait 4.9 &amp;&amp;
+    <command interpreter="python">./mira_check_version.py \${MIRA4_9}mirabait 4.9 &amp;&amp;
 ##First checked it is mirabait v4.9 on the path... now actually run it
 ##-----------------------------------------------------------------------
-mirabait -k "$kmer_length" -n "$min_occurence" -b "$bait_file" -o "$output_reads"
+\${MIRA4_9}mirabait -k "$kmer_length" -n "$min_occurence" -b "$bait_file" -o "$output_reads"
 ##-----------------------------------------------------------------------
 ##Must now map Galaxy datatypes to MIRA file types...
 #if $input_reads.ext.startswith("fastq")
