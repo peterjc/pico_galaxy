@@ -16,15 +16,16 @@
 \${MIRA4_9}mirabait -k "$kmer_length" -n "$min_occurence" -b "$bait_file" -o "$output_reads"
 ##-----------------------------------------------------------------------
 ##Must now map Galaxy datatypes to MIRA file types...
-#if $input_reads.ext.startswith("fastq")
+##exploiting the polymorphic naming of the input read parameter!
+#if $reads.filename.ext.startswith("fastq")
 ##MIRA doesn't like fastqsanger etc, just plain old fastq
  -f fastq -t fastq
-#elif $input_reads.ext == "mira"
+#elif $reads.filename.ext == "mira"
 ##We're calling *.maf the "mira" format in Galaxy (name space collision)
  -f maf -t maf
 #else
 ##MIRA is happy with fasta as name,
- -f "$input_reads.ext" -t "$input_reads.ext"
+ -f "$reads.filename.ext" -t "$reads.filename.ext"
 #end if
 ##-----------------------------------------------------------------------
 ##Do we need toinvert the output selection?
@@ -37,15 +38,39 @@
 -r
 #end if
 ##-----------------------------------------------------------------------
-##TODO: A switch statement for paired, interleaved, or unpaired...
-"$input_reads"
+#if str($reads.type) == "paired"
+#if $reads.filename.ext != $reads.filename2.ext
+##TODO: Is there a better way to signal an error to Galaxy here?
+; echo "ERROR: Paired read datatype mis-match!" ; false
+#end if
+-p "$reads.filename" "$reads.filename2"
+#elif str($reads.type) == "interleaved"
+-P "$reads.filename"
+#elif str($reads.type) == "none"
+"$reads.filename"
+#end if
     </command>
     <inputs>
-        <!-- TODO: Must restructure this to allow paired files, interleaved files, and solo-files -->
         <!-- TODO: mirabait now allows multiple input files, and can do multiple outputs - or merge into one? -->
         <!-- TODO: define a new Galaxy datatype for the bait hash file? -->
         <param name="bait_file" type="data" format="fasta,fastq,mira" required="true" label="Bait file (what to look for)" />
-        <param name="input_reads" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
+        <conditional name="reads">
+            <param name="type" type="select" label="Are these paired reads?">
+                <option value="paired">Paired reads (as two files)</option>
+                <option value="interleaved">Paired reads (as one interleaved file)</option>
+                <option value="none">Unpaired reads (single or orphan reads as one file)</option>
+            </param>
+            <when value="paired">
+                <param name="filename" type="data" format="fastq,fasta" required="true" label="Read file one"/>
+                <param name="filename2" type="data" format="fastq,fasta" required="true" label="Read file two"/>
+            </when>
+            <when value="interleaved">
+                <param name="filename" type="data" format="fasta,fastq" required="true" label="Interleaved paired reads to search" />
+            </when>
+            <when value="none">
+                <param name="filename" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
+            </when>
+        </conditional>
         <param name="output_choice" type="select" label="Output positive matches, or negative matches?">
             <option value="pos">Just positive matches</option>
             <option value="neg">Just negative matches</option>
@@ -61,25 +86,29 @@
                help="How many k-mer matches do you want per read? Minimum one" />
     </inputs>
     <outputs>
-        <data name="output_reads" format_source="input_reads" metadata_source="input_reads"
-	      label="$input_reads.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
+        <!-- TODO: How to get filename2 into this label? -->
+        <data name="output_reads" format_source="filename" metadata_source="filename"
+             label="$reads.filename.name #if str($output_choice)=='pos' then 'matching' else 'excluding matches to' # $bait_file.name"/>
     </outputs>
     <tests>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
-            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <output name="output_reads" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
-            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="kmer_length" value="32" />
             <param name="min_occurence" value="50" />
             <output name="output_reads" file="tvc_mini_bait_strict_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
-            <param name="input_reads" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_choice" value="neg" />
             <output name="output_reads" file="tvc_mini_bait_neg_case.fastq" ftype="fastqsanger" />
         </test>
