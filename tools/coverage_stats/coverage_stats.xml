@@ -13,7 +13,7 @@
     <command interpreter="python">coverage_stats.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$max_depth"</command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
-        <param name="max_depth" type="integer" min="0" max="1000000" label="Max depth" value="8000" />
+        <param name="max_depth" type="integer" min="0" max="10000000" label="Max depth" value="8000" />
     </inputs>
     <outputs>
         <data name="out_tabular" format="tabular" label="$input_bam.name (coverage stats)" />
