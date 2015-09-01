@@ -40,6 +40,11 @@
 -r
 #end if
 ##-----------------------------------------------------------------------
+##Default is to mark k-mers with upper case...
+#if str($output_case) == "original"
+-c
+#end if
+##-----------------------------------------------------------------------
 #if str($reads.type) == "paired"
 #if $reads.filename.ext != $reads.filename2.ext
 ##TODO: Is there a better way to signal an error to Galaxy here?
@@ -77,6 +82,10 @@
             <option value="pos">Just positive matches</option>
             <option value="neg">Just negative matches</option>
         </param>
+        <param name="output_case" type="select" label="How to use sequence case in output?">
+            <option value="original">Preserve case from input</option>
+            <option value="bait">Mark k-mer matches in upper case</option>
+        </param>
         <param name="strand_choice" type="select" label="Check for matches on both strands?">
             <option value="both">Check both strands</option>
             <option value="fwd">Just forward strand</option>
@@ -96,12 +105,14 @@
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_case" value="bait" />
             <output name="output_reads" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_case" value="bait" />
             <param name="kmer_length" value="32" />
             <param name="min_occurence" value="50" />
             <output name="output_reads" file="tvc_mini_bait_strict_case.fastq" ftype="fastqsanger" />
@@ -111,6 +122,7 @@
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_choice" value="neg" />
+            <param name="output_case" value="bait" />
             <output name="output_reads" file="tvc_mini_bait_neg_case.fastq" ftype="fastqsanger" />
         </test>
     </tests>
