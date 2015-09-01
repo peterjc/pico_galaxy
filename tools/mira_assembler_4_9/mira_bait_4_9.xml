@@ -28,11 +28,12 @@
  -f "$reads.filename.ext" -t "$reads.filename.ext"
 #end if
 ##-----------------------------------------------------------------------
-##Do we need toinvert the output selection?
-#if str($output_choice) == "neg"
--i -O "$output_reads"
-#else
--o "$output_reads"
+#if str($output_choice_cond.output_choice)=="both"
+-o "$output_pos" -O "$output_neg"
+#elif str($output_choice_cond.output_choice)=="pos"
+-o "$output_pos"
+#elif str($output_choice_cond.output_choice)=="neg"
+-i -O "$output_neg"
 #end if
 ##-----------------------------------------------------------------------
 ##Do we need to ignore the reverse strand?
@@ -78,10 +79,17 @@
                 <param name="filename" type="data" format="fasta,fastq,mira" required="true" label="Reads to search" />
             </when>
         </conditional>
-        <param name="output_choice" type="select" label="Output positive matches, or negative matches?">
-            <option value="pos">Just positive matches</option>
-            <option value="neg">Just negative matches</option>
-        </param>
+        <conditional name="output_choice_cond">
+            <param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
+                <option value="both">Both positive matches and negative matches, as two files</option>
+                <option value="pos" selected="true">Just positive matches, as a single file</option>
+                <option value="neg">Just negative matches, as a single file</option>
+            </param>
+            <!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+            <when value="both" />
+            <when value="pos" />
+            <when value="neg" />
+        </conditional>
         <param name="output_case" type="select" label="How to use sequence case in output?">
             <option value="original">Preserve case from input</option>
             <option value="bait">Mark k-mer matches in upper case</option>
@@ -97,32 +105,37 @@
                help="How many k-mer matches do you want per read? Minimum one" />
     </inputs>
     <outputs>
-        <data name="output_reads" format_source="filename" metadata_source="filename"
-             label="$reads.filename.name #if str($reads.type)=='paired' then 'and $reads.filename2.name' else ''# #if str($output_choice)=='pos' then 'matching' else 'excluding matches to'# $bait_file.name"/>
+        <data name="output_pos" format_source="filename" metadata_source="filename"
+             label="$reads.filename.name #if str($reads.type)=='paired' then 'and $reads.filename2.name' else ''# matching $bait_file.name">
+            <filter>output_choice_cond["output_choice"] != "neg"</filter>
+        </data>
+        <data name="output_neg" format_source="filename" metadata_source="filename"
+             label="$reads.filename.name #if str($reads.type)=='paired' then 'and $reads.filename2.name' else ''# not matching $bait_file.name">
+            <filter>output_choice_cond["output_choice"] != "pos"</filter>
+        </data>
     </outputs>
     <tests>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_choice" value="pos" />
             <param name="output_case" value="original" />
-            <output name="output_reads" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
+            <output name="output_pos" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_case" value="bait" />
-            <output name="output_reads" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
+            <output name="output_pos" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
-            <param name="output_case" value="original" />
-            <param name="kmer_length" value="32" />
-            <param name="min_occurence" value="50" />
-            <output name="output_reads" file="tvc_mini_bait_strict.fastq" ftype="fastqsanger" />
+            <param name="output_case" value="bait" />
+            <output name="output_pos" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
@@ -131,7 +144,7 @@
             <param name="output_case" value="bait" />
             <param name="kmer_length" value="32" />
             <param name="min_occurence" value="50" />
-            <output name="output_reads" file="tvc_mini_bait_strict_case.fastq" ftype="fastqsanger" />
+            <output name="output_pos" file="tvc_mini_bait_strict_case.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
@@ -139,7 +152,7 @@
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_choice" value="neg" />
             <param name="output_case" value="original" />
-            <output name="output_reads" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
+            <output name="output_neg" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
@@ -147,7 +160,16 @@
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_choice" value="neg" />
             <param name="output_case" value="bait" />
-            <output name="output_reads" file="tvc_mini_bait_neg_case.fastq" ftype="fastqsanger" />
+            <output name="output_neg" file="tvc_mini_bait_neg_case.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_choice" value="both" />
+            <param name="output_case" value="original" />
+            <output name="output_pos" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
+            <output name="output_neg" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
         </test>
     </tests>
     <help>
