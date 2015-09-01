@@ -22,6 +22,9 @@ include:
   - ../../tools/mira4_assembler/tool_dependencies.xml
   - ../../test-data/tvc_bait.fasta
   - ../../test-data/tvc_mini.fastq
+  - ../../test-data/tvc_mini_bait_pos.fastq
   - ../../test-data/tvc_mini_bait_pos_case.fastq
+  - ../../test-data/tvc_mini_bait_strict.fastq
   - ../../test-data/tvc_mini_bait_strict_case.fastq
+  - ../../test-data/tvc_mini_bait_neg.fastq
   - ../../test-data/tvc_mini_bait_neg_case.fastq

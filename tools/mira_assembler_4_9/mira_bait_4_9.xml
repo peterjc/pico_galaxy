@@ -105,8 +105,24 @@
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
             <param name="reads|type" value="none" />
             <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_case" value="original" />
+            <output name="output_reads" file="tvc_mini_bait_pos.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
             <param name="output_case" value="bait" />
             <output name="output_reads" file="tvc_mini_bait_pos_case.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_case" value="original" />
+            <param name="kmer_length" value="32" />
+            <param name="min_occurence" value="50" />
+            <output name="output_reads" file="tvc_mini_bait_strict.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
@@ -116,6 +132,14 @@
             <param name="kmer_length" value="32" />
             <param name="min_occurence" value="50" />
             <output name="output_reads" file="tvc_mini_bait_strict_case.fastq" ftype="fastqsanger" />
+        </test>
+        <test>
+            <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
+            <param name="reads|type" value="none" />
+            <param name="reads|filename" value="tvc_mini.fastq" ftype="fastqsanger" />
+            <param name="output_choice" value="neg" />
+            <param name="output_case" value="original" />
+            <output name="output_reads" file="tvc_mini_bait_neg.fastq" ftype="fastqsanger" />
         </test>
         <test>
             <param name="bait_file" value="tvc_bait.fasta" ftype="fasta" />
