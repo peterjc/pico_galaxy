@@ -86,6 +86,7 @@ v0.2.1  - Use Biopython instead of Galaxy for FASTQ handling.
 v0.2.2  - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.2.3  - Defensive quoting of filenames etc in the command definition.
 ======= ======================================================================
 
 

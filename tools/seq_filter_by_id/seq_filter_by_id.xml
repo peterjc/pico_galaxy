@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.2">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.3">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
@@ -12,17 +12,17 @@
     <version_command interpreter="python">seq_filter_by_id.py --version</version_command>
     <command interpreter="python">
 seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
-#if $output_choice_cond.output_choice=="both"
- -p $output_pos -n $output_neg
-#elif $output_choice_cond.output_choice=="pos"
- -p $output_pos
-#elif $output_choice_cond.output_choice=="neg"
- -n $output_neg
+#if str($output_choice_cond.output_choice)=="both"
+ -p "$output_pos" -n "$output_neg"
+#elif str($output_choice_cond.output_choice)=="pos"
+ -p "$output_pos"
+#elif str($output_choice_cond.output_choice)=="neg"
+ -n "$output_neg"
 #end if
-#if $adv_opts.adv_opts_selector=="advanced" and $adv_opts.strip_suffix
+#if str($adv_opts.adv_opts_selector)=="advanced" and $adv_opts.strip_suffix
  -s
 #end if
-#if $id_opts.id_opts_selector=="tabular":
+#if str($id_opts.id_opts_selector)=="tabular":
 ## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
 ## Single tabular file, can call the Python script with either UNION or INTERSECTION
 -l UNION "$id_opts.input_tabular" "$id_opts.columns"
