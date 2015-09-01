@@ -88,6 +88,7 @@ v0.0.2  - Actually use the ``$CLC_ASSEMBLY_CELL`` environment variable.
 v0.0.3  - Reorder XML elements (internal change only).
         - Added citation tags.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.4  - Bug fix for ``<version_command>`` to capture tool version.
 ======= ======================================================================
 
 

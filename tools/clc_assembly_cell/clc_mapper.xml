@@ -1,4 +1,4 @@
-<tool id="clc_mapper" name="CLC Mapper" version="0.0.3">
+<tool id="clc_mapper" name="CLC Mapper" version="0.0.4">
     <description>Maps reads giving a SAM/BAM file</description>
     <requirements>
         <requirement type="binary">clc_mapper</requirement>    
@@ -11,7 +11,7 @@
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
-    <version_command>\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_mapper | grep -i version</version_command>
+    <version_command>${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_mapper | grep -i version</version_command>
     <command>echo Mapping reads with clc_mapper...
 &amp;&amp; \${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_mapper
 #for $ref in $references
