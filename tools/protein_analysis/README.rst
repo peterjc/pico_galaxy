@@ -177,6 +177,7 @@ v0.2.6  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
 v0.2.7  - Style cleanup in Python scripts.
 v0.2.8  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - Record version of Promoter 2 via ``<version_command>``.
 ======= ======================================================================
 
 

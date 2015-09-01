@@ -34,6 +34,9 @@ from seq_analysis_utils import sys_exit, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 
+if "-v" in sys.argv or "--version" in sys.argv:
+    sys.exit(os.system("promoter -V"))
+
 if len(sys.argv) != 4:
     sys_exit("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
              "Got %i arguments." % (len(sys.argv)-1))
