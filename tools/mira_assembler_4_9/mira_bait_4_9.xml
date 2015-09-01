@@ -29,12 +29,12 @@
 #end if
 ##-----------------------------------------------------------------------
 ##Do we need toinvert the output selection?
-#if $output_choice == "neg"
+#if str($output_choice) == "neg"
 -i
 #end if
 ##-----------------------------------------------------------------------
 ##Do we need to ignore the reverse strand?
-#if $strand_choice == "fwd"
+#if str($strand_choice) == "fwd"
 -r
 #end if
 ##-----------------------------------------------------------------------
