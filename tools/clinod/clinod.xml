@@ -1,4 +1,4 @@
-<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.8">
+<tool id="clinod" name="Nucleolar localization sequence Detector (NoD)" version="0.0.9">
     <description>Find nucleolar localization signals (NoLSs) in protein sequences</description>
     <requirements>
         <requirement type="binary">java</requirement>
@@ -9,6 +9,12 @@
         <exit_code range="1:" />
         <exit_code range=":-1" />
     </stdio>
+    <version_command>
+##The first non-blank line contains the version information, e.g.
+##NucleOlar localization sequence Detector v. 1.3b (13 May 2011)
+##Question: Why don't we have to escape the dollar here?
+java -jar $CLINOD/clinod-1.3.jar | grep -i "^NucleOlar localization sequence Detector"
+    </version_command>
     <command>
 ##The Galaxy Tool Shed installation should define $CLINOD to point at folder
 ##containing both clinod-1.3.jar and the batchman binary:
