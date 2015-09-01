@@ -13,7 +13,7 @@
     <command interpreter="python">./mira_check_version.py \${MIRA4_9}mirabait 4.9 &amp;&amp;
 ##First checked it is mirabait v4.9 on the path... now actually run it
 ##-----------------------------------------------------------------------
-\${MIRA4_9}mirabait -k "$kmer_length" -n "$min_occurence" -b "$bait_file" -o "$output_reads"
+\${MIRA4_9}mirabait -k "$kmer_length" -n "$min_occurence" -b "$bait_file"
 ##-----------------------------------------------------------------------
 ##Must now map Galaxy datatypes to MIRA file types...
 ##exploiting the polymorphic naming of the input read parameter!
@@ -30,7 +30,9 @@
 ##-----------------------------------------------------------------------
 ##Do we need toinvert the output selection?
 #if str($output_choice) == "neg"
--i
+-i -O "$output_reads"
+#else
+-o "$output_reads"
 #end if
 ##-----------------------------------------------------------------------
 ##Do we need to ignore the reverse strand?
