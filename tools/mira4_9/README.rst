@@ -9,7 +9,7 @@ This tool is a short Python script (to collect the MIRA output and move it
 to where Galaxy expects the files) and associated Galaxy wrapper XML file.
 
 It is available from the Galaxy Tool Shed at:
-http://toolshed.g2.bx.psu.edu/view/peterjc/mira_assembler_4_9
+http://toolshed.g2.bx.psu.edu/view/peterjc/mira4_9
 
 It uses a Galaxy datatype definition 'mira' for the MIRA Assembly Format,
 http://toolshed.g2.bx.psu.edu/view/peterjc/mira_datatypes
@@ -48,11 +48,11 @@ There are various Python and XML files to install into Galaxy:
 * ``mira_bait_4_9.xml`` (the Galaxy tool definition for mirabait)
 * ``mira_bait_4_9.py`` (the Python wrapper script for mirabait)
 
-The suggested location is a new ``tools/mira_assembler_4_9`` folder. You will
+The suggested location is a new ``tools/mira4_9`` folder. You will
 also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool::
 
-  <tool file="mira_assembler_4_9/mira_bait_4_9.xml" />
+  <tool file="mira4_9/mira_bait_4_9.xml" />
   ...
 
 You will also need to install MIRA 4.9, we used version 4.9.5, and define the
@@ -95,17 +95,17 @@ For pushing a release to the test or main "Galaxy Tool Shed", use the following
 Planemo commands (which requires you have set your Tool Shed access details in
 ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ planemo shed_update -t testtoolshed --check_diff ~/repositories/pico_galaxy/tools/mira_assembler_4_9/
+    $ planemo shed_update -t testtoolshed --check_diff ~/repositories/pico_galaxy/tools/mira4_9/
     ...
 
 or::
 
-    $ planemo shed_update -t toolshed --check_diff ~/repositories/pico_galaxy/tools/mira_assembler_4_9/
+    $ planemo shed_update -t toolshed --check_diff ~/repositories/pico_galaxy/tools/mira4_9/
     ...
 
 To just build and check the tar ball, use::
 
-    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/mira_assembler_4_9/
+    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/mira4_9/
     ...
     $ tar -tzf shed_upload.tar.gz 
     ...

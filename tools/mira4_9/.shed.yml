@@ -1,7 +1,7 @@
-name: mira_assembler_4_9
+name: mira4_9
 owner: peterjc
 homepage_url: http://chevreux.org/projects_mira.html
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira_assembler_4_9
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4_9
 description: MIRA 4.9 assembler
 long_description: |
   Wrapper for core functionality of assembly tool MIRA 4.9. Accepts data
@@ -15,11 +15,11 @@ type: unrestricted
 include:
 - strip_components: 2
   source:
-  - ../../tools/mira_assembler_4_9/README.rst
-  - ../../tools/mira_assembler_4_9/mira_bait_4_9.py
-  - ../../tools/mira_assembler_4_9/mira_bait_4_9.py
-  - ../../tools/mira_assembler_4_9/repository_dependencies.xml
-  - ../../tools/mira_assembler_4_9/tool_dependencies.xml
+  - ../../tools/mira4_9/README.rst
+  - ../../tools/mira4_9/mira_bait_4_9.py
+  - ../../tools/mira4_9/mira_bait_4_9.py
+  - ../../tools/mira4_9/repository_dependencies.xml
+  - ../../tools/mira4_9/tool_dependencies.xml
   - ../../test-data/tvc_bait.fasta
   - ../../test-data/tvc_mini.fastq
   - ../../test-data/tvc_mini_bait_pos.fastq
