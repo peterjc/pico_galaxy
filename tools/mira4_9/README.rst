@@ -1,4 +1,4 @@
-Galaxy wrapper for the MIRA assembly program (v4.0)
+Galaxy wrapper for the MIRA assembly program (v4.9)
 ===================================================
 
 This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
