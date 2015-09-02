@@ -105,6 +105,7 @@ v0.0.7  - Renamed folder (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
         - MIRA 4.0.2 dependency now declared via dedicated Tool Shed package.
 v0.0.8  - Renamed folder now have a MIRA 4.9.x wrapper (internal change only).
+v0.0.9  - Additional unit tests now covering ``miraconvert``.
 ======= ======================================================================
 
 

@@ -1,4 +1,4 @@
-<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.9">
+<tool id="mira_4_0_convert" name="MIRA v4.0 miraconvert" version="0.0.10">
     <description>Convert MIRA assembly to FASTA/SAM/BAM</description>
     <requirements>
         <requirement type="binary">miraconvert</requirement>
@@ -73,7 +73,10 @@ mira4_convert.py
         </data>
     </outputs>
     <tests>
-        <!-- TODO -->
+        <test>
+            <param name="mira_file" value="U13small_m.mira4_de_novo.mira" ftype="mira"/>
+            <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta"/>
+        </test>
     </tests>
     <help>
 **What it does**

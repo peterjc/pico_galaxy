@@ -1,4 +1,4 @@
-<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.8">
+<tool id="mira_4_0_de_novo" name="MIRA v4.0 de novo assember" version="0.0.9">
     <description>Takes Sanger, Roche 454, Solexa/Illumina, Ion Torrent and PacBio reads</description>
     <requirements>
         <requirement type="binary">mira</requirement>
@@ -179,10 +179,9 @@ data = ${f.ext}::$f
             <param name="maf_wanted" value="true"/>
             <param name="bam_wanted" value="true"/>
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta" />
-            <output name="out_bam" file="empty_file.dat" compare="contains" />
-            <!-- TODO: Suggest startswith as a compare method? -->
-            <output name="out_maf" file="header.mira" compare="contains" />
-            <output name="out_log" file="empty_file.dat" compare="contains" />
+            <output name="out_bam" file="empty_file.dat" compare="contains" ftype="bam" />
+            <output name="out_maf" file="U13small_m.mira4_de_novo.mira" ftype="mira" />
+            <output name="out_log" file="empty_file.dat" compare="contains" ftype="txt" />
         </test>
         <!-- Simple assembly based on MIRA's minidemo/solexa1 example
              Note we're using just one repeat group,
@@ -196,7 +195,7 @@ data = ${f.ext}::$f
             <param name="maf_wanted" value="false"/>
             <param name="bam_wanted" value="false"/>
             <output name="out_fasta" file="ecoli.mira4_de_novo.fasta" ftype="fasta" />
-            <output name="out_log" file="empty_file.dat" compare="contains" />
+            <output name="out_log" file="empty_file.dat" compare="contains" ftype="txt" />
         </test>
     </tests>
     <help>
