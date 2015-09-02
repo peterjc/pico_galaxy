@@ -1,0 +1,4 @@
+# name              	length	av.qual	#-reads	mx.cov.	av.cov	GC%	CnIUPAC	CnFunny	CnN	CnX	CnGap	CnNoCov
+MIRA_rep_c1         	1530	61	11	9	4.46	36.08	0	0	0	0	3	0
+MIRA_rep_c2         	541	31	6	6	5.24	38.62	5	0	0	0	2	0
+MIRA_rep_c3         	454	42	6	6	4.46	35.81	10	0	0	0	0	0

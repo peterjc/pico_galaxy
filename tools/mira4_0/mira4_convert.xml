@@ -77,6 +77,12 @@ mira4_convert.py
             <param name="mira_file" value="U13small_m.mira4_de_novo.mira" ftype="mira"/>
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta"/>
         </test>
+        <test>
+            <param name="mira_file" value="U13small_m.mira4_de_novo.mira" ftype="mira"/>
+            <param name="cstats_wanted" value="true"/>
+            <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta"/>
+            <output name="out_cstats" file="U13small_m.mira4_de_novo.cstats.tabular" ftype="tabular"/>
+        </test>
     </tests>
     <help>
 **What it does**

@@ -18,6 +18,7 @@ include:
   - ../../test-data/U13small_m.fastq
   - ../../test-data/U13small_m.mira4_de_novo.fasta
   - ../../test-data/U13small_m.mira4_de_novo.mira
+  - ../../test-data/U13small_m.mira4_de_novo.cstats.tabular
   - ../../test-data/ecoli.fastq
   - ../../test-data/ecoli.mira4_de_novo.fasta
   - ../../test-data/empty_file.dat
