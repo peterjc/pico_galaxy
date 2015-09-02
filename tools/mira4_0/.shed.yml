@@ -1,7 +1,7 @@
 name: mira4_assembler
 owner: peterjc
 homepage_url: http://chevreux.org/projects_mira.html
-remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4_assembler
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/mira4_0
 description: MIRA 4.0 assembler
 long_description: |
   Wrapper for core functionality of assembly tool MIRA 4.0. Accepts data
@@ -29,13 +29,13 @@ include:
   - ../../test-data/tvc_mini_bait_neg.fastq
   - ../../test-data/tvc_mini_bait_pos.fastq
   - ../../test-data/tvc_mini_bait_strict.fastq
-  - ../../tools/mira4_assembler/README.rst
-  - ../../tools/mira4_assembler/mira4.py
-  - ../../tools/mira4_assembler/mira4_bait.py
-  - ../../tools/mira4_assembler/mira4_convert.py
-  - ../../tools/mira4_assembler/mira4_de_novo.xml
-  - ../../tools/mira4_assembler/mira4_make_bam.py
-  - ../../tools/mira4_assembler/mira4_mapping.xml
-  - ../../tools/mira4_assembler/mira4_validator.py
-  - ../../tools/mira4_assembler/repository_dependencies.xml
-  - ../../tools/mira4_assembler/tool_dependencies.xml
+  - ../../tools/mira4_0/README.rst
+  - ../../tools/mira4_0/mira4.py
+  - ../../tools/mira4_0/mira4_bait.py
+  - ../../tools/mira4_0/mira4_convert.py
+  - ../../tools/mira4_0/mira4_de_novo.xml
+  - ../../tools/mira4_0/mira4_make_bam.py
+  - ../../tools/mira4_0/mira4_mapping.xml
+  - ../../tools/mira4_0/mira4_validator.py
+  - ../../tools/mira4_0/repository_dependencies.xml
+  - ../../tools/mira4_0/tool_dependencies.xml

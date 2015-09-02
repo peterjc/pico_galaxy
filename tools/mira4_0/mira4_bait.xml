@@ -1,4 +1,4 @@
-<tool id="mira_4_0_bait" name="MIRA v4.0 mirabait" version="0.0.7">
+<tool id="mira_4_0_bait" name="MIRA v4.0 mirabait" version="0.0.8">
     <description>Filter reads using kmer matches</description>
     <requirements>
         <requirement type="binary">mirabait</requirement>
@@ -86,9 +86,11 @@ matching any known mitochondrial sequence, assembly those, and repeat.
 
 .. class:: warningmark
 
-While MIRA4 is aware of many read naming conventions to identify paired read
-partners, the ``mirabait`` tool considers each read in isolation. Applying
-it to paired read files may leave you with orphaned reads.
+While MIRA 4.0 is aware of many read naming conventions to identify paired read
+partners, this version of the ``mirabait`` tool considers each read in isolation.
+Applying it to paired read files may leave you with orphaned reads.
+
+The version of ``mirabait`` included in MIRA 4.9.5 onwards is pair-aware.
 
 
 **Citation**
