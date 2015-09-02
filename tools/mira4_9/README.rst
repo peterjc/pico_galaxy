@@ -45,7 +45,7 @@ First install the 'mira' datatype for Galaxy, available here:
 
 There are various Python and XML files to install into Galaxy:
 
-* ``mira_bait_4_9.xml`` (the Galaxy tool definition for mirabait)
+* ``mira_4_9_bait.xml`` (the Galaxy tool definition for mirabait)
 * ``mira_check_version.py`` (Python helper script)
 
 The suggested location is a new ``tools/mira4_9`` folder. You will
@@ -71,7 +71,7 @@ SAM output).
 If you wish to run the unit tests, also move/copy the ``test-data/`` files
 under Galaxy's ``test-data/`` folder. Then::
 
-    $ ./run_tests.sh -id mira_bait_4_9
+    $ ./run_tests.sh -id mira_4_9_bait
     ...
 
 
