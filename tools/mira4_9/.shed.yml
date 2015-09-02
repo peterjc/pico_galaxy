@@ -16,7 +16,7 @@ include:
 - strip_components: 2
   source:
   - ../../tools/mira4_9/README.rst
-  - ../../tools/mira4_9/mira_bait_4_9.py
+  - ../../tools/mira4_9/mira_bait_4_9.xml
   - ../../tools/mira4_9/mira_bait_4_9.py
   - ../../tools/mira4_9/repository_dependencies.xml
   - ../../tools/mira4_9/tool_dependencies.xml
