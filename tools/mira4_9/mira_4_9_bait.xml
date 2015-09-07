@@ -98,8 +98,8 @@
             <option value="both">Check both strands</option>
             <option value="fwd">Just forward strand</option>
         </param>
-        <param name="kmer_length" type="integer" value="31" min="1" max="32"
-               label="k-mer length" help="Maximum 32" />
+        <param name="kmer_length" type="integer" value="31" min="1" max="256"
+               label="k-mer length" help="Maximum 256" />
         <param name="min_occurence" type="integer" value="1" min="1"
                label="Minimum k-mer occurence"
                help="How many k-mer matches do you want per read? Minimum one" />
