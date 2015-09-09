@@ -45,7 +45,7 @@ sample data, and a shared ``tool-data`` folder used for configuration files.
 Testing
 =======
 
-Most of these Galaxy tools include a <tests> section in the tool XML files,
+Most of these Galaxy tools include a ``<tests>`` section in the tool XML files,
 which defines one or more functional tests - listing sample input files and
 user parameters, along with the expected output. If you install the tools,
 you can run these tests via Galaxy's ``run_functional_tests.sh`` script -
@@ -62,7 +62,7 @@ this GitHub repository is updated:
    :alt: Current status of TravisCI build for master branch
    :target: https://travis-ci.org/peterjc/pico_galaxy/builds
 
-This TravisCI integration is still new and experimental, but simulates a
+This TravisCI integration is still somewhat experimental, but simulates a
 manual install of these Galaxy Tools and their dependencies. See the
 special ``.travis.yml`` file for more technical details.
 
