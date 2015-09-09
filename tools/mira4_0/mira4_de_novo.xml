@@ -177,9 +177,8 @@ data = ${f.ext}::$f
             <param name="type" value="none" />
             <param name="filenames" value="U13small_m.fastq" ftype="fastqsanger" />
             <param name="maf_wanted" value="true"/>
-            <param name="bam_wanted" value="true"/>
+            <param name="bam_wanted" value="false"/>
             <output name="out_fasta" file="U13small_m.mira4_de_novo.fasta" ftype="fasta" />
-            <output name="out_bam" file="empty_file.dat" compare="contains" ftype="bam" />
             <output name="out_maf" file="U13small_m.mira4_de_novo.mira" ftype="mira" />
             <output name="out_log" file="empty_file.dat" compare="contains" ftype="txt" />
         </test>
