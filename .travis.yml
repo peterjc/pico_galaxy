@@ -109,11 +109,10 @@ before_install:
  - tar -jxvf mira_4.9.5_2_linux-gnu_x86_64_static.tar.bz2
  - export MIRA4_9=$PWD/mira_4.9.5_2_linux-gnu_x86_64_static/bin/
  - echo "Installing samtools..."
- - wget http://downloads.sourceforge.net/project/samtools/samtools/0.1.19/samtools-0.1.19.tar.bz2
- - tar -jxvf samtools-0.1.19.tar.bz2
- - cd samtools-0.1.19
- - make
- - export PATH=$PWD:$PATH
+ - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
+ - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz
+ - tar -zxvf samtools-0.1.19-Linux-x86_64.tgz
+ - export PATH=$PWD/bin/:$PATH
  - echo "Fetching Galaxy ${GALAXY_BRANCH} branch..."
  - cd ${TRAVIS_BUILD_DIR}
  - wget https://codeload.github.com/galaxyproject/galaxy/tar.gz/${GALAXY_BRANCH}
