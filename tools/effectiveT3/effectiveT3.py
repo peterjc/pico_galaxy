@@ -89,10 +89,7 @@ def run(cmd):
             sys_exit("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
         else:
             sys_exit("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
-    print cmd
-    print "return code: %r" % return_code
-    print "stdout: %r" % stdout
-    print "stderr: %r" % stderr
+
 
 if not os.path.isdir(effectiveT3_dir):
     sys_exit("Effective T3 folder not found: %r" % effectiveT3_dir)
