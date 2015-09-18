@@ -100,6 +100,7 @@ before_install:
  - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar
  - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar
  - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar
+ - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.1.jar
  - echo "Installing samtools..."
  - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
  - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz

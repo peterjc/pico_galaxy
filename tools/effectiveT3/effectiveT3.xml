@@ -1,4 +1,4 @@
-<tool id="effectiveT3" name="Effective T3" version="0.0.15">
+<tool id="effectiveT3" name="Effective T3" version="0.0.16">
     <description>Find bacterial effectors in protein sequences</description>
     <requirements>
         <requirement type="package" version="1.0.1">effectiveT3</requirement>

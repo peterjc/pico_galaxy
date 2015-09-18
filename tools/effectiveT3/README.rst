@@ -90,6 +90,8 @@ v0.0.14 - Fixed error handling in ``effectiveT3.py``.
 v0.0.15 - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.16 - Updated URLs to download the tool and models.
+        - Includes new standard classification model v2.0.1 (Sep 2015)
+          as the default entry in ``tool-data/effectiveT3.loc``
 ======= ======================================================================
 
 
