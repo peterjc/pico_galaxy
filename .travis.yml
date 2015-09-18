@@ -100,14 +100,6 @@ before_install:
  - wget http://effectors.org/download/module/TTSS_ANIMAL-1.0.1.jar
  - wget http://effectors.org/download/module/TTSS_PLANT-1.0.1.jar
  - wget http://effectors.org/download/module/TTSS_STD-1.0.1.jar
- - echo "Downloading and setting up MIRA4..."
- - cd ${TRAVIS_BUILD_DIR}
- - wget http://downloads.sourceforge.net/project/mira-assembler/MIRA/stable/mira_4.0.2_linux-gnu_x86_64_static.tar.bz2
- - tar -jxvf mira_4.0.2_linux-gnu_x86_64_static.tar.bz2
- - export MIRA4=$PWD/mira_4.0.2_linux-gnu_x86_64_static/bin/
- - wget http://downloads.sourceforge.net/project/mira-assembler/MIRA/development/mira_4.9.5_2_linux-gnu_x86_64_static.tar.bz2
- - tar -jxvf mira_4.9.5_2_linux-gnu_x86_64_static.tar.bz2
- - export MIRA4_9=$PWD/mira_4.9.5_2_linux-gnu_x86_64_static/bin/
  - echo "Installing samtools..."
  - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
  - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz
@@ -132,7 +124,7 @@ before_install:
 # We setup our tools under the Galaxy tool folder by using symlinks.
 # TODO - Restructure this to auto-update in future when add folders?
 #
-# We setup our datatypes by adding mira.py to the Galaxy library, and
+# We would setup our datatypes by adding xxx.py to the Galaxy library, and
 # adding an import in lib/galaxy/datatypes/registry.py, and replacing
 # the datatypes_conf.xml file.
 #
@@ -155,7 +147,6 @@ install:
  - rm -f config/tool_conf.xml.sample
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml config/tool_conf.xml.sample
  - for i in $( ls ${TRAVIS_BUILD_DIR}/tools/ ); do ln -s ${TRAVIS_BUILD_DIR}/tools/$i/ tools/$i ; done
- - ln -s ${TRAVIS_BUILD_DIR}/datatypes/mira_datatypes/mira.py lib/galaxy/datatypes/mira.py
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/

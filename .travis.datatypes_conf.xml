@@ -30,7 +30,6 @@
     <datatype extension="tabular" type="galaxy.datatypes.tabular:Tabular" display_in_upload="true"/>
     <datatype extension="txt" type="galaxy.datatypes.data:Text" display_in_upload="true"/>
     <datatype extension="xml" type="galaxy.datatypes.xml:GenericXml" mimetype="application/xml" display_in_upload="true"/>
-    <datatype extension="mira" type="galaxy.datatypes.mira:MiraAssemblyFormat" mimetype="text/plain" display_in_upload="true"/>
   </registration>
   <sniffers>
     <!--
