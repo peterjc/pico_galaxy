@@ -1,4 +1,11 @@
-As part of a restructuring due to a growing number of Galaxy
-wrappers for different versions of the MIRA assembly tool,
-the files originally in this folder have been moved to
-`mira4_0 <../mira4_0/README.rst>`_.
+Galaxy packages for MIRA
+========================
+
+The code for my Galaxy wrappers for MIRA and associated packages has been
+moved to a new repository:
+
+https://github.com/peterjc/galaxy_mira/
+
+The tools, datatypes and packages remain available from the Galaxy Tool Shed:
+
+http://toolshed.g2.bx.psu.edu/view/peterjc/

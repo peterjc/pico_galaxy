@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="MIRA" version="3.4.1.1">
-        <repository name="package_mira_3_4_1_1" owner="peterjc" />
-    </package>
-</tool_dependency>

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<tool_dependency>
-    <package name="samtools" version="0.1.19">
-        <repository name="package_samtools_0_1_19" owner="iuc" />
-    </package>
-    <package name="MIRA" version="4.0.2">
-        <repository name="package_mira_4_0_2" owner="peterjc" />
-    </package>
-</tool_dependency>
