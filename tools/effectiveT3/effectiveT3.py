@@ -21,7 +21,7 @@ effectiveT3_jar = os.path.join(effectiveT3_dir, "TTSS_GUI-1.0.1.jar")
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # TODO - Get version of the JAR file dynamically?
-    print("Wrapper v0.0.14, TTSS_GUI-1.0.1.jar")
+    print("Wrapper v0.0.15, TTSS_GUI-1.0.1.jar")
     sys.exit(0)
 
 def sys_exit(msg, error_level=1):
@@ -83,12 +83,16 @@ def run(cmd):
     # Use .communicate as can get deadlocks with .wait(),
     stdout, stderr = child.communicate()
     return_code = child.returncode
-    if return_code:
+    if return_code or stderr.startswith("Exception in thread"):
         cmd_str= " ".join(cmd)  # doesn't quote spaces etc
         if stderr and stdout:
             sys_exit("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
         else:
             sys_exit("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
+    print cmd
+    print "return code: %r" % return_code
+    print "stdout: %r" % stdout
+    print "stderr: %r" % stderr
 
 if not os.path.isdir(effectiveT3_dir):
     sys_exit("Effective T3 folder not found: %r" % effectiveT3_dir)
