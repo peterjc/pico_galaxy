@@ -28,6 +28,7 @@ include:
   - ../../test-data/empty_effectiveT3.tabular
   - ../../test-data/four_human_proteins.fasta
   - ../../test-data/four_human_proteins.effectiveT3.tabular
+  - ../../test-data/four_human_proteins.effectiveT3_std2.tabular
   - ../../tool-data/effectiveT3.loc.sample
   - ../../tools/effectiveT3/README.rst
   - ../../tools/effectiveT3/effectiveT3.py
