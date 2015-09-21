@@ -53,7 +53,7 @@ $fasta_file $tabular_file</command>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta" />
             <param name="module" value="std_2_0_2" />
             <param name="type" value="cutoff" />
-	    <param name="cutoff" value="0.8" />
+            <param name="cutoff" value="0.8" />
             <output name="tabular_file" file="four_human_proteins.effectiveT3_std2.tabular" ftype="tabular" />
         </test>
         <test>
