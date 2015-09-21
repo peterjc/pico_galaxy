@@ -25,7 +25,7 @@
             </actions>
         </install>
         <readme>
-Downloads effectiveT3 v1.0.1 and the three models from http://effectors.org/ aka http://effectors.csb.univie.ac.at/
+Downloads effectiveT3 v1.0.1 and associated models from http://effectors.org/ aka http://effectors.csb.univie.ac.at/
         </readme>
     </package>
 </tool_dependency>

@@ -27,7 +27,8 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-the Jar files for effectiveT3 v1.0.1 and the three models (animal, plant and std).
+the Jar files for effectiveT3 v1.0.1 and its associated models (animal, plant and
+standard).
 
 
 Manual Installation
@@ -73,7 +74,7 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.7  - Initial public release
-v0.0.8  - Include effectiveT3.loc.sample in Tool Shed
+v0.0.8  - Include ``effectiveT3.loc.sample`` in Tool Shed
 v0.0.9  - Check the return code for errors in the XML
 v0.0.10 - Added unit test
 v0.0.11 - Automated installation
