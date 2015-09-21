@@ -20,8 +20,8 @@
                 <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
                 <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar</action>
                 <action type="move_file"><source>TTSS_STD-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.1.jar</action>
-                <action type="move_file"><source>TTSS_STD-2.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
+                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.2.jar</action>
+                <action type="move_file"><source>TTSS_STD-2.0.2.jar</source><destination>$INSTALL_DIR/module/</destination></action>
             </actions>
         </install>
         <readme>

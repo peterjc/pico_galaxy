@@ -14,7 +14,7 @@
 #e.g.
 #
 # /opt/EffectiveT3/TTSS_GUI-1.0.1.jar
-# /opt/EffectiveT3/module/TTSS_STD-2.0.1.jar
+# /opt/EffectiveT3/module/TTSS_STD-2.0.2.jar
 # /opt/EffectiveT3/module/TTSS_STD-1.0.1.jar
 # /opt/EffectiveT3/module/TTSS_ANIMAL-1.0.1.jar
 # /opt/EffectiveT3/module/TTSS_PLANT-1.0.1.jar
@@ -22,7 +22,7 @@
 #See files ../tools/protein_analysis/effectiveT3.* for more details,
 #and http://effectors.org
 #
-std_2_0_1	Type III Effector prediction with standard set (v2.0.1, Sep 2015)	TTSS_STD-2.0.1.jar
+std_2_0_2	Type III Effector prediction with standard set (v2.0.2, Sep 2015)	TTSS_STD-2.0.2.jar
 standard	Type III Effector prediction with standard set (v1.0.1, Aug 2009)	TTSS_STD-1.0.1.jar
 animal	Type III Effector prediction with human/animal-associated set (v1.0.1, Aug 2009)	TTSS_ANIMAL-1.0.1.jar
 plant	Type III Effector prediction with plant-associated set (v1.0.1, Aug 2009)	TTSS_PLANT-1.0.1.jar
