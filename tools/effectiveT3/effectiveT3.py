@@ -21,7 +21,7 @@ effectiveT3_jar = os.path.join(effectiveT3_dir, "TTSS_GUI-1.0.1.jar")
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # TODO - Get version of the JAR file dynamically?
-    print("Wrapper v0.0.15, TTSS_GUI-1.0.1.jar")
+    print("Wrapper v0.0.16, TTSS_GUI-1.0.1.jar")
     sys.exit(0)
 
 def sys_exit(msg, error_level=1):
