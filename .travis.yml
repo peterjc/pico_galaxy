@@ -49,9 +49,12 @@ env:
 # for testing our tools. Otherwise we use the default settings such as
 # running with an SQLite database.
 #
-# We also need to install our tool dependencies, e.g. NCBI BLAST+ binaries,
+# We also need to install our tool dependencies, e.g. samtools binaries,
 # which we will do manually rather than via a (local) Galaxy Tool Shed.
-#
+# Tool dependencies defined in this repository can be installed via
+# "planemo dependency_script", however we still have to worry about
+# dependencies normally done via the Tool Shed (e.g. Biopython,
+# mummer) or assumed to be present by Galaxy itself (e.g. samtools).
 
 before_install:
  - echo "Creating virtual environment (with pip) for Galaxy's Python"
@@ -67,6 +70,12 @@ before_install:
  - echo "Fixing permissions on Python eggs cache folder"
  - mkdir -p "$HOME/.python-eggs"
  - chmod 700 "$HOME/.python-eggs" 
+ - echo "Downloading and setting up dependencies..."
+ - export INSTALL_DIR=/tmp/dep_install && mkdir $INSTALL_DIR
+ - export DOWNLOAD_CACHE=/tmp/download_cache && mkdir $DOWNLOAD_CACHE
+ - planemo dependency_script -r ${TRAVIS_BUILD_DIR}/packages/ ${TRAVIS_BUILD_DIR}/tools/
+ - bash dep_install.sh
+ - source env.sh
  - echo "Installing Biopython..."
  - pip install biopython
  - echo "Installing MUMmer and its dependencies..."
@@ -76,31 +85,6 @@ before_install:
  - tar -zxvf MUMmer3.23.tar.gz
  - cd MUMmer3.23 && make check && make install
  - export PATH=$PWD:$PATH
- - echo "Downloading and compiling nlstradamus..."
- - cd ${TRAVIS_BUILD_DIR}
- - mkdir nlstradamus && cd nlstradamus
- - wget http://www.moseslab.csb.utoronto.ca/NLStradamus/NLStradamus/NLStradamus.1.8.tar.gz
- - tar -zxvf NLStradamus.1.8.tar.gz
- - g++ NLStradamus.cpp -o NLStradamus -O3
- - export PATH=$PWD:$PATH
- - echo "Downloading and setting up clinod..."
- - cd ${TRAVIS_BUILD_DIR}
- - mkdir clinod && cd clinod
- - export CLINOD=$PWD
- - wget http://www.ra.cs.uni-tuebingen.de/downloads/SNNS/SNNSv4.3.tar.gz
- - tar -zxvf SNNSv4.3.tar.gz
- - mv SNNSv4.3/tools/bin/x86_64-pc-unknown-linux-gnuoldld/batchman $CLINOD/
- - wget http://www.compbio.dundee.ac.uk/nod/downloads/clinod-1.3.jar
- - echo "Downloading and setting up EffectiveT3..."
- - cd ${TRAVIS_BUILD_DIR}
- - mkdir effectiveT3 && cd effectiveT3
- - export EFFECTIVET3=$PWD
- - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_GUI-1.0.1.jar
- - mkdir module && cd module
- - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar
- - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar
- - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar
- - wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.2.jar
  - echo "Installing samtools..."
  - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
  - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz
