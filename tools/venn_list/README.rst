@@ -18,9 +18,8 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download the tool
-and the Biopython dependency.
-
-You will still need to install the R/Bioconductor package limma.
+and the Python dependencies Biopython and rpy, and the R/Bioconductor package
+limma.
 
 
 Manual Installation
@@ -72,6 +71,7 @@ v0.0.8  - Reorder XML elements (internal change only).
 v0.0.9  - Test with three-way Venn diagram.
         - Includes testing of failure mode.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - Tool Shed dependency for rpy and limma (thanks to Björn Grüning).
 ======= ======================================================================
 
 
