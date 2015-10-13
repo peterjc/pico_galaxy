@@ -3,29 +3,29 @@
     <package name="effectiveT3" version="1.0.1">
         <install version="1.0">
             <actions>
-                <!-- Set environment variable so Python script knows where to look -->
+                <!-- Main JAR file -->
+                <action type="download_file">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_GUI-1.0.1.jar</action>
+                <action type="move_file"><source>TTSS_GUI-1.0.1.jar</source><destination>$INSTALL_DIR</destination></action>
+                <!-- Model specific JAR files -->
+                <action type="make_directory">$INSTALL_DIR/module</action>
+                <action type="download_file">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar</action>
+                <action type="move_file"><source>TTSS_ANIMAL-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>        
+                <action type="download_file">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar</action>
+                <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
+                <action type="download_file">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar</action>
+                <action type="move_file"><source>TTSS_STD-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
+                <action type="download_file">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.2.jar</action>
+                <action type="move_file"><source>TTSS_STD-2.0.2.jar</source><destination>$INSTALL_DIR/module/</destination></action>
+                <!-- Make this accessible -->
                 <action type="set_environment">
                     <environment_variable name="EFFECTIVET3" action="set_to">$INSTALL_DIR</environment_variable>
                 </action>
-                <!-- Main JAR file -->
-                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_GUI-1.0.1.jar</action>
-                <!-- If using action type download_file will need to move the file,
-                <action type="move_file"><source>TTSS_GUI-1.0.1.jar</source><destination>$INSTALL_DIR/</destination></action>
-                -->
-                <!-- Three model JAR files -->
-                <action type="make_directory">$INSTALL_DIR/module</action>
-                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar</action>
-                <action type="move_file"><source>TTSS_ANIMAL-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>        
-                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar</action>
-                <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar</action>
-                <action type="move_file"><source>TTSS_STD-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-                <action type="shell_command">wget http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.2.jar</action>
-                <action type="move_file"><source>TTSS_STD-2.0.2.jar</source><destination>$INSTALL_DIR/module/</destination></action>
             </actions>
         </install>
         <readme>
 Downloads effectiveT3 v1.0.1 and associated models from http://effectors.org/ aka http://effectors.csb.univie.ac.at/
+
+Sets environment variable $EFFECTIVET3 to the directory containing the main JAR file whose subdirectory module/ holds the model JAR files.
         </readme>
     </package>
 </tool_dependency>
