@@ -119,10 +119,9 @@ before_install:
 # We setup out sample *.loc files in the Galaxy tool-data folder by copying
 # them (using symlinks might be faster?)
 #
-# We then want to use run.sh to setup all the sample files, fetch eggs etc,
-# but not actually start running Galaxy. One way to do this is by calling
-# "./run.sh --stop-daemon" but must override its error level 1 return value.
-#
+# Galaxy now provides a startup script to setup all the sample files,
+# and fetch egg/wheel Python dependecies etc.
+
 
 install:
  - cd ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}
@@ -135,8 +134,7 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
- - ./run.sh --stop-daemon || true
- - python scripts/fetch_eggs.py
+ - bash scripts/common_startup.sh --skip-venv --dev-wheels
 
 
 # Testing tools in Galaxy
