@@ -3,14 +3,13 @@
 #
 # See http://travis-ci.org/ for details
 
-
 # We need Python 2.6 or 2.7 to run Galaxy (and some of the wrappers)
-# but don't really care which. We also need Java to run some tools,
-# and perhaps the simplest way to get that installed to to run this
-# entire TravisCI build as "java" (which will still have a system
-# python installed).
-#
-language: java
+# but don't really care which. We also need Java to run EffectiveT3,
+# which seems to be included even with TravisCI set to Python :)
+language: python
+python:
+ - "2.6"
+ - "2.7"
 
 # We use the TravisCI build matrix to test two versions of Galaxy,
 # the current development branch (dev), and as a proxy for the
@@ -57,11 +56,6 @@ env:
 # mummer) or assumed to be present by Galaxy itself (e.g. samtools).
 
 before_install:
- - echo "Creating virtual environment (with pip) for Galaxy's Python"
- - sudo apt-get install -y python-virtualenv
- - virtualenv .
- - source bin/activate
- - pip install --upgrade pip
  - echo "Using planemo lint to check for obvious tool errors"
  - pip install planemo
  - planemo shed_lint --report_level warn --tools --fail_level error --recursive ${TRAVIS_BUILD_DIR}/tools/
