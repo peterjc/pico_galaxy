@@ -56,6 +56,9 @@ args = ["./runWolfPsortSummary"] + sys.argv[1:]
 return_code = subprocess.call(args)
 os.chdir(saved_dir)
 sys.exit(return_code)
+
+For more details on this workaround, see:
+https://lists.galaxyproject.org/pipermail/galaxy-dev/2015-December/023386.html
 """
 
 if len(sys.argv) != 5:
