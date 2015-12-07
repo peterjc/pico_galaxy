@@ -16,8 +16,8 @@ import os
 import subprocess
 
 # The Galaxy auto-install via tool_dependencies.xml will set this environment variable
-effectiveT3_dir = os.environ.get("EFFECTIVET3", "/opt/EffectiveT3/")
-effectiveT3_jar = os.path.join(effectiveT3_dir, "TTSS_GUI-1.0.1.jar")
+effective_t3_dir = os.environ.get("EFFECTIVET3", "/opt/EffectiveT3/")
+effective_t3_jar = os.path.join(effective_t3_dir, "TTSS_GUI-1.0.1.jar")
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # TODO - Get version of the JAR file dynamically?
@@ -86,22 +86,22 @@ def run(cmd):
             sys.exit("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
 
 
-if not os.path.isdir(effectiveT3_dir):
-    sys.exit("Effective T3 folder not found: %r" % effectiveT3_dir)
+if not os.path.isdir(effective_t3_dir):
+    sys.exit("Effective T3 folder not found: %r" % effective_t3_dir)
 
-if not os.path.isfile(effectiveT3_jar):
-    sys.exit("Effective T3 JAR file not found: %r" % effectiveT3_jar)
+if not os.path.isfile(effective_t3_jar):
+    sys.exit("Effective T3 JAR file not found: %r" % effective_t3_jar)
 
-if not os.path.isdir(os.path.join(effectiveT3_dir, "module")):
-    sys.exit("Effective T3 module folder not found: %r" % os.path.join(effectiveT3_dir, "module"))
+if not os.path.isdir(os.path.join(effective_t3_dir, "module")):
+    sys.exit("Effective T3 module folder not found: %r" % os.path.join(effective_t3_dir, "module"))
 
-effectiveT3_model = os.path.join(effectiveT3_dir, "module", model)
-if not os.path.isfile(effectiveT3_model):
+effective_t3_model = os.path.join(effective_t3_dir, "module", model)
+if not os.path.isfile(effective_t3_model):
     sys.stderr.write("Contents of %r is %s\n"
-                     % (os.path.join(effectiveT3_dir, "module"),
-                        ", ".join(repr(p) for p in os.listdir(os.path.join(effectiveT3_dir, "module")))))
-    sys.stderr.write("Main JAR was found: %r\n" % effectiveT3_jar)
-    sys.exit("Effective T3 model JAR file not found: %r" % effectiveT3_model)
+                     % (os.path.join(effective_t3_dir, "module"),
+                        ", ".join(repr(p) for p in os.listdir(os.path.join(effective_t3_dir, "module")))))
+    sys.stderr.write("Main JAR was found: %r\n" % effective_t3_jar)
+    sys.exit("Effective T3 model JAR file not found: %r" % effective_t3_model)
 
 # We will have write access whereever the output should be,
 temp_file = os.path.abspath(tabular_file + ".tmp")
@@ -110,7 +110,7 @@ temp_file = os.path.abspath(tabular_file + ".tmp")
 tabular_file = os.path.abspath(tabular_file)
 fasta_file = os.path.abspath(fasta_file)
 
-cmd = ["java", "-jar", effectiveT3_jar,
+cmd = ["java", "-jar", effective_t3_jar,
        "-f", fasta_file,
        "-m", model,
        "-t", threshold,
@@ -119,9 +119,9 @@ cmd = ["java", "-jar", effectiveT3_jar,
 
 try:
     # Must run from directory above the module subfolder:
-    os.chdir(effectiveT3_dir)
+    os.chdir(effective_t3_dir)
 except Exception:
-    sys.exit("Could not change to Effective T3 folder: %s" % effectiveT3_dir)
+    sys.exit("Could not change to Effective T3 folder: %s" % effective_t3_dir)
 
 run(cmd)
 

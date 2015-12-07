@@ -74,7 +74,7 @@ if organism not in ["euk", "gram+", "gram-"]:
 
 try:
     truncate = int(sys.argv[2])
-except:
+except ValueError:
     truncate = 0
 if truncate < 0:
     sys.exit("Truncate argument %s is not a positive integer (or zero)" % sys.argv[2])
@@ -181,7 +181,7 @@ def clean_up(file_list):
             os.remove(f)
     try:
         os.rmdir(tmp_dir)
-    except:
+    except Exception:
         pass
 
 if len(jobs) > 1 and num_threads > 1:

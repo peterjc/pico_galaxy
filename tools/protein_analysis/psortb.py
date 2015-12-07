@@ -134,7 +134,7 @@ def clean_up(file_list):
             os.remove(f)
     try:
         os.rmdir(tmp_dir)
-    except:
+    except Exception:
         pass
 
 if len(jobs) > 1 and num_threads > 1:

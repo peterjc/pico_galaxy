@@ -73,7 +73,7 @@ for format, filenames in [("fasta", options.fasta),
             for letter in record:
                 try:
                     counts[letter] += 1
-                except:
+                except KeyError:
                     counts[letter] = 1
 
 total = sum(counts.values())

@@ -65,14 +65,14 @@ def clean_tabular(raw_handle, out_handle):
             continue
         parts = line.rstrip("\r\n").split("\t")
         try:
-            identifier, length, expAA, first60, predhel, topology = parts
-        except:
+            identifier, length, exp_aa, first60, predhel, topology = parts
+        except ValueError:
             assert len(parts)!=6
             sys.exit("Bad line: %r" % line)
         assert length.startswith("len="), line
         length = length[4:]
-        assert expAA.startswith("ExpAA="), line
-        expAA = expAA[6:]
+        assert exp_aa.startswith("ExpAA="), line
+        exp_aa = exp_aa[6:]
         assert first60.startswith("First60="), line
         first60 = first60[8:]
         assert predhel.startswith("PredHel="), line
@@ -80,7 +80,7 @@ def clean_tabular(raw_handle, out_handle):
         assert topology.startswith("Topology="), line
         topology = topology[9:]
         out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n" \
-                   % (identifier, length, expAA, first60, predhel, topology))
+                   % (identifier, length, exp_aa, first60, predhel, topology))
         count += 1
     return count
 
@@ -97,7 +97,7 @@ def clean_up(file_list):
             os.remove(f)
     try:
         os.rmdir(tmp_dir)
-    except:
+    except Exception:
         pass
 
 if len(jobs) > 1 and num_threads > 1:
