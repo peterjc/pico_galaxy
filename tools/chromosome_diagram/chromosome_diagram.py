@@ -13,8 +13,8 @@ import warnings
 
 
 def sys_exit(msg, error_level=1):
-    """Print error message to stdout and quit with given error level."""
-    sys.stderr.write("%s\n" % msg)
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
     sys.exit(error_level)
 
 try:

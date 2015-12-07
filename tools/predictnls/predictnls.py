@@ -53,9 +53,10 @@ import os
 import sys
 import re
 
-def sys_exit(msg, return_code=1):
-    sys.stderr.write(msg.rstrip() + "\n")
-    sys.exit(return_code)
+def sys_exit(msg, error_level=1):
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
+    sys.exit(error_level)
 
 if len(sys.argv) == 4:
     fasta_filename, tabular_filename, re_filename = sys.argv[1:]

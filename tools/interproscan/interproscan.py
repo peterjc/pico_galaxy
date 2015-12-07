@@ -21,8 +21,9 @@ log = logging.getLogger( __name__ )
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
-def sys_exit( msg ):
-    sys.stderr.write( "%s\n" % msg )
+def sys_exit(msg, error_level=1):
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
     sys.exit()
 
 def __main__():

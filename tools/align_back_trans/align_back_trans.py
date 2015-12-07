@@ -30,8 +30,8 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(0)
 
 def sys_exit(msg, error_level=1):
-    """Print error message to stdout and quit with given error level."""
-    sys.stderr.write("%s\n" % msg)
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
     sys.exit(error_level)
 
 def check_trans(identifier, nuc, prot, table):

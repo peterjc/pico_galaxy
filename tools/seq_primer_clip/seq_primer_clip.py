@@ -38,9 +38,10 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.12"
     sys.exit(0)
 
-def sys_exit(msg, err=1):
-    sys.stderr.write(msg)
-    sys.exit(err)
+def sys_exit(msg, error_level=1):
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
+    sys.exit(error_level)
 
 try:
     from Bio.Seq import reverse_complement

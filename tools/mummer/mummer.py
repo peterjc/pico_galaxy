@@ -14,9 +14,10 @@ import sys
 import tempfile
 import shutil
 
-def sys_exit( msg ):
-    sys.stderr.write("%s\n" % msg)
-    sys.exit(1)
+def sys_exit(msg, error_level=1):
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
+    sys.exit(error_level)
 
 def run(cmd):
     print(cmd)

@@ -24,9 +24,10 @@ import re
 import subprocess
 from optparse import OptionParser
 
-def sys_exit(msg, err=1):
-    sys.stderr.write(msg.rstrip() + "\n")
-    sys.exit(err)
+def sys_exit(msg, error_level=1):
+    """Print error message to stderr and quit with given error level."""
+    sys.stderr.write("%s\n" % msg.rstrip())
+    sys.exit(error_level)
 
 #Parse Command Line
 usage = """Use as follows:
