@@ -24,11 +24,6 @@ import re
 import subprocess
 from optparse import OptionParser
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 #Parse Command Line
 usage = """Use as follows:
 
@@ -75,18 +70,18 @@ out_negative_file = options.output_negative
 pair_mode = options.pair_mode
 
 if in_file is None or not os.path.isfile(in_file):
-    sys_exit("Missing input file: %r" % in_file)
+    sys.exit("Missing input file: %r" % in_file)
 if out_positive_file is None and out_negative_file is None:
-    sys_exit("Neither output file requested")
+    sys.exit("Neither output file requested")
 if seq_format is None:
-    sys_exit("Missing sequence format")
+    sys.exit("Missing sequence format")
 if pair_mode not in ["lax", "strict"]:
-    sys_exit("Pair mode argument should be 'lax' or 'strict', not %r" % pair_mode)
+    sys.exit("Pair mode argument should be 'lax' or 'strict', not %r" % pair_mode)
 for mapping in args:
     if not os.path.isfile(mapping):
-        sys_exit("Mapping file %r not found" % mapping)
+        sys.exit("Mapping file %r not found" % mapping)
 if not args:
-    sys_exit("At least one SAM/BAM mapping file is required")
+    sys.exit("At least one SAM/BAM mapping file is required")
 
 
 #Cope with three widely used suffix naming convensions,
@@ -190,7 +185,7 @@ def load_mapping_ids(filename, pair_mode, ids):
         if child.returncode:
             msg = "Error %i from 'samtools view %s'\n%s" % (child.returncode,
                                                             filename, stderr)
-            sys_exit(msg.strip(), child.returncode)
+            sys.exit(msg.strip(), child.returncode)
     else:
         handle.close()
 
@@ -329,7 +324,7 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        sys_exit("SFF filtering requires Biopython 1.54 or later")
+        sys.exit("SFF filtering requires Biopython 1.54 or later")
 
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
@@ -370,7 +365,7 @@ elif seq_format.lower()=="fasta":
 elif seq_format.lower().startswith("fastq"):
     sequence_filter = fastq_filter
 else:
-    sys_exit("Unsupported file type %r" % seq_format)
+    sys.exit("Unsupported file type %r" % seq_format)
 
 pos_count, neg_count = sequence_filter(in_file, out_positive_file, out_negative_file, ids)
 print("%i mapped and %i unmapped reads." % (pos_count, neg_count))

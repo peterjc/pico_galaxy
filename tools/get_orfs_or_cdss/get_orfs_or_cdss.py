@@ -23,11 +23,6 @@ import sys
 import re
 from optparse import OptionParser
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 usage = """Use as follows:
 
 $ python get_orfs_or_cdss.py -i genome.fa -f fasta --table 11 -t CDS -e open -m all -s both --on cds.nuc.fa --op cds.protein.fa --ob cds.bed
@@ -39,7 +34,7 @@ try:
     from Bio import SeqIO
     from Bio.Data import CodonTable
 except ImportError:
-    sys_exit("Missing Biopython library")
+    sys.exit("Missing Biopython library")
 
 
 parser = OptionParser(usage=usage)
@@ -87,7 +82,7 @@ if options.version:
 try:
     table_obj = CodonTable.ambiguous_generic_by_id[options.table]
 except KeyError:
-    sys_exit("Unknown codon table %i" % options.table)
+    sys.exit("Unknown codon table %i" % options.table)
 
 if options.seq_format.lower()=="sff":
     seq_format = "sff-trim"
@@ -96,7 +91,7 @@ elif options.seq_format.lower()=="fasta":
 elif options.seq_format.lower().startswith("fastq"):
     seq_format = "fastq"
 else:
-    sys_exit("Unsupported file type %r" % options.seq_format)
+    sys.exit("Unsupported file type %r" % options.seq_format)
 
 print "Genetic code table %i" % options.table
 print "Minimum length %i aa" % options.min_len

@@ -35,7 +35,7 @@ at least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 """
 import sys
 import os
-from seq_analysis_utils import sys_exit, split_fasta, run_jobs, thread_count
+from seq_analysis_utils import sys.exit, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 exe = "runWolfPsortSummary"
@@ -62,11 +62,11 @@ https://lists.galaxyproject.org/pipermail/galaxy-dev/2015-December/023386.html
 """
 
 if len(sys.argv) != 5:
-    sys_exit("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
+    sys.exit("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
 
 organism = sys.argv[1]
 if organism not in ["animal", "plant", "fungi"]:
-    sys_exit("Organism argument %s is not one of animal, plant, fungi" % organism)
+    sys.exit("Organism argument %s is not one of animal, plant, fungi" % organism)
 
 num_threads = thread_count(sys.argv[2], default=4)
 fasta_file = sys.argv[3]
@@ -109,7 +109,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     if error_level or output.lower().startswith("error running"):
         clean_up(fasta_files)
         clean_up(temp_files)
-        sys_exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 del results
 

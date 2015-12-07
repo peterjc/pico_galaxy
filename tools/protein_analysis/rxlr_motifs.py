@@ -40,14 +40,14 @@ import os
 import sys
 import re
 import subprocess
-from seq_analysis_utils import sys_exit, fasta_iterator
+from seq_analysis_utils import sys.exit, fasta_iterator
 
 if "-v" in sys.argv:
     print("RXLR Motifs v0.0.10")
     sys.exit(0)
 
 if len(sys.argv) != 5:
-    sys_exit("Requires four arguments: protein FASTA filename, threads, model, and output filename")
+    sys.exit("Requires four arguments: protein FASTA filename, threads, model, and output filename")
 
 fasta_file, threads, model, tabular_file = sys.argv[1:]
 hmm_output_file = tabular_file + ".hmm.tmp"
@@ -86,7 +86,7 @@ elif model == "Whisson2007":
     min_rxlr_start = 1
     max_rxlr_start = max_sp + max_sp_rxlr
 else:
-   sys_exit("Did not recognise the model name %r\n"
+   sys.exit("Did not recognise the model name %r\n"
             "Use Bhattacharjee2006, Win2007, or Whisson2007" % model)
 
 
@@ -112,16 +112,16 @@ if model == "Whisson2007":
     hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
                        "whisson_et_al_rxlr_eer_cropped.hmm")
     if not os.path.isfile(hmm_file):
-        sys_exit("Missing HMM file for Whisson et al. (2007)")
+        sys.exit("Missing HMM file for Whisson et al. (2007)")
     if not get_hmmer_version(hmmer_search, "HMMER 2.3.2 (Oct 2003)"):
-        sys_exit("Missing HMMER 2.3.2 (Oct 2003) binary, %s" % hmmer_search)
+        sys.exit("Missing HMMER 2.3.2 (Oct 2003) binary, %s" % hmmer_search)
 
     hmm_hits = set()
     valid_ids = set()
     for title, seq in fasta_iterator(fasta_file):
         name = title.split(None,1)[0]
         if name in valid_ids:
-            sys_exit("Duplicated identifier %r" % name)
+            sys.exit("Duplicated identifier %r" % name)
         else:
             valid_ids.add(name)
     if not valid_ids:
@@ -146,7 +146,7 @@ if model == "Whisson2007":
                   % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
         return_code = os.system(cmd)
         if return_code:
-            sys_exit("Error %i from hmmsearch:\n%s" % (return_code, cmd), return_code)
+            sys.exit("Error %i from hmmsearch:\n%s" % (return_code, cmd), return_code)
 
         handle = open(hmm_output_file)
         for line in handle:
@@ -163,7 +163,7 @@ if model == "Whisson2007":
                 if name in valid_ids:
                     hmm_hits.add(name)
                 elif hmmer3:
-                    sys_exit("Unexpected identifer %r in hmmsearch output" % name)
+                    sys.exit("Unexpected identifer %r in hmmsearch output" % name)
         handle.close()
         # if hmmer3:
         #     print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
@@ -199,11 +199,11 @@ handle.close()
 # Run SignalP (using our wrapper script to get multi-core support etc)
 signalp_script = os.path.join(os.path.split(sys.argv[0])[0], "signalp3.py")
 if not os.path.isfile(signalp_script):
-    sys_exit("Error - missing signalp3.py script")
+    sys.exit("Error - missing signalp3.py script")
 cmd = "python %s euk %i %s %s %s" % (signalp_script, signalp_trunc, threads, signalp_input_file, signalp_output_file)
 return_code = os.system(cmd)
 if return_code:
-    sys_exit("Error %i from SignalP:\n%s" % (return_code, cmd))
+    sys.exit("Error %i from SignalP:\n%s" % (return_code, cmd))
 # print "SignalP done"
 
 

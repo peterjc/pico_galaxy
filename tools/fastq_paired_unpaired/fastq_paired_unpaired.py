@@ -22,15 +22,10 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print("Version 0.1.0")
     sys.exit(0)
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 try:
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
 except ImportError:
-    sys_exit("Biopython missing")
+    sys.exit("Biopython missing")
 
 msg = """Expect either 3 or 4 arguments, all FASTQ filenames.
 
@@ -89,13 +84,13 @@ elif len(sys.argv) == 6:
     pairs_fastq = None
     format, input_fastq, pairs_f_fastq, pairs_r_fastq, singles_fastq = sys.argv[1:]
 else:
-    sys_exit(msg)
+    sys.exit(msg)
 
 format = format.replace("fastq", "").lower()
 if not format:
     format="sanger" #safe default
 elif format not in ["sanger","solexa","illumina","cssanger"]:
-    sys_exit("Unrecognised format %s" % format)
+    sys.exit("Unrecognised format %s" % format)
 
 #Cope with three widely used suffix naming convensions,
 #Illumina: /1 or /2

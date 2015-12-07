@@ -27,11 +27,6 @@ if "-v" in sys.argv or "--version" in sys.argv:
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 # TODO - Proper command line API
 if len(sys.argv) == 4:
     bam_filename, bai_filename, tabular_filename = sys.argv[1:]
@@ -39,21 +34,21 @@ if len(sys.argv) == 4:
 elif len(sys.argv) == 5:
     bam_filename, bai_filename, tabular_filename, max_depth = sys.argv[1:]
 else:
-    sys_exit("Require 3 or 4 arguments: BAM, BAI, tabular filename, [max depth]")
+    sys.exit("Require 3 or 4 arguments: BAM, BAI, tabular filename, [max depth]")
 
 if not os.path.isfile(bam_filename):
-    sys_exit("Input BAM file not found: %s" % bam_filename)
+    sys.exit("Input BAM file not found: %s" % bam_filename)
 if not os.path.isfile(bai_filename):
     if bai_filename == "None":
-        sys_exit("Error: Galaxy did not index your BAM file")
-    sys_exit("Input BAI file not found: %s" % bai_filename)
+        sys.exit("Error: Galaxy did not index your BAM file")
+    sys.exit("Input BAI file not found: %s" % bai_filename)
 
 try:
     max_depth = int(max_depth)
 except ValueError:
-    sys_exit("Bad argument for max depth: %r" % max_depth)
+    sys.exit("Bad argument for max depth: %r" % max_depth)
 if max_depth < 0:
-    sys_exit("Bad argument for max depth: %r" % max_depth)
+    sys.exit("Bad argument for max depth: %r" % max_depth)
 
 # fuzz factor to ensure can reach max_depth, e.g. region with
 # many reads having a deletion present could underestimate the
@@ -98,14 +93,14 @@ if not samtools_depth_opt_available():
                          "is safely under the default of 8000.\n")
         depth_hack = True
     else:
-        sys_exit("The version of samtools depth installed does not support the -d option.")
+        sys.exit("The version of samtools depth installed does not support the -d option.")
 
 # Run samtools idxstats:
 cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, idxstats_filename)
 return_code = os.system(cmd)
 if return_code:
     clean_up()
-    sys_exit("Return code %i from command:\n%s" % (return_code, cmd))
+    sys.exit("Return code %i from command:\n%s" % (return_code, cmd))
 
 # Run samtools depth:
 # TODO - Parse stdout instead?
@@ -118,7 +113,7 @@ else:
 return_code = os.system(cmd)
 if return_code:
     clean_up()
-    sys_exit("Return code %i from command:\n%s" % (return_code, cmd))
+    sys.exit("Return code %i from command:\n%s" % (return_code, cmd))
 
 def load_total_coverage(depth_handle, identifier, length):
     """Parse some of the 'samtools depth' output for coverages.
@@ -213,7 +208,7 @@ for line in idxstats_handle:
     else:
         min_cov, max_cov, mean_cov = load_total_coverage(depth_handle, identifier, length)
     if max_cov > max_depth:
-        sys_exit("Using max depth %i yet saw max coverage %i for %s"
+        sys.exit("Using max depth %i yet saw max coverage %i for %s"
                  % (max_depth, max_cov, identifier))
     out_handle.write("%s\t%i\t%i\t%i\t%i\t%i\t%0.2f\n"
                      % (identifier, length, mapped, placed,
@@ -224,7 +219,7 @@ for line in idxstats_handle:
         depth_handle.close()
         out_handle.close()
         clean_up()
-        sys_exit("Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
+        sys.exit("Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
                  % identifier)
 
 idxstats_handle.close()
@@ -235,4 +230,4 @@ out_handle.close()
 clean_up()
 
 if depth_ref is not None:
-    sys_exit("Left over output from 'samtools depth'? %r" % depth_ref)
+    sys.exit("Left over output from 'samtools depth'? %r" % depth_ref)

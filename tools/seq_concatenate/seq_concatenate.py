@@ -25,11 +25,6 @@ from Bio.Seq import Seq
 from Bio.SeqFeature import SeqFeature, FeatureLocation
 from Bio.SeqRecord import SeqRecord
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 #Parse Command Line
 usage = """Example usage:
 
@@ -55,9 +50,9 @@ if options.version:
     sys.exit(0)
 
 if not args:
-    sys_exit("Require an input filename")
+    sys.exit("Require an input filename")
 if not options.output:
-    sys_exit("Require an output filename")
+    sys.exit("Require an output filename")
 
 
 file_count = 0

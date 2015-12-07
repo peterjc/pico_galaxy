@@ -19,12 +19,6 @@ import os
 import sys
 from optparse import OptionParser
 
-
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 #Parse Command Line
 usage = """Use as follows:
 
@@ -73,13 +67,13 @@ out_file = options.output
 interleaved = options.interleaved
 
 if not in_file:
-    sys_exit("Require an input filename")
+    sys.exit("Require an input filename")
 if in_file != "/dev/stdin" and not os.path.isfile(in_file):
-    sys_exit("Missing input file %r" % in_file)
+    sys.exit("Missing input file %r" % in_file)
 if not out_file:
-    sys_exit("Require an output filename")
+    sys.exit("Require an output filename")
 if not options.format:
-    sys_exit("Require the sequence format")
+    sys.exit("Require the sequence format")
 seq_format = options.format.lower()
 
 
@@ -117,22 +111,22 @@ def count_sequences(filename, format):
     elif seq_format.startswith("fastq"):
         return count_fastq(filename)
     else:
-        sys_exit("Unsupported file type %r" % seq_format)
+        sys.exit("Unsupported file type %r" % seq_format)
 
 
 if options.percent and options.everyn:
-    sys_exit("Cannot combine -p and -n options")
+    sys.exit("Cannot combine -p and -n options")
 elif options.everyn and options.count:
-    sys_exit("Cannot combine -p and -c options")
+    sys.exit("Cannot combine -p and -c options")
 elif options.percent and options.count:
-    sys_exit("Cannot combine -n and -c options")
+    sys.exit("Cannot combine -n and -c options")
 elif options.everyn:
     try:
         N = int(options.everyn)
     except:
-        sys_exit("Bad -n argument %r" % options.everyn)
+        sys.exit("Bad -n argument %r" % options.everyn)
     if N < 2:
-        sys_exit("Bad -n argument %r" % options.everyn)
+        sys.exit("Bad -n argument %r" % options.everyn)
     if (N % 10) == 1:
         sys.stderr.write("Sampling every %ist sequence\n" % N)
     elif (N % 10) == 2:
@@ -152,9 +146,9 @@ elif options.percent:
     try:
         percent = float(options.percent) / 100.0
     except:
-        sys_exit("Bad -p percent argument %r" % options.percent)
+        sys.exit("Bad -p percent argument %r" % options.percent)
     if percent <= 0.0 or 1.0 <= percent:
-        sys_exit("Bad -p percent argument %r" % options.percent)
+        sys.exit("Bad -p percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
     def sampler(iterator):
         global percent
@@ -169,18 +163,18 @@ elif options.count:
     try:
         N = int(options.count)
     except:
-        sys_exit("Bad -c count argument %r" % options.count)
+        sys.exit("Bad -c count argument %r" % options.count)
     if N < 1:
-        sys_exit("Bad -c count argument %r" % options.count)
+        sys.exit("Bad -c count argument %r" % options.count)
     total = count_sequences(in_file, seq_format)
     sys.stderr.write("Input file has %i sequences\n" % total)
     if interleaved:
         # Paired
         if total % 2:
-            sys_exit("Paired mode, but input file has an odd number of sequences: %i"
+            sys.exit("Paired mode, but input file has an odd number of sequences: %i"
                      % total)
         elif N > total // 2:
-            sys_exit("Requested %i sequence pairs, but file only has %i pairs (%i sequences)."
+            sys.exit("Requested %i sequence pairs, but file only has %i pairs (%i sequences)."
                      % (N, total // 2, total))
         total = total // 2
         if N == 1:
@@ -192,7 +186,7 @@ elif options.count:
     else:
         # Not paired
         if total < N:
-            sys_exit("Requested %i sequences, but file only has %i." % (N, total))
+            sys.exit("Requested %i sequences, but file only has %i." % (N, total))
         if N == 1:
             sys.stderr.write("Sampling just first sequence!\n")
         elif N == total:
@@ -234,7 +228,7 @@ elif options.count:
                     yield record
             assert taken == N, "Picked %i, wanted %i" % (taken, N)
 else:
-    sys_exit("Must use either -n, -p or -c")
+    sys.exit("Must use either -n, -p or -c")
 
 
 def pair(iterator):
@@ -321,7 +315,7 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        sys_exit("SFF filtering requires Biopython 1.54 or later")
+        sys.exit("SFF filtering requires Biopython 1.54 or later")
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
     except ImportError:
@@ -353,7 +347,7 @@ elif seq_format == "fasta":
 elif seq_format.startswith("fastq"):
     count = fastq_filter(in_file, out_file, sampler, interleaved)
 else:
-    sys_exit("Unsupported file type %r" % seq_format)
+    sys.exit("Unsupported file type %r" % seq_format)
 
 if interleaved:
     sys.stderr.write("Selected %i pairs\n" % count)

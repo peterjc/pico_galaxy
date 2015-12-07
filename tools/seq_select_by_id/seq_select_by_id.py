@@ -22,11 +22,6 @@ license).
 """
 import sys
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.9"
     sys.exit(0)
@@ -35,17 +30,17 @@ if "-v" in sys.argv or "--version" in sys.argv:
 try:
     tabular_file, col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    sys_exit("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 try:
     if col_arg.startswith("c"):
         column = int(col_arg[1:])-1
     else:
         column = int(col_arg)-1
 except ValueError:
-    sys_exit("Expected column number, got %s" % col_arg)
+    sys.exit("Expected column number, got %s" % col_arg)
 
 if seq_format == "fastqcssanger":
-    sys_exit("Colorspace FASTQ not supported.")
+    sys.exit("Colorspace FASTQ not supported.")
 elif seq_format.lower() in ["sff", "fastq", "qual", "fasta"]:
     seq_format = seq_format.lower()
 elif seq_format.lower().startswith("fastq"):
@@ -55,13 +50,13 @@ elif seq_format.lower().startswith("qual"):
     #We don't care what the scores are
     seq_format = "qual"
 else:
-    sys_exit("Unrecognised file format %r" % seq_format)
+    sys.exit("Unrecognised file format %r" % seq_format)
 
 
 try:
     from Bio import SeqIO
 except ImportError:
-    sys_exit("Biopython 1.54 or later is required")
+    sys.exit("Biopython 1.54 or later is required")
 
 
 def parse_ids(tabular_file, col):
@@ -95,7 +90,7 @@ if seq_format.lower()=="sff":
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
-        sys_exit("Requires Biopython 1.54 or later")
+        sys.exit("Requires Biopython 1.54 or later")
 
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
@@ -121,7 +116,7 @@ if seq_format.lower()=="sff":
     except KeyError, err:
         out_handle.close()
         if name not in records:
-            sys_exit("Identifier %r not found in sequence file" % name)
+            sys.exit("Identifier %r not found in sequence file" % name)
         else:
             raise err
     out_handle.close()
@@ -135,7 +130,7 @@ else:
             out_handle.write(records.get_raw(name))
         except KeyError:
             out_handle.close()
-            sys_exit("Identifier %r not found in sequence file" % name)
+            sys.exit("Identifier %r not found in sequence file" % name)
         count += 1
     out_handle.close()
 

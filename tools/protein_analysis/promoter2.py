@@ -30,7 +30,7 @@ import sys
 import os
 import commands
 import tempfile
-from seq_analysis_utils import sys_exit, split_fasta, run_jobs, thread_count
+from seq_analysis_utils import sys.exit, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 
@@ -38,7 +38,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system("promoter -V"))
 
 if len(sys.argv) != 4:
-    sys_exit("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
+    sys.exit("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
              "Got %i arguments." % (len(sys.argv)-1))
 
 num_threads = thread_count(sys.argv[3],default=4)
@@ -51,7 +51,7 @@ def get_path_and_binary():
     platform = commands.getoutput("uname") #e.g. Linux
     shell_script = commands.getoutput("which promoter")
     if not os.path.isfile(shell_script):
-        sys_exit("ERROR: Missing promoter executable shell script")
+        sys.exit("ERROR: Missing promoter executable shell script")
     path = None
     for line in open(shell_script):
         if line.startswith("setenv"): #could then be tab or space!
@@ -59,12 +59,12 @@ def get_path_and_binary():
             if parts[0] == "setenv" and parts[1] == "PROM":
                 path = parts[2]
     if not path:
-        sys_exit("ERROR: Could not find promoter path (PROM) in %r" % shell_script)
+        sys.exit("ERROR: Could not find promoter path (PROM) in %r" % shell_script)
     if not os.path.isdir(path):
-        sys_exit("ERROR: %r is not a directory" % path)
+        sys.exit("ERROR: %r is not a directory" % path)
     bin = "%s/bin/promoter_%s" % (path, platform)
     if not os.path.isfile(bin):
-        sys_exit("ERROR: Missing promoter binary %r" % bin)
+        sys.exit("ERROR: Missing promoter binary %r" % bin)
     return path, bin
 
 def make_tabular(raw_handle, out_handle):
@@ -89,19 +89,19 @@ def make_tabular(raw_handle, out_handle):
             except ValueError:
                 print "WARNING: Problem with line: %r" % line
                 continue
-                #sys_exit("ERROR: Problem with line: %r" % line)
+                #sys.exit("ERROR: Problem with line: %r" % line)
             if likelihood not in ["ignored",
                                   "Marginal prediction",
                                   "Medium likely prediction",
                                   "Highly likely prediction"]:
-                sys_exit("ERROR: Problem with line: %r" % line)
+                sys.exit("ERROR: Problem with line: %r" % line)
             out_handle.write("%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood))
     return queries
     
 working_dir, bin = get_path_and_binary()
 
 if not os.path.isfile(fasta_file):
-   sys_exit("ERROR: Missing input FASTA file %r" % fasta_file)
+   sys.exit("ERROR: Missing input FASTA file %r" % fasta_file)
 
 #Note that if the input FASTA file contains no sequences,
 #split_fasta returns an empty list (i.e. zero temp files).
@@ -136,7 +136,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         except IOError:
             output = ""
         clean_up(fasta_files + temp_files)
-        sys_exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 
 del results
@@ -151,7 +151,7 @@ for temp in temp_files:
     data_handle.close()
     if not count:
         clean_up(fasta_files + temp_files)
-        sys_exit("No output from promoter2")
+        sys.exit("No output from promoter2")
     queries += count
 out_handle.close()
 

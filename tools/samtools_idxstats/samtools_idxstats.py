@@ -21,22 +21,17 @@ if "-v" in sys.argv or "--version" in sys.argv:
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
-def sys_exit(msg, error_level=1):
-   """Print error message to stderr and quit with given error level."""
-   sys.stderr.write("%s\n" % msg.rstrip())
-   sys.exit(error_level)
-
 if len(sys.argv) != 4:
-   sys_exit("Require three arguments: BAM, BAI, tabular filenames")
+   sys.exit("Require three arguments: BAM, BAI, tabular filenames")
 
 bam_filename, bai_filename, tabular_filename = sys.argv[1:]
 
 if not os.path.isfile(bam_filename):
-    sys_exit("Input BAM file not found: %s" % bam_filename)
+    sys.exit("Input BAM file not found: %s" % bam_filename)
 if not os.path.isfile(bai_filename):
     if bai_filename == "None":
-        sys_exit("Error: Galaxy did not index your BAM file")
-    sys_exit("Input BAI file not found: %s" % bai_filename)
+        sys.exit("Error: Galaxy did not index your BAM file")
+    sys.exit("Input BAI file not found: %s" % bai_filename)
 
 #Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
@@ -58,4 +53,4 @@ os.remove(bai_file)
 os.rmdir(tmp_dir)
 
 if return_code:
-    sys_exit("Return code %i from command:\n%s" % (return_code, cmd))
+    sys.exit("Return code %i from command:\n%s" % (return_code, cmd))

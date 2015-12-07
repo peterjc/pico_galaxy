@@ -12,12 +12,7 @@ import os
 import subprocess
 from time import sleep
 
-__version__ = "0.0.1"
-
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
+__version__ = "0.0.2"
 
 try:
     from multiprocessing import cpu_count
@@ -57,7 +52,7 @@ def thread_count(command_line_arg, default=1):
     except:
         num = default
     if num < 1:
-        sys_exit("Threads argument %r is not a positive integer" % command_line_arg)
+        sys.exit("Threads argument %r is not a positive integer" % command_line_arg)
     #Cap this with the pysical limit of the machine,
     try:
         num = min(num, cpu_count())

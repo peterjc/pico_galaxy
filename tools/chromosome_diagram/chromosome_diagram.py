@@ -11,18 +11,12 @@ import re
 import sys
 import warnings
 
-
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 try:
     from Bio import SeqIO
     from Bio.Graphics import BasicChromosome
     from Bio import BiopythonWarning
 except ImportError:
-    sys_exit("Requires the Python library Biopython")
+    sys.exit("Requires the Python library Biopython")
 
 try:
     from reportlab.pdfgen import canvas
@@ -31,10 +25,10 @@ try:
     from reportlab.lib.units import cm, inch
     from reportlab.lib import colors
 except:
-    sys_exit("Requires the Python library ReportLab (for graphical output)")
+    sys.exit("Requires the Python library ReportLab (for graphical output)")
 
 if len(sys.argv)-1 != 13:
-    sys_exit("Expected 13 arguments, not %i" % (len(sys.argv)-1))
+    sys.exit("Expected 13 arguments, not %i" % (len(sys.argv)-1))
 
 ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, \
 caption_col, color_col, fill_col, main_caption, per_page, pdf_file = sys.argv[1:]
@@ -44,7 +38,7 @@ def load_column(txt):
         return int(txt) - 1
     except ValueError:
         if txt.strip():
-            sys_exit("Bad column argument %r." % txt)
+            sys.exit("Bad column argument %r." % txt)
         return None
 chr_col = load_column(chr_col)
 start_col = load_column(start_col)
@@ -58,7 +52,7 @@ try:
     per_page = int(per_page.strip())
 except ValueError:
     if per_page.string():
-        sys_exit("Bad per-page argument %r" % per_page)
+        sys.exit("Bad per-page argument %r" % per_page)
     per_page = 0 #All on one page
 
 #Load reference identifiers and their lengths
@@ -130,17 +124,17 @@ for line in handle:
     parts = line.rstrip("\n").split("\t")
     chr_name = parts[chr_col].strip()
     if chr_name not in lengths:
-        sys_exit("Unrecognised reference/chromosome %r in this line:\n%r" % (parts[chr_col], line))
+        sys.exit("Unrecognised reference/chromosome %r in this line:\n%r" % (parts[chr_col], line))
     start = int(parts[start_col])
     if not (0 <= start <= lengths[chr_name]):
-        sys_exit("Start %i outside length %i of reference %s in this line:\n%r" \
+        sys.exit("Start %i outside length %i of reference %s in this line:\n%r" \
                  % (start, lengths[chr_name], chr_name, line))
     if end_col is None:
         end = start
     else:
         end = int(parts[end_col])
     if not (0 <= end <= lengths[chr_name]):
-        sys_exit("End %i outside length %i of reference %s in this line:\n%r" \
+        sys.exit("End %i outside length %i of reference %s in this line:\n%r" \
                  % (end, lengths[chr_name], chr_name, line))
     if strand_col is None:
         strand = None
@@ -153,7 +147,7 @@ for line in handle:
         elif strand in ["0", "?", ".", "none", "both", ""]:
             strand = None
         else:
-            sys_exit("Bad strand value %r in this line:\n%r" % (parts[strand_col], line))
+            sys.exit("Bad strand value %r in this line:\n%r" % (parts[strand_col], line))
     caption = parts[caption_col]
     if color_col is None:
         color = colors.black

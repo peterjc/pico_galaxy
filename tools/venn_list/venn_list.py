@@ -11,26 +11,21 @@ This is version 0.0.8 of the script.
 
 import sys
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 try:
     import rpy
 except ImportError:
-    sys_exit("Requires the Python library rpy (to call R)")
+    sys.exit("Requires the Python library rpy (to call R)")
 except RuntimeError, e:
-    sys_exit("The Python library rpy is not availble for the current R version\n\n%s" % e)
+    sys.exit("The Python library rpy is not availble for the current R version\n\n%s" % e)
 
 try:
     rpy.r.library("limma")
 except:
-    sys_exit("Requires the R library limma (for vennDiagram function)")
+    sys.exit("Requires the R library limma (for vennDiagram function)")
 
 
 if len(sys.argv)-1 not in [7, 10, 13]:
-    sys_exit("Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i" % (len(sys.argv)-1))
+    sys.exit("Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i" % (len(sys.argv)-1))
 
 all_file, all_type, all_label = sys.argv[1:4]
 set_data = []
@@ -66,19 +61,19 @@ def load_ids(filename, filetype):
         try:
             from Bio.SeqIO import index
         except ImportError:
-            sys_exit("Require Biopython 1.54 or later (to read SFF files)")
+            sys.exit("Require Biopython 1.54 or later (to read SFF files)")
         #This will read the SFF index block if present (very fast)
         for name in index(filename, "sff"):
             yield name
     else:
-        sys_exit("Unexpected file type %s" % filetype)
+        sys.exit("Unexpected file type %s" % filetype)
 
 def load_ids_whitelist(filename, filetype, whitelist):
     for name in load_ids(filename, filetype):
         if name in whitelist:
             yield name
         else:
-            sys_exit("Unexpected ID %s in %s file %s" % (name, filetype, filename))
+            sys.exit("Unexpected ID %s in %s file %s" % (name, filetype, filename))
 
 if all_file in ["", "-", '""', '"-"']:
     #Load without white list
@@ -132,6 +127,6 @@ try:
                          """ % (all_label, len(all)))
     rpy.r.dev_off()
 except Exception, exc:
-    sys_exit( "%s" %str( exc ) )
+    sys.exit( "%s" %str( exc ) )
 rpy.r.quit( save="no" )
 print "Done"

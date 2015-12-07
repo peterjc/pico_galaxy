@@ -21,11 +21,6 @@ log = logging.getLogger( __name__ )
 
 assert sys.version_info[:2] >= ( 2, 4 )
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit()
-
 def __main__():
     # Parse Command Line
     # s = 'interproscan.py:  argv = %s\n' % (sys.argv)
@@ -54,7 +49,7 @@ def __main__():
         if returncode != 0:
             raise Exception, stderr
     except Exception, e:
-        sys_exit( 'Error running sed ' + str( e ) )
+        sys.exit( 'Error running sed ' + str( e ) )
 
     cmdline = 'iprscan -cli -nocrc -i temp.fa -o temp.iprscan -goterms -seqtype p -altjobs -format %s -appl hmmpfam > /dev/null' % (format)
     # print >> sys.stderr, cmdline # so will appear as blurb for file
@@ -74,7 +69,7 @@ def __main__():
         if returncode != 0:
             raise Exception, stderr
     except Exception, e:
-        sys_exit( 'Error running iprscan ' + str( e ) )
+        sys.exit( 'Error running iprscan ' + str( e ) )
 
     out = open(output,'w')
     # outpe_path = os.path.join(working_dir,'')

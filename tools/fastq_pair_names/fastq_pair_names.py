@@ -22,11 +22,6 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "Version 0.0.1"
     sys.exit(0)
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 msg = """Expects at least 3 arguments:
 
  - Pair names tabular output filename
@@ -35,7 +30,7 @@ msg = """Expects at least 3 arguments:
 """
 
 if len(sys.argv) < 3:
-    sys_exit(msg)
+    sys.exit(msg)
 
 output_pairs = sys.argv[1]
 output_nonpairs = sys.argv[2]
@@ -85,7 +80,7 @@ out_nonpairs = open(output_nonpairs, "w")
 
 for input_fastq in input_fastq_filenames:
     if not os.path.isfile(input_fastq):
-        sys_exit("Missing input FASTQ file %r" % input_fastq)
+        sys.exit("Missing input FASTQ file %r" % input_fastq)
     in_handle = open(input_fastq)
 
     #Don't care about the FASTQ type really...

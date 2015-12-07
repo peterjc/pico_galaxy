@@ -53,11 +53,6 @@ import os
 import sys
 import re
 
-def sys_exit(msg, error_level=1):
-    """Print error message to stderr and quit with given error level."""
-    sys.stderr.write("%s\n" % msg.rstrip())
-    sys.exit(error_level)
-
 if len(sys.argv) == 4:
     fasta_filename, tabular_filename, re_filename = sys.argv[1:]
 elif len(sys.argv) == 3:
@@ -71,13 +66,13 @@ elif len(sys.argv) == 3:
         re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
                                                    "My_NLS_list")
 else:
-    sys_exit("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
+    sys.exit("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
 
 if not os.path.isfile(fasta_filename):
-    sys_exit("Could not find FASTA input file: %s" % fasta_filename)
+    sys.exit("Could not find FASTA input file: %s" % fasta_filename)
 
 if not os.path.isfile(re_filename):
-    sys_exit("Could not find NLS motif file: %s" % re_filename)
+    sys.exit("Could not find NLS motif file: %s" % re_filename)
 
 def load_re(filename):
     """Parse the 5+ column tabular NLS motif file."""
@@ -93,7 +88,7 @@ def load_re(filename):
             regex = re.compile(regex)
             p_count = int(p_count)
         except ValueError:
-            sys_exit("Bad data in line: %s" % line)
+            sys.exit("Bad data in line: %s" % line)
         if 6 <= len(parts):
             proteins = parts[5]
             assert p_count == len(proteins.split(",")), line

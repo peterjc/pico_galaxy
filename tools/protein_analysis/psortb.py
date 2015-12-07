@@ -24,7 +24,7 @@ with a # character as used elsewhere in Galaxy.
 import sys
 import os
 import tempfile
-from seq_analysis_utils import sys_exit, split_fasta, run_jobs, thread_count
+from seq_analysis_utils import sys.exit, split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 
@@ -33,7 +33,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system("psort --version"))
 
 if len(sys.argv) != 8:
-    sys_exit("Require 7 arguments, number of threads (int), type (e.g. archaea), "
+    sys.exit("Require 7 arguments, number of threads (int), type (e.g. archaea), "
              "output (e.g. terse/normal/long), cutoff, divergent, input protein "
              "FASTA file & output tabular file")
 
@@ -56,7 +56,7 @@ tabular_file = sys.argv[7]
 if out_type == "terse":
     header = ['SeqID', 'Localization', 'Score']
 elif out_type == "normal":
-    sys_exit("Normal output not implemented yet, sorry.")
+    sys.exit("Normal output not implemented yet, sorry.")
 elif out_type == "long":
     if org_type == "-n":
         #Gram negative bacteria
@@ -93,9 +93,9 @@ elif out_type == "long":
                   'Extracellular_Score', 'Final_Localization', 'Final_Localization_Details', 'Final_Score',
                   'Secondary_Localization', 'PSortb_Version']
     else:
-        sys_exit("Expected -n, -p or -a for the organism type, not %r" % org_type)
+        sys.exit("Expected -n, -p or -a for the organism type, not %r" % org_type)
 else:
-    sys_exit("Expected terse, normal or long for the output type, not %r" % out_type)
+    sys.exit("Expected terse, normal or long for the output type, not %r" % out_type)
 
 tmp_dir = tempfile.mkdtemp()
 
@@ -149,7 +149,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         except IOError:
             output = ""
         clean_up(fasta_files + temp_files)
-        sys_exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
+        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
                  error_level)
 del results
 del jobs
@@ -163,7 +163,7 @@ for temp in temp_files:
     data_handle.close()
     if not count:
         clean_up(fasta_files + temp_files)
-        sys_exit("No output from psortb")
+        sys.exit("No output from psortb")
 out_handle.close()
 print "%i records" % count
 
