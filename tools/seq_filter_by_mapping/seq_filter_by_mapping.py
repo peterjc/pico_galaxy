@@ -280,7 +280,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
     pos_count = neg_count = 0
     handle = open(in_file, "r")
-    if out_positive_file is not None and out_negative_file is not None:
+    if pos_file is not None and neg_file is not None:
         print "Generating two FASTQ files"
         positive_handle = open(pos_file, "w")
         negative_handle = open(neg_file, "w")
@@ -295,7 +295,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
                 neg_count += 1
         positive_handle.close()
         negative_handle.close()
-    elif out_positive_file is not None:
+    elif pos_file is not None:
         print "Generating matching FASTQ file"
         positive_handle = open(pos_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
@@ -305,7 +305,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
             else:
                 neg_count += 1
         positive_handle.close()
-    elif out_negative_file is not None:
+    elif neg_file is not None:
         print "Generating non-matching FASTQ file"
         negative_handle = open(neg_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
@@ -341,13 +341,13 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
     #This makes two passes though the SFF file with isn't so efficient,
     #but this makes the code simple.
     pos_count = neg_count = 0
-    if out_positive_file is not None:
+    if pos_file is not None:
         out_handle = open(pos_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again after getting manifest
         pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted)
         out_handle.close()
-    if out_negative_file is not None:
+    if neg_file is not None:
         out_handle = open(neg_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again

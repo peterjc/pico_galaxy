@@ -109,14 +109,14 @@ def count_sff(filename):
 
 
 def count_sequences(filename, format):
-    if seq_format == "sff":
+    if format == "sff":
         return count_sff(filename)
-    elif seq_format == "fasta":
+    elif format == "fasta":
         return count_fasta(filename)
-    elif seq_format.startswith("fastq"):
+    elif format.startswith("fastq"):
         return count_fastq(filename)
     else:
-        sys.exit("Unsupported file type %r" % seq_format)
+        sys.exit("Unsupported file type %r" % format)
 
 
 if options.percent and options.everyn:
