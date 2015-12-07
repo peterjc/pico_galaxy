@@ -22,6 +22,8 @@ try:
     from reportlab.pdfgen import canvas
     from reportlab.graphics import renderPDF
     from reportlab.graphics.shapes import Drawing, String, Line, Rect
+    # We don't use these directly, Biopython will though so checking now
+    del Drawing, String, Line, Rect
     from reportlab.lib.units import cm, inch
     from reportlab.lib import colors
 except Exception:
