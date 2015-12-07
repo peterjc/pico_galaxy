@@ -101,7 +101,7 @@ def make_tabular(raw_handle, out_handle):
 working_dir, bin = get_path_and_binary()
 
 if not os.path.isfile(fasta_file):
-   sys.exit("ERROR: Missing input FASTA file %r" % fasta_file)
+    sys.exit("ERROR: Missing input FASTA file %r" % fasta_file)
 
 #Note that if the input FASTA file contains no sequences,
 #split_fasta returns an empty list (i.e. zero temp files).

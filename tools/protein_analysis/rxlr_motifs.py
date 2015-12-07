@@ -86,8 +86,8 @@ elif model == "Whisson2007":
     min_rxlr_start = 1
     max_rxlr_start = max_sp + max_sp_rxlr
 else:
-   sys.exit("Did not recognise the model name %r\n"
-            "Use Bhattacharjee2006, Win2007, or Whisson2007" % model)
+    sys.exit("Did not recognise the model name %r\n"
+             "Use Bhattacharjee2006, Win2007, or Whisson2007" % model)
 
 
 def get_hmmer_version(exe, required=None):

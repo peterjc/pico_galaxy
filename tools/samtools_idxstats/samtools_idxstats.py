@@ -21,7 +21,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system(cmd))
 
 if len(sys.argv) != 4:
-   sys.exit("Require three arguments: BAM, BAI, tabular filenames")
+    sys.exit("Require three arguments: BAM, BAI, tabular filenames")
 
 bam_filename, bai_filename, tabular_filename = sys.argv[1:]
 

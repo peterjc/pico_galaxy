@@ -25,7 +25,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(0)
 
 if len(sys.argv) != 5:
-   sys.exit("Require four arguments: model, threshold, input protein FASTA file & output tabular file")
+    sys.exit("Require four arguments: model, threshold, input protein FASTA file & output tabular file")
 
 model, threshold, fasta_file, tabular_file = sys.argv[1:]
 
@@ -63,9 +63,9 @@ def clean_tabular(raw_handle, out_handle):
         out_handle.write("\t".join(parts) + "\n")
         count += 1
         if float(score) < 0:
-           errors += 1
+            errors += 1
         if effective.lower() == "true":
-           positive += 1
+            positive += 1
     return count, positive, errors
 
 def run(cmd):
