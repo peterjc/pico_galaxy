@@ -63,7 +63,7 @@ if options.version:
     sys.exit(0)
 
 try:
-    from Bio.SeqIO
+    from Bio import SeqIO
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
     from Bio.SeqIO.FastaIO import SimpleFastaParser
     from Bio.SeqIO.SffIO import SffIterator, SffWriter
