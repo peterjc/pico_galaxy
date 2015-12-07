@@ -59,8 +59,16 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.1")
+    print("v0.2.2")
     sys.exit(0)
+
+try:
+    from Bio.SeqIO
+    from Bio.SeqIO.QualityIO import FastqGeneralIterator
+    from Bio.SeqIO.FastaIO import SimpleFastaParser
+    from Bio.SeqIO.SffIO import SffIterator, SffWriter
+except ImportError:
+    sys.exit("This script requires Biopython.")
 
 in_file = options.input
 out_file = options.output
@@ -78,7 +86,6 @@ seq_format = options.format.lower()
 
 
 def count_fasta(filename):
-    from Bio.SeqIO.FastaIO import SimpleFastaParser
     count = 0
     with open(filename) as handle:
         for title, seq in SimpleFastaParser(handle):
@@ -87,7 +94,6 @@ def count_fasta(filename):
 
 
 def count_fastq(filename):
-    from Bio.SeqIO.QualityIO import FastqGeneralIterator
     count = 0
     with open(filename) as handle:
         for title, seq, qual in FastqGeneralIterator(handle):
@@ -96,7 +102,6 @@ def count_fastq(filename):
 
 
 def count_sff(filename):
-    from Bio import SeqIO
     # If the SFF file has a built in index (which is normal),
     # this will be parsed and is the quicker than scanning
     # the whole file.
@@ -293,7 +298,6 @@ def fasta_filter(in_file, out_file, iterator_filter, inter):
     return count
 
 
-from Bio.SeqIO.QualityIO import FastqGeneralIterator
 def fastq_filter(in_file, out_file, iterator_filter, inter):
     count = 0
     with open(in_file) as in_handle:
@@ -312,10 +316,6 @@ def fastq_filter(in_file, out_file, iterator_filter, inter):
 
 def sff_filter(in_file, out_file, iterator_filter, inter):
     count = 0
-    try:
-        from Bio.SeqIO.SffIO import SffIterator, SffWriter
-    except ImportError:
-        sys.exit("SFF filtering requires Biopython 1.54 or later")
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
     except ImportError:

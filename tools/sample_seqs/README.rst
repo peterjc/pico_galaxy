@@ -69,6 +69,7 @@ v0.2.1  - Was missing a file for the functional tests.
 v0.2.2  - Reorder XML elements (internal change only).
         - Use ``format_source=...``` tag.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.2.3  - Do the Biopython imports at the script start (internal change only).
 ======= ======================================================================
 
 
