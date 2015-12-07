@@ -20,7 +20,7 @@ except RuntimeError, e:
 
 try:
     rpy.r.library("limma")
-except:
+except Exception:
     sys.exit("Requires the R library limma (for vennDiagram function)")
 
 
@@ -79,14 +79,14 @@ if all_file in ["", "-", '""', '"-"']:
     #Load without white list
     sets = [set(load_ids(f,t)) for (f,t,c) in set_data]
     #Take union
-    all = set()
+    all_ids = set()
     for s in sets:
-        all.update(s)
-    print "Inferred total of %i IDs" % len(all)
+        all_ids.update(s)
+    print "Inferred total of %i IDs" % len(all_ids)
 else:
-    all = set(load_ids(all_file, all_type))
-    print "Total of %i IDs" % len(all)
-    sets = [set(load_ids_whitelist(f,t,all)) for (f,t,c) in set_data]
+    all_ids = set(load_ids(all_file, all_type))
+    print "Total of %i IDs" % len(all_ids)
+    sets = [set(load_ids_whitelist(f, t, all_ids)) for (f, t, c) in set_data]
 
 for s, (f,t,c) in zip(sets, set_data):
     print "%i in %s" % (len(s), c)
@@ -105,7 +105,7 @@ try:
         if isinstance(row, int) or isinstance(row, float):
             #Hack for rpy being too clever for single element row
             row = [row]
-        names = all
+        names = all_ids
         for wanted, s in zip(row, sets):
             if wanted:
                 names = names.intersection(s)
@@ -124,7 +124,7 @@ try:
     rpy.r("""vennDiagram(vc, include="both", names=names,
                          main="%s", sub="(Total %i)",
                          circle.col=colors)
-                         """ % (all_label, len(all)))
+                         """ % (all_label, len(all_ids)))
     rpy.r.dev_off()
 except Exception, exc:
     sys.exit( "%s" %str( exc ) )

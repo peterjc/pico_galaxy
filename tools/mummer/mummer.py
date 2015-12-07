@@ -32,7 +32,7 @@ if "-v" in sys.argv [1:]or "--version" in sys.argv[1:]:
 #TODO - optparse
 try:
     fasta_a, fasta_b, algorithm, png_out, pdf_out = sys.argv[1:]
-except:
+except ValueError:
     sys.exit("Expect 5 arguments, got %i" % (len(sys.argv) - 1))
 
 

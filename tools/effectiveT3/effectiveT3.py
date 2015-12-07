@@ -30,11 +30,11 @@ if len(sys.argv) != 5:
 model, threshold, fasta_file, tabular_file = sys.argv[1:]
 
 if not os.path.isfile(fasta_file):
-   sys.exit("Input FASTA file not found: %s" % fasta_file)
+    sys.exit("Input FASTA file not found: %s" % fasta_file)
 
 if threshold not in ["selective", "sensitive"] \
 and not threshold.startswith("cutoff="):
-   sys.exit("Threshold should be selective, sensitive, or cutoff=..., not %r" % threshold)
+    sys.exit("Threshold should be selective, sensitive, or cutoff=..., not %r" % threshold)
 
 def clean_tabular(raw_handle, out_handle):
     """Clean up Effective T3 output to make it tabular."""
@@ -120,13 +120,13 @@ cmd = ["java", "-jar", effectiveT3_jar,
 try:
     # Must run from directory above the module subfolder:
     os.chdir(effectiveT3_dir)
-except:
+except Exception:
     sys.exit("Could not change to Effective T3 folder: %s" % effectiveT3_dir)
 
 run(cmd)
 
 if not os.path.isfile(temp_file):
-   sys.exit("ERROR - No output file from Effective T3")
+    sys.exit("ERROR - No output file from Effective T3")
 
 out_handle = open(tabular_file, "w")
 out_handle.write("#ID\tDescription\tScore\tEffective\n")
@@ -138,11 +138,11 @@ out_handle.close()
 os.remove(temp_file)
 
 if errors:
-   print("%i sequences, %i positive, %i errors"
-         % (count, positive, errors))
+    print("%i sequences, %i positive, %i errors"
+          % (count, positive, errors))
 else:
-   print("%i/%i sequences positive" % (positive, count))
+    print("%i/%i sequences positive" % (positive, count))
 
 if count and count==errors:
-   # Galaxy will still  allow them to see the output file
-   sys.exit("All your sequences gave an error code")
+    # Galaxy will still  allow them to see the output file
+    sys.exit("All your sequences gave an error code")

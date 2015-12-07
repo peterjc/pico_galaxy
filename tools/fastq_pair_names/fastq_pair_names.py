@@ -16,7 +16,7 @@ See accompanying text file for licence details (MIT license).
 import os
 import sys
 import re
-from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
+from galaxy_utils.sequence.fastq import fastqReader
 
 if "-v" in sys.argv or "--version" in sys.argv:
     print "Version 0.0.1"
@@ -128,7 +128,7 @@ for input_fastq in input_fastq_filenames:
                 #===========================
                 out_nonpairs.write(name + "\n")
                 neither += 1
-    in_handle.close
+    in_handle.close()
 out_pairs.close()
 out_nonpairs.close()
 

@@ -88,7 +88,7 @@ print "Indexed %i sequences" % len(records)
 if seq_format.lower()=="sff":
     #Special case to try to preserve the XML manifest
     try:
-        from Bio.SeqIO.SffIO import SffIterator, SffWriter
+        from Bio.SeqIO.SffIO import SffWriter
     except ImportError:
         sys.exit("Requires Biopython 1.54 or later")
 

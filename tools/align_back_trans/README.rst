@@ -69,6 +69,7 @@ v0.0.5  - More explicit error messages when seqences lengths do not match.
 v0.0.6  - Reorder XML elements (internal change only).
         - Use ``format_source=...`` tag.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.7  - Minor Python code style improvements (internal change only).
 ======= ======================================================================
 
 

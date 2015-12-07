@@ -12,7 +12,6 @@ tabular file.
 """
 import sys
 import os
-import subprocess
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:

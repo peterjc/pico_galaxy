@@ -123,7 +123,7 @@ elif options.percent and options.count:
 elif options.everyn:
     try:
         N = int(options.everyn)
-    except:
+    except ValueError:
         sys.exit("Bad -n argument %r" % options.everyn)
     if N < 2:
         sys.exit("Bad -n argument %r" % options.everyn)
@@ -145,7 +145,7 @@ elif options.everyn:
 elif options.percent:
     try:
         percent = float(options.percent) / 100.0
-    except:
+    except ValueError:
         sys.exit("Bad -p percent argument %r" % options.percent)
     if percent <= 0.0 or 1.0 <= percent:
         sys.exit("Bad -p percent argument %r" % options.percent)
@@ -162,7 +162,7 @@ elif options.percent:
 elif options.count:
     try:
         N = int(options.count)
-    except:
+    except ValueError:
         sys.exit("Bad -c count argument %r" % options.count)
     if N < 1:
         sys.exit("Bad -c count argument %r" % options.count)

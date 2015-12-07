@@ -1,4 +1,4 @@
-<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.6">
+<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.7">
     <description>Gives a codon aware alignment</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>

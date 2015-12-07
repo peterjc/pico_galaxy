@@ -14,7 +14,6 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 
 See accompanying text file for licence details (MIT license).
 """
-import os
 import sys
 import re
 
@@ -216,7 +215,7 @@ if last_template:
     for old in buffered_reads:
         singles_handle.write(FASTQ_TEMPLATE % old)
         singles += 1
-in_handle.close
+in_handle.close()
 singles_handle.close()
 if pairs_fastq:
     pairs_f_handle.close()

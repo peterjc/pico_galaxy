@@ -5,17 +5,8 @@
 James E Johnson - University of Minnesota
 """
 import logging
-import os
-import string
 import sys
-import glob
-import shutil
-import types
-import urllib
 import subprocess
-from optparse import OptionParser
-from stat import *
-
 
 log = logging.getLogger( __name__ )
 

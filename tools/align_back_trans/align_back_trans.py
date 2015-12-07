@@ -19,14 +19,14 @@ See accompanying text file for licence details (MIT licence).
 
 import sys
 from Bio.Seq import Seq
-from Bio.Alphabet import generic_dna, generic_protein
+from Bio.Alphabet import generic_protein
 from Bio.Align import MultipleSeqAlignment
 from Bio import SeqIO
 from Bio import AlignIO
 from Bio.Data.CodonTable import ambiguous_generic_by_id
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.5"
+    print "v0.0.7"
     sys.exit(0)
 
 def check_trans(identifier, nuc, prot, table):
@@ -178,7 +178,7 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
 
 try:
     table = int(table)
-except:
+except ValueError:
     sys.exit("Bad table argument %r" % table)
 
 prot_align = AlignIO.read(prot_align_file, align_format, alphabet=generic_protein)

@@ -21,10 +21,10 @@ except ImportError:
 try:
     from reportlab.pdfgen import canvas
     from reportlab.graphics import renderPDF
-    from reportlab.graphics.shapes import Drawing, String, Line, Rect, Wedge
+    from reportlab.graphics.shapes import Drawing, String, Line, Rect
     from reportlab.lib.units import cm, inch
     from reportlab.lib import colors
-except:
+except Exception:
     sys.exit("Requires the Python library ReportLab (for graphical output)")
 
 if len(sys.argv)-1 != 13:

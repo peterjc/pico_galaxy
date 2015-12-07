@@ -49,7 +49,7 @@ except ImportError:
 def thread_count(command_line_arg, default=1):
     try:
         num = int(command_line_arg)
-    except:
+    except ValueError:
         num = default
     if num < 1:
         sys.exit("Threads argument %r is not a positive integer" % command_line_arg)
@@ -140,7 +140,7 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
         #Max length failure from parser - clean up
         try:
             handle.close()
-        except:
+        except Exception:
             pass
         for f in files:
             if os.path.isfile(f):
