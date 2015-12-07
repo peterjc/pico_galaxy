@@ -66,6 +66,7 @@ v0.0.3  - Report counts for FASTQ as done for FASTA and SFF files.
 v0.0.4  - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.5  - Python script cleanups (internal change only).
 ======= ======================================================================
 
 

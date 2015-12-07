@@ -60,7 +60,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.0.3"
+    print "v0.0.5"
     sys.exit(0)
 
 in_file = options.input
@@ -287,7 +287,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         print in_file
         for title, seq, qual in FastqGeneralIterator(handle):
             # print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
-            if clean_name(title.split(None, 1)[0]) in ids:
+            if clean_name(title.split(None, 1)[0]) in wanted:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
                 pos_count += 1
             else:
@@ -299,7 +299,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         print "Generating matching FASTQ file"
         positive_handle = open(out_positive_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
-            if clean_name(title.split(None, 1)[0]) in ids:
+            if clean_name(title.split(None, 1)[0]) in wanted:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
                 pos_count += 1
             else:
@@ -309,7 +309,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         print "Generating non-matching FASTQ file"
         negative_handle = open(out_negative_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
-            if clean_name(title.split(None, 1)[0]) in ids:
+            if clean_name(title.split(None, 1)[0]) in wanted:
                 pos_count += 1
             else:
                 negative_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
@@ -345,13 +345,13 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
         out_handle = open(out_positive_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again after getting manifest
-        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in ids)
+        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted)
         out_handle.close()
     if out_negative_file is not None:
         out_handle = open(out_negative_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0) #start again
-        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in ids)
+        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in wanted)
         out_handle.close()
     #And we're done
     in_handle.close()
