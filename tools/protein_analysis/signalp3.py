@@ -56,7 +56,7 @@ the predictors which gives a cleavage site). *WORK IN PROGRESS*
 import sys
 import os
 import tempfile
-from seq_analysis_utils import sys.exit, split_fasta, fasta_iterator
+from seq_analysis_utils import split_fasta, fasta_iterator
 from seq_analysis_utils import run_jobs, thread_count
 
 FASTA_CHUNK = 500

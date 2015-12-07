@@ -24,7 +24,7 @@ with a # character as used elsewhere in Galaxy.
 import sys
 import os
 import tempfile
-from seq_analysis_utils import sys.exit, split_fasta, run_jobs, thread_count
+from seq_analysis_utils import split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 

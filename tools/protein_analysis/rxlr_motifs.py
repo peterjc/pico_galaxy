@@ -40,7 +40,7 @@ import os
 import sys
 import re
 import subprocess
-from seq_analysis_utils import sys.exit, fasta_iterator
+from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
     print("RXLR Motifs v0.0.10")

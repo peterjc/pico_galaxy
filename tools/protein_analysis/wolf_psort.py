@@ -35,7 +35,7 @@ at least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 """
 import sys
 import os
-from seq_analysis_utils import sys.exit, split_fasta, run_jobs, thread_count
+from seq_analysis_utils import split_fasta, run_jobs, thread_count
 
 FASTA_CHUNK = 500
 exe = "runWolfPsortSummary"
