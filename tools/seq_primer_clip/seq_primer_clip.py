@@ -46,14 +46,14 @@ except ImportError:
 try:
     from Bio.SeqIO.SffIO import ReadRocheXmlManifest
 except ImportError:
-    #Prior to Biopython 1.56 this was a private function
+    # Prior to Biopython 1.56 this was a private function
     from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
 
-#Parse Command Line
+# Parse Command Line
 try:
     in_file, seq_format, primer_fasta, primer_type, mm, min_len, keep_negatives, out_file = sys.argv[1:]
 except ValueError:
-    sys.exit("Expected 8 arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys.exit("Expected 8 arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
 
 if in_file == primer_fasta:
     sys.exit("Same file given as both primer sequences and sequences to clip!")
@@ -68,7 +68,7 @@ except ValueError:
     sys.exit("Expected non-negative integer number of mismatches (e.g. 0 or 1), not %r" % mm)
 if mm < 0:
     sys.exit("Expected non-negtive integer number of mismatches (e.g. 0 or 1), not %r" % mm)
-if mm not in [0,1,2]:
+if mm not in [0, 1, 2]:
     raise NotImplementedError
 
 try:
@@ -115,7 +115,7 @@ ambiguous_dna_values = {
     "H": "ACTMWYH",
     "D": "AGTRWKD",
     "B": "CGTSYKB",
-    "X": ".", #faster than [GATCMRWSYKVVHDBXN] or even [GATC]
+    "X": ".",  # faster than [GATCMRWSYKVVHDBXN] or even [GATC]
     "N": ".",
     }
 
@@ -130,39 +130,41 @@ for letter, values in ambiguous_dna_values.iteritems():
 def make_reg_ex(seq):
     return "".join(ambiguous_dna_re[letter] for letter in seq)
 
+
 def make_reg_ex_mm(seq, mm):
     if mm > 2:
         raise NotImplementedError("At most 2 mismatches allowed!")
     seq = seq.upper()
     yield make_reg_ex(seq)
-    for i in range(1,mm+1):
-        #Missing first/last i bases at very start/end of sequence
-        for reg in make_reg_ex_mm(seq[i:],  mm-i):
+    for i in range(1, mm + 1):
+        # Missing first/last i bases at very start/end of sequence
+        for reg in make_reg_ex_mm(seq[i:], mm - i):
             yield "^" + reg
-        for reg in make_reg_ex_mm(seq[:-i], mm-i):
+        for reg in make_reg_ex_mm(seq[:-i], mm - i):
             yield "$" + reg
     if mm >= 1:
-        for i,letter in enumerate(seq):
-            #We'll use a set to remove any duplicate patterns
-            #if letter not in "NX":
-            pattern = seq[:i] + "N" + seq[i+1:]
+        for i, letter in enumerate(seq):
+            # We'll use a set to remove any duplicate patterns
+            # if letter not in "NX":
+            pattern = seq[:i] + "N" + seq[i + 1:]
             assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" \
                    % (pattern, len(pattern), seq, len(seq))
             yield make_reg_ex(pattern)
-    if mm >=2:
-        for i,letter in enumerate(seq):
-            #We'll use a set to remove any duplicate patterns
-            #if letter not in "NX":
-            for k,letter in enumerate(seq[i+1:]):
-                #We'll use a set to remove any duplicate patterns
-                #if letter not in "NX":
-                pattern = seq[:i] + "N" + seq[i+1:i+1+k] + "N" + seq[i+k+2:]
+    if mm >= 2:
+        for i, letter in enumerate(seq):
+            # We'll use a set to remove any duplicate patterns
+            # if letter not in "NX":
+            for k, letter in enumerate(seq[i + 1:]):
+                # We'll use a set to remove any duplicate patterns
+                # if letter not in "NX":
+                pattern = seq[:i] + "N" + seq[i + 1:i + 1 + k] + "N" + seq[i + k + 2:]
                 assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" \
                        % (pattern, len(pattern), seq, len(seq))
                 yield make_reg_ex(pattern)
 
+
 def load_primers_as_re(primer_fasta, mm, rc=False):
-    #Read primer file and record all specified sequences
+    # Read primer file and record all specified sequences
     primers = set()
     in_handle = open(primer_fasta, "rU")
     reader = fastaReader(in_handle)
@@ -172,19 +174,18 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
             seq = reverse_complement(record.sequence)
         else:
             seq = record.sequence
-        #primers.add(re.compile(make_reg_ex(seq)))
+        # primers.add(re.compile(make_reg_ex(seq)))
         count += 1
         for pattern in make_reg_ex_mm(seq, mm):
             primers.add(pattern)
     in_handle.close()
-    #Use set to avoid duplicates, sort to have longest first
-    #(so more specific primers found before less specific ones)
+    # Use set to avoid duplicates, sort to have longest first
+    # (so more specific primers found before less specific ones)
     primers = sorted(set(primers), key=lambda p: -len(p))
-    return count, re.compile("|".join(primers)) #make one monster re!
+    return count, re.compile("|".join(primers))  # make one monster re!
 
 
-
-#Read primer file and record all specified sequences
+# Read primer file and record all specified sequences
 count, primer = load_primers_as_re(primer_fasta, mm, rc)
 print "%i primer sequences" % count
 
@@ -193,8 +194,8 @@ short_clipped = 0
 clipped = 0
 negs = 0
 
-if seq_format.lower()=="sff":
-    #SFF is different because we just change the trim points
+if seq_format.lower() == "sff":
+    # SFF is different because we just change the trim points
     if forward:
         def process(records):
             global short_clipped, short_neg, clipped, negs
@@ -204,8 +205,8 @@ if seq_format.lower()=="sff":
                 seq = str(record.seq)[left_clip:right_clip].upper()
                 result = primer.search(seq)
                 if result:
-                    #Forward primer, take everything after it
-                    #so move the left clip along
+                    # Forward primer, take everything after it
+                    # so move the left clip along
                     if len(seq) - result.end() >= min_len:
                         record.annotations["clip_qual_left"] = left_clip + result.end()
                         clipped += 1
@@ -227,8 +228,8 @@ if seq_format.lower()=="sff":
                 seq = str(record.seq)[left_clip:right_clip].upper()
                 result = primer.search(seq)
                 if result:
-                    #Reverse primer, take everything before it
-                    #so move the right clip back
+                    # Reverse primer, take everything before it
+                    # so move the right clip back
                     new_len = result.start()
                     if new_len >= min_len:
                         record.annotations["clip_qual_right"] = left_clip + new_len
@@ -242,7 +243,7 @@ if seq_format.lower()=="sff":
                         yield record
                     else:
                         short_neg += 1
-    
+
     in_handle = open(in_file, "rb")
     try:
         manifest = ReadRocheXmlManifest(in_handle)
@@ -252,7 +253,7 @@ if seq_format.lower()=="sff":
     out_handle = open(out_file, "wb")
     writer = SffWriter(out_handle, xml=manifest)
     writer.write_file(process(SffIterator(in_handle)))
-    #End of SFF code
+    # End of SFF code
 elif seq_format.lower().startswith("fastq"):
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
@@ -263,7 +264,7 @@ elif seq_format.lower().startswith("fastq"):
             seq = record.sequence.upper()
             result = primer.search(seq)
             if result:
-                #Forward primer, take everything after it
+                # Forward primer, take everything after it
                 cut = result.end()
                 record.sequence = seq[cut:]
                 if len(record.sequence) >= min_len:
@@ -283,7 +284,7 @@ elif seq_format.lower().startswith("fastq"):
             seq = record.sequence.upper()
             result = primer.search(seq)
             if result:
-                #Reverse primer, take everything before it
+                # Reverse primer, take everything before it
                 cut = result.start()
                 record.sequence = seq[:cut]
                 if len(record.sequence) >= min_len:
@@ -298,18 +299,18 @@ elif seq_format.lower().startswith("fastq"):
                     writer.write(record)
                 else:
                     short_neg += 1
-elif seq_format.lower()=="fasta":
+elif seq_format.lower() == "fasta":
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
     reader = fastaReader(in_handle)
     writer = fastaWriter(out_handle)
-    #Following code is identical to that for FASTQ but without editing qualities
+    # Following code is identical to that for FASTQ but without editing qualities
     if forward:
         for record in reader:
             seq = record.sequence.upper()
             result = primer.search(seq)
             if result:
-                #Forward primer, take everything after it
+                # Forward primer, take everything after it
                 cut = result.end()
                 record.sequence = seq[cut:]
                 if len(record.sequence) >= min_len:
@@ -328,7 +329,7 @@ elif seq_format.lower()=="fasta":
             seq = record.sequence.upper()
             result = primer.search(seq)
             if result:
-                #Reverse primer, take everything before it
+                # Reverse primer, take everything before it
                 cut = result.start()
                 record.sequence = seq[:cut]
                 if len(record.sequence) >= min_len:

@@ -33,8 +33,9 @@ if not os.path.isfile(fasta_file):
     sys.exit("Input FASTA file not found: %s" % fasta_file)
 
 if threshold not in ["selective", "sensitive"] \
-and not threshold.startswith("cutoff="):
+    and not threshold.startswith("cutoff="):
     sys.exit("Threshold should be selective, sensitive, or cutoff=..., not %r" % threshold)
+
 
 def clean_tabular(raw_handle, out_handle):
     """Clean up Effective T3 output to make it tabular."""
@@ -43,20 +44,20 @@ def clean_tabular(raw_handle, out_handle):
     errors = 0
     for line in raw_handle:
         if not line or line.startswith("#") \
-        or line.startswith("Id; Description; Score;"):
+            or line.startswith("Id; Description; Score;"):
             continue
         assert line.count(";") >= 3, repr(line)
         # Normally there will just be three semi-colons, however the
         # original FASTA file's ID or description might have had
         # semi-colons in it as well, hence the following hackery:
         try:
-            id_descr, score, effective = line.rstrip("\r\n").rsplit(";",2)
+            id_descr, score, effective = line.rstrip("\r\n").rsplit(";", 2)
             # Cope when there was no FASTA description
             if "; " not in id_descr and id_descr.endswith(";"):
                 id = id_descr[:-1]
                 descr = ""
             else:
-                id, descr = id_descr.split("; ",1)
+                id, descr = id_descr.split("; ", 1)
         except ValueError:
             sys.exit("Problem parsing line:\n%s\n" % line)
         parts = [s.strip() for s in [id, descr, score, effective]]
@@ -67,6 +68,7 @@ def clean_tabular(raw_handle, out_handle):
         if effective.lower() == "true":
             positive += 1
     return count, positive, errors
+
 
 def run(cmd):
     # Avoid using shell=True when we call subprocess to ensure if the Python
@@ -79,7 +81,7 @@ def run(cmd):
     stdout, stderr = child.communicate()
     return_code = child.returncode
     if return_code or stderr.startswith("Exception in thread"):
-        cmd_str= " ".join(cmd)  # doesn't quote spaces etc
+        cmd_str = " ".join(cmd)  # doesn't quote spaces etc
         if stderr and stdout:
             sys.exit("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
         else:
@@ -143,6 +145,6 @@ if errors:
 else:
     print("%i/%i sequences positive" % (positive, count))
 
-if count and count==errors:
+if count and count == errors:
     # Galaxy will still  allow them to see the output file
     sys.exit("All your sequences gave an error code")

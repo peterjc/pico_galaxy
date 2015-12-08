@@ -14,13 +14,14 @@ import sys
 import tempfile
 import shutil
 
+
 def run(cmd):
     print(cmd)
     return_code = os.system(cmd)
     if return_code:
         sys.exit("Error %i from: %s" % (return_code, cmd))
 
-if "-v" in sys.argv [1:]or "--version" in sys.argv[1:]:
+if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
     print("MUMmer wrapper v0.0.3\n")
     # TODO - How to get a version string from the mummer binary?
     os.system("nucmer --version")
@@ -28,8 +29,8 @@ if "-v" in sys.argv [1:]or "--version" in sys.argv[1:]:
     os.system("mummerplot --version")
     sys.exit(0)
 
-#Parse Command Line
-#TODO - optparse
+# Parse Command Line
+# TODO - optparse
 try:
     fasta_a, fasta_b, algorithm, png_out, pdf_out = sys.argv[1:]
 except ValueError:
@@ -43,14 +44,14 @@ if algorithm not in valid_algo:
 base_path = tempfile.mkdtemp()
 prefix = os.path.join(base_path, "ref_qry")
 coords = prefix + ".mums"
-#gnuplot = prefix + ".gp"
+# gnuplot = prefix + ".gp"
 ps_image = prefix + ".ps"
 png_image = prefix + ".png"
 
 if algorithm == "mummer":
-    #Add -mum as per example to find maximal unique matches between ref and query.
-    #Add the -b -c options to search both strands and report relative to forward strand
-    #which then matches the default dual-strand approach in nucmer and promer
+    # Add -mum as per example to find maximal unique matches between ref and query.
+    # Add the -b -c options to search both strands and report relative to forward strand
+    # which then matches the default dual-strand approach in nucmer and promer
     cmd = '%s -mum -b -c "%s" "%s" > %s' % (algorithm, fasta_a, fasta_b, coords)
 else:
     coords = "out.delta"
@@ -76,6 +77,6 @@ run(cmd)
 cmd = 'ps2pdf -dEPSCrop "%s" "%s"' % (ps_image, pdf_out)
 run(cmd)
 
-#Remove temp files...
-os.remove(coords) # Might not be under the temp directory...
+# Remove temp files...
+os.remove(coords)  # Might not be under the temp directory...
 shutil.rmtree(base_path)

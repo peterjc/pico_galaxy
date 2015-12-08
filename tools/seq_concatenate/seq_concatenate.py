@@ -24,17 +24,17 @@ from Bio.Seq import Seq
 from Bio.SeqFeature import SeqFeature, FeatureLocation
 from Bio.SeqRecord import SeqRecord
 
-#Parse Command Line
+# Parse Command Line
 usage = """Example usage:
 
 $ python seq_concatenate.py -o my_output.gbk -n 20 file1.gbk file2.gbk
 
 At least one input sequence file is required (in GenBank format).
 """
-#TODO - FASTA / GenBank / EMBL input? Needs the datatype defined...
-#TODO - Option for number of Ns to use as linker
-#TODO - Option for explicit linker sequence
-#TODO - Support protein input?
+# TODO - FASTA / GenBank / EMBL input? Needs the datatype defined...
+# TODO - Option for number of Ns to use as linker
+# TODO - Option for explicit linker sequence
+# TODO - Support protein input?
 parser = OptionParser(usage=usage)
 parser.add_option('-o', '--output', dest='output',
                   default=None, help='Output filename (tabular)',
@@ -58,7 +58,9 @@ file_count = 0
 seq_count = 0
 counts = dict()
 
-#TODO - itertools chain?
+# TODO - itertools chain?
+
+
 def get_records(filenames):
     for f in filenames:
         for r in SeqIO.parse(f, "genbank"):

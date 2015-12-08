@@ -22,7 +22,7 @@ import subprocess
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    #Galaxy seems to invert the order of the two lines
+    # Galaxy seems to invert the order of the two lines
     print("BAM coverage statistics v0.0.5")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
@@ -55,7 +55,7 @@ if max_depth < 0:
 # coverage by capping the number of reads considered
 depth_margin = 100
 
-#Assign sensible names with real extensions, and setup symlinks:
+# Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
 bam_file = os.path.join(tmp_dir, "temp.bam")
 bai_file = os.path.join(tmp_dir, "temp.bam.bai")
@@ -66,6 +66,7 @@ os.symlink(os.path.abspath(bai_filename), bai_file)
 assert os.path.isfile(bam_file), bam_file
 assert os.path.isfile(bai_file), bai_file
 assert os.path.isfile(bam_file + ".bai"), bam_file
+
 
 def clean_up():
     os.remove(idxstats_filename)
@@ -114,6 +115,7 @@ return_code = os.system(cmd)
 if return_code:
     clean_up()
     sys.exit("Return code %i from command:\n%s" % (return_code, cmd))
+
 
 def load_total_coverage(depth_handle, identifier, length):
     """Parse some of the 'samtools depth' output for coverages.

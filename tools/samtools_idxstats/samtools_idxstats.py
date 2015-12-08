@@ -15,7 +15,7 @@ import os
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    #Galaxy seems to invert the order of the two lines
+    # Galaxy seems to invert the order of the two lines
     print "(Galaxy wrapper v0.0.2)"
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
@@ -32,7 +32,7 @@ if not os.path.isfile(bai_filename):
         sys.exit("Error: Galaxy did not index your BAM file")
     sys.exit("Input BAI file not found: %s" % bai_filename)
 
-#Assign sensible names with real extensions, and setup symlinks:
+# Assign sensible names with real extensions, and setup symlinks:
 tmp_dir = tempfile.mkdtemp()
 bam_file = os.path.join(tmp_dir, "temp.bam")
 bai_file = os.path.join(tmp_dir, "temp.bam.bai")
@@ -42,11 +42,11 @@ assert os.path.isfile(bam_file), bam_file
 assert os.path.isfile(bai_file), bai_file
 assert os.path.isfile(bam_file + ".bai"), bam_file
 
-#Run samtools idxstats:
+# Run samtools idxstats:
 cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, tabular_filename)
 return_code = os.system(cmd)
 
-#Remove the temp symlinks:
+# Remove the temp symlinks:
 os.remove(bam_file)
 os.remove(bai_file)
 os.rmdir(tmp_dir)

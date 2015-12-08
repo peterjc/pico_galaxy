@@ -39,22 +39,23 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 if len(sys.argv) != 4:
     sys.exit("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
-             "Got %i arguments." % (len(sys.argv)-1))
+             "Got %i arguments." % (len(sys.argv) - 1))
 
-num_threads = thread_count(sys.argv[3],default=4)
+num_threads = thread_count(sys.argv[3], default=4)
 fasta_file = os.path.abspath(sys.argv[2])
 tabular_file = os.path.abspath(sys.argv[3])
 
 tmp_dir = tempfile.mkdtemp()
 
+
 def get_path_and_binary():
-    platform = commands.getoutput("uname") #e.g. Linux
+    platform = commands.getoutput("uname")  # e.g. Linux
     shell_script = commands.getoutput("which promoter")
     if not os.path.isfile(shell_script):
         sys.exit("ERROR: Missing promoter executable shell script")
     path = None
     for line in open(shell_script):
-        if line.startswith("setenv"): #could then be tab or space!
+        if line.startswith("setenv"):  # could then be tab or space!
             parts = line.rstrip().split(None, 2)
             if parts[0] == "setenv" and parts[1] == "PROM":
                 path = parts[2]
@@ -67,29 +68,30 @@ def get_path_and_binary():
         sys.exit("ERROR: Missing promoter binary %r" % bin)
     return path, bin
 
+
 def make_tabular(raw_handle, out_handle):
     """Parse text output into tabular, return query count."""
     identifier = None
     queries = 0
     for line in raw_handle:
-        #print repr(line)
+        # print repr(line)
         if not line.strip() or line == "Promoter prediction:\n":
             pass
         elif line[0] != " ":
-            identifier = line.strip().replace("\t", " ").split(None,1)[0]
+            identifier = line.strip().replace("\t", " ").split(None, 1)[0]
             queries += 1
         elif line == "  No promoter predicted\n":
-            #End of a record
+            # End of a record
             identifier = None
         elif line == "  Position  Score  Likelihood\n":
             assert identifier
         else:
             try:
-                position, score, likelihood = line.strip().split(None,2)
+                position, score, likelihood = line.strip().split(None, 2)
             except ValueError:
                 print "WARNING: Problem with line: %r" % line
                 continue
-                #sys.exit("ERROR: Problem with line: %r" % line)
+                # sys.exit("ERROR: Problem with line: %r" % line)
             if likelihood not in ["ignored",
                                   "Marginal prediction",
                                   "Medium likely prediction",
@@ -97,20 +99,21 @@ def make_tabular(raw_handle, out_handle):
                 sys.exit("ERROR: Problem with line: %r" % line)
             out_handle.write("%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood))
     return queries
-    
+
 working_dir, bin = get_path_and_binary()
 
 if not os.path.isfile(fasta_file):
     sys.exit("ERROR: Missing input FASTA file %r" % fasta_file)
 
-#Note that if the input FASTA file contains no sequences,
-#split_fasta returns an empty list (i.e. zero temp files).
-#We deliberately omit the FASTA descriptions to avoid a
-#bug in promoter2 with descriptions over 200 characters.
+# Note that if the input FASTA file contains no sequences,
+# split_fasta returns an empty list (i.e. zero temp files).
+# We deliberately omit the FASTA descriptions to avoid a
+# bug in promoter2 with descriptions over 200 characters.
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "promoter"), FASTA_CHUNK, keep_descr=False)
-temp_files = [f+".out" for f in fasta_files]
+temp_files = [f + ".out" for f in fasta_files]
 jobs = ["%s %s > %s" % (bin, fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
+
 
 def clean_up(file_list):
     for f in file_list:
@@ -122,7 +125,7 @@ def clean_up(file_list):
         pass
 
 if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
+    # A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 cur_dir = os.path.abspath(os.curdir)
 os.chdir(working_dir)

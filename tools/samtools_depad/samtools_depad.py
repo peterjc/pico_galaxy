@@ -13,7 +13,7 @@ import sys
 import os
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    #Galaxy seems to invert the order of the two lines
+    # Galaxy seems to invert the order of the two lines
     print "(Galaxy wrapper v0.0.2)"
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
@@ -30,7 +30,7 @@ if not os.path.isfile(bam_filename):
 if input_format.lower() not in ["sam", "bam"]:
     sys.exit("Input format should be SAM or BAM, not %r" % input_format)
 
-#Run samtools depad:
+# Run samtools depad:
 if input_format.lower() == "sam":
     cmd = "samtools depad -S -T %s %s > %s" % (padded_ref, bam_filename, output_filename)
 else:

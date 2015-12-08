@@ -26,16 +26,16 @@ if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.9"
     sys.exit(0)
 
-#Parse Command Line
+# Parse Command Line
 try:
     tabular_file, col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
 try:
     if col_arg.startswith("c"):
-        column = int(col_arg[1:])-1
+        column = int(col_arg[1:]) - 1
     else:
-        column = int(col_arg)-1
+        column = int(col_arg) - 1
 except ValueError:
     sys.exit("Expected column number, got %s" % col_arg)
 
@@ -44,10 +44,10 @@ if seq_format == "fastqcssanger":
 elif seq_format.lower() in ["sff", "fastq", "qual", "fasta"]:
     seq_format = seq_format.lower()
 elif seq_format.lower().startswith("fastq"):
-    #We don't care how the qualities are encoded    
+    # We don't care how the qualities are encoded
     seq_format = "fastq"
 elif seq_format.lower().startswith("qual"):
-    #We don't care what the scores are
+    # We don't care what the scores are
     seq_format = "qual"
 else:
     sys.exit("Unrecognised file format %r" % seq_format)
@@ -80,13 +80,13 @@ def parse_ids(tabular_file, col):
     if warn:
         sys.stderr.write(warn)
 
-#Index the sequence file.
-#If very big, could use SeqIO.index_db() to avoid memory bottleneck...
+# Index the sequence file.
+# If very big, could use SeqIO.index_db() to avoid memory bottleneck...
 records = SeqIO.index(in_file, seq_format)
 print "Indexed %i sequences" % len(records)
 
-if seq_format.lower()=="sff":
-    #Special case to try to preserve the XML manifest
+if seq_format.lower() == "sff":
+    # Special case to try to preserve the XML manifest
     try:
         from Bio.SeqIO.SffIO import SffWriter
     except ImportError:
@@ -95,10 +95,10 @@ if seq_format.lower()=="sff":
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
     except ImportError:
-        #Prior to Biopython 1.56 this was a private function
+        # Prior to Biopython 1.56 this was a private function
         from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
 
-    in_handle = open(in_file, "rb") #must be binary mode!
+    in_handle = open(in_file, "rb")  # must be binary mode!
     try:
         manifest = ReadRocheXmlManifest(in_handle)
     except ValueError:
@@ -108,8 +108,8 @@ if seq_format.lower()=="sff":
     out_handle = open(out_file, "wb")
     writer = SffWriter(out_handle, xml=manifest)
     count = 0
-    #This does have the overhead of parsing into SeqRecord objects,
-    #but doing the header and index at the low level is too fidly.
+    # This does have the overhead of parsing into SeqRecord objects,
+    # but doing the header and index at the low level is too fidly.
     iterator = (records[name] for name in parse_ids(tabular_file, column))
     try:
         count = writer.write_file(iterator)
@@ -121,8 +121,8 @@ if seq_format.lower()=="sff":
             raise err
     out_handle.close()
 else:
-    #Avoid overhead of parsing into SeqRecord objects,
-    #just re-use the original formatting from the input file.
+    # Avoid overhead of parsing into SeqRecord objects,
+    # just re-use the original formatting from the input file.
     out_handle = open(out_file, "w")
     count = 0
     for name in parse_ids(tabular_file, column):

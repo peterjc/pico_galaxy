@@ -59,7 +59,7 @@ elif out_type == "normal":
     sys.exit("Normal output not implemented yet, sorry.")
 elif out_type == "long":
     if org_type == "-n":
-        #Gram negative bacteria
+        # Gram negative bacteria
         header = ['SeqID', 'CMSVM-_Localization', 'CMSVM-_Details', 'CytoSVM-_Localization', 'CytoSVM-_Details',
                   'ECSVM-_Localization', 'ECSVM-_Details', 'ModHMM-_Localization', 'ModHMM-_Details',
                   'Motif-_Localization', 'Motif-_Details', 'OMPMotif-_Localization', 'OMPMotif-_Details',
@@ -71,7 +71,7 @@ elif out_type == "long":
                   'Extracellular_Score', 'Final_Localization', 'Final_Localization_Details', 'Final_Score',
                   'Secondary_Localization', 'PSortb_Version']
     elif org_type == "-p":
-        #Gram positive bacteria
+        # Gram positive bacteria
         header = ['SeqID', 'CMSVM+_Localization', 'CMSVM+_Details', 'CWSVM+_Localization', 'CWSVM+_Details',
                   'CytoSVM+_Localization', 'CytoSVM+_Details', 'ECSVM+_Localization', 'ECSVM+_Details',
                   'ModHMM+_Localization', 'ModHMM+_Details', 'Motif+_Localization', 'Motif+_Details',
@@ -82,7 +82,7 @@ elif out_type == "long":
                   'Extracellular_Score', 'Final_Localization', 'Final_Localization_Details', 'Final_Score',
                   'Secondary_Localization', 'PSortb_Version']
     elif org_type == "-a":
-        #Archaea
+        # Archaea
         header = ['SeqID', 'CMSVM_a_Localization', 'CMSVM_a_Details', 'CWSVM_a_Localization', 'CWSVM_a_Details',
                   'CytoSVM_a_Localization', 'CytoSVM_a_Details', 'ECSVM_a_Localization', 'ECSVM_a_Details',
                   'ModHMM_a_Localization', 'ModHMM_a_Details', 'Motif_a_Localization', 'Motif_a_Details',
@@ -99,21 +99,22 @@ else:
 
 tmp_dir = tempfile.mkdtemp()
 
+
 def clean_tabular(raw_handle, out_handle):
     """Clean up tabular TMHMM output, returns output line count."""
     global header
     count = 0
     for line in raw_handle:
         if not line.strip() or line.startswith("#"):
-            #Ignore any blank lines or comment lines
+            # Ignore any blank lines or comment lines
             continue
         parts = [x.strip() for x in line.rstrip("\r\n").split("\t")]
         if parts == header:
-            #Ignore the header line
+            # Ignore the header line
             continue
         if not parts[-1] and len(parts) == len(header) + 1:
-            #Ignore dummy blank extra column, e.g.
-            #"...2.0\t\tPSORTb version 3.0\t\n"
+            # Ignore dummy blank extra column, e.g.
+            # "...2.0\t\tPSORTb version 3.0\t\n"
             parts = parts[:-1]
         assert len(parts) == len(header), \
             "%i fields, not %i, in line:\n%r" % (len(line), len(header), line)
@@ -121,12 +122,13 @@ def clean_tabular(raw_handle, out_handle):
         count += 1
     return count
 
-#Note that if the input FASTA file contains no sequences,
-#split_fasta returns an empty list (i.e. zero temp files).
+# Note that if the input FASTA file contains no sequences,
+# split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
-temp_files = [f+".out" for f in fasta_files]
+temp_files = [f + ".out" for f in fasta_files]
 jobs = ["psort %s %s %s -o %s %s > %s" % (org_type, cutoff, divergent, out_type, fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
+
 
 def clean_up(file_list):
     for f in file_list:
@@ -138,7 +140,7 @@ def clean_up(file_list):
         pass
 
 if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
+    # A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 results = run_jobs(jobs, num_threads)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):

@@ -21,7 +21,7 @@ In order to make it easier to use in Galaxy, this wrapper script simplifies
 this to remove the redundant tags, and instead adds a comment line at the
 top with the column names:
 
- #ID	len	ExpAA	First60	PredHel	Topology 
+ #ID	len	ExpAA	First60	PredHel	Topology
  gi|2781234|pdb|1JLY|B	304	0.01	60	0.00	0	o
  gi|4959044|gb|AAD34209.1|AF069992_1	600	0.00	0	0.00	0	o
  gi|671626|emb|CAA85685.1|	473	0.19	0.00	0	o
@@ -56,18 +56,19 @@ tabular_file = sys.argv[3]
 
 tmp_dir = tempfile.mkdtemp()
 
+
 def clean_tabular(raw_handle, out_handle):
     """Clean up tabular TMHMM output, returns output line count."""
     count = 0
     for line in raw_handle:
         if not line.strip() or line.startswith("#"):
-            #Ignore any blank lines or comment lines
+            # Ignore any blank lines or comment lines
             continue
         parts = line.rstrip("\r\n").split("\t")
         try:
             identifier, length, exp_aa, first60, predhel, topology = parts
         except ValueError:
-            assert len(parts)!=6
+            assert len(parts) != 6
             sys.exit("Bad line: %r" % line)
         assert length.startswith("len="), line
         length = length[4:]
@@ -79,17 +80,18 @@ def clean_tabular(raw_handle, out_handle):
         predhel = predhel[8:]
         assert topology.startswith("Topology="), line
         topology = topology[9:]
-        out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n" \
+        out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n"
                    % (identifier, length, exp_aa, first60, predhel, topology))
         count += 1
     return count
 
-#Note that if the input FASTA file contains no sequences,
-#split_fasta returns an empty list (i.e. zero temp files).
+# Note that if the input FASTA file contains no sequences,
+# split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
-temp_files = [f+".out" for f in fasta_files]
+temp_files = [f + ".out" for f in fasta_files]
 jobs = ["tmhmm -short %s > %s" % (fasta, temp)
         for fasta, temp in zip(fasta_files, temp_files)]
+
 
 def clean_up(file_list):
     for f in file_list:
@@ -101,7 +103,7 @@ def clean_up(file_list):
         pass
 
 if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
+    # A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 results = run_jobs(jobs, num_threads)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):

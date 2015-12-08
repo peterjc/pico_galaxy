@@ -24,7 +24,7 @@ import re
 import subprocess
 from optparse import OptionParser
 
-#Parse Command Line
+# Parse Command Line
 usage = """Use as follows:
 
 $ python seq_filter_by_mapping.py [options] mapping.sam/bam [more mappings]
@@ -84,13 +84,13 @@ if not args:
     sys.exit("At least one SAM/BAM mapping file is required")
 
 
-#Cope with three widely used suffix naming convensions,
-#Illumina: /1 or /2
-#Forward/revered: .f or .r
-#Sanger, e.g. .p1k and .q1k
-#See http://staden.sourceforge.net/manual/pregap4_unix_50.html
-#re_f = re.compile(r"(/1|\.f|\.[sfp]\d\w*)$")
-#re_r = re.compile(r"(/2|\.r|\.[rq]\d\w*)$")
+# Cope with three widely used suffix naming convensions,
+# Illumina: /1 or /2
+# Forward/revered: .f or .r
+# Sanger, e.g. .p1k and .q1k
+# See http://staden.sourceforge.net/manual/pregap4_unix_50.html
+# re_f = re.compile(r"(/1|\.f|\.[sfp]\d\w*)$")
+# re_r = re.compile(r"(/2|\.r|\.[rq]\d\w*)$")
 re_suffix = re.compile(r"(/1|\.f|\.[sfp]\d\w*|/2|\.r|\.[rq]\d\w*)$")
 assert re_suffix.search("demo.f")
 assert re_suffix.search("demo.s1")
@@ -102,6 +102,7 @@ assert re_suffix.search("demo/2")
 assert re_suffix.search("demo.r")
 assert re_suffix.search("demo.q1")
 assert re_suffix.search("demo.q1lk")
+
 
 def clean_name(name):
     """Remove suffix."""
@@ -120,20 +121,21 @@ assert clean_name("bar.r") == "bar"
 assert clean_name("baz.p1") == "baz"
 assert clean_name("baz.q2") == "baz"
 
-mapped_chars = { '>' :'__gt__',
-                 '<' :'__lt__',
-                 "'" :'__sq__',
-                 '"' :'__dq__',
-                 '[' :'__ob__',
-                 ']' :'__cb__',
-                 '{' :'__oc__',
-                 '}' :'__cc__',
-                 '@' : '__at__',
-                 '\n' : '__cn__',
-                 '\r' : '__cr__',
-                 '\t' : '__tc__',
-                 '#' : '__pd__'
+mapped_chars = {'>': '__gt__',
+                 '<': '__lt__',
+                 "'": '__sq__',
+                 '"': '__dq__',
+                 '[': '__ob__',
+                 ']': '__cb__',
+                 '{': '__oc__',
+                 '}': '__cc__',
+                 '@': '__at__',
+                 '\n': '__cn__',
+                 '\r': '__cr__',
+                 '\t': '__tc__',
+                 '#': '__pd__'
                  }
+
 
 def load_mapping_ids(filename, pair_mode, ids):
     """Parse SAM/BAM file, updating given set of ids.
@@ -200,12 +202,13 @@ print("Loaded %i mapped IDs" % (len(ids)))
 if len(ids) < 10:
     print("Looking for %s" % ", ".join(sorted(ids)))
 
+
 def crude_fasta_iterator(handle):
     """Yields tuples, record ID and the full record as a string."""
     while True:
         line = handle.readline()
         if line == "":
-            return # Premature end of file, or just empty?
+            return  # Premature end of file, or just empty?
         if line[0] == ">":
             break
 
@@ -232,16 +235,16 @@ def crude_fasta_iterator(handle):
             line = handle.readline()
         yield id, "".join(lines)
         if not line:
-            return # StopIteration
+            return  # StopIteration
 
 
 def fasta_filter(in_file, pos_file, neg_file, wanted):
     """FASTA filter producing 60 character line wrapped outout."""
     pos_count = neg_count = 0
-    #Galaxy now requires Python 2.5+ so can use with statements,
+    # Galaxy now requires Python 2.5+ so can use with statements,
     with open(in_file) as in_handle:
-        #Doing the if statement outside the loop for speed
-        #(with the downside of three very similar loops).
+        # Doing the if statement outside the loop for speed
+        # (with the downside of three very similar loops).
         if pos_file is not None and neg_file is not None:
             print "Generating two FASTA files"
             with open(pos_file, "w") as pos_handle:
@@ -329,38 +332,38 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
     except ImportError:
-        #Prior to Biopython 1.56 this was a private function
+        # Prior to Biopython 1.56 this was a private function
         from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
 
-    in_handle = open(in_file, "rb") #must be binary mode!
+    in_handle = open(in_file, "rb")  # must be binary mode!
     try:
         manifest = ReadRocheXmlManifest(in_handle)
     except ValueError:
         manifest = None
 
-    #This makes two passes though the SFF file with isn't so efficient,
-    #but this makes the code simple.
+    # This makes two passes though the SFF file with isn't so efficient,
+    # but this makes the code simple.
     pos_count = neg_count = 0
     if pos_file is not None:
         out_handle = open(pos_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
-        in_handle.seek(0) #start again after getting manifest
+        in_handle.seek(0)  # start again after getting manifest
         pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted)
         out_handle.close()
     if neg_file is not None:
         out_handle = open(neg_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
-        in_handle.seek(0) #start again
+        in_handle.seek(0)  # start again
         neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in wanted)
         out_handle.close()
-    #And we're done
+    # And we're done
     in_handle.close()
     return pos_count, neg_count
 
 
-if seq_format.lower()=="sff":
+if seq_format.lower() == "sff":
     sequence_filter = sff_filter
-elif seq_format.lower()=="fasta":
+elif seq_format.lower() == "fasta":
     sequence_filter = fasta_filter
 elif seq_format.lower().startswith("fastq"):
     sequence_filter = fastq_filter

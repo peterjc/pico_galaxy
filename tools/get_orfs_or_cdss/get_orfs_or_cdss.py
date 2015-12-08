@@ -85,9 +85,9 @@ try:
 except KeyError:
     sys.exit("Unknown codon table %i" % options.table)
 
-if options.seq_format.lower()=="sff":
+if options.seq_format.lower() == "sff":
     seq_format = "sff-trim"
-elif options.seq_format.lower()=="fasta":
+elif options.seq_format.lower() == "fasta":
     seq_format = "fasta"
 elif options.seq_format.lower().startswith("fastq"):
     seq_format = "fastq"
@@ -96,7 +96,7 @@ else:
 
 print "Genetic code table %i" % options.table
 print "Minimum length %i aa" % options.min_len
-#print "Taking %s ORF(s) from %s strand(s)" % (mode, strand)
+# print "Taking %s ORF(s) from %s strand(s)" % (mode, strand)
 
 starts = sorted(table_obj.start_codons)
 assert "NNN" not in starts
@@ -106,13 +106,14 @@ stops = sorted(table_obj.stop_codons)
 assert "NNN" not in stops
 re_stops = re.compile("|".join(stops))
 
+
 def start_chop_and_trans(s, strict=True):
     """Returns offset, trimmed nuc, protein."""
     if strict:
         assert s[-3:] in stops, s
     assert len(s) % 3 == 0
     for match in re_starts.finditer(s):
-        #Must check the start is in frame
+        # Must check the start is in frame
         start = match.start()
         if start % 3 == 0:
             n = s[start:]
@@ -120,10 +121,11 @@ def start_chop_and_trans(s, strict=True):
             if strict:
                 t = translate(n, options.table, cds=True)
             else:
-                #Use when missing stop codon,
+                # Use when missing stop codon,
                 t = "M" + translate(n[3:], options.table, to_stop=True)
             return start, n, t
     return None, None, None
+
 
 def break_up_frame(s):
     """Returns offset, nuc, protein."""
@@ -133,7 +135,7 @@ def break_up_frame(s):
         if index % 3 != 0:
             continue
         n = s[start:index]
-        if options.ftype=="CDS":
+        if options.ftype == "CDS":
             offset, n, t = start_chop_and_trans(n)
         else:
             offset = 0
@@ -142,16 +144,16 @@ def break_up_frame(s):
             yield start + offset, n, t
         start = index
     if options.ends == "open":
-        #No stop codon, Biopython's strict CDS translate will fail
+        # No stop codon, Biopython's strict CDS translate will fail
         n = s[start:]
-        #Ensure we have whole codons
-        #TODO - Try appending N instead?
-        #TODO - Do the next four lines more elegantly
+        # Ensure we have whole codons
+        # TODO - Try appending N instead?
+        # TODO - Do the next four lines more elegantly
         if len(n) % 3:
             n = n[:-1]
         if len(n) % 3:
             n = n[:-1]
-        if options.ftype=="CDS":
+        if options.ftype == "CDS":
             offset, n, t = start_chop_and_trans(n, strict=False)
         else:
             offset = 0
@@ -165,23 +167,24 @@ def get_all_peptides(nuc_seq):
 
     Co-ordinates are Python style zero-based.
     """
-    #TODO - Refactor to use a generator function (in start order)
-    #rather than making a list and sorting?
+    # TODO - Refactor to use a generator function (in start order)
+    # rather than making a list and sorting?
     answer = []
     full_len = len(nuc_seq)
     if options.strand != "reverse":
-        for frame in range(0,3):
+        for frame in range(0, 3):
             for offset, n, t in break_up_frame(nuc_seq[frame:]):
-                start = frame + offset #zero based
+                start = frame + offset  # zero based
                 answer.append((start, start + len(n), +1, n, t))
     if options.strand != "forward":
         rc = reverse_complement(nuc_seq)
-        for frame in range(0,3) :
+        for frame in range(0, 3):
             for offset, n, t in break_up_frame(rc[frame:]):
-                start = full_len - frame - offset #zero based
-                answer.append((start - len(n), start, -1, n ,t))
+                start = full_len - frame - offset  # zero based
+                answer.append((start - len(n), start, -1, n, t))
     answer.sort()
     return answer
+
 
 def get_top_peptides(nuc_seq):
     """Returns all peptides of max length."""
@@ -192,6 +195,7 @@ def get_top_peptides(nuc_seq):
     for x in values:
         if len(x[-1]) == max_len:
             yield x
+
 
 def get_one_peptide(nuc_seq):
     """Returns first (left most) peptide with max length."""
@@ -235,20 +239,20 @@ for record in SeqIO.parse(options.input_file, seq_format):
     for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
         out_count += 1
         if f_strand == +1:
-            loc = "%i..%i" % (f_start+1, f_end)
+            loc = "%i..%i" % (f_start + 1, f_end)
         else:
-            loc = "complement(%i..%i)" % (f_start+1, f_end)
+            loc = "complement(%i..%i)" % (f_start + 1, f_end)
         descr = "length %i aa, %i bp, from %s of %s" \
                 % (len(t), len(n), loc, record.description)
-        fid = record.id + "|%s%i" % (options.ftype, i+1)
-        r = SeqRecord(Seq(n), id = fid, name = "", description= descr)
-        t = SeqRecord(Seq(t), id = fid, name = "", description= descr)
+        fid = record.id + "|%s%i" % (options.ftype, i + 1)
+        r = SeqRecord(Seq(n), id=fid, name="", description=descr)
+        t = SeqRecord(Seq(t), id=fid, name="", description=descr)
         SeqIO.write(r, out_nuc, "fasta")
         SeqIO.write(t, out_prot, "fasta")
         nice_strand = '+' if f_strand == +1 else '-'
-        out_bed.write('\t'.join(map(str,[record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
-        out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start+1, f_end, '.',
-                                           nice_strand, 0, 'ID=%s%s' % (options.ftype, i+1)])) + '\n')
+        out_bed.write('\t'.join(map(str, [record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
+        out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start + 1, f_end, '.',
+                                           nice_strand, 0, 'ID=%s%s' % (options.ftype, i + 1)])) + '\n')
     in_count += 1
 if out_nuc is not sys.stdout:
     out_nuc.close()

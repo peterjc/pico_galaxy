@@ -105,9 +105,9 @@ def get_hmmer_version(exe, required=None):
         return 3
     else:
         raise ValueError("Could not determine version of %s" % exe)
-    
 
-#Run hmmsearch for Whisson et al. (2007)
+
+# Run hmmsearch for Whisson et al. (2007)
 if model == "Whisson2007":
     hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
                        "whisson_et_al_rxlr_eer_cropped.hmm")
@@ -119,7 +119,7 @@ if model == "Whisson2007":
     hmm_hits = set()
     valid_ids = set()
     for title, seq in fasta_iterator(fasta_file):
-        name = title.split(None,1)[0]
+        name = title.split(None, 1)[0]
         if name in valid_ids:
             sys.exit("Duplicated identifier %r" % name)
         else:
@@ -157,9 +157,9 @@ if model == "Whisson2007":
                 # Header
                 continue
             else:
-                name = line.split(None,1)[0]
-                #Should be a sequence name in the HMMER3 table output.
-                #Could be anything in the HMMER2 stdout.
+                name = line.split(None, 1)[0]
+                # Should be a sequence name in the HMMER3 table output.
+                # Could be anything in the HMMER2 stdout.
                 if name in valid_ids:
                     hmm_hits.add(name)
                 elif hmmer3:
@@ -168,7 +168,7 @@ if model == "Whisson2007":
         # if hmmer3:
         #     print "HMMER3 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
         # else:
-        #     print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))  
+        #     print "HMMER2 hits for %i/%i" % (len(hmm_hits), len(valid_ids))
         # print "%i/%i matched HMM" % (len(hmm_hits), len(valid_ids))
         os.remove(hmm_output_file)
     del valid_ids
@@ -181,8 +181,8 @@ total = 0
 handle = open(signalp_input_file, "w")
 for title, seq in fasta_iterator(fasta_file):
     total += 1
-    name = title.split(None,1)[0]
-    match = re_rxlr.search(seq[min_rxlr_start-1:].upper())
+    name = title.split(None, 1)[0]
+    match = re_rxlr.search(seq[min_rxlr_start - 1:].upper())
     if match and min_rxlr_start - 1 + match.start() + 1 <= max_rxlr_start:
         # This is a potential RXLR, depending on the SignalP results.
         # Might as well truncate the sequence now, makes the temp file smaller
@@ -217,8 +217,8 @@ def parse_signalp(filename):
     assert line.startswith("#ID\t"), line
     for line in handle:
         parts = line.rstrip("\t").split("\t")
-        assert len(parts)==20, repr(line)
-        yield parts[0], float(parts[18]), int(parts[5])-1
+        assert len(parts) == 20, repr(line)
+        yield parts[0], float(parts[18]), int(parts[5]) - 1
     handle.close()
 
 
@@ -231,12 +231,12 @@ signalp_results = parse_signalp(signalp_output_file)
 for title, seq in fasta_iterator(fasta_file):
     total += 1
     rxlr = "N"
-    name = title.split(None,1)[0]
-    match = re_rxlr.search(seq[min_rxlr_start-1:].upper())
+    name = title.split(None, 1)[0]
+    match = re_rxlr.search(seq[min_rxlr_start - 1:].upper())
     if match and min_rxlr_start - 1 + match.start() + 1 <= max_rxlr_start:
         del match
         # This was the criteria for calling SignalP,
-        #so it will be in the SignalP results.
+        # so it will be in the SignalP results.
         sp_id, sp_hmm_score, sp_nn_len = signalp_results.next()
         assert name == sp_id, "%s vs %s" % (name, sp_id)
         if sp_hmm_score >= min_signalp_hmm and min_sp <= sp_nn_len <= max_sp:

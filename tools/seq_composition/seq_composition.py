@@ -20,7 +20,7 @@ from optparse import OptionParser
 
 from Bio import SeqIO
 
-#Parse Command Line
+# Parse Command Line
 usage = """Example usage:
 
 $ python seq_composition.py -o my_output.tsv -q input1.fastq -q input2.fastq
@@ -29,9 +29,9 @@ At least one input sequence file is required (using the -f, -q, or -s options).
 If the expected alphabet is given, the sequence composition is verfied against
 it.
 """
-#TODO - Case senstivity?
-#TODO - GenBank / EMBL input? Needs the datatype defined...
-#TODO - Handle all the FASTQ datatype subclasses in the XML cheetah code?
+# TODO - Case senstivity?
+# TODO - GenBank / EMBL input? Needs the datatype defined...
+# TODO - Handle all the FASTQ datatype subclasses in the XML cheetah code?
 parser = OptionParser(usage=usage)
 parser.add_option('-f', '--fasta', dest='fasta', action="append", default=[],
                   help='Input sequence filename in FASTA format')

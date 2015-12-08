@@ -36,15 +36,15 @@ output_pairs = sys.argv[1]
 output_nonpairs = sys.argv[2]
 input_fastq_filenames = sys.argv[3:]
 
-#Cope with three widely used suffix naming convensions,
-#Illumina: /1 or /2
-#Forward/revered: .f or .r
-#Sanger, e.g. .p1k and .q1k
-#See http://staden.sourceforge.net/manual/pregap4_unix_50.html
+# Cope with three widely used suffix naming convensions,
+# Illumina: /1 or /2
+# Forward/revered: .f or .r
+# Sanger, e.g. .p1k and .q1k
+# See http://staden.sourceforge.net/manual/pregap4_unix_50.html
 re_f = re.compile(r"(/1|\.f|\.[sfp]\d\w*)$")
 re_r = re.compile(r"(/2|\.r|\.[rq]\d\w*)$")
 
-#assert re_f.match("demo/1")
+# assert re_f.match("demo/1")
 assert re_f.search("demo.f")
 assert re_f.search("demo.s1")
 assert re_f.search("demo.f1k")
@@ -70,7 +70,7 @@ assert not re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:
 assert not re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
 
 count = 0
-pairs = set() # Will this scale OK?
+pairs = set()  # Will this scale OK?
 forward = 0
 reverse = 0
 neither = 0
@@ -83,22 +83,22 @@ for input_fastq in input_fastq_filenames:
         sys.exit("Missing input FASTQ file %r" % input_fastq)
     in_handle = open(input_fastq)
 
-    #Don't care about the FASTQ type really...
+    # Don't care about the FASTQ type really...
     for record in fastqReader(in_handle, "sanger"):
         count += 1
-        name = record.identifier.split(None,1)[0]
-        assert name[0]=="@", record.identifier #Quirk of the Galaxy parser
+        name = record.identifier.split(None, 1)[0]
+        assert name[0] == "@", record.identifier  # Quirk of the Galaxy parser
         name = name[1:]
         is_forward = False
         suffix = re_f.search(name)
         if suffix:
-            #============
-            #Forward read
-            #============
+            # ============
+            # Forward read
+            # ============
             template = name[:suffix.start()]
             is_forward = True
         elif re_illumina_f.match(record.identifier):
-            template = name #No suffix
+            template = name  # No suffix
             is_forward = True
         if is_forward:
             forward += 1
@@ -109,13 +109,13 @@ for input_fastq in input_fastq_filenames:
             is_reverse = False
             suffix = re_r.search(name)
             if suffix:
-                #============
-                #Reverse read
-                #============
+                # ============
+                # Reverse read
+                # ============
                 template = name[:suffix.start()]
                 is_reverse = True
             elif re_illumina_r.match(record.identifier):
-                template = name #No suffix
+                template = name  # No suffix
                 is_reverse = True
             if is_reverse:
                 reverse += 1
@@ -123,9 +123,9 @@ for input_fastq in input_fastq_filenames:
                     pairs.add(template)
                     out_pairs.write(template + "\n")
             else:
-                #===========================
-                #Neither forward nor reverse
-                #===========================
+                # ===========================
+                # Neither forward nor reverse
+                # ===========================
                 out_nonpairs.write(name + "\n")
                 neither += 1
     in_handle.close()

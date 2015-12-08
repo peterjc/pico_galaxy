@@ -19,7 +19,7 @@ import os
 import sys
 from optparse import OptionParser
 
-#Parse Command Line
+# Parse Command Line
 usage = """Use as follows:
 
 $ python sample_seqs.py [options]
@@ -140,6 +140,7 @@ elif options.everyn:
         sys.stderr.write("Sampling every %ird sequence\n" % N)
     else:
         sys.stderr.write("Sampling every %ith sequence\n" % N)
+
     def sampler(iterator):
         global N
         count = 0
@@ -155,6 +156,7 @@ elif options.percent:
     if percent <= 0.0 or 1.0 <= percent:
         sys.exit("Bad -p percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
+
     def sampler(iterator):
         global percent
         count = 0
@@ -215,7 +217,7 @@ elif options.count:
             # i.e. What if percentage comes out slighty too low, and
             # we could end up missing last few desired sequences?
             percentage = float(N) / float(total)
-            #print("DEBUG: Want %i out of %i sequences/pairs, as a percentage %0.2f"
+            # print("DEBUG: Want %i out of %i sequences/pairs, as a percentage %0.2f"
             #      % (N, total, percentage * 100.0))
             count = 0
             taken = 0
@@ -252,7 +254,7 @@ def raw_fasta_iterator(handle):
     while True:
         line = handle.readline()
         if line == "":
-            return # Premature end of file, or just empty?
+            return  # Premature end of file, or just empty?
         if line[0] == ">":
             break
 
@@ -279,11 +281,12 @@ def raw_fasta_iterator(handle):
             line = handle.readline()
         yield "".join(lines)
         if not line:
-            return # StopIteration 
+            return  # StopIteration
+
 
 def fasta_filter(in_file, out_file, iterator_filter, inter):
     count = 0
-    #Galaxy now requires Python 2.5+ so can use with statements,
+    # Galaxy now requires Python 2.5+ so can use with statements,
     with open(in_file) as in_handle:
         with open(out_file, "w") as pos_handle:
             if inter:
@@ -319,7 +322,7 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
     try:
         from Bio.SeqIO.SffIO import ReadRocheXmlManifest
     except ImportError:
-        #Prior to Biopython 1.56 this was a private function
+        # Prior to Biopython 1.56 this was a private function
         from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
     with open(in_file, "rb") as in_handle:
         try:
@@ -329,7 +332,7 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
         in_handle.seek(0)
         with open(out_file, "wb") as out_handle:
             writer = SffWriter(out_handle, xml=manifest)
-            in_handle.seek(0) #start again after getting manifest
+            in_handle.seek(0)  # start again after getting manifest
             if inter:
                 from itertools import chain
                 count = writer.write_file(chain.from_iterable(iterator_filter(pair(SffIterator(in_handle)))))
@@ -337,7 +340,6 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
                 count /= 2
             else:
                 count = writer.write_file(iterator_filter(SffIterator(in_handle)))
-                #count = writer.write_file(SffIterator(in_handle))
     return count
 
 if seq_format == "sff":

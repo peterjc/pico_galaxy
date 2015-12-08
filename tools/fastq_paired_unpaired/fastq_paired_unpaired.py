@@ -53,7 +53,7 @@ for details), and the new Illumina convention where the reads have the
 same identifier with the fragment at the start of the description, e.g.
 
 @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
-@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
+@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA
 
 Note that this does support multiple forward and reverse reads per template
 (which is quite common with Sanger sequencing), e.g. this which is sorted
@@ -87,19 +87,19 @@ else:
 
 format = format.replace("fastq", "").lower()
 if not format:
-    format="sanger" #safe default
-elif format not in ["sanger","solexa","illumina","cssanger"]:
+    format = "sanger"  # safe default
+elif format not in ["sanger", "solexa", "illumina", "cssanger"]:
     sys.exit("Unrecognised format %s" % format)
 
-#Cope with three widely used suffix naming convensions,
-#Illumina: /1 or /2
-#Forward/revered: .f or .r
-#Sanger, e.g. .p1k and .q1k
-#See http://staden.sourceforge.net/manual/pregap4_unix_50.html
+# Cope with three widely used suffix naming convensions,
+# Illumina: /1 or /2
+# Forward/revered: .f or .r
+# Sanger, e.g. .p1k and .q1k
+# See http://staden.sourceforge.net/manual/pregap4_unix_50.html
 re_f = re.compile(r"(/1|\.f|\.[sfp]\d\w*)$")
 re_r = re.compile(r"(/2|\.r|\.[rq]\d\w*)$")
 
-#assert re_f.match("demo/1")
+# assert re_f.match("demo/1")
 assert re_f.search("demo.f")
 assert re_f.search("demo.s1")
 assert re_f.search("demo.f1k")
@@ -139,7 +139,7 @@ last_template, buffered_reads = None, []
 
 for title, seq, qual in FastqGeneralIterator(in_handle):
     count += 1
-    name = title.split(None,1)[0]
+    name = title.split(None, 1)[0]
     is_forward = False
     suffix = re_f.search(name)
     if suffix:
@@ -233,4 +233,4 @@ else:
 
 assert count == pairs + singles == forward + reverse + neither, \
     "%i vs %i+%i=%i vs %i+%i+%i=%i" \
-    % (count,pairs,singles,pairs+singles,forward,reverse,neither,forward+reverse+neither)
+    % (count, pairs, singles, pairs + singles, forward, reverse, neither, forward + reverse + neither)

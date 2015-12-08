@@ -16,17 +16,17 @@ RED = ("red", "none")
 GREEN = ("green", "none")
 YELLOW = ("black", "yellow")
 
-#hydrophobicity scheme
+# hydrophobicity scheme
 colors = {
-#AGILPV --> Blue
-"Ala": BLUE, "Gly": BLUE, "Ile": BLUE, "Leu": BLUE, "Pro": BLUE, "Val": BLUE,
-#FYW --> Red
-"Phe": RED, "Tyr": RED, "Trp": RED,
-#DENQRHSTK --> Green
-"Asp": GREEN, "Glu": GREEN, "Asn": GREEN, "Gln": GREEN, "Arg": GREEN,
-"His": GREEN, "Ser": GREEN, "Thr": GREEN, "Lys": GREEN,
-#CM --> Yellow
-"Cys": YELLOW, "Met": YELLOW,
+    # AGILPV --> Blue
+    "Ala": BLUE, "Gly": BLUE, "Ile": BLUE, "Leu": BLUE, "Pro": BLUE, "Val": BLUE,
+    # FYW --> Red
+    "Phe": RED, "Tyr": RED, "Trp": RED,
+    # DENQRHSTK --> Green
+    "Asp": GREEN, "Glu": GREEN, "Asn": GREEN, "Gln": GREEN, "Arg": GREEN,
+    "His": GREEN, "Ser": GREEN, "Thr": GREEN, "Lys": GREEN,
+    # CM --> Yellow
+    "Cys": YELLOW, "Met": YELLOW,
 }
 
 protein_letters_1to3 = {
@@ -37,6 +37,7 @@ protein_letters_1to3 = {
     'S': 'Ser', 'T': 'Thr', 'V': 'Val', 'W': 'Trp',
     'Y': 'Tyr',
 }
+
 
 def run(cmd):
     print cmd
@@ -60,7 +61,7 @@ if not os.path.isfile(merged_fasta):
         with open(filename) as h:
             line = h.readline()
             assert line.startswith(">"), line
-            #Rename to chrI etc
+            # Rename to chrI etc
             handle.write(">chr%s %s" % (chr, line[1:]))
             print(line.rstrip())
             for line in h:
@@ -80,7 +81,7 @@ if not os.path.isfile(merged_trna):
                 if not line.endswith(" tRNA\n"):
                     continue
                 fields = line.rstrip("\n").split("\t")
-                #Location\tStrand\tLength\tPID\tGene\tSynonymCode\tCOG\tProduct\n
+                # Location\tStrand\tLength\tPID\tGene\tSynonymCode\tCOG\tProduct\n
                 start, end = fields[0].split("..")
                 strand = fields[1]
                 name = fields[5]

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-#Copyright 2011-2013 by Peter Cock, James Hutton Institute (formerly SCRI), UK
+# Copyright 2011-2013 by Peter Cock, James Hutton Institute (formerly SCRI), UK
 #
-#Licenced under the GPL (GNU General Public Licence) version 3.
+# Licenced under the GPL (GNU General Public Licence) version 3.
 #
-#Based on Perl script predictNLS v1.3, copyright 2001-2005 and the later
-#versions up to predictnls v1.0.20 (copright 2012), by Rajesh Nair
-#(nair@rostlab.org) and Burkhard Rost (rost@rostlab.org), Rost Lab,
-#Columbia University http://rostlab.org/
+# Based on Perl script predictNLS v1.3, copyright 2001-2005 and the later
+# versions up to predictnls v1.0.20 (copright 2012), by Rajesh Nair
+# (nair@rostlab.org) and Burkhard Rost (rost@rostlab.org), Rost Lab,
+# Columbia University http://rostlab.org/
 
 """Batch mode predictNLS, for finding nuclear localization signals
 
@@ -57,12 +57,12 @@ if len(sys.argv) == 4:
     fasta_filename, tabular_filename, re_filename = sys.argv[1:]
 elif len(sys.argv) == 3:
     fasta_filename, tabular_filename = sys.argv[1:]
-    #Use os.path.realpath(...) to handle being called via a symlink
-    #Try under subdirectory data:
+    # Use os.path.realpath(...) to handle being called via a symlink
+    # Try under subdirectory data:
     re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
                                "data", "My_NLS_list")
     if not os.path.isfile(re_filename):
-        #Try in same directory as this script:
+        # Try in same directory as this script:
         re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
                                                    "My_NLS_list")
 else:
@@ -73,6 +73,7 @@ if not os.path.isfile(fasta_filename):
 
 if not os.path.isfile(re_filename):
     sys.exit("Could not find NLS motif file: %s" % re_filename)
+
 
 def load_re(filename):
     """Parse the 5+ column tabular NLS motif file."""
@@ -101,9 +102,10 @@ def load_re(filename):
         else:
             domains = ""
             assert p_count == 0
-        #There can be further columns (DNA binding?), but we don't use them.
+        # There can be further columns (DNA binding?), but we don't use them.
         yield regex, evidence, p_count, percent_nuc, proteins, domains
     handle.close()
+
 
 def fasta_iterator(filename):
     """Simple FASTA parser yielding tuples of (name, upper case sequence)."""
@@ -116,15 +118,15 @@ def fasta_iterator(filename):
         if line.startswith(">"):
             if name:
                 yield name, seq
-            #Take the first word only as the name:
-            name = line[1:].rstrip().split(None,1)[0]
+            # Take the first word only as the name:
+            name = line[1:].rstrip().split(None, 1)[0]
             seq = ""
         elif name:
-            #Simple way would leave in any internal white space,
-            #seq += line.strip().upper()
+            # Simple way would leave in any internal white space,
+            # seq += line.strip().upper()
             seq += "".join(line.strip().upper().split())
         elif not line.strip():
-            #Ignore blank lines before first record
+            # Ignore blank lines before first record
             pass
         else:
             raise ValueError("Bad FASTA line %r" % line)
@@ -146,14 +148,14 @@ count = 0
 nls = 0
 for idn, seq in fasta_iterator(fasta_filename):
     for regex, evidence, p_count, percent_nuc_prot, proteins, domains in motifs:
-        #Perl predictnls v1.0.17 (and older) take right most hit only, Bug #40
-        #This has been fixed (v1.0.18 onwards, June 2011), so we return all the matches
+        # Perl predictnls v1.0.17 (and older) take right most hit only, Bug #40
+        # This has been fixed (v1.0.18 onwards, June 2011), so we return all the matches
         for match in regex.finditer(seq):
-            #Perl predictnls v1.0.17 (and older) return NLS start position with zero
-            #but changed to one based counting in v1.0.18 (June 2011) onwards, Bug #38
-            #We therefore also use one based couting, hence the start+1 here:
-            out_handle.write("%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n" \
-                             % (idn, match.start()+1, match.group(),
+            # Perl predictnls v1.0.17 (and older) return NLS start position with zero
+            # but changed to one based counting in v1.0.18 (June 2011) onwards, Bug #38
+            # We therefore also use one based couting, hence the start+1 here:
+            out_handle.write("%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n"
+                             % (idn, match.start() + 1, match.group(),
                                 regex.pattern, evidence, p_count,
                                 percent_nuc_prot, proteins, domains))
             nls += 1

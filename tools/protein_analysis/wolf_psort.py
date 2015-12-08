@@ -72,23 +72,25 @@ num_threads = thread_count(sys.argv[2], default=4)
 fasta_file = sys.argv[3]
 tabular_file = sys.argv[4]
 
+
 def clean_tabular(raw_handle, out_handle):
     """Clean up WoLF PSORT output to make it tabular."""
     for line in raw_handle:
         if not line or line.startswith("#"):
             continue
-        name, data = line.rstrip("\r\n").split(None,1)
+        name, data = line.rstrip("\r\n").split(None, 1)
         for rank, comp_data in enumerate(data.split(",")):
             comp, score = comp_data.split()
-            out_handle.write("%s\t%s\t%s\t%i\n" \
-                             % (name, comp, score, rank+1))
+            out_handle.write("%s\t%s\t%s\t%i\n"
+                             % (name, comp, score, rank + 1))
 
 fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK)
-temp_files = [f+".out" for f in fasta_files]
+temp_files = [f + ".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
 jobs = ["%s %s < %s > %s" % (exe, organism, fasta, temp)
         for (fasta, temp) in zip(fasta_files, temp_files)]
 assert len(fasta_files) == len(temp_files) == len(jobs)
+
 
 def clean_up(file_list):
     for f in file_list:
@@ -96,7 +98,7 @@ def clean_up(file_list):
             os.remove(f)
 
 if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
+    # A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 results = run_jobs(jobs, num_threads)
 assert len(fasta_files) == len(temp_files) == len(jobs)

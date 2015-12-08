@@ -21,9 +21,9 @@ v3.0 looks like this (21 columns space separated):
 
 # SignalP-NN euk predictions                                   	                # SignalP-HMM euk predictions
 # name                Cmax  pos ?  Ymax  pos ?  Smax  pos ?  Smean ?  D     ? 	# name      !  Cmax  pos ?  Sprob ?
-gi|2781234|pdb|1JLY|  0.061  17 N  0.043  17 N  0.199   1 N  0.067 N  0.055 N	gi|2781234|pdb|1JLY|B  Q  0.000  17 N  0.000 N  
-gi|4959044|gb|AAD342  0.099 191 N  0.012  38 N  0.023  12 N  0.014 N  0.013 N	gi|4959044|gb|AAD34209.1|AF069992_1  Q  0.000   0 N  0.000 N  
-gi|671626|emb|CAA856  0.139 381 N  0.020   8 N  0.121   4 N  0.067 N  0.044 N	gi|671626|emb|CAA85685.1|  Q  0.000   0 N  0.000 N  
+gi|2781234|pdb|1JLY|  0.061  17 N  0.043  17 N  0.199   1 N  0.067 N  0.055 N	gi|2781234|pdb|1JLY|B  Q  0.000  17 N  0.000 N
+gi|4959044|gb|AAD342  0.099 191 N  0.012  38 N  0.023  12 N  0.014 N  0.013 N	gi|4959044|gb|AAD34209.1|AF069992_1  Q  0.000   0 N  0.000 N
+gi|671626|emb|CAA856  0.139 381 N  0.020   8 N  0.121   4 N  0.067 N  0.044 N	gi|671626|emb|CAA85685.1|  Q  0.000   0 N  0.000 N
 gi|3298468|dbj|BAA31  0.208  24 N  0.184  38 N  0.980  32 Y  0.613 Y  0.398 N	gi|3298468|dbj|BAA31520.1|  Q  0.066  24 N  0.139 N
 
 In order to make it easier to use in Galaxy, this wrapper script reformats
@@ -60,13 +60,13 @@ from seq_analysis_utils import split_fasta, fasta_iterator
 from seq_analysis_utils import run_jobs, thread_count
 
 FASTA_CHUNK = 500
-MAX_LEN = 6000 #Found by trial and error
+MAX_LEN = 6000  # Found by trial and error
 
-if len(sys.argv) not in  [6,8]:
+if len(sys.argv) not in [6, 8]:
     sys.exit("Require five (or 7) arguments, organism, truncate, threads, "
              "input protein FASTA file & output tabular file (plus "
              "optionally cut method and GFF3 output file). "
-             "Got %i arguments." % (len(sys.argv)-1))
+             "Got %i arguments." % (len(sys.argv) - 1))
 
 organism = sys.argv[1]
 if organism not in ["euk", "gram+", "gram-"]:
@@ -95,39 +95,41 @@ else:
 
 tmp_dir = tempfile.mkdtemp()
 
+
 def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
     """Clean up SignalP output to make it tabular."""
     if cut_method:
-        cut_col = {"NN_Cmax" : 2,
-                   "NN_Ymax" : 5,
-                   "NN_Smax" : 8,
-                   "HMM_Cmax" : 16}[cut_method]
+        cut_col = {"NN_Cmax": 2,
+                   "NN_Ymax": 5,
+                   "NN_Smax": 8,
+                   "HMM_Cmax": 16}[cut_method]
     else:
         cut_col = None
     for line in raw_handle:
         if not line or line.startswith("#"):
             continue
         parts = line.rstrip("\r\n").split()
-        assert len(parts)==21, repr(line)
+        assert len(parts) == 21, repr(line)
         assert parts[14].startswith(parts[0]), \
             "Bad entry in SignalP output, ID miss-match:\n%r" % line
-        #Remove redundant truncated name column (col 0)
-        #and put full name at start (col 14)
+        # Remove redundant truncated name column (col 0)
+        # and put full name at start (col 14)
         parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
 
+
 def make_gff(fasta_file, tabular_file, gff_file, cut_method):
-    cut_col, score_col = {"NN_Cmax" : (2,1),
-                          "NN_Ymax" : (5,4),
-                          "NN_Smax" : (8,7),
-                          "HMM_Cmax" : (16,15),
+    cut_col, score_col = {"NN_Cmax": (2, 1),
+                          "NN_Ymax": (5, 4),
+                          "NN_Smax": (8, 7),
+                          "HMM_Cmax": (16, 15),
                           }[cut_method]
 
     source = "SignalP"
-    strand = "." #not stranded
-    phase = "." #not phased
+    strand = "."  # not stranded
+    phase = "."  # not phased
     tags = "Note=%s" % cut_method
-    
+
     tab_handle = open(tabular_file)
     line = tab_handle.readline()
     assert line.startswith("#ID\t"), line
@@ -139,27 +141,27 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
         parts = line.rstrip("\n").split("\t")
         seqid = parts[0]
         assert title.startswith(seqid), "%s vs %s" % (seqid, title)
-        if len(seq)==0:
-            #Is it possible to have a zero length reference in GFF3?
+        if len(seq) == 0:
+            # Is it possible to have a zero length reference in GFF3?
             continue
         cut = int(parts[cut_col])
         if cut == 0:
             assert cut_method == "HMM_Cmax", cut_method
-            #TODO - Why does it do this?
+            # TODO - Why does it do this?
             cut = 1
         assert 1 <= cut <= len(seq), "%i for %s len %i" % (cut, seqid, len(seq))
         score = parts[score_col]
-        gff_handle.write("##sequence-region %s %i %i\n" \
+        gff_handle.write("##sequence-region %s %i %i\n"
                           % (seqid, 1, len(seq)))
-        #If the cut is at the very begining, there is no signal peptide!
+        # If the cut is at the very begining, there is no signal peptide!
         if cut > 1:
-            #signal_peptide = SO:0000418
-            gff_handle.write("%s\t%s\t%s\t%i\t%i\t%s\t%s\t%s\t%s\n" \
+            # signal_peptide = SO:0000418
+            gff_handle.write("%s\t%s\t%s\t%i\t%i\t%s\t%s\t%s\t%s\n"
                              % (seqid, source,
-                                "signal_peptide", 1, cut-1,
+                                "signal_peptide", 1, cut - 1,
                                 score, strand, phase, tags))
-        #mature_protein_region = SO:0000419
-        gff_handle.write("%s\t%s\t%s\t%i\t%i\t%s\t%s\t%s\t%s\n" \
+        # mature_protein_region = SO:0000419
+        gff_handle.write("%s\t%s\t%s\t%i\t%i\t%s\t%s\t%s\t%s\n"
                          % (seqid, source,
                             "mature_protein_region", cut, len(seq),
                             score, strand, phase, tags))
@@ -169,11 +171,12 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
 
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "signalp"),
                           n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
-temp_files = [f+".out" for f in fasta_files]
+temp_files = [f + ".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
 jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
         for (fasta, temp) in zip(fasta_files, temp_files)]
 assert len(fasta_files) == len(temp_files) == len(jobs)
+
 
 def clean_up(file_list):
     for f in file_list:
@@ -185,7 +188,7 @@ def clean_up(file_list):
         pass
 
 if len(jobs) > 1 and num_threads > 1:
-    #A small "info" message for Galaxy to show the user.
+    # A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
 results = run_jobs(jobs, num_threads)
 assert len(fasta_files) == len(temp_files) == len(jobs)
@@ -203,11 +206,11 @@ del results
 
 out_handle = open(tabular_file, "w")
 fields = ["ID"]
-#NN results:
+# NN results:
 for name in ["Cmax", "Ymax", "Smax"]:
-    fields.extend(["NN_%s_score"%name, "NN_%s_pos"%name, "NN_%s_pred"%name])
+    fields.extend(["NN_%s_score" % name, "NN_%s_pos" % name, "NN_%s_pred" % name])
 fields.extend(["NN_Smean_score", "NN_Smean_pred", "NN_D_score", "NN_D_pred"])
-#HMM results:
+# HMM results:
 fields.extend(["HMM_type", "HMM_Cmax_score", "HMM_Cmax_pos", "HMM_Cmax_pred",
                "HMM_Sprob_score", "HMM_Sprob_pred"])
 out_handle.write("#" + "\t".join(fields) + "\n")
@@ -217,7 +220,7 @@ for temp in temp_files:
     data_handle.close()
 out_handle.close()
 
-#GFF3:
+# GFF3:
 if cut_method:
     make_gff(fasta_file, tabular_file, gff3_file, cut_method)
 
