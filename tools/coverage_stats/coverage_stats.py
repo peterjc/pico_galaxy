@@ -135,7 +135,7 @@ def load_total_coverage(depth_handle, identifier, length):
         if not line:
             # Must be at the end of the file.
             # This can happen if the file contig(s) had no reads mapped
-            return 0, 0, 0.0
+            return 0, 0, 0.0, 0
         depth_ref, depth_pos, depth_reads = line.rstrip("\n").split()
         depth_pos = int(depth_pos)
         depth_reads = min(max_depth, int(depth_reads))
@@ -145,7 +145,7 @@ def load_total_coverage(depth_handle, identifier, length):
         # and so was not in the 'samtools depth'
         # output.
         # print("%s appears to have no coverage at all" % identifier)
-        return 0, 0, 0.0
+        return 0, 0, 0.0, 0
 
     # Good, at start of expected reference
     bases = depth_reads
