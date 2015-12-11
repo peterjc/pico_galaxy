@@ -183,7 +183,7 @@ def load_total_coverage(depth_handle, identifier, length):
         # print("%s has no coverage at end" % identifier)
         min_cov = 0
     mean_cov = bases / float(length)
-    return min_cov, max_cov, mean_cov
+    return min_cov, max_cov, mean_cov, bases
 
 # Parse and combine the output
 out_handle = open(tabular_filename, "w")
@@ -196,6 +196,8 @@ depth_ref = None
 depth_pos = 0
 depth_reads = 0
 
+global_bases = 0
+global_length = 0
 for line in idxstats_handle:
     identifier, length, mapped, placed = line.rstrip("\n").split()
     length = int(length)
@@ -205,8 +207,9 @@ for line in idxstats_handle:
         min_cov = 0
         max_cov = 0
         mean_cov = 0.0
+        bases = 0
     else:
-        min_cov, max_cov, mean_cov = load_total_coverage(depth_handle, identifier, length)
+        min_cov, max_cov, mean_cov, bases = load_total_coverage(depth_handle, identifier, length)
     if max_cov > max_depth:
         sys.exit("Using max depth %i yet saw max coverage %i for %s"
                  % (max_depth, max_cov, identifier))
@@ -221,10 +224,14 @@ for line in idxstats_handle:
         clean_up()
         sys.exit("Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
                  % identifier)
+    global_length += length
+    global_bases += bases
 
 idxstats_handle.close()
 depth_handle.close()
 out_handle.close()
+
+print("Total reference length %i with overall mean coverage %0.2f" % (global_length, float(global_bases) / global_length))
 
 # Remove the temp symlinks and files:
 clean_up()
