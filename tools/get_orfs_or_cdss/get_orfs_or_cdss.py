@@ -25,7 +25,7 @@ from optparse import OptionParser
 
 usage = """Use as follows:
 
-$ python get_orfs_or_cdss.py -i genome.fa -f fasta --table 11 -t CDS -e open -m all -s both --on cds.nuc.fa --op cds.protein.fa --ob cds.bed
+$ python get_orfs_or_cdss.py -i genome.fa -f fasta --table 11 -t CDS -e open -m all -s both --on cds.nuc.fa --op cds.protein.fa --ob cds.bed --og cds.gff3
 """
 
 try:
@@ -68,6 +68,9 @@ parser.add_option('--op', dest='out_prot_file',
                   metavar='FILE')
 parser.add_option('--ob', dest='out_bed_file',
                   default=None, help='Output BED file, or - for STDOUT',
+                  metavar='FILE')
+parser.add_option('--og', dest='out_gff3_file',
+                  default=None, help='Output GFF3 file, or - for STDOUT',
                   metavar='FILE')
 parser.add_option('-v', '--version', dest='version',
                   default=False, action='store_true',
@@ -223,6 +226,13 @@ if options.out_bed_file == "-":
 else:
     out_bed = open(options.out_bed_file, "w")
 
+if options.out_gff3_file == "-":
+    out_gff3 = sys.stdout
+else:
+    out_gff3 = open(options.out_gff3_file, "w")
+
+out_gff3.write('##gff-version 3\n')
+
 for record in SeqIO.parse(options.input_file, seq_format):
     for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
         out_count += 1
@@ -237,7 +247,10 @@ for record in SeqIO.parse(options.input_file, seq_format):
         t = SeqRecord(Seq(t), id = fid, name = "", description= descr)
         SeqIO.write(r, out_nuc, "fasta")
         SeqIO.write(t, out_prot, "fasta")
-        out_bed.write('\t'.join(map(str,[record.id, f_start, f_end, fid, 0, '+' if f_strand == +1 else '-'])) + '\n')
+        nice_strand = '+' if f_strand == +1 else '-'
+        out_bed.write('\t'.join(map(str,[record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
+        out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start, f_end, '.',
+                                           nice_strand, 0, 'ID=%s%s' % (options.ftype, i+1)])) + '\n')
     in_count += 1
 if out_nuc is not sys.stdout:
     out_nuc.close()
