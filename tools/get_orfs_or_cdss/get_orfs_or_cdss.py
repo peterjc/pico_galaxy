@@ -249,7 +249,7 @@ for record in SeqIO.parse(options.input_file, seq_format):
         SeqIO.write(t, out_prot, "fasta")
         nice_strand = '+' if f_strand == +1 else '-'
         out_bed.write('\t'.join(map(str,[record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
-        out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start, f_end, '.',
+        out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start+1, f_end, '.',
                                            nice_strand, 0, 'ID=%s%s' % (options.ftype, i+1)])) + '\n')
     in_count += 1
 if out_nuc is not sys.stdout:

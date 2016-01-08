@@ -1,0 +1,8 @@
+##gff-version 3
+alpha	getOrfsOrCds	CDS	68	331	.	+	0	ID=CDS1
+alpha	getOrfsOrCds	CDS	72	326	.	+	0	ID=CDS2
+alpha	getOrfsOrCds	CDS	76	336	.	+	0	ID=CDS3
+beta	getOrfsOrCds	CDS	69	332	.	+	0	ID=CDS1
+beta	getOrfsOrCds	CDS	73	327	.	+	0	ID=CDS2
+beta	getOrfsOrCds	CDS	77	337	.	+	0	ID=CDS3
+beta	getOrfsOrCds	CDS	334	408	.	+	0	ID=CDS4
