@@ -11,7 +11,7 @@
     </stdio>
     <version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
     <command interpreter="python">
-get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -e $ends -m $mode --min_len $min_len -s $strand --on $out_nuc_file --op $out_prot_file --ob $out_bed_file
+get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -e $ends -m $mode --min_len $min_len -s $strand --on $out_nuc_file --op $out_prot_file --ob $out_bed_file --og $out_gff3_file
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file (nucleotides)" help="FASTA, FASTQ, or SFF format." />
@@ -60,6 +60,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
         <data name="out_nuc_file" format="fasta" label="${ftype.value}s (nucleotides)" />
         <data name="out_prot_file" format="fasta" label="${ftype.value}s (amino acids)" />
         <data name="out_bed_file" format="bed6" label="${ftype.value}s (bed)" />
+        <data name="out_gff3_file" format="gff3" label="${ftype.value}s (gff3)" />
     </outputs>
     <tests>
         <test>
@@ -73,6 +74,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <output name="out_nuc_file" file="get_orf_input.t1_nuc_out.fasta" />
             <output name="out_prot_file" file="get_orf_input.t1_prot_out.fasta" />
             <output name="out_bed_file" file="get_orf_input.t1_bed_out.bed" />
+            <output name="out_gff3_file" file="get_orf_input.t1_gff3_out.gff3" />
         </test>
         <test>
             <param name="input_file" value="get_orf_input.fasta" />
@@ -85,6 +87,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <output name="out_nuc_file" file="get_orf_input.t11_nuc_out.fasta" />
             <output name="out_prot_file" file="get_orf_input.t11_prot_out.fasta" />
             <output name="out_bed_file" file="get_orf_input.t11_bed_out.bed" />
+            <output name="out_gff3_file" file="get_orf_input.t11_gff3_out.gff3" />
         </test>
         <test>
             <param name="input_file" value="get_orf_input.fasta" />
@@ -97,6 +100,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <output name="out_nuc_file" file="get_orf_input.t11_open_nuc_out.fasta" />
             <output name="out_prot_file" file="get_orf_input.t11_open_prot_out.fasta" />
             <output name="out_bed_file" file="get_orf_input.t11_open_bed_out.bed" />
+            <output name="out_gff3_file" file="get_orf_input.t11_open_gff3_out.gff3" />
         </test>
         <test>
             <param name="input_file" value="Ssuis.fasta" />
@@ -109,6 +113,7 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <output name="out_nuc_file" file="get_orf_input.Suis_ORF.nuc.fasta" />
             <output name="out_prot_file" file="get_orf_input.Suis_ORF.prot.fasta" />
             <output name="out_bed_file" file="get_orf_input.Suis_ORF.bed" />
+            <output name="out_gff3_file" file="get_orf_input.Suis_ORF.gff3" />
         </test>
     </tests>
     <help>
