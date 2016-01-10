@@ -1,4 +1,4 @@
-<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.1.1">
+<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.2.0">
     <description>e.g. to get peptides from ESTs</description>
     <requirements>
         <requirement type="package" version="1.65">biopython</requirement>

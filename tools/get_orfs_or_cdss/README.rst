@@ -3,6 +3,7 @@ Galaxy tool to find ORFs or simple CDSs
 
 This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+Additions copyright 2015-2016 by Eric Rasche.
 See the licence text below (MIT licence).
 
 This tool is a short Python script (using Biopython library functions)
@@ -75,6 +76,7 @@ v0.1.0  - Tool now outputs BED formatted calls (by @erasche, Eric Rasche).
         - Using ``optparse`` for the Python command line API (Eric Rasche).
         - Added NCBI genetic code table 24, Pterobranchia Mitochondrial.
 v0.1.1  - Reorder XML elements (internal change only).
+v0.2.0  - Tool now also outputs GFF3 formatted calls (Eric Rasche).
 ======= ======================================================================
 
 

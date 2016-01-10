@@ -16,8 +16,6 @@ This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI), Dundee, UK. All rights reserved.
 
 See accompanying text file for licence details (MIT licence).
-
-This is version 0.1.0 of the script.
 """
 import sys
 import re
@@ -79,7 +77,7 @@ parser.add_option('-v', '--version', dest='version',
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.1.0"
+    print("v0.2.0")
     sys.exit(0)
 
 try:
