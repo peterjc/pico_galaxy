@@ -80,6 +80,12 @@ if options.version:
     print("v0.2.0")
     sys.exit(0)
 
+if not options.input_file:
+    sys.exit("Input file is required")
+
+if not any((options.out_nuc_file, options.out_prot_file, options.out_bed_file, options.out_gff3_file)):
+    sys.exit("At least one output file is required")
+
 try:
     table_obj = CodonTable.ambiguous_generic_by_id[options.table]
 except KeyError:
@@ -215,25 +221,34 @@ in_count = 0
 out_count = 0
 if options.out_nuc_file == "-":
     out_nuc = sys.stdout
-else:
+elif options.out_nuc_file:
     out_nuc = open(options.out_nuc_file, "w")
+else:
+    out_nuc = None
 
 if options.out_prot_file == "-":
     out_prot = sys.stdout
-else:
+elif options.out_prot_file:
     out_prot = open(options.out_prot_file, "w")
+else:
+    out_prot = None
 
 if options.out_bed_file == "-":
     out_bed = sys.stdout
-else:
+elif options.out_bed_file:
     out_bed = open(options.out_bed_file, "w")
+else:
+    out_bed = None
 
 if options.out_gff3_file == "-":
     out_gff3 = sys.stdout
-else:
+elif options.out_gff3_file:
     out_gff3 = open(options.out_gff3_file, "w")
+else:
+    out_gff3 = None
 
-out_gff3.write('##gff-version 3\n')
+if out_gff3:
+    out_gff3.write('##gff-version 3\n')
 
 for record in SeqIO.parse(options.input_file, seq_format):
     for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
@@ -247,18 +262,22 @@ for record in SeqIO.parse(options.input_file, seq_format):
         fid = record.id + "|%s%i" % (options.ftype, i + 1)
         r = SeqRecord(Seq(n), id=fid, name="", description=descr)
         t = SeqRecord(Seq(t), id=fid, name="", description=descr)
-        SeqIO.write(r, out_nuc, "fasta")
-        SeqIO.write(t, out_prot, "fasta")
+        if out_nuc:
+            SeqIO.write(r, out_nuc, "fasta")
+        if out_prot:
+            SeqIO.write(t, out_prot, "fasta")
         nice_strand = '+' if f_strand == +1 else '-'
-        out_bed.write('\t'.join(map(str, [record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
-        out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start + 1, f_end, '.',
-                                           nice_strand, 0, 'ID=%s%s' % (options.ftype, i + 1)])) + '\n')
+        if out_bed:
+            out_bed.write('\t'.join(map(str, [record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
+        if out_gff3:
+            out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start + 1, f_end, '.',
+                                               nice_strand, 0, 'ID=%s%s' % (options.ftype, i + 1)])) + '\n')
     in_count += 1
-if out_nuc is not sys.stdout:
+if out_nuc and out_nuc is not sys.stdout:
     out_nuc.close()
-if out_prot is not sys.stdout:
+if out_prot and out_prot is not sys.stdout:
     out_prot.close()
-if out_bed is not sys.stdout:
+if out_bed and out_bed is not sys.stdout:
     out_bed.close()
 
 print "Found %i %ss in %i sequences" % (out_count, options.ftype, in_count)
