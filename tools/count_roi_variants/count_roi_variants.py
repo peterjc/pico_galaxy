@@ -195,17 +195,17 @@ def count_region():
 def record_counts():
 
     tally = count_region()
+    total = sum(tally.values())
+
     # Using negative count to get sort with highest count first,
     # while tie-breaking by the ROI sequence alphabetically.
     table = sorted((-count, roi_seq) for (roi_seq, count) in tally.items())
     del tally
 
-    total = 0
     with open(tabular_filename, "w") as handle:
-        handle.write("Variant\tCount\n")
+        handle.write("Variant\tCount\tPercentage\n")
         for count, roi_seq in table:
-            handle.write("%s\t%i\n" % (roi_seq, -count))
-            total -= count
+            handle.write("%s\t%i\t%0.2f\n" % (roi_seq, -count, -count * 100.0 / total))
 
     print("Counted %i variants from %i reads spanning %s" % (len(table), total, region))
 
