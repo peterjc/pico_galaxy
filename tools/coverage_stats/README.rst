@@ -15,14 +15,15 @@ Automated Installation
 ======================
 
 This should be straightforward, Galaxy should automatically download and install
-samtools 1.3 if required [TODO: NOT YET RELEASED].
+samtools 1.3 if required.
+
+TODO: See https://github.com/galaxyproject/tools-iuc/issues/561
 
 
 Manual Installation
 ===================
 
 This expects samtools to be on the ``$PATH``, and was tested using v0.1.3
-[TODO: STILL USING A PRE-RELEASE DEV BRANCH BUILD].
 
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/coverage_stats`` folder:
@@ -92,14 +93,7 @@ To just build and check the tar ball, use::
     tools/coverage_stats/coverage_stats.xml
     tools/coverage_stats/coverage_stats.py
     tools/coverage_stats/tool_dependencies.xml
-    test-data/coverage_test.bam
-    test-data/coverage_test.coverage_stats.tabular
-    test-data/ex1.bam
-    test-data/ex1.coverage_stats.tabular
-    tools/coverage_stats/README.rst
-    tools/coverage_stats/coverage_stats.xml
-    tools/coverage_stats/coverage_stats.py
-    tools/coverage_stats/tool_dependencies.xml
+    ...
 
 
 Licence (MIT)
