@@ -21,13 +21,19 @@
     <tests>
         <test>
             <param name="input_bam" value="ex1.bam" ftype="bam" />
-	    <param name="region" value="chr2:400-406" />
+            <param name="region" value="chr2:400-406" />
             <output name="out_tabular" file="ex1.count_roi_variants.tabular" ftype="tabular" />
+            <assert_stdout>
+                <has_line line="Counted 2 variants from 40 reads spanning chr2:400-406" />
+            </assert_stdout>
         </test>
         <test>
             <param name="input_bam" value="coverage_test.bam" ftype="bam" />
-	    <param name="region" value="ref:10-15" />
+            <param name="region" value="ref:10-15" />
             <output name="out_tabular" file="coverage_test.count_roi_variants.tabular" ftype="tabular" />
+            <assert_stdout>
+                <has_line line="Counted 1 variants from 1 reads spanning ref:10-15" />
+            </assert_stdout>
         </test>
     </tests>
     <help>
