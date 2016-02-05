@@ -79,7 +79,7 @@ def clean_up():
 def samtools_depth_opt_available():
     child = subprocess.Popen(["samtools", "depth"],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    # Combined stdout/stderr in case samtools is every inconsistent
+    # Combined stdout/stderr in case samtools is ever inconsistent
     output, tmp = child.communicate()
     assert tmp is None
     # Expect to find this line in the help text, exact wording could change:
