@@ -23,6 +23,7 @@
     <tool file="sample_seqs/sample_seqs.xml" />
     <tool file="mummer/mummer.xml" />
     <tool file="coverage_stats/coverage_stats.xml" />
+    <tool file="count_roi_variants/count_roi_variants.xml" />
     <!-- TODO: Currently still fails on TravisCI
     <tool file="samtools_depth/samtools_depth.xml" />
     -->
