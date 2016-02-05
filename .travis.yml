@@ -129,7 +129,7 @@ install:
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
- - bash scripts/common_startup.sh --skip-venv --dev-wheels
+ - bash scripts/common_startup.sh --no-create-venv --dev-wheels
 
 
 # Testing tools in Galaxy
