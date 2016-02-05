@@ -31,6 +31,10 @@ else:
 
 if not os.path.isfile(bam_filename):
     sys.exit("Input BAM file not found: %s" % bam_filename)
+if bai_filename == "-":
+    # Make this optional for ease of use at the command line by hand:
+    if os.path.isfile(bam_filename + ".bai"):
+        bai_filename = bam_filename + ".bai"
 if not os.path.isfile(bai_filename):
     if bai_filename == "None":
         sys.exit("Error: Galaxy did not index your BAM file")
