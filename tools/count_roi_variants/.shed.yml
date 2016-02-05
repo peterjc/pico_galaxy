@@ -1,0 +1,24 @@
+name: count_roi_variants
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/count_roi_variants
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/count_roi_variants
+description: Count sequence variants in region of interest in BAM file
+long_description: |
+  This tool runs the command ``samtools view`` (taking advantage of an
+  indexed BAM file) to access only those reads mapped to the region of
+  interest (ROI), and then counts the different sequence variants found.
+categories:
+- Assembly
+- SAM
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/coverage_test.bam
+  - ../../test-data/coverage_test.count_roi_variants.tabular
+  - ../../test-data/ex1.bam
+  - ../../test-data/ex1.count_roi_variants.tabular
+  - ../../tools/count_roi_variants/README.rst
+  - ../../tools/count_roi_variants/count_roi_variants.xml
+  - ../../tools/count_roi_variants/count_roi_variants.py
+  - ../../tools/count_roi_variants/tool_dependencies.xml

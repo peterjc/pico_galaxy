@@ -1,0 +1,92 @@
+<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.1">
+    <description>using samtools view</description>
+    <requirements>
+        <requirement type="binary">samtools</requirement>
+        <requirement type="package" version="1.2.2">samtools</requirement>
+    </requirements>
+    <stdio>
+        <!-- Assume anything other than zero is an error -->
+        <exit_code range="1:" />
+        <exit_code range=":-1" />
+    </stdio>
+    <version_command interpreter="python">count_roi_variants.py --version</version_command>
+    <command interpreter="python">count_roi_variants.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$region"</command>
+    <inputs>
+        <param name="input_bam" type="data" format="bam" label="Input BAM file" />
+        <param name="region" type="text" label="Region of interest" help="Use the reference:start-end syntax as in samtools." />
+    </inputs>
+    <outputs>
+        <data name="out_tabular" format="tabular" label="$input_bam.name $region variants" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_bam" value="ex1.bam" ftype="bam" />
+	    <param name="region" value="chr2:400-406" />
+            <output name="out_tabular" file="ex1.count_roi_variants.tabular" ftype="tabular" />
+        </test>
+        <test>
+            <param name="input_bam" value="coverage_test.bam" ftype="bam" />
+	    <param name="region" value="ref:10-15" />
+            <output name="out_tabular" file="coverage_test.count_roi_variants.tabular" ftype="tabular" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+This tool runs the command ``samtools view`` from the SAMtools toolkit, getting
+all the reads in your BAM file mapped to the given region of interest (ROI).
+It then counts all the different sequence variants in reads spanning that ROI,
+which are returned as a tab-separated table.
+
+Reads mapped to the ROI but not spanning it completely are ignored.
+
+Input is a sorted and indexed BAM file, the output is tabular. The first column
+is the observed sequence variants within the ROI, the second column is the number
+of reads with that sequence.
+
+====== =================================================================================
+Column Description
+------ ---------------------------------------------------------------------------------
+     1 Sequence variant from ROI
+     2 Number of reads with that sequence variant
+====== =================================================================================
+
+Example output:
+
+========== ====== ====== ====== ======= ======= ========
+identiifer length mapped placed min_cov max_cov mean_cov
+---------- ------ ------ ------ ------- ------- --------
+contig_1   833604 436112      0       1     157    71.95
+contig_2    14820   9954      0       1     152    91.27
+contig_3   272099 142958      0       1     150    72.31
+contig_4   135519  73288      0       1     149    75.23
+contig_5    91245  46759      0       1     157    70.92
+contig_6   175604  95744      0       1     146    75.99
+contig_7    90586  48158      0       1     151    72.93
+contig_9   234347 126458      0       1     159    75.40
+contig_10  121515  60211      0       1     152    68.12
+...           ...    ...    ...     ...     ...      ...
+contig_604    712     85      0       1      49    21.97
+\*              0      0 950320       0       0     0.00
+========== ====== ====== ====== ======= ======= ========
+
+
+**Citation**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite:
+
+Heng Li et al (2009). The Sequence Alignment/Map format and SAMtools.
+Bioinformatics 25(16), 2078-9.
+http://dx.doi.org/10.1093/bioinformatics/btp352
+
+Peter J.A. Cock (2016), Count sequence variants in region of interest in BAM file.
+http://toolshed.g2.bx.psu.edu/view/peterjc/count_roi_variants
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/count_roi_variants
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp352</citation>
+    </citations>
+</tool>
