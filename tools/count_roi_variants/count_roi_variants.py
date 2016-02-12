@@ -114,7 +114,8 @@ def expand_cigar(seq, cigar_ops):
         elif op == "S":
             # Soft clipping, silently discard the bases (OK?)
             seq_offset += count
-        elif op == "H":
+        elif op in "HP":
+            # Hard trimming or pad, can ignore
             pass
         else:
             raise NotImplementedError("Unexpected CIGAR operator %s" % op)
