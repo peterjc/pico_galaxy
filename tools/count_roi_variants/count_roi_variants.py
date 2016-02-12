@@ -107,22 +107,24 @@ def expand_cigar(seq, cigar_ops):
             # Does not change ref_offset
             seq_offset += count
         elif op in "DN":
-            # Deletion/skip, return gap characters (OK?)
-            for i in range(count):
-                yield ref_offset + i, "-"
+            # Deletion/skip,
+            # TODO: Option to return gap characters
+            # for i in range(count):
+            #     yield ref_offset + i, "-"
             ref_offset += count
         elif op == "S":
             # Soft clipping, silently discard the bases (OK?)
             seq_offset += count
         elif op in "HP":
             # Hard trimming or pad, can ignore
+            # TODO: Yield "-" if later offer to report deletions
             pass
         else:
             raise NotImplementedError("Unexpected CIGAR operator %s" % op)
 
 assert list(expand_cigar("ACGT", decode_cigar("4M"))) == [(0, "A"), (1, "C"), (2, "G"), (3, "T")]
 assert list(expand_cigar("ACGT", decode_cigar("2=1X1="))) == [(0, "A"), (1, "C"), (2, "G"), (3, "T")]
-assert list(expand_cigar("ACGT", decode_cigar("2M1D2M"))) == [(0, "A"), (1, "C"), (2, "-"), (3, "G"), (4, "T")]
+assert list(expand_cigar("ACGT", decode_cigar("2M1D2M"))) == [(0, "A"), (1, "C"), (3, "G"), (4, "T")]
 assert list(expand_cigar("ACtGT", decode_cigar("2M1I2M"))) == [(0, "A"), (1, "C"), (1.5, "t"), (2, "G"), (3, "T")]
 assert list(expand_cigar("tACGT", decode_cigar("1I4M"))) == [(-0.5, 't'), (0, 'A'), (1, 'C'), (2, 'G'), (3, 'T')]
 assert list(expand_cigar("ACGTt", decode_cigar("4M1I"))) == [(0, 'A'), (1, 'C'), (2, 'G'), (3, 'T'), (3.5, 't')]
