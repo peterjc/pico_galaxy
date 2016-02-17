@@ -23,12 +23,10 @@
                     which is how I came to this hopefully safe set..
                 -->
                 <valid initial="string.letters,string.digits">
-                    <add value="#%+,-./:;=@^_~" />
+                    <add value="#%+,-./:;=@^_|~" />
                     <remove value=" " />
                 </valid>
-                <mapping initial="none">
-                    <add source="|" target="\|" />
-                </mapping>
+                <mapping initial="none" />
             </sanitizer>
         </param>
     </inputs>

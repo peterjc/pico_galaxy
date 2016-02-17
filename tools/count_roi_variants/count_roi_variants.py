@@ -128,11 +128,9 @@ assert list(expand_cigar("ACGT", decode_cigar("2M1D2M"))) == [(0, "A"), (1, "C")
 assert list(expand_cigar("ACtGT", decode_cigar("2M1I2M"))) == [(0, "A"), (1, "C"), (1.5, "t"), (2, "G"), (3, "T")]
 assert list(expand_cigar("tACGT", decode_cigar("1I4M"))) == [(-0.5, 't'), (0, 'A'), (1, 'C'), (2, 'G'), (3, 'T')]
 assert list(expand_cigar("ACGTt", decode_cigar("4M1I"))) == [(0, 'A'), (1, 'C'), (2, 'G'), (3, 'T'), (3.5, 't')]
-assert list(expand_cigar("AAAAGGGGTTTT", decode_cigar("12M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (4, 'G'), (5, 'G\
-'), (6, 'G'), (7, 'G'), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
+assert list(expand_cigar("AAAAGGGGTTTT", decode_cigar("12M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (4, 'G'), (5, 'G'), (6, 'G'), (7, 'G'), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
 assert list(expand_cigar("AAAAcGGGGTTTT", decode_cigar("4M1I8M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (3.5, 'c'), (4, 'G'), (5, 'G'), (6, 'G'), (7, 'G'), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
-assert list(expand_cigar("AAAAGGGGcTTTT", decode_cigar("8M1I4M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (4, 'G'), (5, 'G\
-'), (6, 'G'), (7, 'G'), (7.5, "c"), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
+assert list(expand_cigar("AAAAGGGGcTTTT", decode_cigar("8M1I4M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (4, 'G'), (5, 'G'), (6, 'G'), (7, 'G'), (7.5, "c"), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
 assert list(expand_cigar("AAAAcGGGGcTTTT", decode_cigar("4M1I4M1I4M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (3.5, 'c'), (4, 'G'), (5, 'G'), (6, 'G'), (7, 'G'), (7.5, 'c'), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
 
 def get_roi(seq, cigar_ops, start, end):
@@ -167,7 +165,7 @@ def count_region():
 
     # Call samtools view, don't need header so no -h added.
     # Only want mapped reads, thus flag filter -F 4.
-    child = subprocess.Popen(["samtools", "view", "-F", "4", bam_file, region],
+    child = subprocess.Popen(["/mnt/galaxy/bin/samtools_1.1", "view", "-F", "4", bam_file, region],
                              stdout=subprocess.PIPE)
     for line in child.stdout:
         assert line[0] != "@", "Got unexpected SAM header line: %s" % line
@@ -210,8 +208,7 @@ def record_counts():
         for count, roi_seq in table:
             handle.write("%s\t%i\t%0.2f\n" % (roi_seq, -count, -count * 100.0 / total))
 
-    # For the log message, unescape any pipes
-    print("Counted %i variants from %i reads spanning %s" % (len(table), total, region.replace("\|", "|")))
+    print("Counted %i variants from %i reads spanning %s" % (len(table), total, region))
 
 
 # Run it!
