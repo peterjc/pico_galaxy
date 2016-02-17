@@ -19,7 +19,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.2 (using samtools)")
+    print("BAM coverage statistics v0.0.3 (using samtools)")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -166,7 +166,7 @@ def count_region():
     # Call samtools view, don't need header so no -h added.
     # Only want mapped reads, thus flag filter -F 4.
     child = subprocess.Popen(["/mnt/galaxy/bin/samtools_1.1", "view", "-F", "4", bam_file, region],
-                             stdout=subprocess.PIPE)
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     for line in child.stdout:
         assert line[0] != "@", "Got unexpected SAM header line: %s" % line
         qname, flag, rname, pos, mapq, cigar, rnext, pnext, tlen, seq, rest = line.split("\t", 10)
@@ -186,10 +186,14 @@ def count_region():
         except KeyError:
             tally[roi_seq] = 1
 
+    stderr = child.stderr.read()
     child.stdout.close()
+    child.stderr.close()
     return_code = child.wait()
     if return_code:
         sys.exit("Got return code %i from samtools view" % return_code)
+    elif "specifies an unknown reference name. Continue anyway." in stderr:
+        sys.exit(stderr.strip() + "\n\nERROR: samtools did not recognise the region requested, can't count any variants.")
 
     return tally
 
