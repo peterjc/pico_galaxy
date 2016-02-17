@@ -18,6 +18,9 @@ include:
   - ../../test-data/coverage_test.count_roi_variants.tabular
   - ../../test-data/ex1.bam
   - ../../test-data/ex1.count_roi_variants.tabular
+  - ../../test-data/SRR639755_mito_pairs_vs_NC_010642_clc.bam
+  - ../../test-data/SRR639755_mito_pairs_vs_NC_010642_clc.bam.bai
+  - ../../test-data/SRR639755_mito_pairs_vs_NC_010642_clc.count-1695-1725.tabular
   - ../../tools/count_roi_variants/README.rst
   - ../../tools/count_roi_variants/count_roi_variants.xml
   - ../../tools/count_roi_variants/count_roi_variants.py

@@ -54,6 +54,7 @@ History
 Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial public release
+v0.0.2  - Cope with pipes in reference name (e.g. NCBI style FASTA naming)
 ======= ======================================================================
 
 

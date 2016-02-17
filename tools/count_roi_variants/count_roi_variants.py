@@ -19,7 +19,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.1")
+    print("BAM coverage statistics v0.0.2 (using samtools)")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -210,7 +210,8 @@ def record_counts():
         for count, roi_seq in table:
             handle.write("%s\t%i\t%0.2f\n" % (roi_seq, -count, -count * 100.0 / total))
 
-    print("Counted %i variants from %i reads spanning %s" % (len(table), total, region))
+    # For the log message, unescape any pipes
+    print("Counted %i variants from %i reads spanning %s" % (len(table), total, region.replace("\|", "|")))
 
 
 # Run it!

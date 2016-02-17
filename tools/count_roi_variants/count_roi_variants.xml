@@ -1,4 +1,4 @@
-<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.1">
+<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.2">
     <description>using samtools view</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
@@ -13,7 +13,24 @@
     <command interpreter="python">count_roi_variants.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$region"</command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
-        <param name="region" type="text" label="Region of interest" help="Use the reference:start-end syntax as in samtools." />
+        <param name="region" type="text" label="Region of interest" help="Use the reference:start-end syntax as in samtools.">
+            <sanitizer>
+                <!--
+                    SAM/BAM spec says the name must match regex [!-)+-<>-~][!-~]*
+                    but will focus on ASCII 33 ("!") to ASCII 126 ("~"), i.e.
+                    !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+                    of which some are going to be potential trouble like !, ", $, &, ', \, `, {, |, }
+                    which is how I came to this hopefully safe set..
+                -->
+                <valid initial="string.letters,string.digits">
+                    <add value="#%+,-./:;=@^_~" />
+                    <remove value=" " />
+                </valid>
+                <mapping initial="none">
+                    <add source="|" target="\|" />
+                </mapping>
+            </sanitizer>
+        </param>
     </inputs>
     <outputs>
         <data name="out_tabular" format="tabular" label="$input_bam.name $region variants" />
@@ -33,6 +50,15 @@
             <output name="out_tabular" file="coverage_test.count_roi_variants.tabular" ftype="tabular" />
             <assert_stdout>
                 <has_line line="Counted 1 variants from 1 reads spanning ref:10-15" />
+            </assert_stdout>
+        </test>
+        <!-- This test is a tricky one due to the NCBI's love of pipe characters in identifiers -->
+        <test>
+            <param name="input_bam" value="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" />
+            <param name="region" value="gi|187250362|ref|NC_010642.1|:1695-1725" />
+            <output name="out_tabular" file="SRR639755_mito_pairs_vs_NC_010642_clc.count-1695-1725.tabular" ftype="tabular" />
+            <assert_stdout>
+                <has_line line="Counted 3 variants from 16 reads spanning gi|187250362|ref|NC_010642.1|:1695-1725" />
             </assert_stdout>
         </test>
     </tests>
