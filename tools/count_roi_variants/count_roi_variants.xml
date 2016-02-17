@@ -1,4 +1,4 @@
-<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.2">
+<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.3">
     <description>using samtools view</description>
     <requirements>
         <requirement type="binary">samtools</requirement>
@@ -58,6 +58,13 @@
             <assert_stdout>
                 <has_line line="Counted 3 variants from 16 reads spanning gi|187250362|ref|NC_010642.1|:1695-1725" />
             </assert_stdout>
+        </test>
+        <test expect_failure="true" expect_exit_code="1">
+            <param name="input_bam" value="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" />
+            <param name="region" value="ref:1695-1725" />
+            <assert_stderr>
+                <has_line line="ERROR: samtools did not recognise the region requested, can't count any variants." />
+            </assert_stderr>
         </test>
     </tests>
     <help>
