@@ -165,7 +165,7 @@ def count_region():
 
     # Call samtools view, don't need header so no -h added.
     # Only want mapped reads, thus flag filter -F 4.
-    child = subprocess.Popen(["/mnt/galaxy/bin/samtools_1.1", "view", "-F", "4", bam_file, region],
+    child = subprocess.Popen(["samtools", "view", "-F", "4", bam_file, region],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     for line in child.stdout:
         assert line[0] != "@", "Got unexpected SAM header line: %s" % line
