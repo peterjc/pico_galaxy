@@ -15,15 +15,37 @@ This tool is available from the Galaxy Tool Shed at:
 http://toolshed.g2.bx.psu.edu/view/peterjc/count_roi_variants
 
 
-Automated Installation
-======================
+Use outside of Galaxy
+=====================
+
+You just need the ``count_roi_variants.py`` script and to have samtools
+on the ``$PATH``.  If you move/copy the script somewhere on your ``$PATH``
+and then you can run it like this::
+
+    $ count_roi_variants.py --help
+
+Or, call the script at an explicit path::
+
+    $ /path/to/my/stuff/count_roi_variants.py --help
+
+Run like this it will use the current default Python. This was written and
+tested under Python 2.7, but should also work under Python 2.6 and Python 3.
+e.g.::
+
+    $ python3 /path/to/my/stuff/count_roi_variants.py --help
+
+The sample data and tests are designed to be run via Galaxy.
+
+
+Automated Galaxy Installation
+=============================
 
 This should be straightforward, Galaxy should automatically download and install
 samtools if required.
 
 
-Manual Installation
-===================
+Manual Galaxy Installation
+==========================
 
 This expects samtools to be on the ``$PATH``, and was tested using v0.1.3
 
