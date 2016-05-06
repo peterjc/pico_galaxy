@@ -91,6 +91,8 @@ v0.0.3  - Reorder XML elements (internal change only).
 v0.0.4  - Bug fix for ``<version_command>`` to capture tool version.
 v0.0.5  - Support the ``-u`` or ``--discardunmapped`` option to discard
           unmapped reads in the CLC Mapper wrapper.
+        - Bug fix to use the ``$CLC_ASSEMBLY_CELL`` environment variable when
+          calling ``clc_cas_to_sam`` in the CLC MApper wrapper.
 ======= ======================================================================
 
 

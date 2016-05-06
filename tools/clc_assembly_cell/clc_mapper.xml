@@ -48,7 +48,7 @@
 ## use the offset 33, rather then the CLCbio default of 64 which is only for
 ## obsolete Illumina FASTQ files. Really need this option per input file...
 &amp;&amp; echo Converting CAS file to BAM with clc_cas_to_sam...
-&amp;&amp; /mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_cas_to_sam --cas "temp_job.cas" -o "temp_job.bam" --no-progress --qualityoffset 33
+&amp;&amp; \${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_cas_to_sam --cas "temp_job.cas" -o "temp_job.bam" --no-progress --qualityoffset 33
 #if $discard_unmapped:
 ## -u / --discardunmapped: Discard the unmapped reads
 -u
