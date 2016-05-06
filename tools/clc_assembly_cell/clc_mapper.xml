@@ -1,4 +1,4 @@
-<tool id="clc_mapper" name="CLC Mapper" version="0.0.4">
+<tool id="clc_mapper" name="CLC Mapper" version="0.0.5">
     <description>Maps reads giving a SAM/BAM file</description>
     <requirements>
         <requirement type="binary">clc_mapper</requirement>    
@@ -49,6 +49,10 @@
 ## obsolete Illumina FASTQ files. Really need this option per input file...
 &amp;&amp; echo Converting CAS file to BAM with clc_cas_to_sam...
 &amp;&amp; /mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/clc_cas_to_sam --cas "temp_job.cas" -o "temp_job.bam" --no-progress --qualityoffset 33
+#if $discard_unmapped:
+## -u / --discardunmapped: Discard the unmapped reads
+-u
+#end if
 &amp;&amp; rm "temp_job.cas"
 ##===========================================
 &amp;&amp; echo Sorting BAM file with samtools...
@@ -125,7 +129,7 @@
         </repeat>
         <!-- Length fraction (-l), default 0.5 -->
         <!-- Similarity (-s), default 0.8 -->
-        <!-- Option for unmapped reads via clc_unmapped_reads ? -->
+        <param name="discard_unmapped" type="boolean" label="Discard unmappped reads" />
     </inputs>
     <outputs>
         <data name="out_bam" format="bam" label="CLCbio mapping (BAM)" />
@@ -142,7 +146,21 @@
             <param name="read_group_0|segments|max_size" value="1000" />
             <param name="read_group_0|segments|dist_mode" value="ss" />
             <param name="read_group_0|segments|filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
+            <param name="discard_unmapped" value="false" />
             <output name="out_fasta" file="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" lines_diff="4"/>
+        </test>
+        <test>
+            <param name="ref_file" value="NC_010642.fna" ftype="fasta" />
+            <param name="ref_type" value="circular" />
+            <param name="read_group_0|segments|type" value="interleaved" />
+            <param name="read_group_0|segments|placement" value="fb" />
+            <param name="read_group_0|segments|dist_mode" value="ss" />
+            <param name="read_group_0|segments|min_size" value="1" />
+            <param name="read_group_0|segments|max_size" value="1000" />
+            <param name="read_group_0|segments|dist_mode" value="ss" />
+            <param name="read_group_0|segments|filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
+            <param name="discard_unmapped" value="true" />
+            <output name="out_fasta" file="SRR639755_mito_pairs_vs_NC_010642_clc_u.bam" ftype="bam" lines_diff="4"/>
         </test>
     </tests>
     <help>

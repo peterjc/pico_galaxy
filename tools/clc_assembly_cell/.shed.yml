@@ -17,6 +17,8 @@ include:
 - strip_components: 2
   source:
   - ../../test-data/NC_010642.fna
+  - ../../test-data/SRR639755_mito_pairs_vs_NC_010642_clc.bam
+  - ../../test-data/SRR639755_mito_pairs_vs_NC_010642_clc_u.bam
   - ../../tools/clc_assembly_cell/README.rst
   - ../../tools/clc_assembly_cell/clc_assembler.xml
   - ../../tools/clc_assembly_cell/clc_mapper.xml
