@@ -19,13 +19,13 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.3 (using samtools)")
+    print("BAM coverage statistics v0.0.4 (using samtools)")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
 # TODO - Proper command line API
-usage = """"Requires 4 arguments: BAM, BAI, tabular filename, samtools-style region
-    
+usage = """Requires 4 arguments: BAM, BAI, tabular filename, samtools-style region
+
 For ease of use, you can use a minus sign as the BAI filename which will use the BAM
 filename with the suffix .bai added to it. Example using one of the test-data files:
 
@@ -54,9 +54,9 @@ if not os.path.isfile(bai_filename):
     sys.exit("Input BAI file not found: %s" % bai_filename)
 
 try:
-    #Sanity check we have "ref:start-end" to give clear error message
-    #Note can have semi-colon in the reference name
-    #Note can have thousand separator commas in the start/end
+    # Sanity check we have "ref:start-end" to give clear error message
+    # Note can have semi-colon in the reference name
+    # Note can have thousand separator commas in the start/end
     ref, start_end = region.rsplit(":", 1)
     start, end = start_end.split("-")
     start = int(start.replace(",", ""))
@@ -88,7 +88,7 @@ def decode_cigar(cigar):
     answer = []
     for letter in cigar:
         if letter.isdigit():
-            count += letter #string addition
+            count += letter  # string addition
         elif letter in "MIDNSHP=X":
             answer.append((int(count), letter))
             count = ""
@@ -96,11 +96,14 @@ def decode_cigar(cigar):
             raise ValueError("Invalid character %s in CIGAR %s" % (letter, cigar))
     return answer
 
-assert decode_cigar("14S15M1P1D3P54M1D34M5S") == [(14,'S'),(15,'M'),(1,'P'),(1,'D'),(3,'P'),(54,'M'),(1,'D'),(34,'M'),(5,'S')]
+
+assert decode_cigar("14S15M1P1D3P54M1D34M5S") == [(14, 'S'), (15, 'M'), (1, 'P'), (1, 'D'), (3, 'P'), (54, 'M'), (1, 'D'), (34, 'M'), (5, 'S')]
+
 
 def align_len(cigar_ops):
     """Sums the CIGAR M/=/X/D/N operators."""
     return sum(count for count, op in cigar_ops if op in "M=XDN")
+
 
 def expand_cigar(seq, cigar_ops):
     """Yields (ref_offset, seq_base) pairs."""
@@ -108,14 +111,14 @@ def expand_cigar(seq, cigar_ops):
     seq_offset = 0
     for count, op in cigar_ops:
         if op in "MX=":
-            for (i, base) in enumerate(seq[seq_offset:seq_offset+count]):
+            for (i, base) in enumerate(seq[seq_offset:seq_offset + count]):
                 yield ref_offset + i, base
             ref_offset += count
             seq_offset += count
         elif op == "I":
             # Give them all an in-between reference position
             # (Python lets us mix integers and floats, wouldn't work in C)
-            for (i, base) in enumerate(seq[seq_offset:seq_offset+count]):
+            for (i, base) in enumerate(seq[seq_offset:seq_offset + count]):
                 yield ref_offset - 0.5, base
             # Does not change ref_offset
             seq_offset += count
@@ -146,6 +149,7 @@ assert list(expand_cigar("AAAAcGGGGTTTT", decode_cigar("4M1I8M"))) == [(0, 'A'),
 assert list(expand_cigar("AAAAGGGGcTTTT", decode_cigar("8M1I4M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (4, 'G'), (5, 'G'), (6, 'G'), (7, 'G'), (7.5, "c"), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
 assert list(expand_cigar("AAAAcGGGGcTTTT", decode_cigar("4M1I4M1I4M"))) == [(0, 'A'), (1, 'A'), (2, 'A'), (3, 'A'), (3.5, 'c'), (4, 'G'), (5, 'G'), (6, 'G'), (7, 'G'), (7.5, 'c'), (8, 'T'), (9, 'T'), (10, 'T'), (11, 'T')]
 
+
 def get_roi(seq, cigar_ops, start, end):
     """Extract region of seq mapping to the ROI.
 
@@ -160,8 +164,8 @@ def get_roi(seq, cigar_ops, start, end):
         assert cigar_ops[0][0] == len(seq)
         return seq[start:end]
     # Would use "start <= i < end" if they were all integers, but
-    # want to exclude e.g. 3.5 and 7.5 when given start 4 and end 8. 
-    return "".join(base for i, base in expand_cigar(seq, cigar_ops) if start <= i <= end-1)
+    # want to exclude e.g. 3.5 and 7.5 when given start 4 and end 8.
+    return "".join(base for i, base in expand_cigar(seq, cigar_ops) if start <= i <= end - 1)
 
 assert "GGGG" == get_roi("AAAAGGGGTTTT", decode_cigar("12M"), 4, 8)
 assert "GGGG" == get_roi("AAAAcGGGGTTTT", decode_cigar("4M1I8M"), 4, 8)
@@ -169,6 +173,7 @@ assert "GGGG" == get_roi("AAAAGGGGcTTTT", decode_cigar("8M1I4M"), 4, 8)
 assert "GGGG" == get_roi("AAAAcGGGGcTTTT", decode_cigar("4M1I4M1I4M"), 4, 8)
 assert "GGaGG" == get_roi("AAAAGGaGGTTTT", decode_cigar("6M1I6M"), 4, 8)
 assert "GGGgA" == get_roi("AAAAGGGgATTTT", decode_cigar("7M1I5M"), 4, 8)
+
 
 def count_region():
     # Could recreate the region string (with no commas in start/end)?
@@ -209,6 +214,7 @@ def count_region():
         sys.exit(stderr.strip() + "\n\nERROR: samtools did not recognise the region requested, can't count any variants.")
 
     return tally
+
 
 def record_counts():
 

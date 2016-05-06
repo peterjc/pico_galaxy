@@ -79,6 +79,7 @@ Version Changes
 v0.0.1  - Initial public release
 v0.0.2  - Cope with pipes in reference name (e.g. NCBI style FASTA naming)
 v0.0.3  - Include a functional test for using an unrecognised reference.
+v0.0.4  - Improved usage text and README for use outside of Galaxy.
 ======= ======================================================================
 
 
