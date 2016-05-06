@@ -29,10 +29,11 @@ Or, call the script at an explicit path::
     $ /path/to/my/stuff/count_roi_variants.py --help
 
 Run like this it will use the current default Python. This was written and
-tested under Python 2.7, but should also work under Python 2.6 and Python 3.
-e.g.::
+tested under Python 2.7, but should also work under Python 2.6. e.g.::
 
-    $ python3 /path/to/my/stuff/count_roi_variants.py --help
+    $ python2.6 /path/to/my/stuff/count_roi_variants.py --help
+
+This does not yet support Python 3.
 
 The sample data and tests are designed to be run via Galaxy.
 
