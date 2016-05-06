@@ -24,10 +24,23 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system(cmd))
 
 # TODO - Proper command line API
+usage = """"Requires 4 arguments: BAM, BAI, tabular filename, samtools-style region
+    
+For ease of use, you can use a minus sign as the BAI filename which will use the BAM
+filename with the suffix .bai added to it. Example using one of the test-data files:
+
+$ count_roi_variants.py "SRR639755_mito_pairs_vs_NC_010642_clc.bam" "-" "counts.txt" "gi|187250362|ref|NC_010642.1|:1695-1725"
+Counted 3 variants from 16 reads spanning gi|187250362|ref|NC_010642.1|:1695-1725
+$ cat counts.txt
+Variant	Count	Percentage
+AGCCCATGAGATGGGAAGCAATGGGCTACA	14	87.50
+AGCCCATGAGATGGGAAGCAATGGGCTACG	1	6.25
+AGCGCATGAGATGGGAAGCAATGGGCTACG	1	6.25
+"""
 if len(sys.argv) == 5:
     bam_filename, bai_filename, tabular_filename, region = sys.argv[1:]
 else:
-    sys.exit("Require 4 arguments: BAM, BAI, tabular filename, samtools-style region")
+    sys.exit(usage)
 
 if not os.path.isfile(bam_filename):
     sys.exit("Input BAM file not found: %s" % bam_filename)
