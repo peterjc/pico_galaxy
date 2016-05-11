@@ -1,7 +1,7 @@
 Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 ==========================================================
 
-This wrapper is copyright 2013-2015 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2013-2016 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
