@@ -5,11 +5,11 @@
 
 # Galaxy v16.01 (currently represented by their master branch)
 # supports Python 2.6 and 2.7, but there after only Python 2.7
+# Meanwhile, planemo only supports Python 2.7 and 3.4+
+# so we're only testing under Python 2.7 for now.
 language: python
 matrix:
   include:
-    - python: "2.6"
-      env: GALAXY_BRANCH=master
     - python: "2.7"
       env: GALAXY_BRANCH=master
     - python: "2.7"
