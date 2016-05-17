@@ -74,7 +74,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.2.1"
+    print "v0.2.3"
     sys.exit(0)
 
 in_file = options.input
