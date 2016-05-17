@@ -211,6 +211,8 @@ for tabular_file, columns in identifiers:
         # Single column, special case speed up
         col = columns[0]
         for line in handle:
+            if not line.strip(): #skip empty lines
+                continue
             if not line.startswith("#"):
                 file_ids.add(clean_name(line.rstrip("\n").split("\t")[col]))
     print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col + 1) for col in columns))
