@@ -74,7 +74,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.2.3"
+    print "v0.2.4"
     sys.exit(0)
 
 in_file = options.input
@@ -93,7 +93,7 @@ if seq_format is None:
 if logic not in ["UNION", "INTERSECTION"]:
     sys.exit("Logic agrument should be 'UNION' or 'INTERSECTION', not %r" % logic)
 if options.id_list and args:
-    sys.exit("Cannot accepted IDs via both -t and as tabular files")
+    sys.exit("Cannot accept IDs via both -t in the command line, and as tabular files")
 elif not options.id_list and not args:
     sys.exit("Expected matched pairs of tabular files and columns (or -t given)")
 if len(args) % 2:
