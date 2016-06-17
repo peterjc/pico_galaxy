@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """Python script to combine FASTA sequence of exon entries into CDS/AA
 
-Example input:
+Example input, combines entries with suffix .1, .2, ... into single
+entries.
 
 >cds.GPLIN_000008300.t1.1
 CAATGTTTCCATCGGACTTGGGGCCAAACAAATGCCTGTTGTTGATTACAAAGGCGGTTACGGATACAATAACATTGGCACATTTTGGGGTCACGAGGTCAGGGGATGTTCCCACGCCATTAATGGACGTCATTACATTTATGGAAAACCTCCGTTTGGCGTAGGCGACGTCGTCGGCTGCGGCGTTAATTTGGCAACTCGCCAAATTATTTACACAAAAAATGGGGAGCGTTTGGGTGAGAAAGAATAA
@@ -27,6 +28,7 @@ AACATTTGTGGCCAACTTTCACGAATTTGGACCAATCTGAAGAAGTGCGTCTTTTACGGGCCAGAAATGCTCAATTGGAA
 ATGTTAATTTCGACCGAATCAACAAATGGAGGGCACATAACAACTAATCAGG
 >cds.GPLIN_000008400.t1.1
 ACACCGCCAATTTGTTTGTCACTTTTGCCGCCGAATTGTTCCCATGCGTTACGTTGTATAACTCTGGCGCCAAAATTGAAGCGAATTTTGGACCGAACTTTGAATACAAATTCTGA
+...
 
 Output:
 
@@ -74,7 +76,8 @@ def exon_merge_iter(input_records, split_on):
         part = int(part)
         if stem == current_stem:
             current_parts.append(record.seq)
-            assert part == len(current_parts)
+            assert part == len(current_parts), \
+                "Expected %s%s%i but got %s" % (current_stem, split_on, len(current_parts), record.id)
         else:
             if current_parts:
                 s = sum(current_parts, Seq(""))
