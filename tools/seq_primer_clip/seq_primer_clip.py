@@ -117,7 +117,7 @@ ambiguous_dna_values = {
     "B": "CGTSYKB",
     "X": ".",  # faster than [GATCMRWSYKVVHDBXN] or even [GATC]
     "N": ".",
-    }
+}
 
 ambiguous_dna_re = {}
 for letter, values in ambiguous_dna_values.iteritems():

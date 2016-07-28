@@ -181,7 +181,7 @@ mapped_chars = {
     '\r': '__cr__',
     '\t': '__tc__',
     '#': '__pd__',
-    }
+}
 
 # Read tabular file(s) and record all specified identifiers
 ids = None  # Will be a set
@@ -211,7 +211,7 @@ for tabular_file, columns in identifiers:
         # Single column, special case speed up
         col = columns[0]
         for line in handle:
-            if not line.strip(): #skip empty lines
+            if not line.strip():  # skip empty lines
                 continue
             if not line.startswith("#"):
                 file_ids.add(clean_name(line.rstrip("\n").split("\t")[col]))
