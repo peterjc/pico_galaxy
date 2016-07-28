@@ -165,7 +165,7 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
                          % (seqid, source,
                             "mature_protein_region", cut, len(seq),
                             score, strand, phase, tags))
-        tab_handle.close()
+    tab_handle.close()
     gff_handle.close()
 
 
