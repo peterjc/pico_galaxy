@@ -179,6 +179,7 @@ assert len(fasta_files) == len(temp_files) == len(jobs)
 
 
 def clean_up(file_list):
+    """Remove temp files, and if possible the temp directory."""
     for f in file_list:
         if os.path.isfile(f):
             os.remove(f)
