@@ -205,9 +205,13 @@ records to ensure your read pairs are not separated by sampling.
 For example using 20% would take every 5th pair of records, or you
 could request 1000 read pairs.
 
+If instead of interleaved paired reads you have two matched files (one
+for each pair), run the tool twice with the same sampling options to
+make to matched smaller files.
+
 .. class:: warningmark
 
-Note interleaves/pair mode does *not* actually check your read names
+Note interleaved/pair mode does *not* actually check your read names
 match a known pair naming scheme!
 
 **Example Usage**
@@ -215,8 +219,9 @@ match a known pair naming scheme!
 Suppose you have some Illumina paired end data as files ``R1.fastq`` and
 ``R2.fastq`` which give an estimated x200 coverage, and you wish to do a
 *de novo* assembly with a tool like MIRA which recommends lower coverage.
-Taking every 3rd read would reduce the estimated coverage to about x66,
-and would preserve the pairing as well.
+Running the tool twice (on ``R1.fastq`` and ``R2.fastq``) taking every
+3rd read would reduce the estimated coverage to about x66, and would
+preserve the pairing as well (as two smaller FASTQ files).
 
 Similarly, if you had some Illumina paired end data interleaved into one
 file with an estimated x200 coverage, you would run this tool in

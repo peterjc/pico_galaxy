@@ -30,6 +30,10 @@ $ python sample_seqs.py -i my_seq.fastq -f fastq -p 20.0 -o sample.fastq
 
 This samples uniformly though the file, rather than at random, and therefore
 should be reproducible.
+
+If you have interleaved paired reads, use the --interleaved switch. If
+instead you have two matched files (one for each pair), run the two
+twice with the same sampling options to make to matched smaller files.
 """
 parser = OptionParser(usage=usage)
 parser.add_option('-i', '--input', dest='input',
@@ -59,7 +63,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.2")
+    print("v0.2.3")
     sys.exit(0)
 
 try:
