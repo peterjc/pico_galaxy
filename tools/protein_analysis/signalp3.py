@@ -141,7 +141,7 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
         parts = line.rstrip("\n").split("\t")
         seqid = parts[0]
         assert title.startswith(seqid), "%s vs %s" % (seqid, title)
-        if len(seq) == 0:
+        if not seq:
             # Is it possible to have a zero length reference in GFF3?
             continue
         cut = int(parts[cut_col])
