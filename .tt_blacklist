@@ -1,3 +1,5 @@
+tools/clc_assembly_cell/clc_assembler.xml
+tools/clc_assembly_cell/clc_mapper.xml
 tools/samtools_bam2fq/samtools_bam2fq.xml
 tools/samtools_depth/samtools_depth.xml
 tools/venn_list/venn_list.xml
