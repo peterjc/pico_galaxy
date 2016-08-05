@@ -1,0 +1,11 @@
+tools/samtools_bam2fq/samtools_bam2fq.xml
+tools/samtools_depth/samtools_depth.xml
+tools/venn_list/venn_list.xml
+tools/protein_analysis/predictnls.xml
+tools/protein_analysis/promoter2.xml
+tools/protein_analysis/psortb.xml
+tools/protein_analysis/rxlr_motifs.xml
+tools/protein_analysis/signalp3.xml
+tools/protein_analysis/tmhmm2.xml
+tools/protein_analysis/wolf_psort.xml
+tools/chromosome_diagram/chromosome_diagram.xml
