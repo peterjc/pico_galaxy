@@ -39,7 +39,6 @@
     defined format first, followed by next-most rigidly defined,
     and so on.
     -->
-    <sniffer type="galaxy.datatypes.mira:MiraAssemblyFormat"/>
     <sniffer type="galaxy.datatypes.xml:GenericXml"/>
     <sniffer type="galaxy.datatypes.sequence:Fasta"/>
   </sniffers>
