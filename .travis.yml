@@ -125,7 +125,12 @@ install:
  - for i in $( ls ${TRAVIS_BUILD_DIR}/tools/ ); do ln -s ${TRAVIS_BUILD_DIR}/tools/$i/ tools/$i ; done
  - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
  - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
+#Explicitly use sample files to generate default *.loc files
+ - for f in ${TRAVIS_BUILD_DIR}/tool-data/*.loc.sample; do cp "$f" "${f%.sample}"; done
  - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
+#Explicitly prioritise using any test-data/*.loc files
+#and they may be using ${__HERE__} for relative paths:
+ - cp ${TRAVIS_BUILD_DIR}/test-data/* tool-data/
  - bash scripts/common_startup.sh --no-create-venv --dev-wheels
 
 
