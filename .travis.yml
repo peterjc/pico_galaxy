@@ -80,11 +80,16 @@ before_install:
 #
 # We don't have any special datatypes, and planemo should take care
 # of all the test files...
+#
+# Note https://github.com/galaxyproject/planemo/issues/530 workaround
 
 install:
  - cd ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}
  - export GALAXY_TEST_UPLOAD_ASYNC=false
  - export GALAXY_TEST_DB_TEMPLATE=https://github.com/jmchilton/galaxy-downloads/raw/master/db_gx_rev_0127.sqlite
+# Explicitly use sample files to generate default *.loc files
+ - for f in ${TRAVIS_BUILD_DIR}/tool-data/*.loc.sample; do cp "$f" "${f%.sample}"; done
+ - cp ${TRAVIS_BUILD_DIR}/tool-data/*.loc ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}/tool-data/
  - bash scripts/common_startup.sh --no-create-venv --dev-wheels
 
 
