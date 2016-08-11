@@ -1,12 +1,11 @@
 # This is a special configuration file to run tests on Travis-CI via
 # GitHub notifications when changes are committed.
 #
-# See http://travis-ci.org/ for details
+# For technical details, see http://travis-ci.org/ and this blog post
+# for background,
+# http://blastedbio.blogspot.com/2013/09/using-travis-ci-for-testing-galaxy-tools.html
 
-# Galaxy v16.01 (currently represented by their master branch)
-# supports Python 2.6 and 2.7, but there after only Python 2.7
-# Meanwhile, planemo only supports Python 2.7 and 3.4+
-# so we're only testing under Python 2.7 for now.
+# Galaxy currently only supports Python 2.6
 language: python
 matrix:
   include:
@@ -26,23 +25,10 @@ matrix:
 # Installing Galaxy
 # =================
 #
-# Before installing our Galaxy wrappers, we need to install Galaxy.
-#
-# Galaxy used to be developed in hg using BitBucket, but cloning with
-# hg or getting a specific revision with wget was quite slow. Using
-# git clone with a mirror on GitHub was faster, while getting the
-# latest revision with wget from GitHub was even faster.
-#
-# We therefore use wget with the new official Galaxy repository on
-# GitHub, https://github.com/galaxyproject/galaxy
-#
+# We want to test with specific branches of Galaxy, so we install it.
 #
 # Installing Tool Dependencies
 # ============================
-#
-# We grab Galaxy, and will later make configuration changes specifically
-# for testing our tools. Otherwise we use the default settings such as
-# running with an SQLite database.
 #
 # We also need to install our tool dependencies, e.g. samtools binaries,
 # which we will do manually rather than via a (local) Galaxy Tool Shed.
@@ -92,56 +78,24 @@ before_install:
 # Configuring tools within Galaxy
 # ===============================
 #
-# We setup a minimal tool_conf.xml and/or tool_conf.xml.sample file to
-# get Galaxy to just test our tools, rather than via a (local) Galaxy
-# Tool Shed.
-#
-# TODO - GALAXY_TEST_TOOL_CONF environment variable rather than symlink?
-#
-# We setup our tools under the Galaxy tool folder by using symlinks.
-# TODO - Restructure this to auto-update in future when add folders?
-#
-# We would setup our datatypes by adding xxx.py to the Galaxy library, and
-# adding an import in lib/galaxy/datatypes/registry.py, and replacing
-# the datatypes_conf.xml file.
-#
-# We setup our sample data in the Galaxy test-data folder by copying them
-# (using symlinks might be faster?)
-#
-# We setup out sample *.loc files in the Galaxy tool-data folder by copying
-# them (using symlinks might be faster?)
-#
-# Galaxy now provides a startup script to setup all the sample files,
-# and fetch egg/wheel Python dependecies etc.
-
+# We don't have any special datatypes, and planemo should take care
+# of all the test files...
 
 install:
  - cd ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}
  - export GALAXY_TEST_UPLOAD_ASYNC=false
  - export GALAXY_TEST_DB_TEMPLATE=https://github.com/jmchilton/galaxy-downloads/raw/master/db_gx_rev_0127.sqlite
- - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml tool_conf.xml
- - rm -f config/tool_conf.xml.sample
- - ln -s ${TRAVIS_BUILD_DIR}/.travis.tool_conf.xml config/tool_conf.xml.sample
- - for i in $( ls ${TRAVIS_BUILD_DIR}/tools/ ); do ln -s ${TRAVIS_BUILD_DIR}/tools/$i/ tools/$i ; done
- - ln -s ${TRAVIS_BUILD_DIR}/.travis.datatypes_conf.xml datatypes_conf.xml
- - cp ${TRAVIS_BUILD_DIR}/test-data/* test-data/
-# Explicitly use sample files to generate default *.loc files
- - for f in ${TRAVIS_BUILD_DIR}/tool-data/*.loc.sample; do cp "$f" "${f%.sample}"; done
- - cp ${TRAVIS_BUILD_DIR}/tool-data/* tool-data/
  - bash scripts/common_startup.sh --no-create-venv --dev-wheels
 
 
 # Testing tools in Galaxy
 # =======================
 #
-# Having setup our Galaxy with a minimal tool_conf.xml / tool_conf.xml.sample
-# originally called run_functional_tests.sh to run just our tests - but now
-# just using planemo.
+# Having setup our Galaxy, now just call planemo test.
 
 script:
  - cd ${TRAVIS_BUILD_DIR}
  - planemo test --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
 
-#The email defaults are too talkative while we're getting Travis working nicely.
 notifications:
   email: false
