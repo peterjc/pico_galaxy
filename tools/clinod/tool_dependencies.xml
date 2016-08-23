@@ -2,21 +2,34 @@
 <tool_dependency>
     <package name="clinod" version="1.3">
         <install version="1.0">
-            <actions>
-                <!-- Main JAR file -->
-                <!-- Original URL http://www.compbio.dundee.ac.uk/www-nod/downloads/clinod-1.3.jar -->
-                <action type="download_file" sha256sum="45d80662ba109a7af28aeafcfb2ca417a7d575ac3700f69bd40965a69d41e072" target_filename="clinod-1.3.jar">https://depot.galaxyproject.org/software/clinod/clinod_1.3_src_all.jar</action>
-                <action type="move_file"><source>clinod-1.3.jar</source><destination>$INSTALL_DIR/</destination></action>
-                <!-- clinod requires the SNNS Batch Interpreter v1.0 executable -->
-                <!-- Original URL http://www.ra.cs.uni-tuebingen.de/downloads/SNNS/SNNSv4.3.tar.gz -->
-                <action type="download_file" sha256sum="54bf92d23e9198f9030a3c3d2b741472e9b8660b27d3b419ade6393b1ebf6f62" target_filename="SNNSv4.3.tar.gz">https://depot.galaxyproject.org/software/SNNS/SNNS_4.3_linux_x64.tar.gz</action>
-                <action type="shell_command">tar -zxvf SNNSv4.3.tar.gz</action>
-                <action type="move_file"><source>SNNSv4.3/tools/bin/x86_64-pc-unknown-linux-gnuoldld/batchman</source><destination>$INSTALL_DIR/</destination></action>
+            <actions_group>
+                <!-- Download the JAR, and SNNS binary for 64bit Linux -->
+                <actions os="linux" architecture="x86_64">
+                    <!-- Main JAR file -->
+                    <!-- Original URL http://www.compbio.dundee.ac.uk/www-nod/downloads/clinod-1.3.jar -->
+                    <action type="download_file" sha256sum="45d80662ba109a7af28aeafcfb2ca417a7d575ac3700f69bd40965a69d41e072" target_filename="clinod-1.3.jar">https://depot.galaxyproject.org/software/clinod/clinod_1.3_src_all.jar</action>
+                    <action type="move_file"><source>clinod-1.3.jar</source><destination>$INSTALL_DIR/</destination></action>
+                    <!-- clinod requires the SNNS Batch Interpreter v1.0 executable -->
+                    <!-- Original URL http://www.ra.cs.uni-tuebingen.de/downloads/SNNS/SNNSv4.3.tar.gz -->
+                    <action type="download_file" sha256sum="54bf92d23e9198f9030a3c3d2b741472e9b8660b27d3b419ade6393b1ebf6f62" target_filename="SNNSv4.3.tar.gz">https://depot.galaxyproject.org/software/SNNS/SNNS_4.3_linux_x64.tar.gz</action>
+                    <action type="shell_command">tar -zxvf SNNSv4.3.tar.gz</action>
+                    <action type="move_file"><source>SNNSv4.3/tools/bin/x86_64-pc-unknown-linux-gnuoldld/batchman</source><destination>$INSTALL_DIR/</destination></action>
+                </actions>
+                <actions>
+                    <action type="shell_command">echo "ERROR: Automated installation on your operating system and CPU architecture combination is not yet supported."</action>
+                    <action type="shell_command">echo "Your machine details (the output from 'uname' and 'arch'):"</action>
+                    <action type="shell_command">uname</action>
+                    <action type="shell_command">arch</action>
+                    <action type="shell_command">echo "Please report this via https://github.com/peterjc/pico_galaxy/issues - thank you!"</action>
+                    <action type="shell_command">false</action>
+                    <!-- The 'false' command will return an error, so Galaxy should treat this as a failed install -->
+                </actions>
+                <!-- The $PATH environment variable is only set if one of the above <actions> tags resulted in a successful installation. -->
                 <!-- Set environment variable $CLINOD so wrapper knows where to look -->
-		<action type="set_environment">
+                <action type="set_environment">
                     <environment_variable name="CLINOD" action="set_to">$INSTALL_DIR/</environment_variable>
                 </action>
-            </actions>
+            </actions_group>
         </install>
         <readme>
 Downloads and installs the command line NoD (clinod) JAR file and the binary
@@ -31,4 +44,3 @@ http://www.compbio.dundee.ac.uk/www-nod/downloads.jsp
         </readme>
     </package>
 </tool_dependency>
-
