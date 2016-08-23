@@ -51,8 +51,11 @@ before_install:
  - export INSTALL_DIR=/tmp/dep_install && mkdir $INSTALL_DIR
  - export DOWNLOAD_CACHE=/tmp/download_cache && mkdir $DOWNLOAD_CACHE
  - planemo dependency_script -r ${TRAVIS_BUILD_DIR}/packages/ ${TRAVIS_BUILD_DIR}/tools/
+ - cat dep_install.sh
  - bash dep_install.sh
  - source env.sh
+ - ls -l $DOWNLOAD_CACHE
+ - ls -l $INSTALL_DIR
  - echo "Installing Biopython..."
  - pip install biopython
  - echo "Installing MUMmer and its dependencies..."
