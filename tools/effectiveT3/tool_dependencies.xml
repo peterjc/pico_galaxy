@@ -4,17 +4,22 @@
         <install version="1.0">
             <actions>
                 <!-- Main JAR file -->
-                <action type="download_file" sha256sum="5a811a86a14dffbc5ae91dc45f40791642b8866266ffd2337b97d4c298129cab">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_GUI-1.0.1.jar</action>
+                <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_GUI-1.0.1.jar -->
+                <action type="download_file" sha256sum="5a811a86a14dffbc5ae91dc45f40791642b8866266ffd2337b97d4c298129cab" target_filename="TTSS_GUI-1.0.1.jar">https://depot.galaxyproject.org/software/TTSS_GUI/TTSS_GUI_1.0.1_src_all.jar</action>
                 <action type="move_file"><source>TTSS_GUI-1.0.1.jar</source><destination>$INSTALL_DIR</destination></action>
                 <!-- Model specific JAR files -->
                 <action type="make_directory">$INSTALL_DIR/module</action>
-                <action type="download_file" sha256sum="3d9cd8e805387d2dfa855076b3d5f7f97334aa612288075111329fb036c94e34">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar</action>
+                <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar -->
+                <action type="download_file" sha256sum="3d9cd8e805387d2dfa855076b3d5f7f97334aa612288075111329fb036c94e34" target_filename="TTSS_ANIMAL-1.0.1.jar">https://depot.galaxyproject.org/software/TTSS_ANIMAL/TTSS_ANIMAL_1.0.1_src_all.jar</action>
                 <action type="move_file"><source>TTSS_ANIMAL-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>        
-                <action type="download_file" sha256sum="593f0052ace030c2fa16cf336f3916a21bc2addbaefdfa149b084b1425e42a13">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar</action>
+                <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar -->
+                <action type="download_file" sha256sum="593f0052ace030c2fa16cf336f3916a21bc2addbaefdfa149b084b1425e42a13" target_filename="TTSS_PLANT-1.0.1.jar">https://depot.galaxyproject.org/software/TTSS_PLANT/TTSS_PLANT_1.0.1_src_all.jar</action>
                 <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-                <action type="download_file" sha256sum="865809e5ead6d8bb038e854ccaebc7c102b72738ff3557553af9b9ac8e529336">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar</action>
+                <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-1.0.1.jar -->
+                <action type="download_file" sha256sum="865809e5ead6d8bb038e854ccaebc7c102b72738ff3557553af9b9ac8e529336" target_filename="TTSS_STD-1.0.1.jar">https://depot.galaxyproject.org/software/TTSS_STD/TTSS_STD_1.0.1_src_all.jar</action>
                 <action type="move_file"><source>TTSS_STD-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
-                <action type="download_file" sha256sum="860c6e3680fa1f3c6ac2362605205af4cdd9a1caefee59fdbd37d1453c9bad44">http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.2.jar</action>
+                <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_STD-2.0.2.jar -->
+                <action type="download_file" sha256sum="860c6e3680fa1f3c6ac2362605205af4cdd9a1caefee59fdbd37d1453c9bad44" target_filename="TTSS_STD-2.0.2.jar">https://depot.galaxyproject.org/software/TTSS_STD/TTSS_STD_2.0.2_src_all.jar</action>
                 <action type="move_file"><source>TTSS_STD-2.0.2.jar</source><destination>$INSTALL_DIR/module/</destination></action>
                 <!-- Make this accessible -->
                 <action type="set_environment">
