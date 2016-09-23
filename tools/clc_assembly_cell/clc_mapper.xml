@@ -122,7 +122,7 @@
                            help="FASTA or Sanger FASTQ accepted."/>
                 </when>
                 <when value="none">
-                    <param name="filenames" type="data" format="fastqsanger,fasta" multiple="true" label="Read file(s)"
+                    <param name="filenames" type="data" format="fastqsanger,fasta" multiple="true" optional="false" label="Read file(s)"
                            help="Multiple files allowed, for example several files of orphan reads. FASTA or Sanger FASTQ accepted." />
                 </when>
             </conditional>

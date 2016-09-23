@@ -82,7 +82,7 @@
                     <param name="filename" type="data" format="fastq,fasta" label="Interleaved read file"/>
                 </when>
                 <when value="none">
-                    <param name="filenames" type="data" format="fastq,fasta" multiple="true" label="Read file(s)"
+                    <param name="filenames" type="data" format="fastq,fasta" multiple="true" optional="false" label="Read file(s)"
                            help="Multiple files allowed, for example several files of orphan reads." />
                 </when>
             </conditional>
