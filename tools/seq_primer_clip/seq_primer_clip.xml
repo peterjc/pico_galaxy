@@ -14,7 +14,7 @@
 seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
     </command>
     <inputs>
-        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to clip" description="FASTA, FASTQ, or SFF format."/>
+        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to clip" help="FASTA, FASTQ, or SFF format."/>
         <param name="primer_fasta" type="data" format="fasta" label="FASTA file containing primer(s)"/>
         <param name="primer_type" type="select" label="Type of primers">
             <option value="Forward">Forward (5') primers</option>

@@ -1,7 +1,7 @@
 Galaxy tool to primer clip (trim) FASTA, FASTQ or SFF reads
 ===========================================================
 
-This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2016 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -68,6 +68,7 @@ v0.0.12 - Simplified XML to apply input format to output data.
 v0.0.13 - Use ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - Fixed input file help text.
 ======= ======================================================================
 
 
