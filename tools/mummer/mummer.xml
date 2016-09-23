@@ -1,4 +1,4 @@
-<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.5">
+<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.6">
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <!-- Needs ps2pdf from ghostscript -->      
@@ -29,10 +29,10 @@ mummer.py "$fasta_a" "$fasta_b" $algorithm "$png_output" "$pdf_output"
         <!-- Galaxy does not have sub-types for protein vs nucletide FASTA -->
         <param name="fasta_a" type="data" format="fasta"
 	       label="Species A"
-	       description="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
+	       help="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
         <param name="fasta_b" type="data" format="fasta"
 	       label="Species B"
-	       description="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
+	       help="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
         <param name="algorithm" type="select" label="MUMmer search algorithm">
             <option value="mummer">mummer, efficiently locates maximal unique matches between two sequences</option>
             <option value="nucmer">NUCmer (NUCleotide MUMmer), for closely related sequences</option>
