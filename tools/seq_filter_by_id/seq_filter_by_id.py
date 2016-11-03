@@ -74,7 +74,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.2.4"
+    print "v0.2.5"
     sys.exit(0)
 
 in_file = options.input
@@ -214,7 +214,10 @@ for tabular_file, columns in identifiers:
             if not line.strip():  # skip empty lines
                 continue
             if not line.startswith("#"):
-                file_ids.add(clean_name(line.rstrip("\n").split("\t")[col]))
+                current_id = line.rstrip("\n").split("\t")[col]
+                if current_id == "": #if for example, the column name is empty: typically R outputs
+                    continue
+                file_ids.add(clean_name(current_id))
     print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col + 1) for col in columns))
     if ids is None:
         ids = file_ids

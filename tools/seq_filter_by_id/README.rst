@@ -89,6 +89,7 @@ v0.2.2  - Use the ``format_source=...`` tag.
 v0.2.3  - Ignore blank lines in ID file (contributed by Gildas Le Corguillé).
         - Defensive quoting of filenames etc in the command definition
           (internal change only).
+v0.2.5  - Ignore empty column names: typically R outputs
 ======= ======================================================================
 
 
