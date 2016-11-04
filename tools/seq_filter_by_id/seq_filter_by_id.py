@@ -206,7 +206,9 @@ for tabular_file, columns in identifiers:
                 continue
             parts = line.rstrip("\n").split("\t")
             for col in columns:
-                file_ids.add(clean_name(parts[col]))
+                name = clean_name(parts[col])
+                if name:
+                    file_ids.add(name)
     else:
         # Single column, special case speed up
         col = columns[0]
@@ -214,10 +216,9 @@ for tabular_file, columns in identifiers:
             if not line.strip():  # skip empty lines
                 continue
             if not line.startswith("#"):
-                current_id = line.rstrip("\n").split("\t")[col]
-                if current_id == "": #if for example, the column name is empty: typically R outputs
-                    continue
-                file_ids.add(clean_name(current_id))
+                name = clean_name(line.rstrip("\n").split("\t")[col])
+                if name:
+                    file_ids.add(name)
     print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col + 1) for col in columns))
     if ids is None:
         ids = file_ids
