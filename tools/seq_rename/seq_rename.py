@@ -9,9 +9,9 @@ output filename (same format as input sequence file).
 When selecting from an SFF file, any Roche XML manifest in the input file is
 preserved in both output files.
 
-This tool is a short Python script which requires Biopython 1.54 or later
-for SFF file support. If you use this tool in scientific work leading to a
-publication, please cite the Biopython application note:
+This tool is a short Python script which requires Biopython 1.54 or later.
+If you use this tool in scientific work leading to a publication, please
+cite the Biopython application note:
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
@@ -24,8 +24,13 @@ license).
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.6"
+    print "v0.0.8"
     sys.exit(0)
+
+try:
+   from Bio import SeqIO
+except ImportError:
+    sys.exit("This tool requires Biopython.")
 
 # Parse Command Line
 try:
@@ -89,21 +94,20 @@ def parse_ids(tabular_file, old_col, new_col):
 rename = dict(parse_ids(tabular_file, old_column, new_column))
 print "Loaded %i ID mappings" % len(rename)
 
+renamed = 0
+def rename_seqrecords(records, mapping):
+    global renamed  # nasty, but practical!
+    for record in records:
+        try:
+            record.id = mapping[record.id]
+            renamed += 1
+        except KeyError:
+            pass
+        yield record
+
 # Rewrite the sequence file
 if seq_format.lower() == "sff":
-    # Use Biopython for this format
-    renamed = 0
-
-    def rename_seqrecords(records, mapping):
-        global renamed  # nasty, but practical!
-        for record in records:
-            try:
-                record.id = mapping[record.id]
-                renamed += 1
-            except KeyError:
-                pass
-            yield record
-
+    # SFF is a special case as want to preserve the XML manifest
     try:
         from Bio.SeqIO.SffIO import SffIterator, SffWriter
     except ImportError:
@@ -127,40 +131,16 @@ if seq_format.lower() == "sff":
     out_handle.close()
     in_handle.close()
 else:
-    # Use Galaxy for FASTA, QUAL or FASTQ
-    if seq_format.lower() in ["fasta", "csfasta"] \
-        or seq_format.lower().startswith("qual"):
-        from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
-        reader = fastaReader(open(in_file, "rU"))
-        writer = fastaWriter(open(out_file, "w"))
-        marker = ">"
+    if seq_format.lower() in ["fasta", "csfasta"]:
+        seqio_format = "fasta"
+    elif seq_format.lower().startswith("qual"):
+        seqio_format = "qual"
     elif seq_format.lower().startswith("fastq"):
-        from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-        reader = fastqReader(open(in_file, "rU"))
-        writer = fastqWriter(open(out_file, "w"))
-        marker = "@"
+        seqio_format = "fastq"
     else:
         sys.exit("Unsupported file type %r" % seq_format)
     # Now do the renaming
-    count = 0
-    renamed = 0
-    for record in reader:
-        # The [1:] is because the fastaReader leaves the > on the identifier,
-        # likewise the fastqReader leaves the @ on the identifier
-        try:
-            idn, descr = record.identifier[1:].split(None, 1)
-        except ValueError:
-            idn = record.identifier[1:]
-            descr = None
-        if idn in rename:
-            if descr:
-                record.identifier = "%s%s %s" % (marker, rename[idn], descr)
-            else:
-                record.identifier = "%s%s" % (marker, rename[idn])
-            renamed += 1
-        writer.write(record)
-        count += 1
-    writer.close()
-    reader.close()
+    count = SeqIO.write(rename_seqrecords(in_file, seqio_format),
+                        out_file, seqio_format)
 
 print "Renamed %i out of %i records" % (renamed, count)
