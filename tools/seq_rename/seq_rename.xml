@@ -1,6 +1,7 @@
 <tool id="seq_rename" name="Rename sequences" version="0.0.8">
     <description>with ID mapping from a tabular file</description>
     <requirements>
+        <requirement type="package" version="1.0.1">galaxy_sequence_utils<requirement>
         <requirement type="package" version="1.67">biopython</requirement>
         <requirement type="python-module">Bio</requirement>
     </requirements>
