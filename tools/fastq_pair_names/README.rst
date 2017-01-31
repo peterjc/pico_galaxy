@@ -1,7 +1,7 @@
 Galaxy tool to extract FASTQ paired read names
 ==============================================
 
-This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -55,6 +55,7 @@ v0.0.1  - Initial version.
 v0.0.2  - Tool definition now embeds citation information.
 v0.0.3  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.4  - Explicit dependency on ``galaxy_sequence_utils``.
 ======= ======================================================================
 
 

@@ -1,5 +1,8 @@
-<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.3">
+<tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.4">
     <description>using the read name suffices</description>
+    <requirements>
+        <requirement type="package" version="1.0.1">galaxy_sequence_utils<requirement>
+    </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->
         <exit_code range="1:" />

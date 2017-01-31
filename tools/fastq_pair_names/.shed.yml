@@ -18,3 +18,4 @@ include:
   - ../../tools/fastq_pair_names/README.rst
   - ../../tools/fastq_pair_names/fastq_pair_names.py
   - ../../tools/fastq_pair_names/fastq_pair_names.xml
+  - ../../tools/fastq_pair_names/tool_dependencies.xml
