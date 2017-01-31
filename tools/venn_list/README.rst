@@ -1,7 +1,7 @@
 Galaxy tool to draw a Venn Diagram with up to 3 sets
 ====================================================
 
-This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -72,6 +72,8 @@ v0.0.9  - Test with three-way Venn diagram.
         - Includes testing of failure mode.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
         - Tool Shed dependency for rpy and limma (thanks to Björn Grüning).
+v0.0.10 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
+        - Explicit dependency on ``galaxy_sequence_utils``.
 ======= ======================================================================
 
 
