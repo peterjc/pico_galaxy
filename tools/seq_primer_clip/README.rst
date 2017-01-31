@@ -1,7 +1,7 @@
 Galaxy tool to primer clip (trim) FASTA, FASTQ or SFF reads
 ===========================================================
 
-This tool is copyright 2011-2016 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -69,6 +69,8 @@ v0.0.13 - Use ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
         - Fixed input file help text.
+v0.0.14 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
+        - Explicit dependency on ``galaxy_sequence_utils``.
 ======= ======================================================================
 
 
