@@ -1,4 +1,4 @@
-<tool id="clc_assembler" name="CLC assembler" version="0.0.4">
+<tool id="clc_assembler" name="CLC assembler" version="0.0.6">
     <description>Assembles reads giving a FASTA file</description>
     <requirements>
         <requirement type="binary">clc_assembler</requirement>

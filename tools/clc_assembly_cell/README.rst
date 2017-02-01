@@ -1,7 +1,7 @@
 Galaxy wrapper for the CLC Assembly Cell suite from CLCbio
 ==========================================================
 
-This wrapper is copyright 2013-2016 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2013-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -93,6 +93,8 @@ v0.0.5  - Support the ``-u`` or ``--discardunmapped`` option to discard
           unmapped reads in the CLC Mapper wrapper.
         - Bug fix to use the ``$CLC_ASSEMBLY_CELL`` environment variable when
           calling ``clc_cas_to_sam`` in the CLC MApper wrapper.
+v0.0.6  - Update tool XML for optional vs required parameters.
+        - Update URLs in documentation.
 ======= ======================================================================
 
 
