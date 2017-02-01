@@ -106,3 +106,16 @@ script:
 
 notifications:
   email: false
+
+
+# Deployment
+# ==========
+# Assumes you have set $TTS_KEY in the TravisCI interface,
+# trusts that other than the blacklist removal (good),
+# everything is still pristine and therefore OK for upload.
+#
+after_success:
+  - |
+    if [ "$TRAVIS_PULL_REQUEST" == "false" -a "$TRAVIS_BRANCH" == "master" ]; then
+      planemo shed_update --shed_target testtoolshed --force_repository_creation --shed_key_from_env TTS_KEY -r datatypes/ packages/ tools/
+    fi
