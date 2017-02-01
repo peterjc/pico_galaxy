@@ -86,7 +86,7 @@ else:
     sys.exit(msg)
 
 seq_format = seq_format.replace("fastq", "").lower()
-if not format:
+if not seq_format:
     seq_format = "sanger"  # safe default
 elif seq_format not in ["sanger", "solexa", "illumina", "cssanger"]:
     sys.exit("Unrecognised format %s" % seq_format)
