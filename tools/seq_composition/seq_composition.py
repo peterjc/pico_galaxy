@@ -53,9 +53,9 @@ if options.version:
     sys.exit(0)
 
 if not (options.fasta or options.fastq or options.sff):
-    sys.exit("Require an input filename")
+    sys.exit("Requires an input filename")
 if not options.output:
-    sys.exit("Require an output filename")
+    sys.exit("Requires an output filename")
 
 
 file_count = 0
