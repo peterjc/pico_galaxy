@@ -56,6 +56,7 @@ v0.0.2  - Tool definition now embeds citation information.
 v0.0.3  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.4  - Explicit dependency on ``galaxy_sequence_utils``.
+        - Minor internal changes to Python script for error reporting & style.
 ======= ======================================================================
 
 
