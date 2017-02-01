@@ -1,7 +1,7 @@
 Galaxy tool to select FASTA, QUAL, FASTQ or SFF sequences by ID
 ===============================================================
 
-This tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -85,6 +85,7 @@ v0.0.11 - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
         - Quote filenames in case of spaces (internal change only).
+v0.0.12 - Python style changes (internal change only).
 ======= ======================================================================
 
 
