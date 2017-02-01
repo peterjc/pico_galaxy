@@ -49,7 +49,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.0.1")
+    print("v0.0.3")
     sys.exit(0)
 
 if not (options.fasta or options.fastq or options.sff):

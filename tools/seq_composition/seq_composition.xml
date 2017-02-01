@@ -1,4 +1,4 @@
-<tool id="seq_composition" name="Sequence composition" version="0.0.2">
+<tool id="seq_composition" name="Sequence composition" version="0.0.3">
     <description>Count bases or amino-acids</description>
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
