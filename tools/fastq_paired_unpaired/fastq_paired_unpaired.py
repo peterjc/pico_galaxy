@@ -78,18 +78,18 @@ WTSI_1055_4p17.p1kpIBF paired with WTSI_1055_4p17.q1kpIBR
 """
 
 if len(sys.argv) == 5:
-    format, input_fastq, pairs_fastq, singles_fastq = sys.argv[1:]
+    seq_format, input_fastq, pairs_fastq, singles_fastq = sys.argv[1:]
 elif len(sys.argv) == 6:
     pairs_fastq = None
-    format, input_fastq, pairs_f_fastq, pairs_r_fastq, singles_fastq = sys.argv[1:]
+    seq_format, input_fastq, pairs_f_fastq, pairs_r_fastq, singles_fastq = sys.argv[1:]
 else:
     sys.exit(msg)
 
-format = format.replace("fastq", "").lower()
+seq_format = seq_format.replace("fastq", "").lower()
 if not format:
-    format = "sanger"  # safe default
-elif format not in ["sanger", "solexa", "illumina", "cssanger"]:
-    sys.exit("Unrecognised format %s" % format)
+    seq_format = "sanger"  # safe default
+elif seq_format not in ["sanger", "solexa", "illumina", "cssanger"]:
+    sys.exit("Unrecognised format %s" % seq_format)
 
 # Cope with three widely used suffix naming convensions,
 # Illumina: /1 or /2
