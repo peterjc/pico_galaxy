@@ -1,7 +1,7 @@
 Galaxy wrapper for EffectiveT3 v1.0.1
 =====================================
 
-This wrapper is copyright 2011-2015 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -94,6 +94,8 @@ v0.0.16 - Updated URLs to download the tool and models.
         - Includes new standard classification model v2.0.2 (Sep 2015)
           as the default entry in ``tool-data/effectiveT3.loc``
         - Catch java exception, e.g. if Java too old for ``TTSS-STD-2.0.1.jar``
+v0.0.17 - Update tool dependency definition to use cached URL.
+        - Minor internal changes to Python script for error reporting & style.
 ======= ======================================================================
 
 
