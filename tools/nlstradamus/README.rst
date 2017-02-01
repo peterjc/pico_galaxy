@@ -1,7 +1,7 @@
 Galaxy wrapper for NLStradamus v1.7 or v1.8 (C++ version)
 =========================================================
 
-This wrapper is copyright 2011-2015 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -79,6 +79,7 @@ v0.0.8  - Link to Tool Shed added to help text and this documentation.
 v0.0.9  - Tool definition now embeds citation information.
 v0.0.10 - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.11 - Update tool dependency definition to use cached URL
 ======= ======================================================================
 
 
