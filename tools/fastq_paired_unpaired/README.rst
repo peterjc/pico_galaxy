@@ -71,6 +71,7 @@ v0.1.1  - Reorder XML elements (internal change only).
         - Use ``format_source=...`` tag.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.1.2  - Belatedly declare Biopython dependency via Tool Shed.
+v0.1.3  - Minor internal changes to Python script for error reporting & style.
 ======= ======================================================================
 
 

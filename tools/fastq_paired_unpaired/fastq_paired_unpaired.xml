@@ -1,4 +1,4 @@
-<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.1.2">
+<tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.1.3">
     <description>using the read name suffices</description>
     <requirements>
         <requirement type="package" version="1.65">biopython</requirement>

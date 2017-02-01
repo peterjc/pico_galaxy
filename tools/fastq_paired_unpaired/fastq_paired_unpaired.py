@@ -18,7 +18,7 @@ import sys
 import re
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("Version 0.1.0")
+    print("Version 0.1.3")
     sys.exit(0)
 
 try:
