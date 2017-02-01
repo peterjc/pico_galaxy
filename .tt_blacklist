@@ -1,7 +1,6 @@
 tools/chromosome_diagram/chromosome_diagram.xml
 tools/clc_assembly_cell/clc_assembler.xml
 tools/clc_assembly_cell/clc_mapper.xml
-tools/protein_analysis/predictnls.xml
 tools/protein_analysis/promoter2.xml
 tools/protein_analysis/psortb.xml
 tools/protein_analysis/rxlr_motifs.xml
