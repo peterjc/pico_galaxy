@@ -3,6 +3,12 @@ owner: peterjc
 homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/workflows/rxlr_venn_workflow
 description: RXLR motif prediction comparisons with Venn Diagram
+long_description:
+  RXLR motif prediction comparisons with Venn Diagram
+
+  Galaxy workflow for comparing three RXLR prediction methods with
+  a Venn Diagram, and creates a FASTA file of any proteins passing
+  all three methods.
 categories:
 - Fasta Manipulation
 - Sequence Analysis
