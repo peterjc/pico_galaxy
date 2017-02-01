@@ -81,6 +81,7 @@ v0.0.7  - Use the ``format_source=...`` tag.
         - Capture the tool version via Galaxy (bug fix).
 v0.0.8  - Updated to point at Biopython 1.67 (latest version in Tool Shed).
         - Explicit dependency on ``galaxy_sequence_utils``.
+        - Python style updates (internal change only).
 ======= ======================================================================
 
 
