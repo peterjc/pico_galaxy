@@ -72,6 +72,8 @@ v0.1.1  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.1.2  - Belatedly declare Biopython dependency via Tool Shed.
 v0.1.3  - Minor internal changes to Python script for error reporting & style.
+        - Updated to point at Biopython 1.67 (latest version in Tool Shed).
+        - Explicit dependency on ``galaxy_sequence_utils``.
 ======= ======================================================================
 
 
