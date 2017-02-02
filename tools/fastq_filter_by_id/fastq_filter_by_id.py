@@ -16,8 +16,9 @@ Note in the default NCBI BLAST+ tabular output, the query sequence ID is
 in column one, and the ID of the match from the database is in column two.
 Here sensible values for the column numbers would therefore be "1" or "2".
 
-This script is copyright 2010-2011 by Peter Cock, SCRI, UK. All rights reserved.
-See accompanying text file for licence details (MIT/BSD style).
+This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See accompanying text file for licence details (MIT license).
 """
 import sys
 
@@ -27,7 +28,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
-#Parse Command Line
+# Parse Command Line
 try:
     tabular_file, cols_arg, in_file, out_positive_file, out_negative_file = sys.argv[1:]
 except ValueError:
@@ -37,21 +38,21 @@ try:
 except ValueError:
     sys.exit("Expected list of columns (comma separated integers), got %s" % cols_arg)
 
-#Read tabular file and record all specified identifiers
+# Read tabular file and record all specified identifiers
 ids = set()
 handle = open(tabular_file, "rU")
-if len(columns)>1:
-    #General case of many columns
+if len(columns) > 1:
+    # General case of many columns
     for line in handle:
         if line.startswith("#"):
-            #Ignore comments
+            # Ignore comments
             continue
         parts = line.rstrip("\n").split("\t")
         for col in columns:
             ids.add(parts[col])
     print "Using %i IDs from %i columns of tabular file" % (len(ids), len(columns))
 else:
-    #Single column, special case speed up
+    # Single column, special case speed up
     col = columns[0]
     for line in handle:
         if not line.startswith("#"):
@@ -59,14 +60,14 @@ else:
     print "Using %i IDs from tabular file" % (len(ids))
 handle.close()
 
-#Write filtered FASTQ file based on IDs from tabular file
+# Write filtered FASTQ file based on IDs from tabular file
 reader = fastqReader(open(in_file, "rU"))
 if out_positive_file != "-" and out_negative_file != "-":
     print "Generating two FASTQ files"
     positive_writer = fastqWriter(open(out_positive_file, "w"))
     negative_writer = fastqWriter(open(out_negative_file, "w"))
     for record in reader:
-        #The [1:] is because the fastaReader leaves the @ on the identifer.
+        # The [1:] is because the fastaReader leaves the @ on the identifer.
         if record.identifier and record.identifier.split()[0][1:] in ids:
             positive_writer.write(record)
         else:
@@ -77,7 +78,7 @@ elif out_positive_file != "-":
     print "Generating matching FASTQ file"
     positive_writer = fastqWriter(open(out_positive_file, "w"))
     for record in reader:
-        #The [1:] is because the fastaReader leaves the @ on the identifer.
+        # The [1:] is because the fastaReader leaves the @ on the identifer.
         if record.identifier and record.identifier.split()[0][1:] in ids:
             positive_writer.write(record)
     positive_writer.close()
@@ -85,7 +86,7 @@ elif out_negative_file != "-":
     print "Generating non-matching FASTQ file"
     negative_writer = fastqWriter(open(out_negative_file, "w"))
     for record in reader:
-        #The [1:] is because the fastaReader leaves the @ on the identifer.
+        # The [1:] is because the fastaReader leaves the @ on the identifer.
         if not record.identifier or record.identifier.split()[0][1:] not in ids:
             negative_writer.write(record)
     negative_writer.close()
