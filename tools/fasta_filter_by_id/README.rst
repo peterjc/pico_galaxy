@@ -55,23 +55,34 @@ v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
 Developers
 ==========
 
-This script and related tools are being developed on the following hg branch:
+This script and other tools for filtering FASTA, FASTQ and SFF files were
+initially developed on the following hg branches:
 http://bitbucket.org/peterjc/galaxy-central/src/tools
-
-This incorporates the previously used hg branch:
 http://bitbucket.org/peterjc/galaxy-central/src/fasta_filter
 
-For making the "Galaxy Tool Shed" http://community.g2.bx.psu.edu/ tarball use
-the following command from the Galaxy root folder:
+It is now under GitHub https://github.com/peterjc/pico_galaxy/
 
-tar -czf fasta_filter_by_id.tar.gz tools/fasta_tools/fasta_filter_by_id.*
+For pushing a release to the test or main "Galaxy Tool Shed", use the following
+Planemo commands (which requires you have set your Tool Shed access details in
+``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-Check this worked:
+    $ planemo shed_update -t testtoolshed --check_diff tools/fasta_filter_by_id/
+    ...
 
-$ tar -tzf fasta_filter_by_id.tar.gz
-fasta_tools/fasta_filter_by_id.py
-fasta_tools/fasta_filter_by_id.txt
-fasta_tools/fasta_filter_by_id.xml
+or::
+
+    $ planemo shed_update -t toolshed --check_diff tools/fasta_filter_by_id/
+    ...
+
+To just build and check the tar ball, use::
+
+    $ planemo shed_upload --tar_only tools/fasta_filter_by_id/
+    ...
+    $ tar -tzf shed_upload.tar.gz
+    README.rst
+    fasta_filter_by_id.py
+    fasta_filter_by_id.xml
+    tool_dependencies.xml#
 
 
 Licence (MIT/BSD style)
