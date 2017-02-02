@@ -74,6 +74,7 @@ v0.0.9  - Test with three-way Venn diagram.
         - Tool Shed dependency for rpy and limma (thanks to Björn Grüning).
 v0.0.10 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
         - Explicit dependency on ``galaxy_sequence_utils``.
+        - Python style updates (internal change only).
 ======= ======================================================================
 
 
