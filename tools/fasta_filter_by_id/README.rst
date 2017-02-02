@@ -48,6 +48,7 @@ v0.0.2  - Allow both, just pos or just neg output files
 v0.0.3  - Include FASTA in tool name
 v0.0.4  - Deprecated, marked as hidden in the XML
 v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
+        - Citation information (Cock et al. 2013).
 ======= ======================================================================
 
 

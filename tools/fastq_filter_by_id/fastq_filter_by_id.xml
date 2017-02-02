@@ -81,4 +81,7 @@ reads without BLAST matches (i.e. those which do not match your contaminant
 database).
 
 	</help>
+	<citations>
+		<citation type="doi">10.7717/peerj.167</citation>
+	</citations>
 </tool>

@@ -90,4 +90,7 @@ select just those with a signal peptide. You could then use this tool to get
 a FASTA file of only the proteins with predicted signal peptides.
 
 	</help>
+        <citations>
+                <citation type="doi">10.7717/peerj.167</citation>
+	</citations>
 </tool>
