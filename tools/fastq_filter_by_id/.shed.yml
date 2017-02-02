@@ -13,7 +13,9 @@ categories:
 - Text Manipulation
 type: unrestricted
 include:
- - README.rst
- - fastq_filter_by_id.py
- - fastq_filter_by_id.xml
- - tool_dependencies.xml
+- strip_components: 2
+  source:
+  - ../../tools/fastq_filter_by_id/README.rst
+  - ../../tools/fastq_filter_by_id/fastq_filter_by_id.py
+  - ../../tools/fastq_filter_by_id/fastq_filter_by_id.xml
+  - ../../tools/fastq_filter_by_id/tool_dependencies.xml

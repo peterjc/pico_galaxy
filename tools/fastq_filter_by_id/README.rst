@@ -81,10 +81,10 @@ To just build and check the tar ball, use::
     $ planemo shed_upload --tar_only tools/fastq_filter_by_id/
     ...
     $ tar -tzf shed_upload.tar.gz
-    README.rst
-    fastq_filter_by_id.py
-    fastq_filter_by_id.xml
-    tool_dependencies.xml
+    tools/fastq_filter_by_id/README.rst
+    tools/fastq_filter_by_id/fastq_filter_by_id.py
+    tools/fastq_filter_by_id/fastq_filter_by_id.xml
+    tools/fastq_filter_by_id/tool_dependencies.xml
 
 
 Licence (MIT/BSD style)

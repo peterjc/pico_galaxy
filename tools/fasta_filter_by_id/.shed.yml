@@ -13,7 +13,9 @@ categories:
 - Text Manipulation
 type: unrestricted
 include:
- - README.rst
- - fasta_filter_by_id.py
- - fasta_filter_by_id.xml
- - tool_dependencies.xml
+- strip_components: 2
+  source:
+  - ../../tools/fasta_filter_by_id/README.rst
+  - ../../tools/fasta_filter_by_id/fasta_filter_by_id.py
+  - ../../tools/fasta_filter_by_id/fasta_filter_by_id.xml
+  - ../../tools/fasta_filter_by_id/tool_dependencies.xml
