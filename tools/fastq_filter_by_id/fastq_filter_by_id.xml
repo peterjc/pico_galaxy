@@ -42,7 +42,7 @@ fastq_filter_by_id.py $input_tabular $columns $input_fastq
     </outputs>
     <tests>
         <test>
-            <param name="input_fasta" value="sanger-pairs-mixed.fastq" ftype="fastq" />
+            <param name="input_fastq" value="sanger-pairs-mixed.fastq" ftype="fastq" />
             <param name="input_tabular" value="sanger-pairs-names.tabular" ftype="tabular" />
             <param name="columns" value="1" />
             <param name="output_choice" value="both" />
