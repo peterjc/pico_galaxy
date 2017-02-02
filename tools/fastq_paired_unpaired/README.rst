@@ -1,7 +1,7 @@
 Galaxy tool to divide FASTQ files into paired and unpaired reads
 ================================================================
 
-This tool is copyright 2010-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
