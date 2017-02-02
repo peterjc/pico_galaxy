@@ -1,9 +1,9 @@
 <tool id="fasta_filter_by_id" name="Filter FASTA by ID" version="0.0.5" hidden="true">
-	<description>from a tabular file</description>
-	<requirements>
-		<requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
-	</requirements>
-	<command interpreter="python">
+    <description>from a tabular file</description>
+    <requirements>
+        <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
+    </requirements>
+    <command interpreter="python">
 fasta_filter_by_id.py $input_tabular $columns $input_fasta
 #if $output_choice_cond.output_choice=="both"
  $output_pos $output_neg
@@ -12,60 +12,60 @@ fasta_filter_by_id.py $input_tabular $columns $input_fasta
 #elif $output_choice_cond.output_choice=="neg"
  - $output_neg
 #end if
-	</command>
-	<inputs>
-		<param name="input_fasta" type="data" format="fasta" label="FASTA file to filter on the identifiers"/>
-		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing FASTA identifiers"/>
-		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
-			<validator type="no_options" message="Pick at least one column"/>
-		</param>
-		<conditional name="output_choice_cond">
-			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
-				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two FASTA files</option>
-				<option value="pos">Just positive matches (ID on list), as a single FASTA file</option>
-				<option value="neg">Just negative matches (ID not on list), as a single FASTA file</option>
-			</param>
-			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
-			<when value="both" />
-			<when value="pos" />
-			<when value="neg" />
-		</conditional>
-	</inputs>
-	<outputs>
-		<data name="output_pos" format="fasta" label="With matched ID">
-			<filter>output_choice_cond["output_choice"] != "neg"</filter>
-		</data>
-		<data name="output_neg" format="fasta" label="Without matched ID">
-			<filter>output_choice_cond["output_choice"] != "pos"</filter>
-		</data>
-	</outputs>
-	<tests>
-	<!-- Can't get these unit tests to run, may be a Galaxy problem
-	<test>
-		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
-		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
-		<param name="columns" value="1" />
-		<param name="output_choice" value="both" />
-		<output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
-		<output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
-	</test>
-	<test>
-		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
-		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
-		<param name="columns" value="1" />
-		<param name="output_choice" value="pos" />
-		<output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
-	</test>
-	<test>
-		<param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
-		<param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
-		<param name="columns" value="1" />
-		<param name="output_choice" value="neg" />
-		<output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
-	</test>
-	-->
-	</tests>
-	<help>
+    </command>
+    <inputs>
+        <param name="input_fasta" type="data" format="fasta" label="FASTA file to filter on the identifiers"/>
+        <param name="input_tabular" type="data" format="tabular" label="Tabular file containing FASTA identifiers"/>
+        <param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+            <validator type="no_options" message="Pick at least one column"/>
+        </param>
+        <conditional name="output_choice_cond">
+            <param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
+                <option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two FASTA files</option>
+                <option value="pos">Just positive matches (ID on list), as a single FASTA file</option>
+                <option value="neg">Just negative matches (ID not on list), as a single FASTA file</option>
+            </param>
+            <!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+            <when value="both" />
+            <when value="pos" />
+            <when value="neg" />
+        </conditional>
+    </inputs>
+    <outputs>
+        <data name="output_pos" format="fasta" label="With matched ID">
+            <filter>output_choice_cond["output_choice"] != "neg"</filter>
+        </data>
+        <data name="output_neg" format="fasta" label="Without matched ID">
+            <filter>output_choice_cond["output_choice"] != "pos"</filter>
+        </data>
+    </outputs>
+    <tests>
+        <!-- Can't get these unit tests to run, may be a Galaxy problem
+        <test>
+            <param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+            <param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="both" />
+            <output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
+            <output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
+        </test>
+        <test>
+            <param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+            <param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="pos" />
+            <output name="output_pos" file="four_human_proteins_filter_a.fasta" ftype="fasta" />
+        </test>
+        <test>
+            <param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+            <param name="input_tabular" value="blastp_four_human_vs_rhodopsin.tabular" ftype="tabular" />
+            <param name="columns" value="1" />
+            <param name="output_choice" value="neg" />
+            <output name="output_neg" file="four_human_proteins_filter_b.fasta" ftype="fasta" />
+        </test>
+        -->
+    </tests>
+    <help>
 
 **Deprecated**
 
@@ -89,8 +89,8 @@ via the SignalP wrapper for Galaxy), then filtered these tabular results to
 select just those with a signal peptide. You could then use this tool to get
 a FASTA file of only the proteins with predicted signal peptides.
 
-	</help>
-        <citations>
-                <citation type="doi">10.7717/peerj.167</citation>
-	</citations>
+    </help>
+    <citations>
+        <citation type="doi">10.7717/peerj.167</citation>
+    </citations>
 </tool>
