@@ -85,6 +85,9 @@ To just build and check the tar ball, use::
     tools/fastq_filter_by_id/fastq_filter_by_id.py
     tools/fastq_filter_by_id/fastq_filter_by_id.xml
     tools/fastq_filter_by_id/tool_dependencies.xml
+    test-data/empty_file.dat
+    test-data/sanger-pairs-mixed.fastq
+    test-data/sanger-pairs-names.tabular
 
 
 Licence (MIT/BSD style)
