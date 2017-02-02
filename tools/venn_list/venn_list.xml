@@ -6,7 +6,7 @@
         <requirement type="python-module">Bio</requirement>
         <requirement type="package" version="1.0.3">rpy</requirement>
         <requirement type="package" version="3.25.3">limma</requirement>
-        <requirement type="package" version="1.65">biopython</requirement>
+        <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->
