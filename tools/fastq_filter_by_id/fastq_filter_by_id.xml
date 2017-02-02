@@ -1,4 +1,7 @@
-<tool id="fastq_filter_by_id" name="Filter FASTQ by ID" version="0.0.4" hidden="true">
+<tool id="fastq_filter_by_id" name="Filter FASTQ by ID" version="0.0.5" hidden="true">
+	<requirements>
+		<requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
+	</requirements>
 	<description>from a tabular file</description>
 	<command interpreter="python">
 fastq_filter_by_id.py $input_tabular $columns $input_fastq

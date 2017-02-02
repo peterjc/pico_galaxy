@@ -1,0 +1,19 @@
+name: fastq_filter_by_id
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_filter_by_id
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/fastq_filter_by_id
+description: Filter FASTQ sequences by ID (DEPRECATED)
+long_description: |
+  This tool is OBSOLETE, see my newer tool which supports multiple file formats:
+  https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_filter_by_id
+  https://toolshed.g2.bx.psu.edu/view/peterjc/seq_filter_by_id/
+categories:
+- Fastq Manipulation
+- Sequence Analysis
+- Text Manipulation
+type: unrestricted
+include:
+ - README.rst
+ - fastq_filter_by_id.py
+ - fastq_filter_by_id.xml
+ - tool_dependencies.xml

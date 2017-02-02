@@ -10,8 +10,9 @@ which used it.
 Galaxy tool to filter FASTA sequences by ID
 ===========================================
 
-This tool is copyright 2010 by Peter Cock, SCRI, UK. All rights reserved.
-See the licence text below.
+This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
+(formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
+See the licence text below (MIT licence).
 
 This tool is a short Python script (using the Galaxy library functions) which
 divides a FASTA file in two, those sequences with or without an ID present in
@@ -39,10 +40,15 @@ That's it.
 History
 =======
 
-v0.0.1 - Initial version (not publicly released)
-v0.0.2 - Allow both, just pos or just neg output files
-v0.0.3 - Include FASTA in tool name
-v0.0.4 - Deprecated, marked as hidden in the XML
+======= ======================================================================
+Version Changes
+------- ----------------------------------------------------------------------
+v0.0.1  - Initial version (not publicly released)
+v0.0.2  - Allow both, just pos or just neg output files
+v0.0.3  - Include FASTA in tool name
+v0.0.4  - Deprecated, marked as hidden in the XML
+v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
+======= ======================================================================
 
 
 Developers
