@@ -1,0 +1,81 @@
+<tool id="fastq_filter_by_id" name="Filter FASTQ by ID" version="0.0.4" hidden="true">
+	<description>from a tabular file</description>
+	<command interpreter="python">
+fastq_filter_by_id.py $input_tabular $columns $input_fastq
+#if $output_choice_cond.output_choice=="both"
+ $output_pos $output_neg
+#elif $output_choice_cond.output_choice=="pos"
+ $output_pos -
+#elif $output_choice_cond.output_choice=="neg"
+ - $output_neg
+#end if
+	</command>
+	<inputs>
+		<param name="input_fastq" type="data" format="fastq" label="FASTQ file to filter on the identifiers"/>
+		<param name="input_tabular" type="data" format="tabular" label="Tabular file containing FASTQ identifiers"/>
+		<param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+			<validator type="no_options" message="Pick at least one column"/>
+		</param>
+		<conditional name="output_choice_cond">
+			<param name="output_choice" type="select" label="Output positive matches, negative matches, or both?">
+				<option value="both">Both positive matches (ID on list) and negative matches (ID not on list), as two FASTA files</option>
+				<option value="pos">Just positive matches (ID on list), as a single FASTA file</option>
+				<option value="neg">Just negative matches (ID not on list), as a single FASTA file</option>
+			</param>
+			<!-- Seems need these dummy entries here, compare this to indels/indel_sam2interval.xml -->
+			<when value="both" />
+			<when value="pos" />
+			<when value="neg" />
+		</conditional>
+	</inputs>
+	<outputs>
+		<data name="output_pos" format="fastq" label="With matched ID">
+            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
+            <change_format>
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
+			<filter>output_choice_cond["output_choice"] != "neg"</filter>
+		</data>
+		<data name="output_neg" format="fastq" label="Without matched ID">
+            <!-- TODO - Replace this with format="input:input_fastq" if/when that works -->
+            <change_format>
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsanger" format="fastqsanger" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqsolexa" format="fastqsolexa" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqillumina" format="fastqillumina" />
+                <when input_dataset="input_fastq" attribute="extension" value="fastqcssanger" format="fastqcssanger" />
+            </change_format>
+			<filter>output_choice_cond["output_choice"] != "pos"</filter>
+		</data>
+	</outputs>
+	<tests>
+	</tests>
+	<help>
+
+**Deprecated**
+
+This tool is now obsolete, and should not be used in future. It has been
+replaced by a more general version covering FASTA, FASTQ and SFF in one
+single tool.
+
+**What it does**
+
+By default it divides a FASTQ file in two, those sequences with or without an
+ID present in the tabular file column(s) specified. You can opt to have a
+single output file of just the matching records, or just the non-matching ones.
+
+Note that the order of sequences in the original FASTA file is preserved.
+Also, if any sequences share an identifier, duplicates are not removed.
+
+**Example Usage**
+
+You may have performed some kind of contamination search, for example running
+BLASTN against a database of cloning vectors or bacteria, giving you a tabular
+file containing read identifiers. You could use this tool to extract only the
+reads without BLAST matches (i.e. those which do not match your contaminant
+database).
+
+	</help>
+</tool>
