@@ -84,6 +84,10 @@ To just build and check the tar ball, use::
     tools/fasta_filter_by_id/fasta_filter_by_id.py
     tools/fasta_filter_by_id/fasta_filter_by_id.xml
     tools/fasta_filter_by_id/tool_dependencies.xml
+    test-data/four_human_proteins.fasta
+    test-data/blastp_four_human_vs_rhodopsin.tabular
+    test-data/four_human_proteins_filter_a.fasta
+    test-data/four_human_proteins_filter_b.fasta
 
 
 Licence (MIT/BSD style)
