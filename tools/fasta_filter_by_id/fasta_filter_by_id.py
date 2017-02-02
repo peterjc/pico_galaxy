@@ -27,19 +27,15 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 
-def stop_err( msg ):
-    sys.stderr.write( msg )
-    sys.exit()
-
 #Parse Command Line
 try:
     tabular_file, cols_arg, in_file, out_positive_file, out_negative_file = sys.argv[1:]
 except ValueError:
-    stop_err("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
 try:
     columns = [int(arg)-1 for arg in cols_arg.split(",")]
 except ValueError:
-    stop_err("Expected list of columns (comma separated integers), got %s" % cols_arg)
+    sys.exit("Expected list of columns (comma separated integers), got %s" % cols_arg)
 
 #Read tabular file and record all specified identifiers
 ids = set()
@@ -94,5 +90,5 @@ elif out_negative_file != "-":
             negative_writer.write(record)
     negative_writer.close()
 else:
-    stop_err("Neither output file requested")
+    sys.exit("Neither output file requested")
 reader.close()
