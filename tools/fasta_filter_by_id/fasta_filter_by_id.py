@@ -18,10 +18,13 @@ Here sensible values for the column numbers would therefore be "1" or "2".
 
 This script is copyright 2010-2011 by Peter Cock, SCRI, UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
-
-This is version 0.0.4 of the script.
 """
 import sys
+
+if "-v" in sys.argv or "--version" in sys.argv:
+    print "v0.0.5"
+    sys.exit(0)
+
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 
 def stop_err( msg ):

@@ -49,6 +49,7 @@ v0.0.3  - Fixed bug when generating non-matching FASTQ file only
 v0.0.4  - Deprecated, marked as hidden in the XML
 v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
         - Citation information (Cock et al. 2013).
+        - Explicitly record version via ``<version_command>``.
 ======= ======================================================================
 
 
