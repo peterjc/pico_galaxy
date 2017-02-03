@@ -32,9 +32,9 @@ from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 try:
     tabular_file, cols_arg, in_file, out_positive_file, out_negative_file = sys.argv[1:]
 except ValueError:
-    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv)-1, " ".join(sys.argv)))
+    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
 try:
-    columns = [int(arg)-1 for arg in cols_arg.split(",")]
+    columns = [int(arg) - 1 for arg in cols_arg.split(",")]
 except ValueError:
     sys.exit("Expected list of columns (comma separated integers), got %s" % cols_arg)
 

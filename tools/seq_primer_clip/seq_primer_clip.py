@@ -147,8 +147,8 @@ def make_reg_ex_mm(seq, mm):
             # We'll use a set to remove any duplicate patterns
             # if letter not in "NX":
             pattern = seq[:i] + "N" + seq[i + 1:]
-            assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" \
-                   % (pattern, len(pattern), seq, len(seq))
+            assert len(pattern) == len(seq), ("Len %s is %i, len %s is %i"
+                                              % (pattern, len(pattern), seq, len(seq)))
             yield make_reg_ex(pattern)
     if mm >= 2:
         for i, letter in enumerate(seq):
@@ -158,8 +158,8 @@ def make_reg_ex_mm(seq, mm):
                 # We'll use a set to remove any duplicate patterns
                 # if letter not in "NX":
                 pattern = seq[:i] + "N" + seq[i + 1:i + 1 + k] + "N" + seq[i + k + 2:]
-                assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" \
-                       % (pattern, len(pattern), seq, len(seq))
+                assert len(pattern) == len(seq), ("Len %s is %i, len %s is %i"
+                                                  % (pattern, len(pattern), seq, len(seq)))
                 yield make_reg_ex(pattern)
 
 

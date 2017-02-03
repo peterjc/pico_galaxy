@@ -110,7 +110,7 @@ def get_hmmer_version(exe, required=None):
 # Run hmmsearch for Whisson et al. (2007)
 if model == "Whisson2007":
     hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
-                       "whisson_et_al_rxlr_eer_cropped.hmm")
+                            "whisson_et_al_rxlr_eer_cropped.hmm")
     if not os.path.isfile(hmm_file):
         sys.exit("Missing HMM file for Whisson et al. (2007)")
     if not get_hmmer_version(hmmer_search, "HMMER 2.3.2 (Oct 2003)"):

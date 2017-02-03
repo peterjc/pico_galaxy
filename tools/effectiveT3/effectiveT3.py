@@ -32,8 +32,7 @@ model, threshold, fasta_file, tabular_file = sys.argv[1:]
 if not os.path.isfile(fasta_file):
     sys.exit("Input FASTA file not found: %s" % fasta_file)
 
-if threshold not in ["selective", "sensitive"] \
-    and not threshold.startswith("cutoff="):
+if threshold not in ["selective", "sensitive"] and not threshold.startswith("cutoff="):
     sys.exit("Threshold should be selective, sensitive, or cutoff=..., not %r" % threshold)
 
 
@@ -43,8 +42,7 @@ def clean_tabular(raw_handle, out_handle):
     positive = 0
     errors = 0
     for line in raw_handle:
-        if not line or line.startswith("#") \
-            or line.startswith("Id; Description; Score;"):
+        if not line or line.startswith("#") or line.startswith("Id; Description; Score;"):
             continue
         assert line.count(";") >= 3, repr(line)
         # Normally there will just be three semi-colons, however the

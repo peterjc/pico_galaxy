@@ -31,7 +31,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
 try:
     tabular_file, old_col_arg, new_col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    sys.exit("Expected six arguments (tabular file, old col, new col, input file, format, output file), got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
+    sys.exit("Expected six arguments (tabular file, old col, new col, "
+             "input file, format, output file), got %i:\n%s"
+             % (len(sys.argv) - 1, " ".join(sys.argv)))
 
 try:
     if old_col_arg.startswith("c"):
@@ -128,8 +130,7 @@ if seq_format.lower() == "sff":
     in_handle.close()
 else:
     # Use Galaxy for FASTA, QUAL or FASTQ
-    if seq_format.lower() in ["fasta", "csfasta"] \
-        or seq_format.lower().startswith("qual"):
+    if seq_format.lower() in ["fasta", "csfasta"] or seq_format.lower().startswith("qual"):
         from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
         reader = fastaReader(open(in_file, "rU"))
         writer = fastaWriter(open(out_file, "w"))

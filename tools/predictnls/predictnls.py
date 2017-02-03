@@ -64,7 +64,7 @@ elif len(sys.argv) == 3:
     if not os.path.isfile(re_filename):
         # Try in same directory as this script:
         re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
-                                                   "My_NLS_list")
+                                   "My_NLS_list")
 else:
     sys.exit("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
 

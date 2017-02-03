@@ -81,7 +81,7 @@ def clean_tabular(raw_handle, out_handle):
         assert topology.startswith("Topology="), line
         topology = topology[9:]
         out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n"
-                   % (identifier, length, exp_aa, first60, predhel, topology))
+                         % (identifier, length, exp_aa, first60, predhel, topology))
         count += 1
     return count
 

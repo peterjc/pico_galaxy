@@ -111,8 +111,7 @@ def load_color(txt, default=None):
     elif len(txt) == 7 and txt[0] == "#" and set("0123456789ABCDEF").issuperset(txt[1:].upper()):
         # Hex color with # prefix
         return colors.HexColor(txt)
-    elif len(txt) == 8 and txt[0] == "#" and txt[-1] == ";" \
-        and set("0123456789ABCDEF").issuperset(txt[1:-1].upper()):
+    elif len(txt) == 8 and txt[0] == "#" and txt[-1] == ";" and set("0123456789ABCDEF").issuperset(txt[1:-1].upper()):
         # Hex color with # prefix and ; suffix
         return colors.HexColor(txt[:-1])
     else:

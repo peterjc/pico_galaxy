@@ -152,7 +152,7 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
         assert 1 <= cut <= len(seq), "%i for %s len %i" % (cut, seqid, len(seq))
         score = parts[score_col]
         gff_handle.write("##sequence-region %s %i %i\n"
-                          % (seqid, 1, len(seq)))
+                         % (seqid, 1, len(seq)))
         # If the cut is at the very begining, there is no signal peptide!
         if cut > 1:
             # signal_peptide = SO:0000418
