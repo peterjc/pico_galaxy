@@ -272,7 +272,7 @@ def raw_fasta_iterator(handle):
         except IndexError:
             if not no_id_warned:
                 sys.stderr.write("WARNING - Malformed FASTA entry with no identifier\n")
-        no_id_warned = True
+                no_id_warned = True
         id = None
         lines = [line]
         line = handle.readline()
