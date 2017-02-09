@@ -132,19 +132,23 @@ def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record,
 def alignment_back_translate(protein_alignment, nucleotide_records, key_function=None, gap=None, table=0):
     """Thread nucleotide sequences onto a protein alignment."""
     # TODO - Separate arguments for protein and nucleotide gap characters?
-    if key_function is None:
-        key_function = lambda x: x
     if gap is None:
         gap = "-"
 
     aligned = []
-    for protein in protein_alignment:
-        try:
-            nucleotide = nucleotide_records[key_function(protein.id)]
-        except KeyError:
-            raise ValueError("Could not find nucleotide sequence for protein %r"
-                             % protein.id)
-        aligned.append(sequence_back_translate(protein, nucleotide, gap, table))
+    try:
+        if key_function is None:
+            for protein in protein_alignment:
+                nucleotide = nucleotide_records[protein.id]
+                aligned.append(sequence_back_translate(protein, nucleotide, gap, table))
+        else:
+            for protein in protein_alignment:
+                nucleotide = nucleotide_records[key_function(protein.id)]
+                aligned.append(sequence_back_translate(protein, nucleotide, gap, table))
+    except KeyError:
+        raise ValueError("Could not find nucleotide sequence for protein %r"
+                         % protein.id)
+
     return MultipleSeqAlignment(aligned)
 
 
