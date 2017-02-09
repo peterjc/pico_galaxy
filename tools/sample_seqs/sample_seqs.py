@@ -346,6 +346,7 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
                 count = writer.write_file(iterator_filter(SffIterator(in_handle)))
     return count
 
+
 if seq_format == "sff":
     count = sff_filter(in_file, out_file, sampler, interleaved)
 elif seq_format == "fasta":

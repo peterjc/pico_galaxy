@@ -46,6 +46,7 @@ def run(cmd):
         sys.stderr.write("Error %i from command:\n%s\n" % (err, cmd))
         sys.exit(err)
 
+
 for chr, acc in data:
     for ext in ["fna", "rnt"]:
         filename = "%s.%s" % (acc, ext)

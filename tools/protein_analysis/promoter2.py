@@ -102,6 +102,7 @@ def make_tabular(raw_handle, out_handle):
             out_handle.write("%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood))
     return queries
 
+
 working_dir, bin = get_path_and_binary()
 
 if not os.path.isfile(fasta_file):
@@ -125,6 +126,7 @@ def clean_up(file_list):
         os.rmdir(tmp_dir)
     except Exception:
         pass
+
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.

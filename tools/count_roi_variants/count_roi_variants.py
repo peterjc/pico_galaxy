@@ -141,6 +141,7 @@ def expand_cigar(seq, cigar_ops):
         else:
             raise NotImplementedError("Unexpected CIGAR operator %s" % op)
 
+
 assert list(expand_cigar("ACGT", decode_cigar("4M"))) == [(0, "A"), (1, "C"), (2, "G"), (3, "T")]
 assert list(expand_cigar("ACGT", decode_cigar("2=1X1="))) == [(0, "A"), (1, "C"), (2, "G"), (3, "T")]
 assert list(expand_cigar("ACGT", decode_cigar("2M1D2M"))) == [(0, "A"), (1, "C"), (3, "G"), (4, "T")]
@@ -184,6 +185,7 @@ def get_roi(seq, cigar_ops, start, end):
     # Would use "start <= i < end" if they were all integers, but
     # want to exclude e.g. 3.5 and 7.5 when given start 4 and end 8.
     return "".join(base for i, base in expand_cigar(seq, cigar_ops) if start <= i <= end - 1)
+
 
 assert "GGGG" == get_roi("AAAAGGGGTTTT", decode_cigar("12M"), 4, 8)
 assert "GGGG" == get_roi("AAAAcGGGGTTTT", decode_cigar("4M1I8M"), 4, 8)

@@ -190,6 +190,7 @@ def clean_up(file_list):
     except Exception:
         pass
 
+
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.
     print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))

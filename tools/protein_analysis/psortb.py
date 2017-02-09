@@ -124,6 +124,7 @@ def clean_tabular(raw_handle, out_handle):
         count += 1
     return count
 
+
 # Note that if the input FASTA file contains no sequences,
 # split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
@@ -140,6 +141,7 @@ def clean_up(file_list):
         os.rmdir(tmp_dir)
     except Exception:
         pass
+
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.

@@ -91,6 +91,7 @@ def samtools_depth_opt_available():
     #    -d/-m <int>         maximum coverage depth [8000]
     return " -d/-m " in output
 
+
 depth_hack = False
 if not samtools_depth_opt_available():
     if max_depth + depth_margin <= 8000:
@@ -191,6 +192,7 @@ def load_total_coverage(depth_handle, identifier, length):
         min_cov = 0
     mean_cov = bases / float(length)
     return min_cov, max_cov, mean_cov, bases
+
 
 # Parse and combine the output
 out_handle = open(tabular_filename, "w")

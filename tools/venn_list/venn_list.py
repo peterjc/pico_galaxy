@@ -77,6 +77,7 @@ def load_ids_whitelist(filename, filetype, whitelist):
         else:
             sys.exit("Unexpected ID %s in %s file %s" % (name, filetype, filename))
 
+
 if all_file in ["", "-", '""', '"-"']:
     # Load without white list
     sets = [set(load_ids(f, t)) for (f, t, c) in set_data]

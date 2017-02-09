@@ -86,6 +86,7 @@ def clean_tabular(raw_handle, out_handle):
             out_handle.write("%s\t%s\t%s\t%i\n"
                              % (name, comp, score, rank + 1))
 
+
 fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK)
 temp_files = [f + ".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
@@ -98,6 +99,7 @@ def clean_up(file_list):
     for f in file_list:
         if os.path.isfile(f):
             os.remove(f)
+
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.

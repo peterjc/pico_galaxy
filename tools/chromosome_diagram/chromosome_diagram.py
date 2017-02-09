@@ -43,6 +43,8 @@ def load_column(txt):
         if txt.strip():
             sys.exit("Bad column argument %r." % txt)
         return None
+
+
 chr_col = load_column(chr_col)
 start_col = load_column(start_col)
 end_col = load_column(end_col)
@@ -117,6 +119,7 @@ def load_color(txt, default=None):
     else:
         # Let Biopython deal with it...
         return txt
+
 
 # Load the features
 all_features = []

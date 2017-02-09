@@ -136,6 +136,7 @@ def fasta_iterator(filename):
         yield name, seq
     raise StopIteration
 
+
 motifs = list(load_re(re_filename))
 print "Looking for %i NLS motifs" % len(motifs)
 

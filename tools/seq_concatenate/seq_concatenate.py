@@ -66,6 +66,7 @@ def get_records(filenames):
         for r in SeqIO.parse(f, "genbank"):
             yield r
 
+
 gap = 1000
 spacer = SeqRecord(Seq("N" * gap, generic_dna))
 spacer.features.append(SeqFeature(FeatureLocation(0, len(spacer)), type="gap"))

@@ -116,6 +116,8 @@ def clean_name(name):
     else:
         # Nothing to do
         return name
+
+
 assert clean_name("foo/1") == "foo"
 assert clean_name("foo/2") == "foo"
 assert clean_name("bar.f") == "bar"

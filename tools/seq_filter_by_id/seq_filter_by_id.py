@@ -146,6 +146,7 @@ def check_white_space(name):
                     "using first word only. e.g.:\n%s\n" % name
     return parts[0]
 
+
 if drop_suffices:
     def clean_name(name):
         """Remove suffix."""

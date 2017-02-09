@@ -80,6 +80,7 @@ def parse_ids(tabular_file, col):
     if warn:
         sys.stderr.write(warn)
 
+
 # Index the sequence file.
 # If very big, could use SeqIO.index_db() to avoid memory bottleneck...
 records = SeqIO.index(in_file, seq_format)

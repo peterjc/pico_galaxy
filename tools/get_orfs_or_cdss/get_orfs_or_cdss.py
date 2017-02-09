@@ -212,6 +212,7 @@ def get_one_peptide(nuc_seq):
         raise StopIteration
     yield values[0]
 
+
 if options.mode == "all":
     get_peptides = get_all_peptides
 elif options.mode == "top":
