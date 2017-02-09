@@ -13,9 +13,11 @@ This script is copyright 2014 by Peter Cock, The James Hutton Institute
 
 See accompanying text file for licence details (MIT license).
 """
+
 import os
-import sys
 import re
+import sys
+
 from galaxy_utils.sequence.fastq import fastqReader
 
 if "-v" in sys.argv or "--version" in sys.argv:

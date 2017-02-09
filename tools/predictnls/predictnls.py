@@ -50,8 +50,8 @@ https://rostlab.org/owiki/index.php/Packages
 """
 
 import os
-import sys
 import re
+import sys
 
 if len(sys.argv) == 4:
     fasta_filename, tabular_filename, re_filename = sys.argv[1:]

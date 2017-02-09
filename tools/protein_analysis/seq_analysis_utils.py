@@ -7,9 +7,11 @@ Given Galaxy currently supports Python 2.4+ this cannot use the Python module
 multiprocessing so the function run_jobs instead is a simple pool approach
 using just the subprocess library.
 """
-import sys
+
 import os
 import subprocess
+import sys
+
 from time import sleep
 
 __version__ = "0.0.2"

@@ -18,12 +18,14 @@ See accompanying text file for licence details (MIT licence).
 """
 
 import sys
-from Bio.Seq import Seq
-from Bio.Alphabet import generic_protein
-from Bio.Align import MultipleSeqAlignment
-from Bio import SeqIO
+
 from Bio import AlignIO
+from Bio import SeqIO
+
+from Bio.Align import MultipleSeqAlignment
+from Bio.Alphabet import generic_protein
 from Bio.Data.CodonTable import ambiguous_generic_by_id
+from Bio.Seq import Seq
 
 if "-v" in sys.argv or "--version" in sys.argv:
     print "v0.0.7"

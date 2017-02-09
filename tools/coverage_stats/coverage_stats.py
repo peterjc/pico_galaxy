@@ -16,9 +16,10 @@ the output to the desired output tabular file.
 Because "samtools depth" treats the max depth a little fuzzily, this
 tool tries to account for this and applies a clear max-depth cut off.
 """
-import sys
+
 import os
 import subprocess
+import sys
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:

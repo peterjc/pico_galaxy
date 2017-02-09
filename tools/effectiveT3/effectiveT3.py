@@ -11,9 +11,9 @@ It then calls the standalone Effective T3 v1.0.1 program (not the
 webservice), and reformats the semi-colon separated output into
 tab separated output for use in Galaxy.
 """
-import sys
 import os
 import subprocess
+import sys
 
 # The Galaxy auto-install via tool_dependencies.xml will set this environment variable
 effective_t3_dir = os.environ.get("EFFECTIVET3", "/opt/EffectiveT3/")

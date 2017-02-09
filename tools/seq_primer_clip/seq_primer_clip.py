@@ -29,8 +29,10 @@ See accompanying text file for licence details (MIT/BSD style).
 NOTE: Currently it uses Python's regular expression engine for finding the
 primers, which for my needs is fast enough.
 """
-import sys
+
 import re
+import sys
+
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 

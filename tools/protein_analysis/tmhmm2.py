@@ -40,10 +40,12 @@ Also tmhmm2 can fail without returning an error code, for example if run on a
 64 bit machine with only the 32 bit binaries installed. This script will spot
 when there is no output from tmhmm2, and raise an error.
 """
-import sys
+
 import os
+import sys
 import tempfile
-from seq_analysis_utils import split_fasta, run_jobs, thread_count
+
+from seq_analysis_utils import run_jobs, split_fasta, thread_count
 
 FASTA_CHUNK = 500
 

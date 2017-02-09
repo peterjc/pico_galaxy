@@ -9,8 +9,9 @@ This script takes exactly four command line arguments:
 
 Runs "samtools depad" and captures the output to the desired BAM file.
 """
-import sys
+
 import os
+import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines

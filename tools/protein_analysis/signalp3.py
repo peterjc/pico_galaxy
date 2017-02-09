@@ -53,10 +53,12 @@ Finally, you can opt to have a GFF3 file produced which will describe the
 predicted signal peptide and mature peptide for each protein (using one of
 the predictors which gives a cleavage site). *WORK IN PROGRESS*
 """
-import sys
+
 import os
+import sys
 import tempfile
-from seq_analysis_utils import split_fasta, fasta_iterator
+
+from seq_analysis_utils import fasta_iterator, split_fasta
 from seq_analysis_utils import run_jobs, thread_count
 
 FASTA_CHUNK = 500

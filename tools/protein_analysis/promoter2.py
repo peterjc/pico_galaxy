@@ -26,11 +26,13 @@ output file, making parsing non-trivial.
 
 TODO - Automatically extract the sequence containing a promoter prediction?
 """
-import sys
-import os
+
 import commands
+import os
+import sys
 import tempfile
-from seq_analysis_utils import split_fasta, run_jobs, thread_count
+
+from seq_analysis_utils import run_jobs, split_fasta, thread_count
 
 FASTA_CHUNK = 500
 

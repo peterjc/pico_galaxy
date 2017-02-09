@@ -10,9 +10,9 @@ Takes the following command line options,
 """
 
 import os
+import shutil
 import sys
 import tempfile
-import shutil
 
 
 def run(cmd):

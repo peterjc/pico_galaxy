@@ -10,8 +10,9 @@ This messes about with the filenames to make samtools happy, then
 runs "samtools idxstats" and captures the output to the desired
 tabular file.
 """
-import sys
+
 import os
+import sys
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:

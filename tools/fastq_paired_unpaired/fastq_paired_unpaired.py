@@ -14,8 +14,9 @@ This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
 
 See accompanying text file for licence details (MIT license).
 """
-import sys
+
 import re
+import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
     print("Version 0.1.3")

@@ -21,7 +21,7 @@ from optparse import OptionParser
 from Bio import SeqIO
 from Bio.Alphabet import generic_dna
 from Bio.Seq import Seq
-from Bio.SeqFeature import SeqFeature, FeatureLocation
+from Bio.SeqFeature import FeatureLocation, SeqFeature
 from Bio.SeqRecord import SeqRecord
 
 # Parse Command Line

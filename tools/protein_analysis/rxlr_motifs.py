@@ -36,10 +36,12 @@ slightly different results. We expect the hmmsearch from HMMER 2.3.2
 (the last stable release of HMMER 2) to be present on the path under
 the name hmmsearch2 (allowing it to co-exist with HMMER 3).
 """
+
 import os
-import sys
 import re
 import subprocess
+import sys
+
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:

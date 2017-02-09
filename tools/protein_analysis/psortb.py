@@ -21,10 +21,12 @@ itself (see the SignalP XML file for settings), but both can be applied.
 Additionally it ensures the header line (with the column names) starts
 with a # character as used elsewhere in Galaxy.
 """
-import sys
+
 import os
+import sys
 import tempfile
-from seq_analysis_utils import split_fasta, run_jobs, thread_count
+
+from seq_analysis_utils import run_jobs, split_fasta, thread_count
 
 FASTA_CHUNK = 500
 

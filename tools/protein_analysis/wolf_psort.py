@@ -33,9 +33,11 @@ the input FASTA file multiple copies of WoLF PSORT are run in parallel. I would
 normally use Python's multiprocessing library in this situation but it requires
 at least Python 2.6 and at the time of writing Galaxy still supports Python 2.4.
 """
-import sys
+
 import os
-from seq_analysis_utils import split_fasta, run_jobs, thread_count
+import sys
+
+from seq_analysis_utils import run_jobs, split_fasta, thread_count
 
 FASTA_CHUNK = 500
 exe = "runWolfPsortSummary"

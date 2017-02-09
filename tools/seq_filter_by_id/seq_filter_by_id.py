@@ -27,9 +27,11 @@ See accompanying text file for licence details (MIT license).
 
 Use -v or --version to get the version, -h or --help for help.
 """
+
 import os
-import sys
 import re
+import sys
+
 from optparse import OptionParser
 
 # Parse Command Line

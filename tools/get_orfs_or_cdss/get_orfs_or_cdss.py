@@ -17,8 +17,10 @@ This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 
 See accompanying text file for licence details (MIT licence).
 """
-import sys
+
 import re
+import sys
+
 from optparse import OptionParser
 
 usage = """Use as follows:

@@ -12,9 +12,10 @@ runs "samtools view" and parses the reads mapped to the ROI, counts
 the observed variants spanning the ROI, and outputs this as a
 tabular file.
 """
-import sys
+
 import os
 import subprocess
+import sys
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
