@@ -111,6 +111,7 @@ if seq_format.lower() == "sff":
     count = 0
     # This does have the overhead of parsing into SeqRecord objects,
     # but doing the header and index at the low level is too fidly.
+    name = None  # We want the variable to leak from the iterator's scope...
     iterator = (records[name] for name in parse_ids(tabular_file, column))
     try:
         count = writer.write_file(iterator)
