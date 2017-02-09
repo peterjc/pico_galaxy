@@ -64,6 +64,9 @@ from seq_analysis_utils import run_jobs, thread_count
 FASTA_CHUNK = 500
 MAX_LEN = 6000  # Found by trial and error
 
+if "-v" in sys.argv or "--version" in sys.argv:
+    sys.exit("SignalP wrapper version 0.0.16")
+
 if len(sys.argv) not in [6, 8]:
     sys.exit("Require five (or 7) arguments, organism, truncate, threads, "
              "input protein FASTA file & output tabular file (plus "
@@ -98,15 +101,8 @@ else:
 tmp_dir = tempfile.mkdtemp()
 
 
-def clean_tabular(raw_handle, out_handle, gff_handle=None, cut_method=None):
+def clean_tabular(raw_handle, out_handle, gff_handle=None):
     """Clean up SignalP output to make it tabular."""
-    if cut_method:
-        cut_col = {"NN_Cmax": 2,
-                   "NN_Ymax": 5,
-                   "NN_Smax": 8,
-                   "HMM_Cmax": 16}[cut_method]
-    else:
-        cut_col = None
     for line in raw_handle:
         if not line or line.startswith("#"):
             continue
