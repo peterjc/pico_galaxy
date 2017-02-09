@@ -5,8 +5,8 @@
 James E Johnson - University of Minnesota
 """
 import logging
-import sys
 import subprocess
+import sys
 
 log = logging.getLogger(__name__)
 
@@ -15,18 +15,19 @@ assert sys.version_info[:2] >= (2, 4)
 
 def __main__():
     # Parse Command Line
-    # s = 'interproscan.py:  argv = %s\n' % (sys.argv)
-    # print >> sys.stderr, s # so will appear as blurb for file
-    argcnt = len(sys.argv)
-    working_dir = sys.argv[1]
-    input = sys.argv[2]
+
+    # TODO, unused argument?
+    # working_dir = sys.argv[1]
+
+    input_file = sys.argv[2]
     format = sys.argv[3]
     output = sys.argv[4]
     # Convert all spaces in ORF header to underscores
-    cmdline = 'sed  \'s/ /_/\' %s > temp.fa' % (input)
+    cmdline = 'sed  \'s/ /_/\' %s > temp.fa' % (input_file)
     # print >> sys.stderr, cmdline
     try:
-        proc = subprocess.Popen(args=cmdline, shell=True, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(args=cmdline, shell=True,
+                                stderr=subprocess.PIPE)
         returncode = proc.wait()
         # get stderr, allowing for case where it's very large
         stderr = ''
@@ -43,10 +44,13 @@ def __main__():
     except Exception, e:
         sys.exit('Error running sed ' + str(e))
 
-    cmdline = 'iprscan -cli -nocrc -i temp.fa -o temp.iprscan -goterms -seqtype p -altjobs -format %s -appl hmmpfam > /dev/null' % (format)
+    cmdline = ('iprscan -cli -nocrc -i temp.fa -o temp.iprscan -goterms'
+               ' -seqtype p -altjobs -format %s -appl hmmpfam > /dev/null'
+               % (format))
     # print >> sys.stderr, cmdline # so will appear as blurb for file
     try:
-        proc = subprocess.Popen(args=cmdline, shell=True, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(args=cmdline, shell=True,
+                                stderr=subprocess.PIPE)
         returncode = proc.wait()
         # get stderr, allowing for case where it's very large
         stderr = ''
@@ -68,6 +72,7 @@ def __main__():
     for line in open('temp.iprscan'):
         out.write("%s" % (line))
     out.close()
+
 
 if __name__ == "__main__":
     __main__()
