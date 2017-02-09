@@ -61,6 +61,7 @@ ACTCTGGCGCCAAAATTGAAGCGAATTTTGGACCGAACTTTGAATACAAATTCTGATTAT
 """
 
 import sys
+
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -77,28 +78,34 @@ def exon_merge_iter(input_records, split_on):
         if stem == current_stem:
             current_parts.append(record.seq)
             assert part == len(current_parts), \
-                "Expected %s%s%i but got %s" % (current_stem, split_on, len(current_parts), record.id)
+                "Expected %s%s%i but got %s" % (current_stem, split_on,
+                                                len(current_parts), record.id)
         else:
             if current_parts:
                 s = sum(current_parts, Seq(""))
                 if len(s) % 3:
-                    print("Warning %s length %i not a multiple of 3" % (current_stem, len(s)))
+                    print("Warning %s length %i not a multiple of 3"
+                          % (current_stem, len(s)))
                 yield SeqRecord(s, id=current_stem,
-                                description="merged from %i exons" % len(current_parts))
+                                description="merged from %i exons"
+                                % len(current_parts))
             current_stem = stem
             current_parts = [record.seq]
     # Final batch
     if current_parts:
         s = sum(current_parts, Seq(""))
         if len(s) % 3:
-                    print("Warning %s length %i not a multiple of 3" % (current_stem, len(s)))
+                    print("Warning %s length %i not a multiple of 3"
+                          % (current_stem, len(s)))
         yield SeqRecord(s, id=current_stem,
-                        description="merged from %i exons" % len(current_parts))
+                        description="merged from %i exons"
+                        % len(current_parts))
 
 
 def exon_merge_files(input_filename, output_filename, split_on):
     """Do the merge, return gene count."""
-    return SeqIO.write(exon_merge_iter(SeqIO.parse(input_filename, "fasta"), split_on),
-                       output_filename, "fasta")
+    records = exon_merge_iter(SeqIO.parse(input_filename, "fasta"), split_on)
+    return SeqIO.write(records, output_filename, "fasta")
+
 
 count = exon_merge_files(input_fasta, output_fasta, ".")
