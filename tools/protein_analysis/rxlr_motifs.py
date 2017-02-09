@@ -93,7 +93,6 @@ else:
 
 
 def get_hmmer_version(exe, required=None):
-    cmd = "%s -h" % exe
     try:
         child = subprocess.Popen([exe, "-h"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except OSError:
