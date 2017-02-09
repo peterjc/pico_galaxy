@@ -268,12 +268,11 @@ def raw_fasta_iterator(handle):
             raise ValueError(
                 "Records in Fasta files should start with '>' character")
         try:
-            id = line[1:].split(None, 1)[0]
+            line[1:].split(None, 1)[0]
         except IndexError:
             if not no_id_warned:
                 sys.stderr.write("WARNING - Malformed FASTA entry with no identifier\n")
                 no_id_warned = True
-        id = None
         lines = [line]
         line = handle.readline()
         while True:
