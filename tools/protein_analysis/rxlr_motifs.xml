@@ -6,7 +6,7 @@
         <requirement type="package">signalp</requirement>
         <!-- Need HMMER for Whisson et al. (2007) -->
         <requirement type="binary">hmmsearch</requirement>
-        <requirement type="package">hmmsearch</requirement>
+        <requirement type="package" version="2.3.2">hmmsearch</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->
