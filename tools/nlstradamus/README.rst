@@ -38,10 +38,10 @@ Manual Installation
 This wrapper expects the compiled C++ binary "NLStradamus" to be on the ``$PATH``.
 
 To install the wrapper copy or move the following files under the Galaxy tools
-folder, e.g. in a tools/protein_analysis folder:
+folder, e.g. in a ``tools/protein_analysis`` folder:
 
 * ``nlstradamus.xml`` (the Galaxy tool definition)
-* ``nlstradamus.txt`` (this README file)
+* ``README.rst`` (this README file)
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer
 the tool. If you are using other protein analysis tools like TMHMM or SignalP,
