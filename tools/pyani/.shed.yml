@@ -1,0 +1,18 @@
+name: pyani
+owner: peterjc
+homepage_url: https://github.com/widdowquinn/pyani
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/pyani/
+description: pyani - average nucleotide identity (ANI) etc for whole genome comparisons
+long_description: |
+  pyani is a Python3 module that provides support for calculating average
+  nucleotide identity (ANI) and related measures for whole genome comparisons,
+  and rendering relevant graphical summary output. This is a wrapper for the
+  pyani script average_nucleotide_identity.py for command-line ANI analysis.
+categories:
+- Sequence Analysis
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../tools/pyani/README.rst
+  - ../../tools/pyani/average_nucleotide_identity.xml
