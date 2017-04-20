@@ -42,9 +42,8 @@ before_install:
  - pip install --upgrade pip setuptools
  - pip install planemo
  - planemo shed_lint --tools --fail_level error --ensure_metadata -r ${TRAVIS_BUILD_DIR}
- - echo "Using pep8 and flake8 to check Python code"
- - pip install pep8 flake8
- - pep8 --max-line-length 252 --ignore E402 .
+ - echo "Using flake8 to check Python code"
+ - pip install flake8
  - flake8 --max-line-length 252 --ignore E402 .
  - echo "Removing tools we're not going to test"
  - for line in $(cat .tt_blacklist); do rm -rf $line; done
