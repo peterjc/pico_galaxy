@@ -1,0 +1,58 @@
+<tool id="average_nucleotide_identity.xml" name="Average Nucleotide Identity (ANI)" version="0.0.0">
+    <description>Compare genomes using pyani</description>
+    <requirements>
+        <requirement type="package" version="0.2.3">pyani</requirement>
+    </requirements>
+    <command detect_errors="aggressive" strict="true"><![CDATA[
+mkdir 'input_dir' &&
+#for $input in $input_fasta
+  ln -s '$input' input_dir/${re.sub('[^\w\-_.]', '_', input.element_identifier)}.fasta'
+#end for
+mkdir 'output_dir' &&
+average_nucleotide_identity.py -i 'input_dir' -o 'output_dir' --gformat 'pdf,png,jpg,svg'
+    ]]>
+    </command>
+    <inputs>
+        <param name="input_fasta" multiple="true" type="data" format="fasta" label="Nucleotide FASTA files of genomes to compare"/> 
+    </inputs>
+    <outputs>
+        <data name="tabular_file" format="tabular" label="NLStradamus results" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_fasta" value="four_human_proteins.fasta" ftype="fasta" />
+        </test>
+    </tests>
+    <help>
+    
+**What it does**
+
+This calls the ``average_nucleotide_identity.py`` script from the pyani
+package for calculating average nucleotide identity (ANI) and related
+measures for whole genome comparisons, and rendering relevant graphical
+summary output. 
+
+The input is a collection of FASTA files of nucleotide sequences, one per
+genome (where each file could contain multiple contigs or chromosomes).
+
+-----
+
+**References**
+
+If you use this Galaxy tool in work leading to a scientific publication please
+cite the following paper:
+
+Pritchard et al. (2016)
+"Genomics and taxonomy in diagnostics for food security: soft-rotting enterobacterial plant pathogens"
+Anal. Methods, 2016,8, 12-24
+http://dx.doi.org/10.1039/C5AY02550H
+
+See also https://github.com/widdowquinn/pyani
+
+This wrapper is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/pyani
+    </help>
+    <citations>
+        <citation type="doi">10.1039/C5AY02550H</citation>
+    </citations>
+</tool>
