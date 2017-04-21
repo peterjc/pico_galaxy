@@ -1,7 +1,7 @@
 <tool id="seq_composition" name="Sequence composition" version="0.0.3">
     <description>Count bases or amino-acids</description>
     <requirements>
-        <requirement type="package" version="1.64">biopython</requirement>
+        <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->

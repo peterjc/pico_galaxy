@@ -1,7 +1,7 @@
 Galaxy tool to back-translate a protein alignment to nucleotides
 ================================================================
 
-This tool is copyright 2012-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2012-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -71,6 +71,7 @@ v0.0.6  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.7  - Minor Python code style improvements (internal change only).
 v0.0.8  - Python coding style change to avoid lamba (internal change only).
+        - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 

@@ -1,7 +1,7 @@
 <tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.8">
     <description>Gives a codon aware alignment</description>
     <requirements>
-        <requirement type="package" version="1.63">biopython</requirement>
+        <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->

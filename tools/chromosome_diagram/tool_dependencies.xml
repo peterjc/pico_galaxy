@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="biopython" version="1.63">
-        <repository name="package_biopython_1_63" owner="biopython" />
+    <package name="biopython" version="1.67">
+        <repository name="package_biopython_1_67" owner="biopython" />
     </package>
     <!-- TODO, Tool Shed package for ReportLab -->
 </tool_dependency>

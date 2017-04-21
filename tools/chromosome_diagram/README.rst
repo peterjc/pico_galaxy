@@ -1,7 +1,7 @@
 Galaxy Tool for producing Biopython Chromosome Diagrams
 =======================================================
 
-Copyright 2011-2015 by Peter Cock, The James Hutton Institute
+Copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -75,6 +75,7 @@ Version Changes
 ------- ----------------------------------------------------------------------
 v0.0.1  - Initial version, not a public release to Tool Shed
 v0.0.2  - Reorder XML elements (internal change only).
+        - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 
