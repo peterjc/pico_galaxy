@@ -82,6 +82,8 @@ v0.0.7  - Use the ``format_source=...`` tag.
 v0.0.8  - Updated to point at Biopython 1.67 (latest version in Tool Shed).
         - Explicit dependency on ``galaxy_sequence_utils``.
         - Python style updates (internal change only).
+v0.0.9  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

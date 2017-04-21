@@ -75,6 +75,8 @@ v0.0.9  - Test with three-way Venn diagram.
 v0.0.10 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
         - Explicit dependency on ``galaxy_sequence_utils``.
         - Python style updates (internal change only).
+v0.0.11 - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only)
 ======= ======================================================================
 
 

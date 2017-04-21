@@ -1,4 +1,4 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.10">
+<tool id="venn_list" name="Venn Diagram" version="0.0.11">
     <description>from lists</description>
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
@@ -8,21 +8,16 @@
         <requirement type="package" version="3.25.3">limma</requirement>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <command interpreter="python">
-venn_list.py
+    <command detect_errors="aggressive">
+python venn_list.py
 #if $universe.type_select=="implicit":
   - -
 #else:
-  "$main" $main.ext
+  '$main' $main.ext
 #end if
-"$main_lab"
+'$main_lab'
 #for $s in $sets:
-  "$s.set" $s.set.ext "$s.lab"
+  '$s.set' $s.set.ext '$s.lab'
 #end for
 $PDF
     </command>

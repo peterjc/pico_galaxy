@@ -86,6 +86,7 @@ v0.0.11 - Use the ``format_source=...`` tag.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
         - Quote filenames in case of spaces (internal change only).
 v0.0.12 - Python style changes (internal change only).
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
 ======= ======================================================================
 
 
