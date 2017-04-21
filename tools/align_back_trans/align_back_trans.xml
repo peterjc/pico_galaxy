@@ -3,14 +3,11 @@
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">align_back_trans.py --version</version_command>
-    <command interpreter="python">
-align_back_trans.py $prot_align.ext "$prot_align" "$nuc_file" "$out_nuc_align" "$table"
+    <version_command>
+python align_back_trans.py --version
+</version_command>
+    <command detect_errors="aggresive">
+align_back_trans.py $prot_align.ext '$prot_align' '$nuc_file' '$out_nuc_align' '$table'
     </command>
     <inputs>
         <param name="prot_align" type="data" format="fasta,muscle,clustal" label="Aligned protein file" help="Mutliple sequence file in FASTA, ClustalW or PHYLIP format." />

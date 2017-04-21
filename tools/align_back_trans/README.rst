@@ -72,6 +72,8 @@ v0.0.6  - Reorder XML elements (internal change only).
 v0.0.7  - Minor Python code style improvements (internal change only).
 v0.0.8  - Python coding style change to avoid lamba (internal change only).
         - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only)
 ======= ======================================================================
 
 
