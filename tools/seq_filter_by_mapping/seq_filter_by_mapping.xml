@@ -4,23 +4,20 @@
         <requirement type="package" version="1.67">biopython</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">seq_filter_by_mapping.py --version</version_command>
-    <command interpreter="python">
-seq_filter_by_mapping.py -i "$input_file" -f "$input_file.ext" -m $pair_mode
+    <version_command>
+python seq_filter_by_mapping.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python seq_filter_by_mapping.py -i '$input_file' -f '$input_file.ext' -m $pair_mode
 #if $output_choice_cond.output_choice=="both"
- -p $output_pos -n $output_neg
+ -p '$output_pos' -n '$output_neg'
 #elif $output_choice_cond.output_choice=="pos"
- -p $output_pos
+ -p '$output_pos'
 #elif $output_choice_cond.output_choice=="neg"
- -n $output_neg
+ -n '$output_neg'
 #end if
 ## Now loop over all the mapping files
-#for i in $mapping_file#${i} #end for#
+#for i in $mapping_file#'${i}' #end for#
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />

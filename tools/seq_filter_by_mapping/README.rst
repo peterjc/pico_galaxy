@@ -68,6 +68,8 @@ v0.0.4  - Use the ``format_source=...`` tag.
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.5  - Python script cleanups (internal change only).
         - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
