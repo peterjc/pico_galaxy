@@ -5,10 +5,10 @@
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <version_command>
-python seq_filter_by_mapping.py --version
+python $__tool_directory__/seq_filter_by_mapping.py --version
     </version_command>
     <command detect_errors="aggressive">
-python seq_filter_by_mapping.py -i '$input_file' -f '$input_file.ext' -m $pair_mode
+python $__tool_directory__/seq_filter_by_mapping.py -i '$input_file' -f '$input_file.ext' -m $pair_mode
 #if $output_choice_cond.output_choice=="both"
  -p '$output_pos' -n '$output_neg'
 #elif $output_choice_cond.output_choice=="pos"

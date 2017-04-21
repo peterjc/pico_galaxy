@@ -9,10 +9,10 @@
             <requirement type="package" version="4.6">gnuplot</requirement>
     </requirements>
     <version_command>
-python mummer.py --version
+python $__tool_directory__/mummer.py --version
     </version_command>
     <command detect_errors="aggressive">
-python mummer.py '$fasta_a' '$fasta_b' $algorithm '$png_output' '$pdf_output'
+python $__tool_directory__/mummer.py '$fasta_a' '$fasta_b' $algorithm '$png_output' '$pdf_output'
     </command>
     <inputs>
         <!-- Galaxy does not have sub-types for protein vs nucletide FASTA -->

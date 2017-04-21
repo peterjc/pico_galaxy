@@ -5,10 +5,10 @@
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <version_command>
-python seq_primer_clip.py --version
+python $__tool_directory__/seq_primer_clip.py --version
     </version_command>
     <command detect_errors="aggresive">
-python seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
+python $__tool_directory__/seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to clip" help="FASTA, FASTQ, or SFF format."/>

@@ -5,10 +5,10 @@
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <version_command>
-python seq_rename.py --version
+python $__tool_directory__/seq_rename.py --version
 </version_command>
     <command detect_errors="aggressive">
-python seq_rename.py '$input_tabular' '$old_column' '$new_column' '$input_file' '$input_file.ext' '$output_file'
+python $__tool_directory__/seq_rename.py '$input_tabular' '$old_column' '$new_column' '$input_file' '$input_file.ext' '$output_file'
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file" help="FASTA, QUAL, FASTQ, or SFF format." />

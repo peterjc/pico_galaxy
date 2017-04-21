@@ -4,10 +4,10 @@
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <version_command>
-python seq_select_by_id.py --version
-</version_command>
+python $__tool_directory__/seq_select_by_id.py --version
+    </version_command>
     <command detect_errors="aggressive">
-python seq_select_by_id.py '$input_tabular' '$column' '$input_file' '$input_file.ext' '$output_file'
+python $__tool_directory__/seq_select_by_id.py '$input_tabular' '$column' '$input_file' '$input_file.ext' '$output_file'
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file to select from" help="FASTA, QUAL, FASTQ, or SFF format." />
