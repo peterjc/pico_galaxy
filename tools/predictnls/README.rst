@@ -1,7 +1,7 @@
 Python re-implementation of predictNLS with Galaxy wrapper
 ==========================================================
 
-This Galaxy tool is copyright 2011-2015 by Peter Cock, The James Hutton Institute
+This Galaxy tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -66,6 +66,8 @@ v0.0.6  - Link to Tool Shed added to help text and this documentation.
 v0.0.7  - Tool definition now embeds citation information.
 v0.0.8  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
