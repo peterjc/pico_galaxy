@@ -1,7 +1,6 @@
 <tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.3">
     <description>using samtools view</description>
     <requirements>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.2.2">samtools</requirement>
     </requirements>
     <stdio>

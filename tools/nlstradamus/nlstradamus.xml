@@ -1,7 +1,6 @@
 <tool id="nlstradamus" name="NLStradamus" version="0.0.11">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
     <requirements>
-        <requirement type="binary">NLStradamus</requirement>
         <requirement type="package" version="1.8">NLStradamus</requirement>
     </requirements>
     <command detect_errors="aggressive">

@@ -2,7 +2,6 @@
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.65">biopython</requirement>
-        <requirement type="python-module">Bio</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->

@@ -2,10 +2,8 @@
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <requirements>
         <!-- Need SignalP for all the models -->
-        <requirement type="binary">signalp</requirement>
         <requirement type="package">signalp</requirement>
         <!-- Need HMMER for Whisson et al. (2007) -->
-        <requirement type="binary">hmmsearch</requirement>
         <requirement type="package">hmmsearch</requirement>
     </requirements>
     <stdio>

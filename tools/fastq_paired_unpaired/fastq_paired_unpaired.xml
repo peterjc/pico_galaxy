@@ -3,7 +3,6 @@
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
         <requirement type="package" version="1.67">biopython</requirement>
-        <requirement type="python-module">Bio</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->

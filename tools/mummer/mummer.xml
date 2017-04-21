@@ -2,16 +2,10 @@
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <!-- Needs ps2pdf from ghostscript -->      
-            <requirement type="binary">ps2pdf</requirement>
             <requirement type="package" version="9.10">ghostscript</requirement>
             <!-- Needs mummer, nucmer, promer and mummerplot from MUMmer -->
-            <requirement type="binary">mummer</requirement>
-            <requirement type="binary">nucmer</requirement>
-            <requirement type="binary">promer</requirement>
-            <requirement type="binary">mummerplot</requirement>
             <requirement type="package" version="3.23">mummer</requirement>
 	    <!-- mummerplot needs the gnuplot binary -->
-            <requirement type="binary">gnuplot</requirement>
             <requirement type="package" version="4.6">gnuplot</requirement>
     </requirements>
     <version_command>

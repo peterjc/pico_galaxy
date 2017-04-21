@@ -1,7 +1,6 @@
 <tool id="coverage_stats" name="BAM coverage statistics" version="0.0.5">
     <description>using samtools idxstats and depth</description>
     <requirements>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.2.2">samtools</requirement>
     </requirements>
     <stdio>

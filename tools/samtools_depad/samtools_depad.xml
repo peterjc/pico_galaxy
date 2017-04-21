@@ -1,7 +1,6 @@
 <tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.3">
     <description>samtools depad</description>
     <requirements>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <stdio>

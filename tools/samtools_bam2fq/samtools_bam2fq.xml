@@ -1,7 +1,6 @@
 <tool id="samtools_bam2fq" name="Convert BAM to FASTQ" version="0.0.4">
     <description>samtools bam2fq</description>
     <requirements>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
     <stdio>

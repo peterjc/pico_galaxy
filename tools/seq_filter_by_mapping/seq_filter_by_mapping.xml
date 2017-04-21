@@ -2,8 +2,6 @@
     <description>from SAM/BAM file</description>
     <requirements>
         <requirement type="package" version="1.64">biopython</requirement>
-        <requirement type="python-module">Bio</requirement>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <stdio>

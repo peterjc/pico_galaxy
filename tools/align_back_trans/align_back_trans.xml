@@ -2,7 +2,6 @@
     <description>Gives a codon aware alignment</description>
     <requirements>
         <requirement type="package" version="1.63">biopython</requirement>
-        <requirement type="python-module">Bio</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->

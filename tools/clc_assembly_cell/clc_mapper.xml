@@ -1,9 +1,6 @@
 <tool id="clc_mapper" name="CLC Mapper" version="0.0.6">
     <description>Maps reads giving a SAM/BAM file</description>
     <requirements>
-        <requirement type="binary">clc_mapper</requirement>    
-        <requirement type="binary">clc_cas_to_sam</requirement>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
     <stdio>

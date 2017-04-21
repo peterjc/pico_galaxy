@@ -2,9 +2,6 @@
     <description>from simple locus annotation</description>
     <requirements>
         <requirement type="package" version="1.62">biopython</requirement>
-        <requirement type="python-module">Bio</requirement>
-        <!-- TODO, Tool Shed package for ReportLab -->
-        <requirement type="python-module">reportlab</requirement>
     </requirements>
     <stdio>
         <!-- Anything other than zero is an error -->

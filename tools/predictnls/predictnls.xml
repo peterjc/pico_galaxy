@@ -1,8 +1,5 @@
 <tool id="predictnls" name="PredictNLS" version="0.0.8">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
-    <requirements>
-        <requirement type="binary">predictnls</requirement>
-    </requirements>
     <stdio>
         <!-- Assume anything other than zero is an error -->
         <exit_code range="1:" />

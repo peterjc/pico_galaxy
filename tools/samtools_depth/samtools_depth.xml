@@ -1,7 +1,6 @@
 <tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.2">
     <description>samtools depth</description>
     <requirements>
-        <requirement type="binary">samtools</requirement>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
     <stdio>
