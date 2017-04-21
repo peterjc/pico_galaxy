@@ -87,6 +87,7 @@ v0.0.11 - Use the ``format_source=...`` tag.
         - Quote filenames in case of spaces (internal change only).
 v0.0.12 - Python style changes (internal change only).
         - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 

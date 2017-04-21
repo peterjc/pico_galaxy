@@ -1,7 +1,7 @@
 Galaxy tool to sub-sample sequence files
 ========================================
 
-This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -71,6 +71,7 @@ v0.2.2  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.2.3  - Do the Biopython imports at the script start (internal change only).
         - Clarify paired read example in help text.
+        - Depends on Biopython 1.67 vialegacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 

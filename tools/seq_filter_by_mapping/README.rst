@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by SAM/BAM mapping
 ======================================================================
 
-This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -67,6 +67,7 @@ v0.0.4  - Use the ``format_source=...`` tag.
         - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.5  - Python script cleanups (internal change only).
+        - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 

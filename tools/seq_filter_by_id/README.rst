@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by ID
 =========================================================
 
-This tool is copyright 2010-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -91,6 +91,7 @@ v0.2.3  - Ignore blank lines in ID file (contributed by Gildas Le Corguillé).
           (internal change only).
 v0.2.4  - Corrected error message wording.
 v0.2.5  - Ignore empty names, common in R output (Gildas Le Corguillé).
+v0.2.6  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 
