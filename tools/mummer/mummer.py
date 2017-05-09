@@ -28,6 +28,8 @@ if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
     os.system("nucmer --version")
     os.system("promer --version")
     os.system("mummerplot --version")
+    os.system("gnuplot --version")
+    # TODO - Should we include "gs --version" as a proxy for ps2pdf?
     sys.exit(0)
 
 # Parse Command Line

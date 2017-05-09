@@ -70,6 +70,7 @@ v0.0.6  - PEP8 style changes to Python script (internal change only).
 v0.0.7  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
         - Wrapper script catches missing output explicitly.
+        - Capture gnuplot version as well.
 ======= ======================================================================
 
 
