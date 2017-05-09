@@ -23,7 +23,7 @@ def run(cmd):
 
 
 if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
-    print("MUMmer wrapper v0.0.3\n")
+    print("MUMmer wrapper v0.0.7\n")
     # TODO - How to get a version string from the mummer binary?
     os.system("nucmer --version")
     os.system("promer --version")
@@ -59,11 +59,17 @@ else:
     cmd = '%s "%s" "%s"' % (algorithm, fasta_a, fasta_b)
 run(cmd)
 
+output_failed = False
+
 # PNG
 # ===
 cmd = 'mummerplot -R "%s" -Q "%s" --png --large --prefix=%s %s' % (fasta_a, fasta_b, prefix, coords)
 run(cmd)
-shutil.move(png_image, png_out)
+if os.path.isfile(png_image):
+    shutil.move(png_image, png_out)
+else:
+    sys.stderr.write("ERROR: PNG file not created.\n")
+    output_failed = True
 
 # PS --> PDF
 # ==========
@@ -75,9 +81,19 @@ shutil.move(png_image, png_out)
 # Using "set size 1,1" works better - which is what --small gives:
 cmd = 'mummerplot -R "%s" -Q "%s" --postscript --small --prefix=%s %s' % (fasta_a, fasta_b, prefix, coords)
 run(cmd)
-cmd = 'ps2pdf -dEPSCrop "%s" "%s"' % (ps_image, pdf_out)
-run(cmd)
+if not os.path.isfile(ps_image):
+    sys.stderr.write("ERROR: PostScript file needed for PDF output was not created.\n")
+    output_failed = True
+else:
+    cmd = 'ps2pdf -dEPSCrop "%s" "%s"' % (ps_image, pdf_out)
+    run(cmd)
+    if not os.path.isfile(pdf_out):
+        sys.stderr.write("ERROR: PDF file not created.\n")
+        output_failed = True
 
 # Remove temp files...
 os.remove(coords)  # Might not be under the temp directory...
 shutil.rmtree(base_path)
+
+if output_failed:
+    sys.exit("ERROR: Failed to produce output file(s).")
