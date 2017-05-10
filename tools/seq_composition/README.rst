@@ -61,7 +61,7 @@ v0.0.1  - Initial version.
 v0.0.2  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.3  - Python style updates (internal change only).
-        - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
+v0.0.4  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 ======= ======================================================================
 
 
