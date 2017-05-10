@@ -1,4 +1,4 @@
-<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.14">
+<tool id="seq_primer_clip" name="Primer clip sequences" version="0.0.15">
     <description>Trim off 5' or 3' primers</description>
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
