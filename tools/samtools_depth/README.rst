@@ -65,17 +65,17 @@ For pushing a release to the test or main "Galaxy Tool Shed", use the following
 Planemo commands (which requires you have set your Tool Shed access details in
 ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ planemo shed_update -t testtoolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_depth/
+    $ planemo shed_update -t testtoolshed --check_diff tools/samtools_depth/
     ...
 
 or::
 
-    $ planemo shed_update -t toolshed --check_diff ~/repositories/pico_galaxy/tools/samtools_depth/
+    $ planemo shed_update -t toolshed --check_diff tools/samtools_depth/
     ...
 
 To just build and check the tar ball, use::
 
-    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/samtools_depth/
+    $ planemo shed_upload --tar_only tools/samtools_depth/
     ...
     $ tar -tzf shed_upload.tar.gz 
     test-data/ex1.bam

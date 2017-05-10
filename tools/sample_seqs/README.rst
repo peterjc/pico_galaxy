@@ -85,17 +85,17 @@ For pushing a release to the test or main "Galaxy Tool Shed", use the following
 Planemo commands (which requires you have set your Tool Shed access details in
 ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ planemo shed_update -t testtoolshed --check_diff ~/repositories/pico_galaxy/tools/sample_seqs/
+    $ planemo shed_update -t testtoolshed --check_diff tools/sample_seqs/
     ...
 
 or::
 
-    $ planemo shed_update -t toolshed --check_diff ~/repositories/pico_galaxy/tools/sample_seqs/
+    $ planemo shed_update -t toolshed --check_diff tools/sample_seqs/
     ...
 
 To just build and check the tar ball, use::
 
-    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/sample_seqs/
+    $ planemo shed_upload --tar_only tools/sample_seqs/
     ...
     $ tar -tzf shed_upload.tar.gz 
     test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff

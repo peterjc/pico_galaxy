@@ -86,17 +86,17 @@ For pushing a release to the test or main "Galaxy Tool Shed", use the following
 Planemo commands (which requires you have set your Tool Shed access details in
 ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ planemo shed_update -t testtoolshed --check_diff ~/repositories/pico_galaxy/tools/seq_filter_by_mapping/
+    $ planemo shed_update -t testtoolshed --check_diff tools/seq_filter_by_mapping/
     ...
 
 or::
 
-    $ planemo shed_update -t toolshed --check_diff ~/repositories/pico_galaxy/tools/seq_filter_by_mapping/
+    $ planemo shed_update -t toolshed --check_diff tools/seq_filter_by_mapping/
     ...
 
 To just build and check the tar ball, use::
 
-    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/seq_filter_by_mapping/
+    $ planemo shed_upload --tar_only tools/seq_filter_by_mapping/
     ...
     $ tar -tzf shed_upload.tar.gz
     test-data/SRR639755_mito_pairs.fastq.gz

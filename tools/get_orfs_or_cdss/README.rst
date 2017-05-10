@@ -96,17 +96,17 @@ For pushing a release to the test or main "Galaxy Tool Shed", use the following
 Planemo commands (which requires you have set your Tool Shed access details in
 ``~/.planemo.yml`` and that you have access rights on the Tool Shed)::
 
-    $ planemo shed_update -t testtoolshed --check_diff ~/repositories/pico_galaxy/tools/get_orfs_or_cdss/
+    $ planemo shed_update -t testtoolshed --check_diff tools/get_orfs_or_cdss/
     ...
 
 or::
 
-    $ planemo shed_update -t toolshed --check_diff ~/repositories/pico_galaxy/tools/get_orfs_or_cdss/
+    $ planemo shed_update -t toolshed --check_diff tools/get_orfs_or_cdss/
     ...
 
 To just build and check the tar ball, use::
 
-    $ planemo shed_upload --tar_only  ~/repositories/pico_galaxy/tools/get_orfs_or_cdss/
+    $ planemo shed_upload --tar_only tools/get_orfs_or_cdss/
     ...
     $ tar -tzf shed_upload.tar.gz
     test-data/Ssuis.fasta
