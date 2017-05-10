@@ -1,7 +1,7 @@
 BAM coverage statistics using samtools idxstats and depth
 =========================================================
 
-This tool is copyright 2014-2015 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -14,16 +14,15 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/coverage_stats
 Automated Installation
 ======================
 
-This should be straightforward, Galaxy should automatically download and install
-samtools 1.3 if required.
-
-TODO: See https://github.com/galaxyproject/tools-iuc/issues/561
+This should be straightforward, provided your Galaxy is setup to use Conda and
+BioConda for dependencies - Galaxy should then automatically download and
+install the expected version of samtools.
 
 
 Manual Installation
 ===================
 
-This expects samtools to be on the ``$PATH``, and was tested using v0.1.3
+This expects samtools to be on the ``$PATH``, and was tested using v1.3.1.
 
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/coverage_stats`` folder:
@@ -58,7 +57,8 @@ v0.0.3  - Cope with no coverage in final contigs.
 v0.0.4  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.5  - Expose new ``samtools depth -d ...`` argument added in samtools v1.3
-        - Depends on samtools v1.3, available as an IUC Tool Shed package.
+        - Depends on samtools v1.3.1 via Conda, which IS NOT AVAILABLE as a
+          legacy Tool Shed package.
         - Apply the new maximum depth parameter within the script to ensure
           excess coverage is clear by getting the max coverage equal to the
           max depth setting (the raw output from samtools is more fuzzy).
@@ -92,7 +92,6 @@ To just build and check the tar ball, use::
     tools/coverage_stats/README.rst
     tools/coverage_stats/coverage_stats.xml
     tools/coverage_stats/coverage_stats.py
-    tools/coverage_stats/tool_dependencies.xml
     ...
 
 
