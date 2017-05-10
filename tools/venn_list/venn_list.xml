@@ -7,7 +7,7 @@
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <command detect_errors="aggressive">
-python venn_list.py
+python $__tool_directory__/venn_list.py
 #if $universe.type_select=="implicit":
   - -
 #else:

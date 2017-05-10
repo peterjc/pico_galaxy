@@ -4,10 +4,10 @@
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <version_command>
-python align_back_trans.py --version
+python $__tool_directory__/align_back_trans.py --version
 </version_command>
     <command detect_errors="aggressive">
-align_back_trans.py $prot_align.ext '$prot_align' '$nuc_file' '$out_nuc_align' '$table'
+python $__tool_directory__/align_back_trans.py $prot_align.ext '$prot_align' '$nuc_file' '$out_nuc_align' '$table'
     </command>
     <inputs>
         <param name="prot_align" type="data" format="fasta,muscle,clustal" label="Aligned protein file" help="Mutliple sequence file in FASTA, ClustalW or PHYLIP format." />
