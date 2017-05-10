@@ -6,7 +6,7 @@
     <version_command>
 python align_back_trans.py --version
 </version_command>
-    <command detect_errors="aggresive">
+    <command detect_errors="aggressive">
 align_back_trans.py $prot_align.ext '$prot_align' '$nuc_file' '$out_nuc_align' '$table'
     </command>
     <inputs>

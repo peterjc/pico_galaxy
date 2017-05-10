@@ -7,7 +7,7 @@
     <version_command>
 python $__tool_directory__/seq_primer_clip.py --version
     </version_command>
-    <command detect_errors="aggresive">
+    <command detect_errors="aggressive">
 python $__tool_directory__/seq_primer_clip.py $input_file $input_file.ext $primer_fasta $primer_type $mm $min_len $keep_negatives $output_file
     </command>
     <inputs>
