@@ -33,6 +33,15 @@ get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -
             <option value="22">22. Scenedesmus obliquus</option>
             <option value="23">23. Thraustochytrium Mitochondrial</option>
             <option value="24">24. Pterobranchia Mitochondrial</option>
+            <option value="25">25. Candidate Division SR1 and Gracilibacteria</option>
+            <!-- TODO, these are not in Biopython 1.67
+            <option value="26">26. Pachysolen tannophilus Nuclear</option>
+            <option value="26">27. Karyorelict Nuclear</option>
+            <option value="26">28. Condylostoma Nuclear</option>
+            <option value="26">29. Mesodinium Nuclear</option>
+            <option value="26">30. Peritrich Nuclear</option>
+            <option value="26">31. Blastocrithidia Nuclear</option>
+            -->
         </param>
         <param name="ftype" type="select" value="True" label="Look for ORFs or CDSs">
             <option value="ORF">Look for ORFs (check for stop codons only, ignore start codons)</option>

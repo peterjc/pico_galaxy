@@ -77,7 +77,9 @@ v0.1.0  - Tool now outputs BED formatted calls (by @erasche, Eric Rasche).
         - Added NCBI genetic code table 24, Pterobranchia Mitochondrial.
 v0.1.1  - Reorder XML elements (internal change only).
 v0.2.0  - Tool now also outputs GFF3 formatted calls (Eric Rasche).
-v0.2.1  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda
+v0.2.1  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
+        - Added NCBI genetic code table 24, Candidate Division SR1 and
+	  Gracilibacteria.
 ======= ======================================================================
 
 
