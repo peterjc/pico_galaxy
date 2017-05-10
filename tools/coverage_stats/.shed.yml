@@ -22,4 +22,3 @@ include:
   - ../../tools/coverage_stats/README.rst
   - ../../tools/coverage_stats/coverage_stats.xml
   - ../../tools/coverage_stats/coverage_stats.py
-  - ../../tools/coverage_stats/tool_dependencies.xml
