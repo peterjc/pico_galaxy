@@ -77,6 +77,8 @@ v0.0.10 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
         - Python style updates (internal change only).
 v0.0.11 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only)
+        - Python 3 compatible print function.
+        - Capture python script version when run from Galaxy.
 ======= ======================================================================
 
 

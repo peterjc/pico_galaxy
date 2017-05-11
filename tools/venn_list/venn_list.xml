@@ -6,6 +6,9 @@
         <requirement type="package" version="3.25.3">limma</requirement>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
+    <version_command>
+python $__tool_directory__/venn_list.py --version
+    </version_comman>
     <command detect_errors="aggressive">
 python $__tool_directory__/venn_list.py
 #if $universe.type_select=="implicit":

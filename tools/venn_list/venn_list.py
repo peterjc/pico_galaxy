@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 """Plot up to 3-way Venn Diagram using R limma vennDiagram (via rpy)
 
-This script is copyright 2010 by Peter Cock, The James Hutton Institute
+This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
-See accompanying text file for licence details (MIT/BSD style).
 
-This is version 0.0.8 of the script.
+See accompanying text file for licence details (MIT License).
 """
 
+from __futute__ import print_function
 
 import sys
+
+if "-v" in sys.argv or "--version" in sys.argv:
+    print("v0.0.11")
+    sys.exit(0)
 
 try:
     import rpy
@@ -37,7 +41,7 @@ if len(sys.argv) - 1 >= 13:
     set_data.append(tuple(sys.argv[10:13]))
 pdf_file = sys.argv[-1]
 n = len(set_data)
-print "Doing %i-way Venn Diagram" % n
+print("Doing %i-way Venn Diagram" % n)
 
 
 def load_ids(filename, filetype):
@@ -85,14 +89,14 @@ if all_file in ["", "-", '""', '"-"']:
     all_ids = set()
     for s in sets:
         all_ids.update(s)
-    print "Inferred total of %i IDs" % len(all_ids)
+    print("Inferred total of %i IDs" % len(all_ids))
 else:
     all_ids = set(load_ids(all_file, all_type))
-    print "Total of %i IDs" % len(all_ids)
+    print("Total of %i IDs" % len(all_ids))
     sets = [set(load_ids_whitelist(f, t, all_ids)) for (f, t, c) in set_data]
 
 for s, (f, t, c) in zip(sets, set_data):
-    print "%i in %s" % (len(s), c)
+    print("%i in %s" % (len(s), c))
 
 # Now call R library to draw simple Venn diagram
 try:
@@ -103,7 +107,7 @@ try:
     rpy.r('vc <- vennCounts(groups)')
     # Populate the 2^n classes with real counts
     # Don't make any assumptions about the class order
-    # print rpy.r('vc')
+    # print(rpy.r('vc'))
     for index, row in enumerate(rpy.r('vc[,%s]' % cols)):
         if isinstance(row, int) or isinstance(row, float):
             # Hack for rpy being too clever for single element row
@@ -115,7 +119,7 @@ try:
             else:
                 names = names.difference(s)
         rpy.r('vc[%i,"Counts"] <- %i' % (index + 1, len(names)))
-    # print rpy.r('vc')
+    # print(rpy.r('vc'))
     if n == 1:
         # Single circle, don't need to add (Total XXX) line
         names = [c for (t, f, c) in set_data]
@@ -132,4 +136,4 @@ try:
 except Exception, exc:
     sys.exit("%s" % str(exc))
 rpy.r.quit(save="no")
-print "Done"
+print("Done")
