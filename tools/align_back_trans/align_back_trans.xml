@@ -1,11 +1,11 @@
-<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.8">
+<tool id="align_back_trans" name="Thread nucleotides onto a protein alignment (back-translation)" version="0.0.9">
     <description>Gives a codon aware alignment</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
     <version_command>
 python $__tool_directory__/align_back_trans.py --version
-</version_command>
+    </version_command>
     <command detect_errors="aggressive">
 python $__tool_directory__/align_back_trans.py $prot_align.ext '$prot_align' '$nuc_file' '$out_nuc_align' '$table'
     </command>

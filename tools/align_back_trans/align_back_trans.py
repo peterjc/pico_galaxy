@@ -17,6 +17,8 @@ This tool is available with a Galaxy wrapper from the Galaxy Tool Shed at:
 See accompanying text file for licence details (MIT licence).
 """
 
+from __future__ import print_function
+
 import sys
 
 from Bio import AlignIO
@@ -28,7 +30,7 @@ from Bio.Data.CodonTable import ambiguous_generic_by_id
 from Bio.Seq import Seq
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.7"
+    print("v0.0.9")
     sys.exit(0)
 
 
