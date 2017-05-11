@@ -146,6 +146,7 @@ elif options.everyn:
         sys.stderr.write("Sampling every %ith sequence\n" % N)
 
     def sampler(iterator):
+        """Sample every Nth sequence."""
         global N
         count = 0
         for record in iterator:
@@ -162,6 +163,7 @@ elif options.percent:
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
 
     def sampler(iterator):
+        """Sample given percentage of sequences."""
         global percent
         count = 0
         taken = 0
@@ -215,6 +217,7 @@ elif options.count:
             assert taken == N, "Picked %i, wanted %i" % (taken, N)
     else:
         def sampler(iterator):
+            """Sample given number of sequences."""
             # Mimic the percentage sampler, with double check on final count
             global N, total
             # Do we need a floating point fudge factor epsilon?

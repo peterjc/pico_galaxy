@@ -69,6 +69,7 @@ def clean_tabular(raw_handle, out_handle):
 
 
 def run(cmd):
+    """Run the command line string via subprocess."""
     # Avoid using shell=True when we call subprocess to ensure if the Python
     # script is killed, so too is the child process.
     try:

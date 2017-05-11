@@ -51,6 +51,7 @@ tmp_dir = tempfile.mkdtemp()
 
 
 def get_path_and_binary():
+    """Determine path and binary names for promoter tool."""
     platform = commands.getoutput("uname")  # e.g. Linux
     shell_script = commands.getoutput("which promoter")
     if not os.path.isfile(shell_script):

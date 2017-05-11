@@ -141,6 +141,7 @@ name_warn = False
 
 
 def check_white_space(name):
+    """Check identifier for white space, take first word only."""
     parts = name.split(None, 1)
     global name_warn
     if not name_warn and len(parts) > 1:

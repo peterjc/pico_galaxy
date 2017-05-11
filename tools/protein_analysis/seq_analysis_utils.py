@@ -49,6 +49,7 @@ except ImportError:
 
 
 def thread_count(command_line_arg, default=1):
+    """Determine number of threads to use from the command line args."""
     try:
         num = int(command_line_arg)
     except ValueError:

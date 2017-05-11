@@ -88,6 +88,7 @@ def check_trans(identifier, nuc, prot, table):
 
 
 def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record, gap, table=0):
+    """Back-translate a sequence."""
     # TODO - Separate arguments for protein gap and nucleotide gap?
     if not gap or len(gap) != 1:
         raise ValueError("Please supply a single gap character")

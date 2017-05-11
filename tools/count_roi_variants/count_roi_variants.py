@@ -196,6 +196,10 @@ assert "GGGgA" == get_roi("AAAAGGGgATTTT", decode_cigar("7M1I5M"), 4, 8)
 
 
 def count_region():
+    """Count reads mapped to the region.
+
+    Calls samtools view and parses the output.
+    """
     # Could recreate the region string (with no commas in start/end)?
     # region = "%s:%i-%i" % (ref, start, end)
 
@@ -239,7 +243,7 @@ def count_region():
 
 
 def record_counts():
-
+    """Record counts to tabular file."""
     tally = count_region()
     total = sum(tally.values())
 

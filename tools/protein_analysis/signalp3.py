@@ -117,6 +117,7 @@ def clean_tabular(raw_handle, out_handle, gff_handle=None):
 
 
 def make_gff(fasta_file, tabular_file, gff_file, cut_method):
+    """Make a GFF file."""
     cut_col, score_col = {"NN_Cmax": (2, 1),
                           "NN_Ymax": (5, 4),
                           "NN_Smax": (8, 7),

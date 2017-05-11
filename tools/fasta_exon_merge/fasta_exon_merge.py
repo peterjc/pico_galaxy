@@ -70,6 +70,7 @@ input_fasta, output_fasta = sys.argv[1:]
 
 
 def exon_merge_iter(input_records, split_on):
+    """Iterate over input records spliting them into exons."""
     current_stem = None
     current_parts = []
     for record in input_records:

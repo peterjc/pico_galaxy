@@ -130,10 +130,12 @@ for letter, values in ambiguous_dna_values.iteritems():
 
 
 def make_reg_ex(seq):
+    """Make regular expression for ambiguous DNA."""
     return "".join(ambiguous_dna_re[letter] for letter in seq)
 
 
 def make_reg_ex_mm(seq, mm):
+    """Make regular expression for mis-matches."""
     if mm > 2:
         raise NotImplementedError("At most 2 mismatches allowed!")
     seq = seq.upper()
@@ -166,7 +168,10 @@ def make_reg_ex_mm(seq, mm):
 
 
 def load_primers_as_re(primer_fasta, mm, rc=False):
-    # Read primer file and record all specified sequences
+    """Load primers as regular expressions.
+
+    Read primer file and record all specified sequences.
+    """
     primers = set()
     in_handle = open(primer_fasta, "rU")
     reader = fastaReader(in_handle)

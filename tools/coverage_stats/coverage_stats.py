@@ -74,6 +74,7 @@ assert os.path.isfile(bam_file + ".bai"), bam_file
 
 
 def clean_up():
+    """Remove our temporary files and directory."""
     os.remove(idxstats_filename)
     os.remove(depth_filename)
     os.remove(bam_file)
@@ -82,6 +83,7 @@ def clean_up():
 
 
 def samtools_depth_opt_available():
+    """Determine if samtools depth supports maximum coverage argument."""
     child = subprocess.Popen(["samtools", "depth"],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Combined stdout/stderr in case samtools is ever inconsistent
