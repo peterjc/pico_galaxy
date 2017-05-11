@@ -73,6 +73,7 @@ before_install:
  - wget https://anaconda.org/bioconda/samtools/1.4.1/download/linux-64/samtools-1.4.1-0.tar.bz2
  - tar -jxvf samtools-1.4.1-0.tar.bz2
  - export PATH=$PWD/bin/:$PATH
+ - samtools --version
  - echo "Fetching Galaxy ${GALAXY_BRANCH} branch..."
  - cd ${TRAVIS_BUILD_DIR}
  - wget https://codeload.github.com/galaxyproject/galaxy/tar.gz/${GALAXY_BRANCH}
