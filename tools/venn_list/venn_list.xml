@@ -8,7 +8,7 @@
     </requirements>
     <version_command>
 python $__tool_directory__/venn_list.py --version
-    </version_comman>
+    </version_command>
     <command detect_errors="aggressive">
 python $__tool_directory__/venn_list.py
 #if $universe.type_select=="implicit":
