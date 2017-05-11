@@ -290,7 +290,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         print("Generating two FASTQ files")
         positive_handle = open(pos_file, "w")
         negative_handle = open(neg_file, "w")
-        print in_file
+        print(in_file)
         for title, seq, qual in FastqGeneralIterator(handle):
             print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
             if clean_name(title.split(None, 1)[0]) in wanted:

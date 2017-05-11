@@ -7,7 +7,7 @@ This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 See accompanying text file for licence details (MIT License).
 """
 
-from __futute__ import print_function
+from __future__ import print_function
 
 import sys
 
