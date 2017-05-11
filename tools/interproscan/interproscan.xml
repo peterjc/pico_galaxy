@@ -1,11 +1,11 @@
 <tool id="interproscan" name="Interproscan functional predictions of ORFs"  version="1.0.2">
     <description>Interproscan functional predictions of ORFs</description>
-    <command interpreter="python">
-      interproscan.py 
-           '$__app__.config.new_file_path'
-       '$input'
-           '$format'
-       '$output'
+    <command detect_errors="aggressive">
+python $__tool_directory__/interproscan.py
+'$__app__.config.new_file_path'
+'$input'
+'$format'
+'$output'
     </command>
     <inputs>
         <param name="input" type="data" format="fasta" label="ORFs in protein FASTA format"/>
