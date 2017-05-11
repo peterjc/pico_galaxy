@@ -5,7 +5,8 @@ This wrapper is copyright 2014-2015 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
-This is a wrapper for part of the command line samtools suite, v0.1.19
+This is a wrapper for part of the command line samtools suite, v0.1.19, or
+v1.4.1.
 
 This wrapper is available from the Galaxy Tool Shed at:
 http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_idxstats
@@ -21,7 +22,9 @@ samtools 0.1.19 if required.
 Manual Installation
 ===================
 
-This expects samtools to be on the ``$PATH``, and was tested using v0.1.19.
+This expects samtools to be on the ``$PATH``, and was tested using v0.1.19,
+or v1.4.1 (see samtools issue #169, in between versions of samtools would
+fail with ``fix_header() header parsing not yet implemented``).
 
 To install the wrapper copy or move the following files under the Galaxy tools
 folder, e.g. in a ``tools/samtools_depad`` folder:
@@ -54,6 +57,9 @@ v0.0.2  - Embed samtools citation in the tool XML.
         - Removed unused imports from Python wrapper script.
 v0.0.3  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.4  - Depend on samtools 1.4.1 from (Bio)Conda.
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
