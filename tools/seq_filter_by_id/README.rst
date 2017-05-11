@@ -93,6 +93,7 @@ v0.2.4  - Corrected error message wording.
 v0.2.5  - Ignore empty names, common in R output (Gildas Le Corguillé).
 v0.2.6  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 v0.2.7  - Python 3 compatible print function.
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
 ======= ======================================================================
 
 

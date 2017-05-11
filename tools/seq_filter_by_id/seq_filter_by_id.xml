@@ -3,14 +3,11 @@
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">seq_filter_by_id.py --version</version_command>
-    <command interpreter="python">
-seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
+    <version_command>
+python $__tool_directory__/seq_filter_by_id.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
 #if str($output_choice_cond.output_choice)=="both"
  -p "$output_pos" -n "$output_neg"
 #elif str($output_choice_cond.output_choice)=="pos"
