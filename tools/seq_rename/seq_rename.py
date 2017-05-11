@@ -21,10 +21,13 @@ This script is copyright 2011-2017 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT
 license).
 """
+
+from __future__ import print_function
+
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.8"
+    print("v0.0.9")
     sys.exit(0)
 
 # Parse Command Line
@@ -89,7 +92,7 @@ def parse_ids(tabular_file, old_col, new_col):
 
 # Load the rename mappings
 rename = dict(parse_ids(tabular_file, old_column, new_column))
-print "Loaded %i ID mappings" % len(rename)
+print("Loaded %i ID mappings" % len(rename))
 
 # Rewrite the sequence file
 if seq_format.lower() == "sff":
@@ -164,4 +167,4 @@ else:
     writer.close()
     reader.close()
 
-print "Renamed %i out of %i records" % (renamed, count)
+print("Renamed %i out of %i records" % (renamed, count))
