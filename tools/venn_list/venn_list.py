@@ -109,7 +109,7 @@ try:
     # Don't make any assumptions about the class order
     # print(rpy.r('vc'))
     for index, row in enumerate(rpy.r('vc[,%s]' % cols)):
-        if isinstance(row, int) or isinstance(row, float):
+        if isinstance(row, (int, float)):
             # Hack for rpy being too clever for single element row
             row = [row]
         names = all_ids
