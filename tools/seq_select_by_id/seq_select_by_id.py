@@ -20,10 +20,13 @@ This script is copyright 2011-2017 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT
 license).
 """
+
+from __future__ import print_function
+
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.12"
+    print("v0.0.12")
     sys.exit(0)
 
 # Parse Command Line
@@ -84,7 +87,7 @@ def parse_ids(tabular_file, col):
 # Index the sequence file.
 # If very big, could use SeqIO.index_db() to avoid memory bottleneck...
 records = SeqIO.index(in_file, seq_format)
-print "Indexed %i sequences" % len(records)
+print("Indexed %i sequences" % len(records))
 
 if seq_format.lower() == "sff":
     # Special case to try to preserve the XML manifest
@@ -136,4 +139,4 @@ else:
         count += 1
     out_handle.close()
 
-print "Selected %i sequences by ID" % count
+print("Selected %i sequences by ID" % count)

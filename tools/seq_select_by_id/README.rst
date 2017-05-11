@@ -88,6 +88,7 @@ v0.0.11 - Use the ``format_source=...`` tag.
 v0.0.12 - Python style changes (internal change only).
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
+        - Python 3 compatible print function.
 ======= ======================================================================
 
 
