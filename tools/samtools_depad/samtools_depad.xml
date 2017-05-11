@@ -1,15 +1,14 @@
-<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.3">
+<tool id="samtools_depad" name="Depad SAM/BAM file" version="0.0.4">
     <description>samtools depad</description>
     <requirements>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">samtools_depad.py --version</version_command>
-    <command interpreter="python">samtools_depad.py "$padded_ref" "$input_bam" "$input_bam.ext" "$output_bam"</command>
+    <version_command>
+python $__tool_directory__/samtools_depad.py --version
+    </version_command>
+    <command  detect_errors="aggressive">
+python $__tool_directory__/samtools_depad.py '$padded_ref' '$input_bam' '$input_bam.ext' '$output_bam'
+    </command>
     <inputs>
         <param name="padded_ref" type="data" format="fasta" label="Padded FASTA file (with gap characters)" />
         <param name="input_bam" type="data" format="sam,bam" label="Input SAM or BAM file (mapped against the padded FASTA)" />

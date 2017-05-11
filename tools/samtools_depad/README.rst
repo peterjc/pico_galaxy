@@ -1,14 +1,14 @@
 Galaxy wrapper for samtools depad
 =================================
 
-This wrapper is copyright 2014-2015 by Peter Cock, The James Hutton Institute
+This wrapper is copyright 2014-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
 This is a wrapper for part of the command line samtools suite, v0.1.19
 
 This wrapper is available from the Galaxy Tool Shed at:
-http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_idxstats
+http://toolshed.g2.bx.psu.edu/view/peterjc/samtools_depad
 
 
 Automated Installation
@@ -54,6 +54,8 @@ v0.0.2  - Embed samtools citation in the tool XML.
         - Removed unused imports from Python wrapper script.
 v0.0.3  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.4  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
