@@ -63,6 +63,8 @@ v0.0.5  - Expose new ``samtools depth -d ...`` argument added in samtools v1.3
           excess coverage is clear by getting the max coverage equal to the
           max depth setting (the raw output from samtools is more fuzzy).
         - Report total length and overall mean coverage in stdout.
+        - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
