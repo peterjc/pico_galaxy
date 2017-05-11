@@ -73,6 +73,7 @@ v0.0.14 - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Explicit dependency on ``galaxy_sequence_utils``.
 v0.0.15 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only)
+v0.0.16 - Python 3 compatible print function.
 ======= ======================================================================
 
 

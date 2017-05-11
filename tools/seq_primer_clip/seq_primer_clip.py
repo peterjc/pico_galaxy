@@ -33,12 +33,12 @@ primers, which for my needs is fast enough.
 import re
 import sys
 
+if "-v" in sys.argv or "--version" in sys.argv:
+    print("v0.0.16")
+    sys.exit(0)
+
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-
-if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.12"
-    sys.exit(0)
 
 try:
     from Bio.Seq import reverse_complement
@@ -189,7 +189,7 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
 
 # Read primer file and record all specified sequences
 count, primer = load_primers_as_re(primer_fasta, mm, rc)
-print "%i primer sequences" % count
+print("%i primer sequences" % count)
 
 short_neg = 0
 short_clipped = 0
@@ -350,8 +350,8 @@ else:
 in_handle.close()
 out_handle.close()
 
-print "Kept %i clipped reads," % clipped
-print "discarded %i short." % short_clipped
+print("Kept %i clipped reads," % clipped)
+print("discarded %i short." % short_clipped)
 if keep_negatives:
-    print "Kept %i non-matching reads," % negs
-    print "discarded %i short." % short_neg
+    print("Kept %i non-matching reads," % negs)
+    print("discarded %i short." % short_neg)
