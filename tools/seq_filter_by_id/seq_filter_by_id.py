@@ -21,12 +21,14 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2010-2013 by Peter Cock, The James Hutton Institute
+This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 
 Use -v or --version to get the version, -h or --help for help.
 """
+
+from __future__ import print_function
 
 import os
 import re
@@ -76,7 +78,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.2.5"
+    print("v0.2.7")
     sys.exit(0)
 
 in_file = options.input
@@ -222,7 +224,7 @@ for tabular_file, columns in identifiers:
                 name = clean_name(line.rstrip("\n").split("\t")[col])
                 if name:
                     file_ids.add(name)
-    print "Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col + 1) for col in columns))
+    print("Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col + 1) for col in columns)))
     if ids is None:
         ids = file_ids
     if logic == "UNION":
@@ -232,9 +234,9 @@ for tabular_file, columns in identifiers:
     handle.close()
 if len(identifiers) > 1:
     if logic == "UNION":
-        print "Have %i IDs combined from %i tabular files" % (len(ids), len(identifiers))
+        print("Have %i IDs combined from %i tabular files" % (len(ids), len(identifiers)))
     else:
-        print "Have %i IDs in common from %i tabular files" % (len(ids), len(identifiers))
+        print("Have %i IDs in common from %i tabular files" % (len(ids), len(identifiers)))
 if name_warn:
     sys.stderr.write(name_warn)
 
@@ -282,7 +284,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
         # Doing the if statement outside the loop for speed
         # (with the downside of three very similar loops).
         if pos_file is not None and neg_file is not None:
-            print "Generating two FASTA files"
+            print("Generating two FASTA files")
             with open(pos_file, "w") as pos_handle:
                 with open(neg_file, "w") as neg_handle:
                     for identifier, record in crude_fasta_iterator(in_handle):
@@ -293,7 +295,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
                             neg_handle.write(record)
                             neg_count += 1
         elif pos_file is not None:
-            print "Generating matching FASTA file"
+            print("Generating matching FASTA file")
             with open(pos_file, "w") as pos_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
                     if clean_name(identifier) in wanted:
@@ -302,7 +304,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
                     else:
                         neg_count += 1
         else:
-            print "Generating non-matching FASTA file"
+            print("Generating non-matching FASTA file")
             assert neg_file is not None
             with open(neg_file, "w") as neg_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
@@ -319,7 +321,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
     handle = open(in_file, "r")
     if pos_file is not None and neg_file is not None:
-        print "Generating two FASTQ files"
+        print("Generating two FASTQ files")
         positive_handle = open(pos_file, "w")
         negative_handle = open(neg_file, "w")
         print in_file
@@ -332,14 +334,14 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         positive_handle.close()
         negative_handle.close()
     elif pos_file is not None:
-        print "Generating matching FASTQ file"
+        print("Generating matching FASTQ file")
         positive_handle = open(pos_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
             if clean_name(title.split(None, 1)[0]) in wanted:
                 positive_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
         positive_handle.close()
     elif neg_file is not None:
-        print "Generating non-matching FASTQ file"
+        print("Generating non-matching FASTQ file")
         negative_handle = open(neg_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
             if clean_name(title.split(None, 1)[0]) not in wanted:
@@ -398,7 +400,7 @@ if seq_format.lower() == "sff":
 elif seq_format.lower() == "fasta":
     # Write filtered FASTA file based on IDs from tabular file
     pos_count, neg_count = fasta_filter(in_file, out_positive_file, out_negative_file, ids)
-    print "%i with and %i without specified IDs" % (pos_count, neg_count)
+    print("%i with and %i without specified IDs" % (pos_count, neg_count))
 elif seq_format.lower().startswith("fastq"):
     # Write filtered FASTQ file based on IDs from tabular file
     fastq_filter(in_file, out_positive_file, out_negative_file, ids)
