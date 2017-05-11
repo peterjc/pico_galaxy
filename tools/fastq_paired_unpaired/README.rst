@@ -74,6 +74,8 @@ v0.1.2  - Belatedly declare Biopython dependency via Tool Shed.
 v0.1.3  - Minor internal changes to Python script for error reporting & style.
         - Updated to point at Biopython 1.67 (latest version in Tool Shed).
         - Explicit dependency on ``galaxy_sequence_utils``.
+v0.1.4  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

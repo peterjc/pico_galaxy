@@ -1,15 +1,14 @@
-<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.3">
+<tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.5">
     <description>using samtools view</description>
     <requirements>
         <requirement type="package" version="1.2.2">samtools</requirement>
     </requirements>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">count_roi_variants.py --version</version_command>
-    <command interpreter="python">count_roi_variants.py "$input_bam" "${input_bam.metadata.bam_index}" "$out_tabular" "$region"</command>
+    <version_command>
+python $__tool_directory__/count_roi_variants.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/count_roi_variants.py '$input_bam' '${input_bam.metadata.bam_index}' '$out_tabular' '$region'
+    </command>
     <inputs>
         <param name="input_bam" type="data" format="bam" label="Input BAM file" />
         <param name="region" type="text" label="Region of interest" help="Use the reference:start-end syntax as in samtools.">

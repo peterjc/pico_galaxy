@@ -73,6 +73,8 @@ v0.2.3  - Do the Biopython imports at the script start (internal change only).
         - Clarify paired read example in help text.
 v0.2.4  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Style changes to Python code (internal change only).
+v0.2.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

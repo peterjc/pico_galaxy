@@ -1,22 +1,20 @@
-<tool id="effectiveT3" name="Effective T3" version="0.0.17">
+<tool id="effectiveT3" name="Effective T3" version="0.0.18">
     <description>Find bacterial effectors in protein sequences</description>
     <requirements>
         <requirement type="package" version="1.0.1">effectiveT3</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">effectiveT3.py --version</version_command>
-    <command interpreter="python">
-effectiveT3.py $module.fields.path
+    <version_command>
+python $__tool_directory__/effectiveT3.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/effectiveT3.py '$module.fields.path'
 #if $restrict.type=="cutoff":
-  cutoff=$restrict.cutoff
+  'cutoff=$restrict.cutoff'
 #else:
-  $restrict.type
+  '$restrict.type'
 #end if
-$fasta_file $tabular_file</command>
+'$fasta_file' '$tabular_file'
+    </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
         <param name="module" type="select" display="radio" label="Classification module">

@@ -54,6 +54,8 @@ v0.0.2  - Use quoted filenames when calling samtools (in case of spaces etc)
 v0.0.3  - Embed samtools citation in tool XML.
 v0.0.4  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

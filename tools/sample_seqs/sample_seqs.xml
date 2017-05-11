@@ -1,22 +1,19 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.4">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.5">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">sample_seqs.py --version</version_command>
-    <command interpreter="python">
-sample_seqs.py -f "$input_file.ext" -i "$input_file" -o "$output_file"
+    <version_command>
+python $__tool_directory__/sample_seqs.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/sample_seqs.py -f '$input_file.ext' -i '$input_file' -o '$output_file'
 #if str($sampling.type) == "everyNth":
--n "${sampling.every_n}"
+-n '${sampling.every_n}'
 #elif str($sampling.type) == "percentage":
--p "${sampling.percent}"
+-p '${sampling.percent}'
 #else
--c "${sampling.count}"
+-c '${sampling.count}'
 #end if
 #if $interleaved
 --interleaved

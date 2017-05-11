@@ -96,6 +96,8 @@ v0.0.16 - Updated URLs to download the tool and models.
         - Catch java exception, e.g. if Java too old for ``TTSS-STD-2.0.1.jar``
 v0.0.17 - Update tool dependency definition to use cached URL.
         - Minor internal changes to Python script for error reporting & style.
+v0.0.18 - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

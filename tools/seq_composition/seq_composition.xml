@@ -1,19 +1,15 @@
-<tool id="seq_composition" name="Sequence composition" version="0.0.4">
+<tool id="seq_composition" name="Sequence composition" version="0.0.5">
     <description>Count bases or amino-acids</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">seq_composition.py --version</version_command>
-    <command interpreter="python">
-seq_composition.py -o "$output_file"
+    <version_command>
+python $__tool_directory__/seq_composition.py --version</version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/seq_composition.py -o '$output_file'
 ##For loop over inputs
 #for i in $input_file
---$i.ext "${i}"
+--$i.ext '${i}'
 #end for
     </command>
     <inputs>

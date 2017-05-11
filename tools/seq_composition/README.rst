@@ -62,6 +62,8 @@ v0.0.2  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.3  - Python style updates (internal change only).
 v0.0.4  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
+v0.0.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
