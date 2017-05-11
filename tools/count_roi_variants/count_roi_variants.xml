@@ -1,7 +1,7 @@
 <tool id="count_roi_variants" name="Count sequence variants in region of interest" version="0.0.5">
     <description>using samtools view</description>
     <requirements>
-        <requirement type="package" version="1.2.2">samtools</requirement>
+        <requirement type="package" version="1.2">samtools</requirement>
     </requirements>
     <version_command>
 python $__tool_directory__/count_roi_variants.py --version
