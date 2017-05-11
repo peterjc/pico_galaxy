@@ -105,7 +105,7 @@ install:
 
 script:
  - cd ${TRAVIS_BUILD_DIR}
- - planemo test --no_conda_auto_install --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
+ - planemo test --no_dependency_resolution --no_dependency_resolution --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
 
 notifications:
   email: false
