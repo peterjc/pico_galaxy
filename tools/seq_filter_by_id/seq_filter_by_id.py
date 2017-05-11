@@ -241,43 +241,9 @@ if name_warn:
     sys.stderr.write(name_warn)
 
 
-def crude_fasta_iterator(handle):
-    """Yields tuples, record ID and the full record as a string."""
-    while True:
-        line = handle.readline()
-        if line == "":
-            return  # Premature end of file, or just empty?
-        if line[0] == ">":
-            break
-
-    no_id_warned = False
-    while True:
-        if line[0] != ">":
-            raise ValueError(
-                "Records in Fasta files should start with '>' character")
-        try:
-            id = line[1:].split(None, 1)[0]
-        except IndexError:
-            if not no_id_warned:
-                sys.stderr.write("WARNING - Malformed FASTA entry with no identifier\n")
-                no_id_warned = True
-            id = None
-        lines = [line]
-        line = handle.readline()
-        while True:
-            if not line:
-                break
-            if line[0] == ">":
-                break
-            lines.append(line)
-            line = handle.readline()
-        yield id, "".join(lines)
-        if not line:
-            return  # StopIteration
-
-
 def fasta_filter(in_file, pos_file, neg_file, wanted):
     """FASTA filter producing 60 character line wrapped outout."""
+    from Bio.SeqIO.FastaIO import SimpleFastaParser
     pos_count = neg_count = 0
     # Galaxy now requires Python 2.5+ so can use with statements,
     with open(in_file) as in_handle:
@@ -287,7 +253,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             print("Generating two FASTA files")
             with open(pos_file, "w") as pos_handle:
                 with open(neg_file, "w") as neg_handle:
-                    for identifier, record in crude_fasta_iterator(in_handle):
+                    for identifier, record in SimpleFastaParser(in_handle):
                         if clean_name(identifier) in wanted:
                             pos_handle.write(record)
                             pos_count += 1
@@ -297,7 +263,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
         elif pos_file is not None:
             print("Generating matching FASTA file")
             with open(pos_file, "w") as pos_handle:
-                for identifier, record in crude_fasta_iterator(in_handle):
+                for identifier, record in SimpleFastaParser(in_handle):
                     if clean_name(identifier) in wanted:
                         pos_handle.write(record)
                         pos_count += 1
@@ -307,7 +273,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
             print("Generating non-matching FASTA file")
             assert neg_file is not None
             with open(neg_file, "w") as neg_handle:
-                for identifier, record in crude_fasta_iterator(in_handle):
+                for identifier, record in SimpleFastaParser(in_handle):
                     if clean_name(identifier) in wanted:
                         pos_count += 1
                     else:
