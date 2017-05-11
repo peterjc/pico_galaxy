@@ -63,7 +63,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.3")
+    print("v0.2.4")
     sys.exit(0)
 
 try:
@@ -158,7 +158,7 @@ elif options.percent:
         percent = float(options.percent) / 100.0
     except ValueError:
         sys.exit("Bad -p percent argument %r" % options.percent)
-    if percent <= 0.0 or 1.0 <= percent:
+    if not(0.0 <= percent <= 1.0):
         sys.exit("Bad -p percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
 
