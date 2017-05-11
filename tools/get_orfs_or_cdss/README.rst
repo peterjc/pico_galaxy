@@ -80,6 +80,8 @@ v0.2.0  - Tool now also outputs GFF3 formatted calls (Eric Rasche).
 v0.2.1  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Added NCBI genetic code table 24, Candidate Division SR1 and
 	  Gracilibacteria.
+v0.2.2  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

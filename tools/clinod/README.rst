@@ -73,6 +73,8 @@ v0.0.7  - Use the new ``$GALAXY_SLOTS`` environment variable for thread count.
 v0.0.8  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.9  - Explicitly record clinod version via ``<version_command>``.
+v0.0.10 - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

@@ -1,16 +1,25 @@
-<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.2.1">
+<tool id="get_orfs_or_cdss" name="Get open reading frames (ORFs) or coding sequences (CDSs)" version="0.2.2">
     <description>e.g. to get peptides from ESTs</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">get_orfs_or_cdss.py --version</version_command>
-    <command interpreter="python">
-get_orfs_or_cdss.py -i $input_file -f $input_file.ext --table $table -t $ftype -e $ends -m $mode --min_len $min_len -s $strand --on $out_nuc_file --op $out_prot_file --ob $out_bed_file --og $out_gff3_file
+    <version_command>
+python $__tool_directory__/get_orfs_or_cdss.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/get_orfs_or_cdss.py
+-i '$input_file'
+-f '$input_file.ext'
+--table '$table'
+-t '$ftype'
+-e '$ends'
+-m '$mode'
+--min_len '$min_len'
+-s '$strand'
+--on '$out_nuc_file'
+--op '$out_prot_file'
+--ob '$out_bed_file'
+--og '$out_gff3_file'
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file (nucleotides)" help="FASTA, FASTQ, or SFF format." />

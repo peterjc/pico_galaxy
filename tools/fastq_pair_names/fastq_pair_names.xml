@@ -3,14 +3,11 @@
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">fastq_pair_names.py --version</version_command>
-    <command interpreter="python">
-fastq_pair_names.py $output_paired $output_singles #for i in $input_fastq#"${i}" #end for#
+    <version_command>
+python $__tool_directory__/fastq_pair_names.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/fastq_pair_names.py '$output_paired' '$output_singles' #for i in $input_fastq#'${i}' #end for#
     </command>
     <inputs>
         <param name="input_fastq" type="data" multiple="true" format="fastq" label="FASTQ file(s)"/>

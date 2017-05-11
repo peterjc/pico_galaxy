@@ -1,15 +1,13 @@
-<tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.2">
+<tool id="chromosome_diagram" name="Chromosome Diagram" version="0.0.3">
     <description>from simple locus annotation</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <command interpreter="python">
-chromosome_diagram.py "$reference_file" "$gaps" "$tab_file" "$chr_col" "$start_col" "$end_col" "$strand_col" "$caption_col" "$color_col" "$fill_col" "$main_lab" "$per_page" "$PDF"
+    <command detect_errors="aggressive">
+python $__tool_directory__/chromosome_diagram.py
+'$reference_file' '$gaps'
+'$tab_file' '$chr_col' '$start_col' '$end_col' '$strand_col' '$caption_col' '$color_col' '$fill_col'
+'$main_lab' '$per_page' '$PDF'
     </command>
     <inputs>
         <param name="main_lab" size="30" type="text" value="Chromosome Diagram" label="Plot title"/>
