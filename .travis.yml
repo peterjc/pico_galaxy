@@ -70,8 +70,8 @@ before_install:
  - export PATH=$PWD:$PATH
  - echo "Installing samtools..."
  - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
- - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz
- - tar -zxvf samtools-0.1.19-Linux-x86_64.tgz
+ - wget https://anaconda.org/bioconda/samtools/1.4.1/download/linux-64/samtools-1.4.1-0.tar.bz2
+ - tar -jxvf samtools-1.4.1-0.tar.bz2
  - export PATH=$PWD/bin/:$PATH
  - echo "Fetching Galaxy ${GALAXY_BRANCH} branch..."
  - cd ${TRAVIS_BUILD_DIR}
