@@ -12,7 +12,7 @@ java -jar $CLINOD/clinod-1.3.jar | grep -i "^NucleOlar localization sequence Det
     <command detect_errors="aggressive">
 ##The Galaxy Tool Shed installation should define $CLINOD to point at folder
 ##containing both clinod-1.3.jar and the batchman binary:
-java -jar \$CLINOD/clinod-1.3.jar -in='$fasta_file' -out='$tabular_file' -t='\${GALAXY_SLOTS:-4}' -f=MEDIUM_TAB -nonols -clean_sequence
+java -jar \$CLINOD/clinod-1.3.jar -in='$fasta_file' -out='$tabular_file' -t="\${GALAXY_SLOTS:-4}" -f=MEDIUM_TAB -nonols -clean_sequence
 ##TODO - Make the -clean_sequence argument a parameter?
     </command>
     <inputs>
