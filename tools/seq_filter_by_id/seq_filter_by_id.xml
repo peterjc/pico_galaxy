@@ -7,13 +7,13 @@
 python $__tool_directory__/seq_filter_by_id.py --version
     </version_command>
     <command detect_errors="aggressive">
-python $__tool_directory__/seq_filter_by_id.py -i "$input_file" -f "$input_file.ext"
+python $__tool_directory__/seq_filter_by_id.py -i '$input_file' -f '$input_file.ext'
 #if str($output_choice_cond.output_choice)=="both"
- -p "$output_pos" -n "$output_neg"
+ -p '$output_pos' -n '$output_neg'
 #elif str($output_choice_cond.output_choice)=="pos"
- -p "$output_pos"
+ -p '$output_pos'
 #elif str($output_choice_cond.output_choice)=="neg"
- -n "$output_neg"
+ -n '$output_neg'
 #end if
 #if str($adv_opts.adv_opts_selector)=="advanced" and $adv_opts.strip_suffix
  -s
@@ -21,9 +21,9 @@ python $__tool_directory__/seq_filter_by_id.py -i "$input_file" -f "$input_file.
 #if str($id_opts.id_opts_selector)=="tabular":
 ## TODO - Decide on best way to expose multiple ID files via the XML wrapper.
 ## Single tabular file, can call the Python script with either UNION or INTERSECTION
--l UNION "$id_opts.input_tabular" "$id_opts.columns"
+-l UNION '$id_opts.input_tabular' '$id_opts.columns'
 #else
--t "$id_opts.id_list"
+-t '$id_opts.id_list'
 #end if
     </command>
     <inputs>
