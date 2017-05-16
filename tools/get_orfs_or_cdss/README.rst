@@ -45,7 +45,7 @@ tool. One suggested location is in the filters section. Simply add the line::
 You will also need to install Biopython 1.65 or later (slightly older versions
 should be fine, but will not have the latest NCBI genetic code tables).
 
-If you wish to run the unit tests, also	move/copy the ``test-data/`` files
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
 under Galaxy's ``test-data/`` folder. Then::
 
     ./run_tests.sh -id get_orfs_or_cdss
@@ -79,7 +79,7 @@ v0.1.1  - Reorder XML elements (internal change only).
 v0.2.0  - Tool now also outputs GFF3 formatted calls (Eric Rasche).
 v0.2.1  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Added NCBI genetic code table 24, Candidate Division SR1 and
-	  Gracilibacteria.
+          Gracilibacteria.
 v0.2.2  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
 ======= ======================================================================

@@ -1,7 +1,7 @@
 Obsolete
 ========
 
-This tool is now obsolete, having been replaced	by a more general version
+This tool is now obsolete, having been replaced by a more general version
 covering the FASTA, FASTQ and SFF sequence formats in a single tool. You
 should only install this tool if you need to support existing workflows
 which used it.

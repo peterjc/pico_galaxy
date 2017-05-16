@@ -41,7 +41,7 @@ tool. One suggested location is in the filters section. Simply add the line::
 
 You will also need to install Biopython 1.62 or later.
 
-If you wish to run the unit tests, also	move/copy the ``test-data/`` files
+If you wish to run the unit tests, also move/copy the ``test-data/`` files
 under Galaxy's ``test-data/`` folder. Then::
 
     ./run_tests.sh -id sample_seqs
