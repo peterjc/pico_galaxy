@@ -61,13 +61,14 @@ jobs:
 
 before_install:
  - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
- - echo "Using planemo lint to check for obvious tool errors"
  - pip install --upgrade pip setuptools
- - pip install planemo
+ - pip install planemo flake8 restructuredtext-lint
+ - echo "Using planemo lint to check for obvious tool errors"
  - planemo shed_lint --tools --fail_level error --ensure_metadata -r ${TRAVIS_BUILD_DIR}
  - echo "Using flake8 to check Python code"
- - pip install flake8
  - flake8 --max-line-length 252 --ignore E402 .
+ - echo "Using restructuredtext-lint to check our RST files"
+ - restructuredtext-lint *.rst */*/*.rst
  - echo "Removing tools we're not going to test"
  - for line in $(cat .tt_blacklist); do rm -rf $line; done
  - echo "Fixing permissions on Python eggs cache folder"
