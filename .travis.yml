@@ -38,6 +38,7 @@ matrix:
 # mummer) or assumed to be present by Galaxy itself (e.g. samtools).
 
 before_install:
+ - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
  - echo "Using planemo lint to check for obvious tool errors"
  - pip install --upgrade pip setuptools
  - pip install planemo
