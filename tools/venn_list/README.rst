@@ -79,6 +79,7 @@ v0.0.11 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only)
         - Python 3 compatible print function.
         - Capture python script version when run from Galaxy.
+v0.0.12 - Internal Python style change.
 ======= ======================================================================
 
 

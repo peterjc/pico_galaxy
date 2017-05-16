@@ -12,7 +12,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.11")
+    print("v0.0.12")
     sys.exit(0)
 
 try:
