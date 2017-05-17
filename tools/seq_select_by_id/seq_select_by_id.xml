@@ -1,4 +1,4 @@
-<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.12">
+<tool id="seq_select_by_id" name="Select sequences by ID" version="0.0.13">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>

@@ -26,7 +26,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.12")
+    print("v0.0.13")
     sys.exit(0)
 
 # Parse Command Line
@@ -118,12 +118,12 @@ if seq_format.lower() == "sff":
     iterator = (records[name] for name in parse_ids(tabular_file, column))
     try:
         count = writer.write_file(iterator)
-    except KeyError, err:
+    except KeyError:
         out_handle.close()
         if name not in records:
             sys.exit("Identifier %r not found in sequence file" % name)
         else:
-            raise err
+            raise
     out_handle.close()
 else:
     # Avoid overhead of parsing into SeqRecord objects,
