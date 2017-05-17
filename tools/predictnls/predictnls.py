@@ -49,6 +49,8 @@ recommend their package repository instead,
 https://rostlab.org/owiki/index.php/Packages
 """
 
+from __future__ import print_function
+
 import os
 import re
 import sys
@@ -138,7 +140,7 @@ def fasta_iterator(filename):
 
 
 motifs = list(load_re(re_filename))
-print "Looking for %i NLS motifs" % len(motifs)
+print("Looking for %i NLS motifs" % len(motifs))
 
 if tabular_filename == "-":
     out_handle = sys.stdout
@@ -163,4 +165,4 @@ for idn, seq in fasta_iterator(fasta_filename):
     count += 1
 if tabular_filename != "-":
     out_handle.close()
-print "Found %i NLS motifs in %i sequences" % (nls, count)
+print("Found %i NLS motifs in %i sequences" % (nls, count))
