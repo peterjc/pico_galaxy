@@ -20,10 +20,13 @@ This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 """
+
+from __future__ import print_function
+
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "v0.0.5"
+    print("v0.0.6")
     sys.exit(0)
 
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
@@ -50,20 +53,20 @@ if len(columns) > 1:
         parts = line.rstrip("\n").split("\t")
         for col in columns:
             ids.add(parts[col])
-    print "Using %i IDs from %i columns of tabular file" % (len(ids), len(columns))
+    print("Using %i IDs from %i columns of tabular file" % (len(ids), len(columns)))
 else:
     # Single column, special case speed up
     col = columns[0]
     for line in handle:
         if not line.startswith("#"):
             ids.add(line.rstrip("\n").split("\t")[col])
-    print "Using %i IDs from tabular file" % (len(ids))
+    print("Using %i IDs from tabular file" % (len(ids)))
 handle.close()
 
 # Write filtered FASTA file based on IDs from tabular file
 reader = fastaReader(open(in_file, "rU"))
 if out_positive_file != "-" and out_negative_file != "-":
-    print "Generating two FASTA files"
+    print("Generating two FASTA files")
     positive_writer = fastaWriter(open(out_positive_file, "w"))
     negative_writer = fastaWriter(open(out_negative_file, "w"))
     for record in reader:
@@ -75,7 +78,7 @@ if out_positive_file != "-" and out_negative_file != "-":
     positive_writer.close()
     negative_writer.close()
 elif out_positive_file != "-":
-    print "Generating matching FASTA file"
+    print("Generating matching FASTA file")
     positive_writer = fastaWriter(open(out_positive_file, "w"))
     for record in reader:
         # The [1:] is because the fastaReader leaves the > on the identifer.
@@ -83,7 +86,7 @@ elif out_positive_file != "-":
             positive_writer.write(record)
     positive_writer.close()
 elif out_negative_file != "-":
-    print "Generating non-matching FASTA file"
+    print("Generating non-matching FASTA file")
     negative_writer = fastaWriter(open(out_negative_file, "w"))
     for record in reader:
         # The [1:] is because the fastaReader leaves the > on the identifer.

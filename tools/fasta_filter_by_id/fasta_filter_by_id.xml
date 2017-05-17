@@ -1,4 +1,4 @@
-<tool id="fasta_filter_by_id" name="Filter FASTA by ID" version="0.0.5" hidden="true">
+<tool id="fasta_filter_by_id" name="Filter FASTA by ID" version="0.0.6" hidden="true">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
