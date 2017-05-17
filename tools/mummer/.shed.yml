@@ -23,4 +23,3 @@ include:
   - ../../tools/mummer/README.rst
   - ../../tools/mummer/mummer.py
   - ../../tools/mummer/mummer.xml
-  - ../../tools/mummer/tool_dependencies.xml

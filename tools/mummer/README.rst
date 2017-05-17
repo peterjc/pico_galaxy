@@ -71,6 +71,8 @@ v0.0.7  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
         - Wrapper script catches missing output explicitly.
         - Capture gnuplot version as well.
+v0.1.0  - Depend on gnuplot, GhostScript and MUMmer from Conda
+          (will no longer work with legacy Galaxy Tool Shed packages).
 ======= ======================================================================
 
 
