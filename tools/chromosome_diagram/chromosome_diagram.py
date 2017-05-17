@@ -7,6 +7,9 @@ See accompanying text file for licence details (MIT/BSD style).
 
 This is version 0.0.1 of the script.
 """
+
+from __future__ import print_function
+
 import re
 import sys
 import warnings
@@ -67,7 +70,7 @@ try:
 except ValueError:
     min_gap = None
 if min_gap:
-    print "Identifying long NNNN regions of at least %i" % min_gap
+    print("Identifying long NNNN regions of at least %i" % min_gap)
     big_gap = "N" * min_gap
     re_not_gap = re.compile("[^N]")
     refs = []
@@ -100,7 +103,7 @@ lengths = dict(refs)
 max_length = max(lengths.values())
 if not per_page:
     per_page = len(refs)
-print "%i chromosomes/references, max length %i" % (len(refs), max_length)
+print("%i chromosomes/references, max length %i" % (len(refs), max_length))
 
 
 def load_color(txt, default=None):
@@ -166,7 +169,7 @@ for line in handle:
     all_features.append((chr_name, start, end, strand, caption, color, fill_color))
 handle.close()
 telomere_length = 0.01 * max_length
-print "%i features loaded" % len(all_features)
+print("%i features loaded" % len(all_features))
 if per_page == 1:
     # Use portrait A4
     page_size = (21 * cm, 29.7 * cm)
@@ -239,7 +242,7 @@ def draw_page(selected_refs):
         # This chromosome is done
         chr_diagram.add(cur_chromosome)
 
-        print name, length, len(features)
+        print("%s %i %i" % (name, length, len(features)))
     return chr_diagram
 
 
@@ -250,9 +253,9 @@ while refs:
     selected = refs[:per_page]
     refs = refs[per_page:]
     if len(selected) > 1:
-        print "New page, %s to %s" % (selected[0][0], selected[-1][0])
+        print("New page, %s to %s" % (selected[0][0], selected[-1][0]))
     else:
-        print "New page, %s" % (selected[0][0])
+        print("New page, %s" % (selected[0][0]))
     with warnings.catch_warnings():
         # BiopythonWarning: Too many labels to avoid overlap
         warnings.simplefilter("ignore", BiopythonWarning)
@@ -261,4 +264,4 @@ while refs:
     c.showPage()
 # Close PDF
 c.save()
-print "Done"
+print("Done")

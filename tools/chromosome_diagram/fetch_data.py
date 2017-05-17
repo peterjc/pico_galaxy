@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+from __future__ import print_function
+
 import os
 import sys
 
@@ -40,7 +43,7 @@ protein_letters_1to3 = {
 
 
 def run(cmd):
-    print cmd
+    print(cmd)
     err = os.system(cmd)
     if err:
         sys.stderr.write("Error %i from command:\n%s\n" % (err, cmd))
