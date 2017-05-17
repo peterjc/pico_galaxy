@@ -41,7 +41,7 @@ def __main__():
             pass
         if returncode != 0:
             raise Exception(stderr)
-    except Exception, e:
+    except Exception as e:
         sys.exit('Error running sed ' + str(e))
 
     cmdline = ('iprscan -cli -nocrc -i temp.fa -o temp.iprscan -goterms'
@@ -64,7 +64,7 @@ def __main__():
             pass
         if returncode != 0:
             raise Exception(stderr)
-    except Exception, e:
+    except Exception as e:
         sys.exit('Error running iprscan ' + str(e))
 
     out = open(output, 'w')
