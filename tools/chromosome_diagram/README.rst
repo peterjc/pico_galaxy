@@ -78,6 +78,7 @@ v0.0.2  - Reorder XML elements (internal change only).
         - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 v0.0.3  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+        - Python 3 compatible print function.
 ======= ======================================================================
 
 
