@@ -10,12 +10,14 @@ This script takes exactly four command line arguments:
 Runs "samtools depad" and captures the output to the desired BAM file.
 """
 
+from __future__ import print_function
+
 import os
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print "(Galaxy wrapper v0.0.4)"
+    print("(Galaxy wrapper v0.0.5)")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 

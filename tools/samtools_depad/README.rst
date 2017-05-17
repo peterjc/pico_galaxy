@@ -56,6 +56,7 @@ v0.0.3  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
 v0.0.4  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.0.5  - Python 3 compatible print function.
 ======= ======================================================================
 
 
