@@ -5,6 +5,8 @@
 # for background,
 # http://blastedbio.blogspot.com/2013/09/using-travis-ci-for-testing-galaxy-tools.html
 
+sudo: false
+
 # Galaxy currently only supports Python 2.7
 language: python
 cache: pip
@@ -54,12 +56,12 @@ jobs:
 # Installing Tool Dependencies
 # ============================
 #
-# We also need to install our tool dependencies, e.g. samtools binaries,
-# which we will do manually rather than via a (local) Galaxy Tool Shed.
-# Tool dependencies defined in this repository can be installed via
-# "planemo dependency_script", however we still have to worry about
-# dependencies normally done via the Tool Shed (e.g. Biopython,
-# mummer) or assumed to be present by Galaxy itself (e.g. samtools).
+# We will follow current Galaxy Tool development best practise and use
+# conda to install our tool dependencies, rather than manual installs
+# or using the legacy Galaxy Tool Shed packages.
+#
+# However we still have to worry about dependencies assumed by Galaxy
+# itself (e.g. samtools).
 
 before_install:
  - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
@@ -79,24 +81,6 @@ before_install:
  - echo "Fixing permissions on Python eggs cache folder"
  - mkdir -p "$HOME/.python-eggs"
  - chmod 700 "$HOME/.python-eggs" 
- - echo "Downloading and setting up dependencies..."
- - export INSTALL_DIR=/tmp/dep_install && mkdir $INSTALL_DIR
- - export DOWNLOAD_CACHE=/tmp/download_cache && mkdir $DOWNLOAD_CACHE
- - planemo dependency_script -r ${TRAVIS_BUILD_DIR}/packages/ ${TRAVIS_BUILD_DIR}/tools/
- - bash dep_install.sh
- - source env.sh
- - echo "Installing Biopython..."
- - pip install biopython
- - echo "Installing galaxy_sequence_utils..."
- - pip install http://depot.galaxyproject.org/package/source/galaxy_sequence_utils/galaxy_sequence_utils-1.0.1-st.tgz
- - echo "Installing MUMmer and its dependencies..."
- - sudo apt-get -qq update
- - sudo apt-get install -y gnuplot ghostscript
- - cd ${TRAVIS_BUILD_DIR}
- - wget http://downloads.sourceforge.net/project/mummer/mummer/3.23/MUMmer3.23.tar.gz
- - tar -zxvf MUMmer3.23.tar.gz
- - cd MUMmer3.23 && make check && make install
- - export PATH=$PWD:$PATH
  - echo "Installing samtools..."
  - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
  - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz
@@ -134,7 +118,7 @@ install:
 script:
  - cd ${TRAVIS_BUILD_DIR}
  - planemo --version
- - planemo test --no_dependency_resolution --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
+ - planemo test --conda_dependency_resolution --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
 
 notifications:
   email: false
