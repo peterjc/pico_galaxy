@@ -26,11 +26,11 @@ samtools depth
         <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
         <param name="input_bam" multiple="true" type="data" format="bam,sam" label="Input SAM/BAM file(s)" />
         <param name="min_len" type="integer" value="0"
-	       label="Minimum mapped length (use zero for none)" />
+               label="Minimum mapped length (use zero for none)" />
         <param name="base_quality_threshold" type="integer" value="0"
-	       label="Base quality threshold (use zero for none)" />
+               label="Base quality threshold (use zero for none)" />
         <param name="mapping_quality_threshold" type="integer" value="0"
-	       label="Mapping quality threshold (use zero for none)" />
+               label="Mapping quality threshold (use zero for none)" />
     </inputs>
     <outputs>
         <data name="out_depth" format="tabular" label="$on_string (depth)"/>

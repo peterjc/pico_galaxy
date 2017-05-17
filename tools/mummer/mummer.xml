@@ -17,17 +17,17 @@ python $__tool_directory__/mummer.py '$fasta_a' '$fasta_b' $algorithm '$png_outp
     <inputs>
         <!-- Galaxy does not have sub-types for protein vs nucletide FASTA -->
         <param name="fasta_a" type="data" format="fasta"
-	       label="Species A"
-	       help="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
+               label="Species A"
+               help="Nucleotide FASTA file, e.g. contigs from genome assembly."/>
         <param name="fasta_b" type="data" format="fasta"
-	       label="Species B"
-	       help="Nucleotide FASTA file, e.g. contigs from genome assembly." /> 
+               label="Species B"
+               help="Nucleotide FASTA file, e.g. contigs from genome assembly."/>
         <param name="algorithm" type="select" label="MUMmer search algorithm">
             <option value="mummer">mummer, efficiently locates maximal unique matches between two sequences</option>
             <option value="nucmer">NUCmer (NUCleotide MUMmer), for closely related sequences</option>
             <option value="promer">PROmer (PROtein MUMmer), using six frame translation of DNA input, for less similar sequences.</option>
         </param>
-	<!-- defaults like mincluster vary, 65 for nucmer but 20 for promer -->
+        <!-- defaults like mincluster vary, 65 for nucmer but 20 for promer -->
     </inputs>
     <outputs>
         <data name="pdf_output" format="pdf" label="$algorithm.value PDF: $fasta_a.name vs $fasta_b.name" />

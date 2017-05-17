@@ -25,7 +25,7 @@
         <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
         <param name="input_bam" type="data" format="bam,sam" label="Input SAM/BAM file" />
         <param name="suffices" type="boolean" label="Add /1 and /2 suffices to paired reads?"
-	       truevalue="" falsevalue="-n" checked="true" />
+               truevalue="" falsevalue="-n" checked="true" />
         <param name="orig_qual" type="boolean" label="Use original qualities (OQ tags) if present?"
                truevalue="-O" falsevalue="" checked="false" />
         <!-- Using a condition here to allow different output files; default to paired mode -->
@@ -38,10 +38,10 @@
     </inputs>
     <outputs>
         <data name="pairs_fastq" format="fastqsanger" label="$input_bam.name (bam2fq pairs)">
-	      <filter>(action_mode['mode'] == 'pairs')</filter>
+            <filter>(action_mode['mode'] == 'pairs')</filter>
         </data>
         <data name="singletons_fastq" format="fastqsanger" label="$input_bam.name (bam2fq singletons)">
-              <filter>(action_mode['mode'] == 'pairs')</filter>
+            <filter>(action_mode['mode'] == 'pairs')</filter>
         </data>
         <data name="out_fastq" format="fastqsanger" label="$input_bam.name (bam2fq)">
             <filter>(action_mode['mode'] == 'naive')</filter>

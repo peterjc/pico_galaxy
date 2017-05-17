@@ -21,7 +21,7 @@ python $__tool_directory__/seq_filter_by_mapping.py -i '$input_file' -f '$input_
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />
-	<param name="mapping_file" type="data" format="sam,bam" multiple="true" label="SAM/BAM mapping of those sequences" help="SAM or BAM format." />
+        <param name="mapping_file" type="data" format="sam,bam" multiple="true" label="SAM/BAM mapping of those sequences" help="SAM or BAM format." />
         <conditional name="output_choice_cond">
             <param name="output_choice" type="select" label="Output mapped reads, unmapped reads, or both?">
                 <option value="both">Both mapped and unmapped reads, as two files</option>
@@ -33,12 +33,12 @@ python $__tool_directory__/seq_filter_by_mapping.py -i '$input_file' -f '$input_
             <when value="pos" />
             <when value="neg" />
         </conditional>
-	<param name="pair_mode" type="select" label="Paired read treatment">
+        <param name="pair_mode" type="select" label="Paired read treatment">
             <option value="lax" selected="true">Treat as a pair, allow either read to be mapped</option>
-	    <option value="strict">Treat as a pair, require both reads to be mapped</option>
-	    <!-- The following would actually be more work as have to store qname/1 and qname/2 separately for filter...
+            <option value="strict">Treat as a pair, require both reads to be mapped</option>
+            <!-- The following would actually be more work as have to store qname/1 and qname/2 separately for filter...
             <option value="solo">Treat independently (will split partners when only one maps)</option>
-	    -->
+            -->
         </param>
     </inputs>
     <outputs>
@@ -50,14 +50,14 @@ python $__tool_directory__/seq_filter_by_mapping.py -i '$input_file' -f '$input_
         </data>
     </outputs>
     <tests>
-	<test>
+        <test>
             <param name="input_file" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
             <param name="mapping_file" value="SRR639755_sample_by_coord.sam" ftype="sam" />
             <param name="pair_mode" value="lax" />
             <param name="output_choice" value="pos" />
             <output name="output_pos" file="SRR639755_sample_lax.fastq" ftype="fastqsanger" />
         </test>
-	<test>
+        <test>
             <param name="input_file" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
             <param name="mapping_file" value="SRR639755_sample_by_coord.sam" ftype="sam" />
             <param name="pair_mode" value="strict" />

@@ -19,7 +19,7 @@ python $__tool_directory__/coverage_stats.py '$input_bam' '${input_bam.metadata.
     <tests>
         <test>
             <param name="input_bam" value="ex1.bam" ftype="bam" />
-	    <param name="max_depth" value="123" />
+            <param name="max_depth" value="123" />
             <output name="out_tabular" file="ex1.coverage_stats.tabular" ftype="tabular" />
         </test>
         <test>
@@ -29,7 +29,7 @@ python $__tool_directory__/coverage_stats.py '$input_bam' '${input_bam.metadata.
         </test>
         <test>
             <param name="input_bam" value="coverage_test.bam" ftype="bam" />
-	    <param name="max_depth" value="123" />
+            <param name="max_depth" value="123" />
             <output name="out_tabular" file="coverage_test.coverage_stats.tabular" ftype="tabular" />
         </test>
     </tests>

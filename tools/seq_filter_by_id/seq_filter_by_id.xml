@@ -128,7 +128,7 @@ python $__tool_directory__/seq_filter_by_id.py -i '$input_file' -f '$input_file.
             <param name="adv_opts_selector" value="advanced" />
             <param name="strip_suffix" value="true" />
             <output name="output_pos" file="sanger-pairs-mixed.fastq" ftype="fastq" />
-	    <output name="output_neg" file="empty_file.dat" ftype="fastq" />
+            <output name="output_neg" file="empty_file.dat" ftype="fastq" />
         </test>
         <test>
             <param name="input_file" value="sanger-pairs-mixed.fastq" ftype="fastq" />
