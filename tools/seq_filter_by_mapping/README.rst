@@ -71,6 +71,7 @@ v0.0.5  - Python script cleanups (internal change only).
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
 v0.0.6  - Python 3 compatible print function.
+v0.0.7  - Script works on Python 2 and 3 (fixed input file mode)
 ======= ======================================================================
 
 

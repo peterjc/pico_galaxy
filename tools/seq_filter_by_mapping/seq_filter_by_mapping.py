@@ -64,7 +64,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.0.6")
+    print("v0.0.7")
     sys.exit(0)
 
 in_file = options.input
@@ -149,11 +149,11 @@ def load_mapping_ids(filename, pair_mode, ids):
 
     Parses BAM files via call out to samtools view command.
     """
-    handle = open(filename, "rb")
-    magic = handle.read(4)
+    with open(filename, "rb") as handle:
+        magic = handle.read(4)
+
     if magic == b"\x1f\x8b\x08\x04":
         # Presumably a BAM file then...
-        handle.close()
         # Call samtools view, don't need header so no -h added:
         child = subprocess.Popen(["samtools", "view", filename],
                                  stdin=None,
@@ -163,7 +163,8 @@ def load_mapping_ids(filename, pair_mode, ids):
     else:
         # Presumably a SAM file...
         child = None
-        handle.seek(0)
+        # Open in text mode
+        handle = open(filename)
     # Handle should now contain SAM records
     for line in handle:
         # Ignore header lines
