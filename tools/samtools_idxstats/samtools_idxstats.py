@@ -11,13 +11,15 @@ runs "samtools idxstats" and captures the output to the desired
 tabular file.
 """
 
+from __future__ import print_function
+
 import os
 import sys
 import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print "(Galaxy wrapper v0.0.2)"
+    print("(Galaxy wrapper v0.0.3)")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 

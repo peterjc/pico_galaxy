@@ -1,4 +1,4 @@
-<tool id="samtools_idxstats" name="BAM mapping statistics" version="0.0.5">
+<tool id="samtools_idxstats" name="BAM mapping statistics" version="0.0.6">
     <description>samtools idxstats</description>
     <requirements>
         <requirement type="package" version="0.1.19">samtools</requirement>
