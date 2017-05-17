@@ -59,6 +59,7 @@ v0.0.4  - Explicit dependency on ``galaxy_sequence_utils``.
         - Minor internal changes to Python script for error reporting & style.
 v0.0.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+        - Python 3 compatible print function.
 ======= ======================================================================
 
 

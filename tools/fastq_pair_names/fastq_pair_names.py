@@ -8,21 +8,23 @@ files - the paired read names (without suffices), and unpaired read names
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
 Color Space should all work equally well).
 
-This script is copyright 2014 by Peter Cock, The James Hutton Institute
+This script is copyright 2014-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI), Scotland, UK. All rights reserved.
 
 See accompanying text file for licence details (MIT license).
 """
 
+from __future__ import print_function
+
 import os
 import re
 import sys
 
-from galaxy_utils.sequence.fastq import fastqReader
-
 if "-v" in sys.argv or "--version" in sys.argv:
-    print "Version 0.0.1"
+    print("0.0.5")
     sys.exit(0)
+
+from galaxy_utils.sequence.fastq import fastqReader
 
 msg = """Expects at least 3 arguments:
 
@@ -134,4 +136,4 @@ for input_fastq in input_fastq_filenames:
 out_pairs.close()
 out_nonpairs.close()
 
-print "%i reads (%i forward, %i reverse, %i neither), %i pairs" % (count, forward, reverse, neither, len(pairs))
+print("%i reads (%i forward, %i reverse, %i neither), %i pairs" % (count, forward, reverse, neither, len(pairs)))
