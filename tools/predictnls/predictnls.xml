@@ -1,5 +1,8 @@
 <tool id="predictnls" name="PredictNLS" version="0.0.9">
     <description>Find nuclear localization signals (NLSs) in protein sequences</description>
+    <version_command>
+python $__tool_directory__/predictnls.py --version
+    </version_command>
     <command detect_errors="aggressive">
 python $__tool_directory__/predictnls.py '$fasta_file' '$tabular_file'
     </command>

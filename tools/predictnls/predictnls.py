@@ -55,6 +55,10 @@ import os
 import re
 import sys
 
+if "-v" in sys.argv or "--version" in sys.argv:
+    print("v0.0.9")
+    sys.exit(0)
+
 if len(sys.argv) == 4:
     fasta_filename, tabular_filename, re_filename = sys.argv[1:]
 elif len(sys.argv) == 3:
