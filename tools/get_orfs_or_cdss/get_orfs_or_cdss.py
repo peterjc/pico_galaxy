@@ -18,6 +18,8 @@ This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
 See accompanying text file for licence details (MIT licence).
 """
 
+from __future__ import print_function
+
 import re
 import sys
 
@@ -79,7 +81,7 @@ parser.add_option('-v', '--version', dest='version',
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.0")
+    print("v0.2.3")
     sys.exit(0)
 
 if not options.input_file:
@@ -102,8 +104,8 @@ elif options.seq_format.lower().startswith("fastq"):
 else:
     sys.exit("Unsupported file type %r" % options.seq_format)
 
-print "Genetic code table %i" % options.table
-print "Minimum length %i aa" % options.min_len
+print("Genetic code table %i" % options.table)
+print("Minimum length %i aa" % options.min_len)
 # print "Taking %s ORF(s) from %s strand(s)" % (mode, strand)
 
 starts = sorted(table_obj.start_codons)
@@ -283,4 +285,4 @@ if out_prot and out_prot is not sys.stdout:
 if out_bed and out_bed is not sys.stdout:
     out_bed.close()
 
-print "Found %i %ss in %i sequences" % (out_count, options.ftype, in_count)
+print("Found %i %ss in %i sequences" % (out_count, options.ftype, in_count))

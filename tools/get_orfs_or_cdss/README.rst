@@ -82,6 +82,7 @@ v0.2.1  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
           Gracilibacteria.
 v0.2.2  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.2.3  - Python 3 compatible print function.
 ======= ======================================================================
 
 
