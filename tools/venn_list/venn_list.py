@@ -12,15 +12,15 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.12")
+    print("v0.0.13")
     sys.exit(0)
 
 try:
     import rpy
 except ImportError:
     sys.exit("Requires the Python library rpy (to call R)")
-except RuntimeError, e:
-    sys.exit("The Python library rpy is not availble for the current R version\n\n%s" % e)
+except RuntimeError as err:
+    sys.exit("The Python library rpy is not availble for the current R version\n\n%s" % err)
 
 try:
     rpy.r.library("limma")
@@ -133,7 +133,7 @@ try:
                          circle.col=colors)
                          """ % (all_label, len(all_ids)))
     rpy.r.dev_off()
-except Exception, exc:
-    sys.exit("%s" % str(exc))
+except Exception as err:
+    sys.exit("%s" % str(err))
 rpy.r.quit(save="no")
 print("Done")
