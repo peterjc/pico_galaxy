@@ -63,7 +63,7 @@ jobs:
 before_install:
  - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
  - pip install --upgrade pip setuptools
- - pip install planemo flake8 restructuredtext-lint
+ - pip install planemo requests flake8 restructuredtext-lint
  - echo "Using planemo lint to check for obvious tool errors"
  - planemo shed_lint --tools --fail_level error --ensure_metadata -r ${TRAVIS_BUILD_DIR}
  - echo "Using flake8 to check Python code"
@@ -103,7 +103,6 @@ before_install:
  - wget https://codeload.github.com/galaxyproject/galaxy/tar.gz/${GALAXY_BRANCH}
  - tar -zxvf ${GALAXY_BRANCH} | tail
  - cd galaxy-${GALAXY_BRANCH}
- - pip install requests 
 
 # Configuring tools within Galaxy
 # ===============================
@@ -130,7 +129,7 @@ install:
 
 script:
  - cd ${TRAVIS_BUILD_DIR}
- - planemo test --no_dependency_resolution --no_dependency_resolution --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
+ - planemo test --no_dependency_resolution --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
 
 notifications:
   email: false
