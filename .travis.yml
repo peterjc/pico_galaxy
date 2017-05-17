@@ -62,6 +62,7 @@ jobs:
 
 before_install:
  - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces.'; false; fi"
+ - "if grep -P '\t' */*/*.xml; then echo 'Tabs are bad, please use four spaces.'; false; fi"
  - pip install --upgrade pip setuptools
  - pip install planemo requests flake8 restructuredtext-lint
  - echo "Using planemo lint to check for obvious tool errors"
