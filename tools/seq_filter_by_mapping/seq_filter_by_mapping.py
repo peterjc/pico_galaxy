@@ -19,6 +19,8 @@ See accompanying text file for licence details (MIT license).
 Use -v or --version to get the version, -h or --help for help.
 """
 
+from __future__ import print_function
+
 import os
 import re
 import subprocess
@@ -62,7 +64,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print "v0.0.5"
+    print("v0.0.6")
     sys.exit(0)
 
 in_file = options.input
@@ -251,7 +253,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
         # Doing the if statement outside the loop for speed
         # (with the downside of three very similar loops).
         if pos_file is not None and neg_file is not None:
-            print "Generating two FASTA files"
+            print("Generating two FASTA files")
             with open(pos_file, "w") as pos_handle:
                 with open(neg_file, "w") as neg_handle:
                     for identifier, record in crude_fasta_iterator(in_handle):
@@ -262,7 +264,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
                             neg_handle.write(record)
                             neg_count += 1
         elif pos_file is not None:
-            print "Generating matching FASTA file"
+            print("Generating matching FASTA file")
             with open(pos_file, "w") as pos_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
                     if clean_name(identifier) in wanted:
@@ -271,7 +273,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
                     else:
                         neg_count += 1
         else:
-            print "Generating non-matching FASTA file"
+            print("Generating non-matching FASTA file")
             assert neg_file is not None
             with open(neg_file, "w") as neg_handle:
                 for identifier, record in crude_fasta_iterator(in_handle):
@@ -289,10 +291,10 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
     pos_count = neg_count = 0
     handle = open(in_file, "r")
     if pos_file is not None and neg_file is not None:
-        print "Generating two FASTQ files"
+        print("Generating two FASTQ files")
         positive_handle = open(pos_file, "w")
         negative_handle = open(neg_file, "w")
-        print in_file
+        print(in_file)
         for title, seq, qual in FastqGeneralIterator(handle):
             # print("%s --> %s" % (title, clean_name(title.split(None, 1)[0])))
             if clean_name(title.split(None, 1)[0]) in wanted:
@@ -304,7 +306,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
         positive_handle.close()
         negative_handle.close()
     elif pos_file is not None:
-        print "Generating matching FASTQ file"
+        print("Generating matching FASTQ file")
         positive_handle = open(pos_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
             if clean_name(title.split(None, 1)[0]) in wanted:
@@ -314,7 +316,7 @@ def fastq_filter(in_file, pos_file, neg_file, wanted):
                 neg_count += 1
         positive_handle.close()
     elif neg_file is not None:
-        print "Generating non-matching FASTQ file"
+        print("Generating non-matching FASTQ file")
         negative_handle = open(neg_file, "w")
         for title, seq, qual in FastqGeneralIterator(handle):
             if clean_name(title.split(None, 1)[0]) in wanted:
