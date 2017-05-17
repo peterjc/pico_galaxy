@@ -53,6 +53,7 @@ v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
         - Use ``format_source``/``metadata_source`` idiom for output format.
         - Use standard MIT license (was previously using the MIT/BSD style
           Biopython Licence Agreement).
+v0.0.6  - Python 3 compatible print function.
 ======= ======================================================================
 
 
