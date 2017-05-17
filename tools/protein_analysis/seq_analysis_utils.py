@@ -8,6 +8,8 @@ multiprocessing so the function run_jobs instead is a simple pool approach
 using just the subprocess library.
 """
 
+from __future__ import print_function
+
 import os
 import subprocess
 import sys
@@ -140,7 +142,7 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
             handle.close()
             files.append(new_filename)
             # print "%i records in %s" % (len(records), new_filename)
-    except ValueError, err:
+    except ValueError as err:
         # Max length failure from parser - clean up
         try:
             handle.close()
@@ -174,18 +176,18 @@ def run_jobs(jobs, threads, pause=10, verbose=False):
         running = [(cmd, process) for (cmd, process) in running
                    if cmd not in results]
         if verbose:
-            print "%i jobs pending, %i running, %i completed" \
-                  % (len(pending), len(running), len(results))
+            print("%i jobs pending, %i running, %i completed" %
+                  (len(pending), len(running), len(results)))
         # See if we can start any new threads
         while pending and len(running) < threads:
             cmd = pending.pop(0)
             if verbose:
-                print cmd
+                print(cmd)
             process = subprocess.Popen(cmd, shell=True)
             running.append((cmd, process))
         # Loop...
         sleep(pause)
     if verbose:
-        print "%i jobs completed" % len(results)
+        print("%i jobs completed" % len(results))
     assert set(jobs) == set(results)
     return results

@@ -54,6 +54,8 @@ predicted signal peptide and mature peptide for each protein (using one of
 the predictors which gives a cleavage site). *WORK IN PROGRESS*
 """
 
+from __future__ import print_function
+
 import os
 import sys
 import tempfile
@@ -65,7 +67,7 @@ FASTA_CHUNK = 500
 MAX_LEN = 6000  # Found by trial and error
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    sys.exit("SignalP wrapper version 0.0.16")
+    sys.exit("SignalP wrapper version 0.0.17")
 
 if len(sys.argv) not in [6, 8]:
     sys.exit("Require five (or 7) arguments, organism, truncate, threads, "
@@ -190,7 +192,7 @@ def clean_up(file_list):
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.
-    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+    print("Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs)))
 results = run_jobs(jobs, num_threads)
 assert len(fasta_files) == len(temp_files) == len(jobs)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):

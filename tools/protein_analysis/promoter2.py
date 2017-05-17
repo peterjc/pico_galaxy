@@ -18,7 +18,6 @@ tab separated table.
 Additionally, in order to take advantage of multiple cores the input FASTA
 file is broken into chunks and multiple copies of promoter run at once.
 This can be used in combination with the job-splitting available in Galaxy.
-
 Note that rewriting the FASTA input file allows us to avoid a bug in
 promoter 2 with long descriptions in the FASTA header line (over 200
 characters) which produces stray fragements of the description in the
@@ -26,6 +25,8 @@ output file, making parsing non-trivial.
 
 TODO - Automatically extract the sequence containing a promoter prediction?
 """
+
+from __future__ import print_function
 
 import commands
 import os
@@ -77,7 +78,7 @@ def make_tabular(raw_handle, out_handle):
     identifier = None
     queries = 0
     for line in raw_handle:
-        # print repr(line)
+        # print(repr(line))
         if not line.strip() or line == "Promoter prediction:\n":
             pass
         elif line[0] != " ":
@@ -92,7 +93,7 @@ def make_tabular(raw_handle, out_handle):
             try:
                 position, score, likelihood = line.strip().split(None, 2)
             except ValueError:
-                print "WARNING: Problem with line: %r" % line
+                print("WARNING: Problem with line: %r" % line)
                 continue
                 # sys.exit("ERROR: Problem with line: %r" % line)
             if likelihood not in ["ignored",
@@ -131,7 +132,7 @@ def clean_up(file_list):
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.
-    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+    print("Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs)))
 cur_dir = os.path.abspath(os.curdir)
 os.chdir(working_dir)
 results = run_jobs(jobs, num_threads)
@@ -164,4 +165,4 @@ for temp in temp_files:
 out_handle.close()
 
 clean_up(fasta_files + temp_files)
-print "Results for %i queries" % queries
+print("Results for %i queries" % queries)

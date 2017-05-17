@@ -181,6 +181,7 @@ v0.2.8  - Reorder XML elements (internal change only).
 v0.2.9  - Further style cleanup in Python scripts (internal change only).
 v0.2.10 - Style cleanup in Python scripts using ``flake8``.
         - Record TMHMM and SignalP wrapper version via ``<version_command>``.
+        - Python 3 compatible print function and exception handling.
 ======= ======================================================================
 
 

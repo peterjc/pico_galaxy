@@ -22,6 +22,8 @@ Additionally it ensures the header line (with the column names) starts
 with a # character as used elsewhere in Galaxy.
 """
 
+from __future__ import print_function
+
 import os
 import sys
 import tempfile
@@ -145,7 +147,7 @@ def clean_up(file_list):
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.
-    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+    print("Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs)))
 results = run_jobs(jobs, num_threads)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     error_level = results[cmd]
@@ -171,6 +173,6 @@ for temp in temp_files:
         clean_up(fasta_files + temp_files)
         sys.exit("No output from psortb")
 out_handle.close()
-print "%i records" % count
+print("%i records" % count)
 
 clean_up(fasta_files + temp_files)

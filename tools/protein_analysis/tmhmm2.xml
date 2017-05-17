@@ -1,4 +1,4 @@
-<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.15">
+<tool id="tmhmm2" name="TMHMM 2.0" version="0.0.16">
     <description>Find transmembrane domains in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->

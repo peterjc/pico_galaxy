@@ -37,6 +37,8 @@ slightly different results. We expect the hmmsearch from HMMER 2.3.2
 the name hmmsearch2 (allowing it to co-exist with HMMER 3).
 """
 
+from __future__ import print_function
+
 import os
 import re
 import subprocess
@@ -45,7 +47,7 @@ import sys
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
-    print("RXLR Motifs v0.0.10")
+    print("RXLR Motifs v0.0.12")
     sys.exit(0)
 
 if len(sys.argv) != 5:
@@ -276,5 +278,5 @@ os.remove(signalp_input_file)
 os.remove(signalp_output_file)
 
 # Short summary to stdout for Galaxy's info display
-print "%s for %i sequences:" % (model, total)
-print ", ".join("%s = %i" % kv for kv in sorted(tally.iteritems()))
+print("%s for %i sequences:" % (model, total))
+print(", ".join("%s = %i" % kv for kv in sorted(tally.iteritems())))

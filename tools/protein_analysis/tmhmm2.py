@@ -41,6 +41,8 @@ Also tmhmm2 can fail without returning an error code, for example if run on a
 when there is no output from tmhmm2, and raise an error.
 """
 
+from __future__ import print_function
+
 import os
 import sys
 import tempfile
@@ -50,7 +52,7 @@ from seq_analysis_utils import run_jobs, split_fasta, thread_count
 FASTA_CHUNK = 500
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    sys.exit("TMHMM wrapper version 0.0.15")
+    sys.exit("TMHMM wrapper version 0.0.16")
 
 if len(sys.argv) != 4:
     sys.exit("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
@@ -112,7 +114,7 @@ def clean_up(file_list):
 
 if len(jobs) > 1 and num_threads > 1:
     # A small "info" message for Galaxy to show the user.
-    print "Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs))
+    print("Using %i threads for %i tasks" % (min(num_threads, len(jobs)), len(jobs)))
 results = run_jobs(jobs, num_threads)
 for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     error_level = results[cmd]
