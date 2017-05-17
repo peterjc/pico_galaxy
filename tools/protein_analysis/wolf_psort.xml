@@ -74,11 +74,11 @@ cysk   cytoskeleton          0005856(2)
 E.R.   endoplasmic reticulum 0005783
 extr   extracellular         0005576, 0005618
 golg   Golgi apparatus       0005794(1)
-lyso   lysosome		     0005764
-mito   mitochondria	     0005739
-nucl   nuclear		     0005634
-pero   peroxisome	     0005777(2)
-plas   plasma membrane	     0005886
+lyso   lysosome              0005764
+mito   mitochondria          0005739
+nucl   nuclear               0005634
+pero   peroxisome            0005777(2)
+plas   plasma membrane       0005886
 vacu   vacuolar membrane     0005774(2)
 ====== ===================== =====================
 

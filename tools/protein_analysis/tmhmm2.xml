@@ -79,7 +79,7 @@ gi|3298468|dbj|BAA31520.1|          len=107 ExpAA=59.37 First60=31.17 PredHel=3 
 In order to make it easier to use in Galaxy, the wrapper script simplifies this to remove the redundant tags, and instead adds a comment line at the top with the column names:
 
 =================================== === ===== ======= ======= ====================
-#ID                                 len	ExpAA First60 PredHel Topology 
+#ID                                 len ExpAA First60 PredHel Topology 
 gi|2781234|pdb|1JLY|B               304  0.01    0.00       0 o
 gi|4959044|gb|AAD34209.1|AF069992_1 600  0.00    0.00       0 o
 gi|671626|emb|CAA85685.1|           473  0.19    0.00       0 o
