@@ -26,7 +26,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.13")
+    print("v0.0.14")
     sys.exit(0)
 
 # Parse Command Line
@@ -128,7 +128,7 @@ if seq_format.lower() == "sff":
 else:
     # Avoid overhead of parsing into SeqRecord objects,
     # just re-use the original formatting from the input file.
-    out_handle = open(out_file, "w")
+    out_handle = open(out_file, "wb")
     count = 0
     for name in parse_ids(tabular_file, column):
         try:

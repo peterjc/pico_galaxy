@@ -90,6 +90,7 @@ v0.0.12 - Python style changes (internal change only).
         - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Python 3 compatible print function.
 v0.0.13 - Python 3 compatible exception handling.
+v0.0.14 - Script works on Python 2 and 3 (fixed output file mode).
 ======= ======================================================================
 
 
