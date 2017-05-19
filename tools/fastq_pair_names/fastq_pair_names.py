@@ -136,4 +136,5 @@ for input_fastq in input_fastq_filenames:
 out_pairs.close()
 out_nonpairs.close()
 
-print("%i reads (%i forward, %i reverse, %i neither), %i pairs" % (count, forward, reverse, neither, len(pairs)))
+print("%i reads (%i forward, %i reverse, %i neither), %i pairs" %
+      (count, forward, reverse, neither, len(pairs)))

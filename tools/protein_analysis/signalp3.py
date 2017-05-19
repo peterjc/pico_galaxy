@@ -52,7 +52,7 @@ itself (see the SignalP XML file for settings).
 Finally, you can opt to have a GFF3 file produced which will describe the
 predicted signal peptide and mature peptide for each protein (using one of
 the predictors which gives a cleavage site). *WORK IN PROGRESS*
-"""
+"""  # noqa: E501
 
 from __future__ import print_function
 

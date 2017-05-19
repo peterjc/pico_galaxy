@@ -242,7 +242,8 @@ idxstats_handle.close()
 depth_handle.close()
 out_handle.close()
 
-print("Total reference length %i with overall mean coverage %0.2f" % (global_length, float(global_bases) / global_length))
+print("Total reference length %i with overall mean coverage %0.2f" %
+      (global_length, float(global_bases) / global_length))
 
 # Remove the temp symlinks and files:
 clean_up()

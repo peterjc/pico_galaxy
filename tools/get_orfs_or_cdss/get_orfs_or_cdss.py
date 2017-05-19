@@ -25,9 +25,11 @@ import sys
 
 from optparse import OptionParser
 
-usage = """Use as follows:
+usage = r"""Use as follows:
 
-$ python get_orfs_or_cdss.py -i genome.fa -f fasta --table 11 -t CDS -e open -m all -s both --on cds.nuc.fa --op cds.protein.fa --ob cds.bed --og cds.gff3
+$ python get_orfs_or_cdss.py -i genome.fa -f fasta --table 11 \
+-t CDS -e open -m all -s both --on cds.nuc.fa --op cds.protein.fa \
+--ob cds.bed --og cds.gff3
 """
 
 try:

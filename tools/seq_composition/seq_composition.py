@@ -77,7 +77,8 @@ for format, filenames in [("fasta", options.fasta),
                     counts[letter] = 1
 
 total = sum(counts.values())
-sys.stderr.write("Counted %i sequence letters from %i records from %i files\n" % (total, seq_count, file_count))
+sys.stderr.write("Counted %i sequence letters from %i records from %i files\n" %
+                 (total, seq_count, file_count))
 
 scale = 100.0 / total
 with open(options.output, "w") as handle:

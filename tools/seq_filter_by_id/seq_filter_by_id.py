@@ -225,7 +225,8 @@ for tabular_file, columns in identifiers:
                 name = clean_name(line.rstrip("\n").split("\t")[col])
                 if name:
                     file_ids.add(name)
-    print("Using %i IDs from column %s in tabular file" % (len(file_ids), ", ".join(str(col + 1) for col in columns)))
+    print("Using %i IDs from column %s in tabular file" %
+          (len(file_ids), ", ".join(str(col + 1) for col in columns)))
     if ids is None:
         ids = file_ids
     if logic == "UNION":
@@ -378,13 +379,15 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
         out_handle = open(pos_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0)  # start again after getting manifest
-        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted)
+        pos_count = writer.write_file(rec for rec in SffIterator(in_handle)
+                                      if clean_name(rec.id) in wanted)
         out_handle.close()
     if neg_file is not None:
         out_handle = open(neg_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0)  # start again
-        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in wanted)
+        neg_count = writer.write_file(rec for rec in SffIterator(in_handle)
+                                      if clean_name(rec.id) not in wanted)
         out_handle.close()
     # And we're done
     in_handle.close()
