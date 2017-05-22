@@ -104,7 +104,7 @@ if not os.path.isfile(effective_t3_model):
     sys.stderr.write("Main JAR was found: %r\n" % effective_t3_jar)
     sys.exit("Effective T3 model JAR file not found: %r" % effective_t3_model)
 
-# We will have write access whereever the output should be,
+# We will have write access wherever the output should be,
 temp_file = os.path.abspath(tabular_file + ".tmp")
 
 # Use absolute paths since will change current directory...
