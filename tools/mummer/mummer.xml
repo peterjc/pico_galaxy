@@ -6,7 +6,7 @@
             <!-- Needs mummer, nucmer, promer and mummerplot from MUMmer -->
             <requirement type="package" version="3.23">mummer</requirement>
             <!-- mummerplot needs the gnuplot binary -->
-            <requirement type="package" version="5.0.4">gnuplot</requirement>
+            <requirement type="package" version="5.0.5">gnuplot</requirement>
     </requirements>
     <version_command>
 python $__tool_directory__/mummer.py --version
