@@ -52,7 +52,7 @@ python $__tool_directory__/get_orfs_or_cdss.py
             <option value="26">31. Blastocrithidia Nuclear</option>
             -->
         </param>
-        <param name="ftype" type="select" value="True" label="Look for ORFs or CDSs">
+        <param name="ftype" type="select" value="true" label="Look for ORFs or CDSs">
             <option value="ORF">Look for ORFs (check for stop codons only, ignore start codons)</option>
             <option value="CDS">Look for CDSs (with start and stop codons)</option>
         </param>

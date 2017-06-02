@@ -17,7 +17,7 @@ python $__tool_directory__/fastq_paired_unpaired.py '$input_fastq.extension' '$i
 $output_singles
     </command>
     <inputs>
-        <param name="input_fastq" type="data" format="fastq" label="FASTQ file to divide into paired and unpaired reads"/>
+        <param name="input_fastq" type="data" format="foobar" label="FASTQ file to divide into paired and unpaired reads"/>
         <conditional name="output_choice_cond">
             <param name="output_choice" type="select" label="How to output paired reads?">
                 <option value="separate">Separate (two FASTQ files, for the forward and reverse reads, in matching order).</option>

@@ -9,12 +9,12 @@
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
         <param name="model" type="select" display="radio" label="Model">
-            <option value="1" selected="True">Two state</option>
+            <option value="1" selected="true">Two state</option>
             <option value="2">Four state</option>
         </param>
         <param name="algorithm" type="select" display="radio" label="Algorithm">
             <option value="0">Viterbi</option>
-            <option value="1" selected="True">Posterior with threshold</option>
+            <option value="1" selected="true">Posterior with threshold</option>
             <option value="2">Both</option>
         </param>
         <param name="threshold" type="float" label="Posterior theshold" value="0.6">

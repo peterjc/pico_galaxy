@@ -12,7 +12,7 @@ python $__tool_directory__/seq_select_by_id.py '$input_tabular' '$column' '$inpu
     <inputs>
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file to select from" help="FASTA, QUAL, FASTQ, or SFF format." />
         <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-        <param name="column" type="data_column" data_ref="input_tabular" multiple="False" numerical="False" label="Column containing sequence identifiers"/>
+        <param name="column" type="data_column" data_ref="input_tabular" multiple="false" numerical="false" label="Column containing sequence identifiers"/>
     </inputs>
     <outputs>
         <data name="output_file" format_source="input_file" metadata_source="input_file" label="Selected sequences from $input_file.name"/>

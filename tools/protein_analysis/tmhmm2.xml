@@ -19,7 +19,7 @@
         <!--
         <param name="version" type="select" display="radio" label="Model version">
             <option value="">Version 1 (old)</option>
-            <option value="" selected="True">Version 2 (default)</option>
+            <option value="" selected="true">Version 2 (default)</option>
         </param>
         -->
     </inputs>

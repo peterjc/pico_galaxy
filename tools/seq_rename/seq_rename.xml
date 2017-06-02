@@ -13,8 +13,8 @@ python $__tool_directory__/seq_rename.py '$input_tabular' '$old_column' '$new_co
     <inputs>
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file" help="FASTA, QUAL, FASTQ, or SFF format." />
         <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-        <param name="old_column" type="data_column" data_ref="input_tabular" multiple="False" numerical="False" label="Column containing current (old) sequence identifiers"/>
-        <param name="new_column" type="data_column" data_ref="input_tabular" multiple="False" numerical="False" label="Column containing new sequence identifiers"/>
+        <param name="old_column" type="data_column" data_ref="input_tabular" multiple="false" numerical="false" label="Column containing current (old) sequence identifiers"/>
+        <param name="new_column" type="data_column" data_ref="input_tabular" multiple="false" numerical="false" label="Column containing new sequence identifiers"/>
     </inputs>
     <outputs>
         <data name="output_file" format_source="input_file" metadata_source="input_file" label="Renamed ${on_string}"/>

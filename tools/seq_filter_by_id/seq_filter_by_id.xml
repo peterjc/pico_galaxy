@@ -30,20 +30,20 @@ python $__tool_directory__/seq_filter_by_id.py -i '$input_file' -f '$input_file.
         <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file to be filtered" help="FASTA, FASTQ, or SFF format." />
         <conditional name="id_opts">
             <param name="id_opts_selector" type="select" label="Filter using the ID list from">
-                <option value="tabular" selected="True">tabular file</option>
+                <option value="tabular" selected="true">tabular file</option>
                 <option value="list">provided list</option>
                 <!-- add UNION or INTERSECTION of multiple tabular files here? -->
             </param>
             <when value="tabular">
                 <param name="input_tabular" type="data" format="tabular" label="Tabular file containing sequence identifiers"/>
-                <param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False"
+                <param name="columns" type="data_column" data_ref="input_tabular" multiple="true" numerical="false"
                        label="Column(s) containing sequence identifiers"
                        help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
                     <validator type="no_options" message="Pick at least one column"/>
                 </param>
             </when>
             <when value="list">
-                <param name="id_list" type="text" size="20x80" area="True" format="tabular"
+                <param name="id_list" type="text" size="20x80" area="true" format="tabular"
                        label="List of sequence identifiers (white space separated)"
                        help="You can use both spaces and new lines to separate your identifiers.">
                     <sanitizer>
@@ -69,7 +69,7 @@ python $__tool_directory__/seq_filter_by_id.py -i '$input_file' -f '$input_file.
         </conditional>
         <conditional name="adv_opts">
             <param name="adv_opts_selector" type="select" label="Advanced Options">
-              <option value="basic" selected="True">Hide Advanced Options</option>
+              <option value="basic" selected="true">Hide Advanced Options</option>
               <option value="advanced">Show Advanced Options</option>
             </param>
             <when value="basic" />

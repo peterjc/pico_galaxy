@@ -20,7 +20,7 @@
         <param name="model" type="select" label="Which RXLR model?">
             <option value="Bhattacharjee2006">Bhattacharjee et al. (2006) RXLR</option>
             <option value="Win2007">Win et al. (2007) RXLR</option>
-            <option value="Whisson2007" selected="True">Whisson et al. (2007) RXLR-EER with HMM</option>
+            <option value="Whisson2007" selected="true">Whisson et al. (2007) RXLR-EER with HMM</option>
         </param>
     </inputs>
     <outputs>

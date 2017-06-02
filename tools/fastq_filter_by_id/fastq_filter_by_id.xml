@@ -17,7 +17,7 @@ fastq_filter_by_id.py $input_tabular $columns $input_fastq
     <inputs>
         <param name="input_fastq" type="data" format="fastq" label="FASTQ file to filter on the identifiers"/>
         <param name="input_tabular" type="data" format="tabular" label="Tabular file containing FASTQ identifiers"/>
-        <param name="columns" type="data_column" data_ref="input_tabular" multiple="True" numerical="False" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
+        <param name="columns" type="data_column" data_ref="input_tabular" multiple="true" numerical="false" label="Column(s) containing FASTA identifiers" help="Multi-select list - hold the appropriate key while clicking to select multiple columns">
             <validator type="no_options" message="Pick at least one column"/>
         </param>
         <conditional name="output_choice_cond">
