@@ -99,6 +99,8 @@ v0.0.17 - Update tool dependency definition to use cached URL.
 v0.0.18 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
 v0.0.19 - Python 3 compatible exception handling.
+v0.0.20 - Work with Effective T3 as installed by BioConda (which provides a
+          wrapper script which can be used to find the main JAR file folder).
 ======= ======================================================================
 
 

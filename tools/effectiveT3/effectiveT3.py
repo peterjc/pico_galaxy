@@ -12,16 +12,25 @@ webservice), and reformats the semi-colon separated output into
 tab separated output for use in Galaxy.
 """
 import os
+# We want to be able to use shutil.which, but need Python 3.3+
+# import shutil
 import subprocess
 import sys
 
-# The Galaxy auto-install via tool_dependencies.xml will set this environment variable
-effective_t3_dir = os.environ.get("EFFECTIVET3", "/opt/EffectiveT3/")
-effective_t3_jar = os.path.join(effective_t3_dir, "TTSS_GUI-1.0.1.jar")
+# The Galaxy auto-install via tool_dependencies.xml will set the
+# environment variable $EFFECTIVET3 pointing at the folder with
+# the JAR file.
+#
+# The BioConda recipe will put a wrapper script on the $PATH,
+# which we can use to find the JAR file.
+#
+# We fall back on /opt/EffectiveT3/
+#
+effective_t3_jarname = "TTSS_GUI-1.0.1.jar"
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # TODO - Get version of the JAR file dynamically?
-    print("Wrapper v0.0.19, TTSS_GUI-1.0.1.jar")
+    print("Wrapper v0.0.20, for %s" % effective_t3_jarname)
     sys.exit(0)
 
 if len(sys.argv) != 5:
@@ -88,11 +97,85 @@ def run(cmd):
             sys.exit("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
 
 
-if not os.path.isdir(effective_t3_dir):
-    sys.exit("Effective T3 folder not found: %r" % effective_t3_dir)
+try:
+    from shutil import which
+except ImportError:
+    # Likely running on Python 2, use backport:
+    def which(cmd, mode=os.F_OK | os.X_OK, path=None):
+        """Given a command, mode, and a PATH string, return the path which
+        conforms to the given mode on the PATH, or None if there is no such
+        file.
+        `mode` defaults to os.F_OK | os.X_OK. `path` defaults to the result
+        of os.environ.get("PATH"), or can be overridden with a custom search
+        path.
+        """
 
-if not os.path.isfile(effective_t3_jar):
-    sys.exit("Effective T3 JAR file not found: %r" % effective_t3_jar)
+        # Check that a given file can be accessed with the correct mode.
+        # Additionally check that `file` is not a directory, as on Windows
+        # directories pass the os.access check.
+        def _access_check(fn, mode):
+            return (os.path.exists(fn) and os.access(fn, mode) and
+                    not os.path.isdir(fn))
+
+        # Short circuit. If we're given a full path which matches the mode
+        # and it exists, we're done here.
+        if _access_check(cmd, mode):
+            return cmd
+
+        path = (path or os.environ.get("PATH", os.defpath)).split(os.pathsep)
+
+        if sys.platform == "win32":
+            # The current directory takes precedence on Windows.
+            if os.curdir not in path:
+                path.insert(0, os.curdir)
+
+            # PATHEXT is necessary to check on Windows.
+            pathext = os.environ.get("PATHEXT", "").split(os.pathsep)
+            # See if the given file matches any of the expected path extensions.
+            # This will allow us to short circuit when given "python.exe".
+            matches = [cmd for ext in pathext if cmd.lower().endswith(ext.lower())]
+            # If it does match, only test that one, otherwise we have to try
+            # others.
+            files = [cmd] if matches else [cmd + ext.lower() for ext in pathext]
+        else:
+            # On other platforms you don't have things like PATHEXT to tell you
+            # what file suffixes are executable, so just pass on cmd as-is.
+            files = [cmd]
+
+        seen = set()
+        for dir in path:
+            dir = os.path.normcase(dir)
+            if dir not in seen:
+                seen.add(dir)
+                for thefile in files:
+                    name = os.path.join(dir, thefile)
+                    if _access_check(name, mode):
+                        return name
+        return None
+
+
+# Try in order the following to find the JAR file:
+# - Location of any wrapper script, e.g. from BioConda installation
+# - The $EFFECTIVET3 env var, e.g. old-style Galaxy tool installation
+# - The /opt/EffectiveT3/ folder.
+effective_t3_jar = None
+effective_t3_dir = None
+dirs = ["/opt/EffectiveT3/"]
+if "EFFECTIVET3" in os.environ:
+    dirs.insert(0, os.environ.get("EFFECTIVET3"))
+if which("effectivet3"):
+    # Assuming this is a BioConda installed wrapper for effective T3,
+    # this will get the directory of the wrapper script which is where
+    # the JAR file will be:
+    dirs.insert(0, os.path.split(os.path.realpath(which("effectivet3")))[0])
+for effective_t3_dir in dirs:
+    effective_t3_jar = os.path.join(effective_t3_dir, effective_t3_jarname)
+    if os.path.isfile(effective_t3_jar):
+        # Good
+        break
+    effective_t3_jar = None
+if not effective_t3_dir or not effective_t3_jar:
+    sys.exit("Effective T3 JAR file %r not found in %r" % (effective_t3_jarname, dirs))
 
 if not os.path.isdir(os.path.join(effective_t3_dir, "module")):
     sys.exit("Effective T3 module folder not found: %r" % os.path.join(effective_t3_dir, "module"))
