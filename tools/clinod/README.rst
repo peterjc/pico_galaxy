@@ -23,10 +23,11 @@ Neural Network Simulator (SNNS), and set the ``$CLINOD`` to their folder.
 
 Manual Installation
 ===================
-This wrapper expects the java binary to be on the system PATH, and to be able
-to access command line NoD as ``$CLINOD/clinod-1.3.jar`` which means if you
-used ``/opt/clinod/clinod-1.3.jar`` set the environment variable ``$CLINOD``
-to ``/opt/clinod``
+This wrapper expects the java binary to availabe via a wapper script named
+``clinod`` on the system ``$PATH``.
+
+Older versions of this tool called the JAR file directly via an environment
+variable as ``$CLINOD/clinod-1.3.jar`` - this is no longer used.
 
 Internally NoD calls the binary batchman v1.0 from the Stuttgart Neural Network
 Simulator (SNNS) v4.2 or 4.3 software suite. This binary can either be on the
@@ -75,6 +76,11 @@ v0.0.8  - Reorder XML elements (internal change only).
 v0.0.9  - Explicitly record clinod version via ``<version_command>``.
 v0.0.10 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.1.0  - Calls the JAR file via a wrapper script ``clinod``, in order to use
+          the BioConda package OR the ``tool_dependencies.xml`` system.
+          To do this the Tool Shed XML installation recipe now installs the
+          same wrapper script ``clinod`` used in the BioConda package for
+          calling the JAR file.
 ======= ======================================================================
 
 
