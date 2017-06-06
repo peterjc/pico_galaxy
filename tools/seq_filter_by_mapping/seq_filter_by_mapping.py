@@ -156,6 +156,7 @@ def load_mapping_ids(filename, pair_mode, ids):
         # Presumably a BAM file then...
         # Call samtools view, don't need header so no -h added:
         child = subprocess.Popen(["samtools", "view", filename],
+                                 universal_newlines=True,
                                  stdin=None,
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)

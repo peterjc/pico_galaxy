@@ -83,6 +83,7 @@ v0.0.4  - Improved usage text and README for use outside of Galaxy.
 v0.0.5  - Fix samtools dependency version inconsistency, using v1.2 now.
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.0.6  - Python 3 compatibility fix.
 ======= ======================================================================
 
 

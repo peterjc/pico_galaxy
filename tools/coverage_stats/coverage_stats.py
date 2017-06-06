@@ -24,7 +24,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.5")
+    print("BAM coverage statistics v0.0.6")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -85,6 +85,7 @@ def clean_up():
 def samtools_depth_opt_available():
     """Determine if samtools depth supports maximum coverage argument."""
     child = subprocess.Popen(["samtools", "depth"],
+                             universal_newlines=True,
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     # Combined stdout/stderr in case samtools is ever inconsistent
     output, tmp = child.communicate()

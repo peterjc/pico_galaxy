@@ -1,4 +1,4 @@
-<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.5">
+<tool id="coverage_stats" name="BAM coverage statistics" version="0.0.6">
     <description>using samtools idxstats and depth</description>
     <requirements>
         <requirement type="package" version="1.4.1">samtools</requirement>

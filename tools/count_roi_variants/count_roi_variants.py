@@ -20,7 +20,7 @@ import tempfile
 
 if "-v" in sys.argv or "--version" in sys.argv:
     # Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.4 (using samtools)")
+    print("BAM coverage statistics v0.0.6 (using samtools)")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
@@ -219,6 +219,7 @@ def count_region():
     # Call samtools view, don't need header so no -h added.
     # Only want mapped reads, thus flag filter -F 4.
     child = subprocess.Popen(["samtools", "view", "-F", "4", bam_file, region],
+                             universal_newlines=True,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     for line in child.stdout:
         assert line[0] != "@", "Got unexpected SAM header line: %s" % line

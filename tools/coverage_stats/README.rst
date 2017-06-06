@@ -65,6 +65,7 @@ v0.0.5  - Expose new ``samtools depth -d ...`` argument added in samtools v1.3
         - Report total length and overall mean coverage in stdout.
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.0.6  - Python 3 compatibility fix.
 ======= ======================================================================
 
 

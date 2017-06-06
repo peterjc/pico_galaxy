@@ -27,6 +27,7 @@ def __main__():
     # print >> sys.stderr, cmdline
     try:
         proc = subprocess.Popen(args=cmdline, shell=True,
+                                universal_newlines=True,
                                 stderr=subprocess.PIPE)
         returncode = proc.wait()
         # get stderr, allowing for case where it's very large
@@ -50,6 +51,7 @@ def __main__():
     # print >> sys.stderr, cmdline # so will appear as blurb for file
     try:
         proc = subprocess.Popen(args=cmdline, shell=True,
+                                universal_newlines=True,
                                 stderr=subprocess.PIPE)
         returncode = proc.wait()
         # get stderr, allowing for case where it's very large

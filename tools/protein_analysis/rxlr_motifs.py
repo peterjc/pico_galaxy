@@ -47,7 +47,7 @@ import sys
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
-    print("RXLR Motifs v0.0.12")
+    print("RXLR Motifs v0.0.13")
     sys.exit(0)
 
 if len(sys.argv) != 5:
@@ -96,7 +96,9 @@ else:
 
 def get_hmmer_version(exe, required=None):
     try:
-        child = subprocess.Popen([exe, "-h"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        child = subprocess.Popen([exe, "-h"],
+                                 universal_newlines=True,
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except OSError:
         raise ValueError("Could not run %s" % exe)
     stdout, stderr = child.communicate()
