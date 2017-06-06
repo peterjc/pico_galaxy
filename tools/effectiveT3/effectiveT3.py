@@ -189,7 +189,10 @@ if not os.path.isfile(effective_t3_model):
     sys.exit("Effective T3 model JAR file not found: %r" % effective_t3_model)
 
 # We will have write access wherever the output should be,
-temp_file = os.path.abspath(tabular_file + ".tmp")
+if tabular_file == "/dev/stdout":
+    temp_file = os.path.abspath("effectivet3_tabular_output.tmp")
+else:
+    temp_file = os.path.abspath(tabular_file + ".tmp")
 
 # Use absolute paths since will change current directory...
 tabular_file = os.path.abspath(tabular_file)
