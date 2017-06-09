@@ -7,6 +7,7 @@
 
 # Galaxy currently only supports Python 2.7
 language: python
+cache: pip
 jobs:
   include:
     - stage: test
