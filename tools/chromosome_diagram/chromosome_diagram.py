@@ -3,7 +3,9 @@
 
 This script is copyright 2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
-See accompanying text file for licence details (MIT/BSD style).
+
+This is released under the MIT license, see accompanying README.rst text
+file for details.
 
 This is version 0.0.1 of the script.
 """
