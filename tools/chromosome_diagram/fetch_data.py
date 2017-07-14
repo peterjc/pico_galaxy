@@ -53,7 +53,9 @@ def run(cmd):
 for chr, acc in data:
     for ext in ["fna", "rnt"]:
         filename = "%s.%s" % (acc, ext)
-        url = "ftp://ftp.ncbi.nlm.nih.gov/genomes/Arabidopsis_thaliana/CHR_%s/%s" % (chr, filename)
+        # The NCBI originally provided this genome here, but moved it:
+        # ftp://ftp.ncbi.nlm.nih.gov/genomes/Arabidopsis_thaliana/
+        url = "ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Arabidopsis_thaliana/CHR_%s/%s" % (chr, filename)
         if not os.path.isfile(filename):
             run("curl -O %s" % url)
 
