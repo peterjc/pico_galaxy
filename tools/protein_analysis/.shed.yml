@@ -63,7 +63,6 @@ include:
   - ../../tools/protein_analysis/seq_analysis_utils.py
   - ../../tools/protein_analysis/signalp3.py
   - ../../tools/protein_analysis/signalp3.xml
-  - ../../tools/protein_analysis/suite_config.xml
   - ../../tools/protein_analysis/tmhmm2.py
   - ../../tools/protein_analysis/tmhmm2.xml
   - ../../tools/protein_analysis/whisson_et_al_rxlr_eer_cropped.hmm
