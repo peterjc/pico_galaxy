@@ -183,6 +183,7 @@ v0.2.10 - Style cleanup in Python scripts using ``flake8``.
         - Record TMHMM and SignalP wrapper version via ``<version_command>``.
         - Python 3 compatible print function and exception handling.
         - Python 3 compatible subprocess calling.
+        - Removed obsolete ``suite_config.xml`` file.
 ======= ======================================================================
 
 
