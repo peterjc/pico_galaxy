@@ -1,3 +1,10 @@
+.. image:: https://img.shields.io/travis/peterjc/pico_galaxy/master.svg
+   :alt: Linux testing with TravisCI
+   :target: https://travis-ci.org/peterjc/pico_galaxy/branches
+.. image:: https://landscape.io/github/peterjc/pico_galaxy/master/landscape.svg?style=flat
+   :alt: Landscape Code Metrics
+   :target: https://landscape.io/github/peterjc/pico_galaxy
+
 Introduction
 ============
 
