@@ -66,6 +66,7 @@ v0.0.5  - Expose new ``samtools depth -d ...`` argument added in samtools v1.3
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
 v0.0.6  - Python 3 compatibility fix.
+v0.1.0  - Provide proper command line API for the Python script.
 ======= ======================================================================
 
 

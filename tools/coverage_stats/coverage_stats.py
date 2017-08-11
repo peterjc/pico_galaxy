@@ -22,25 +22,51 @@ import subprocess
 import sys
 import tempfile
 
-if "-v" in sys.argv or "--version" in sys.argv:
+from optparse import OptionParser
+
+usage = """Example usage:
+
+$ python coverage_stats.py -b mapped.bam -i mapped.bai -o summary.tsv -d 10000
+"""
+
+parser = OptionParser(usage=usage)
+parser.add_option('-b', '--bam', dest='input_bam', default=None,
+                  help='Input BAM file',
+                  metavar='FILE')
+parser.add_option('-i', '--bai', dest='input_bai', default="-",
+                  help='Input BAI file (BAM index, optional, default or - infer from BAM filename)',
+                  metavar='FILE')
+parser.add_option('-o', dest='output_tabular', default="-",
+                  help='Output tabular file (optional, default stdout)',
+                  metavar='FILE')
+parser.add_option('-d', '--maxdepth', dest='max_depth', default=8000,
+                  help='Max coverage depth (integer, default 8000)',
+                  type='int')
+parser.add_option('-v', '--version', dest='version',
+                  default=False, action='store_true',
+                  help='Show version and quit')
+
+options, args = parser.parse_args()
+
+if options.version:
     # Galaxy seems to invert the order of the two lines
-    print("BAM coverage statistics v0.0.6")
+    print("BAM coverage statistics v0.1.0")
     cmd = "samtools 2>&1 | grep -i ^Version"
     sys.exit(os.system(cmd))
 
-# TODO - Proper command line API
-if len(sys.argv) == 4:
-    bam_filename, bai_filename, tabular_filename = sys.argv[1:]
-    max_depth = "8000"
-elif len(sys.argv) == 5:
-    bam_filename, bai_filename, tabular_filename, max_depth = sys.argv[1:]
-else:
-    sys.exit("Require 3 or 4 arguments: BAM, BAI, tabular filename, [max depth]")
+bam_filename = options.input_bam
+bai_filename = options.input_bai
+tabular_filename = options.output_tabular
+max_depth = options.max_depth
 
+if args:
+    sys.exit("Sorry, the legacy API has been dropped.")
+
+if not bam_filename:
+    sys.exit("Input BAM filename is required.")
 if not os.path.isfile(bam_filename):
     sys.exit("Input BAM file not found: %s" % bam_filename)
 if bai_filename == "-":
-    # Make this optional for ease of use at the command line by hand:
     if os.path.isfile(bam_filename + ".bai"):
         bai_filename = bam_filename + ".bai"
 if not os.path.isfile(bai_filename):
@@ -198,7 +224,10 @@ def load_total_coverage(depth_handle, identifier, length):
 
 
 # Parse and combine the output
-out_handle = open(tabular_filename, "w")
+if tabular_filename == "-":
+    out_handle = sys.stdout
+else:
+    out_handle = open(tabular_filename, "w")
 out_handle.write("#identifer\tlength\tmapped\tplaced\tmin_cov\tmax_cov\tmean_cov\n")
 
 idxstats_handle = open(idxstats_filename)
@@ -241,7 +270,8 @@ for line in idxstats_handle:
 
 idxstats_handle.close()
 depth_handle.close()
-out_handle.close()
+if tabular_filename != "-":
+    out_handle.close()
 
 print("Total reference length %i with overall mean coverage %0.2f" %
       (global_length, float(global_bases) / global_length))
