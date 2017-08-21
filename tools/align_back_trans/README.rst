@@ -80,6 +80,8 @@ v0.0.8  - Python coding style change to avoid lamba (internal change only).
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
 v0.0.9  - Python 3 compatible print function.
+v0.0.10 - Remove unused reference to ``muscle`` format in wrapper, reported by
+          Björn Grüning (internal change only).
 ======= ======================================================================
 
 
