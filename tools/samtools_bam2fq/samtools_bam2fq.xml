@@ -1,25 +1,22 @@
-<tool id="samtools_bam2fq" name="Convert BAM to FASTQ" version="0.0.4">
+<tool id="samtools_bam2fq" name="Convert BAM to FASTQ" version="0.0.5">
     <description>samtools bam2fq</description>
     <requirements>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
+    <version_command>
+samtools 2&gt;&amp;1 | grep -i "Version:"
+    </version_command>
     <command>
-        #if $action_mode.mode == "pairs":
-            ## Sort by name for pair-aware output (should give nice interlaced FASTQ)
-            ## Galaxy has a tendancy to automatically apply co-ordindate sorting,
-            ## so just do this every time. If it was name sorted, pay an IO overhead.
-            ## Note requiring -T is samtools issue 295
-            samtools sort -l 0 -n -O bam -T TEMP_SORT "$input_bam" | samtools bam2fq -s "$singletons_fastq" - &gt; "$pairs_fastq"
-        #else
-            ## Naive conversion using order in the input file
-            samtools bam2fq $suffices $orig_qual "$input_bam" &gt; "$out_fastq"
-        #end if
+#if $action_mode.mode == "pairs":
+    ## Sort by name for pair-aware output (should give nice interlaced FASTQ)
+    ## Galaxy has a tendancy to automatically apply co-ordindate sorting,
+    ## so just do this every time. If it was name sorted, pay an IO overhead.
+    ## Note requiring -T is samtools issue 295
+    samtools sort -l 0 -n -O bam -T TEMP_SORT '$input_bam' | samtools bam2fq -s '$singletons_fastq' - &gt; '$pairs_fastq'
+#else
+    ## Naive conversion using order in the input file
+    samtools bam2fq $suffices $orig_qual '$input_bam' &gt; '$out_fastq'
+#end if
     </command>
     <inputs>
         <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->

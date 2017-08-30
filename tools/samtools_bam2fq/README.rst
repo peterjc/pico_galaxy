@@ -57,6 +57,8 @@ v0.0.2  - Defaults to pair-aware mode which requires pre-sorting by read name.
 v0.0.3  - Faster not to compress intermediate BAM file when sorting.
 v0.0.4  - Reorder XML elements (internal change only).
         - lanemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 
