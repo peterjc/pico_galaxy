@@ -1,4 +1,4 @@
-<tool id="promoter2" name="Promoter 2.0" version="0.0.11">
+<tool id="promoter2" name="Promoter 2.0" version="0.0.12">
     <description>Find eukaryotic PolII promoters in DNA sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 per chunk so 4 threads each doing 500 is ideal -->
@@ -6,16 +6,11 @@
     <requirements>
         <requirement type="package">promoter</requirement>
     </requirements>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command interpreter="python">promoter2.py --version</version_command>
-    <command interpreter="python">
-        promoter2.py "\$GALAXY_SLOTS" "$fasta_file" "$tabular_file"
-        ##If the environment variable isn't set, get "", and the python wrapper
-        ##defaults to four threads.
+    <version_command>
+python $__tool_directory__/promoter2.py --version
+    </version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/promoter2.py "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of DNA sequences"/> 

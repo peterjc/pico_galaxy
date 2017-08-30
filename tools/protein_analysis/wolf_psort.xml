@@ -1,14 +1,10 @@
-<tool id="wolf_psort" name="WoLF PSORT" version="0.0.10">
+<tool id="wolf_psort" name="WoLF PSORT" version="0.0.11">
     <description>Eukaryote protein subcellular localization prediction</description>
-    <stdio>
-        <!-- Anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <command interpreter="python">
-      wolf_psort.py $organism "\$GALAXY_SLOTS" "$fasta_file" "$tabular_file"
-      ##If the environment variable isn't set, get "", and python wrapper
-      ##defaults to four threads.
+    <version_command>
+python $__tool_directory__/wolf_psort.py --version
+    </command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/wolf_psort.py $organism "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
     <inputs>
         <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
