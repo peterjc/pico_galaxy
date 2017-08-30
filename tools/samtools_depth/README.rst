@@ -51,6 +51,8 @@ Version Changes
 v0.0.1  - Initial public release
 v0.0.2  - Reorder XML elements (internal change only).
         - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.3  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

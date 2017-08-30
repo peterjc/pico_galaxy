@@ -1,15 +1,12 @@
-<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.2">
+<tool id="samtools_depth" name="SAM/BAM coverage depth" version="0.0.3">
     <description>samtools depth</description>
     <requirements>
         <requirement type="package" version="1.1">samtools</requirement>
     </requirements>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command>samtools 2&gt;&amp;1 | grep -i "Version:"</version_command>
-    <command>
+    <version_command>
+samtools 2&gt;&amp;1 | grep -i "Version:"
+    </version_command>
+    <command detect_errors="aggressive">
 samtools depth
 #if int($min_len)
 -l $min_len
@@ -20,7 +17,7 @@ samtools depth
 #if int($mapping_quality_threshold)
 -Q $mapping_quality_threshold
 #end if
-#for i in $input_bam#"${i}" #end for# &gt; "$out_depth"
+#for i in $input_bam#'${i}' #end for# &gt; '$out_depth'
     </command>
     <inputs>
         <!-- Unlike samtools 0.1.x, samtools 1.1 will autodetect SAM vs BAM -->
