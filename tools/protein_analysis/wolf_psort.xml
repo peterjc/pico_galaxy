@@ -5,7 +5,7 @@
     </requirements>
     <version_command>
 python $__tool_directory__/wolf_psort.py --version
-    </command>
+    </version_command>
     <command detect_errors="aggressive">
 python $__tool_directory__/wolf_psort.py $organism "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
