@@ -184,6 +184,7 @@ v0.2.10 - Style cleanup in Python scripts using ``flake8``.
         - Python 3 compatible print function and exception handling.
         - Python 3 compatible subprocess calling.
         - Removed obsolete ``suite_config.xml`` file.
+v0.2.11 - Updated RXLR tool dependencies to get HMMER2 via BioConda.
 ======= ======================================================================
 
 

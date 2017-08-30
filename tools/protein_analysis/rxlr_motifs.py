@@ -31,10 +31,18 @@ Also note that the HMM score values have changed from v2.0 to v3.0.
 Whisson et al. (2007) used SignalP v3.0 anyway.
 
 Whisson et al. (2007) used HMMER 2.3.2, and althought their HMM model
-can still be used with hmmsearch from HMMER 3 this this does give
+can still be used with hmmsearch from HMMER 3, sadly this does give
 slightly different results. We expect the hmmsearch from HMMER 2.3.2
 (the last stable release of HMMER 2) to be present on the path under
 the name hmmsearch2 (allowing it to co-exist with HMMER 3).
+
+If using Conda, you should therefore install the special "hmmer2"
+package from BioConda which provides "hmmsearch2" etc::
+
+    conda install -c bioconda hmmer2
+
+See https://bioconda.github.io/recipes/hmmer2/README.html and
+https://anaconda.org/bioconda/hmmer2
 """
 
 from __future__ import print_function
@@ -47,7 +55,7 @@ import sys
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
-    print("RXLR Motifs v0.0.13")
+    print("RXLR Motifs v0.0.14")
     sys.exit(0)
 
 if len(sys.argv) != 5:
