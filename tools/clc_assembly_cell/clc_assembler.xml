@@ -1,12 +1,10 @@
-<tool id="clc_assembler" name="CLC assembler" version="0.0.6">
+<tool id="clc_assembler" name="CLC assembler" version="0.0.7">
     <description>Assembles reads giving a FASTA file</description>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command>${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler | grep -i version</version_command>
-    <command>\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler
+    <version_command>
+${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler | grep -i version
+    </version_command>
+    <command detect_errors="aggressive">
+\${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_assembler
 #for $rg in $read_group
 ##--------------------------------------
 #if str($rg.segments.type) == "paired"

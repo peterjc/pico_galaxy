@@ -95,6 +95,8 @@ v0.0.5  - Support the ``-u`` or ``--discardunmapped`` option to discard
           calling ``clc_cas_to_sam`` in the CLC MApper wrapper.
 v0.0.6  - Update tool XML for optional vs required parameters.
         - Update URLs in documentation.
+v0.0.7  - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only).
 ======= ======================================================================
 
 

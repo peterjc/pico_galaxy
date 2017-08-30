@@ -1,43 +1,41 @@
-<tool id="clc_mapper" name="CLC Mapper" version="0.0.6">
+<tool id="clc_mapper" name="CLC Mapper" version="0.0.7">
     <description>Maps reads giving a SAM/BAM file</description>
     <requirements>
         <requirement type="package" version="0.1.19">samtools</requirement>
     </requirements>
-    <stdio>
-        <!-- Assume anything other than zero is an error -->
-        <exit_code range="1:" />
-        <exit_code range=":-1" />
-    </stdio>
-    <version_command>${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_mapper | grep -i version</version_command>
-    <command>echo Mapping reads with clc_mapper...
+    <version_command>
+${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_mapper | grep -i version
+    </version_command>
+    <command detect_errors="aggressive">
+echo Mapping reads with clc_mapper...
 &amp;&amp; \${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_mapper
 #for $ref in $references
 #if str($ref.ref_type)=="circular"
--d -z "$ref.ref_file"
+-d -z '$ref.ref_file'
 #else
--d "$ref.ref_file"
+-d '$ref.ref_file'
 #end if
 #end for
 #for $rg in $read_group
 ##--------------------------------------
 #if str($rg.segments.type) == "paired"
--p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -q -i "$rg.segments.filename1" "$rg.segments.filename2"
+-p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -q -i '$rg.segments.filename1' '$rg.segments.filename2'
 #end if
 ##--------------------------------------
 #if str($rg.segments.type) == "interleaved"
--p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -q "$rg.segments.filename"
+-p $rg.segments.placement $rg.segments.dist_mode $rg.segments.min_size $rg.segments.max_size -q '$rg.segments.filename'
 #end if
 ##--------------------------------------
 #if str($rg.segments.type) == "none"
 -p no -q
 #for $f in $rg.segments.filenames
-"$f"
+'$f'
 #end for
 #end if
 ##--------------------------------------
 #end for
 -o "temp_job.cas"
---cpus \${GALAXY_SLOTS:-4}
+--cpus "\${GALAXY_SLOTS:-4}"
 ## TODO - filtering out the progress lines seems to mess up the multiple commands
 ## | grep -v "^Progress: "
 ##===========================================
@@ -45,12 +43,12 @@
 ## use the offset 33, rather then the CLCbio default of 64 which is only for
 ## obsolete Illumina FASTQ files. Really need this option per input file...
 &amp;&amp; echo Converting CAS file to BAM with clc_cas_to_sam...
-&amp;&amp; \${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_cas_to_sam --cas "temp_job.cas" -o "temp_job.bam" --no-progress --qualityoffset 33
+&amp;&amp; \${CLC_ASSEMBLY_CELL:-/mnt/apps/clcBio/clc-assembly-cell-4.1.0-linux_64/}clc_cas_to_sam --cas 'temp_job.cas' -o 'temp_job.bam' --no-progress --qualityoffset 33
 #if $discard_unmapped:
 ## -u / --discardunmapped: Discard the unmapped reads
 -u
 #end if
-&amp;&amp; rm "temp_job.cas"
+&amp;&amp; rm 'temp_job.cas'
 ##===========================================
 &amp;&amp; echo Sorting BAM file with samtools...
 &amp;&amp; samtools sort "temp_job.bam" "temp_sorted"
