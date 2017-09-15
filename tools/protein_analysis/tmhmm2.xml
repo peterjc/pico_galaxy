@@ -3,6 +3,9 @@
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
     <parallelism method="basic" split_inputs="fasta_file" split_mode="to_size" split_size="2000" merge_outputs="tabular_file"></parallelism>
+    <requirements>
+        <requirement type="package">tmhmm2</requirement>
+    </requirements>
     <version_command>
 python $__tool_directory__/tmhmm2.py --version
     </version_command>
