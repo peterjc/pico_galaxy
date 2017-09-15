@@ -13,7 +13,7 @@ python $__tool_directory__/tmhmm2.py --version
 python $__tool_directory__/tmhmm2.py "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
         <!--
         <param name="version" type="select" display="radio" label="Model version">
             <option value="">Version 1 (old)</option>
@@ -35,7 +35,7 @@ python $__tool_directory__/tmhmm2.py "\$GALAXY_SLOTS" '$fasta_file' '$tabular_fi
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls the TMHMM v2.0 tool for prediction of transmembrane (TM)  helices in proteins using a hidden Markov model (HMM).
@@ -60,7 +60,7 @@ Predicted TM segments in the n-terminal region sometimes turn out to be signal p
 
 One of the most common mistakes by the program is to reverse the direction of proteins with one TM segment (i.e. mixing up which end of the protein is outside and inside the membrane).
 
-Do not use the program to predict whether a non-membrane protein is cytoplasmic or not. 
+Do not use the program to predict whether a non-membrane protein is cytoplasmic or not.
 
 
 **Notes**
@@ -77,7 +77,7 @@ gi|3298468|dbj|BAA31520.1|          len=107 ExpAA=59.37 First60=31.17 PredHel=3 
 In order to make it easier to use in Galaxy, the wrapper script simplifies this to remove the redundant tags, and instead adds a comment line at the top with the column names:
 
 =================================== === ===== ======= ======= ====================
-#ID                                 len ExpAA First60 PredHel Topology 
+#ID                                 len ExpAA First60 PredHel Topology
 gi|2781234|pdb|1JLY|B               304  0.01    0.00       0 o
 gi|4959044|gb|AAD34209.1|AF069992_1 600  0.00    0.00       0 o
 gi|671626|emb|CAA85685.1|           473  0.19    0.00       0 o

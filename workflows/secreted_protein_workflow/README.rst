@@ -125,7 +125,7 @@ To prepare the tar-ball for uploading to the Tool Shed, I use this:
 
 Check this,
 
-    $ tar -tzf secreted_protein_workflow.tar.gz 
+    $ tar -tzf secreted_protein_workflow.tar.gz
     README.rst
     repository_dependencies.xml
     secreted_protein_workflow.ga

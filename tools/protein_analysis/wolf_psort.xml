@@ -10,7 +10,7 @@ python $__tool_directory__/wolf_psort.py --version
 python $__tool_directory__/wolf_psort.py $organism "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
         <param name="organism" type="select" display="radio" label="Organism">
             <option value="animal">Animal</option>
             <option value="plant">Plant</option>
@@ -43,7 +43,7 @@ python $__tool_directory__/wolf_psort.py $organism "\$GALAXY_SLOTS" '$fasta_file
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls the WoLF PSORT tool for prediction of eukaryote protein subcellular localization.
@@ -84,7 +84,7 @@ vacu   vacuolar membrane     0005774(2)
 Numbers in parentheses, such as "0005856(2)" indicate that descendant "part_of"
 cellular components were also included, up to the specified depth (2 in this case).
 For example, all of the children and grandchildren of "GO:0005856" were
-included as "cysk". 
+included as "cysk".
 
 Additionally compound predictions like mito_nucl are also given.
 

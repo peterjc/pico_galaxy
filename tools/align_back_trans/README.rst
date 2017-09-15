@@ -110,7 +110,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/align_back_trans/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/demo_nucs.fasta
     test-data/demo_nucs_trailing_stop.fasta
     test-data/demo_prot_align.fasta

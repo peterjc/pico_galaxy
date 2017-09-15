@@ -9,10 +9,10 @@ python $__tool_directory__/interproscan.py
     </command>
     <inputs>
         <param name="input" type="data" format="fasta" label="ORFs in protein FASTA format"/>
-        <param name="format" type="boolean" format="gff" label="GFF format?" truevalue="gff" falsevalue="raw"/> 
+        <param name="format" type="boolean" format="gff" label="GFF format?" truevalue="gff" falsevalue="raw"/>
     </inputs>
     <outputs>
-        <data format="tabular" name="output" label="Interproscan output"/>        
+        <data format="tabular" name="output" label="Interproscan output"/>
     </outputs>
     <help>
 
@@ -26,7 +26,7 @@ A FASTA file containing ORF predictions is required. This file must NOT contain 
 **Output**
 
 The output will consist of a file in Interproscan raw format, a tabular file in galaxy with 14 columns.
-This can be use to upload the data into a relational database or concatenation of different runs. 
+This can be use to upload the data into a relational database or concatenation of different runs.
 
 ====== ============================================================================================================================= ===========================================
 Column Example                                                                                                                       Description
@@ -35,7 +35,7 @@ Column Example                                                                  
     c2 0A5FDCE74AB7C3AD                                                                                                              crc64 checksum of the protein sequence
     c3 272                                                                                                                           Length of sequence (in amino acids)
     c4 HMMPIR                                                                                                                        Analysis metho launched
-    c5 PIRSF001424                                                                                                                   Database members entry for match  
+    c5 PIRSF001424                                                                                                                   Database members entry for match
     c6 Prephenate dehydratase                                                                                                        Description from the database
     c7 1                                                                                                                             Start of the domain match
     c8 270                                                                                                                           End of the domain match
@@ -51,7 +51,7 @@ Column Example                                                                  
 
 Typically these take place 2-3 times a year.
 
-**References** 
+**References**
 
 Zdobnov EM, Apweiler R (2001)
 InterProScan an integration platform for the signature-recognition methods in InterPro.

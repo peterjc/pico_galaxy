@@ -62,7 +62,7 @@ v0.1.2  - Interleaved mode for working with paired records.
 v0.2.0  - Option to give number of sequences (or pairs) desired.
           This works by first counting all your sequences, then calculates
           the percentage required in order to sample them uniformly (evenly).
-          This makes two passes through the input and is therefore slower. 
+          This makes two passes through the input and is therefore slower.
 v0.2.1  - Was missing a file for the functional tests.
         - Included testing of stdout messages.
         - Includes testing of failure modes.
@@ -100,7 +100,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/sample_seqs/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/MID4_GLZRM4E04_rnd30_frclip.pair_sample_N5.sff
     test-data/MID4_GLZRM4E04_rnd30_frclip.sff
     test-data/MID4_GLZRM4E04_rnd30_frclip.sample_C1.sff

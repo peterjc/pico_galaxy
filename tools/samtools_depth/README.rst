@@ -79,7 +79,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/samtools_depth/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/ex1.bam
     test-data/ex1.depth.tabular
     test-data/sam_spec_padded.sam

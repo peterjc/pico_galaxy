@@ -62,7 +62,7 @@ python $__tool_directory__/seq_filter_by_mapping.py -i '$input_file' -f '$input_
             <param name="mapping_file" value="SRR639755_sample_by_coord.sam" ftype="sam" />
             <param name="pair_mode" value="strict" />
             <param name="output_choice" value="pos" />
-            <output name="output_pos" file="SRR639755_sample_strict.fastq" ftype="fastqsanger" /> 
+            <output name="output_pos" file="SRR639755_sample_strict.fastq" ftype="fastqsanger" />
         </test>
     </tests>
     <help>

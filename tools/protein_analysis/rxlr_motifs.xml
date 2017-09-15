@@ -13,7 +13,7 @@ python $__tool_directory__/rxlr_motifs.py -v
 python $__tool_directory__/rxlr_motifs.py '$fasta_file' "\$GALAXY_SLOTS" '$model' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" /> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences" />
         <param name="model" type="select" label="Which RXLR model?">
             <option value="Bhattacharjee2006">Bhattacharjee et al. (2006) RXLR</option>
             <option value="Win2007">Win et al. (2007) RXLR</option>
@@ -46,7 +46,7 @@ python $__tool_directory__/rxlr_motifs.py '$fasta_file' "\$GALAXY_SLOTS" '$model
         </test>
     </tests>
     <help>
-    
+
 **Background**
 
 Many effector proteins from oomycete plant pathogens for manipulating the host

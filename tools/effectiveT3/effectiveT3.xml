@@ -16,7 +16,7 @@ python $__tool_directory__/effectiveT3.py '$module.fields.path'
 '$fasta_file' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
         <param name="module" type="select" display="radio" label="Classification module">
             <options from_file="effectiveT3.loc">
                 <column name="value" index="0"/>
@@ -62,7 +62,7 @@ python $__tool_directory__/effectiveT3.py '$module.fields.path'
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls the command line Effective T3 v1.0.1 tool for prediction of bacterial effector proteins.

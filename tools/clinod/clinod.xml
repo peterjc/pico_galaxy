@@ -13,7 +13,7 @@ clinod -in='$fasta_file' -out='$tabular_file' -t="\${GALAXY_SLOTS:-4}" -f=MEDIUM
 ##TODO - Make the -clean_sequence argument a parameter?
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
     </inputs>
     <outputs>
         <data name="tabular_file" format="tabular" label="NoD results" />

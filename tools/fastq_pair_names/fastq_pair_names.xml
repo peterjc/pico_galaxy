@@ -44,7 +44,7 @@ and the current Illumina convention where the reads get the same identifier
 with the fragment number in the description, for example:
 
  * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA
- * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA 
+ * @HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA
 
 Note that this does support multiple forward and reverse reads per template
 (which is quite common with Sanger sequencing), e.g. this which is sorted

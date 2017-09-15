@@ -105,7 +105,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/fastq_paired_unpaired/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/sanger-pairs-forward.fastq
     test-data/sanger-pairs-interleaved.fastq
     test-data/sanger-pairs-mixed.fastq

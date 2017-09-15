@@ -7,7 +7,7 @@ python $__tool_directory__/predictnls.py --version
 python $__tool_directory__/predictnls.py '$fasta_file' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
     </inputs>
     <outputs>
         <data name="tabular_file" format="tabular" label="predictNLS results" />
@@ -19,7 +19,7 @@ python $__tool_directory__/predictnls.py '$fasta_file' '$tabular_file'
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls a Python re-implementation of the PredictNLS tool for prediction of
@@ -54,7 +54,7 @@ tool) is not given.
 The following abbreviations are used (derived from SWISS-PROT):
 
 ==== =======================
-Abbr Localization         
+Abbr Localization
 ---- -----------------------
 cyt  Cytoplasm
 pla  Chloroplast

@@ -104,7 +104,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/seq_primer_clip/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/MID4_GLZRM4E04_rnd30.fasta
     test-data/MID4_GLZRM4E04_rnd30.fastqsanger
     test-data/MID4_GLZRM4E04_rnd30_fclip.fasta

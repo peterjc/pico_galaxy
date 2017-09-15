@@ -97,7 +97,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/mummer/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/magic.pdf
     test-data/magic.png
     test-data/rhodopsin_nucs.fasta

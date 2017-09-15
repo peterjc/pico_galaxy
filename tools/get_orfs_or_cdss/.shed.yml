@@ -2,7 +2,7 @@ name: get_orfs_or_cdss
 owner: peterjc
 homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/get_orfs_or_cdss
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/get_orfs_or_cdss
-description: Search nucleotide sequences for open reading frames (ORFs), or coding sequences (CDSs) 
+description: Search nucleotide sequences for open reading frames (ORFs), or coding sequences (CDSs)
 long_description: |
   This tool is a short Python script (using Biopython library functions) to search
   nucleotide sequences for open reading frames (ORFs) or coding sequences (CDSs) where

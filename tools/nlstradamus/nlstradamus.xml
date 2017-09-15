@@ -7,7 +7,7 @@
       NLStradamus -i '$fasta_file' -t '$threshold' -m '$model' -a '$algorithm' -tab > '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
         <param name="model" type="select" display="radio" label="Model">
             <option value="1" selected="true">Two state</option>
             <option value="2">Four state</option>
@@ -41,7 +41,7 @@
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls the NLStradamus tool for prediction of nuclear localization

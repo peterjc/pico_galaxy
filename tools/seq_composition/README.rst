@@ -90,7 +90,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/seq_composition/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/MID4_GLZRM4E04_rnd30_frclip.sff
     test-data/MID4_GLZRM4E04_rnd30_frclip.seq_composition.tabular
     test-data/ecoli.fastq

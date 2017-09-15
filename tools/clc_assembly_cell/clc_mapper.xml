@@ -185,7 +185,7 @@ Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/clc_assembly_cell
     <citations>
         <citation type="bibtex">
 @MISC{clcbio,
-AUTHOR = {CLC Bio} 
+AUTHOR = {CLC Bio}
 title = {{CLC Assembly Cell}},
 url = {https://www.qiagenbioinformatics.com/products/clc-assembly-cell/},
 year = {2008--2015}

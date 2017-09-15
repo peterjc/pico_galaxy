@@ -95,7 +95,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/predictnls/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/four_human_proteins.fasta
     test-data/four_human_proteins.predictnls.tabular
     tools/predictnls/My_NLS_list

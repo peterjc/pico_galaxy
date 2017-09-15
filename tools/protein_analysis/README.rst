@@ -20,7 +20,7 @@ Contributions/revisions copyright 2011 Konrad Paszkiewicz. All rights reserved.
 See the included LICENCE file for details (MIT open source licence).
 
 The wrappers are available from the Galaxy Tool Shed
-http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp 
+http://toolshed.g2.bx.psu.edu/view/peterjc/tmhmm_and_signalp
 
 Citation
 ========
@@ -218,7 +218,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/protein_analysis/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/Adenovirus.fasta
     test-data/Adenovirus.promoter2.tabular
     test-data/empty.fasta

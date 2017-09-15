@@ -113,7 +113,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/seq_rename/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/four_human_proteins.fasta
     test-data/four_human_proteins.rename.fasta
     test-data/four_human_proteins.rename.tabular

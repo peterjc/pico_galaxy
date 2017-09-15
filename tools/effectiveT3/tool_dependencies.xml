@@ -11,7 +11,7 @@
                 <action type="make_directory">$INSTALL_DIR/module</action>
                 <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_ANIMAL-1.0.1.jar -->
                 <action type="download_file" sha256sum="3d9cd8e805387d2dfa855076b3d5f7f97334aa612288075111329fb036c94e34" target_filename="TTSS_ANIMAL-1.0.1.jar">https://depot.galaxyproject.org/software/TTSS_ANIMAL/TTSS_ANIMAL_1.0.1_src_all.jar</action>
-                <action type="move_file"><source>TTSS_ANIMAL-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>        
+                <action type="move_file"><source>TTSS_ANIMAL-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>
                 <!-- Original URL http://effectors.csb.univie.ac.at/sites/eff/files/others/TTSS_PLANT-1.0.1.jar -->
                 <action type="download_file" sha256sum="593f0052ace030c2fa16cf336f3916a21bc2addbaefdfa149b084b1425e42a13" target_filename="TTSS_PLANT-1.0.1.jar">https://depot.galaxyproject.org/software/TTSS_PLANT/TTSS_PLANT_1.0.1_src_all.jar</action>
                 <action type="move_file"><source>TTSS_PLANT-1.0.1.jar</source><destination>$INSTALL_DIR/module/</destination></action>

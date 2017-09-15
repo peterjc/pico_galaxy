@@ -13,7 +13,7 @@ python $__tool_directory__/promoter2.py --version
 python $__tool_directory__/promoter2.py "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of DNA sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of DNA sequences"/>
     </inputs>
     <outputs>
         <data name="tabular_file" format="tabular" label="Promoter2 on ${fasta_file.name}" />
@@ -29,7 +29,7 @@ python $__tool_directory__/promoter2.py "\$GALAXY_SLOTS" '$fasta_file' '$tabular
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls the Promoter 2.0 tool for prediction of eukaryotic PolII promoter sequences using a Neural Network (NN) model.
@@ -53,7 +53,7 @@ Score     Description
 below 0.5 ignored
 0.5 - 0.8 Marginal prediction
 0.8 - 1.0 Medium likely prediction
-above 1.0 Highly likely prediction 
+above 1.0 Highly likely prediction
 ========= ========================
 
 Internally the input FASTA file is divided into parts (to allow multiple processors to be used), and the raw output is reformatted into this tabular layout suitable for downstream analysis within Galaxy.

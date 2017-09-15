@@ -84,7 +84,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/samtools_bam2fq/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/sam_spec_padded.bam
     test-data/sam_spec_padded.bam2fq.fastq
     test-data/sam_spec_padded.bam2fq_no_suf.fastq

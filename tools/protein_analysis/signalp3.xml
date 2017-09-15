@@ -13,7 +13,7 @@ python $__tool_directory__/signalp3.py --version
 python $__tool_directory__/signalp3.py $organism $truncate "\$GALAXY_SLOTS" '$fasta_file' '$tabular_file'
     </command>
     <inputs>
-        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/> 
+        <param name="fasta_file" type="data" format="fasta" label="FASTA file of protein sequences"/>
         <param name="organism" type="select" display="radio" label="Organism">
             <option value="euk">Eukaryote</option>
             <option value="gram+">Gram positive</option>
@@ -30,36 +30,36 @@ python $__tool_directory__/signalp3.py $organism $truncate "\$GALAXY_SLOTS" '$fa
         <test>
             <param name="fasta_file" value="four_human_proteins.fasta" ftype="fasta"/>
             <param name="organism" value="euk"/>
-            <param name="truncate" value="0"/> 
+            <param name="truncate" value="0"/>
             <output name="tabular_file" file="four_human_proteins.signalp3.tabular" ftype="tabular"/>
         </test>
         <test>
             <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
             <param name="organism" value="euk"/>
-            <param name="truncate" value="60"/> 
+            <param name="truncate" value="60"/>
             <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
         </test>
         <test>
             <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
             <param name="organism" value="gram+"/>
-            <param name="truncate" value="80"/> 
+            <param name="truncate" value="80"/>
             <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
         </test>
         <test>
             <param name="fasta_file" value="empty.fasta" ftype="fasta"/>
             <param name="organism" value="gram-"/>
-            <param name="truncate" value="0"/> 
+            <param name="truncate" value="0"/>
             <output name="tabular_file" file="empty_signalp3.tabular" ftype="tabular"/>
         </test>
         <test>
             <param name="fasta_file" value="rxlr_win_et_al_2007.fasta" ftype="fasta"/>
             <param name="organism" value="euk"/>
-            <param name="truncate" value="70"/> 
+            <param name="truncate" value="70"/>
             <output name="tabular_file" file="rxlr_win_et_al_2007_sp3.tabular" ftype="tabular"/>
         </test>
     </tests>
     <help>
-    
+
 **What it does**
 
 This calls the SignalP v3.0 tool for prediction of signal peptides, which uses both a Neural Network (NN) and Hidden Markov Model (HMM) to produce two sets of scores.
@@ -78,12 +78,12 @@ Internally the input FASTA file is divided into parts (to allow multiple process
 
 **Neural Network Scores**
 
-For each organism class (Eukaryote, Gram-negative and Gram-positive), two different neural networks are used, one for predicting the actual signal peptide and one for predicting the position of the signal peptidase I (SPase I) cleavage site. 
+For each organism class (Eukaryote, Gram-negative and Gram-positive), two different neural networks are used, one for predicting the actual signal peptide and one for predicting the position of the signal peptidase I (SPase I) cleavage site.
 
 The NN output comprises three different scores (C-max, S-max and Y-max) and two scores derived from them (S-mean and D-score).
 
 ====== ======= ===============================================================
-Column Name    Description 
+Column Name    Description
 ------ ------- ---------------------------------------------------------------
    2-4 C-score The C-score is the 'cleavage site' score. For each position in
                the submitted sequence, a C-score is reported, which should

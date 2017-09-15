@@ -85,7 +85,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/fastq_pair_names/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/empty_file.dat
     test-data/sanger-pairs-mixed.fastq
     test-data/sanger-pairs-names.tabular

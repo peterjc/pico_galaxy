@@ -83,7 +83,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/samtools_idxstats/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/ex1.bam
     test-data/ex1.idxstats.tabular
     tools/samtools_idxstats/README.rst

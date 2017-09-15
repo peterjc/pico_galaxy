@@ -119,7 +119,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/seq_select_by_id/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/k12_hypothetical.fasta
     test-data/k12_hypothetical.tabular
     test-data/k12_hypothetical_alt.tabular

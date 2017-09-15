@@ -2,7 +2,7 @@ name: align_back_trans
 owner: peterjc
 homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
 remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
-description: Thread nucleotides onto a protein alignment (back-translation) 
+description: Thread nucleotides onto a protein alignment (back-translation)
 long_description: |
   Takes an input file of aligned protein sequences (typically FASTA or Clustal
   format), and a matching file of unaligned nucleotide sequences (FASTA format,

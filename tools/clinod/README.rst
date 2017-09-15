@@ -109,7 +109,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/clinod/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     test-data/four_human_proteins.fasta
     test-data/four_human_proteins.clinod-1.3.tabular
     tools/clinod/README.rst

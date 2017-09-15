@@ -22,7 +22,7 @@ python $__tool_directory__/seq_composition.py -o '$output_file'
         <test>
             <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
             <output name="output_file" file="four_human_proteins.seq_composition.tabular" ftype="tabular" />
-        </test> 
+        </test>
         <test>
             <param name="input_file" value="ecoli.fastq" ftype="fastq" />
             <output name="output_file" file="ecoli.seq_composition.tabular" ftype="tabular" />

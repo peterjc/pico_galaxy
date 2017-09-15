@@ -109,7 +109,7 @@ To just build and check the tar ball, use::
 
     $ planemo shed_upload --tar_only tools/venn_list/
     ...
-    $ tar -tzf shed_upload.tar.gz 
+    $ tar -tzf shed_upload.tar.gz
     tools/venn_list/README.rst
     tools/venn_list/tool_dependencies.xml
     tools/venn_list/venn_list.py

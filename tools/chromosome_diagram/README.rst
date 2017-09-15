@@ -35,7 +35,7 @@ http://dx.doi.org/10.1186/1471-2164-13-75
 
 The current general Python script and its preliminary Galaxy wrapper, and
 more associated enhancments in Biopython, were developed while producing
-Figures 3 (potato chromosomes) and 4 (tomato chromosomes) in: 
+Figures 3 (potato chromosomes) and 4 (tomato chromosomes) in:
 
 Jupe, F. et al. (2013) Resistance gene enrichment sequencing (RenSeq) enables
 re-annotation of the NB-LRR gene family from sequenced plant genomes and
