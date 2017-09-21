@@ -67,7 +67,7 @@ FASTA_CHUNK = 500
 MAX_LEN = 6000  # Found by trial and error
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    sys.exit("SignalP wrapper version 0.0.17")
+    sys.exit("SignalP wrapper version 0.0.19")
 
 if len(sys.argv) not in [6, 8]:
     sys.exit("Require five (or 7) arguments, organism, truncate, threads, "
@@ -203,8 +203,11 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         output = "(no output)"
     if error_level or output.lower().startswith("error running"):
         clean_up(fasta_files + temp_files)
-        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
-                 error_level)
+        if output:
+            sys.stderr.write("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output))
+        else:
+            sys.stderr.write("One or more tasks failed, e.g. %i from %r with no output\n" % (error_level, cmd))
+        sys.exit(error_level)
 del results
 
 out_handle = open(tabular_file, "w")
