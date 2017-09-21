@@ -189,6 +189,7 @@ v0.2.11 - Updated RXLR tool dependencies to get HMMER2 via BioConda.
         - Single quote command line arguments (internal change only).
         - Record WoLF PSORT wrapper version via ``<version_command>``.
         - Fix error handling in SignalP wrapper.
+        - Record SignalP version via ``<version_command>``.
 ======= ======================================================================
 
 
