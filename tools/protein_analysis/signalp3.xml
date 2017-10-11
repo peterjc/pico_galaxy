@@ -1,4 +1,4 @@
-<tool id="signalp3" name="SignalP 3.0" version="0.0.19">
+<tool id="signalp3" name="SignalP 4.1" version="0.0.19">
     <description>Find signal peptides in protein sequences</description>
     <!-- If job splitting is enabled, break up the query file into parts -->
     <!-- Using 2000 chunks meaning 4 threads doing 500 each is ideal -->
@@ -62,99 +62,9 @@ python $__tool_directory__/signalp3.py $organism $truncate "\$GALAXY_SLOTS" '$fa
 
 **What it does**
 
-This calls the SignalP v3.0 tool for prediction of signal peptides, which uses both a Neural Network (NN) and Hidden Markov Model (HMM) to produce two sets of scores.
+This calls the SignalP v4.1 tool for prediction of signal peptides.
 
-The input is a FASTA file of protein sequences, and the output is tabular with twenty columns (one row per protein):
-
-====== =================================================
-Column Description
------- -------------------------------------------------
-     1 Sequence identifier
-  2-14 Neural Network (NN) predictions (13 columns)
- 15-20 Hidden Markov Model (HMM) predictions (6 columns)
-====== =================================================
-
-Internally the input FASTA file is divided into parts (to allow multiple processors to be used), and the proteins truncated as specified (see below). The raw output from SignalP is then reformatted into a tabular layout suitable for Galaxy (see below).
-
-**Neural Network Scores**
-
-For each organism class (Eukaryote, Gram-negative and Gram-positive), two different neural networks are used, one for predicting the actual signal peptide and one for predicting the position of the signal peptidase I (SPase I) cleavage site.
-
-The NN output comprises three different scores (C-max, S-max and Y-max) and two scores derived from them (S-mean and D-score).
-
-====== ======= ===============================================================
-Column Name    Description
------- ------- ---------------------------------------------------------------
-   2-4 C-score The C-score is the 'cleavage site' score. For each position in
-               the submitted sequence, a C-score is reported, which should
-               only be significantly high at the cleavage site. Confusion is
-               often seen with the position numbering of the cleavage site.
-               When a cleavage site position is referred to by a single number,
-               the number indicates the first residue in the mature protein,
-               meaning, that a predicted cleavage site between amino acid 26-27
-               is reported as 27, corresponding to the mature protein starting
-               at (and including) position 27.
------- ------- ---------------------------------------------------------------
-   5-7 S-score The S-score for the signal peptide prediction is calculated for
-               every single amino acid position in the submitted sequence (not
-               shown in the output via Galaxy), with high scores indicating
-               that the corresponding amino acid is part of a signal peptide,
-               and low scores indicating that the amino acid is part of a
-               mature protein.
------- ------- ---------------------------------------------------------------
-  8-10 Y-max   Y-max is a derivative of the C-score combined with the S-score
-               resulting in a better cleavage site prediction than the raw
-               C-score alone. This is due to the fact that multiple high-peaking
-               C-scores can be found in one sequence, where only one is the
-               true cleavage site. The cleavage site is assigned from the
-               Y-score where the slope of the S-score is steep and a
-               significant C-score is found.
------- ------- ---------------------------------------------------------------
- 11-12 S-mean  The S-mean is the average of the S-score, ranging from the
-               N-terminal amino acid to the amino acid assigned with the
-               highest Y-max score, thus the S-mean score is calculated for
-               the length of the predicted signal peptide. The S-mean score
-               was in SignalP version 2.0 used as the criteria for
-               discrimination of secretory and non-secretory proteins.
------- ------- ---------------------------------------------------------------
- 13-14 D-score The D-score was introduced in SignalP version 3.0 and is a
-               simple average of the S-mean and Y-max score. The score shows
-               superior discrimination performance of secretory and
-               non-secretory proteins to that of the S-mean score which was
-               used in SignalP version 1 and 2.
-====== ======= ===============================================================
-
-For non-secretory proteins all the scores represented in the SignalP3-NN output should ideally be very low.
-
-**Hidden Markov Model Scores**
-
-The hidden Markov model calculates the probability of whether the submitted sequence contains a signal peptide or not. The eukaryotic HMM model also reports the probability of a signal anchor, previously named uncleaved signal peptides. Furthermore, the cleavage site is assigned by a probability score together with scores for the n-region, h-region, and c-region of the signal peptide, if such one is found.
-
-The 'type' column uses 'S' for a signal peptide (i.e. secretory protein) and 'Q' for non-secretory protein.
-
-**Notes**
-
-The raw output 'short' output from TMHMM v2.0 looks something like this (21 columns space separated - shown here formatted nicely). Notice that the identifiers are given twice, the first time truncated (as part of the NN predictions) and the second time in full (in the HMM predictions).
-
-====================  ===== === =  ===== === =  ===== === =  ===== =  ===== = ===================================  =  ===== === =  ===== =
-# SignalP-NN euk predictions                                                  # SignalP-HMM euk predictions
------------------------------------------------------------------------------ ------------------------------------------------------------
-# name                Cmax  pos ?  Ymax  pos ?  Smax  pos ?  Smean ?  D     ? # name                               !  Cmax  pos ?  Sprob ?
-gi|2781234|pdb|1JLY|  0.061  17 N  0.043  17 N  0.199   1 N  0.067 N  0.055 N gi|2781234|pdb|1JLY|B                Q  0.000  17 N  0.000 N
-gi|4959044|gb|AAD342  0.099 191 N  0.012  38 N  0.023  12 N  0.014 N  0.013 N gi|4959044|gb|AAD34209.1|AF069992_1  Q  0.000   0 N  0.000 N
-gi|671626|emb|CAA856  0.139 381 N  0.020   8 N  0.121   4 N  0.067 N  0.044 N gi|671626|emb|CAA85685.1|            Q  0.000   0 N  0.000 N
-gi|3298468|dbj|BAA31  0.208  24 N  0.184  38 N  0.980  32 Y  0.613 Y  0.398 N gi|3298468|dbj|BAA31520.1|           Q  0.066  24 N  0.139 N
-====================  ===== === =  ===== === =  ===== === =  ===== =  ===== = ===================================  =  ===== === =  ===== =
-
-In order to make this easier to use in Galaxy, the wrapper script simplifies this to remove the redundant column and use tabs for separation. It also includes a header line with unique column names.
-
-=================================== ============= =========== ============ ============= =========== ============ ============= =========== ============ ============== ============= ========== ========= ======== ============== ============ ============= =============== ==============
-#ID                                 NN_Cmax_score NN_Cmax_pos NN_Cmax_pred NN_Ymax_score NN_Ymax_pos NN_Ymax_pred NN_Smax_score NN_Smax_pos NN_Smax_pred NN_Smean_score NN_Smean_pred NN_D_score NN_D_pred HMM_type HMM_Cmax_score HMM_Cmax_pos HMM_Cmax_pred HMM_Sprob_score HMM_Sprob_pred
-gi|2781234|pdb|1JLY|B               0.061         17          N            0.043         17          N            0.199         1           N            0.067          N             0.055      N         Q        0.000          17           N             0.000           N
-gi|4959044|gb|AAD34209.1|AF069992_1 0.099         191         N            0.012         38          N            0.023         12          N            0.014          N             0.013      N         Q        0.000          0            N             0.000           N
-gi|671626|emb|CAA85685.1|           0.139         381         N            0.020         8           N            0.121         4           N            0.067          N             0.044      N         Q        0.000          0            N             0.000           N
-gi|3298468|dbj|BAA31520.1|          0.208         24          N            0.184         38          N            0.980         32          Y            0.613          Y             0.398      N         Q        0.066          24           N             0.139           N
-=================================== ============= =========== ============ ============= =========== ============ ============= =========== ============ ============== ============= ========== ========= ======== ============== ============ ============= =============== ==============
+The input is a FASTA file of protein sequences, and the output is tabular (one row per protein).
 
 **Truncation**
 
