@@ -192,6 +192,7 @@ v0.2.11 - Updated RXLR tool dependencies to get HMMER2 via BioConda.
         - Record SignalP version via ``<version_command>``.
         - Internal job splitter will skip starting any pending jobs after a
           child job fails (so the entire task will error out more quickly).
+v0.2.12 - Fix reporting of HMMER error in RXLR tool.
 ======= ======================================================================
 
 

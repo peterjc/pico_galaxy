@@ -1,4 +1,4 @@
-<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.14">
+<tool id="rxlr_motifs" name="RXLR Motifs" version="0.0.15">
     <description>Find RXLR Effectors of Plant Pathogenic Oomycetes</description>
     <requirements>
         <!-- Need SignalP for all the models -->

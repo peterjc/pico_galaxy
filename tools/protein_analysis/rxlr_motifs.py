@@ -55,7 +55,7 @@ import sys
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
-    print("RXLR Motifs v0.0.14")
+    print("RXLR Motifs v0.0.15")
     sys.exit(0)
 
 if len(sys.argv) != 5:
@@ -159,7 +159,8 @@ if model == "Whisson2007":
                   % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
         return_code = os.system(cmd)
         if return_code:
-            sys.exit("Error %i from hmmsearch:\n%s" % (return_code, cmd), return_code)
+            sys.stderr.write("Error %i from hmmsearch:\n%s\n" % (return_code, cmd))
+            sys.exit(return_code)
 
         handle = open(hmm_output_file)
         for line in handle:
