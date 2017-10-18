@@ -214,7 +214,7 @@ handle.close()
 signalp_script = os.path.join(os.path.split(sys.argv[0])[0], "signalp3.py")
 if not os.path.isfile(signalp_script):
     sys.exit("Error - missing signalp3.py script")
-cmd = "python %s euk %i %s %s %s" % (signalp_script, signalp_trunc, threads, signalp_input_file, signalp_output_file)
+cmd = "python '%s' 'euk' '%i' '%s' '%s' '%s'" % (signalp_script, signalp_trunc, threads, signalp_input_file, signalp_output_file)
 return_code = os.system(cmd)
 if return_code:
     sys.exit("Error %i from SignalP:\n%s" % (return_code, cmd))
