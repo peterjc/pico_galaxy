@@ -171,6 +171,12 @@ def make_gff(fasta_file, tabular_file, gff_file, cut_method):
     gff_handle.close()
 
 
+if num_threads == 1:
+    # Still want to call split_fasta to apply truncation, but
+    # no reason to make multiple files - and more chance of
+    # hitting file system glitches if we do. So,
+    FASTA_CHUNK = sys.maxsize
+
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "signalp"),
                           n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
 temp_files = [f + ".out" for f in fasta_files]
