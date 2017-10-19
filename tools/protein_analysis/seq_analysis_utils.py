@@ -16,7 +16,10 @@ import sys
 
 from time import sleep
 
-__version__ = "0.0.2"
+if sys.version_info[0] < 3:
+    range = xrange
+
+__version__ = "0.0.3"
 
 try:
     from multiprocessing import cpu_count
