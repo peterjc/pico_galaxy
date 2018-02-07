@@ -128,7 +128,7 @@ install:
  # Then explicitly override them with any non-sample *.loc files
  - cp ${TRAVIS_BUILD_DIR}/tool-data/*.loc ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}/tool-data/
  # Then explicitly override them with any test *.loc files
- - cp ${TRAVIS_BUILD_DIR}/test-data/*.loc ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}/tool-data/
+ # - cp ${TRAVIS_BUILD_DIR}/test-data/*.loc ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}/tool-data/
 
 # Testing tools in Galaxy
 # =======================
