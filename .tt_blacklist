@@ -1,5 +1,6 @@
 tools/chromosome_diagram
 tools/clc_assembly_cell
+tools/mummer
 tools/protein_analysis
 tools/samtools_bam2fq
 tools/samtools_depth
