@@ -1,5 +1,5 @@
-<tool id="seq_length" name="Sequence lengths" version="0.0.1">
-    <description>with ID mapping from a tabular file</description>
+<tool id="seq_length" name="Sequence lengths" version="0.0.2">
+    <description>from FASTA, QUAL, FASTQ, or SFF file</description>
     <requirements>
         <!-- This is the currently the last release of Biopython which is available via Galaxy's legacy XML packaging system -->
         <requirement type="package" version="1.67">biopython</requirement>
