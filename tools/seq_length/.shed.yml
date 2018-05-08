@@ -15,7 +15,7 @@ include:
 - strip_components: 2
   source:
   - ../../test-data/four_human_proteins.fasta
-  - ../../test-data/four_human_proteins.lengths.tabular
+  - ../../test-data/four_human_proteins.length.tabular
   - ../../test-data/SRR639755_sample_strict.fastq
   - ../../test-data/SRR639755_sample_strict.length.tabular
   - ../../tools/seq_length/README.rst
