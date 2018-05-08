@@ -22,13 +22,23 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.1")
+    print("v0.0.2")
     sys.exit(0)
 
 try:
     from Bio import SeqIO
 except ImportError:
     sys.exit("Missing required Python library Biopython.")
+
+try:
+    from Bio.SeqIO.QualityIO import FastqGeneralIterator
+except ImportError:
+    sys.exit("Biopython tool old?, missing Bio.SeqIO.QualityIO.FastqGeneralIterator")
+
+try:
+    from Bio.SeqIO.FastaIO import SimpleFastaParser
+except ImportError:
+    sys.exit("Biopython tool old?, missing Bio.SeqIO.FastaIO.SimpleFastaParser")
 
 
 # Parse Command Line
@@ -61,9 +71,26 @@ count = 0
 total = 0
 with open(out_file, "w") as out_handle:
     out_handle.write("#Identifier\tLength\n")
-    for record in SeqIO.parse(in_file, format):
-        count += 1
-        length = len(record)
-        total += length
-        out_handle.write("%s\t%i\n" % (record.id, length))
+    if format == "fastq":
+        with open(in_file) as in_handle:
+            for title, seq, qual in FastqGeneralIterator(in_handle):
+                count += 1
+                length = len(seq)
+                total += length
+                identifier = title.split(None, 1)[0]
+                out_handle.write("%s\t%i\n" % (identifier, length))
+    elif format == "fasta":
+        with open(in_file) as in_handle:
+            for title, seq in SimpleFastaParser(in_handle):
+                count += 1
+                length = len(seq)
+                total += length
+                identifier = title.split(None, 1)[0]
+                out_handle.write("%s\t%i\n" % (identifier, length))
+    else:
+        for record in SeqIO.parse(in_file, format):
+            count += 1
+            length = len(record)
+            total += length
+            out_handle.write("%s\t%i\n" % (record.id, length))
 print("%i sequences, total length %i" % (count, total))
