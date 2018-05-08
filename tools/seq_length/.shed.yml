@@ -1,0 +1,24 @@
+name: seq_length
+owner: peterjc
+homepage_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_length
+remote_repository_url: https://github.com/peterjc/pico_galaxy/tree/master/tools/seq_length
+description: Compute sequence length (from FASTA, QUAL, FASTQ, SFF, etc)
+long_description: |
+  Using Biopython's SeqIO library, this generates a table of sequence lengths
+  (one line per sequence), from which you can then compute a histogram, or
+  filter by length, etc.
+categories:
+- Fasta Manipulation
+- Sequence Analysis
+type: unrestricted
+include:
+- strip_components: 2
+  source:
+  - ../../test-data/four_human_proteins.fasta
+  - ../../test-data/four_human_proteins.lengths.tabular
+  - ../../test-data/SRR639755_sample_strict.fastq
+  - ../../test-data/SRR639755_sample_strict.length.tabular
+  - ../../tools/seq_length/README.rst
+  - ../../tools/seq_length/seq_length.py
+  - ../../tools/seq_length/seq_length.xml
+  - ../../tools/seq_length/tool_dependencies.xml
