@@ -19,11 +19,11 @@ python $__tool_directory__/seq_length.py '$input_file' '$input_file.ext' '$outpu
     <tests>
         <test>
             <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
-            <output name="output_file" file="four_human_proteins.length.fasta" ftype="fasta" />
+            <output name="output_file" file="four_human_proteins.length.tabular" ftype="tabular" />
         </test>
         <test>
-            <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
-            <output name="output_file" file="four_human_proteins.length.fasta" ftype="fasta" />
+            <param name="input_file" value="SRR639755_sample_strict.fastq" ftype="fastq" />
+            <output name="output_file" file="SRR639755_sample_strict.length.tabular" ftype="tabular" />
         </test>
     </tests>
     <help>
