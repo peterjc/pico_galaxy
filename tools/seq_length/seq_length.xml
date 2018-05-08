@@ -14,7 +14,7 @@ python $__tool_directory__/seq_length.py '$input_file' '$input_file.ext' '$outpu
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file" help="FASTA, QUAL, FASTQ, or SFF format." />
     </inputs>
     <outputs>
-        <data name="output_file" format_source="input_file" metadata_source="input_file" label="${on_string} length"/>
+        <data name="output_file" format="tabular" label="${on_string} length"/>
     </outputs>
     <tests>
         <test>
