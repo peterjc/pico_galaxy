@@ -1,0 +1,54 @@
+<tool id="seq_length" name="Sequence lengths" version="0.0.1">
+    <description>with ID mapping from a tabular file</description>
+    <requirements>
+        <!-- This is the currently the last release of Biopython which is available via Galaxy's legacy XML packaging system -->
+        <requirement type="package" version="1.67">biopython</requirement>
+    </requirements>
+    <version_command>
+python $__tool_directory__/seq_length.py --version
+</version_command>
+    <command detect_errors="aggressive">
+python $__tool_directory__/seq_length.py '$input_file' '$input_file.ext' '$output_file'
+    </command>
+    <inputs>
+        <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file" help="FASTA, QUAL, FASTQ, or SFF format." />
+    </inputs>
+    <outputs>
+        <data name="output_file" format_source="input_file" metadata_source="input_file" label="${on_string} length"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
+            <output name="output_file" file="four_human_proteins.length.fasta" ftype="fasta" />
+        </test>
+        <test>
+            <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
+            <output name="output_file" file="four_human_proteins.length.fasta" ftype="fasta" />
+        </test>
+    </tests>
+    <help>
+**What it does**
+
+Takes a FASTA, QUAL, FASTQ or Standard Flowgram Format (SFF) file and produces a
+two-column tabular file containing one line per sequence giving the sequence
+identifier and the associated sequence's length.
+
+WARNING: If there are any duplicate sequence identifiers, these will all appear
+in the tabular output.
+
+**References**
+
+This tool uses Biopython's ``SeqIO`` library to read sequences, so please cite
+the Biopython application note (and Galaxy too of course):
+
+Cock et al (2009). Biopython: freely available Python tools for computational
+molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
+http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+
+This tool is available to install into other Galaxy Instances via the Galaxy
+Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/seq_length
+    </help>
+    <citations>
+        <citation type="doi">10.1093/bioinformatics/btp163</citation>
+    </citations>
+</tool>
