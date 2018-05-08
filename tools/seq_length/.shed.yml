@@ -9,6 +9,7 @@ long_description: |
   filter by length, etc.
 categories:
 - Fasta Manipulation
+- Fastq Manipulation
 - Sequence Analysis
 type: unrestricted
 include:
