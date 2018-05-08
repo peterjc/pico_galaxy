@@ -27,7 +27,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 try:
     from Bio import SeqIO
-except ImportErrir:
+except ImportError:
     sys.exit("Missing required Python library Biopython.")
 
 
