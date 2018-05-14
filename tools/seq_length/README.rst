@@ -62,7 +62,8 @@ Version Changes
 v0.0.1  - Initial version.
 v0.0.2  - Faster for FASTA and FASTQ.
         - Fixed typo.
-v0.0.3  - SFF bug fix.
+v0.0.3  - More tests (now covers SFF as well).
+        - Fix requesting SFF format.
 ======= ======================================================================
 
 

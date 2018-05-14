@@ -20,10 +20,16 @@ python $__tool_directory__/seq_length.py '$input_file' '$input_file.ext' '$outpu
         <test>
             <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
             <output name="output_file" file="four_human_proteins.length.tabular" ftype="tabular" />
+            <assert_stdout>
+                <has_line line="4 sequences, total length 3297" />
+            </assert_stdout>
         </test>
         <test>
             <param name="input_file" value="SRR639755_sample_strict.fastq" ftype="fastq" />
             <output name="output_file" file="SRR639755_sample_strict.length.tabular" ftype="tabular" />
+            <assert_stdout>
+                <has_line line="2 sequences, total length 202" />
+            </assert_stdout>
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30.sff" ftype="sff" />
