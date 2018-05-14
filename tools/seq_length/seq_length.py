@@ -20,10 +20,36 @@ license).
 from __future__ import print_function
 
 import sys
+from optparse import OptionParser
 
-if "-v" in sys.argv or "--version" in sys.argv:
+usage = r"""Use as follows to compute all the lengths in a sequence file:
+
+$ python seq_length.py -i example.fasta -f fasta -o lengths.tsv
+"""
+
+parser = OptionParser(usage=usage)
+parser.add_option('-i', '--input', dest='input',
+                  default=None, help='Input sequence filename (FASTA, FASTQ, etc)',
+                  metavar="FILE")
+parser.add_option('-f', '--format', dest='format',
+                  default=None, help='Input sequence format (FASTA, QUAL, FASTQ, SFF)')
+parser.add_option('-o', '--output', dest='output',
+                  default=None, help='Output filename (tabular)',
+                  metavar="FILE")
+parser.add_option("-v", "--version", dest="version",
+                  default=False, action="store_true",
+                  help="Show version and quit")
+options, args = parser.parse_args()
+
+if options.version:
     print("v0.0.3")
     sys.exit(0)
+if not options.input:
+    sys.exit("Require an input filename")
+if not options.format:
+    sys.exit("Require the input format")
+if not options.output:
+    sys.exit("Require an output filename")
 
 try:
     from Bio import SeqIO
@@ -40,31 +66,25 @@ try:
 except ImportError:
     sys.exit("Biopython tool old?, missing Bio.SeqIO.FastaIO.SimpleFastaParser")
 
+in_file = options.input
+out_file = options.output
 
-# Parse Command Line
-try:
-    in_file, seq_format, out_file = sys.argv[1:]
-except ValueError:
-    sys.exit("Expected three arguments (input file, format, output file), "
-             "got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
-
-
-if seq_format.startswith("fastq"):
+if options.format.startswith("fastq"):
     # We don't care about the quality score encoding, just
     # need to translate Galaxy format name into something
     # Biopython will accept:
     format = "fastq"
-elif seq_format.lower() == "csfasta":
+elif options.format.lower() == "csfasta":
     # I have not tested with colour space FASTA
     format = "fasta"
-elif seq_format.lower() == "sff":
+elif options.format.lower() == "sff":
     # The masked/trimmed numbers are more interesting
     format = "sff-trim"
-elif seq_format.lower() in ["fasta", "qual"]:
-    format = seq_format.lower()
+elif options.format.lower() in ["fasta", "qual"]:
+    format = options.format.lower()
 else:
     # TODO: Does Galaxy understand GenBank, EMBL, etc yet?
-    sys.exit("Unexpected format argument: %r" % seq_format)
+    sys.exit("Unexpected format argument: %r" % options.format)
 
 
 count = 0
