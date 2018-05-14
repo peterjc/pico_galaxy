@@ -1,4 +1,4 @@
-<tool id="seq_length" name="Sequence lengths" version="0.0.2">
+<tool id="seq_length" name="Sequence lengths" version="0.0.3">
     <description>from FASTA, QUAL, FASTQ, or SFF file</description>
     <requirements>
         <!-- This is the currently the last release of Biopython which is available via Galaxy's legacy XML packaging system -->

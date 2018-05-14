@@ -22,7 +22,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.2")
+    print("v0.0.3")
     sys.exit(0)
 
 try:
@@ -57,7 +57,7 @@ if seq_format.startswith("fastq"):
 elif seq_format.lower() == "csfasta":
     # I have not tested with colour space FASTA
     format = "fasta"
-elif seq_format.lower == "sff":
+elif seq_format.lower() == "sff":
     # The masked/trimmed numbers are more interesting
     format = "sff-trim"
 elif seq_format.lower() in ["fasta", "qual"]:
