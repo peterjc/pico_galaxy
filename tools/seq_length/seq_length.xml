@@ -25,6 +25,13 @@ python $__tool_directory__/seq_length.py '$input_file' '$input_file.ext' '$outpu
             <param name="input_file" value="SRR639755_sample_strict.fastq" ftype="fastq" />
             <output name="output_file" file="SRR639755_sample_strict.length.tabular" ftype="tabular" />
         </test>
+        <test>
+            <param name="input_file" value="MID4_GLZRM4E04_rnd30.sff" ftype="sff" />
+            <output name="output_file" file="MID4_GLZRM4E04_rnd30.length.tabular" ftype="tabular" />
+            <assert_stdout>
+                <has_line line="30 sequences, total length 7504" />
+            </assert_stdout>
+        </test>
     </tests>
     <help>
 **What it does**
