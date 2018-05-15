@@ -91,6 +91,53 @@ else:
     sys.exit("Unexpected format argument: %r" % options.format)
 
 
+def median_from_counts_dict(counts_dict, count=None):
+    sorted_lengths = sorted(counts_dict)  # i.e. sort the keys
+    if count is None:
+        count = sum(counts_dict.values())
+    index = count / 2
+    if count % 2:
+        # Odd, easy case - will be an exact value
+        # within one of the tally entries
+        for value in sorted_lengths:
+            index -= counts_dict[value]
+            if index < 0:
+                return value
+    else:
+        # Even, hard case - may have to take mean
+        special = None
+        for value in sorted_lengths:
+            if special is not None:
+                # We were right at boundary
+                return (special + value) / 2.0
+            index -= counts_dict[value]
+            if index == 0:
+                # Special case, want mean of this value
+                # (final entry of this tally) and the next
+                # value (first entry of the next tally).
+                special = value
+            elif index < 0:
+                # Typical case, the two middle values
+                # are equal and fall into same dict entry
+                return value
+    return None
+
+
+if sys.version_info[0] >= 3:
+    from statistics import median
+    for test in [{1: 4, 2: 3},
+                 {1: 4, 3: 6},
+                 {1: 4, 5: 4},
+                 {0: 5, 1: 1, 2: 1, 3: 5},
+                 {0: 5, 1: 1, 2: 1, 3: 1, 4: 5}]:
+        test_list = []
+        for v, c in test.items():
+            test_list.extend([v] * c)
+        # print(test)
+        # print(test_list)
+        assert median_from_counts_dict(test) == median(test_list)
+
+
 count = 0
 total = 0
 stats = bool(options.stats)
@@ -123,7 +170,7 @@ with open(out_file, "w") as out_handle:
                 out_handle.write("%s\t%i\n" % (identifier, length))
                 if stats:
                     length_counts[length] += 1
-		else:
+                else:
                     length_min = min(length_min, length)
                     length_max = max(length_max, length)
     else:
@@ -144,5 +191,6 @@ elif not stats:
     print("Shortest %i, longest %i" % (length_min, length_max))
 elif count and stats:
     print("Shortest %i, longest %i" % (min(length_counts), max(length_counts)))
-    # TODO - median
+    median = median_from_counts_dict(length_counts, count)
+    print("Median length %i" % median)
     # TODO - N50
