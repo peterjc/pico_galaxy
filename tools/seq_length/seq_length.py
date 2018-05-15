@@ -20,6 +20,7 @@ license).
 from __future__ import print_function
 
 import sys
+from collections import defaultdict
 from optparse import OptionParser
 
 usage = r"""Use as follows to compute all the lengths in a sequence file:
@@ -36,13 +37,16 @@ parser.add_option('-f', '--format', dest='format',
 parser.add_option('-o', '--output', dest='output',
                   default=None, help='Output filename (tabular)',
                   metavar="FILE")
+parser.add_option("-s", "--stats", dest="stats",
+                  default=False, action="store_true",
+                  help="Compute statistics (median, N50 - will require much more RAM).")
 parser.add_option("-v", "--version", dest="version",
                   default=False, action="store_true",
                   help="Show version and quit")
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.0.3")
+    print("v0.0.4")
     sys.exit(0)
 if not options.input:
     sys.exit("Require an input filename")
@@ -89,6 +93,11 @@ else:
 
 count = 0
 total = 0
+stats = bool(options.stats)
+length_counts = defaultdict(int)  # used if stats requested
+length_min = sys.maxsize  # used if stats not requested
+length_max = 0
+
 with open(out_file, "w") as out_handle:
     out_handle.write("#Identifier\tLength\n")
     if format == "fastq":
@@ -99,6 +108,11 @@ with open(out_file, "w") as out_handle:
                 total += length
                 identifier = title.split(None, 1)[0]
                 out_handle.write("%s\t%i\n" % (identifier, length))
+                if stats:
+                    length_counts[length] += 1
+                else:
+                    length_min = min(length_min, length)
+                    length_max = max(length_max, length)
     elif format == "fasta":
         with open(in_file) as in_handle:
             for title, seq in SimpleFastaParser(in_handle):
@@ -107,10 +121,28 @@ with open(out_file, "w") as out_handle:
                 total += length
                 identifier = title.split(None, 1)[0]
                 out_handle.write("%s\t%i\n" % (identifier, length))
+                if stats:
+                    length_counts[length] += 1
+		else:
+                    length_min = min(length_min, length)
+                    length_max = max(length_max, length)
     else:
         for record in SeqIO.parse(in_file, format):
             count += 1
             length = len(record)
             total += length
             out_handle.write("%s\t%i\n" % (record.id, length))
-print("%i sequences, total length %i" % (count, total))
+            if stats:
+                length_counts[length] += 1
+            else:
+                length_min = min(length_min, length)
+                length_max = max(length_max, length)
+print("%i sequences, total length %i, mean %0.1f" % (count, total, float(total) / count))
+if not count:
+    pass
+elif not stats:
+    print("Shortest %i, longest %i" % (length_min, length_max))
+elif count and stats:
+    print("Shortest %i, longest %i" % (min(length_counts), max(length_counts)))
+    # TODO - median
+    # TODO - N50

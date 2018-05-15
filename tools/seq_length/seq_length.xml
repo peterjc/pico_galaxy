@@ -1,4 +1,4 @@
-<tool id="seq_length" name="Sequence lengths" version="0.0.3">
+<tool id="seq_length" name="Sequence lengths" version="0.0.4">
     <description>from FASTA, QUAL, FASTQ, or SFF file</description>
     <requirements>
         <!-- This is the currently the last release of Biopython which is available via Galaxy's legacy XML packaging system -->
@@ -9,9 +9,13 @@ python $__tool_directory__/seq_length.py --version
 </version_command>
     <command detect_errors="aggressive">
 python $__tool_directory__/seq_length.py -i '$input_file' -f '$input_file.ext' -o '$output_file'
+#if $stats
+  -s
+#end if
     </command>
     <inputs>
         <param name="input_file" type="data" format="fasta,qual,fastq,sff" label="Sequence file" help="FASTA, QUAL, FASTQ, or SFF format." />
+        <param name="stats" type="boolean" label="Compute additional statistics (median, N50)" />
     </inputs>
     <outputs>
         <data name="output_file" format="tabular" label="${on_string} length"/>
@@ -21,21 +25,25 @@ python $__tool_directory__/seq_length.py -i '$input_file' -f '$input_file.ext' -
             <param name="input_file" value="four_human_proteins.fasta" ftype="fasta" />
             <output name="output_file" file="four_human_proteins.length.tabular" ftype="tabular" />
             <assert_stdout>
-                <has_line line="4 sequences, total length 3297" />
+                <has_line line="4 sequences, total length 3297, mean 824.2" />
+                <has_line line="Shortest 348, longest 1382" />
             </assert_stdout>
         </test>
         <test>
             <param name="input_file" value="SRR639755_sample_strict.fastq" ftype="fastq" />
             <output name="output_file" file="SRR639755_sample_strict.length.tabular" ftype="tabular" />
             <assert_stdout>
-                <has_line line="2 sequences, total length 202" />
+                <has_line line="2 sequences, total length 202, mean 101.0" />
+                <has_line line="Shortest 101, longest 101" />
             </assert_stdout>
         </test>
         <test>
             <param name="input_file" value="MID4_GLZRM4E04_rnd30.sff" ftype="sff" />
+            <param name="stats" value="true" />
             <output name="output_file" file="MID4_GLZRM4E04_rnd30.length.tabular" ftype="tabular" />
             <assert_stdout>
-                <has_line line="30 sequences, total length 7504" />
+                <has_line line="30 sequences, total length 7504, mean 250.1" />
+                <has_line line="Shortest 42, longest 473" />
             </assert_stdout>
         </test>
     </tests>
@@ -46,8 +54,18 @@ Takes a FASTA, QUAL, FASTQ or Standard Flowgram Format (SFF) file and produces a
 two-column tabular file containing one line per sequence giving the sequence
 identifier and the associated sequence's length.
 
+Additionally, the tool will report some basic statistics about the sequences
+(visible via the output file's meta data, or the stdout log for the job),
+namely the number of sequences, total length, mean length, minimum length and
+maximum length.
+
+You can optionally request additional statistics be computed which will use
+more RAM and take fractionally longer, namely the median and N50.
+
 WARNING: If there are any duplicate sequence identifiers, these will all appear
 in the tabular output.
+
+If using SFF files, this will use the trimmed lengths of the reads.
 
 **References**
 

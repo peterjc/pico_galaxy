@@ -65,6 +65,8 @@ v0.0.2  - Faster for FASTA and FASTQ.
 v0.0.3  - Improved command line usage (outside of Galaxy).
         - More tests (now covers SFF as well).
         - Fix requesting SFF format.
+v0.0.4  - Report mean, minimum and maximum sequence lengths (via stdout).
+        - Option to compute median and N50 as well.
 ======= ======================================================================
 
 
