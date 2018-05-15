@@ -138,6 +138,30 @@ if sys.version_info[0] >= 3:
         assert median_from_counts_dict(test) == median(test_list)
 
 
+def n50_from_counts_dict(counts_dict):
+    """Calculate N50.
+
+    N50 is a statistical measure of average length of a set of sequences.
+    It is used widely in genomics, especially in reference to contig or
+    supercontig lengths within a draft assembly.
+
+    Given a set of sequences of varying lengths, the N50 length is defined
+    as the length N for which 50% of all bases in the sequences are in a
+    sequence of length L < N. This can be found mathematically as follows:
+    Take a list L of positive integers. Create another list L' , which is
+    identical to L, except that every element n in L has been replaced with
+    n copies of itself. Then the median of L' is the N50 of L. For example:
+    If L = {2, 2, 2, 3, 3, 4, 8, 8}, then L' consists of six 2's, six 3's,
+    four 4's, and sixteen 8's; the N50 of L is the median of L' , which is 6.
+
+    https://web.archive.org/web/20160726124802/http://www.broadinstitute.org/crd/wiki/index.php/N50
+    """
+    # Continuing the above example, input L would be {2:3, 3:2, 4:1, 8:2}
+    # and L' becomes {2:6, 3:6, 4:4, 8:16}} as tally tables.
+    l_prime = dict((v, v * c) for v, c in counts_dict.items())
+    return median_from_counts_dict(l_prime)
+
+
 count = 0
 total = 0
 stats = bool(options.stats)
@@ -192,5 +216,5 @@ elif not stats:
 elif count and stats:
     print("Shortest %i, longest %i" % (min(length_counts), max(length_counts)))
     median = median_from_counts_dict(length_counts, count)
-    print("Median length %i" % median)
-    # TODO - N50
+    n50 = n50_from_counts_dict(length_counts)
+    print("Median length %0.1f, N50 %i" % (median, n50))
