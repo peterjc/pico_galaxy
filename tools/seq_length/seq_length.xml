@@ -44,6 +44,7 @@ python $__tool_directory__/seq_length.py -i '$input_file' -f '$input_file.ext' -
             <assert_stdout>
                 <has_line line="30 sequences, total length 7504, mean 250.1" />
                 <has_line line="Shortest 42, longest 473" />
+                <has_line line="Median length 269.5, N50 345" />
             </assert_stdout>
         </test>
     </tests>
