@@ -94,6 +94,8 @@ To just build and check the tar ball, use::
     $ planemo shed_upload --tar_only tools/seq_length/
     ...
     $ tar -tzf shed_upload.tar.gz
+    test-data/MID4_GLZRM4E04_rnd30.length.tabular
+    test-data/MID4_GLZRM4E04_rnd30.sff
     test-data/SRR639755_sample_strict.fastq
     test-data/SRR639755_sample_strict.length.tabular
     test-data/four_human_proteins.fasta
