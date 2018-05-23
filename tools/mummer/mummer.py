@@ -23,7 +23,7 @@ def run(cmd):
 
 
 if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
-    print("MUMmer wrapper v0.0.7\n")
+    print("MUMmer wrapper v0.0.8\n")
     # TODO - How to get a version string from the mummer binary?
     os.system("nucmer --version")
     os.system("promer --version")
@@ -37,12 +37,14 @@ if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
 try:
     fasta_a, fasta_b, algorithm, png_out, pdf_out = sys.argv[1:]
 except ValueError:
-    sys.exit("Expect 5 arguments, got %i" % (len(sys.argv) - 1))
+    sys.exit("Expect 5 arguments (FASTA, FASTA, algorithm, PNG out, PDF out), got %i"
+             % (len(sys.argv) - 1))
 
 
 valid_algo = ["mummer", "nucmer", "promer"]
 if algorithm not in valid_algo:
-    sys.exit("Invalid algorithm argument %r, should be: %s" % (algorithm, ", ".join(valid_algo)))
+    sys.exit("Invalid algorithm argument %r, should be: %s"
+             % (algorithm, ", ".join(valid_algo)))
 
 base_path = tempfile.mkdtemp()
 prefix = os.path.join(base_path, "ref_qry")
