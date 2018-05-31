@@ -22,7 +22,7 @@ cite the Biopython application note:
 
 Cock et al (2009) Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
-http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 The original Python script (and associated enhancements in Biopython 1.59)
 were developed in order to produce Figure 2 of the potato chromosomes and the
@@ -31,7 +31,7 @@ detailed supplementary figures in this manuscript:
 Jupe, F, Pritchard, L, Etherington, GJ, MacKenzie, K, Cock, PJA, et al. (2012)
 Identification and localisation of the NB-LRR gene family within the potato
 genome. BMC Genomics 13:75.
-http://dx.doi.org/10.1186/1471-2164-13-75
+https://doi.org/10.1186/1471-2164-13-75
 
 The current general Python script and its preliminary Galaxy wrapper, and
 more associated enhancments in Biopython, were developed while producing
@@ -41,7 +41,7 @@ Jupe, F. et al. (2013) Resistance gene enrichment sequencing (RenSeq) enables
 re-annotation of the NB-LRR gene family from sequenced plant genomes and
 rapid mapping of resistance loci in segregating populations.
 The Plant Journal 76(3):530-544
-http://dx.doi.org/10.1111/tpj.12307
+https://doi.org/10.1111/tpj.12307
 
 
 Manual Installation

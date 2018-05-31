@@ -10,7 +10,7 @@ This is a dotplot tool wrapping functionality from the MUMmer v3 suite.
 S. Kurtz et al. (2004).
 Versatile and open software for comparing large genomes.
 Genome Biology (2004), 5:R12.
-http://dx.doi.org/10.1186/gb-2004-5-2-r12
+https://doi.org/10.1186/gb-2004-5-2-r12
 
 This wrapper is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/mummer

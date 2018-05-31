@@ -19,7 +19,7 @@ cite the Biopython application note:
 
 Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
-http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.

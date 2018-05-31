@@ -18,7 +18,7 @@ Murat Cokol, Rajesh Nair, and Burkhard Rost.
 Finding nuclear localization signals.
 EMBO reports 1(5), 411-415, 2000
 
-http://dx.doi.org/10.1093/embo-reports/kvd092
+https://doi.org/10.1093/embo-reports/kvd092
 
 The original Perl script was designed to work on a single sequence at a time,
 but offers quite detailed output, including HTML (webpage).

@@ -14,7 +14,7 @@ http://toolshed.g2.bx.psu.edu/view/peterjc/nlstradamus
 A. N. Nguyen Ba, A. Pogoutse, N. Provart, A. M. Moses.
 NLStradamus: a simple Hidden Markov Model for nuclear localization signal prediction.
 BMC Bioinformatics. 2009 Jun 29;10(1):202.
-http://dx.doi.org/10.1186/1471-2105-10-202
+https://doi.org/10.1186/1471-2105-10-202
 
 http://www.moseslab.csb.utoronto.ca/NLStradamus
 

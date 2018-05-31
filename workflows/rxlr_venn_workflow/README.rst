@@ -63,24 +63,24 @@ For the associated RXLR Galaxy tool, please cite:
 Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
 Galaxy tools and workflows for sequence analysis with applications
 in molecular plant pathology. PeerJ 1:e167
-http://dx.doi.org/10.7717/peerj.167
+https://doi.org/10.7717/peerj.167
 
 For the three underlying methods, please cite:
 
 Whisson, S.C., Boevink, C.V., Moleleki, L., et al. (2007)
 A translocation signal for delivery of oomycete effector proteins into
 host plant cells. Nature 450:115-118.
-http://dx.doi.org/10.1038/nature06203
+https://doi.org/10.1038/nature06203
 
 Win, J., Morgan, W., Bos, J., et al. (2007)
 Adaptive evolution has targeted the C-terminal domain of the RXLR effectors
 of plant pathogenic oomycetes. The Plant Cell 19:2349-2369.
-http://dx.doi.org/10.1105/tpc.107.051037
+https://doi.org/10.1105/tpc.107.051037
 
 Bhattacharjee, S., Luisa Hiller, N., Liolios, K., et al. (2006)
 The malarial host-targeting signal is conserved in the Irish potato famine
 pathogen. PLoS Pathogens 2(5):e50.
-http://dx.doi.org/10.1371/journal.ppat.0020050
+https://doi.org/10.1371/journal.ppat.0020050
 
 
 Dependencies

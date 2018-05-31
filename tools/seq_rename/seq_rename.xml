@@ -61,14 +61,14 @@ cite the following papers:
 Peter J.A. Cock, Björn A. Grüning, Konrad Paszkiewicz and Leighton Pritchard (2013).
 Galaxy tools and workflows for sequence analysis with applications
 in molecular plant pathology. PeerJ 1:e167
-http://dx.doi.org/10.7717/peerj.167
+https://doi.org/10.7717/peerj.167
 
 This tool uses Biopython to read and write SFF files, so you may also wish to
 cite the Biopython application note (and Galaxy too of course):
 
 Cock et al (2009). Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
-http://dx.doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
+https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
 This tool is available to install into other Galaxy Instances via the Galaxy
 Tool Shed at http://toolshed.g2.bx.psu.edu/view/peterjc/seq_rename

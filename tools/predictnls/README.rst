@@ -13,7 +13,7 @@ release from the Rost Lab, see http://rostlab.org and their paper:
 Murat Cokol, Rajesh Nair, and Burkhard Rost.
 Finding nuclear localization signals.
 EMBO reports 1(5), 411–415, 2000
-http://dx.doi.org/10.1093/embo-reports/kvd092
+https://doi.org/10.1093/embo-reports/kvd092
 
 This wrapper is available from the Galaxy Tool Shed at
 http://toolshed.g2.bx.psu.edu/view/peterjc/predictnls

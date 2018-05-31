@@ -10,12 +10,12 @@ This is a wrapper for the command line Java tool EffectiveT3, v1.0.1,
 Jehl, Arnold and Rattei.
 Effective - a database of predicted secreted bacterial proteins
 Nucleic Acids Research, 39(Database issue), D591-5, 2011.
-http://dx.doi.org/10.1093/nar/gkq1154
+https://doi.org/10.1093/nar/gkq1154
 
 Arnold, Brandmaier, Kleine, Tischler, Heinz, Behrens, Niinikoski, Mewes, Horn and Rattei.
 Sequence-based prediction of type III secreted proteins.
 PLoS Pathog. 5(4):e1000376, 2009.
-http://dx.doi.org/10.1371/journal.ppat.1000376
+https://doi.org/10.1371/journal.ppat.1000376
 
 http://effectors.org/
 
