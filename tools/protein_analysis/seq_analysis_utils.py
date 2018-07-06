@@ -19,7 +19,7 @@ from time import sleep
 if sys.version_info[0] < 3:
     range = xrange  # noqa: F821
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 try:
     from multiprocessing import cpu_count
@@ -125,7 +125,7 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
             records = []
             for i in range(n):
                 try:
-                    records.append(iterator.next())
+                    records.append(next(iterator))
                 except StopIteration:
                     break
             if not records:

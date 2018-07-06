@@ -55,7 +55,7 @@ import sys
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
-    print("RXLR Motifs v0.0.15")
+    print("RXLR Motifs v0.0.16")
     sys.exit(0)
 
 if len(sys.argv) != 5:
@@ -255,7 +255,7 @@ for title, seq in fasta_iterator(fasta_file):
         del match
         # This was the criteria for calling SignalP,
         # so it will be in the SignalP results.
-        sp_id, sp_hmm_score, sp_nn_len = signalp_results.next()
+        sp_id, sp_hmm_score, sp_nn_len = next(signalp_results)
         assert name == sp_id, "%s vs %s" % (name, sp_id)
         if sp_hmm_score >= min_signalp_hmm and min_sp <= sp_nn_len <= max_sp:
             match = re_rxlr.search(seq[sp_nn_len:].upper())
@@ -283,7 +283,7 @@ assert sum(tally.values()) == total
 
 # Check the iterator is finished
 try:
-    signalp_results.next()
+    next(signalp_results)
     assert False, "Unexpected data in SignalP output"
 except StopIteration:
     pass
