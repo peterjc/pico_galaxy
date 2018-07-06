@@ -17,7 +17,7 @@ import sys
 from time import sleep
 
 if sys.version_info[0] < 3:
-    range = xrange
+    range = xrange  # noqa: F821
 
 __version__ = "0.0.3"
 
