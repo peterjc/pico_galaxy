@@ -69,9 +69,9 @@ before_install:
  - "if grep -n -r '[[:blank:]]$' */*/*.xml; then echo 'Please remove trailing whitespace in XML files.'; false; fi"
  - "if grep -n -r '[[:blank:]]$' */*/.shed.yml; then echo 'Please remove trailing whitespace in shed YAML files.'; false; fi"
  - pip install --upgrade pip setuptools
- - pip install flake8 flake8-blind-except restructuredtext-lint
+ - pip install flake8 flake8-blind-except flake8-docstrings flake8-rst-docstrings flake8-bugbear restructuredtext-lint
  - echo "Using flake8 to check Python code"
- - flake8 --max-line-length 120 --ignore E402 .
+ - flake8 --max-line-length 120 --ignore E402,D103,B007 .
  - echo "Using restructuredtext-lint to check our RST files"
  - restructuredtext-lint *.rst */*/*.rst
  - pip install planemo requests
