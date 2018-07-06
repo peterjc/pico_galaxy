@@ -35,7 +35,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 
 def check_trans(identifier, nuc, prot, table):
-    """Returns nucleotide sequence if works (can remove trailing stop)."""
+    """Return nucleotide sequence, if works (can remove trailing stop)."""
     if len(nuc) % 3:
         sys.exit("Nucleotide sequence for %s is length %i (not a multiple of three)"
                  % (identifier, len(nuc)))

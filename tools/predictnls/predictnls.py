@@ -114,7 +114,7 @@ def load_re(filename):
 
 
 def fasta_iterator(filename):
-    """Simple FASTA parser yielding tuples of (name, upper case sequence)."""
+    """Parse FASTA file yielding tuples of (name, upper case sequence)."""
     if filename == "-":
         handle = sys.stdin
     else:

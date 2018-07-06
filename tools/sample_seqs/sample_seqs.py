@@ -208,7 +208,7 @@ elif options.count:
             sys.stderr.write("Sampling %i sequences\n" % N)
     if N == total:
         def sampler(iterator):
-            """Dummy filter to filter nothing, taking everything."""
+            """No-operation dummy filter, taking everything."""
             global N
             taken = 0
             for record in iterator:
@@ -257,7 +257,7 @@ def pair(iterator):
 
 
 def raw_fasta_iterator(handle):
-    """Yields raw FASTA records as multi-line strings."""
+    """Yield raw FASTA records as multi-line strings."""
     while True:
         line = handle.readline()
         if line == "":

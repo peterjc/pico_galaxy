@@ -213,7 +213,7 @@ if len(ids) < 10:
 
 
 def crude_fasta_iterator(handle):
-    """Yields tuples, record ID and the full record as a string."""
+    """Yield tuples, record ID and the full record as a string."""
     while True:
         line = handle.readline()
         if line == "":

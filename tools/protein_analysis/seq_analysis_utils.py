@@ -26,7 +26,7 @@ try:
 except ImportError:
     # Must be under Python 2.5, this is copied from multiprocessing:
     def cpu_count():
-        """Returns the number of CPUs in the system."""
+        """Return the number of CPUs in the system."""
         if sys.platform == 'win32':
             try:
                 num = int(os.environ['NUMBER_OF_PROCESSORS'])
@@ -73,7 +73,7 @@ def thread_count(command_line_arg, default=1):
 
 
 def fasta_iterator(filename, max_len=None, truncate=None):
-    """Simple FASTA parser yielding tuples of (title, sequence) strings."""
+    """Parse FASTA file yielding tuples of (name, sequence)."""
     handle = open(filename)
     title, seq = "", ""
     for line in handle:
@@ -161,7 +161,7 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
 
 
 def run_jobs(jobs, threads, pause=10, verbose=False, fast_fail=True):
-    """Takes list of cmd strings, returns dict with error levels."""
+    """Take list of cmd strings, return dict with error levels."""
     pending = jobs[:]
     running = []
     results = {}

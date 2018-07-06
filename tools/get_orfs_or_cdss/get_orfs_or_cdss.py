@@ -120,7 +120,7 @@ re_stops = re.compile("|".join(stops))
 
 
 def start_chop_and_trans(s, strict=True):
-    """Returns offset, trimmed nuc, protein."""
+    """Return offset, trimmed nuc, protein."""
     if strict:
         assert s[-3:] in stops, s
     assert len(s) % 3 == 0
@@ -140,7 +140,7 @@ def start_chop_and_trans(s, strict=True):
 
 
 def break_up_frame(s):
-    """Returns offset, nuc, protein."""
+    """Return offset, nuc, protein."""
     start = 0
     for match in re_stops.finditer(s):
         index = match.start() + 3
@@ -175,7 +175,7 @@ def break_up_frame(s):
 
 
 def get_all_peptides(nuc_seq):
-    """Returns start, end, strand, nucleotides, protein.
+    """Return start, end, strand, nucleotides, protein.
 
     Co-ordinates are Python style zero-based.
     """
@@ -199,7 +199,7 @@ def get_all_peptides(nuc_seq):
 
 
 def get_top_peptides(nuc_seq):
-    """Returns all peptides of max length."""
+    """Return all peptides of max length."""
     values = list(get_all_peptides(nuc_seq))
     if not values:
         raise StopIteration
@@ -210,7 +210,7 @@ def get_top_peptides(nuc_seq):
 
 
 def get_one_peptide(nuc_seq):
-    """Returns first (left most) peptide with max length."""
+    """Return first (left most) peptide with max length."""
     values = list(get_top_peptides(nuc_seq))
     if not values:
         raise StopIteration

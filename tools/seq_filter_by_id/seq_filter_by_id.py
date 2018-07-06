@@ -244,7 +244,7 @@ if name_warn:
 
 
 def crude_fasta_iterator(handle):
-    """Yields tuples, record ID and the full record as a string."""
+    """Parse FASTA file yielding tuples of (name, sequence)."""
     while True:
         line = handle.readline()
         if line == "":

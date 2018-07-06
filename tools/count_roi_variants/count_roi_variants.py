@@ -85,7 +85,7 @@ def clean_up():
 
 
 def decode_cigar(cigar):
-    """Returns a list of 2-tuples, integer count and operator char."""
+    """Return a list of 2-tuples, integer count and operator char."""
     count = ""
     answer = []
     for letter in cigar:
@@ -105,12 +105,12 @@ assert decode_cigar("14S15M1P1D3P54M1D34M5S") == [(14, 'S'), (15, 'M'), (1, 'P')
 
 
 def align_len(cigar_ops):
-    """Sums the CIGAR M/=/X/D/N operators."""
+    """Sum the CIGAR M/=/X/D/N operators."""
     return sum(count for count, op in cigar_ops if op in "M=XDN")
 
 
 def expand_cigar(seq, cigar_ops):
-    """Yields (ref_offset, seq_base) pairs."""
+    """Yield (ref_offset, seq_base) pairs."""
     ref_offset = 0
     seq_offset = 0
     for count, op in cigar_ops:
