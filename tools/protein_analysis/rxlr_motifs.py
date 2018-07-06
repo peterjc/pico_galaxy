@@ -294,4 +294,4 @@ os.remove(signalp_output_file)
 
 # Short summary to stdout for Galaxy's info display
 print("%s for %i sequences:" % (model, total))
-print(", ".join("%s = %i" % kv for kv in sorted(tally.iteritems())))
+print(", ".join("%s = %i" % kv for kv in sorted(tally.items())))

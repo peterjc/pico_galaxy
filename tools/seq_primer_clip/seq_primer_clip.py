@@ -34,7 +34,7 @@ import re
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.16")
+    print("v0.0.17")
     sys.exit(0)
 
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
@@ -122,7 +122,7 @@ ambiguous_dna_values = {
 }
 
 ambiguous_dna_re = {}
-for letter, values in ambiguous_dna_values.iteritems():
+for letter, values in ambiguous_dna_values.items():
     if len(values) == 1:
         ambiguous_dna_re[letter] = values
     else:
