@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Plot up to 3-way Venn Diagram using R limma vennDiagram (via rpy)
+"""Plot up to 3-way Venn Diagram using R limma vennDiagram (via rpy).
 
 This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.

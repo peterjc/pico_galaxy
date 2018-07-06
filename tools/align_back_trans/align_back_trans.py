@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Back-translate a protein alignment to nucleotides
+"""Back-translate a protein alignment to nucleotides.
 
 This tool is a short Python script (using Biopython library functions) to
 load a protein alignment, and matching nucleotide FASTA file of unaligned
@@ -35,7 +35,7 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 
 def check_trans(identifier, nuc, prot, table):
-    """Returns nucleotide sequence if works (can remove trailing stop)"""
+    """Returns nucleotide sequence if works (can remove trailing stop)."""
     if len(nuc) % 3:
         sys.exit("Nucleotide sequence for %s is length %i (not a multiple of three)"
                  % (identifier, len(nuc)))

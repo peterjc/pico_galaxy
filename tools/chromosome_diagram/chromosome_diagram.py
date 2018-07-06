@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Plot Chromosome Diagram using Biopython and ReportLab
+"""Plot Chromosome Diagram using Biopython and ReportLab.
 
 This script is copyright 2013 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.

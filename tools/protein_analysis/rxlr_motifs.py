@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Implements assorted RXLR motif methods from the literature
+"""Implements assorted RXLR motif methods from the literature.
 
 This script takes exactly four command line arguments:
  * Protein FASTA filename

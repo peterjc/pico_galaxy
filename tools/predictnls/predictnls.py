@@ -9,7 +9,7 @@
 # (nair@rostlab.org) and Burkhard Rost (rost@rostlab.org), Rost Lab,
 # Columbia University http://rostlab.org/
 
-"""Batch mode predictNLS, for finding nuclear localization signals
+"""Batch mode predictNLS, for finding nuclear localization signals.
 
 This is a Python script re-implementing the predictNLS method, originally
 written in Perl, described here:

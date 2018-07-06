@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Python script to combine FASTA sequence of exon entries into CDS/AA
+"""Python script to combine FASTA sequence of exon entries into CDS/AA.
 
 Example input, combines entries with suffix .1, .2, ... into single
 entries.

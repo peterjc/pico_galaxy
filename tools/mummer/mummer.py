@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""MUMmer wrapper calling nucmer/promer/mummerplot etc,
+"""MUMmer wrapper calling nucmer/promer/mummerplot etc.
 
 Takes the following command line options,
 1. FASTA filename of species A
