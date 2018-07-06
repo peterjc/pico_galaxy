@@ -264,8 +264,11 @@ if seq_format.lower() == "sff":
 elif seq_format.lower().startswith("fastq"):
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
-    reader = fastqReader(in_handle)
-    writer = fastqWriter(out_handle)
+    # We don't really care if Solexa, Illumina or Sanger
+    # Using Sanger for input/output as it's character ranges
+    # is the superset to will make no changes:
+    reader = fastqReader(in_handle, format="sanger")
+    writer = fastqWriter(out_handle, format="sanger")
     if forward:
         for record in reader:
             seq = record.sequence.upper()
@@ -310,7 +313,7 @@ elif seq_format.lower() == "fasta":
     in_handle = open(in_file, "rU")
     out_handle = open(out_file, "w")
     reader = fastaReader(in_handle)
-    writer = fastaWriter(out_handle)
+    writer = fastaWriter(out_handle, format="fasta")
     # Following code is identical to that for FASTQ but without editing qualities
     if forward:
         for record in reader:

@@ -67,8 +67,8 @@ handle.close()
 reader = fastqReader(open(in_file, "rU"))
 if out_positive_file != "-" and out_negative_file != "-":
     print("Generating two FASTQ files")
-    positive_writer = fastqWriter(open(out_positive_file, "w"))
-    negative_writer = fastqWriter(open(out_negative_file, "w"))
+    positive_writer = fastqWriter(open(out_positive_file, "w"), format="sanger")
+    negative_writer = fastqWriter(open(out_negative_file, "w"), format="sanger")
     for record in reader:
         # The [1:] is because the fastaReader leaves the @ on the identifer.
         if record.identifier and record.identifier.split()[0][1:] in ids:
@@ -79,7 +79,7 @@ if out_positive_file != "-" and out_negative_file != "-":
     negative_writer.close()
 elif out_positive_file != "-":
     print("Generating matching FASTQ file")
-    positive_writer = fastqWriter(open(out_positive_file, "w"))
+    positive_writer = fastqWriter(open(out_positive_file, "w"), format="sanger")
     for record in reader:
         # The [1:] is because the fastaReader leaves the @ on the identifer.
         if record.identifier and record.identifier.split()[0][1:] in ids:
@@ -87,7 +87,7 @@ elif out_positive_file != "-":
     positive_writer.close()
 elif out_negative_file != "-":
     print("Generating non-matching FASTQ file")
-    negative_writer = fastqWriter(open(out_negative_file, "w"))
+    negative_writer = fastqWriter(open(out_negative_file, "w"), format="sanger")
     for record in reader:
         # The [1:] is because the fastaReader leaves the @ on the identifer.
         if not record.identifier or record.identifier.split()[0][1:] not in ids:

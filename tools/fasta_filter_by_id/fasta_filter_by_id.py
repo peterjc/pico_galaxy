@@ -26,7 +26,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.6")
+    print("v0.0.7")
     sys.exit(0)
 
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
@@ -67,8 +67,8 @@ handle.close()
 reader = fastaReader(open(in_file, "rU"))
 if out_positive_file != "-" and out_negative_file != "-":
     print("Generating two FASTA files")
-    positive_writer = fastaWriter(open(out_positive_file, "w"))
-    negative_writer = fastaWriter(open(out_negative_file, "w"))
+    positive_writer = fastaWriter(open(out_positive_file, "w"), format="fasta")
+    negative_writer = fastaWriter(open(out_negative_file, "w"), format="fasta")
     for record in reader:
         # The [1:] is because the fastaReader leaves the > on the identifer.
         if record.identifier and record.identifier.split()[0][1:] in ids:
@@ -79,7 +79,7 @@ if out_positive_file != "-" and out_negative_file != "-":
     negative_writer.close()
 elif out_positive_file != "-":
     print("Generating matching FASTA file")
-    positive_writer = fastaWriter(open(out_positive_file, "w"))
+    positive_writer = fastaWriter(open(out_positive_file, "w"), format="fasta")
     for record in reader:
         # The [1:] is because the fastaReader leaves the > on the identifer.
         if record.identifier and record.identifier.split()[0][1:] in ids:
@@ -87,7 +87,7 @@ elif out_positive_file != "-":
     positive_writer.close()
 elif out_negative_file != "-":
     print("Generating non-matching FASTA file")
-    negative_writer = fastaWriter(open(out_negative_file, "w"))
+    negative_writer = fastaWriter(open(out_negative_file, "w"), format="fasta")
     for record in reader:
         # The [1:] is because the fastaReader leaves the > on the identifer.
         if not record.identifier or record.identifier.split()[0][1:] not in ids:

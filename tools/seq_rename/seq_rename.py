@@ -27,7 +27,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.9")
+    print("v0.0.10")
     sys.exit(0)
 
 # Parse Command Line
@@ -136,12 +136,14 @@ else:
     if seq_format.lower() in ["fasta", "csfasta"] or seq_format.lower().startswith("qual"):
         from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
         reader = fastaReader(open(in_file, "rU"))
-        writer = fastaWriter(open(out_file, "w"))
+        writer = fastaWriter(open(out_file, "w"), format=seq_format)
         marker = ">"
     elif seq_format.lower().startswith("fastq"):
         from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
-        reader = fastqReader(open(in_file, "rU"))
-        writer = fastqWriter(open(out_file, "w"))
+        # Don't care if Sanger, Solexa or Illumina - by using Sanger
+        # for input and output this will not alter the quality string.
+        reader = fastqReader(open(in_file, "rU"), format="sanger")
+        writer = fastqWriter(open(out_file, "w"), format="sanger")
         marker = "@"
     else:
         sys.exit("Unsupported file type %r" % seq_format)

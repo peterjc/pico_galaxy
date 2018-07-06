@@ -53,6 +53,8 @@ v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
         - Use standard MIT license (was previously using the MIT/BSD style
           Biopython Licence Agreement).
 v0.0.6  - Python 3 compatible print function.
+v0.0.7  - Workaround for bug in Galaxy sequence_utils when not specifying the
+          format (related to Galaxy adding support for gzipped FASTA files).
 ======= ======================================================================
 
 
