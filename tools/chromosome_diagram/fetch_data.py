@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Helper script to fetch sample data for chromosome diagram."""
 
 from __future__ import print_function
 
