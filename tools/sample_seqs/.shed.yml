@@ -21,9 +21,10 @@ include:
   - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sample_N5.sff
   - ../../test-data/MID4_GLZRM4E04_rnd30_frclip.sff
   - ../../test-data/ecoli.fastq
+  - ../../test-data/ecoli.fastq.gz
   - ../../test-data/ecoli.pair_sample_N100.fastq
   - ../../test-data/ecoli.sample_C10.fastq
-  - ../../test-data/ecoli.sample_N100.fastq
+  - ../../test-data/ecoli.sample_N100.fastq.gz
   - ../../test-data/get_orf_input.Suis_ORF.prot.fasta
   - ../../test-data/get_orf_input.Suis_ORF.prot.pair_sample_C10.fasta
   - ../../test-data/get_orf_input.Suis_ORF.prot.pair_sample_N100.fasta

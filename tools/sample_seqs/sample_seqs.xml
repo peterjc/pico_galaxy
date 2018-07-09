@@ -1,4 +1,4 @@
-<tool id="sample_seqs" name="Sub-sample sequences files" version="0.2.5">
+<tool id="sample_seqs" name="Sub-sample sequences files" version="0.3.0">
     <description>e.g. to reduce coverage</description>
     <requirements>
         <requirement type="package" version="1.67">biopython</requirement>
@@ -20,7 +20,7 @@ python $__tool_directory__/sample_seqs.py -f '$input_file.ext' -i '$input_file' 
 #end if
     </command>
     <inputs>
-        <param name="input_file" type="data" format="fasta,fastq,sff" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
+        <param name="input_file" type="data" format="fasta,fastq,sff,fasta.gz,fastq.gz" label="Sequence file" help="FASTA, FASTQ, or SFF format." />
         <conditional name="sampling">
             <param name="type" type="select" label="Sub-sampling approach">
                 <option value="everyNth">Take every N-th sequence (or pair, e.g. every fifth sequence)</option>
@@ -45,16 +45,16 @@ python $__tool_directory__/sample_seqs.py -f '$input_file.ext' -i '$input_file' 
     </outputs>
     <tests>
         <test>
-            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta" />
+            <param name="input_file" value="get_orf_input.Suis_ORF.prot.fasta.gz" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="100" />
-            <output name="output_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta" />
+            <output name="output_file" file="get_orf_input.Suis_ORF.prot.sample_N100.fasta.gz" />
         </test>
         <test>
-            <param name="input_file" value="ecoli.fastq" />
+            <param name="input_file" value="ecoli.fastq" ftype="fastq.gz" />
             <param name="type" value="everyNth" />
             <param name="every_n" value="100" />
-            <output name="output_file" file="ecoli.sample_N100.fastq" />
+            <output name="output_file" file="ecoli.sample_N100.fastq" ftype="fastq.gz" />
         </test>
         <test>
             <param name="input_file" value="ecoli.fastq" />

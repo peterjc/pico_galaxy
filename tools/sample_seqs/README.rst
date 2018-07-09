@@ -75,6 +75,7 @@ v0.2.4  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Style changes to Python code (internal change only).
 v0.2.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.3.0  - Support gzipped FASTA or FASTQ format (supported in recent Galaxy).
 ======= ======================================================================
 
 

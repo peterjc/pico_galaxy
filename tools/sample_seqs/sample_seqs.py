@@ -16,6 +16,7 @@ See accompanying text file for licence details (MIT license).
 Use -v or --version to get the version, -h or --help for help.
 """
 import os
+import gzip
 import sys
 from optparse import OptionParser
 
@@ -41,7 +42,7 @@ parser.add_option('-i', '--input', dest='input',
                   metavar="FILE")
 parser.add_option('-f', '--format', dest='format',
                   default=None,
-                  help='Input sequence format (e.g. fasta, fastq, sff)')
+                  help='Input sequence format (e.g. fasta, fastq, sff, fasta.gz, fastq.gz)')
 parser.add_option('-o', '--output', dest='output',
                   default=None, help='Output sampled sequenced filename',
                   metavar="FILE")
@@ -63,7 +64,7 @@ parser.add_option("-v", "--version", dest="version",
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.4")
+    print("v0.3.0")
     sys.exit(0)
 
 try:
@@ -86,12 +87,22 @@ if not out_file:
     sys.exit("Require an output filename")
 if not options.format:
     sys.exit("Require the sequence format")
+
 seq_format = options.format.lower()
+_open = open
+if seq_format.endswith(".gz"):
+    _open = gzip.open
+    seq_format = seq_format[:-3]
+if seq_format in ["fastqsanger", "fastqillumina", "fastqsolexa"]:
+    # Galaxy aliases, we don't care about the encoding here
+    seq_format = "fastq"
+if seq_format not in ["fasta", "fastq", "sff"]:
+    sys.exit("Expected FASTA, FASTQ or SFF (possibly gzipped), not %r" % options.format)
 
 
 def count_fasta(filename):
     count = 0
-    with open(filename) as handle:
+    with _open(filename) as handle:
         for title, seq in SimpleFastaParser(handle):
             count += 1
     return count
@@ -99,7 +110,7 @@ def count_fasta(filename):
 
 def count_fastq(filename):
     count = 0
-    with open(filename) as handle:
+    with _open(filename) as handle:
         for title, seq, qual in FastqGeneralIterator(handle):
             count += 1
     return count
@@ -293,8 +304,8 @@ def raw_fasta_iterator(handle):
 def fasta_filter(in_file, out_file, iterator_filter, inter):
     count = 0
     # Galaxy now requires Python 2.5+ so can use with statements,
-    with open(in_file) as in_handle:
-        with open(out_file, "w") as pos_handle:
+    with _open(in_file) as in_handle:
+        with _open(out_file, "w") as pos_handle:
             if inter:
                 for r1, r2 in iterator_filter(pair(raw_fasta_iterator(in_handle))):
                     count += 1
@@ -309,8 +320,8 @@ def fasta_filter(in_file, out_file, iterator_filter, inter):
 
 def fastq_filter(in_file, out_file, iterator_filter, inter):
     count = 0
-    with open(in_file) as in_handle:
-        with open(out_file, "w") as pos_handle:
+    with _open(in_file) as in_handle:
+        with _open(out_file, "w") as pos_handle:
             if inter:
                 for r1, r2 in iterator_filter(pair(FastqGeneralIterator(in_handle))):
                     count += 1
@@ -330,13 +341,13 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
     except ImportError:
         # Prior to Biopython 1.56 this was a private function
         from Bio.SeqIO.SffIO import _sff_read_roche_index_xml as ReadRocheXmlManifest
-    with open(in_file, "rb") as in_handle:
+    with _open(in_file, "rb") as in_handle:
         try:
             manifest = ReadRocheXmlManifest(in_handle)
         except ValueError:
             manifest = None
         in_handle.seek(0)
-        with open(out_file, "wb") as out_handle:
+        with _open(out_file, "wb") as out_handle:
             writer = SffWriter(out_handle, xml=manifest)
             in_handle.seek(0)  # start again after getting manifest
             if inter:
