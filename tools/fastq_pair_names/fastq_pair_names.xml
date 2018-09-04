@@ -1,5 +1,5 @@
 <tool id="fastq_pair_names" name="Identify paired reads in FASTQ files" version="0.0.5">
-    <description>using the read name suffices</description>
+    <description>using the read name suffixes</description>
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
     </requirements>
@@ -34,7 +34,7 @@ partners if you have the original data.
 The input file should be a valid FASTQ file which has been sorted so that
 any partner forward+reverse reads are consecutive. The output files all
 preserve this sort order. Pairing are recognised based on standard name
-suffices (see below).
+suffixes (see below).
 
 Any reads where the forward/reverse naming suffix used is not recognised
 are treated as orphan reads. The tool supports the /1 and /2 convention

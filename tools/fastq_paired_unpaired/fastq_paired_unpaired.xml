@@ -1,5 +1,5 @@
 <tool id="fastq_paired_unpaired" name="Divide FASTQ file into paired and unpaired reads" version="0.1.4">
-    <description>using the read name suffices</description>
+    <description>using the read name suffixes</description>
     <requirements>
         <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
         <requirement type="package" version="1.67">biopython</requirement>
@@ -65,7 +65,7 @@ paired reads, and orphan or single reads.
 The input file should be a valid FASTQ file which has been sorted so that
 any partner forward+reverse reads are consecutive. The output files all
 preserve this sort order. Pairing are recognised based on standard name
-suffices. See below or run the tool with no arguments for more details.
+suffixes. See below or run the tool with no arguments for more details.
 
 Any reads where the forward/reverse naming suffix used is not recognised
 are treated as orphan reads. The tool supports the /1 and /2 convention

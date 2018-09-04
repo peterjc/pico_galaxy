@@ -74,7 +74,7 @@ python $__tool_directory__/seq_filter_by_id.py -i '$input_file' -f '$input_file.
             </param>
             <when value="basic" />
             <when value="advanced">
-                <param name="strip_suffix" type="boolean" value="false" label="Remove typical pair read name suffices when matching identifiers?" help="Will remove suffices including Illumina /1 and /2, Roche 454 .f and .r, and assorted Sanger names like .p* and .q*" />
+                <param name="strip_suffix" type="boolean" value="false" label="Remove typical pair read name suffixes when matching identifiers?" help="Will remove suffixes including Illumina /1 and /2, Roche 454 .f and .r, and assorted Sanger names like .p* and .q*" />
             </when>
         </conditional>
     </inputs>

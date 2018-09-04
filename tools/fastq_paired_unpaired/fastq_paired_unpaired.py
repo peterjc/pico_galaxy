@@ -4,7 +4,7 @@
 The input file should be a valid FASTQ file which has been sorted so that
 any partner forward+reverse reads are consecutive. The output files all
 preserve this sort order. Pairing are recognised based on standard name
-suffices. See below or run the tool with no arguments for more details.
+suffixes. See below or run the tool with no arguments for more details.
 
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even
 Color Space should all work equally well).

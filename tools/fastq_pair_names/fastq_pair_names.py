@@ -2,7 +2,7 @@
 """Extract paired read names from FASTQ file(s).
 
 The input file should be a valid FASTQ file(s), the output is two tabular
-files - the paired read names (without suffices), and unpaired read names
+files - the paired read names (without suffixes), and unpaired read names
 (including any unrecognised pair names).
 
 Note that the FASTQ variant is unimportant (Sanger, Solexa, Illumina, or even

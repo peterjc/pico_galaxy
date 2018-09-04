@@ -70,7 +70,7 @@ parser.add_option("-l", "--logic", dest="logic",
                   help="How to combined multiple ID columns (UNION or INTERSECTION)")
 parser.add_option("-s", "--suffix", dest="suffix",
                   action="store_true",
-                  help="Ignore pair-read suffices for matching names")
+                  help="Ignore pair-read suffixes for matching names")
 parser.add_option("-v", "--version", dest="version",
                   default=False, action="store_true",
                   help="Show version and quit")
@@ -86,7 +86,7 @@ seq_format = options.format
 out_positive_file = options.output_positive
 out_negative_file = options.output_negative
 logic = options.logic
-drop_suffices = bool(options.suffix)
+drop_suffixes = bool(options.suffix)
 
 if in_file is None or not os.path.isfile(in_file):
     sys.exit("Missing input file: %r" % in_file)
@@ -150,7 +150,7 @@ def check_white_space(name):
     return parts[0]
 
 
-if drop_suffices:
+if drop_suffixes:
     def clean_name(name):
         """Remove suffix."""
         name = check_white_space(name)
