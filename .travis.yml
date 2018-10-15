@@ -39,8 +39,8 @@ jobs:
     - stage: deploy
       before_install:
         - echo "Removing tools we're not testing or deploying"
-        - for line in $(cat .tt_blacklist); do rm -rf $line; done
-        - for line in $(cat .deploy_blacklist); do rm -rf $line; done
+        - for line in $(cat .tt_skip); do rm -rf $line; done
+        - for line in $(cat .deploy_skip); do rm -rf $line; done
       install:
         - pip install --upgrade pip setuptools
         - pip install planemo
@@ -85,7 +85,7 @@ before_install:
  - pip install --upgrade pip setuptools
  - pip install planemo requests
  - echo "Removing tools we're not going to test"
- - for line in $(cat .tt_blacklist); do rm -rf $line; done
+ - for line in $(cat .tt_skip); do rm -rf $line; done
  - echo "Fixing permissions on Python eggs cache folder"
  - mkdir -p "$HOME/.python-eggs"
  - chmod 700 "$HOME/.python-eggs" 
