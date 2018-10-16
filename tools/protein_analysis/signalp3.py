@@ -110,12 +110,6 @@ def clean_tabular(raw_handle, out_handle, gff_handle=None):
         if not line or line.startswith("#"):
             continue
         parts = line.rstrip("\r\n").split()
-        assert len(parts) == 21, repr(line)
-        assert parts[14].startswith(parts[0]), \
-            "Bad entry in SignalP output, ID miss-match:\n%r" % line
-        # Remove redundant truncated name column (col 0)
-        # and put full name at start (col 14)
-        parts = parts[14:15] + parts[1:14] + parts[15:]
         out_handle.write("\t".join(parts) + "\n")
 
 
@@ -181,7 +175,7 @@ fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "signalp"),
                           n=FASTA_CHUNK, truncate=truncate, max_len=MAX_LEN)
 temp_files = [f + ".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
-jobs = ["signalp -short -t %s %s > %s" % (organism, fasta, temp)
+jobs = ["signalp -f short -t %s %s > %s" % (organism, fasta, temp)
         for (fasta, temp) in zip(fasta_files, temp_files)]
 assert len(fasta_files) == len(temp_files) == len(jobs)
 
@@ -218,14 +212,7 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
 del results
 
 out_handle = open(tabular_file, "w")
-fields = ["ID"]
-# NN results:
-for name in ["Cmax", "Ymax", "Smax"]:
-    fields.extend(["NN_%s_score" % name, "NN_%s_pos" % name, "NN_%s_pred" % name])
-fields.extend(["NN_Smean_score", "NN_Smean_pred", "NN_D_score", "NN_D_pred"])
-# HMM results:
-fields.extend(["HMM_type", "HMM_Cmax_score", "HMM_Cmax_pos", "HMM_Cmax_pred",
-               "HMM_Sprob_score", "HMM_Sprob_pred"])
+fields = ["name", "Cmax", "pos", "Ymax", "pos", "Smax", "pos", "Smean", "D", "?", "Dmaxcut", "Networks-used"]
 out_handle.write("#" + "\t".join(fields) + "\n")
 for temp in temp_files:
     data_handle = open(temp)
