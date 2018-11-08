@@ -142,7 +142,7 @@ echo Mapping reads with clc_mapper...
             <param name="read_group_0|segments|dist_mode" value="ss" />
             <param name="read_group_0|segments|filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
             <param name="discard_unmapped" value="false" />
-            <output name="out_fasta" file="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" lines_diff="4"/>
+            <output name="out_bam" file="SRR639755_mito_pairs_vs_NC_010642_clc.bam" ftype="bam" lines_diff="4"/>
         </test>
         <test>
             <param name="ref_file" value="NC_010642.fna" ftype="fasta" />
@@ -155,7 +155,7 @@ echo Mapping reads with clc_mapper...
             <param name="read_group_0|segments|dist_mode" value="ss" />
             <param name="read_group_0|segments|filename" value="SRR639755_mito_pairs.fastq.gz" ftype="fastqsanger" />
             <param name="discard_unmapped" value="true" />
-            <output name="out_fasta" file="SRR639755_mito_pairs_vs_NC_010642_clc_u.bam" ftype="bam" lines_diff="4"/>
+            <output name="out_bam" file="SRR639755_mito_pairs_vs_NC_010642_clc_u.bam" ftype="bam" lines_diff="4"/>
         </test>
     </tests>
     <help>
