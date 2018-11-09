@@ -95,10 +95,6 @@ before_install:
  - planemo dependency_script -r ${TRAVIS_BUILD_DIR}/packages/ ${TRAVIS_BUILD_DIR}/tools/
  - bash dep_install.sh
  - source env.sh
- - echo "Installing Biopython..."
- - pip install biopython
- - echo "Installing galaxy_sequence_utils..."
- - pip install http://depot.galaxyproject.org/package/source/galaxy_sequence_utils/galaxy_sequence_utils-1.0.1-st.tgz
  - echo "Installing MUMmer and its dependencies..."
  - sudo apt-get -qq update
  - sudo apt-get install -y gnuplot ghostscript
@@ -117,6 +113,9 @@ before_install:
  - wget https://codeload.github.com/galaxyproject/galaxy/tar.gz/${GALAXY_BRANCH}
  - tar -zxvf ${GALAXY_BRANCH} | tail
  - cd galaxy-${GALAXY_BRANCH}
+ - echo "Getting Galaxy to install our Python dependencies..."
+ - echo biopython >> requirements.txt
+
 
 # Configuring tools within Galaxy
 # ===============================
