@@ -42,43 +42,100 @@ except ImportError:
 
 
 parser = OptionParser(usage=usage)
-parser.add_option('-i', '--input', dest='input_file',
-                  default=None, help='Input fasta file',
-                  metavar='FILE')
-parser.add_option('-f', '--format', dest='seq_format',
-                  default='fasta', help='Sequence format (e.g. fasta, fastq, sff)')
-parser.add_option('--table', dest='table',
-                  default=1, help='NCBI Translation table', type='int')
-parser.add_option('-t', '--ftype', dest='ftype', type='choice',
-                  choices=['CDS', 'ORF'], default='ORF',
-                  help='Find ORF or CDSs')
-parser.add_option('-e', '--ends', dest='ends', type='choice',
-                  choices=['open', 'closed'], default='closed',
-                  help='Open or closed. Closed ensures start/stop codons are present')
-parser.add_option('-m', '--mode', dest='mode', type='choice',
-                  choices=['all', 'top', 'one'], default='all',
-                  help='Output all ORFs/CDSs from sequence, all ORFs/CDSs '
-                  'with max length, or first with maximum length')
-parser.add_option('--min_len', dest='min_len',
-                  default=10, help='Minimum ORF/CDS length', type='int')
-parser.add_option('-s', '--strand', dest='strand', type='choice',
-                  choices=['forward', 'reverse', 'both'], default='both',
-                  help='Strand to search for features on')
-parser.add_option('--on', dest='out_nuc_file',
-                  default=None, help='Output nucleotide sequences, or - for STDOUT',
-                  metavar='FILE')
-parser.add_option('--op', dest='out_prot_file',
-                  default=None, help='Output protein sequences, or - for STDOUT',
-                  metavar='FILE')
-parser.add_option('--ob', dest='out_bed_file',
-                  default=None, help='Output BED file, or - for STDOUT',
-                  metavar='FILE')
-parser.add_option('--og', dest='out_gff3_file',
-                  default=None, help='Output GFF3 file, or - for STDOUT',
-                  metavar='FILE')
-parser.add_option('-v', '--version', dest='version',
-                  default=False, action='store_true',
-                  help='Show version and quit')
+parser.add_option(
+    "-i",
+    "--input",
+    dest="input_file",
+    default=None,
+    help="Input fasta file",
+    metavar="FILE",
+)
+parser.add_option(
+    "-f",
+    "--format",
+    dest="seq_format",
+    default="fasta",
+    help="Sequence format (e.g. fasta, fastq, sff)",
+)
+parser.add_option(
+    "--table", dest="table", default=1, help="NCBI Translation table", type="int"
+)
+parser.add_option(
+    "-t",
+    "--ftype",
+    dest="ftype",
+    type="choice",
+    choices=["CDS", "ORF"],
+    default="ORF",
+    help="Find ORF or CDSs",
+)
+parser.add_option(
+    "-e",
+    "--ends",
+    dest="ends",
+    type="choice",
+    choices=["open", "closed"],
+    default="closed",
+    help="Open or closed. Closed ensures start/stop codons are present",
+)
+parser.add_option(
+    "-m",
+    "--mode",
+    dest="mode",
+    type="choice",
+    choices=["all", "top", "one"],
+    default="all",
+    help="Output all ORFs/CDSs from sequence, all ORFs/CDSs "
+    "with max length, or first with maximum length",
+)
+parser.add_option(
+    "--min_len", dest="min_len", default=10, help="Minimum ORF/CDS length", type="int"
+)
+parser.add_option(
+    "-s",
+    "--strand",
+    dest="strand",
+    type="choice",
+    choices=["forward", "reverse", "both"],
+    default="both",
+    help="Strand to search for features on",
+)
+parser.add_option(
+    "--on",
+    dest="out_nuc_file",
+    default=None,
+    help="Output nucleotide sequences, or - for STDOUT",
+    metavar="FILE",
+)
+parser.add_option(
+    "--op",
+    dest="out_prot_file",
+    default=None,
+    help="Output protein sequences, or - for STDOUT",
+    metavar="FILE",
+)
+parser.add_option(
+    "--ob",
+    dest="out_bed_file",
+    default=None,
+    help="Output BED file, or - for STDOUT",
+    metavar="FILE",
+)
+parser.add_option(
+    "--og",
+    dest="out_gff3_file",
+    default=None,
+    help="Output GFF3 file, or - for STDOUT",
+    metavar="FILE",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 
 options, args = parser.parse_args()
 
@@ -89,7 +146,14 @@ if options.version:
 if not options.input_file:
     sys.exit("Input file is required")
 
-if not any((options.out_nuc_file, options.out_prot_file, options.out_bed_file, options.out_gff3_file)):
+if not any(
+    (
+        options.out_nuc_file,
+        options.out_prot_file,
+        options.out_bed_file,
+        options.out_gff3_file,
+    )
+):
     sys.exit("At least one output file is required")
 
 try:
@@ -255,17 +319,23 @@ else:
     out_gff3 = None
 
 if out_gff3:
-    out_gff3.write('##gff-version 3\n')
+    out_gff3.write("##gff-version 3\n")
 
 for record in SeqIO.parse(options.input_file, seq_format):
-    for i, (f_start, f_end, f_strand, n, t) in enumerate(get_peptides(str(record.seq).upper())):
+    for i, (f_start, f_end, f_strand, n, t) in enumerate(
+        get_peptides(str(record.seq).upper())
+    ):
         out_count += 1
         if f_strand == +1:
             loc = "%i..%i" % (f_start + 1, f_end)
         else:
             loc = "complement(%i..%i)" % (f_start + 1, f_end)
-        descr = "length %i aa, %i bp, from %s of %s" \
-                % (len(t), len(n), loc, record.description)
+        descr = "length %i aa, %i bp, from %s of %s" % (
+            len(t),
+            len(n),
+            loc,
+            record.description,
+        )
         fid = record.id + "|%s%i" % (options.ftype, i + 1)
         r = SeqRecord(Seq(n), id=fid, name="", description=descr)
         t = SeqRecord(Seq(t), id=fid, name="", description=descr)
@@ -273,12 +343,32 @@ for record in SeqIO.parse(options.input_file, seq_format):
             SeqIO.write(r, out_nuc, "fasta")
         if out_prot:
             SeqIO.write(t, out_prot, "fasta")
-        nice_strand = '+' if f_strand == +1 else '-'
+        nice_strand = "+" if f_strand == +1 else "-"
         if out_bed:
-            out_bed.write('\t'.join(map(str, [record.id, f_start, f_end, fid, 0, nice_strand])) + '\n')
+            out_bed.write(
+                "\t".join(map(str, [record.id, f_start, f_end, fid, 0, nice_strand]))
+                + "\n"
+            )
         if out_gff3:
-            out_gff3.write('\t'.join(map(str, [record.id, 'getOrfsOrCds', 'CDS', f_start + 1, f_end, '.',
-                                               nice_strand, 0, 'ID=%s%s' % (options.ftype, i + 1)])) + '\n')
+            out_gff3.write(
+                "\t".join(
+                    map(
+                        str,
+                        [
+                            record.id,
+                            "getOrfsOrCds",
+                            "CDS",
+                            f_start + 1,
+                            f_end,
+                            ".",
+                            nice_strand,
+                            0,
+                            "ID=%s%s" % (options.ftype, i + 1),
+                        ],
+                    )
+                )
+                + "\n"
+            )
     in_count += 1
 if out_nuc and out_nuc is not sys.stdout:
     out_nuc.close()

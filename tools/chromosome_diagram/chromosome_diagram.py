@@ -27,6 +27,7 @@ try:
     from reportlab.pdfgen import canvas
     from reportlab.graphics import renderPDF
     from reportlab.graphics.shapes import Drawing, String, Line, Rect
+
     # We don't use these directly, Biopython will though so checking now
     del Drawing, String, Line, Rect
     from reportlab.lib.units import cm, inch
@@ -37,8 +38,9 @@ except Exception:
 if len(sys.argv) - 1 != 13:
     sys.exit("Expected 13 arguments, not %i" % (len(sys.argv) - 1))
 
-ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, \
-    caption_col, color_col, fill_col, main_caption, per_page, pdf_file = sys.argv[1:]
+ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, caption_col, color_col, fill_col, main_caption, per_page, pdf_file = sys.argv[
+    1:
+]
 
 
 def load_column(txt):
@@ -115,10 +117,19 @@ def load_color(txt, default=None):
     elif len(txt) == 6 and set("0123456789ABCDEF").issuperset(txt.upper()):
         # Hex color
         return colors.HexColor("#%s" % txt)
-    elif len(txt) == 7 and txt[0] == "#" and set("0123456789ABCDEF").issuperset(txt[1:].upper()):
+    elif (
+        len(txt) == 7
+        and txt[0] == "#"
+        and set("0123456789ABCDEF").issuperset(txt[1:].upper())
+    ):
         # Hex color with # prefix
         return colors.HexColor(txt)
-    elif len(txt) == 8 and txt[0] == "#" and txt[-1] == ";" and set("0123456789ABCDEF").issuperset(txt[1:-1].upper()):
+    elif (
+        len(txt) == 8
+        and txt[0] == "#"
+        and txt[-1] == ";"
+        and set("0123456789ABCDEF").issuperset(txt[1:-1].upper())
+    ):
         # Hex color with # prefix and ; suffix
         return colors.HexColor(txt[:-1])
     else:
@@ -135,18 +146,25 @@ for line in handle:
     parts = line.rstrip("\n").split("\t")
     chr_name = parts[chr_col].strip()
     if chr_name not in lengths:
-        sys.exit("Unrecognised reference/chromosome %r in this line:\n%r" % (parts[chr_col], line))
+        sys.exit(
+            "Unrecognised reference/chromosome %r in this line:\n%r"
+            % (parts[chr_col], line)
+        )
     start = int(parts[start_col])
     if not (0 <= start <= lengths[chr_name]):
-        sys.exit("Start %i outside length %i of reference %s in this line:\n%r"
-                 % (start, lengths[chr_name], chr_name, line))
+        sys.exit(
+            "Start %i outside length %i of reference %s in this line:\n%r"
+            % (start, lengths[chr_name], chr_name, line)
+        )
     if end_col is None:
         end = start
     else:
         end = int(parts[end_col])
     if not (0 <= end <= lengths[chr_name]):
-        sys.exit("End %i outside length %i of reference %s in this line:\n%r"
-                 % (end, lengths[chr_name], chr_name, line))
+        sys.exit(
+            "End %i outside length %i of reference %s in this line:\n%r"
+            % (end, lengths[chr_name], chr_name, line)
+        )
     if strand_col is None:
         strand = None
     else:
@@ -158,7 +176,9 @@ for line in handle:
         elif strand in ["0", "?", ".", "none", "both", ""]:
             strand = None
         else:
-            sys.exit("Bad strand value %r in this line:\n%r" % (parts[strand_col], line))
+            sys.exit(
+                "Bad strand value %r in this line:\n%r" % (parts[strand_col], line)
+            )
     caption = parts[caption_col]
     if color_col is None:
         color = colors.black

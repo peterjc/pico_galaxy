@@ -49,31 +49,66 @@ Multiple tabular files and column numbers may be given, or replaced with
 the -t or --text option.
 """
 parser = OptionParser(usage=usage)
-parser.add_option('-i', '--input', dest='input',
-                  default=None, help='Input sequences filename',
-                  metavar="FILE")
-parser.add_option('-f', '--format', dest='format',
-                  default=None,
-                  help='Input sequence format (e.g. fasta, fastq, sff)')
-parser.add_option('-t', '--text', dest='id_list',
-                  default=None, help="Lists of white space separated IDs (instead of a tabular file)")
-parser.add_option('-p', '--positive', dest='output_positive',
-                  default=None,
-                  help='Output filename for matches',
-                  metavar="FILE")
-parser.add_option('-n', '--negative', dest='output_negative',
-                  default=None,
-                  help='Output filename for non-matches',
-                  metavar="FILE")
-parser.add_option("-l", "--logic", dest="logic",
-                  default="UNION",
-                  help="How to combined multiple ID columns (UNION or INTERSECTION)")
-parser.add_option("-s", "--suffix", dest="suffix",
-                  action="store_true",
-                  help="Ignore pair-read suffixes for matching names")
-parser.add_option("-v", "--version", dest="version",
-                  default=False, action="store_true",
-                  help="Show version and quit")
+parser.add_option(
+    "-i",
+    "--input",
+    dest="input",
+    default=None,
+    help="Input sequences filename",
+    metavar="FILE",
+)
+parser.add_option(
+    "-f",
+    "--format",
+    dest="format",
+    default=None,
+    help="Input sequence format (e.g. fasta, fastq, sff)",
+)
+parser.add_option(
+    "-t",
+    "--text",
+    dest="id_list",
+    default=None,
+    help="Lists of white space separated IDs (instead of a tabular file)",
+)
+parser.add_option(
+    "-p",
+    "--positive",
+    dest="output_positive",
+    default=None,
+    help="Output filename for matches",
+    metavar="FILE",
+)
+parser.add_option(
+    "-n",
+    "--negative",
+    dest="output_negative",
+    default=None,
+    help="Output filename for non-matches",
+    metavar="FILE",
+)
+parser.add_option(
+    "-l",
+    "--logic",
+    dest="logic",
+    default="UNION",
+    help="How to combined multiple ID columns (UNION or INTERSECTION)",
+)
+parser.add_option(
+    "-s",
+    "--suffix",
+    dest="suffix",
+    action="store_true",
+    help="Ignore pair-read suffixes for matching names",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 
 options, args = parser.parse_args()
 
@@ -132,9 +167,14 @@ for i in range(len(args) // 2):
     try:
         columns = [int(arg) - 1 for arg in cols_arg.split(",")]
     except ValueError:
-        sys.exit("Expected list of columns (comma separated integers), got %r" % cols_arg)
+        sys.exit(
+            "Expected list of columns (comma separated integers), got %r" % cols_arg
+        )
     if min(columns) < 0:
-        sys.exit("Expect one-based column numbers (not zero-based counting), got %r" % cols_arg)
+        sys.exit(
+            "Expect one-based column numbers (not zero-based counting), got %r"
+            % cols_arg
+        )
     identifiers.append((tabular_file, columns))
 
 name_warn = False
@@ -145,12 +185,15 @@ def check_white_space(name):
     parts = name.split(None, 1)
     global name_warn
     if not name_warn and len(parts) > 1:
-        name_warn = "WARNING: Some of your identifiers had white space in them, " + \
-                    "using first word only. e.g.:\n%s\n" % name
+        name_warn = (
+            "WARNING: Some of your identifiers had white space in them, "
+            + "using first word only. e.g.:\n%s\n" % name
+        )
     return parts[0]
 
 
 if drop_suffixes:
+
     def clean_name(name):
         """Remove suffix."""
         name = check_white_space(name)
@@ -158,10 +201,11 @@ if drop_suffixes:
         if match:
             # Use the fact this is a suffix, and regular expression will be
             # anchored to the end of the name:
-            return name[:match.start()]
+            return name[: match.start()]
         else:
             # Nothing to do
             return name
+
     assert clean_name("foo/1") == "foo"
     assert clean_name("foo/2") == "foo"
     assert clean_name("bar.f") == "bar"
@@ -174,19 +218,19 @@ else:
 
 
 mapped_chars = {
-    '>': '__gt__',
-    '<': '__lt__',
-    "'": '__sq__',
-    '"': '__dq__',
-    '[': '__ob__',
-    ']': '__cb__',
-    '{': '__oc__',
-    '}': '__cc__',
-    '@': '__at__',
-    '\n': '__cn__',
-    '\r': '__cr__',
-    '\t': '__tc__',
-    '#': '__pd__',
+    ">": "__gt__",
+    "<": "__lt__",
+    "'": "__sq__",
+    '"': "__dq__",
+    "[": "__ob__",
+    "]": "__cb__",
+    "{": "__oc__",
+    "}": "__cc__",
+    "@": "__at__",
+    "\n": "__cn__",
+    "\r": "__cr__",
+    "\t": "__tc__",
+    "#": "__pd__",
 }
 
 # Read tabular file(s) and record all specified identifiers
@@ -225,8 +269,10 @@ for tabular_file, columns in identifiers:
                 name = clean_name(line.rstrip("\n").split("\t")[col])
                 if name:
                     file_ids.add(name)
-    print("Using %i IDs from column %s in tabular file" %
-          (len(file_ids), ", ".join(str(col + 1) for col in columns)))
+    print(
+        "Using %i IDs from column %s in tabular file"
+        % (len(file_ids), ", ".join(str(col + 1) for col in columns))
+    )
     if ids is None:
         ids = file_ids
     if logic == "UNION":
@@ -236,9 +282,13 @@ for tabular_file, columns in identifiers:
     handle.close()
 if len(identifiers) > 1:
     if logic == "UNION":
-        print("Have %i IDs combined from %i tabular files" % (len(ids), len(identifiers)))
+        print(
+            "Have %i IDs combined from %i tabular files" % (len(ids), len(identifiers))
+        )
     else:
-        print("Have %i IDs in common from %i tabular files" % (len(ids), len(identifiers)))
+        print(
+            "Have %i IDs in common from %i tabular files" % (len(ids), len(identifiers))
+        )
 if name_warn:
     sys.stderr.write(name_warn)
 
@@ -255,8 +305,7 @@ def crude_fasta_iterator(handle):
     no_id_warned = False
     while True:
         if line[0] != ">":
-            raise ValueError(
-                "Records in Fasta files should start with '>' character")
+            raise ValueError("Records in Fasta files should start with '>' character")
         try:
             id = line[1:].split(None, 1)[0]
         except IndexError:
@@ -321,6 +370,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
 def fastq_filter(in_file, pos_file, neg_file, wanted):
     """FASTQ filter."""
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
+
     handle = open(in_file, "r")
     if pos_file is not None and neg_file is not None:
         print("Generating two FASTQ files")
@@ -379,15 +429,17 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
         out_handle = open(pos_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0)  # start again after getting manifest
-        pos_count = writer.write_file(rec for rec in SffIterator(in_handle)
-                                      if clean_name(rec.id) in wanted)
+        pos_count = writer.write_file(
+            rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted
+        )
         out_handle.close()
     if neg_file is not None:
         out_handle = open(neg_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0)  # start again
-        neg_count = writer.write_file(rec for rec in SffIterator(in_handle)
-                                      if clean_name(rec.id) not in wanted)
+        neg_count = writer.write_file(
+            rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in wanted
+        )
         out_handle.close()
     # And we're done
     in_handle.close()
@@ -398,12 +450,16 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
 
 if seq_format.lower() == "sff":
     # Now write filtered SFF file based on IDs wanted
-    pos_count, neg_count = sff_filter(in_file, out_positive_file, out_negative_file, ids)
+    pos_count, neg_count = sff_filter(
+        in_file, out_positive_file, out_negative_file, ids
+    )
     # At the time of writing, Galaxy doesn't show SFF file read counts,
     # so it is useful to put them in stdout and thus shown in job info.
 elif seq_format.lower() == "fasta":
     # Write filtered FASTA file based on IDs from tabular file
-    pos_count, neg_count = fasta_filter(in_file, out_positive_file, out_negative_file, ids)
+    pos_count, neg_count = fasta_filter(
+        in_file, out_positive_file, out_negative_file, ids
+    )
     print("%i with and %i without specified IDs" % (pos_count, neg_count))
 elif seq_format.lower().startswith("fastq"):
     # Write filtered FASTQ file based on IDs from tabular file

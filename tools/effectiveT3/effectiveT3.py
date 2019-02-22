@@ -12,6 +12,7 @@ webservice), and reformats the semi-colon separated output into
 tab separated output for use in Galaxy.
 """
 import os
+
 # We want to be able to use shutil.which, but need Python 3.3+
 # import shutil
 import subprocess
@@ -34,7 +35,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(0)
 
 if len(sys.argv) != 5:
-    sys.exit("Require four arguments: model, threshold, input protein FASTA file & output tabular file")
+    sys.exit(
+        "Require four arguments: model, threshold, input protein FASTA file & output tabular file"
+    )
 
 model, threshold, fasta_file, tabular_file = sys.argv[1:]
 
@@ -42,7 +45,9 @@ if not os.path.isfile(fasta_file):
     sys.exit("Input FASTA file not found: %s" % fasta_file)
 
 if threshold not in ["selective", "sensitive"] and not threshold.startswith("cutoff="):
-    sys.exit("Threshold should be selective, sensitive, or cutoff=..., not %r" % threshold)
+    sys.exit(
+        "Threshold should be selective, sensitive, or cutoff=..., not %r" % threshold
+    )
 
 
 def clean_tabular(raw_handle, out_handle):
@@ -51,7 +56,11 @@ def clean_tabular(raw_handle, out_handle):
     positive = 0
     errors = 0
     for line in raw_handle:
-        if not line or line.startswith("#") or line.startswith("Id; Description; Score;"):
+        if (
+            not line
+            or line.startswith("#")
+            or line.startswith("Id; Description; Score;")
+        ):
             continue
         assert line.count(";") >= 3, repr(line)
         # Normally there will just be three semi-colons, however the
@@ -82,8 +91,9 @@ def run(cmd):
     # Avoid using shell=True when we call subprocess to ensure if the Python
     # script is killed, so too is the child process.
     try:
-        child = subprocess.Popen(cmd, universal_newlines=True,
-                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        child = subprocess.Popen(
+            cmd, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
     except Exception as err:
         sys.exit("Error invoking command:\n%s\n\n%s\n" % (" ".join(cmd), err))
     # Use .communicate as can get deadlocks with .wait(),
@@ -92,9 +102,14 @@ def run(cmd):
     if return_code or stderr.startswith("Exception in thread"):
         cmd_str = " ".join(cmd)  # doesn't quote spaces etc
         if stderr and stdout:
-            sys.exit("Return code %i from command:\n%s\n\n%s\n\n%s" % (return_code, cmd_str, stdout, stderr))
+            sys.exit(
+                "Return code %i from command:\n%s\n\n%s\n\n%s"
+                % (return_code, cmd_str, stdout, stderr)
+            )
         else:
-            sys.exit("Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr))
+            sys.exit(
+                "Return code %i from command:\n%s\n%s" % (return_code, cmd_str, stderr)
+            )
 
 
 try:
@@ -116,8 +131,7 @@ except ImportError:
         # Additionally check that `file` is not a directory, as on Windows
         # directories pass the os.access check.
         def _access_check(fn, mode):
-            return (os.path.exists(fn) and os.access(fn, mode) and
-                    not os.path.isdir(fn))
+            return os.path.exists(fn) and os.access(fn, mode) and not os.path.isdir(fn)
 
         # Short circuit. If we're given a full path which matches the mode
         # and it exists, we're done here.
@@ -180,13 +194,22 @@ if not effective_t3_dir or not effective_t3_jar:
     sys.exit("Effective T3 JAR file %r not found in %r" % (effective_t3_jarname, dirs))
 
 if not os.path.isdir(os.path.join(effective_t3_dir, "module")):
-    sys.exit("Effective T3 module folder not found: %r" % os.path.join(effective_t3_dir, "module"))
+    sys.exit(
+        "Effective T3 module folder not found: %r"
+        % os.path.join(effective_t3_dir, "module")
+    )
 
 effective_t3_model = os.path.join(effective_t3_dir, "module", model)
 if not os.path.isfile(effective_t3_model):
-    sys.stderr.write("Contents of %r is %s\n"
-                     % (os.path.join(effective_t3_dir, "module"),
-                        ", ".join(repr(p) for p in os.listdir(os.path.join(effective_t3_dir, "module")))))
+    sys.stderr.write(
+        "Contents of %r is %s\n"
+        % (
+            os.path.join(effective_t3_dir, "module"),
+            ", ".join(
+                repr(p) for p in os.listdir(os.path.join(effective_t3_dir, "module"))
+            ),
+        )
+    )
     sys.stderr.write("Main JAR was found: %r\n" % effective_t3_jar)
     sys.exit("Effective T3 model JAR file not found: %r" % effective_t3_model)
 
@@ -200,12 +223,20 @@ else:
 tabular_file = os.path.abspath(tabular_file)
 fasta_file = os.path.abspath(fasta_file)
 
-cmd = ["java", "-jar", effective_t3_jar,
-       "-f", fasta_file,
-       "-m", model,
-       "-t", threshold,
-       "-o", temp_file,
-       "-q"]
+cmd = [
+    "java",
+    "-jar",
+    effective_t3_jar,
+    "-f",
+    fasta_file,
+    "-m",
+    model,
+    "-t",
+    threshold,
+    "-o",
+    temp_file,
+    "-q",
+]
 
 try:
     # Must run from directory above the module subfolder:
@@ -228,8 +259,7 @@ out_handle.close()
 os.remove(temp_file)
 
 if errors:
-    print("%i sequences, %i positive, %i errors"
-          % (count, positive, errors))
+    print("%i sequences, %i positive, %i errors" % (count, positive, errors))
 else:
     print("%i/%i sequences positive" % (positive, count))
 

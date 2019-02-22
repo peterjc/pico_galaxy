@@ -30,21 +30,40 @@ $ python coverage_stats.py -b mapped.bam -i mapped.bai -o summary.tsv -d 10000
 """
 
 parser = OptionParser(usage=usage)
-parser.add_option('-b', '--bam', dest='input_bam', default=None,
-                  help='Input BAM file',
-                  metavar='FILE')
-parser.add_option('-i', '--bai', dest='input_bai', default="-",
-                  help='Input BAI file (BAM index, optional, default or - infer from BAM filename)',
-                  metavar='FILE')
-parser.add_option('-o', dest='output_tabular', default="-",
-                  help='Output tabular file (optional, default stdout)',
-                  metavar='FILE')
-parser.add_option('-d', '--maxdepth', dest='max_depth', default=8000,
-                  help='Max coverage depth (integer, default 8000)',
-                  type='int')
-parser.add_option('-v', '--version', dest='version',
-                  default=False, action='store_true',
-                  help='Show version and quit')
+parser.add_option(
+    "-b", "--bam", dest="input_bam", default=None, help="Input BAM file", metavar="FILE"
+)
+parser.add_option(
+    "-i",
+    "--bai",
+    dest="input_bai",
+    default="-",
+    help="Input BAI file (BAM index, optional, default or - infer from BAM filename)",
+    metavar="FILE",
+)
+parser.add_option(
+    "-o",
+    dest="output_tabular",
+    default="-",
+    help="Output tabular file (optional, default stdout)",
+    metavar="FILE",
+)
+parser.add_option(
+    "-d",
+    "--maxdepth",
+    dest="max_depth",
+    default=8000,
+    help="Max coverage depth (integer, default 8000)",
+    type="int",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 
 options, args = parser.parse_args()
 
@@ -110,9 +129,12 @@ def clean_up():
 
 def samtools_depth_opt_available():
     """Determine if samtools depth supports maximum coverage argument."""
-    child = subprocess.Popen(["samtools", "depth"],
-                             universal_newlines=True,
-                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    child = subprocess.Popen(
+        ["samtools", "depth"],
+        universal_newlines=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     # Combined stdout/stderr in case samtools is ever inconsistent
     output, tmp = child.communicate()
     assert tmp is None
@@ -124,12 +146,16 @@ def samtools_depth_opt_available():
 depth_hack = False
 if not samtools_depth_opt_available():
     if max_depth + depth_margin <= 8000:
-        sys.stderr.write("WARNING: The version of samtools depth installed does not "
-                         "support the -d option, however, the requested max-depth "
-                         "is safely under the default of 8000.\n")
+        sys.stderr.write(
+            "WARNING: The version of samtools depth installed does not "
+            "support the -d option, however, the requested max-depth "
+            "is safely under the default of 8000.\n"
+        )
         depth_hack = True
     else:
-        sys.exit("The version of samtools depth installed does not support the -d option.")
+        sys.exit(
+            "The version of samtools depth installed does not support the -d option."
+        )
 
 # Run samtools idxstats:
 cmd = 'samtools idxstats "%s" > "%s"' % (bam_file, idxstats_filename)
@@ -145,7 +171,11 @@ if depth_hack:
     # of 8000 should be fine even allowing a margin for fuzzy output
     cmd = 'samtools depth "%s" > "%s"' % (bam_file, depth_filename)
 else:
-    cmd = 'samtools depth -d %i "%s" > "%s"' % (max_depth + depth_margin, bam_file, depth_filename)
+    cmd = 'samtools depth -d %i "%s" > "%s"' % (
+        max_depth + depth_margin,
+        bam_file,
+        depth_filename,
+    )
 return_code = os.system(cmd)
 if return_code:
     clean_up()
@@ -250,21 +280,28 @@ for line in idxstats_handle:
         mean_cov = 0.0
         bases = 0
     else:
-        min_cov, max_cov, mean_cov, bases = load_total_coverage(depth_handle, identifier, length)
+        min_cov, max_cov, mean_cov, bases = load_total_coverage(
+            depth_handle, identifier, length
+        )
     if max_cov > max_depth:
-        sys.exit("Using max depth %i yet saw max coverage %i for %s"
-                 % (max_depth, max_cov, identifier))
-    out_handle.write("%s\t%i\t%i\t%i\t%i\t%i\t%0.2f\n"
-                     % (identifier, length, mapped, placed,
-                        min_cov, max_cov, mean_cov))
+        sys.exit(
+            "Using max depth %i yet saw max coverage %i for %s"
+            % (max_depth, max_cov, identifier)
+        )
+    out_handle.write(
+        "%s\t%i\t%i\t%i\t%i\t%i\t%0.2f\n"
+        % (identifier, length, mapped, placed, min_cov, max_cov, mean_cov)
+    )
     if not (min_cov <= mean_cov <= max_cov):
         out_handle.write("ERROR, expect min_cov <= mean_cov <= max_cov\n")
         idxstats_handle.close()
         depth_handle.close()
         out_handle.close()
         clean_up()
-        sys.exit("Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
-                 % identifier)
+        sys.exit(
+            "Problem with coverage for %s, expect min_cov <= mean_cov <= max_cov"
+            % identifier
+        )
     global_length += length
     global_bases += bases
 
@@ -273,8 +310,10 @@ depth_handle.close()
 if tabular_filename != "-":
     out_handle.close()
 
-print("Total reference length %i with overall mean coverage %0.2f" %
-      (global_length, float(global_bases) / global_length))
+print(
+    "Total reference length %i with overall mean coverage %0.2f"
+    % (global_length, float(global_bases) / global_length)
+)
 
 # Remove the temp symlinks and files:
 clean_up()

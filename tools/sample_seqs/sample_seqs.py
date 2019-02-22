@@ -36,30 +36,57 @@ instead you have two matched files (one for each pair), run the two
 twice with the same sampling options to make to matched smaller files.
 """
 parser = OptionParser(usage=usage)
-parser.add_option('-i', '--input', dest='input',
-                  default=None, help='Input sequences filename',
-                  metavar="FILE")
-parser.add_option('-f', '--format', dest='format',
-                  default=None,
-                  help='Input sequence format (e.g. fasta, fastq, sff)')
-parser.add_option('-o', '--output', dest='output',
-                  default=None, help='Output sampled sequenced filename',
-                  metavar="FILE")
-parser.add_option('-p', '--percent', dest='percent',
-                  default=None,
-                  help='Take this percent of the reads')
-parser.add_option('-n', '--everyn', dest='everyn',
-                  default=None,
-                  help='Take every N-th read')
-parser.add_option('-c', '--count', dest='count',
-                  default=None,
-                  help='Take exactly N reads')
-parser.add_option("--interleaved", dest="interleaved",
-                  default=False, action="store_true",
-                  help="Input is interleaved reads, preserve the pairings")
-parser.add_option("-v", "--version", dest="version",
-                  default=False, action="store_true",
-                  help="Show version and quit")
+parser.add_option(
+    "-i",
+    "--input",
+    dest="input",
+    default=None,
+    help="Input sequences filename",
+    metavar="FILE",
+)
+parser.add_option(
+    "-f",
+    "--format",
+    dest="format",
+    default=None,
+    help="Input sequence format (e.g. fasta, fastq, sff)",
+)
+parser.add_option(
+    "-o",
+    "--output",
+    dest="output",
+    default=None,
+    help="Output sampled sequenced filename",
+    metavar="FILE",
+)
+parser.add_option(
+    "-p",
+    "--percent",
+    dest="percent",
+    default=None,
+    help="Take this percent of the reads",
+)
+parser.add_option(
+    "-n", "--everyn", dest="everyn", default=None, help="Take every N-th read"
+)
+parser.add_option(
+    "-c", "--count", dest="count", default=None, help="Take exactly N reads"
+)
+parser.add_option(
+    "--interleaved",
+    dest="interleaved",
+    default=False,
+    action="store_true",
+    help="Input is interleaved reads, preserve the pairings",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 options, args = parser.parse_args()
 
 if options.version:
@@ -153,12 +180,14 @@ elif options.everyn:
             count += 1
             if count % N == 1:
                 yield record
+
+
 elif options.percent:
     try:
         percent = float(options.percent) / 100.0
     except ValueError:
         sys.exit("Bad -p percent argument %r" % options.percent)
-    if not(0.0 <= percent <= 1.0):
+    if not (0.0 <= percent <= 1.0):
         sys.exit("Bad -p percent argument %r" % options.percent)
     sys.stderr.write("Sampling %0.3f%% of sequences\n" % (100.0 * percent))
 
@@ -172,6 +201,8 @@ elif options.percent:
             if percent * count > taken:
                 taken += 1
                 yield record
+
+
 elif options.count:
     try:
         N = int(options.count)
@@ -184,11 +215,14 @@ elif options.count:
     if interleaved:
         # Paired
         if total % 2:
-            sys.exit("Paired mode, but input file has an odd number of sequences: %i"
-                     % total)
+            sys.exit(
+                "Paired mode, but input file has an odd number of sequences: %i" % total
+            )
         elif N > total // 2:
-            sys.exit("Requested %i sequence pairs, but file only has %i pairs (%i sequences)."
-                     % (N, total // 2, total))
+            sys.exit(
+                "Requested %i sequence pairs, but file only has %i pairs (%i sequences)."
+                % (N, total // 2, total)
+            )
         total = total // 2
         if N == 1:
             sys.stderr.write("Sampling just first sequence pair!\n")
@@ -207,6 +241,7 @@ elif options.count:
         else:
             sys.stderr.write("Sampling %i sequences\n" % N)
     if N == total:
+
         def sampler(iterator):
             """No-operation dummy filter, taking everything."""
             global N
@@ -215,7 +250,9 @@ elif options.count:
                 taken += 1
                 yield record
             assert taken == N, "Picked %i, wanted %i" % (taken, N)
+
     else:
+
         def sampler(iterator):
             """Sample given number of sequences."""
             # Mimic the percentage sampler, with double check on final count
@@ -241,6 +278,8 @@ elif options.count:
                     taken += 1
                     yield record
             assert taken == N, "Picked %i, wanted %i" % (taken, N)
+
+
 else:
     sys.exit("Must use either -n, -p or -c")
 
@@ -268,8 +307,7 @@ def raw_fasta_iterator(handle):
     no_id_warned = False
     while True:
         if line[0] != ">":
-            raise ValueError(
-                "Records in Fasta files should start with '>' character")
+            raise ValueError("Records in Fasta files should start with '>' character")
         try:
             line[1:].split(None, 1)[0]
         except IndexError:
@@ -317,7 +355,9 @@ def fastq_filter(in_file, out_file, iterator_filter, inter):
                     pos_handle.write("@%s\n%s\n+\n%s\n" % r1)
                     pos_handle.write("@%s\n%s\n+\n%s\n" % r2)
             else:
-                for title, seq, qual in iterator_filter(FastqGeneralIterator(in_handle)):
+                for title, seq, qual in iterator_filter(
+                    FastqGeneralIterator(in_handle)
+                ):
                     count += 1
                     pos_handle.write("@%s\n%s\n+\n%s\n" % (title, seq, qual))
     return count
@@ -341,7 +381,10 @@ def sff_filter(in_file, out_file, iterator_filter, inter):
             in_handle.seek(0)  # start again after getting manifest
             if inter:
                 from itertools import chain
-                count = writer.write_file(chain.from_iterable(iterator_filter(pair(SffIterator(in_handle)))))
+
+                count = writer.write_file(
+                    chain.from_iterable(iterator_filter(pair(SffIterator(in_handle))))
+                )
                 assert count % 2 == 0, "Odd number of records? %i" % count
                 count /= 2
             else:

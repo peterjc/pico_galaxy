@@ -22,7 +22,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system(cmd))
 
 if len(sys.argv) != 5:
-    sys.exit("Require four arguments: padded FASTA, SAM/BAM file, format (SAM or BAM), output BAM filenames")
+    sys.exit(
+        "Require four arguments: padded FASTA, SAM/BAM file, format (SAM or BAM), output BAM filenames"
+    )
 
 padded_ref, bam_filename, input_format, output_filename = sys.argv[1:]
 
@@ -35,9 +37,17 @@ if input_format.lower() not in ["sam", "bam"]:
 
 # Run samtools depad:
 if input_format.lower() == "sam":
-    cmd = "samtools depad -S -T '%s' '%s' > '%s'" % (padded_ref, bam_filename, output_filename)
+    cmd = "samtools depad -S -T '%s' '%s' > '%s'" % (
+        padded_ref,
+        bam_filename,
+        output_filename,
+    )
 else:
-    cmd = "samtools depad -T '%s' '%s' > '%s'" % (padded_ref, bam_filename, output_filename)
+    cmd = "samtools depad -T '%s' '%s' > '%s'" % (
+        padded_ref,
+        bam_filename,
+        output_filename,
+    )
 return_code = os.system(cmd)
 
 if return_code:

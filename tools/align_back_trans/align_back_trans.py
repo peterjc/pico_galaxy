@@ -37,8 +37,10 @@ if "-v" in sys.argv or "--version" in sys.argv:
 def check_trans(identifier, nuc, prot, table):
     """Return nucleotide sequence, if works (can remove trailing stop)."""
     if len(nuc) % 3:
-        sys.exit("Nucleotide sequence for %s is length %i (not a multiple of three)"
-                 % (identifier, len(nuc)))
+        sys.exit(
+            "Nucleotide sequence for %s is length %i (not a multiple of three)"
+            % (identifier, len(nuc))
+        )
 
     p = str(prot).upper().replace("*", "X")
     t = str(nuc.translate(table)).upper().replace("*", "X")
@@ -48,9 +50,11 @@ def check_trans(identifier, nuc, prot, table):
             t = t[:-1]
             nuc = nuc[:-3]  # edit return value
     if len(t) != len(p):
-        err = ("Inconsistent lengths for %s, ungapped protein %i, "
-               "tripled %i vs ungapped nucleotide %i." %
-               (identifier, len(p), len(p) * 3, len(nuc)))
+        err = (
+            "Inconsistent lengths for %s, ungapped protein %i, "
+            "tripled %i vs ungapped nucleotide %i."
+            % (identifier, len(p), len(p) * 3, len(nuc))
+        )
         if t.endswith(p):
             err += "\nThere are %i extra nucleotides at the start." % (len(t) - len(p))
         elif t.startswith(p):
@@ -69,9 +73,11 @@ def check_trans(identifier, nuc, prot, table):
         if str(nuc[0:3]).upper() in ambiguous_generic_by_id[table].start_codons:
             return nuc
         else:
-            sys.exit("Translation check failed for %s\n"
-                     "Would match if %s was a start codon (check correct table used)\n"
-                     % (identifier, nuc[0:3].upper()))
+            sys.exit(
+                "Translation check failed for %s\n"
+                "Would match if %s was a start codon (check correct table used)\n"
+                % (identifier, nuc[0:3].upper())
+            )
     else:
         # Allow * vs X here? e.g. internal stop codons
         m = "".join("." if x == y else "!" for (x, y) in zip(p, t))
@@ -81,13 +87,15 @@ def check_trans(identifier, nuc, prot, table):
             sys.stderr.write("Translation: %s\n" % t)
         else:
             for offset in range(0, len(p), 60):
-                sys.stderr.write("Protein:     %s\n" % p[offset:offset + 60])
-                sys.stderr.write("             %s\n" % m[offset:offset + 60])
-                sys.stderr.write("Translation: %s\n\n" % t[offset:offset + 60])
+                sys.stderr.write("Protein:     %s\n" % p[offset : offset + 60])
+                sys.stderr.write("             %s\n" % m[offset : offset + 60])
+                sys.stderr.write("Translation: %s\n\n" % t[offset : offset + 60])
         sys.exit("Translation check failed for %s\n" % identifier)
 
 
-def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record, gap, table=0):
+def sequence_back_translate(
+    aligned_protein_record, unaligned_nucleotide_record, gap, table=0
+):
     """Back-translate a sequence."""
     # TODO - Separate arguments for protein gap and nucleotide gap?
     if not gap or len(gap) != 1:
@@ -99,20 +107,27 @@ def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record,
         assert len(gap_codon) == 3
     else:
         from Bio.Alphabet import Gapped
+
         alpha = Gapped(alpha, gap)
         gap_codon = gap * 3
 
     ungapped_protein = aligned_protein_record.seq.ungap(gap)
     ungapped_nucleotide = unaligned_nucleotide_record.seq
     if table:
-        ungapped_nucleotide = check_trans(aligned_protein_record.id, ungapped_nucleotide, ungapped_protein, table)
+        ungapped_nucleotide = check_trans(
+            aligned_protein_record.id, ungapped_nucleotide, ungapped_protein, table
+        )
     elif len(ungapped_protein) * 3 != len(ungapped_nucleotide):
-        sys.exit("Inconsistent lengths for %s, ungapped protein %i, "
-                 "tripled %i vs ungapped nucleotide %i" %
-                 (aligned_protein_record.id,
-                  len(ungapped_protein),
-                  len(ungapped_protein) * 3,
-                  len(ungapped_nucleotide)))
+        sys.exit(
+            "Inconsistent lengths for %s, ungapped protein %i, "
+            "tripled %i vs ungapped nucleotide %i"
+            % (
+                aligned_protein_record.id,
+                len(ungapped_protein),
+                len(ungapped_protein) * 3,
+                len(ungapped_nucleotide),
+            )
+        )
 
     seq = []
     nuc = str(ungapped_nucleotide)
@@ -122,8 +137,10 @@ def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record,
         else:
             seq.append(nuc[:3])
             nuc = nuc[3:]
-    assert not nuc, "Nucleotide sequence for %r longer than protein %r" \
-        % (unaligned_nucleotide_record.id, aligned_protein_record.id)
+    assert not nuc, "Nucleotide sequence for %r longer than protein %r" % (
+        unaligned_nucleotide_record.id,
+        aligned_protein_record.id,
+    )
 
     aligned_nuc = unaligned_nucleotide_record[:]  # copy for most annotation
     aligned_nuc.letter_annotation = {}  # clear this
@@ -132,7 +149,9 @@ def sequence_back_translate(aligned_protein_record, unaligned_nucleotide_record,
     return aligned_nuc
 
 
-def alignment_back_translate(protein_alignment, nucleotide_records, key_function=None, gap=None, table=0):
+def alignment_back_translate(
+    protein_alignment, nucleotide_records, key_function=None, gap=None, table=0
+):
     """Thread nucleotide sequences onto a protein alignment."""
     # TODO - Separate arguments for protein and nucleotide gap characters?
     if gap is None:
@@ -149,8 +168,9 @@ def alignment_back_translate(protein_alignment, nucleotide_records, key_function
                 nucleotide = nucleotide_records[key_function(protein.id)]
                 aligned.append(sequence_back_translate(protein, nucleotide, gap, table))
     except KeyError:
-        raise ValueError("Could not find nucleotide sequence for protein %r"
-                         % protein.id)
+        raise ValueError(
+            "Could not find nucleotide sequence for protein %r" % protein.id
+        )
 
     return MultipleSeqAlignment(aligned)
 
@@ -165,7 +185,8 @@ elif len(sys.argv) == 5:
 elif len(sys.argv) == 6:
     align_format, prot_align_file, nuc_fasta_file, nuc_align_file, table = sys.argv[1:]
 else:
-    sys.exit("""This is a Python script for 'back-translating' a protein alignment,
+    sys.exit(
+        """This is a Python script for 'back-translating' a protein alignment,
 
 It requires three, four or five arguments:
 - alignment format (e.g. fasta, clustal),
@@ -185,7 +206,8 @@ Warning: If the output file already exists, it will be overwritten.
 This script is available with sample data and a Galaxy wrapper here:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
 http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
-""")
+"""
+    )
 
 try:
     table = int(table)

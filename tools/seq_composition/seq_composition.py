@@ -33,19 +33,49 @@ it.
 # TODO - GenBank / EMBL input? Needs the datatype defined...
 # TODO - Handle all the FASTQ datatype subclasses in the XML cheetah code?
 parser = OptionParser(usage=usage)
-parser.add_option('-f', '--fasta', dest='fasta', action="append", default=[],
-                  help='Input sequence filename in FASTA format')
-parser.add_option('-q', '--fastq', '--fastqsanger', '--fastqillumina', '--fastqsolexa',
-                  dest='fastq', action="append", default=[],
-                  help='Input sequence filename in FASTQ format')
-parser.add_option('-s', '--sff', dest='sff', action="append", default=[],
-                  help='Input sequence filename in SFF format')
-parser.add_option('-o', '--output', dest='output',
-                  default=None, help='Output filename (tabular)',
-                  metavar="FILE")
-parser.add_option("-v", "--version", dest="version",
-                  default=False, action="store_true",
-                  help="Show version and quit")
+parser.add_option(
+    "-f",
+    "--fasta",
+    dest="fasta",
+    action="append",
+    default=[],
+    help="Input sequence filename in FASTA format",
+)
+parser.add_option(
+    "-q",
+    "--fastq",
+    "--fastqsanger",
+    "--fastqillumina",
+    "--fastqsolexa",
+    dest="fastq",
+    action="append",
+    default=[],
+    help="Input sequence filename in FASTQ format",
+)
+parser.add_option(
+    "-s",
+    "--sff",
+    dest="sff",
+    action="append",
+    default=[],
+    help="Input sequence filename in SFF format",
+)
+parser.add_option(
+    "-o",
+    "--output",
+    dest="output",
+    default=None,
+    help="Output filename (tabular)",
+    metavar="FILE",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 options, args = parser.parse_args()
 
 if options.version:
@@ -62,10 +92,11 @@ file_count = 0
 seq_count = 0
 counts = dict()
 
-for format, filenames in [("fasta", options.fasta),
-                          ("fastq", options.fastq),
-                          ("sff-trim", options.sff),
-                          ]:
+for format, filenames in [
+    ("fasta", options.fasta),
+    ("fastq", options.fastq),
+    ("sff-trim", options.sff),
+]:
     for filename in filenames:
         file_count += 1
         for record in SeqIO.parse(filename, format):
@@ -77,8 +108,10 @@ for format, filenames in [("fasta", options.fasta),
                     counts[letter] = 1
 
 total = sum(counts.values())
-sys.stderr.write("Counted %i sequence letters from %i records from %i files\n" %
-                 (total, seq_count, file_count))
+sys.stderr.write(
+    "Counted %i sequence letters from %i records from %i files\n"
+    % (total, seq_count, file_count)
+)
 
 scale = 100.0 / total
 with open(options.output, "w") as handle:

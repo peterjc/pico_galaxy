@@ -22,7 +22,7 @@ def run(cmd):
         sys.exit("Error %i from: %s" % (return_code, cmd))
 
 
-if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
+if "-v" in sys.argv[1:] or "--version" in sys.argv[1:]:
     print("MUMmer wrapper v0.0.8\n")
     # TODO - How to get a version string from the mummer binary?
     os.system("nucmer --version")
@@ -37,14 +37,18 @@ if "-v" in sys.argv[1:]or "--version" in sys.argv[1:]:
 try:
     fasta_a, fasta_b, algorithm, png_out, pdf_out = sys.argv[1:]
 except ValueError:
-    sys.exit("Expect 5 arguments (FASTA, FASTA, algorithm, PNG out, PDF out), got %i"
-             % (len(sys.argv) - 1))
+    sys.exit(
+        "Expect 5 arguments (FASTA, FASTA, algorithm, PNG out, PDF out), got %i"
+        % (len(sys.argv) - 1)
+    )
 
 
 valid_algo = ["mummer", "nucmer", "promer"]
 if algorithm not in valid_algo:
-    sys.exit("Invalid algorithm argument %r, should be: %s"
-             % (algorithm, ", ".join(valid_algo)))
+    sys.exit(
+        "Invalid algorithm argument %r, should be: %s"
+        % (algorithm, ", ".join(valid_algo))
+    )
 
 base_path = tempfile.mkdtemp()
 prefix = os.path.join(base_path, "ref_qry")
@@ -67,7 +71,12 @@ output_failed = False
 
 # PNG
 # ===
-cmd = 'mummerplot -R "%s" -Q "%s" --png --large --prefix=%s %s' % (fasta_a, fasta_b, prefix, coords)
+cmd = 'mummerplot -R "%s" -Q "%s" --png --large --prefix=%s %s' % (
+    fasta_a,
+    fasta_b,
+    prefix,
+    coords,
+)
 run(cmd)
 if os.path.isfile(png_image):
     shutil.move(png_image, png_out)
@@ -83,7 +92,12 @@ else:
 # things don't seem to be lined up properly :(
 #
 # Using "set size 1,1" works better - which is what --small gives:
-cmd = 'mummerplot -R "%s" -Q "%s" --postscript --small --prefix=%s %s' % (fasta_a, fasta_b, prefix, coords)
+cmd = 'mummerplot -R "%s" -Q "%s" --postscript --small --prefix=%s %s' % (
+    fasta_a,
+    fasta_b,
+    prefix,
+    coords,
+)
 run(cmd)
 if not os.path.isfile(ps_image):
     sys.stderr.write("ERROR: PostScript file needed for PDF output was not created.\n")

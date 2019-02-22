@@ -122,8 +122,12 @@ re_illumina_f = re.compile(r"^[a-zA-Z0-9_:-]+ 1:.*$")
 re_illumina_r = re.compile(r"^[a-zA-Z0-9_:-]+ 2:.*$")
 assert re_illumina_f.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
 assert re_illumina_r.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
-assert not re_illumina_f.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
-assert not re_illumina_r.match("HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
+assert not re_illumina_f.match(
+    "HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA"
+)
+assert not re_illumina_r.match(
+    "HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA"
+)
 
 FASTQ_TEMPLATE = "@%s\n%s\n+\n%s\n"
 
@@ -147,7 +151,7 @@ for title, seq, qual in FastqGeneralIterator(in_handle):
         # ============
         # Forward read
         # ============
-        template = name[:suffix.start()]
+        template = name[: suffix.start()]
         is_forward = True
     elif re_illumina_f.match(title):
         template = name  # No suffix
@@ -172,7 +176,7 @@ for title, seq, qual in FastqGeneralIterator(in_handle):
             # ============
             # Reverse read
             # ============
-            template = name[:suffix.start()]
+            template = name[: suffix.start()]
             is_reverse = True
         elif re_illumina_r.match(title):
             template = name  # No suffix
@@ -226,12 +230,26 @@ else:
     pairs_r_handle.close()
 
 if neither:
-    print("%i reads (%i forward, %i reverse, %i neither), %i in pairs, %i as singles"
-          % (count, forward, reverse, neither, pairs, singles))
+    print(
+        "%i reads (%i forward, %i reverse, %i neither), %i in pairs, %i as singles"
+        % (count, forward, reverse, neither, pairs, singles)
+    )
 else:
-    print("%i reads (%i forward, %i reverse), %i in pairs, %i as singles"
-          % (count, forward, reverse, pairs, singles))
+    print(
+        "%i reads (%i forward, %i reverse), %i in pairs, %i as singles"
+        % (count, forward, reverse, pairs, singles)
+    )
 
-assert count == pairs + singles == forward + reverse + neither, \
-    "%i vs %i+%i=%i vs %i+%i+%i=%i" \
-    % (count, pairs, singles, pairs + singles, forward, reverse, neither, forward + reverse + neither)
+assert count == pairs + singles == forward + reverse + neither, (
+    "%i vs %i+%i=%i vs %i+%i+%i=%i"
+    % (
+        count,
+        pairs,
+        singles,
+        pairs + singles,
+        forward,
+        reverse,
+        neither,
+        forward + reverse + neither,
+    )
+)

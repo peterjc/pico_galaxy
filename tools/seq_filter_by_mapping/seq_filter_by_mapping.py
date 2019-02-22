@@ -40,26 +40,52 @@ $ seq_filter_by_mapping.py -i my_seqs.fastq -f fastq -p matches.fastq mapping.ba
 Multiple SAM/BAM mapping files may be given.
 """
 parser = OptionParser(usage=usage)
-parser.add_option('-i', '--input', dest='input',
-                  default=None, help='Input sequences filename',
-                  metavar="FILE")
-parser.add_option('-f', '--format', dest='format',
-                  default=None,
-                  help='Input sequence format (e.g. fasta, fastq, sff)')
-parser.add_option('-p', '--positive', dest='output_positive',
-                  default=None,
-                  help='Output filename for mapping reads',
-                  metavar="FILE")
-parser.add_option('-n', '--negative', dest='output_negative',
-                  default=None,
-                  help='Output filename for non-mapping reads',
-                  metavar="FILE")
-parser.add_option("-m", "--pair-mode", dest="pair_mode",
-                  default="lax",
-                  help="How to treat paired reads (lax or strict, default lax)")
-parser.add_option("-v", "--version", dest="version",
-                  default=False, action="store_true",
-                  help="Show version and quit")
+parser.add_option(
+    "-i",
+    "--input",
+    dest="input",
+    default=None,
+    help="Input sequences filename",
+    metavar="FILE",
+)
+parser.add_option(
+    "-f",
+    "--format",
+    dest="format",
+    default=None,
+    help="Input sequence format (e.g. fasta, fastq, sff)",
+)
+parser.add_option(
+    "-p",
+    "--positive",
+    dest="output_positive",
+    default=None,
+    help="Output filename for mapping reads",
+    metavar="FILE",
+)
+parser.add_option(
+    "-n",
+    "--negative",
+    dest="output_negative",
+    default=None,
+    help="Output filename for non-mapping reads",
+    metavar="FILE",
+)
+parser.add_option(
+    "-m",
+    "--pair-mode",
+    dest="pair_mode",
+    default="lax",
+    help="How to treat paired reads (lax or strict, default lax)",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 
 options, args = parser.parse_args()
 
@@ -114,7 +140,7 @@ def clean_name(name):
     if match:
         # Use the fact this is a suffix, and regular expression will be
         # anchored to the end of the name:
-        return name[:match.start()]
+        return name[: match.start()]
     else:
         # Nothing to do
         return name
@@ -128,19 +154,19 @@ assert clean_name("baz.p1") == "baz"
 assert clean_name("baz.q2") == "baz"
 
 mapped_chars = {
-    '>': '__gt__',
-    '<': '__lt__',
-    "'": '__sq__',
-    '"': '__dq__',
-    '[': '__ob__',
-    ']': '__cb__',
-    '{': '__oc__',
-    '}': '__cc__',
-    '@': '__at__',
-    '\n': '__cn__',
-    '\r': '__cr__',
-    '\t': '__tc__',
-    '#': '__pd__',
+    ">": "__gt__",
+    "<": "__lt__",
+    "'": "__sq__",
+    '"': "__dq__",
+    "[": "__ob__",
+    "]": "__cb__",
+    "{": "__oc__",
+    "}": "__cc__",
+    "@": "__at__",
+    "\n": "__cn__",
+    "\r": "__cr__",
+    "\t": "__tc__",
+    "#": "__pd__",
 }
 
 
@@ -155,11 +181,13 @@ def load_mapping_ids(filename, pair_mode, ids):
     if magic == b"\x1f\x8b\x08\x04":
         # Presumably a BAM file then...
         # Call samtools view, don't need header so no -h added:
-        child = subprocess.Popen(["samtools", "view", filename],
-                                 universal_newlines=True,
-                                 stdin=None,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
+        child = subprocess.Popen(
+            ["samtools", "view", filename],
+            universal_newlines=True,
+            stdin=None,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         handle = child.stdout
     else:
         # Presumably a SAM file...
@@ -180,7 +208,7 @@ def load_mapping_ids(filename, pair_mode, ids):
                     ids.add(qname)
             elif pair_mode == "strict":
                 # For paired reads, require BOTH be mapped.
-                if (flag & 0x4):
+                if flag & 0x4:
                     # This is unmapped, ignore it
                     pass
                 elif not (flag & 0x1):
@@ -194,8 +222,11 @@ def load_mapping_ids(filename, pair_mode, ids):
         stdout, stderr = child.communicate()
         assert child.returncode is not None
         if child.returncode:
-            msg = "Error %i from 'samtools view %s'\n%s" % (child.returncode,
-                                                            filename, stderr)
+            msg = "Error %i from 'samtools view %s'\n%s" % (
+                child.returncode,
+                filename,
+                stderr,
+            )
             sys.exit(msg.strip(), child.returncode)
     else:
         handle.close()
@@ -224,8 +255,7 @@ def crude_fasta_iterator(handle):
     no_id_warned = False
     while True:
         if line[0] != ">":
-            raise ValueError(
-                "Records in Fasta files should start with '>' character")
+            raise ValueError("Records in Fasta files should start with '>' character")
         try:
             id = line[1:].split(None, 1)[0]
         except IndexError:
@@ -290,6 +320,7 @@ def fasta_filter(in_file, pos_file, neg_file, wanted):
 def fastq_filter(in_file, pos_file, neg_file, wanted):
     """FASTQ filter."""
     from Bio.SeqIO.QualityIO import FastqGeneralIterator
+
     pos_count = neg_count = 0
     handle = open(in_file, "r")
     if pos_file is not None and neg_file is not None:
@@ -357,13 +388,17 @@ def sff_filter(in_file, pos_file, neg_file, wanted):
         out_handle = open(pos_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0)  # start again after getting manifest
-        pos_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted)
+        pos_count = writer.write_file(
+            rec for rec in SffIterator(in_handle) if clean_name(rec.id) in wanted
+        )
         out_handle.close()
     if neg_file is not None:
         out_handle = open(neg_file, "wb")
         writer = SffWriter(out_handle, xml=manifest)
         in_handle.seek(0)  # start again
-        neg_count = writer.write_file(rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in wanted)
+        neg_count = writer.write_file(
+            rec for rec in SffIterator(in_handle) if clean_name(rec.id) not in wanted
+        )
         out_handle.close()
     # And we're done
     in_handle.close()
@@ -379,7 +414,9 @@ elif seq_format.lower().startswith("fastq"):
 else:
     sys.exit("Unsupported file type %r" % seq_format)
 
-pos_count, neg_count = sequence_filter(in_file, out_positive_file, out_negative_file, ids)
+pos_count, neg_count = sequence_filter(
+    in_file, out_positive_file, out_negative_file, ids
+)
 print("%i mapped and %i unmapped reads." % (pos_count, neg_count))
 fraction = float(pos_count) * 100.0 / float(pos_count + neg_count)
 print("In total %i reads, of which %0.1f%% mapped." % (pos_count + neg_count, fraction))

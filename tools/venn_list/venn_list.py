@@ -20,7 +20,9 @@ try:
 except ImportError:
     sys.exit("Requires the Python library rpy (to call R)")
 except RuntimeError as err:
-    sys.exit("The Python library rpy is not availble for the current R version\n\n%s" % err)
+    sys.exit(
+        "The Python library rpy is not availble for the current R version\n\n%s" % err
+    )
 
 try:
     rpy.r.library("limma")
@@ -29,7 +31,10 @@ except Exception:
 
 
 if len(sys.argv) - 1 not in [7, 10, 13]:
-    sys.exit("Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i" % (len(sys.argv) - 1))
+    sys.exit(
+        "Expected 7, 10 or 13 arguments (for 1, 2 or 3 sets), not %i"
+        % (len(sys.argv) - 1)
+    )
 
 all_file, all_type, all_label = sys.argv[1:4]
 set_data = []
@@ -57,6 +62,7 @@ def load_ids(filename, filetype):
     elif filetype.startswith("fastq"):
         # Use the Galaxy library not Biopython to cope with CS
         from galaxy_utils.sequence.fastq import fastqReader
+
         handle = open(filename, "rU")
         for record in fastqReader(handle):
             # The [1:] is because the fastaReader leaves the @ on the identifer.
@@ -102,13 +108,13 @@ for s, (f, t, c) in zip(sets, set_data):
 try:
     # Create dummy Venn diagram counts object for three groups
     cols = 'c("%s")' % '","'.join("Set%i" % (i + 1) for i in range(n))
-    rpy.r('groups <- cbind(%s)' % ','.join(['1'] * n))
-    rpy.r('colnames(groups) <- %s' % cols)
-    rpy.r('vc <- vennCounts(groups)')
+    rpy.r("groups <- cbind(%s)" % ",".join(["1"] * n))
+    rpy.r("colnames(groups) <- %s" % cols)
+    rpy.r("vc <- vennCounts(groups)")
     # Populate the 2^n classes with real counts
     # Don't make any assumptions about the class order
     # print(rpy.r('vc'))
-    for index, row in enumerate(rpy.r('vc[,%s]' % cols)):
+    for index, row in enumerate(rpy.r("vc[,%s]" % cols)):
         if isinstance(row, (int, float)):
             # Hack for rpy being too clever for single element row
             row = [row]
@@ -128,10 +134,13 @@ try:
     rpy.r.assign("names", names)
     rpy.r.assign("colors", ["red", "green", "blue"][:n])
     rpy.r.pdf(pdf_file, 8, 8)
-    rpy.r("""vennDiagram(vc, include="both", names=names,
+    rpy.r(
+        """vennDiagram(vc, include="both", names=names,
                          main="%s", sub="(Total %i)",
                          circle.col=colors)
-                         """ % (all_label, len(all_ids)))
+                         """
+        % (all_label, len(all_ids))
+    )
     rpy.r.dev_off()
 except Exception as err:
     sys.exit("%s" % str(err))

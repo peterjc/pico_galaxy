@@ -41,8 +41,10 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system("promoter -V"))
 
 if len(sys.argv) != 4:
-    sys.exit("Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
-             "Got %i arguments." % (len(sys.argv) - 1))
+    sys.exit(
+        "Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
+        "Got %i arguments." % (len(sys.argv) - 1)
+    )
 
 num_threads = thread_count(sys.argv[3], default=4)
 fasta_file = os.path.abspath(sys.argv[2])
@@ -96,12 +98,16 @@ def make_tabular(raw_handle, out_handle):
                 print("WARNING: Problem with line: %r" % line)
                 continue
                 # sys.exit("ERROR: Problem with line: %r" % line)
-            if likelihood not in ["ignored",
-                                  "Marginal prediction",
-                                  "Medium likely prediction",
-                                  "Highly likely prediction"]:
+            if likelihood not in [
+                "ignored",
+                "Marginal prediction",
+                "Medium likely prediction",
+                "Highly likely prediction",
+            ]:
                 sys.exit("ERROR: Problem with line: %r" % line)
-            out_handle.write("%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood))
+            out_handle.write(
+                "%s\t%s\t%s\t%s\n" % (identifier, position, score, likelihood)
+            )
     return queries
 
 
@@ -114,10 +120,13 @@ if not os.path.isfile(fasta_file):
 # split_fasta returns an empty list (i.e. zero temp files).
 # We deliberately omit the FASTA descriptions to avoid a
 # bug in promoter2 with descriptions over 200 characters.
-fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "promoter"), FASTA_CHUNK, keep_descr=False)
+fasta_files = split_fasta(
+    fasta_file, os.path.join(tmp_dir, "promoter"), FASTA_CHUNK, keep_descr=False
+)
 temp_files = [f + ".out" for f in fasta_files]
-jobs = ["%s %s > %s" % (bin, fasta, temp)
-        for fasta, temp in zip(fasta_files, temp_files)]
+jobs = [
+    "%s %s > %s" % (bin, fasta, temp) for fasta, temp in zip(fasta_files, temp_files)
+]
 
 
 def clean_up(file_list):
@@ -145,8 +154,11 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         except IOError:
             output = ""
         clean_up(fasta_files + temp_files)
-        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
-                 error_level)
+        sys.exit(
+            "One or more tasks failed, e.g. %i from %r gave:\n%s"
+            % (error_level, cmd, output),
+            error_level,
+        )
 
 del results
 del jobs

@@ -65,14 +65,18 @@ elif len(sys.argv) == 3:
     fasta_filename, tabular_filename = sys.argv[1:]
     # Use os.path.realpath(...) to handle being called via a symlink
     # Try under subdirectory data:
-    re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
-                               "data", "My_NLS_list")
+    re_filename = os.path.join(
+        os.path.dirname(os.path.realpath(sys.argv[0])), "data", "My_NLS_list"
+    )
     if not os.path.isfile(re_filename):
         # Try in same directory as this script:
-        re_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])),
-                                   "My_NLS_list")
+        re_filename = os.path.join(
+            os.path.dirname(os.path.realpath(sys.argv[0])), "My_NLS_list"
+        )
 else:
-    sys.exit("Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file")
+    sys.exit(
+        "Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file"
+    )
 
 if not os.path.isfile(fasta_filename):
     sys.exit("Could not find FASTA input file: %s" % fasta_filename)
@@ -150,7 +154,9 @@ if tabular_filename == "-":
     out_handle = sys.stdout
 else:
     out_handle = open(tabular_filename, "w")
-out_handle.write("#ID\tNLS start\tNLS seq\tNLS pattern\tType\tProtCount\t%NucProt\tProtList\tProtLoci\n")
+out_handle.write(
+    "#ID\tNLS start\tNLS seq\tNLS pattern\tType\tProtCount\t%NucProt\tProtList\tProtLoci\n"
+)
 count = 0
 nls = 0
 for idn, seq in fasta_iterator(fasta_filename):
@@ -161,10 +167,20 @@ for idn, seq in fasta_iterator(fasta_filename):
             # Perl predictnls v1.0.17 (and older) return NLS start position with zero
             # but changed to one based counting in v1.0.18 (June 2011) onwards, Bug #38
             # We therefore also use one based couting, hence the start+1 here:
-            out_handle.write("%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n"
-                             % (idn, match.start() + 1, match.group(),
-                                regex.pattern, evidence, p_count,
-                                percent_nuc_prot, proteins, domains))
+            out_handle.write(
+                "%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\n"
+                % (
+                    idn,
+                    match.start() + 1,
+                    match.group(),
+                    regex.pattern,
+                    evidence,
+                    p_count,
+                    percent_nuc_prot,
+                    proteins,
+                    domains,
+                )
+            )
             nls += 1
     count += 1
 if tabular_filename != "-":

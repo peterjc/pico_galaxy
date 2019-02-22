@@ -69,7 +69,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit("WoLF-PSORT wrapper version 0.0.11")
 
 if len(sys.argv) != 5:
-    sys.exit("Require four arguments, organism, threads, input protein FASTA file & output tabular file")
+    sys.exit(
+        "Require four arguments, organism, threads, input protein FASTA file & output tabular file"
+    )
 
 organism = sys.argv[1]
 if organism not in ["animal", "plant", "fungi"]:
@@ -88,15 +90,16 @@ def clean_tabular(raw_handle, out_handle):
         name, data = line.rstrip("\r\n").split(None, 1)
         for rank, comp_data in enumerate(data.split(",")):
             comp, score = comp_data.split()
-            out_handle.write("%s\t%s\t%s\t%i\n"
-                             % (name, comp, score, rank + 1))
+            out_handle.write("%s\t%s\t%s\t%i\n" % (name, comp, score, rank + 1))
 
 
 fasta_files = split_fasta(fasta_file, tabular_file, n=FASTA_CHUNK)
 temp_files = [f + ".out" for f in fasta_files]
 assert len(fasta_files) == len(temp_files)
-jobs = ["%s %s < %s > %s" % (exe, organism, fasta, temp)
-        for (fasta, temp) in zip(fasta_files, temp_files)]
+jobs = [
+    "%s %s < %s > %s" % (exe, organism, fasta, temp)
+    for (fasta, temp) in zip(fasta_files, temp_files)
+]
 assert len(fasta_files) == len(temp_files) == len(jobs)
 
 
@@ -120,8 +123,11 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
     if error_level or output.lower().startswith("error running"):
         clean_up(fasta_files)
         clean_up(temp_files)
-        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
-                 error_level)
+        sys.exit(
+            "One or more tasks failed, e.g. %i from %r gave:\n%s"
+            % (error_level, cmd, output),
+            error_level,
+        )
 del results
 
 out_handle = open(tabular_file, "w")

@@ -53,9 +53,13 @@ except ImportError:
 
 # Parse Command Line
 try:
-    in_file, seq_format, primer_fasta, primer_type, mm, min_len, keep_negatives, out_file = sys.argv[1:]
+    in_file, seq_format, primer_fasta, primer_type, mm, min_len, keep_negatives, out_file = sys.argv[
+        1:
+    ]
 except ValueError:
-    sys.exit("Expected 8 arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
+    sys.exit(
+        "Expected 8 arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv))
+    )
 
 if in_file == primer_fasta:
     sys.exit("Same file given as both primer sequences and sequences to clip!")
@@ -67,9 +71,13 @@ if primer_fasta == out_file:
 try:
     mm = int(mm)
 except ValueError:
-    sys.exit("Expected non-negative integer number of mismatches (e.g. 0 or 1), not %r" % mm)
+    sys.exit(
+        "Expected non-negative integer number of mismatches (e.g. 0 or 1), not %r" % mm
+    )
 if mm < 0:
-    sys.exit("Expected non-negtive integer number of mismatches (e.g. 0 or 1), not %r" % mm)
+    sys.exit(
+        "Expected non-negtive integer number of mismatches (e.g. 0 or 1), not %r" % mm
+    )
 if mm not in [0, 1, 2]:
     raise NotImplementedError
 
@@ -86,7 +94,10 @@ if keep_negatives.lower() in ["true", "yes", "on"]:
 elif keep_negatives.lower() in ["false", "no", "off"]:
     keep_negatives = False
 else:
-    sys.exit("Expected boolean for keep_negatives (e.g. true or false), not %r" % keep_negatives)
+    sys.exit(
+        "Expected boolean for keep_negatives (e.g. true or false), not %r"
+        % keep_negatives
+    )
 
 
 if primer_type.lower() == "forward":
@@ -150,20 +161,30 @@ def make_reg_ex_mm(seq, mm):
         for i, letter in enumerate(seq):
             # We'll use a set to remove any duplicate patterns
             # if letter not in "NX":
-            pattern = seq[:i] + "N" + seq[i + 1:]
-            assert len(pattern) == len(seq), ("Len %s is %i, len %s is %i"
-                                              % (pattern, len(pattern), seq, len(seq)))
+            pattern = seq[:i] + "N" + seq[i + 1 :]
+            assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" % (
+                pattern,
+                len(pattern),
+                seq,
+                len(seq),
+            )
             yield make_reg_ex(pattern)
     if mm >= 2:
         for i, letter in enumerate(seq):
             # We'll use a set to remove any duplicate patterns
             # if letter not in "NX":
-            for k, letter in enumerate(seq[i + 1:]):
+            for k, letter in enumerate(seq[i + 1 :]):
                 # We'll use a set to remove any duplicate patterns
                 # if letter not in "NX":
-                pattern = seq[:i] + "N" + seq[i + 1:i + 1 + k] + "N" + seq[i + k + 2:]
-                assert len(pattern) == len(seq), ("Len %s is %i, len %s is %i"
-                                                  % (pattern, len(pattern), seq, len(seq)))
+                pattern = (
+                    seq[:i] + "N" + seq[i + 1 : i + 1 + k] + "N" + seq[i + k + 2 :]
+                )
+                assert len(pattern) == len(seq), "Len %s is %i, len %s is %i" % (
+                    pattern,
+                    len(pattern),
+                    seq,
+                    len(seq),
+                )
                 yield make_reg_ex(pattern)
 
 
@@ -204,6 +225,7 @@ negs = 0
 if seq_format.lower() == "sff":
     # SFF is different because we just change the trim points
     if forward:
+
         def process(records):
             global short_clipped, short_neg, clipped, negs
             for record in records:
@@ -226,7 +248,9 @@ if seq_format.lower() == "sff":
                         yield record
                     else:
                         short_neg += 1
+
     else:
+
         def process(records):
             global short_clipped, short_neg, clipped, negs
             for record in records:

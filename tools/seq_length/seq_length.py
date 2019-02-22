@@ -29,20 +29,45 @@ $ python seq_length.py -i example.fasta -f fasta -o lengths.tsv
 """
 
 parser = OptionParser(usage=usage)
-parser.add_option('-i', '--input', dest='input',
-                  default=None, help='Input sequence filename (FASTA, FASTQ, etc)',
-                  metavar="FILE")
-parser.add_option('-f', '--format', dest='format',
-                  default=None, help='Input sequence format (FASTA, QUAL, FASTQ, SFF)')
-parser.add_option('-o', '--output', dest='output',
-                  default=None, help='Output filename (tabular)',
-                  metavar="FILE")
-parser.add_option("-s", "--stats", dest="stats",
-                  default=False, action="store_true",
-                  help="Compute statistics (median, N50 - will require much more RAM).")
-parser.add_option("-v", "--version", dest="version",
-                  default=False, action="store_true",
-                  help="Show version and quit")
+parser.add_option(
+    "-i",
+    "--input",
+    dest="input",
+    default=None,
+    help="Input sequence filename (FASTA, FASTQ, etc)",
+    metavar="FILE",
+)
+parser.add_option(
+    "-f",
+    "--format",
+    dest="format",
+    default=None,
+    help="Input sequence format (FASTA, QUAL, FASTQ, SFF)",
+)
+parser.add_option(
+    "-o",
+    "--output",
+    dest="output",
+    default=None,
+    help="Output filename (tabular)",
+    metavar="FILE",
+)
+parser.add_option(
+    "-s",
+    "--stats",
+    dest="stats",
+    default=False,
+    action="store_true",
+    help="Compute statistics (median, N50 - will require much more RAM).",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 options, args = parser.parse_args()
 
 if options.version:
@@ -125,11 +150,14 @@ def median_from_counts_dict(counts_dict, count=None):
 
 if sys.version_info[0] >= 3:
     from statistics import median
-    for test in [{1: 4, 2: 3},
-                 {1: 4, 3: 6},
-                 {1: 4, 5: 4},
-                 {0: 5, 1: 1, 2: 1, 3: 5},
-                 {0: 5, 1: 1, 2: 1, 3: 1, 4: 5}]:
+
+    for test in [
+        {1: 4, 2: 3},
+        {1: 4, 3: 6},
+        {1: 4, 5: 4},
+        {0: 5, 1: 1, 2: 1, 3: 5},
+        {0: 5, 1: 1, 2: 1, 3: 1, 4: 5},
+    ]:
         test_list = []
         for v, c in test.items():
             test_list.extend([v] * c)
@@ -208,7 +236,9 @@ with open(out_file, "w") as out_handle:
             else:
                 length_min = min(length_min, length)
                 length_max = max(length_max, length)
-print("%i sequences, total length %i, mean %0.1f" % (count, total, float(total) / count))
+print(
+    "%i sequences, total length %i, mean %0.1f" % (count, total, float(total) / count)
+)
 if not count:
     pass
 elif not stats:

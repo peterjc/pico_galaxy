@@ -34,9 +34,11 @@ if "-v" in sys.argv or "--version" in sys.argv:
 try:
     tabular_file, old_col_arg, new_col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    sys.exit("Expected six arguments (tabular file, old col, new col, "
-             "input file, format, output file), got %i:\n%s"
-             % (len(sys.argv) - 1, " ".join(sys.argv)))
+    sys.exit(
+        "Expected six arguments (tabular file, old col, new col, "
+        "input file, format, output file), got %i:\n%s"
+        % (len(sys.argv) - 1, " ".join(sys.argv))
+    )
 
 try:
     if old_col_arg.startswith("c"):
@@ -77,11 +79,15 @@ def parse_ids(tabular_file, old_col, new_col):
             old = parts[old_col].strip().split(None, 1)
             new = parts[new_col].strip().split(None, 1)
             if not old_warn and len(old) > 1:
-                old_warn = "WARNING: Some of your old identifiers had white space in them, " + \
-                           "using first word only. e.g.:\n%s\n" % parts[old_col].strip()
+                old_warn = (
+                    "WARNING: Some of your old identifiers had white space in them, "
+                    + "using first word only. e.g.:\n%s\n" % parts[old_col].strip()
+                )
             if not new_warn and len(new) > 1:
-                new_warn = "WARNING: Some of your new identifiers had white space in them, " + \
-                           "using first word only. e.g.:\n%s\n" % parts[new_col].strip()
+                new_warn = (
+                    "WARNING: Some of your new identifiers had white space in them, "
+                    + "using first word only. e.g.:\n%s\n" % parts[new_col].strip()
+                )
             yield old[0], new[0]
     handle.close()
     if old_warn:
@@ -133,13 +139,17 @@ if seq_format.lower() == "sff":
     in_handle.close()
 else:
     # Use Galaxy for FASTA, QUAL or FASTQ
-    if seq_format.lower() in ["fasta", "csfasta"] or seq_format.lower().startswith("qual"):
+    if seq_format.lower() in ["fasta", "csfasta"] or seq_format.lower().startswith(
+        "qual"
+    ):
         from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
+
         reader = fastaReader(open(in_file, "rU"))
         writer = fastaWriter(open(out_file, "w"))
         marker = ">"
     elif seq_format.lower().startswith("fastq"):
         from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
+
         reader = fastqReader(open(in_file, "rU"))
         writer = fastqWriter(open(out_file, "w"))
         marker = "@"

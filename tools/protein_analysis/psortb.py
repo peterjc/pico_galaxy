@@ -37,9 +37,11 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit(os.system("psort --version"))
 
 if len(sys.argv) != 8:
-    sys.exit("Require 7 arguments, number of threads (int), type (e.g. archaea), "
-             "output (e.g. terse/normal/long), cutoff, divergent, input protein "
-             "FASTA file & output tabular file")
+    sys.exit(
+        "Require 7 arguments, number of threads (int), type (e.g. archaea), "
+        "output (e.g. terse/normal/long), cutoff, divergent, input protein "
+        "FASTA file & output tabular file"
+    )
 
 num_threads = thread_count(sys.argv[1], default=4)
 org_type = sys.argv[2]
@@ -58,47 +60,117 @@ fasta_file = sys.argv[6]
 tabular_file = sys.argv[7]
 
 if out_type == "terse":
-    header = ['SeqID', 'Localization', 'Score']
+    header = ["SeqID", "Localization", "Score"]
 elif out_type == "normal":
     sys.exit("Normal output not implemented yet, sorry.")
 elif out_type == "long":
     if org_type == "-n":
         # Gram negative bacteria
-        header = ['SeqID', 'CMSVM-_Localization', 'CMSVM-_Details', 'CytoSVM-_Localization', 'CytoSVM-_Details',
-                  'ECSVM-_Localization', 'ECSVM-_Details', 'ModHMM-_Localization', 'ModHMM-_Details',
-                  'Motif-_Localization', 'Motif-_Details', 'OMPMotif-_Localization', 'OMPMotif-_Details',
-                  'OMSVM-_Localization', 'OMSVM-_Details', 'PPSVM-_Localization', 'PPSVM-_Details',
-                  'Profile-_Localization', 'Profile-_Details',
-                  'SCL-BLAST-_Localization', 'SCL-BLAST-_Details',
-                  'SCL-BLASTe-_Localization', 'SCL-BLASTe-_Details',
-                  'Signal-_Localization', 'Signal-_Details',
-                  'Cytoplasmic_Score', 'CytoplasmicMembrane_Score', 'Periplasmic_Score', 'OuterMembrane_Score',
-                  'Extracellular_Score', 'Final_Localization', 'Final_Localization_Details', 'Final_Score',
-                  'Secondary_Localization', 'PSortb_Version']
+        header = [
+            "SeqID",
+            "CMSVM-_Localization",
+            "CMSVM-_Details",
+            "CytoSVM-_Localization",
+            "CytoSVM-_Details",
+            "ECSVM-_Localization",
+            "ECSVM-_Details",
+            "ModHMM-_Localization",
+            "ModHMM-_Details",
+            "Motif-_Localization",
+            "Motif-_Details",
+            "OMPMotif-_Localization",
+            "OMPMotif-_Details",
+            "OMSVM-_Localization",
+            "OMSVM-_Details",
+            "PPSVM-_Localization",
+            "PPSVM-_Details",
+            "Profile-_Localization",
+            "Profile-_Details",
+            "SCL-BLAST-_Localization",
+            "SCL-BLAST-_Details",
+            "SCL-BLASTe-_Localization",
+            "SCL-BLASTe-_Details",
+            "Signal-_Localization",
+            "Signal-_Details",
+            "Cytoplasmic_Score",
+            "CytoplasmicMembrane_Score",
+            "Periplasmic_Score",
+            "OuterMembrane_Score",
+            "Extracellular_Score",
+            "Final_Localization",
+            "Final_Localization_Details",
+            "Final_Score",
+            "Secondary_Localization",
+            "PSortb_Version",
+        ]
     elif org_type == "-p":
         # Gram positive bacteria
-        header = ['SeqID', 'CMSVM+_Localization', 'CMSVM+_Details', 'CWSVM+_Localization', 'CWSVM+_Details',
-                  'CytoSVM+_Localization', 'CytoSVM+_Details', 'ECSVM+_Localization', 'ECSVM+_Details',
-                  'ModHMM+_Localization', 'ModHMM+_Details', 'Motif+_Localization', 'Motif+_Details',
-                  'Profile+_Localization', 'Profile+_Details',
-                  'SCL-BLAST+_Localization', 'SCL-BLAST+_Details',
-                  'SCL-BLASTe+_Localization', 'SCL-BLASTe+_Details',
-                  'Signal+_Localization', 'Signal+_Details',
-                  'Cytoplasmic_Score', 'CytoplasmicMembrane_Score', 'Cellwall_Score',
-                  'Extracellular_Score', 'Final_Localization', 'Final_Localization_Details', 'Final_Score',
-                  'Secondary_Localization', 'PSortb_Version']
+        header = [
+            "SeqID",
+            "CMSVM+_Localization",
+            "CMSVM+_Details",
+            "CWSVM+_Localization",
+            "CWSVM+_Details",
+            "CytoSVM+_Localization",
+            "CytoSVM+_Details",
+            "ECSVM+_Localization",
+            "ECSVM+_Details",
+            "ModHMM+_Localization",
+            "ModHMM+_Details",
+            "Motif+_Localization",
+            "Motif+_Details",
+            "Profile+_Localization",
+            "Profile+_Details",
+            "SCL-BLAST+_Localization",
+            "SCL-BLAST+_Details",
+            "SCL-BLASTe+_Localization",
+            "SCL-BLASTe+_Details",
+            "Signal+_Localization",
+            "Signal+_Details",
+            "Cytoplasmic_Score",
+            "CytoplasmicMembrane_Score",
+            "Cellwall_Score",
+            "Extracellular_Score",
+            "Final_Localization",
+            "Final_Localization_Details",
+            "Final_Score",
+            "Secondary_Localization",
+            "PSortb_Version",
+        ]
     elif org_type == "-a":
         # Archaea
-        header = ['SeqID', 'CMSVM_a_Localization', 'CMSVM_a_Details', 'CWSVM_a_Localization', 'CWSVM_a_Details',
-                  'CytoSVM_a_Localization', 'CytoSVM_a_Details', 'ECSVM_a_Localization', 'ECSVM_a_Details',
-                  'ModHMM_a_Localization', 'ModHMM_a_Details', 'Motif_a_Localization', 'Motif_a_Details',
-                  'Profile_a_Localization', 'Profile_a_Details',
-                  'SCL-BLAST_a_Localization', 'SCL-BLAST_a_Details',
-                  'SCL-BLASTe_a_Localization', 'SCL-BLASTe_a_Details',
-                  'Signal_a_Localization', 'Signal_a_Details',
-                  'Cytoplasmic_Score', 'CytoplasmicMembrane_Score', 'Cellwall_Score',
-                  'Extracellular_Score', 'Final_Localization', 'Final_Localization_Details', 'Final_Score',
-                  'Secondary_Localization', 'PSortb_Version']
+        header = [
+            "SeqID",
+            "CMSVM_a_Localization",
+            "CMSVM_a_Details",
+            "CWSVM_a_Localization",
+            "CWSVM_a_Details",
+            "CytoSVM_a_Localization",
+            "CytoSVM_a_Details",
+            "ECSVM_a_Localization",
+            "ECSVM_a_Details",
+            "ModHMM_a_Localization",
+            "ModHMM_a_Details",
+            "Motif_a_Localization",
+            "Motif_a_Details",
+            "Profile_a_Localization",
+            "Profile_a_Details",
+            "SCL-BLAST_a_Localization",
+            "SCL-BLAST_a_Details",
+            "SCL-BLASTe_a_Localization",
+            "SCL-BLASTe_a_Details",
+            "Signal_a_Localization",
+            "Signal_a_Details",
+            "Cytoplasmic_Score",
+            "CytoplasmicMembrane_Score",
+            "Cellwall_Score",
+            "Extracellular_Score",
+            "Final_Localization",
+            "Final_Localization_Details",
+            "Final_Score",
+            "Secondary_Localization",
+            "PSortb_Version",
+        ]
     else:
         sys.exit("Expected -n, -p or -a for the organism type, not %r" % org_type)
 else:
@@ -123,8 +195,11 @@ def clean_tabular(raw_handle, out_handle):
             # Ignore dummy blank extra column, e.g.
             # "...2.0\t\tPSORTb version 3.0\t\n"
             parts = parts[:-1]
-        assert len(parts) == len(header), \
-            "%i fields, not %i, in line:\n%r" % (len(line), len(header), line)
+        assert len(parts) == len(header), "%i fields, not %i, in line:\n%r" % (
+            len(line),
+            len(header),
+            line,
+        )
         out_handle.write(line)
         count += 1
     return count
@@ -134,8 +209,11 @@ def clean_tabular(raw_handle, out_handle):
 # split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
 temp_files = [f + ".out" for f in fasta_files]
-jobs = ["psort %s %s %s -o %s %s > %s" % (org_type, cutoff, divergent, out_type, fasta, temp)
-        for fasta, temp in zip(fasta_files, temp_files)]
+jobs = [
+    "psort %s %s %s -o %s %s > %s"
+    % (org_type, cutoff, divergent, out_type, fasta, temp)
+    for fasta, temp in zip(fasta_files, temp_files)
+]
 
 
 def clean_up(file_list):
@@ -160,8 +238,11 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         except IOError:
             output = ""
         clean_up(fasta_files + temp_files)
-        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
-                 error_level)
+        sys.exit(
+            "One or more tasks failed, e.g. %i from %r gave:\n%s"
+            % (error_level, cmd, output),
+            error_level,
+        )
 del results
 del jobs
 

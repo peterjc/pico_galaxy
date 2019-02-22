@@ -55,7 +55,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
     sys.exit("TMHMM wrapper version 0.0.16")
 
 if len(sys.argv) != 4:
-    sys.exit("Require three arguments, number of threads (int), input protein FASTA file & output tabular file")
+    sys.exit(
+        "Require three arguments, number of threads (int), input protein FASTA file & output tabular file"
+    )
 
 num_threads = thread_count(sys.argv[1], default=4)
 fasta_file = sys.argv[2]
@@ -87,8 +89,10 @@ def clean_tabular(raw_handle, out_handle):
         predhel = predhel[8:]
         assert topology.startswith("Topology="), line
         topology = topology[9:]
-        out_handle.write("%s\t%s\t%s\t%s\t%s\t%s\n"
-                         % (identifier, length, exp_aa, first60, predhel, topology))
+        out_handle.write(
+            "%s\t%s\t%s\t%s\t%s\t%s\n"
+            % (identifier, length, exp_aa, first60, predhel, topology)
+        )
         count += 1
     return count
 
@@ -97,8 +101,10 @@ def clean_tabular(raw_handle, out_handle):
 # split_fasta returns an empty list (i.e. zero temp files).
 fasta_files = split_fasta(fasta_file, os.path.join(tmp_dir, "tmhmm"), FASTA_CHUNK)
 temp_files = [f + ".out" for f in fasta_files]
-jobs = ["tmhmm -short %s > %s" % (fasta, temp)
-        for fasta, temp in zip(fasta_files, temp_files)]
+jobs = [
+    "tmhmm -short %s > %s" % (fasta, temp)
+    for fasta, temp in zip(fasta_files, temp_files)
+]
 
 
 def clean_up(file_list):
@@ -124,8 +130,11 @@ for fasta, temp, cmd in zip(fasta_files, temp_files, jobs):
         except IOError:
             output = ""
         clean_up(fasta_files + temp_files)
-        sys.exit("One or more tasks failed, e.g. %i from %r gave:\n%s" % (error_level, cmd, output),
-                 error_level)
+        sys.exit(
+            "One or more tasks failed, e.g. %i from %r gave:\n%s"
+            % (error_level, cmd, output),
+            error_level,
+        )
 del results
 del jobs
 

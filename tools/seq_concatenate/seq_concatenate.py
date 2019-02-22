@@ -36,12 +36,22 @@ At least one input sequence file is required (in GenBank format).
 # TODO - Option for explicit linker sequence
 # TODO - Support protein input?
 parser = OptionParser(usage=usage)
-parser.add_option('-o', '--output', dest='output',
-                  default=None, help='Output filename (tabular)',
-                  metavar="FILE")
-parser.add_option("-v", "--version", dest="version",
-                  default=False, action="store_true",
-                  help="Show version and quit")
+parser.add_option(
+    "-o",
+    "--output",
+    dest="output",
+    default=None,
+    help="Output filename (tabular)",
+    metavar="FILE",
+)
+parser.add_option(
+    "-v",
+    "--version",
+    dest="version",
+    default=False,
+    action="store_true",
+    help="Show version and quit",
+)
 options, args = parser.parse_args()
 
 if options.version:
@@ -85,5 +95,7 @@ record.description = "Concatenation of %i records" % count
 
 x = SeqIO.write(record, options.output, "genbank")
 assert x == 1, "Error writing record"
-print("Done, merged %i records into a single record of length %i" % (count, len(record)))
+print(
+    "Done, merged %i records into a single record of length %i" % (count, len(record))
+)
 del record

@@ -33,7 +33,9 @@ if "-v" in sys.argv or "--version" in sys.argv:
 try:
     tabular_file, col_arg, in_file, seq_format, out_file = sys.argv[1:]
 except ValueError:
-    sys.exit("Expected five arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv)))
+    sys.exit(
+        "Expected five arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv))
+    )
 try:
     if col_arg.startswith("c"):
         column = int(col_arg[1:]) - 1
@@ -76,8 +78,10 @@ def parse_ids(tabular_file, col):
             field = line.rstrip("\n").split("\t")[col].strip()
             parts = field.split(None, 1)
             if len(parts) > 1 and not warn:
-                warn = "WARNING: Some of your identifiers had white space in them, " + \
-                       "using first word only. e.g.:\n%s\n" % field
+                warn = (
+                    "WARNING: Some of your identifiers had white space in them, "
+                    + "using first word only. e.g.:\n%s\n" % field
+                )
             yield parts[0]
     handle.close()
     if warn:

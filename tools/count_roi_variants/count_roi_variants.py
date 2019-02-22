@@ -99,9 +99,17 @@ def decode_cigar(cigar):
     return answer
 
 
-assert decode_cigar("14S15M1P1D3P54M1D34M5S") == [(14, 'S'), (15, 'M'), (1, 'P'),
-                                                  (1, 'D'), (3, 'P'), (54, 'M'),
-                                                  (1, 'D'), (34, 'M'), (5, 'S')]
+assert decode_cigar("14S15M1P1D3P54M1D34M5S") == [
+    (14, "S"),
+    (15, "M"),
+    (1, "P"),
+    (1, "D"),
+    (3, "P"),
+    (54, "M"),
+    (1, "D"),
+    (34, "M"),
+    (5, "S"),
+]
 
 
 def align_len(cigar_ops):
@@ -115,14 +123,14 @@ def expand_cigar(seq, cigar_ops):
     seq_offset = 0
     for count, op in cigar_ops:
         if op in "MX=":
-            for (i, base) in enumerate(seq[seq_offset:seq_offset + count]):
+            for (i, base) in enumerate(seq[seq_offset : seq_offset + count]):
                 yield ref_offset + i, base
             ref_offset += count
             seq_offset += count
         elif op == "I":
             # Give them all an in-between reference position
             # (Python lets us mix integers and floats, wouldn't work in C)
-            for (i, base) in enumerate(seq[seq_offset:seq_offset + count]):
+            for (i, base) in enumerate(seq[seq_offset : seq_offset + count]):
                 yield ref_offset - 0.5, base
             # Does not change ref_offset
             seq_offset += count
@@ -143,41 +151,105 @@ def expand_cigar(seq, cigar_ops):
             raise NotImplementedError("Unexpected CIGAR operator %s" % op)
 
 
-assert list(expand_cigar("ACGT", decode_cigar("4M"))) == \
-    [(0, "A"), (1, "C"), (2, "G"), (3, "T")]
-assert list(expand_cigar("ACGT", decode_cigar("2=1X1="))) == \
-    [(0, "A"), (1, "C"), (2, "G"), (3, "T")]
-assert list(expand_cigar("ACGT", decode_cigar("2M1D2M"))) == \
-    [(0, "A"), (1, "C"), (3, "G"), (4, "T")]
-assert list(expand_cigar("ACtGT", decode_cigar("2M1I2M"))) == \
-    [(0, "A"), (1, "C"), (1.5, "t"), (2, "G"), (3, "T")]
-assert list(expand_cigar("tACGT", decode_cigar("1I4M"))) == \
-    [(-0.5, 't'), (0, 'A'), (1, 'C'), (2, 'G'), (3, 'T')]
-assert list(expand_cigar("ACGTt", decode_cigar("4M1I"))) == \
-    [(0, 'A'), (1, 'C'), (2, 'G'), (3, 'T'), (3.5, 't')]
-assert list(expand_cigar("AAAAGGGGTTTT", decode_cigar("12M"))) == \
-    [(0, 'A'), (1, 'A'), (2, 'A'),
-     (3, 'A'), (4, 'G'), (5, 'G'),
-     (6, 'G'), (7, 'G'), (8, 'T'),
-     (9, 'T'), (10, 'T'), (11, 'T')]
-assert list(expand_cigar("AAAAcGGGGTTTT", decode_cigar("4M1I8M"))) == \
-    [(0, 'A'), (1, 'A'), (2, 'A'),
-     (3, 'A'), (3.5, 'c'), (4, 'G'),
-     (5, 'G'), (6, 'G'), (7, 'G'),
-     (8, 'T'), (9, 'T'), (10, 'T'),
-     (11, 'T')]
-assert list(expand_cigar("AAAAGGGGcTTTT", decode_cigar("8M1I4M"))) == \
-    [(0, 'A'), (1, 'A'), (2, 'A'),
-     (3, 'A'), (4, 'G'), (5, 'G'),
-     (6, 'G'), (7, 'G'), (7.5, "c"),
-     (8, 'T'), (9, 'T'), (10, 'T'),
-     (11, 'T')]
-assert list(expand_cigar("AAAAcGGGGcTTTT", decode_cigar("4M1I4M1I4M"))) == \
-    [(0, 'A'), (1, 'A'), (2, 'A'),
-     (3, 'A'), (3.5, 'c'), (4, 'G'),
-     (5, 'G'), (6, 'G'), (7, 'G'),
-     (7.5, 'c'), (8, 'T'), (9, 'T'),
-     (10, 'T'), (11, 'T')]
+assert list(expand_cigar("ACGT", decode_cigar("4M"))) == [
+    (0, "A"),
+    (1, "C"),
+    (2, "G"),
+    (3, "T"),
+]
+assert list(expand_cigar("ACGT", decode_cigar("2=1X1="))) == [
+    (0, "A"),
+    (1, "C"),
+    (2, "G"),
+    (3, "T"),
+]
+assert list(expand_cigar("ACGT", decode_cigar("2M1D2M"))) == [
+    (0, "A"),
+    (1, "C"),
+    (3, "G"),
+    (4, "T"),
+]
+assert list(expand_cigar("ACtGT", decode_cigar("2M1I2M"))) == [
+    (0, "A"),
+    (1, "C"),
+    (1.5, "t"),
+    (2, "G"),
+    (3, "T"),
+]
+assert list(expand_cigar("tACGT", decode_cigar("1I4M"))) == [
+    (-0.5, "t"),
+    (0, "A"),
+    (1, "C"),
+    (2, "G"),
+    (3, "T"),
+]
+assert list(expand_cigar("ACGTt", decode_cigar("4M1I"))) == [
+    (0, "A"),
+    (1, "C"),
+    (2, "G"),
+    (3, "T"),
+    (3.5, "t"),
+]
+assert list(expand_cigar("AAAAGGGGTTTT", decode_cigar("12M"))) == [
+    (0, "A"),
+    (1, "A"),
+    (2, "A"),
+    (3, "A"),
+    (4, "G"),
+    (5, "G"),
+    (6, "G"),
+    (7, "G"),
+    (8, "T"),
+    (9, "T"),
+    (10, "T"),
+    (11, "T"),
+]
+assert list(expand_cigar("AAAAcGGGGTTTT", decode_cigar("4M1I8M"))) == [
+    (0, "A"),
+    (1, "A"),
+    (2, "A"),
+    (3, "A"),
+    (3.5, "c"),
+    (4, "G"),
+    (5, "G"),
+    (6, "G"),
+    (7, "G"),
+    (8, "T"),
+    (9, "T"),
+    (10, "T"),
+    (11, "T"),
+]
+assert list(expand_cigar("AAAAGGGGcTTTT", decode_cigar("8M1I4M"))) == [
+    (0, "A"),
+    (1, "A"),
+    (2, "A"),
+    (3, "A"),
+    (4, "G"),
+    (5, "G"),
+    (6, "G"),
+    (7, "G"),
+    (7.5, "c"),
+    (8, "T"),
+    (9, "T"),
+    (10, "T"),
+    (11, "T"),
+]
+assert list(expand_cigar("AAAAcGGGGcTTTT", decode_cigar("4M1I4M1I4M"))) == [
+    (0, "A"),
+    (1, "A"),
+    (2, "A"),
+    (3, "A"),
+    (3.5, "c"),
+    (4, "G"),
+    (5, "G"),
+    (6, "G"),
+    (7, "G"),
+    (7.5, "c"),
+    (8, "T"),
+    (9, "T"),
+    (10, "T"),
+    (11, "T"),
+]
 
 
 def get_roi(seq, cigar_ops, start, end):
@@ -195,7 +267,9 @@ def get_roi(seq, cigar_ops, start, end):
         return seq[start:end]
     # Would use "start <= i < end" if they were all integers, but
     # want to exclude e.g. 3.5 and 7.5 when given start 4 and end 8.
-    return "".join(base for i, base in expand_cigar(seq, cigar_ops) if start <= i <= end - 1)
+    return "".join(
+        base for i, base in expand_cigar(seq, cigar_ops) if start <= i <= end - 1
+    )
 
 
 assert "GGGG" == get_roi("AAAAGGGGTTTT", decode_cigar("12M"), 4, 8)
@@ -218,12 +292,17 @@ def count_region():
 
     # Call samtools view, don't need header so no -h added.
     # Only want mapped reads, thus flag filter -F 4.
-    child = subprocess.Popen(["samtools", "view", "-F", "4", bam_file, region],
-                             universal_newlines=True,
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    child = subprocess.Popen(
+        ["samtools", "view", "-F", "4", bam_file, region],
+        universal_newlines=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
     for line in child.stdout:
         assert line[0] != "@", "Got unexpected SAM header line: %s" % line
-        qname, flag, rname, pos, mapq, cigar, rnext, pnext, tlen, seq, rest = line.split("\t", 10)
+        qname, flag, rname, pos, mapq, cigar, rnext, pnext, tlen, seq, rest = line.split(
+            "\t", 10
+        )
         pos = int(pos)  # one-based
         if start < pos:
             # Does not span the ROI
@@ -247,9 +326,11 @@ def count_region():
     if return_code:
         sys.exit("Got return code %i from samtools view" % return_code)
     elif "specifies an unknown reference name. Continue anyway." in stderr:
-        sys.exit(stderr.strip() +
-                 "\n\nERROR: samtools did not recognise the region requested, "
-                 "can't count any variants.")
+        sys.exit(
+            stderr.strip()
+            + "\n\nERROR: samtools did not recognise the region requested, "
+            "can't count any variants."
+        )
 
     return tally
 

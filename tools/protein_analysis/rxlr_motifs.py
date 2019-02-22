@@ -59,7 +59,9 @@ if "-v" in sys.argv:
     sys.exit(0)
 
 if len(sys.argv) != 5:
-    sys.exit("Requires four arguments: protein FASTA filename, threads, model, and output filename")
+    sys.exit(
+        "Requires four arguments: protein FASTA filename, threads, model, and output filename"
+    )
 
 fasta_file, threads, model, tabular_file = sys.argv[1:]
 hmm_output_file = tabular_file + ".hmm.tmp"
@@ -98,15 +100,20 @@ elif model == "Whisson2007":
     min_rxlr_start = 1
     max_rxlr_start = max_sp + max_sp_rxlr
 else:
-    sys.exit("Did not recognise the model name %r\n"
-             "Use Bhattacharjee2006, Win2007, or Whisson2007" % model)
+    sys.exit(
+        "Did not recognise the model name %r\n"
+        "Use Bhattacharjee2006, Win2007, or Whisson2007" % model
+    )
 
 
 def get_hmmer_version(exe, required=None):
     try:
-        child = subprocess.Popen([exe, "-h"],
-                                 universal_newlines=True,
-                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        child = subprocess.Popen(
+            [exe, "-h"],
+            universal_newlines=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
     except OSError:
         raise ValueError("Could not run %s" % exe)
     stdout, stderr = child.communicate()
@@ -122,8 +129,9 @@ def get_hmmer_version(exe, required=None):
 
 # Run hmmsearch for Whisson et al. (2007)
 if model == "Whisson2007":
-    hmm_file = os.path.join(os.path.split(sys.argv[0])[0],
-                            "whisson_et_al_rxlr_eer_cropped.hmm")
+    hmm_file = os.path.join(
+        os.path.split(sys.argv[0])[0], "whisson_et_al_rxlr_eer_cropped.hmm"
+    )
     if not os.path.isfile(hmm_file):
         sys.exit("Missing HMM file for Whisson et al. (2007)")
     if not get_hmmer_version(hmmer_search, "HMMER 2.3.2 (Oct 2003)"):
@@ -143,20 +151,28 @@ if model == "Whisson2007":
     else:
         # I've left the code to handle HMMER 3 in situ, in case
         # we revisit the choice to insist on HMMER 2.
-        hmmer3 = (3 == get_hmmer_version(hmmer_search))
+        hmmer3 = 3 == get_hmmer_version(hmmer_search)
         # Using zero (or 5.6?) for bitscore threshold
         if hmmer3:
             # The HMMER3 table output is easy to parse
             # In HMMER3 can't use both -T and -E
-            cmd = "%s -T 0 --tblout %s --noali %s %s > /dev/null" \
-                  % (hmmer_search, hmm_output_file, hmm_file, fasta_file)
+            cmd = "%s -T 0 --tblout %s --noali %s %s > /dev/null" % (
+                hmmer_search,
+                hmm_output_file,
+                hmm_file,
+                fasta_file,
+            )
         else:
             # For HMMER2 we are stuck with parsing stdout
             # Put 1e6 to effectively have no expectation threshold (otherwise
             # HMMER defaults to 10 and the calculated e-value depends on the
             # input FASTA file, and we can loose hits of interest).
-            cmd = "%s -T 0 -E 1e6 %s %s > %s" \
-                  % (hmmer_search, hmm_file, fasta_file, hmm_output_file)
+            cmd = "%s -T 0 -E 1e6 %s %s > %s" % (
+                hmmer_search,
+                hmm_file,
+                fasta_file,
+                hmm_output_file,
+            )
         return_code = os.system(cmd)
         if return_code:
             sys.stderr.write("Error %i from hmmsearch:\n%s\n" % (return_code, cmd))
@@ -196,7 +212,7 @@ handle = open(signalp_input_file, "w")
 for title, seq in fasta_iterator(fasta_file):
     total += 1
     name = title.split(None, 1)[0]
-    match = re_rxlr.search(seq[min_rxlr_start - 1:].upper())
+    match = re_rxlr.search(seq[min_rxlr_start - 1 :].upper())
     if match and min_rxlr_start - 1 + match.start() + 1 <= max_rxlr_start:
         # This is a potential RXLR, depending on the SignalP results.
         # Might as well truncate the sequence now, makes the temp file smaller
@@ -214,11 +230,13 @@ handle.close()
 signalp_script = os.path.join(os.path.split(sys.argv[0])[0], "signalp3.py")
 if not os.path.isfile(signalp_script):
     sys.exit("Error - missing signalp3.py script")
-cmd = "python '%s' 'euk' '%i' '%s' '%s' '%s'" % (signalp_script,
-                                                 signalp_trunc,
-                                                 threads,
-                                                 signalp_input_file,
-                                                 signalp_output_file)
+cmd = "python '%s' 'euk' '%i' '%s' '%s' '%s'" % (
+    signalp_script,
+    signalp_trunc,
+    threads,
+    signalp_input_file,
+    signalp_output_file,
+)
 return_code = os.system(cmd)
 if return_code:
     sys.exit("Error %i from SignalP:\n%s" % (return_code, cmd))
@@ -250,7 +268,7 @@ for title, seq in fasta_iterator(fasta_file):
     total += 1
     rxlr = "N"
     name = title.split(None, 1)[0]
-    match = re_rxlr.search(seq[min_rxlr_start - 1:].upper())
+    match = re_rxlr.search(seq[min_rxlr_start - 1 :].upper())
     if match and min_rxlr_start - 1 + match.start() + 1 <= max_rxlr_start:
         del match
         # This was the criteria for calling SignalP,

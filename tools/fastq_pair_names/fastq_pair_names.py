@@ -70,8 +70,12 @@ re_illumina_f = re.compile(r"^@[a-zA-Z0-9_:-]+ 1:.*$")
 re_illumina_r = re.compile(r"^@[a-zA-Z0-9_:-]+ 2:.*$")
 assert re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
 assert re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
-assert not re_illumina_f.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA")
-assert not re_illumina_r.match("@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA")
+assert not re_illumina_f.match(
+    "@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 2:N:0:TGNCCA"
+)
+assert not re_illumina_r.match(
+    "@HWI-ST916:79:D04M5ACXX:1:1101:10000:100326 1:N:0:TGNCCA"
+)
 
 count = 0
 pairs = set()  # Will this scale OK?
@@ -99,7 +103,7 @@ for input_fastq in input_fastq_filenames:
             # ============
             # Forward read
             # ============
-            template = name[:suffix.start()]
+            template = name[: suffix.start()]
             is_forward = True
         elif re_illumina_f.match(record.identifier):
             template = name  # No suffix
@@ -116,7 +120,7 @@ for input_fastq in input_fastq_filenames:
                 # ============
                 # Reverse read
                 # ============
-                template = name[:suffix.start()]
+                template = name[: suffix.start()]
                 is_reverse = True
             elif re_illumina_r.match(record.identifier):
                 template = name  # No suffix
@@ -136,5 +140,7 @@ for input_fastq in input_fastq_filenames:
 out_pairs.close()
 out_nonpairs.close()
 
-print("%i reads (%i forward, %i reverse, %i neither), %i pairs" %
-      (count, forward, reverse, neither, len(pairs)))
+print(
+    "%i reads (%i forward, %i reverse, %i neither), %i pairs"
+    % (count, forward, reverse, neither, len(pairs))
+)

@@ -27,15 +27,15 @@ except ImportError:
     # Must be under Python 2.5, this is copied from multiprocessing:
     def cpu_count():
         """Return the number of CPUs in the system."""
-        if sys.platform == 'win32':
+        if sys.platform == "win32":
             try:
-                num = int(os.environ['NUMBER_OF_PROCESSORS'])
+                num = int(os.environ["NUMBER_OF_PROCESSORS"])
             except (ValueError, KeyError):
                 num = 0
-        elif 'bsd' in sys.platform or sys.platform == 'darwin':
-            comm = '/sbin/sysctl -n hw.ncpu'
-            if sys.platform == 'darwin':
-                comm = '/usr' + comm
+        elif "bsd" in sys.platform or sys.platform == "darwin":
+            comm = "/sbin/sysctl -n hw.ncpu"
+            if sys.platform == "darwin":
+                comm = "/usr" + comm
                 try:
                     with os.popen(comm) as p:
                         num = int(p.read())
@@ -43,14 +43,14 @@ except ImportError:
                     num = 0
         else:
             try:
-                num = os.sysconf('SC_NPROCESSORS_ONLN')
+                num = os.sysconf("SC_NPROCESSORS_ONLN")
             except (ValueError, OSError, AttributeError):
                 num = 0
 
         if num >= 1:
             return num
         else:
-            raise NotImplementedError('cannot determine number of cpus')
+            raise NotImplementedError("cannot determine number of cpus")
 
 
 def thread_count(command_line_arg, default=1):
@@ -82,8 +82,10 @@ def fasta_iterator(filename, max_len=None, truncate=None):
                 if truncate:
                     seq = seq[:truncate]
                 if max_len and len(seq) > max_len:
-                    raise ValueError("Sequence %s is length %i, max length %i"
-                                     % (title.split()[0], len(seq), max_len))
+                    raise ValueError(
+                        "Sequence %s is length %i, max length %i"
+                        % (title.split()[0], len(seq), max_len)
+                    )
                 yield title, seq
             title = line[1:].rstrip()
             seq = ""
@@ -101,13 +103,22 @@ def fasta_iterator(filename, max_len=None, truncate=None):
         if truncate:
             seq = seq[:truncate]
         if max_len and len(seq) > max_len:
-            raise ValueError("Sequence %s is length %i, max length %i"
-                             % (title.split()[0], len(seq), max_len))
+            raise ValueError(
+                "Sequence %s is length %i, max length %i"
+                % (title.split()[0], len(seq), max_len)
+            )
         yield title, seq
     raise StopIteration
 
 
-def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep_descr=False, max_len=None):
+def split_fasta(
+    input_filename,
+    output_filename_base,
+    n=500,
+    truncate=None,
+    keep_descr=False,
+    max_len=None,
+):
     """Split FASTA file into sub-files each of at most n sequences.
 
     Returns a list of the filenames used (based on the input filename).
@@ -136,12 +147,12 @@ def split_fasta(input_filename, output_filename_base, n=500, truncate=None, keep
                 for title, seq in records:
                     handle.write(">%s\n" % title)
                     for i in range(0, len(seq), 60):
-                        handle.write(seq[i:i + 60] + "\n")
+                        handle.write(seq[i : i + 60] + "\n")
             else:
                 for title, seq in records:
                     handle.write(">%s\n" % title.split()[0])
                     for i in range(0, len(seq), 60):
-                        handle.write(seq[i:i + 60] + "\n")
+                        handle.write(seq[i : i + 60] + "\n")
             handle.close()
             files.append(new_filename)
             # print "%i records in %s" % (len(records), new_filename)
@@ -180,11 +191,12 @@ def run_jobs(jobs, threads, pause=10, verbose=False, fast_fail=True):
                 results[cmd] = return_code
                 if return_code:
                     failed = True
-        running = [(cmd, process) for (cmd, process) in running
-                   if cmd not in results]
+        running = [(cmd, process) for (cmd, process) in running if cmd not in results]
         if verbose:
-            print("%i jobs pending, %i running, %i completed" %
-                  (len(pending), len(running), len(results)))
+            print(
+                "%i jobs pending, %i running, %i completed"
+                % (len(pending), len(running), len(results))
+            )
         # See if we can start any new threads
         if pending and failed and fast_fail:
             # Don't start any more jobs

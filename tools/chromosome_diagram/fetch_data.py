@@ -6,11 +6,13 @@ from __future__ import print_function
 import os
 import sys
 
-data = [("I", "NC_003070"),
-        ("II", "NC_003071"),
-        ("III", "NC_003074"),
-        ("IV", "NC_003075"),
-        ("V", "NC_003076")]
+data = [
+    ("I", "NC_003070"),
+    ("II", "NC_003071"),
+    ("III", "NC_003074"),
+    ("IV", "NC_003075"),
+    ("V", "NC_003076"),
+]
 
 merged_fasta = "A_thaliana.fasta"
 merged_trna = "A_thaliana_tRNA.tsv"
@@ -23,23 +25,52 @@ YELLOW = ("black", "yellow")
 # hydrophobicity scheme
 colors = {
     # AGILPV --> Blue
-    "Ala": BLUE, "Gly": BLUE, "Ile": BLUE, "Leu": BLUE, "Pro": BLUE, "Val": BLUE,
+    "Ala": BLUE,
+    "Gly": BLUE,
+    "Ile": BLUE,
+    "Leu": BLUE,
+    "Pro": BLUE,
+    "Val": BLUE,
     # FYW --> Red
-    "Phe": RED, "Tyr": RED, "Trp": RED,
+    "Phe": RED,
+    "Tyr": RED,
+    "Trp": RED,
     # DENQRHSTK --> Green
-    "Asp": GREEN, "Glu": GREEN, "Asn": GREEN, "Gln": GREEN, "Arg": GREEN,
-    "His": GREEN, "Ser": GREEN, "Thr": GREEN, "Lys": GREEN,
+    "Asp": GREEN,
+    "Glu": GREEN,
+    "Asn": GREEN,
+    "Gln": GREEN,
+    "Arg": GREEN,
+    "His": GREEN,
+    "Ser": GREEN,
+    "Thr": GREEN,
+    "Lys": GREEN,
     # CM --> Yellow
-    "Cys": YELLOW, "Met": YELLOW,
+    "Cys": YELLOW,
+    "Met": YELLOW,
 }
 
 protein_letters_1to3 = {
-    'A': 'Ala', 'C': 'Cys', 'D': 'Asp',
-    'E': 'Glu', 'F': 'Phe', 'G': 'Gly', 'H': 'His',
-    'I': 'Ile', 'K': 'Lys', 'L': 'Leu', 'M': 'Met',
-    'N': 'Asn', 'P': 'Pro', 'Q': 'Gln', 'R': 'Arg',
-    'S': 'Ser', 'T': 'Thr', 'V': 'Val', 'W': 'Trp',
-    'Y': 'Tyr',
+    "A": "Ala",
+    "C": "Cys",
+    "D": "Asp",
+    "E": "Glu",
+    "F": "Phe",
+    "G": "Gly",
+    "H": "His",
+    "I": "Ile",
+    "K": "Lys",
+    "L": "Leu",
+    "M": "Met",
+    "N": "Asn",
+    "P": "Pro",
+    "Q": "Gln",
+    "R": "Arg",
+    "S": "Ser",
+    "T": "Thr",
+    "V": "Val",
+    "W": "Trp",
+    "Y": "Tyr",
 }
 
 
@@ -56,7 +87,10 @@ for chr, acc in data:
         filename = "%s.%s" % (acc, ext)
         # The NCBI originally provided this genome here, but moved it:
         # ftp://ftp.ncbi.nlm.nih.gov/genomes/Arabidopsis_thaliana/
-        url = "ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Arabidopsis_thaliana/CHR_%s/%s" % (chr, filename)
+        url = (
+            "ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Arabidopsis_thaliana/CHR_%s/%s"
+            % (chr, filename)
+        )
         if not os.path.isfile(filename):
             run("curl -O %s" % url)
 
@@ -96,7 +130,12 @@ if not os.path.isfile(merged_trna):
                 assert product.endswith(" tRNA")
                 product = product[:-5].strip()
                 fore, back = colors.get(product, (".", "."))
-                handle.write("\t".join([name, "chr" + chr, start, end, strand, product, fore, back]) + "\n")
+                handle.write(
+                    "\t".join(
+                        [name, "chr" + chr, start, end, strand, product, fore, back]
+                    )
+                    + "\n"
+                )
     handle.close()
     print("Merged tRNA")
 
@@ -104,5 +143,5 @@ print("Done, see %s and %s" % (merged_fasta, merged_trna))
 print("")
 print("Try producing a PDF by running something like this at the command line:")
 print("")
-print('$ ./chromosome_diagram.py A_thaliana.fasta 5000 A_thaliana_tRNA.tsv \\')
+print("$ ./chromosome_diagram.py A_thaliana.fasta 5000 A_thaliana_tRNA.tsv \\")
 print('2 3 4 5 1 7 8 "A. thaliana tRNA" 0 A_thaliana.pdf')
