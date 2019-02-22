@@ -238,7 +238,8 @@ def load_total_coverage(depth_handle, identifier, length):
             break
         bases += depth
         if last_pos + 1 < pos:
-            # print("%s has no coverage between %i and %i" % (identifier, last_pos, pos))
+            # print("%s has no coverage between %i and %i"
+            #       % (identifier, last_pos, pos))
             min_cov = 0
         else:
             min_cov = min(min_cov, depth)

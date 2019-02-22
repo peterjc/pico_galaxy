@@ -53,9 +53,16 @@ except ImportError:
 
 # Parse Command Line
 try:
-    in_file, seq_format, primer_fasta, primer_type, mm, min_len, keep_negatives, out_file = sys.argv[
-        1:
-    ]
+    (
+        in_file,
+        seq_format,
+        primer_fasta,
+        primer_type,
+        mm,
+        min_len,
+        keep_negatives,
+        out_file,
+    ) = sys.argv[1:]
 except ValueError:
     sys.exit(
         "Expected 8 arguments, got %i:\n%s" % (len(sys.argv) - 1, " ".join(sys.argv))

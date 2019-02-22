@@ -70,7 +70,8 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 if len(sys.argv) != 5:
     sys.exit(
-        "Require four arguments, organism, threads, input protein FASTA file & output tabular file"
+        "Require four arguments, organism, threads, input protein FASTA file, "
+        "and output tabular file"
     )
 
 organism = sys.argv[1]

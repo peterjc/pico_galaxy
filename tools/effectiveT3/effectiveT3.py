@@ -36,7 +36,8 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 if len(sys.argv) != 5:
     sys.exit(
-        "Require four arguments: model, threshold, input protein FASTA file & output tabular file"
+        "Require four arguments: model, threshold, input protein "
+        "FASTA file & output tabular file"
     )
 
 model, threshold, fasta_file, tabular_file = sys.argv[1:]

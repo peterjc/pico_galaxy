@@ -300,9 +300,19 @@ def count_region():
     )
     for line in child.stdout:
         assert line[0] != "@", "Got unexpected SAM header line: %s" % line
-        qname, flag, rname, pos, mapq, cigar, rnext, pnext, tlen, seq, rest = line.split(
-            "\t", 10
-        )
+        (
+            qname,
+            flag,
+            rname,
+            pos,
+            mapq,
+            cigar,
+            rnext,
+            pnext,
+            tlen,
+            seq,
+            rest,
+        ) = line.split("\t", 10)
         pos = int(pos)  # one-based
         if start < pos:
             # Does not span the ROI

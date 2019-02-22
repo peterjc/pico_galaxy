@@ -75,7 +75,8 @@ elif len(sys.argv) == 3:
         )
 else:
     sys.exit(
-        "Expect 2 or 3 arguments: input FASTA file, output tabular file, and NLS motif file"
+        "Expect 2 or 3 arguments: input FASTA file, output tabular file, "
+        "and optionally NLS motif file."
     )
 
 if not os.path.isfile(fasta_filename):
@@ -155,7 +156,8 @@ if tabular_filename == "-":
 else:
     out_handle = open(tabular_filename, "w")
 out_handle.write(
-    "#ID\tNLS start\tNLS seq\tNLS pattern\tType\tProtCount\t%NucProt\tProtList\tProtLoci\n"
+    "#ID\tNLS start\tNLS seq\tNLS pattern\tType\t"
+    "ProtCount\t%NucProt\tProtList\tProtLoci\n"
 )
 count = 0
 nls = 0

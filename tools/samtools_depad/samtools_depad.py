@@ -23,7 +23,8 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 if len(sys.argv) != 5:
     sys.exit(
-        "Require four arguments: padded FASTA, SAM/BAM file, format (SAM or BAM), output BAM filenames"
+        "Require four arguments: padded FASTA, SAM/BAM file, format "
+        "(SAM or BAM), output BAM filenames"
     )
 
 padded_ref, bam_filename, input_format, output_filename = sys.argv[1:]

@@ -42,8 +42,8 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 if len(sys.argv) != 4:
     sys.exit(
-        "Require three arguments, number of threads (int), input DNA FASTA file & output tabular file. "
-        "Got %i arguments." % (len(sys.argv) - 1)
+        "Require three arguments, number of threads (int), input DNA FASTA "
+        "file & output tabular file. Got %i arguments." % (len(sys.argv) - 1)
     )
 
 num_threads = thread_count(sys.argv[3], default=4)

@@ -63,7 +63,8 @@ def check_trans(identifier, nuc, prot, table):
             # TODO - Calculate and report the number to trim at start and end?
             err += "\nHowever, protein sequence found within translated nucleotides."
         elif p[1:] in t:
-            err += "\nHowever, ignoring first amino acid, protein sequence found within translated nucleotides."
+            err += "\nHowever, ignoring first amino acid, protein sequence found "
+            "within translated nucleotides."
         sys.exit(err)
 
     if t == p:
@@ -206,7 +207,7 @@ Warning: If the output file already exists, it will be overwritten.
 This script is available with sample data and a Galaxy wrapper here:
 https://github.com/peterjc/pico_galaxy/tree/master/tools/align_back_trans
 http://toolshed.g2.bx.psu.edu/view/peterjc/align_back_trans
-"""
+"""  # noqa: E501
     )
 
 try:

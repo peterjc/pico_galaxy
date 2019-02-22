@@ -39,7 +39,7 @@ itself (see the SignalP XML file for settings).
 Also tmhmm2 can fail without returning an error code, for example if run on a
 64 bit machine with only the 32 bit binaries installed. This script will spot
 when there is no output from tmhmm2, and raise an error.
-"""
+"""  # noqa: E501
 
 from __future__ import print_function
 
@@ -56,7 +56,8 @@ if "-v" in sys.argv or "--version" in sys.argv:
 
 if len(sys.argv) != 4:
     sys.exit(
-        "Require three arguments, number of threads (int), input protein FASTA file & output tabular file"
+        "Require three arguments, number of threads (int), input protein "
+        "FASTA file & output tabular file"
     )
 
 num_threads = thread_count(sys.argv[1], default=4)

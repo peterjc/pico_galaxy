@@ -88,8 +88,8 @@ for chr, acc in data:
         # The NCBI originally provided this genome here, but moved it:
         # ftp://ftp.ncbi.nlm.nih.gov/genomes/Arabidopsis_thaliana/
         url = (
-            "ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Arabidopsis_thaliana/CHR_%s/%s"
-            % (chr, filename)
+            "ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/"
+            "Arabidopsis_thaliana/CHR_%s/%s" % (chr, filename)
         )
         if not os.path.isfile(filename):
             run("curl -O %s" % url)

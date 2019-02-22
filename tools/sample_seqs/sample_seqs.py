@@ -220,8 +220,8 @@ elif options.count:
             )
         elif N > total // 2:
             sys.exit(
-                "Requested %i sequence pairs, but file only has %i pairs (%i sequences)."
-                % (N, total // 2, total)
+                "Requested %i sequence pairs, "
+                "but file only has %i pairs (%i sequences)." % (N, total // 2, total)
             )
         total = total // 2
         if N == 1:

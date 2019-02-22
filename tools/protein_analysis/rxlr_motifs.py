@@ -60,7 +60,8 @@ if "-v" in sys.argv:
 
 if len(sys.argv) != 5:
     sys.exit(
-        "Requires four arguments: protein FASTA filename, threads, model, and output filename"
+        "Requires four arguments: protein FASTA filename, threads, "
+        "model, and output filename"
     )
 
 fasta_file, threads, model, tabular_file = sys.argv[1:]
@@ -244,7 +245,10 @@ if return_code:
 
 
 def parse_signalp(filename):
-    """Parse SignalP output, yield tuples of ID, HMM_Sprob_score and NN predicted signal peptide length.
+    """Parse SignalP output, yield tuples of values.
+
+    Returns tuples of ID, HMM_Sprob_score and NN predicted signal
+    peptide length.
 
     For signal peptide length we use NN_Ymax_pos (minus one).
     """

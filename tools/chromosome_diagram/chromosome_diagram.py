@@ -38,9 +38,21 @@ except Exception:
 if len(sys.argv) - 1 != 13:
     sys.exit("Expected 13 arguments, not %i" % (len(sys.argv) - 1))
 
-ref_file, min_gap, tab_file, chr_col, start_col, end_col, strand_col, caption_col, color_col, fill_col, main_caption, per_page, pdf_file = sys.argv[
-    1:
-]
+(
+    ref_file,
+    min_gap,
+    tab_file,
+    chr_col,
+    start_col,
+    end_col,
+    strand_col,
+    caption_col,
+    color_col,
+    fill_col,
+    main_caption,
+    per_page,
+    pdf_file,
+) = sys.argv[1:]
 
 
 def load_column(txt):
