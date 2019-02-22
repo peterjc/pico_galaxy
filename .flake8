@@ -1,0 +1,9 @@
+[flake8]
+# Using the black default line length of 88,
+max-line-length = 88
+extend-ignore =
+    E402,
+    D103,
+    B007,
+    # See https://github.com/PyCQA/pycodestyle/issues/373
+    E203,
