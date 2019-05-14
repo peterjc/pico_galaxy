@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 """Plot up to 3-way Venn Diagram using the Python libraries matplotlib
 and matplotlib_venn
 
@@ -45,6 +46,7 @@ print("Doing %i-way Venn Diagram" % n)
 
 
 def load_ids(filename, filetype):
+    ''' loads ids from files '''
     if filetype == "tabular":
         for line in open(filename):
             line = line.rstrip("\n")
@@ -76,12 +78,14 @@ def load_ids(filename, filetype):
 
 
 def load_ids_whitelist(filename, filetype, whitelist):
+    ''' check if ids are in whitelist '''
     for single_name in load_ids(filename, filetype):
         if single_name in whitelist:
             yield single_name
         else:
-            sys.exit("Unexpected ID %s in %s file %s" % (single_name, filetype, filename))
-
+            sys.exit("Unexpected ID %s in %s file %s" % (single_name,
+                                                         filetype,
+                                                         filename))
 
 if all_file in ["", "-", '""', '"-"']:
     # Load without white list
@@ -107,14 +111,22 @@ if len(sets) == 3:
         from matplotlib_venn import venn3_unweighted
     except ImportError:
         sys.exit("Requires the Python library matplotlib_venn")
-    venn3_unweighted(sets, ["{} (Total {})".format(name, length) for (name, length) in zip(names, lengths)])
+    venn3_unweighted(sets,
+                     ["{} (Total {})".format(name,
+                                             length) for (name,
+                                                          length) in zip(names,
+                                                                         lengths)])
 
 if len(sets) == 2:
     try:
         from matplotlib_venn import venn2_unweighted
     except ImportError:
         sys.exit("Requires the Python library matplotlib_venn")
-    venn2_unweighted(sets, ["{} (Total {})".format(name, length) for (name, length) in zip(names, lengths)])
+    venn2_unweighted(sets,
+                     ["{} (Total {})".format(name,
+                                             length) for (name,
+                                                          length) in zip(names,
+                                                                         lengths)])
 
 # not sure what I am doing here,
 # matplotlib_venn does not want to create a single Venn circle
