@@ -1,10 +1,10 @@
-<tool id="venn_list" name="Venn Diagram" version="0.0.12">
+<tool id="venn_list" name="Venn Diagram" version="0.0.14">
     <description>from lists</description>
     <requirements>
-        <requirement type="package" version="1.0.1">galaxy_sequence_utils</requirement>
-        <requirement type="package" version="1.0.3">rpy</requirement>
-        <requirement type="package" version="3.25.3">limma</requirement>
+        <requirement type="package" version="1.1.3">galaxy_sequence_utils</requirement>
         <requirement type="package" version="1.67">biopython</requirement>
+        <requirement type="package" version="2.0.0">matplotlib</requirement>
+        <requirement type="package" version="0.11.5">matplotlib-venn</requirement>
     </requirements>
     <version_command>
 python $__tool_directory__/venn_list.py --version
@@ -126,10 +126,9 @@ as a Venn Diagram, and the outside count would be the unmapped reads.
 
 **Citations**
 
-The Venn Diagrams are drawn using Gordon Smyth's limma package from
-R/Bioconductor, http://www.bioconductor.org/
+The Venn Diagrams are drawn using Konstantin Tretyakov's matplotlib-venn
+package, https://pypi.org/project/matplotlib-venn/
 
-The R library is called from Python via rpy, http://rpy.sourceforge.net/
 
 If you use this Galaxy tool in work leading to a scientific publication please
 cite:

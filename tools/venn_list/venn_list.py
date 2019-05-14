@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-"""Plot up to 3-way Venn Diagram using R limma vennDiagram (via rpy).
+"""Plot up to 3-way Venn Diagram using the Python libraries matplotlib
+and matplotlib_venn
 
 This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
@@ -10,25 +11,19 @@ See accompanying text file for licence details (MIT License).
 from __future__ import print_function
 
 import sys
+from shutil import move
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.13")
+    print("v0.0.14")
     sys.exit(0)
 
 try:
-    import rpy
+    import matplotlib
 except ImportError:
-    sys.exit("Requires the Python library rpy (to call R)")
-except RuntimeError as err:
-    sys.exit(
-        "The Python library rpy is not availble for the current R version\n\n%s" % err
-    )
+    sys.exit("Requires the Python library matplotlib")
 
-try:
-    rpy.r.library("limma")
-except Exception:
-    sys.exit("Requires the R library limma (for vennDiagram function)")
-
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 
 if len(sys.argv) - 1 not in [7, 10, 13]:
     sys.exit(
@@ -74,18 +69,18 @@ def load_ids(filename, filetype):
         except ImportError:
             sys.exit("Require Biopython 1.54 or later (to read SFF files)")
         # This will read the SFF index block if present (very fast)
-        for name in index(filename, "sff"):
-            yield name
+        for this_name in index(filename, "sff"):
+            yield this_name
     else:
         sys.exit("Unexpected file type %s" % filetype)
 
 
 def load_ids_whitelist(filename, filetype, whitelist):
-    for name in load_ids(filename, filetype):
-        if name in whitelist:
-            yield name
+    for single_name in load_ids(filename, filetype):
+        if single_name in whitelist:
+            yield single_name
         else:
-            sys.exit("Unexpected ID %s in %s file %s" % (name, filetype, filename))
+            sys.exit("Unexpected ID %s in %s file %s" % (single_name, filetype, filename))
 
 
 if all_file in ["", "-", '""', '"-"']:
@@ -104,45 +99,42 @@ else:
 for s, (f, t, c) in zip(sets, set_data):
     print("%i in %s" % (len(s), c))
 
-# Now call R library to draw simple Venn diagram
+names = [one_name for one_file, one_type, one_name in set_data]
+lengths = [len(one_set) for one_set in sets]
+
+if len(sets) == 3:
+    try:
+        from matplotlib_venn import venn3_unweighted
+    except ImportError:
+        sys.exit("Requires the Python library matplotlib_venn")
+    venn3_unweighted(sets, ["{} (Total {})".format(name, length) for (name, length) in zip(names, lengths)])
+
+if len(sets) == 2:
+    try:
+        from matplotlib_venn import venn2_unweighted
+    except ImportError:
+        sys.exit("Requires the Python library matplotlib_venn")
+    venn2_unweighted(sets, ["{} (Total {})".format(name, length) for (name, length) in zip(names, lengths)])
+
+# not sure what I am doing here,
+# matplotlib_venn does not want to create a single Venn circle
+# stick to the old behavior (rpy and Limma) as much as possible
+if len(sets) == 1:
+    try:
+        from matplotlib_venn import venn2
+    except ImportError:
+        sys.exit("Requires the Python library matplotlib_venn")
+    venn2((sets[0], set()), [set_data[0][2], ''])
+
+plt.title(all_label)
+plt.savefig(pdf_file + '.pdf')
+
+# Format "dat" is not supported.
 try:
-    # Create dummy Venn diagram counts object for three groups
-    cols = 'c("%s")' % '","'.join("Set%i" % (i + 1) for i in range(n))
-    rpy.r("groups <- cbind(%s)" % ",".join(["1"] * n))
-    rpy.r("colnames(groups) <- %s" % cols)
-    rpy.r("vc <- vennCounts(groups)")
-    # Populate the 2^n classes with real counts
-    # Don't make any assumptions about the class order
-    # print(rpy.r('vc'))
-    for index, row in enumerate(rpy.r("vc[,%s]" % cols)):
-        if isinstance(row, (int, float)):
-            # Hack for rpy being too clever for single element row
-            row = [row]
-        names = all_ids
-        for wanted, s in zip(row, sets):
-            if wanted:
-                names = names.intersection(s)
-            else:
-                names = names.difference(s)
-        rpy.r('vc[%i,"Counts"] <- %i' % (index + 1, len(names)))
-    # print(rpy.r('vc'))
-    if n == 1:
-        # Single circle, don't need to add (Total XXX) line
-        names = [c for (t, f, c) in set_data]
-    else:
-        names = ["%s\n(Total %i)" % (c, len(s)) for s, (f, t, c) in zip(sets, set_data)]
-    rpy.r.assign("names", names)
-    rpy.r.assign("colors", ["red", "green", "blue"][:n])
-    rpy.r.pdf(pdf_file, 8, 8)
-    rpy.r(
-        """vennDiagram(vc, include="both", names=names,
-                         main="%s", sub="(Total %i)",
-                         circle.col=colors)
-                         """
-        % (all_label, len(all_ids))
-    )
-    rpy.r.dev_off()
-except Exception as err:
-    sys.exit("%s" % str(err))
-rpy.r.quit(save="no")
+    move(pdf_file + '.pdf', pdf_file)
+except (OSError, IOError) as error:
+    sys.exit("Fail to rename file {}".format(str(error)))
+
+plt.close()
+
 print("Done")
