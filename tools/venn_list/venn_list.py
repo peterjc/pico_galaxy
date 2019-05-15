@@ -17,7 +17,7 @@ import sys
 from shutil import move
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.1.00")
+    print("v0.1.0")
     sys.exit(0)
 
 try:
@@ -25,7 +25,7 @@ try:
 except ImportError:
     sys.exit("Requires the Python library matplotlib")
 
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 from matplotlib import pyplot as plt
 
 if len(sys.argv) - 1 not in [7, 10, 13]:
@@ -85,9 +85,9 @@ def load_ids_whitelist(filename, filetype, whitelist):
         if single_name in whitelist:
             yield single_name
         else:
-            sys.exit("Unexpected ID %s in %s file %s" % (single_name,
-                                                         filetype,
-                                                         filename))
+            sys.exit(
+                "Unexpected ID %s in %s file %s" % (single_name, filetype, filename)
+            )
 
 
 if all_file in ["", "-", '""', '"-"']:
@@ -114,22 +114,26 @@ if len(sets) == 3:
         from matplotlib_venn import venn3_unweighted
     except ImportError:
         sys.exit("Requires the Python library matplotlib_venn")
-    venn3_unweighted(sets,
-                     ["{} (Total {})".format(name,
-                                             length) for (name,
-                                                          length) in zip(names,
-                                                                         lengths)])
+    venn3_unweighted(
+        sets,
+        [
+            "{} (Total {})".format(name, length)
+            for (name, length) in zip(names, lengths)
+        ],
+    )
 
 if len(sets) == 2:
     try:
         from matplotlib_venn import venn2_unweighted
     except ImportError:
         sys.exit("Requires the Python library matplotlib_venn")
-    venn2_unweighted(sets,
-                     ["{} (Total {})".format(name,
-                                             length) for (name,
-                                                          length) in zip(names,
-                                                                         lengths)])
+    venn2_unweighted(
+        sets,
+        [
+            "{} (Total {})".format(name, length)
+            for (name, length) in zip(names, lengths)
+        ],
+    )
 
 # not sure what I am doing here,
 # matplotlib_venn does not want to create a single Venn circle
@@ -139,14 +143,14 @@ if len(sets) == 1:
         from matplotlib_venn import venn2
     except ImportError:
         sys.exit("Requires the Python library matplotlib_venn")
-    venn2((sets[0], set()), [set_data[0][2], ''])
+    venn2((sets[0], set()), [set_data[0][2], ""])
 
 plt.title(all_label)
-plt.savefig(pdf_file + '.pdf')
+plt.savefig(pdf_file + ".pdf")
 
 # Format "dat" is not supported.
 try:
-    move(pdf_file + '.pdf', pdf_file)
+    move(pdf_file + ".pdf", pdf_file)
 except (OSError, IOError) as error:
     sys.exit("Fail to rename file {}".format(str(error)))
 
