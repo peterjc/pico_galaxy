@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
-"""Plot up to 3-way Venn Diagram using the Python libraries matplotlib
-and matplotlib_venn
+"""
+Plot up to 3-way Venn Diagram.
+
+It uses the Python libraries matplotlib and matplotlib_venn.
 
 This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
 (formerly SCRI), UK. All rights reserved.
@@ -15,7 +17,7 @@ import sys
 from shutil import move
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.14")
+    print("v0.1.00")
     sys.exit(0)
 
 try:
@@ -46,7 +48,7 @@ print("Doing %i-way Venn Diagram" % n)
 
 
 def load_ids(filename, filetype):
-    ''' loads ids from files '''
+    """Load ids from files."""
     if filetype == "tabular":
         for line in open(filename):
             line = line.rstrip("\n")
@@ -78,7 +80,7 @@ def load_ids(filename, filetype):
 
 
 def load_ids_whitelist(filename, filetype, whitelist):
-    ''' check if ids are in whitelist '''
+    """Check if ids are in whitelist."""
     for single_name in load_ids(filename, filetype):
         if single_name in whitelist:
             yield single_name
@@ -86,6 +88,7 @@ def load_ids_whitelist(filename, filetype, whitelist):
             sys.exit("Unexpected ID %s in %s file %s" % (single_name,
                                                          filetype,
                                                          filename))
+
 
 if all_file in ["", "-", '""', '"-"']:
     # Load without white list
