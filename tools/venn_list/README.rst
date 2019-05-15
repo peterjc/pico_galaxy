@@ -33,8 +33,8 @@ There are just two files to install:
 The suggested location is in the Galaxy folder ``tools/plotting`` next to other
 graph drawing tools, or a dedicated ``tools/venn_list`` directory.
 
-You will also need to install Biopython 1.54 or later, and the R/Bioconductor
-package limma. You should already have rpy installed for other Galaxy tools.
+You will also need to install Biopython 1.54 or later, matplotlib, and
+matplotlib_venn - all available via PyPI or Conda,
 
 You will also need to modify the ``tools_conf.xml`` file to tell Galaxy to offer the
 tool. The suggested location is in the "Graph/Display Data" section. Simply add
@@ -81,6 +81,8 @@ v0.0.11 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Capture python script version when run from Galaxy.
 v0.0.12 - Internal Python style change.
         - Python 3 compatible exception handling.
+v0.1.0  - Now uses Python library matplotlib_venn to draw the diagram
+          instead of R's limma via rpy). Contribution from Frederic Sapet.
 ======= ======================================================================
 
 
