@@ -4,4 +4,3 @@ tools/mummer
 tools/protein_analysis
 tools/samtools_bam2fq
 tools/samtools_depth
-tools/venn_list
