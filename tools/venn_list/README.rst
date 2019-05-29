@@ -54,37 +54,36 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
-v0.0.3  - Initial public release.
-v0.0.4  - Ignore blank lines when loading IDs from tabular files
-v0.0.5  - Explicit Galaxy error handling of return codes
+v0.1.1  - Removed legacy ``tool_dependencies.xml`` file (the legacy Galaxy
+          packages did not cover matplotlib_venn anyway).
+v0.1.0  - Now uses Python library matplotlib_venn to draw the diagram
+          instead of R's limma via rpy). Contribution from Frederic Sapet.
+v0.0.12 - Internal Python style change.
+        - Python 3 compatible exception handling.
+v0.0.11 - Use ``<command detect_errors="aggressive">`` (internal change only).
+        - Single quote command line arguments (internal change only)
+        - Python 3 compatible print function.
+        - Capture python script version when run from Galaxy.
+v0.0.10 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
+        - Explicit dependency on ``galaxy_sequence_utils``.
+        - Python style updates (internal change only).
+v0.0.9  - Test with three-way Venn diagram.
+        - Includes testing of failure mode.
+        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
+v0.0.8  - Reorder XML elements (internal change only).
+        - Fixed and improved error handling when rpy is not available.
+        - Test output relaxed to cope with more variation in PDF output.
+        - Declare Biopython dependency via the Tool Shed.
+v0.0.7  - Renamed folder and README file.
+        - Tool definition now embeds citation information.
 v0.0.6  - Added unit tests.
         - Use reStructuredText for this README file.
         - Adopt standard MIT licence.
         - Updated citation information (Cock et al. 2013).
         - Development moved to GitHub, https://github.com/peterjc/pico_galaxy
-v0.0.7  - Renamed folder and README file.
-        - Tool definition now embeds citation information.
-v0.0.8  - Reorder XML elements (internal change only).
-        - Fixed and improved error handling when rpy is not available.
-        - Test output relaxed to cope with more variation in PDF output.
-        - Declare Biopython dependency via the Tool Shed.
-v0.0.9  - Test with three-way Venn diagram.
-        - Includes testing of failure mode.
-        - Planemo for Tool Shed upload (``.shed.yml``, internal change only).
-        - Tool Shed dependency for rpy and limma (thanks to Björn Grüning).
-v0.0.10 - Updated to point at Biopython 1.67 (latest version in Tool Shed).
-        - Explicit dependency on ``galaxy_sequence_utils``.
-        - Python style updates (internal change only).
-v0.0.11 - Use ``<command detect_errors="aggressive">`` (internal change only).
-        - Single quote command line arguments (internal change only)
-        - Python 3 compatible print function.
-        - Capture python script version when run from Galaxy.
-v0.0.12 - Internal Python style change.
-        - Python 3 compatible exception handling.
-v0.1.0  - Now uses Python library matplotlib_venn to draw the diagram
-          instead of R's limma via rpy). Contribution from Frederic Sapet.
-v0.1.1  - Removed legacy ``tool_dependencies.xml`` file (the legacy Galaxy
-          packages did not cover matplotlib_venn anyway).
+v0.0.5  - Explicit Galaxy error handling of return codes
+v0.0.4  - Ignore blank lines when loading IDs from tabular files
+v0.0.3  - Initial public release.
 ======= ======================================================================
 
 
