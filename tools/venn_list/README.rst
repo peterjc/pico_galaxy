@@ -83,6 +83,8 @@ v0.0.12 - Internal Python style change.
         - Python 3 compatible exception handling.
 v0.1.0  - Now uses Python library matplotlib_venn to draw the diagram
           instead of R's limma via rpy). Contribution from Frederic Sapet.
+v0.1.1  - Removed legacy ``tool_dependencies.xml`` file (the legacy Galaxy
+          packages did not cover matplotlib_venn anyway).
 ======= ======================================================================
 
 
