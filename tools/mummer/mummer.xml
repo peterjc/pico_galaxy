@@ -1,4 +1,4 @@
-<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.7">
+<tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.8">
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
             <!-- gnuplot needs to ensure can generate png -->
