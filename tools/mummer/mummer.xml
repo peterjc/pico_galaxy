@@ -1,14 +1,12 @@
 <tool id="mummerplot_wrapper" name="MUMmer dotplot" version="0.0.8">
     <description>Combine mummer/nucmer/promer with mummerplot</description>
     <requirements>
-            <!-- gnuplot needs to ensure can generate png -->
-            <requirement type="package" version="2.2.5">libgd</requirement>
             <!-- Needs ps2pdf from ghostscript -->
             <requirement type="package" version="9.10">ghostscript</requirement>
             <!-- Needs mummer, nucmer, promer and mummerplot from MUMmer -->
             <requirement type="package" version="3.23">mummer</requirement>
             <!-- mummerplot needs the gnuplot binary -->
-            <requirement type="package" version="4.6">gnuplot</requirement>
+            <requirement type="package" version="5.2.7">gnuplot</requirement>
     </requirements>
     <version_command>
 python $__tool_directory__/mummer.py --version
