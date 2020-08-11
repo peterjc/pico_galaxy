@@ -33,7 +33,7 @@ jobs:
       python: "3.5"
       env: GALAXY_BRANCH=master
     - stage: test
-      python: "2.7"
+      python: "3.5"
       env: GALAXY_BRANCH=dev
     - stage: deploy
       before_install:
