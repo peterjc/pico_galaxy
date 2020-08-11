@@ -75,42 +75,13 @@ jobs:
 # Installing Tool Dependencies
 # ============================
 #
-# We also need to install our tool dependencies, e.g. samtools binaries,
-# which we will do manually rather than via a (local) Galaxy Tool Shed.
-# Tool dependencies defined in this repository can be installed via
-# "planemo dependency_script", however we still have to worry about
-# dependencies normally done via the Tool Shed (e.g. Biopython,
-# mummer) or assumed to be present by Galaxy itself (e.g. samtools).
+# Galaxy should resolve these via conda.
 
 before_install:
  - pip install --upgrade pip setuptools
  - pip install planemo requests
  - echo "Removing tools we're not going to test"
  - for line in $(cat .tt_skip); do rm -rf $line; done
- - echo "Fixing permissions on Python eggs cache folder"
- - mkdir -p "$HOME/.python-eggs"
- - chmod 700 "$HOME/.python-eggs" 
- - echo "Downloading and setting up dependencies..."
- - export INSTALL_DIR=/tmp/dep_install && mkdir $INSTALL_DIR
- - export DOWNLOAD_CACHE=/tmp/download_cache && mkdir $DOWNLOAD_CACHE
- - planemo dependency_script -r ${TRAVIS_BUILD_DIR}/packages/ ${TRAVIS_BUILD_DIR}/tools/
- - bash dep_install.sh
- - source env.sh
- - echo "Installing matplotlib_venn"
- - pip install matplotlib_venn
- - echo "Installing MUMmer and its dependencies..."
- - sudo apt-get -qq update
- - sudo apt-get install -y gnuplot ghostscript
- - cd ${TRAVIS_BUILD_DIR}
- - wget http://downloads.sourceforge.net/project/mummer/mummer/3.23/MUMmer3.23.tar.gz
- - tar -zxvf MUMmer3.23.tar.gz
- - cd MUMmer3.23 && make check && make install
- - export PATH=$PWD:$PATH
- - echo "Installing samtools..."
- - cd ${TRAVIS_BUILD_DIR} && mkdir samtools && cd samtools
- - wget http://depot.galaxyproject.org/package/linux/x86_64/samtools/samtools-0.1.19-Linux-x86_64.tgz
- - tar -zxvf samtools-0.1.19-Linux-x86_64.tgz
- - export PATH=$PWD/bin/:$PATH
  - echo "Fetching Galaxy ${GALAXY_BRANCH} branch..."
  - cd ${TRAVIS_BUILD_DIR}
  - wget https://codeload.github.com/galaxyproject/galaxy/tar.gz/${GALAXY_BRANCH}
@@ -130,8 +101,6 @@ before_install:
 
 install:
  - cd ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH}
- - export GALAXY_TEST_UPLOAD_ASYNC=false
- - export GALAXY_TEST_DB_TEMPLATE=https://github.com/jmchilton/galaxy-downloads/raw/master/db_gx_rev_0127.sqlite
  # Explicitly use sample files to generate default *.loc files
  - for f in ${TRAVIS_BUILD_DIR}/tool-data/*.loc.sample; do cp "$f" "${f%.sample}"; done
  # Then explicitly override them with any non-sample *.loc files
@@ -147,7 +116,7 @@ install:
 script:
  - cd ${TRAVIS_BUILD_DIR}
  - planemo --version
- - planemo test --no_dependency_resolution --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
+ - planemo test --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
 
 notifications:
   email: false
