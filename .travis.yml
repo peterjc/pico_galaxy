@@ -5,13 +5,12 @@
 # for background,
 # http://blastedbio.blogspot.com/2013/09/using-travis-ci-for-testing-galaxy-tools.html
 
-# Galaxy currently only supports Python 2.7
 language: python
 cache: pip
 jobs:
   include:
     - stage: lint
-      python: "2.7"
+      python: "3.5"
       before_install:
         - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces in RST files.'; false; fi"
         - "if grep -P '\t' */*/*.xml; then echo 'Tabs are bad, please use four spaces in XML files.'; false; fi"
@@ -31,7 +30,7 @@ jobs:
         - echo "Using planemo lint to check for obvious tool errors"
         - planemo shed_lint --tools --fail_level error --ensure_metadata -r ${TRAVIS_BUILD_DIR}
     - stage: test
-      python: "2.7"
+      python: "3.5"
       env: GALAXY_BRANCH=master
     - stage: test
       python: "2.7"
