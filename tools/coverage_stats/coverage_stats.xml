@@ -65,7 +65,7 @@ Column Description
 Example output from a *de novo* assembly:
 
 ========== ====== ====== ====== ======= ======= ========
-identiifer length mapped placed min_cov max_cov mean_cov
+identifier length mapped placed min_cov max_cov mean_cov
 ---------- ------ ------ ------ ------- ------- --------
 contig_1   833604 436112      0       1     157    71.95
 contig_2    14820   9954      0       1     152    91.27
