@@ -8,21 +8,18 @@ This script takes exactly four command line arguments:
  * Output tabular filename
 
 The model names are:
-
-Bhattacharjee2006: Simple regular expression search for RXLR
-with additional requirements for positioning and signal peptide.
-
-Win2007: Simple regular expression search for RXLR, but with
-different positional requirements.
-
-Whisson2007: As Bhattacharjee2006 but with a more complex regular
-expression to look for RXLR-EER domain, and additionally calls HMMER.
+ * Bhattacharjee2006: Simple regular expression search for RXLR
+   with additional requirements for positioning and signal peptide.
+ * Win2007: Simple regular expression search for RXLR, but with
+   different positional requirements.
+ * Whisson2007: As Bhattacharjee2006 but with a more complex regular
+   expression to look for RXLR-EER domain, and additionally calls HMMER.
 
 See the help text in the accompanying Galaxy tool XML file for more
 details including the full references.
 
-Note:
-
+Note
+----
 Bhattacharjee et al. (2006) and Win et al. (2007) used SignalP v2.0,
 which is no longer available. The current release is SignalP v3.0
 (Mar 5, 2007). We have therefore opted to use the NN Ymax position for
