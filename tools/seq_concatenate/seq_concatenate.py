@@ -66,7 +66,7 @@ if not options.output:
 
 file_count = 0
 seq_count = 0
-counts = dict()
+counts = {}
 
 # TODO - itertools chain?
 

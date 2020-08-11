@@ -90,7 +90,7 @@ if not options.output:
 
 file_count = 0
 seq_count = 0
-counts = dict()
+counts = {}
 
 for format, filenames in [
     ("fasta", options.fasta),

@@ -186,7 +186,7 @@ def n50_from_counts_dict(counts_dict):
     """
     # Continuing the above example, input L would be {2:3, 3:2, 4:1, 8:2}
     # and L' becomes {2:6, 3:6, 4:4, 8:16}} as tally tables.
-    l_prime = dict((v, v * c) for v, c in counts_dict.items())
+    l_prime = {v: v * c for v, c in counts_dict.items()}
     return median_from_counts_dict(l_prime)
 
 

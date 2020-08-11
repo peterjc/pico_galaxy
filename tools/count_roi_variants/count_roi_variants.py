@@ -288,7 +288,7 @@ def count_region():
     # Could recreate the region string (with no commas in start/end)?
     # region = "%s:%i-%i" % (ref, start, end)
 
-    tally = dict()
+    tally = {}
 
     # Call samtools view, don't need header so no -h added.
     # Only want mapped reads, thus flag filter -F 4.

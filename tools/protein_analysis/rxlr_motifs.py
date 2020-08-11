@@ -261,7 +261,7 @@ def parse_signalp(filename):
 
 # Parse SignalP results and apply the strict RXLR criteria
 total = 0
-tally = dict()
+tally = {}
 handle = open(tabular_file, "w")
 handle.write("#ID\t%s\n" % model)
 signalp_results = parse_signalp(signalp_output_file)
