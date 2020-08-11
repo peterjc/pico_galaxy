@@ -10,7 +10,7 @@ cache: pip
 jobs:
   include:
     - stage: lint
-      python: "3.5"
+      python: "3.6"
       before_install:
         - "if grep -P '\t' *.rst */*/*.rst; then echo 'Tabs are bad, please use four spaces in RST files.'; false; fi"
         - "if grep -P '\t' */*/*.xml; then echo 'Tabs are bad, please use four spaces in XML files.'; false; fi"
@@ -32,10 +32,10 @@ jobs:
         - echo "Using planemo lint to check for obvious tool errors"
         - planemo shed_lint --tools --fail_level error --ensure_metadata -r ${TRAVIS_BUILD_DIR}
     - stage: test
-      python: "3.5"
+      python: "3.6"
       env: GALAXY_BRANCH=master
     - stage: test
-      python: "3.5"
+      python: "3.6"
       env: GALAXY_BRANCH=dev
     - stage: deploy
       before_install:
