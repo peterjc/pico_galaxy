@@ -116,7 +116,7 @@ install:
 script:
  - cd ${TRAVIS_BUILD_DIR}
  - planemo --version
- - planemo test --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
+ - travis_wait 20 planemo test --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
 
 notifications:
   email: false
