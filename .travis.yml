@@ -33,10 +33,22 @@ jobs:
         - planemo shed_lint --tools --fail_level error --ensure_metadata -r ${TRAVIS_BUILD_DIR}
     - stage: test
       python: "3.6"
-      env: GALAXY_BRANCH=master
+      env: GALAXY_BRANCH=master CHUNK=0
     - stage: test
       python: "3.6"
-      env: GALAXY_BRANCH=dev
+      env: GALAXY_BRANCH=master CHUNK=1
+    - stage: test
+      python: "3.6"
+      env: GALAXY_BRANCH=master CHUNK=2
+    - stage: test
+      python: "3.6"
+      env: GALAXY_BRANCH=dev CHUNK=0
+    - stage: test
+      python: "3.6"
+      env: GALAXY_BRANCH=dev CHUNK=1
+    - stage: test
+      python: "3.6"
+      env: GALAXY_BRANCH=dev CHUNK=2
     - stage: deploy
       before_install:
         - echo "Removing tools we're not testing or deploying"
@@ -116,7 +128,7 @@ install:
 script:
  - cd ${TRAVIS_BUILD_DIR}
  - planemo --version
- - travis_wait 45 planemo test --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv tools/
+ - planemo test --galaxy_root ${TRAVIS_BUILD_DIR}/galaxy-${GALAXY_BRANCH} --skip_venv `planemo ci_find_tools --chunk ${CHUNK} --chunk_count 3 tools/`
 
 notifications:
   email: false
