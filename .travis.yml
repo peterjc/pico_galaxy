@@ -21,7 +21,7 @@ jobs:
       install:
         - pip install --upgrade pip setuptools
         - pip install black
-        - black --diff .
+        - black --check --diff .
         - pip install flake8 flake8-blind-except flake8-docstrings flake8-rst-docstrings restructuredtext-lint
         - echo "Using flake8 to check Python code"
         - flake8 .
