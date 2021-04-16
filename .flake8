@@ -7,3 +7,7 @@ extend-ignore =
     B007,
     # See https://github.com/PyCQA/pycodestyle/issues/373
     E203,
+    # B902 blind except Exception: statement
+    # For now willing to ignore this as testing assorted
+    # operating systems for the right exception is hard:
+    B902,
