@@ -240,16 +240,15 @@ else:
         % (count, forward, reverse, pairs, singles)
     )
 
-assert count == pairs + singles == forward + reverse + neither, (
-    "%i vs %i+%i=%i vs %i+%i+%i=%i"
-    % (
-        count,
-        pairs,
-        singles,
-        pairs + singles,
-        forward,
-        reverse,
-        neither,
-        forward + reverse + neither,
-    )
+assert (
+    count == pairs + singles == forward + reverse + neither
+), "%i vs %i+%i=%i vs %i+%i+%i=%i" % (
+    count,
+    pairs,
+    singles,
+    pairs + singles,
+    forward,
+    reverse,
+    neither,
+    forward + reverse + neither,
 )
