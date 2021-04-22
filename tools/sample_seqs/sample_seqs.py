@@ -9,7 +9,7 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2014-2015 by Peter Cock, The James Hutton Institute
+This script is copyright 2014-2021 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 
@@ -32,8 +32,8 @@ This samples uniformly though the file, rather than at random, and therefore
 should be reproducible.
 
 If you have interleaved paired reads, use the --interleaved switch. If
-instead you have two matched files (one for each pair), run the two
-twice with the same sampling options to make to matched smaller files.
+instead you have two matched files (one for each pair), run this tool
+on each with the same sampling options to make two matched smaller files.
 """
 parser = OptionParser(usage=usage)
 parser.add_option(
