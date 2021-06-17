@@ -195,6 +195,8 @@ v0.2.11 - Updated RXLR tool dependencies to get HMMER2 via BioConda.
 v0.2.12 - Fix reporting of HMMER error in RXLR tool.
         - Quote command line arguments when RXLR tool calls SignalP.
         - Reduce number of temp files if SignalP is run with one thread.
+        - Applied black style to the Python code
+        - Python 3 fixes with next function vs method.
 ======= ======================================================================
 
 
