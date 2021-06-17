@@ -107,8 +107,10 @@ def fasta_iterator(filename, max_len=None, truncate=None):
                 "Sequence %s is length %i, max length %i"
                 % (title.split()[0], len(seq), max_len)
             )
-        yield title, seq
-    raise StopIteration
+        try:
+            yield title, seq
+        except StopIteration:
+            return
 
 
 def split_fasta(
