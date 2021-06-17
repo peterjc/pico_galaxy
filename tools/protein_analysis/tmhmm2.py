@@ -52,7 +52,7 @@ from seq_analysis_utils import run_jobs, split_fasta, thread_count
 FASTA_CHUNK = 500
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    sys.exit("TMHMM wrapper version 0.0.16")
+    sys.exit("TMHMM wrapper version 0.0.17")
 
 if len(sys.argv) != 4:
     sys.exit(

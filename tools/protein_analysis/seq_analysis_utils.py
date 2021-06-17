@@ -19,7 +19,7 @@ from time import sleep
 if sys.version_info[0] < 3:
     range = xrange  # noqa: F821
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 try:
     from multiprocessing import cpu_count

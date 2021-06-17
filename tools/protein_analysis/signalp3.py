@@ -67,7 +67,7 @@ FASTA_CHUNK = 500
 MAX_LEN = 6000  # Found by trial and error
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("SignalP Galaxy wrapper version 0.0.19")
+    print("SignalP Galaxy wrapper version 0.0.20")
     sys.exit(os.system("signalp -version"))
 
 if len(sys.argv) not in [6, 8]:

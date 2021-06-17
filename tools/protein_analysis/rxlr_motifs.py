@@ -52,7 +52,7 @@ import sys
 from seq_analysis_utils import fasta_iterator
 
 if "-v" in sys.argv:
-    print("RXLR Motifs v0.0.16")
+    print("RXLR Motifs v0.0.17")
     sys.exit(0)
 
 if len(sys.argv) != 5:

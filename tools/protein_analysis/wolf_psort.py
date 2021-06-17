@@ -66,7 +66,7 @@ https://lists.galaxyproject.org/pipermail/galaxy-dev/2015-December/023386.html
 """
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    sys.exit("WoLF-PSORT wrapper version 0.0.11")
+    sys.exit("WoLF-PSORT wrapper version 0.0.12")
 
 if len(sys.argv) != 5:
     sys.exit(
