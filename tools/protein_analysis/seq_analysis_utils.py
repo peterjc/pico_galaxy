@@ -184,7 +184,7 @@ def run_jobs(jobs, threads, pause=10, verbose=False, fast_fail=True):
     failed = False
     while pending or running:
         # See if any have finished
-        for (cmd, process) in running:
+        for cmd, process in running:
             return_code = process.poll()  # non-blocking
             if return_code is not None:
                 results[cmd] = return_code

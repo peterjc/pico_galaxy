@@ -181,7 +181,6 @@ elif options.everyn:
             if count % N == 1:
                 yield record
 
-
 elif options.percent:
     try:
         percent = float(options.percent) / 100.0
@@ -201,7 +200,6 @@ elif options.percent:
             if percent * count > taken:
                 taken += 1
                 yield record
-
 
 elif options.count:
     try:
@@ -278,7 +276,6 @@ elif options.count:
                     taken += 1
                     yield record
             assert taken == N, "Picked %i, wanted %i" % (taken, N)
-
 
 else:
     sys.exit("Must use either -n, -p or -c")

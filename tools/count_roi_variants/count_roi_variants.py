@@ -123,14 +123,14 @@ def expand_cigar(seq, cigar_ops):
     seq_offset = 0
     for count, op in cigar_ops:
         if op in "MX=":
-            for (i, base) in enumerate(seq[seq_offset : seq_offset + count]):
+            for i, base in enumerate(seq[seq_offset : seq_offset + count]):
                 yield ref_offset + i, base
             ref_offset += count
             seq_offset += count
         elif op == "I":
             # Give them all an in-between reference position
             # (Python lets us mix integers and floats, wouldn't work in C)
-            for (i, base) in enumerate(seq[seq_offset : seq_offset + count]):
+            for i, base in enumerate(seq[seq_offset : seq_offset + count]):
                 yield ref_offset - 0.5, base
             # Does not change ref_offset
             seq_offset += count

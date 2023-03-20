@@ -128,6 +128,7 @@ except ImportError:
         of os.environ.get("PATH"), or can be overridden with a custom search
         path.
         """
+
         # Check that a given file can be accessed with the correct mode.
         # Additionally check that `file` is not a directory, as on Windows
         # directories pass the os.access check.
