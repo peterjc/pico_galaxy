@@ -36,4 +36,3 @@ include:
   - ../../tools/seq_filter_by_id/README.rst
   - ../../tools/seq_filter_by_id/seq_filter_by_id.py
   - ../../tools/seq_filter_by_id/seq_filter_by_id.xml
-  - ../../tools/seq_filter_by_id/tool_dependencies.xml

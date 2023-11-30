@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <tool_dependency>
-    <package name="biopython" version="1.67">
-        <repository name="package_biopython_1_67" owner="biopython" />
-    </package>
     <package name="samtools" version="0.1.19">
         <repository name="package_samtools_0_1_19" owner="iuc" />
     </package>

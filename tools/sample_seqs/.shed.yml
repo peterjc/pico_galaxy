@@ -32,4 +32,3 @@ include:
   - ../../tools/sample_seqs/README.rst
   - ../../tools/sample_seqs/sample_seqs.py
   - ../../tools/sample_seqs/sample_seqs.xml
-  - ../../tools/sample_seqs/tool_dependencies.xml
