@@ -1,8 +1,7 @@
-<tool id="seq_length" name="Sequence lengths" version="0.0.4">
+<tool id="seq_length" name="Sequence lengths" version="0.0.5">
     <description>from FASTA, QUAL, FASTQ, or SFF file</description>
     <requirements>
-        <!-- This is the currently the last release of Biopython which is available via Galaxy's legacy XML packaging system -->
-        <requirement type="package" version="1.67">biopython</requirement>
+        <requirement type="package" version="1.81">biopython</requirement>
     </requirements>
     <version_command>
 python $__tool_directory__/seq_length.py --version

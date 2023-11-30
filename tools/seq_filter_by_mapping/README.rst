@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by SAM/BAM mapping
 ======================================================================
 
-This tool is copyright 2014-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -72,6 +72,7 @@ v0.0.5  - Python script cleanups (internal change only).
         - Single quote command line arguments (internal change only).
 v0.0.6  - Python 3 compatible print function.
 v0.0.7  - Script works on Python 2 and 3 (fixed input file mode)
+v0.0.8  - Bumped Biopython dependency version for Python 3 fixes.
 ======= ======================================================================
 
 

@@ -1,7 +1,7 @@
 Galaxy tool to sub-sample sequence files
 ========================================
 
-This tool is copyright 2014-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2014-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -75,6 +75,7 @@ v0.2.4  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
         - Style changes to Python code (internal change only).
 v0.2.5  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.2.6  - Bumped Biopython dependency version for Python 3 fixes.
 ======= ======================================================================
 
 

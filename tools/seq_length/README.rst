@@ -1,7 +1,7 @@
 Galaxy tool to rename FASTA, QUAL, FASTQ or SFF sequences
 =========================================================
 
-This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -67,6 +67,7 @@ v0.0.3  - Improved command line usage (outside of Galaxy).
         - Fix requesting SFF format.
 v0.0.4  - Report mean, minimum and maximum sequence lengths (via stdout).
         - Option to compute median and N50 as well.
+v0.0.5  - Bump dependency to current Biopython for Python 3 fixes.
 ======= ======================================================================
 
 

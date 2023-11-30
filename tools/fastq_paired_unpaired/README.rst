@@ -1,7 +1,7 @@
 Galaxy tool to divide FASTQ files into paired and unpaired reads
 ================================================================
 
-This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -76,6 +76,7 @@ v0.1.3  - Minor internal changes to Python script for error reporting & style.
         - Explicit dependency on ``galaxy_sequence_utils``.
 v0.1.4  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.1.5  - Bump Biopython dependency version for Python 3 fixes.
 ======= ======================================================================
 
 

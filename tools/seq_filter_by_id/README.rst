@@ -1,7 +1,7 @@
 Galaxy tool to filter FASTA, FASTQ or SFF sequences by ID
 =========================================================
 
-This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -95,6 +95,7 @@ v0.2.6  - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 v0.2.7  - Python 3 compatible print function.
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
+v0.2.8  - Bumped Biopython dependency version for Python 3 fixes.
 ======= ======================================================================
 
 
