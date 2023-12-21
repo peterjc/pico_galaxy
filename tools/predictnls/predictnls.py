@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2011-2013 by Peter Cock, James Hutton Institute (formerly SCRI), UK
+# Copyright 2011-2023 by Peter Cock, James Hutton Institute (formerly SCRI), UK
 #
 # Licenced under the GPL (GNU General Public Licence) version 3.
 #
@@ -56,7 +56,7 @@ import re
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.9")
+    print("v0.0.10")
     sys.exit(0)
 
 if len(sys.argv) == 4:

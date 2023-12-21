@@ -1,7 +1,7 @@
 Galaxy tool to rename FASTA, QUAL, FASTQ or SFF sequences
 =========================================================
 
-This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -85,6 +85,7 @@ v0.0.8  - Updated to point at Biopython 1.67 (latest version in Tool Shed).
 v0.0.9  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
         - Python 3 compatible print function.
+v0.0.10 - Fix file open mode for Python 3.11 onwards.
 ======= ======================================================================
 
 

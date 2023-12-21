@@ -96,6 +96,7 @@ v0.2.7  - Python 3 compatible print function.
         - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
 v0.2.8  - Bumped Biopython dependency version for Python 3 fixes.
+v0.2.9  - Fixed file open mode for Python 3.11 onwards.
 ======= ======================================================================
 
 

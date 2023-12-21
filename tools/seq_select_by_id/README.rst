@@ -1,7 +1,7 @@
 Galaxy tool to select FASTA, QUAL, FASTQ or SFF sequences by ID
 ===============================================================
 
-This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -91,6 +91,7 @@ v0.0.12 - Python style changes (internal change only).
         - Python 3 compatible print function.
 v0.0.13 - Python 3 compatible exception handling.
 v0.0.14 - Script works on Python 2 and 3 (fixed output file mode).
+v0.0.15 - Fixed file open mode for Python 3.11 onwards.
 ======= ======================================================================
 
 

@@ -16,7 +16,7 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2011-2017 by Peter Cock, The James Hutton Institute UK.
+This script is copyright 2011-2023 by Peter Cock, The James Hutton Institute UK.
 All rights reserved. See accompanying text file for licence details (MIT
 license).
 """
@@ -26,7 +26,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.14")
+    print("v0.0.15")
     sys.exit(0)
 
 # Parse Command Line

@@ -1,4 +1,4 @@
-<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.8">
+<tool id="seq_filter_by_id" name="Filter sequences by ID" version="0.2.9">
     <description>from a tabular file</description>
     <requirements>
         <requirement type="package" version="1.81">biopython</requirement>

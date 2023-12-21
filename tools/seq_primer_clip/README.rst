@@ -1,7 +1,7 @@
 Galaxy tool to primer clip (trim) FASTA, FASTQ or SFF reads
 ===========================================================
 
-This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below (MIT licence).
 
@@ -74,6 +74,8 @@ v0.0.14 - Depends on Biopython 1.67 via legacy Tool Shed package or bioconda.
 v0.0.15 - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only)
 v0.0.16 - Python 3 compatible print function.
+v0.0.17 - Use Python 3 style dictionary iteration.
+v0.0.18 - Fix file open mode for Python 3.11 onwards.
 ======= ======================================================================
 
 
