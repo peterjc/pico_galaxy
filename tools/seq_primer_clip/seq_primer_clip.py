@@ -201,7 +201,7 @@ def load_primers_as_re(primer_fasta, mm, rc=False):
     Read primer file and record all specified sequences.
     """
     primers = set()
-    in_handle = open(primer_fasta, "rU")
+    in_handle = open(primer_fasta)
     reader = fastaReader(in_handle)
     count = 0
     for record in reader:
@@ -293,7 +293,7 @@ if seq_format.lower() == "sff":
     writer.write_file(process(SffIterator(in_handle)))
     # End of SFF code
 elif seq_format.lower().startswith("fastq"):
-    in_handle = open(in_file, "rU")
+    in_handle = open(in_file)
     out_handle = open(out_file, "w")
     reader = fastqReader(in_handle)
     writer = fastqWriter(out_handle)
@@ -338,7 +338,7 @@ elif seq_format.lower().startswith("fastq"):
                 else:
                     short_neg += 1
 elif seq_format.lower() == "fasta":
-    in_handle = open(in_file, "rU")
+    in_handle = open(in_file)
     out_handle = open(out_file, "w")
     reader = fastaReader(in_handle)
     writer = fastaWriter(out_handle)

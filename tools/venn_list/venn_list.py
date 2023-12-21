@@ -62,7 +62,7 @@ def load_ids(filename, filetype):
         # Use the Galaxy library not Biopython to cope with CS
         from galaxy_utils.sequence.fastq import fastqReader
 
-        handle = open(filename, "rU")
+        handle = open(filename)
         for record in fastqReader(handle):
             # The [1:] is because the fastaReader leaves the @ on the identifer.
             yield record.identifier.split()[0][1:]

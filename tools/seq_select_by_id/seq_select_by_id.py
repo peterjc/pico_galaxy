@@ -71,7 +71,7 @@ def parse_ids(tabular_file, col):
     non-trailing white space (only the first word will be used as
     the identifier).
     """
-    handle = open(tabular_file, "rU")
+    handle = open(tabular_file)
     warn = False
     for line in handle:
         if line.strip() and not line.startswith("#"):
