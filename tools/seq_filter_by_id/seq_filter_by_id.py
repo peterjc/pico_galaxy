@@ -21,7 +21,7 @@ Cock et al 2009. Biopython: freely available Python tools for computational
 molecular biology and bioinformatics. Bioinformatics 25(11) 1422-3.
 https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878.
 
-This script is copyright 2010-2017 by Peter Cock, The James Hutton Institute
+This script is copyright 2010-2023 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 
@@ -113,7 +113,7 @@ parser.add_option(
 options, args = parser.parse_args()
 
 if options.version:
-    print("v0.2.7")
+    print("v0.2.9")
     sys.exit(0)
 
 in_file = options.input

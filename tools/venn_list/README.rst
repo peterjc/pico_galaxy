@@ -1,7 +1,7 @@
 Galaxy tool to draw a Venn Diagram with up to 3 sets
 ====================================================
 
-This tool is copyright 2011-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2011-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See the licence text below.
 
@@ -54,6 +54,7 @@ History
 ======= ======================================================================
 Version Changes
 ------- ----------------------------------------------------------------------
+v0.1.2  - Fixed file open mode for Python 3.11 onwards.
 v0.1.1  - Removed legacy ``tool_dependencies.xml`` file (the legacy Galaxy
           packages did not cover matplotlib_venn anyway).
 v0.1.0  - Now uses Python library matplotlib_venn to draw the diagram

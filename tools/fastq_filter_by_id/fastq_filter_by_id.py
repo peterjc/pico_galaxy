@@ -16,7 +16,7 @@ Note in the default NCBI BLAST+ tabular output, the query sequence ID is
 in column one, and the ID of the match from the database is in column two.
 Here sensible values for the column numbers would therefore be "1" or "2".
 
-This tool is copyright 2010-2017 by Peter Cock, The James Hutton Institute
+This tool is copyright 2010-2023 by Peter Cock, The James Hutton Institute
 (formerly SCRI, Scottish Crop Research Institute), UK. All rights reserved.
 See accompanying text file for licence details (MIT license).
 """
@@ -26,7 +26,7 @@ from __future__ import print_function
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.6")
+    print("v0.0.7")
     sys.exit(0)
 
 from galaxy_utils.sequence.fastq import fastqReader, fastqWriter

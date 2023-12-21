@@ -54,6 +54,7 @@ v0.0.5  - Explicit dependency on ``galaxy_sequence_utils``.
         - Use standard MIT license (was previously using the MIT/BSD style
           Biopython Licence Agreement).
 v0.0.6  - Python 3 compatible print function.
+v0.0.7  - Fix file open mode for Python 3.11 onwards.
 ======= ======================================================================
 
 

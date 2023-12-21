@@ -17,7 +17,7 @@ import sys
 from shutil import move
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.1.0")
+    print("v0.1.2")
     sys.exit(0)
 
 try:

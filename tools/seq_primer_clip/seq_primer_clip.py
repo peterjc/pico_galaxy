@@ -22,7 +22,7 @@ This can also be used for stripping off (and optionally filtering on) barcodes.
 Note that only the trim/clip values in the SFF file are changed, not the flow
 information of the full read sequence.
 
-This script is copyright 2011-2013 by Peter Cock, The James Hutton Institute
+This script is copyright 2011-2023 by Peter Cock, The James Hutton Institute
 (formerly the Scottish Crop Research Institute, SCRI), UK. All rights reserved.
 See accompanying text file for licence details (MIT/BSD style).
 
@@ -34,7 +34,7 @@ import re
 import sys
 
 if "-v" in sys.argv or "--version" in sys.argv:
-    print("v0.0.17")
+    print("v0.0.18")
     sys.exit(0)
 
 from galaxy_utils.sequence.fasta import fastaReader, fastaWriter

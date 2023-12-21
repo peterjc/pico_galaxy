@@ -70,6 +70,7 @@ v0.0.9  - Use ``<command detect_errors="aggressive">`` (internal change only).
         - Single quote command line arguments (internal change only).
         - Python 3 compatible print function.
         - Record version of the Python script.
+v0.0.10 - Fix file open mode for Python 3.11 onwards.
 ======= ======================================================================
 
 
