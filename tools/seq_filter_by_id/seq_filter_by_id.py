@@ -247,7 +247,7 @@ if options.id_list:
     print("Have %i unique identifiers from list" % len(ids))
 for tabular_file, columns in identifiers:
     file_ids = set()
-    handle = open(tabular_file, "rU")
+    handle = open(tabular_file)
     if len(columns) > 1:
         # General case of many columns
         for line in handle:
