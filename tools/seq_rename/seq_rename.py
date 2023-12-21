@@ -67,7 +67,7 @@ def parse_ids(tabular_file, old_col, new_col):
 
     Internal white space in the new column is taken as desired output.
     """
-    handle = open(tabular_file, "rU")
+    handle = open(tabular_file)
     old_warn = False
     new_warn = False
     for line in handle:
@@ -144,13 +144,13 @@ else:
     ):
         from galaxy_utils.sequence.fasta import fastaReader, fastaWriter
 
-        reader = fastaReader(open(in_file, "rU"))
+        reader = fastaReader(open(in_file))
         writer = fastaWriter(open(out_file, "w"))
         marker = ">"
     elif seq_format.lower().startswith("fastq"):
         from galaxy_utils.sequence.fastq import fastqReader, fastqWriter
 
-        reader = fastqReader(open(in_file, "rU"))
+        reader = fastqReader(open(in_file))
         writer = fastqWriter(open(out_file, "w"))
         marker = "@"
     else:

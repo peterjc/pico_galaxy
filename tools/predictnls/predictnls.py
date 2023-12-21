@@ -88,7 +88,7 @@ if not os.path.isfile(re_filename):
 
 def load_re(filename):
     """Parse the 5+ column tabular NLS motif file."""
-    handle = open(filename, "rU")
+    handle = open(filename)
     for line in handle:
         line = line.rstrip("\n")
         if not line:

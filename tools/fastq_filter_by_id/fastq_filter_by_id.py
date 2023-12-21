@@ -45,7 +45,7 @@ except ValueError:
 
 # Read tabular file and record all specified identifiers
 ids = set()
-handle = open(tabular_file, "rU")
+handle = open(tabular_file)
 if len(columns) > 1:
     # General case of many columns
     for line in handle:
@@ -66,7 +66,7 @@ else:
 handle.close()
 
 # Write filtered FASTQ file based on IDs from tabular file
-reader = fastqReader(open(in_file, "rU"))
+reader = fastqReader(open(in_file))
 if out_positive_file != "-" and out_negative_file != "-":
     print("Generating two FASTQ files")
     positive_writer = fastqWriter(open(out_positive_file, "w"))
